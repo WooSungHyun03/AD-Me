@@ -62,3 +62,9 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - Current CI success: https://github.com/WooSungHyun03/AD-Me/actions/runs/44444318158 . No failing checks claimed as success.
 - QA-created public campaigns closed after testing; creator public profile removed through tested API. Disposable accounts and historic collaboration/payment-test records remain private for reproducibility; no paid provider transaction or live payment occurred.
 - Final blockers remain: Toss TEST keys not retrieved/registered because browser control is broken despite explicit user permission; external email signup delivery needs SMTP; Vercel GitHub auto-link needs provider repository authorization. Core public deployment and existing-account workflows are verified.
+
+## Supabase connection follow-up audit — 2026-11-19
+- Supabase connection confirmed usable; all 13 public-schema tables have RLS enabled. Latest GitHub Actions run 44444572147 succeeded.
+- Rechecked official changelog and security advisors. Existing warnings remain documented: intentionally callable guarded SECURITY DEFINER RPCs and default leaked-password protection setting. Remediation references: https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable and https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection . No security protection disabled.
+- Security re-run initially failed because final QA cleanup had closed every draft campaign. Fixed the test to create its own private draft fixture and remove it after verification, rather than relying on previous E2E state. Re-run passed real database authorization checks.
+- No application code or hosted schema changed in this follow-up; deployment remains the previously browser-verified release. Toss browser/key retrieval and SMTP/Git provider blockers unchanged.

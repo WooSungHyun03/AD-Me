@@ -23,13 +23,9 @@ for (const role of ["brand", "creator", "other", "admin"]) {
   clients[role] = db;
 }
 const { brand, creator, other, admin } = clients;
-const { data: privateCampaigns } = await brand
-  .from("campaigns")
-  .select("id")
-  .eq("owner_id", a.brand.id)
-  .eq("status", "draft");
-assert.ok(privateCampaigns.length);
-const id = privateCampaigns[0].id;
+const {data:fixture,error:fixtureError}=await brand.from("campaigns").insert({owner_id:a.brand.id,status:"draft",brief:{title:"QA 보안 격리 검증",product:"QA",category:"뷰티",vibes:["자연스러움"],format:"숏폼",platforms:["instagram"],budget_krw:100000,target_audience:"QA 고객",goal:"권한 검증",status:"draft"}}).select("id").single();
+assert.equal(fixtureError,null);
+const id=fixture.id;
 assert.equal(
   (await other.from("campaigns").select("id").eq("id", id)).data.length,
   0,
@@ -112,6 +108,7 @@ assert.ok(
     .length,
 );
 const malformed=await brand.from('campaigns').insert({owner_id:a.brand.id,brief:{title:{invalid:'object'}},status:'published'});assert.ok(malformed.error);
+assert.equal((await brand.from("campaigns").delete().eq("id",id)).error,null);
 console.log(
   "PASS: direct Supabase RLS isolation, privilege escalation, forged entitlement, cross-owner order/message access, invalid transitions, admin moderation + audit. No provider payment simulated.",
 );
