@@ -1,9 +1,22 @@
 import { test, expect, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
+import { totp } from "../support/local-qa.mjs";
 const accounts = JSON.parse(
-  readFileSync(".accounts.local.json", "utf8"),
-) as Record<string, { email: string; password: string; id: string }>;
+  readFileSync(
+    process.env.ADME_ACCOUNTS_FILE || ".accounts.local.json",
+    "utf8",
+  ),
+) as Record<
+  string,
+  {
+    email: string;
+    password: string;
+    id: string;
+    factorId?: string;
+    totpSecret?: string;
+  }
+>;
 async function login(page: Page, role: string) {
   await page.goto("/login");
   await page.getByLabel("이메일", { exact: true }).fill(accounts[role].email);
@@ -12,6 +25,14 @@ async function login(page: Page, role: string) {
     .fill(accounts[role].password);
   await page.getByRole("button", { name: "로그인", exact: true }).click();
   await expect(page).toHaveURL(/dashboard/);
+  if (role === "admin" && accounts[role].totpSecret) {
+    await page.goto("/admin/security");
+    await page
+      .getByLabel("6자리 OTP", { exact: true })
+      .fill(totp(accounts[role].totpSecret));
+    await page.getByRole("button", { name: "OTP 확인", exact: true }).click();
+    await expect(page).toHaveURL(/\/admin$/);
+  }
 }
 test("public discovery, filters, comparison, history, drafts and responsive layout", async ({
   page,
@@ -60,13 +81,7 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
     page.getByText("[규칙 기반 광고 콘셉트 초안]", { exact: false }),
   ).toBeVisible();
   await page.goto("/pricing");
-  await expect(
-    page.getByRole("heading", { name: "Brand Pro", exact: true }),
-  ).toBeVisible();
-  await page.getByRole("button", { name: "TEST 이용권 선택" }).first().click();
-  await expect(page.locator("p[role=alert]")).toContainText(
-    /TEST 클라이언트 키|로그인이 필요합니다/,
-  );
+  await expect(page.getByRole("heading", { name: "무료 베타" })).toBeVisible();
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -195,14 +210,20 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
   const fake = await page.request.post("/api/billing/confirm", {
     data: { orderId: o.id, paymentKey: "fake", amount: 49000 },
   });
-  expect(fake.status()).toBe(400);
-  expect((await fake.json()).error.message).toContain(
-    "이용권은 부여되지 않았습니다",
-  );
+  if (process.env.ADME_LOCAL_QA === "1") {
+    // No payment Edge runtime/provider is started in isolated local QA.
+    expect(fake.status()).toBe(503);
+    expect((await fake.json()).error.code).toBe("SERVICE_UNAVAILABLE");
+  } else {
+    expect(fake.status()).toBe(400);
+    expect((await fake.json()).error.message).toContain(
+      "주문 상태를 확인해주세요",
+    );
+  }
   const wrongRole = await cp.request.post("/api/billing/orders", {
     data: { sku: "brand_pro" },
   });
-  expect(wrongRole.status()).toBe(400);
+  expect(wrongRole.status()).toBe(403);
   await deal.getByText(/메시지·결과물/).click();
   await deal
     .getByLabel("메시지", { exact: true })
@@ -285,7 +306,12 @@ test("public application, shortlist persistence, account settings and administra
     .getByLabel("계정 표시 이름", { exact: true })
     .fill("QA 브랜드 설정");
   await page.getByRole("button", { name: "계정 정보 저장" }).click();
-  await expect(page.getByRole("status")).toContainText("저장했습니다");
+  await expect(
+    page
+      .locator("form")
+      .filter({ has: page.getByRole("button", { name: "계정 정보 저장" }) })
+      .getByRole("status"),
+  ).toContainText("저장했습니다");
   const admin = await browser.newContext();
   const ap = await admin.newPage();
   await login(ap, "admin");

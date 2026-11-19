@@ -547,9 +547,13 @@
     },
     "D084": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D084/README.md",
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json"
+      ],
+      "blocker": "격리 setup·직접 REST 13개·실제 로컬 DB E2E18/무료 모드4 검증. D049/D075 및 실제 수집·계정삭제·경합 전 범위 미완료.",
+      "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
     },
     "D085": {
       "owner": "DEV-B",

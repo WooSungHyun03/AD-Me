@@ -7,7 +7,7 @@ import re
 import subprocess
 import sys
 root=pathlib.Path(__file__).resolve().parents[1]
-paths=subprocess.check_output(['git','ls-files','-z'],cwd=root).decode().split('\0')
+paths=sorted(set(subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],cwd=root).decode().split('\0')))
 patterns=[r'gh[pousr]_[A-Za-z0-9]{30,}',r'sb_secret_[A-Za-z0-9_-]{20,}',r'(?:test|live)_(?:sk|gsk)_[A-Za-z0-9]{16,}',r'-----BEGIN (?:RSA |EC )?PRIVATE KEY-----']
 findings=[]
 for path in filter(None,paths):
@@ -24,4 +24,4 @@ for path in filter(None,paths):
 if findings:
  for path,kind in findings:print(f'FAIL {path}: {kind}')
  sys.exit(1)
-print(f'PASS: {sum(bool(p) for p in paths)} tracked files; no configured secret patterns or private account/env files.')
+print(f'PASS: {sum(bool(p) for p in paths)} tracked and untracked non-ignored files; no configured secret patterns or private account/env files.')

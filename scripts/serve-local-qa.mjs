@@ -1,0 +1,44 @@
+import { spawn, spawnSync } from "node:child_process";
+import { localRuntime } from "../tests/support/local-qa.mjs";
+import { resolve } from "node:path";
+import { startLocalTls } from "./local-tls-proxy.mjs";
+const runtime = localRuntime();
+const env = {
+  ...process.env,
+  NEXT_PUBLIC_APP_URL: "https://127.0.0.1:3143",
+  NEXT_PUBLIC_SUPABASE_URL: "https://127.0.0.1:54325",
+  NODE_EXTRA_CA_CERTS: resolve("output/dev-a-db/tls.local.crt"),
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: runtime.ANON_KEY,
+  NEXT_PUBLIC_TOSS_CLIENT_KEY: "test_ck_local_fixture_only",
+  ADME_SERVICE_MODE: "test_demo",
+  ADME_FEATURE_MAIL: "on",
+  ADME_FEATURE_TEST_BILLING: "on",
+  ADME_FEATURE_INGESTION: "off",
+  ADME_FEATURE_LLM: "off",
+};
+const servers = startLocalTls();
+// Build does not contact the Auth API except prerendered public data routes, which read request cookies.
+const build = spawnSync(
+  process.execPath,
+  ["node_modules/next/dist/bin/next", "build"],
+  { env, stdio: "inherit" },
+);
+if (build.status !== 0) process.exit(build.status ?? 1);
+const child = spawn(
+  process.execPath,
+  [
+    "node_modules/next/dist/bin/next",
+    "start",
+    "--hostname",
+    "127.0.0.1",
+    "--port",
+    "3102",
+  ],
+  { env, stdio: "inherit" },
+);
+child.on("exit", (code) => {
+  servers.forEach((server) => server.close());
+  process.exit(code ?? 1);
+});
+for (const signal of ["SIGINT", "SIGTERM"])
+  process.on(signal, () => child.kill(signal));

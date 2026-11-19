@@ -1,0 +1,46 @@
+{
+  "date_kst": "2026-11-19",
+  "baseline": "d1b2aa5",
+  "release_status": "NO_GO",
+  "verification_environment": {
+    "node": "24.19.0",
+    "next": "16.4.5",
+    "typescript": "5.9.3",
+    "vitest": "4.1.12",
+    "playwright": "1.65.0",
+    "chrome": "157.0.8103.79",
+    "dependency_note": "Locally available fallback dependencies. The committed package-lock.json is unchanged."
+  },
+  "passed": [
+    { "command": "npm run lint", "result": "exit 0" },
+    { "command": "npm run typecheck", "result": "exit 0" },
+    { "command": "npm run test", "result": "80/80 in 10 Vitest files" },
+    { "command": "npm run check:config", "result": "names and effective status only with missing keys" },
+    { "command": "python -X utf8 harness/selftest.py", "result": "5/5" },
+    { "command": "python -X utf8 harness/fixtures_check.py", "result": "48 creators, 8 campaigns, 24 ads, 4 reviews explicitly fictional" },
+    { "command": "python -X utf8 harness/validate_service_backlog.py", "result": "88 development, 20 user, 6 deferred, mapping intact" },
+    { "command": "python -X utf8 harness/validate_handoff.py", "result": "owners, links and environment consumer names verified" },
+    {
+      "check": "Chrome rendered application component output with Tailwind CSS",
+      "mode": "IN_PROCESS_STATIC_RENDER",
+      "viewports": [1440, 390],
+      "routes": ["/pricing", "/about", "/signup", "/signup/resend", "/forgot-password"],
+      "result": "10/10 displayed expected headings/status, no unintended TEST checkout button or horizontal overflow"
+    }
+  ],
+  "blocked": [
+    { "command": "npm ci", "result": "ENOTFOUND registry.npmjs.org, offline cache ENOTCACHED for locked artifacts" },
+    { "command": "npm run build", "result": "Turbopack PostCSS worker IPC failed. Webpack fallback with worker disabled also hit EPERM writing route output." },
+    { "command": "npm run test:e2e:keyless", "result": "HTTP readiness timed out. Independent loopback fetch returned EACCES." },
+    { "command": "npm run test:e2e -- --list", "result": "Existing real DB suite loads an absent .accounts.local.json." }
+  ],
+  "external": {
+    "new_deployment": false,
+    "new_supabase_qa_project": false,
+    "database_migrations_prepared": 0,
+    "direct_rest_rls_regression": "not run",
+    "smtp": "prior deployment evidence retained, current checkout not verified",
+    "toss": "prior deployment evidence retained, current checkout not verified",
+    "creator_ingestion": "no real provider data imported"
+  }
+}
