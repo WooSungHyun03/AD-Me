@@ -1,4 +1,5 @@
 "use client";
+import { creatorPlatforms } from "@/lib/service-catalog";
 import Link from "next/link";
 import { useState } from "react";
 import { Heart, ArrowUpRight } from "lucide-react";
@@ -81,7 +82,7 @@ export function Catalog({
           onChange={(e) => setPlatform(e.target.value)}
         >
           <option value="">모든 플랫폼</option>
-          {["instagram", "youtube", "tiktok"].map((p) => (
+          {creatorPlatforms.map((p) => (
             <option key={p}>{p}</option>
           ))}
         </select>

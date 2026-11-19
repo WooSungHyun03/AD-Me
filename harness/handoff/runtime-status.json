@@ -10,9 +10,11 @@
     },
     "D002": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D002/README.md"
+      ],
+      "blocker": "D001의 DB·모드 격리와 TEST 카탈로그의 실제 화면/주문 대조가 남음."
     },
     "D003": {
       "owner": "DEV-A",

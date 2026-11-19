@@ -1,4 +1,5 @@
 "use client";
+import { creatorPlatforms } from "@/lib/service-catalog";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { categories, vibes } from "@/lib/catalog";
@@ -155,7 +156,7 @@ export function ProfileForm({ initial = {} }: { initial?: Profile }) {
             name="platform"
             defaultValue={initial.platforms?.[0]}
           >
-            {["instagram", "youtube", "tiktok"].map((c) => (
+            {creatorPlatforms.map((c) => (
               <option key={c}>{c}</option>
             ))}
           </select>

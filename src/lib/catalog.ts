@@ -1,5 +1,6 @@
 import creators from "../../fixtures/creators.demo.json";
 import campaigns from "../../fixtures/campaigns.demo.json";
+import { matchingFactors } from "./service-catalog";
 export type Creator = Omit<
   (typeof creators)[number],
   "owner_id" | "source_url"
@@ -29,28 +30,24 @@ export function match(brief: Brief, c: Creator) {
   const overlap = brief.vibes.filter((t) => c.vibes.includes(t));
   const breakdown = [
     {
-      factor: "이미지·분위기",
-      weight: 28,
+      ...matchingFactors.tone,
       value: brief.vibes.length ? overlap.length / brief.vibes.length : null,
       evidence: overlap.join(", ") || "일치 태그 없음",
     },
     {
-      factor: "콘텐츠 분야",
-      weight: 25,
+      ...matchingFactors.category,
       value: brief.category
         ? Number(c.categories.includes(brief.category))
         : null,
       evidence: c.categories.join(", "),
     },
     {
-      factor: "타깃 고객",
-      weight: 20,
+      ...matchingFactors.audience,
       value: null,
       evidence: "오디언스 데이터 미확보",
     },
     {
-      factor: "예산",
-      weight: 15,
+      ...matchingFactors.budget,
       value:
         brief.budget_krw > 0
           ? Math.min(1, brief.budget_krw / c.price_min_krw)
@@ -58,8 +55,7 @@ export function match(brief: Brief, c: Creator) {
       evidence: `최소 견적 ${c.price_min_krw.toLocaleString()}원 (${c.is_demo ? "가상" : "본인 등록"})`,
     },
     {
-      factor: "광고 형식",
-      weight: 12,
+      ...matchingFactors.format,
       value: brief.format ? Number(c.formats.includes(brief.format)) : null,
       evidence: c.formats.join(", "),
     },

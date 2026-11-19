@@ -1,4 +1,5 @@
 "use client";
+import { creatorPlatforms } from "@/lib/service-catalog";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { categories, vibes } from "@/lib/catalog";
@@ -193,7 +194,7 @@ export function CampaignForm({
       </div>
       <h3 style={{ marginTop: 30, fontSize: 15 }}>광고 플랫폼</h3>
       <div className="inline">
-        {["instagram", "youtube", "tiktok"].map((p) => (
+        {creatorPlatforms.map((p) => (
           <label key={p} className="inline">
             <input
               type="checkbox"
