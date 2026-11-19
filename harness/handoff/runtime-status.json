@@ -279,9 +279,11 @@
     },
     "D041": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D041/README.md"
+      ],
+      "blocker": "D012 이후 폼/저장 연동과 기존 v1 호환 검증 필요."
     },
     "D042": {
       "owner": "DEV-A",
