@@ -5,7 +5,7 @@
 - GitHub: https://github.com/WooSungHyun03/AD-Me
 - Supabase: AD Me / ivtdfioypmzknlhinstg / Seoul ap-northeast-2
 - 첫 CLI 배포는 Other 프레임워크로 404 발생. `vercel.json`에 Next.js를 명시하고 재배포하여 해결.
-- 공개 URL HTTP 200 및 실제 DB 두 역할 브라우저 E2E 4개 통과 (48.5초). 이후 확장 기능은 최종 재배포·회귀 결과를 session_log에 기록.
+- 공개 URL HTTP 200 및 실제 DB 두 역할 브라우저 E2E 4개 통과 (48.5초). 최종 공개 URL 확장 회귀는 데스크톱·모바일 6/6 통과 (1.2m). 앱 커밋 76cdc15, 배포 dpl_F3ChhRiasCKtfDEA3rwsqdd4eGgR.
 
 ## 검증된 핵심 흐름
 - 기존 QA 계정 로그인 → 브랜드 캠페인 저장 → 설명 가능한 추천 → 3명 비교 → 광고 이력 확인 → 실제 등록 크리에이터에 제안 → 크리에이터 수락 → 브랜드 대시보드 반영 → 결과물 링크 제출 → 브랜드 승인.

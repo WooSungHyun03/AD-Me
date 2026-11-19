@@ -54,3 +54,11 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - GitHub Actions validation succeeded: https://github.com/WooSungHyun03/AD-Me/actions/runs/44444025538 . Initial run failed due Harness selftest fixture state; fixed rather than skipped.
 - Runtime error-log query: Vercel returned no log entries for the requested 30-minute window. This is a bounded query, not a claim of permanent error-free operation.
 - Seed executed again; actual counts remain 48 DEMO creators and 8 DEMO campaigns.
+
+## Final public verification — 2026-11-19
+- Deployment: dpl_F3ChhRiasCKtfDEA3rwsqdd4eGgR, application commit 76cdc15, target production, READY.
+- Verified public alias: https://ad-me-topaz.vercel.app . Home/signup/login/creators/campaigns/pricing/compare returned HTTP 200. Compare provenance labels checked on final release.
+- Final actual-public-URL Playwright: **6 passed (1.2m)**, desktop and mobile. Logout now waits for the server action's home navigation before asserting protected-page denial. Prior failed race preserved in history and fixed.
+- Current CI success: https://github.com/WooSungHyun03/AD-Me/actions/runs/44444318158 . No failing checks claimed as success.
+- QA-created public campaigns closed after testing; creator public profile removed through tested API. Disposable accounts and historic collaboration/payment-test records remain private for reproducibility; no paid provider transaction or live payment occurred.
+- Final blockers remain: Toss TEST keys not retrieved/registered because browser control is broken despite explicit user permission; external email signup delivery needs SMTP; Vercel GitHub auto-link needs provider repository authorization. Core public deployment and existing-account workflows are verified.

@@ -317,6 +317,7 @@ test("public application, shortlist persistence, account settings and administra
   ).toBe(200);
   await page.goto("/dashboard");
   await page.getByRole("button", { name: "로그아웃", exact: true }).click();
+  await expect(page).toHaveURL(/\/$/);
   await page.goto("/dashboard");
   await expect(page).toHaveURL(/login/);
   await cc.close();

@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-19",
+  "url": "https://ad-me-topaz.vercel.app",
+  "github": "https://github.com/WooSungHyun03/AD-Me",
+  "deployment": "dpl_F3ChhRiasCKtfDEA3rwsqdd4eGgR",
+  "application_commit": "76cdc15",
+  "tests": {
+    "vitest": "12 passed",
+    "harness": "5 passed",
+    "local_e2e": "6 passed 57.5s",
+    "public_e2e": "6 passed 1.2m",
+    "lint": "passed",
+    "typecheck": "passed",
+    "production_build": "passed",
+    "rls_security": "passed",
+    "seed_replay": "48 creators / 8 campaigns",
+    "secret_scan": "passed"
+  },
+  "provider_payment": "BLOCKED — no Toss TEST key registration; no provider payment success claimed",
+  "signup_email": "BLOCKED — external SMTP delivery unverified",
+  "automatic_git_deployment": "BLOCKED — Vercel GitHub link failed; CLI deployment successful"
+}

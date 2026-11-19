@@ -785,9 +785,12 @@
   "deployment_evidence": {
     "url": "https://ad-me-topaz.vercel.app",
     "supabase_project": "ivtdfioypmzknlhinstg",
-    "public_e2e": "4/4 passed 48.5s; expanded final suite pending record",
+    "public_e2e": "6/6 passed (1.2m) on final public URL, desktop+mobile",
     "github": "https://github.com/WooSungHyun03/AD-Me",
     "note": "Full T039/T040 cannot complete until dependencies and external payment/signup gates pass.",
-    "local_final_e2e": "6/6 passed 57.5s; Vitest12/Harness5/lint/typecheck/build passed"
+    "local_final_e2e": "6/6 passed 57.5s; Vitest12/Harness5/lint/typecheck/build passed",
+    "deployment_id": "dpl_F3ChhRiasCKtfDEA3rwsqdd4eGgR",
+    "application_commit": "76cdc15",
+    "ci_url": "https://github.com/WooSungHyun03/AD-Me/actions/runs/44444318158"
   }
 }

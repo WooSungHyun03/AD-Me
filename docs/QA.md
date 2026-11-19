@@ -45,3 +45,14 @@
 
 ## Definition of Done
 A task has: (1) tested production code (2) persisted DB path if needed (3) user-facing UI (4) expected errors (5) tests + evidence (6) docs updated. Tasks are not done because screenshots look good.
+
+## Executed evidence — 2026-11-19
+
+- `npm run lint`, `npm run typecheck`, `npm test` (12), `python3 harness/selftest.py` (5), `npm run build`: passed.
+- Local Playwright desktop+mobile: 6 passed in 57.5 seconds.
+- Initial deployed suite: 4 passed in 48.5 seconds. Expanded deployed suite exposed a mobile logout-test race: navigation to dashboard cancelled the unfinished server action. Test now waits for home navigation before checking the protected dashboard; see final session log for rerun outcome.
+- `node tests/security.mjs`: actual Supabase RBAC/RLS/privilege escalation/foreign data/forged entitlement/admin audit/malformed JSON checks passed.
+- Database-only finalized test order in a rolled-back transaction: idempotency, different key and amount rejection, HOT and expiry passed. No real or provider TEST charge was completed.
+- Synthetic seed replay leaves exactly 48 DEMO creators and 8 DEMO campaigns.
+- Screenshots: `output/playwright/` (local, ignored); traces and QA credentials remain outside Git.
+- `python3 harness/secret_scan.py`: passed; public source contains no configured secret patterns or private account/env files.

@@ -38,3 +38,16 @@
 - For a noncommercial demonstration, review eligibility of Vercel Hobby and Supabase limits.
 - Public repository does not waive OSS license duties, photography rights, API terms, or privacy obligations.
 - All external payment outcomes need provider verification; deployment health and payment integration test are separate exit gates.
+
+## Actual deployment state / rollback
+
+- Public alias: https://ad-me-topaz.vercel.app
+- Team: sunghyuns-projects-da008879 / team_DZjzOMGaSURMH3q0KktVzcUJ
+- Project: ad-me / prj_BzLpbB8hBOXmjzbg9iJI2kp3Zu7C
+- Correct framework: Next.js, explicitly declared in vercel.json. Node 22.x, functions icn1.
+- Database: ivtdfioypmzknlhinstg / ap-northeast-2, forward migrations 001–003. The first 48/8 seed is synthetic and re-runnable.
+- Service-role key is absent from Vercel; payment finalization occurs inside the protected Supabase Edge Function.
+- Reproducible release uses the existing CLI authentication and explicit team scope; the agent runs local gates, pushes GitHub, deploys, then checks the public alias and actual browser flows.
+- Rollback: the agent selects a previously verified production deployment through `vercel rollback <deployment-url> --scope sunghyuns-projects-da008879`, then reruns public URL checks. Never point the alias to the first Other-framework deployment, which was 404.
+- DB rollback is not automatic. Current migrations are additive; take a database backup and review forward-compatible queries before destructive schema work. Do not delete test payment/order history as a rollback strategy.
+- GitHub automatic Vercel linking is still blocked by provider access; direct CLI deployments are working. Do not claim push-to-deploy integration until repository access approval is verified.
