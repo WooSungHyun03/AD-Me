@@ -56,9 +56,11 @@
     },
     "D008": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D008/README.md"
+      ],
+      "blocker": "앱/Edge 계약 확인. 실제 Edge 및 직접 주문 RPC는 D001 검증, 수집·LLM은 어댑터 인계 필요."
     },
     "D009": {
       "owner": "DEV-A",
