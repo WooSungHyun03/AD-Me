@@ -138,3 +138,9 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - 개발 서버 HMR/HTTP 운영 origin/label·status·route-announcer 경합 실패를 보존하고 운영 실행기/TLS/접근성 라벨/정확한 assertion으로 수정했다. 감사 삭제는 오류 대신 0건 반환·기록 불변을 검증했다. 실패를 skip하지 않았다.
 - 패키지506개 중 정확한 설치 고지393개, 고지 원문533개 수록. 113개와 Linux/Edge·브랜드 권리는 미완료. 콘솔 SQL을 두 번째 격리 DB에서 적용해 migration history4/RLS4/권한 false3 검증, 오프라인 SQL 도우미의 인용부호 처리·실제 승인/철회·외부 요청0 확인.
 - 사용자 외부 적용 패킷과 티켓별 증거를 준비하고 runtime의 DEV-A 항목만 갱신했다. U/DEV-B/원본v2 및 과거 증거 보존. 외부 계정·키·콘솔·push·배포 미실행. P0 전체 및 외부 게이트 미완료로 NO-GO 유지, 이번 티켓도 DONE으로 올리지 않았다. 다음 독립 구현은 D076 및 D017/D018/D041 인계 범위를 따른다.
+
+## 2026-11-19 KST — DEV-A 티켓별 커밋 분리
+
+- 사용자 요청으로 DEV-A 구현을 15개 티켓 커밋으로 분리했다. 원본 문서/외부 연동 이력 6개를 별도 체크아웃에서 로컬로 복원해 원래 SHA를 보존했다. codex/pre-ticket-split-20261119가 원래 루트 HEAD를 보존한다.
+- 파일 내용 313개 해시 일치 확인. 공유 파일은 index blob 단계에서 분리했고 각 커밋 추출 트리 typecheck15/15, 최종 커밋 추출 트리 단위115/115 통과. 미완료 상태와 외부 차단은 유지, push·배포·계정/키 변경 없음.
+- 커밋 목록·파일별 경계·검증은 docs/handoff/DEV-A_TICKET_COMMITS.md 및 harness/evidence/DEV-A-P0-CONTINUE/ticket-commits.json. 기존 적용 ZIP과 과거 검증 결과는 소급 변경하지 않았다.

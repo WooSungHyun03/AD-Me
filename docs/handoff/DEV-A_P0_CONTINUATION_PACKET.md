@@ -49,3 +49,7 @@ D014/D079 삭제 구현 시 새 brand_profiles/brand_contacts/administrator_gran
 Node 22에서 `npm ci`, `npm run setup:qa:local`, `npm run test:security:local`, `npm run test:e2e:local`을 실행한다. setup 스크립트는 표식이 있는 `output/dev-a-db` 프로젝트만 초기화하며 Docker/OpenSSL 문제는 개발 담당이 해결한다. 모든 접속은 loopback이다. 운영 빌드의 HTTPS 검증은 유지하고 로컬 인증서로 TLS 프록시를 사용한다. 인증 trace는 끄고 비공개 런타임 파일은 ignored output 안에만 둔다.
 
 [Supabase MFA/RLS 공식 계약](https://supabase.com/docs/guides/auth/auth-mfa), [검증된 JWT claims](https://supabase.com/docs/reference/javascript/auth-getclaims), [로컬 메일 템플릿](https://supabase.com/docs/guides/local-development/customizing-email-templates)을 구현 근거로 확인했다.
+
+## 티켓별 커밋 후속 기록
+
+구현·검증 당시의 미커밋 스냅샷은 보존했다. 이후 15개 티켓 커밋과 원본 이력 보존·검증 결과는 [커밋 기록](DEV-A_TICKET_COMMITS.md)을 따른다. 패키지 ZIP은 당시 스냅샷이며 커밋 생성이 배포 또는 DONE을 의미하지 않는다.
