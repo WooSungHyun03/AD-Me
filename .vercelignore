@@ -17,3 +17,5 @@ harness/evidence
 .playwright-cli
 
 supabase/.temp
+
+.external-setup.local.env

@@ -19,13 +19,13 @@ for owner in ('DEV-A', 'DEV-B'):
         for required in ('선행 인계', '후속 인계', '구현 지시', '완료 조건', '부정 시나리오', '실행 및 테스트', '제출 산출물'):
             assert required in section, (owner, required)
     assert sum(t['points'] for t in backlog['tickets'] if t['owner'] == owner) == 219
+runtime = json.loads((root / 'harness/handoff/runtime-status.json').read_text())
 for t in backlog['user_tickets']:
     text = (root / f'docs/user-tickets/{t["id"]}.md').read_text()
     for required in ('시작 전에 개발자가 준비할 것', '사용자가 수행할 순서', '검증·개발자 인계', '실패·중단·복구', '증거 기록 양식', '공식 참고'):
         assert required in text, (t['id'], required)
     assert len(re.findall(r'^\d+\. ', text, re.M)) >= 4, t['id']
-    assert 'USER_ACTION_REQUIRED' in text
-runtime = json.loads((root / 'harness/handoff/runtime-status.json').read_text())
+    assert f"현재 상태: {runtime['user_actions'][t['id']]['status']}" in text, t['id']
 assert set(runtime['tickets']) == seen
 assert set(runtime['user_actions']) == {t['id'] for t in backlog['user_tickets']}
 for t in backlog['tickets']:

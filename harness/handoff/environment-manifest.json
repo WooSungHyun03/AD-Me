@@ -47,10 +47,10 @@
     },
     {
       "name": "NEXT_PUBLIC_APP_URL",
-      "status": "DECLARED_UNUSED",
+      "status": "IMPLEMENTED",
       "classification": "PUBLIC",
-      "location": "Vercel after implementation",
-      "consumer": ".env.example"
+      "location": "Vercel Production",
+      "consumer": "src/lib/auth-links.ts"
     },
     {
       "name": "BASE_URL",
@@ -89,9 +89,9 @@
     },
     {
       "name": "YOUTUBE_API_KEY",
-      "status": "PROPOSED",
+      "status": "REGISTERED_NOT_CONSUMED",
       "classification": "SECRET",
-      "location": "TBD by D003",
+      "location": "Vercel Production Secret; provider probe only",
       "consumer": null
     },
     {
@@ -143,5 +143,6 @@
       "location": "TBD by D003",
       "consumer": null
     }
-  ]
+  ],
+  "technical_execution": "USER_AUTHORIZED_AGENT"
 }

@@ -49,3 +49,30 @@
 ## 후속 도메인 연결 완료 — 2026-11-19
 
 U017은 후속 요청에 따라 https://be-celeb.org 연결 완료로 갱신했다. www 308·TLS·새 Auth Site URL·Vercel 재배포를 검증했다. [현재 연결 기록](DOMAIN_CONNECTION.md). 위 표는 이전 실행 시점의 이력이며 다른 미완료 항목의 상태를 완료로 바꾸지 않는다.
+
+## 최신 외부 20개 티켓 상태 — 2026-11-19 공급자 연결 후
+
+앞선 표는 이전 실행 이력이다. 아래가 최신 상태다. 상세 검증·복원 한계는 [실행 기록](AUTH_PROVIDER_EXECUTION.md)에 남겼다. 전체 베타 출시는 여전히 NO-GO다.
+
+|티켓|작업|최신 상태|남은 조건|
+|---|---|---|---|
+|U001|서비스 운영 범위·정책·운영자 확정|PARTIAL_VERIFIED|보존기간·위탁/국외이전 고지·정책 확정·실제 권리 요청 처리 절차 검증 필요.|
+|U002|GitHub 조직·저장소·앱 권한 설정|PARTIAL_VERIFIED|Vercel GitHub 앱 저장소 접근 승인 실패. 개발자 초대 대상·계정 2FA 확인 미완료. 관리자 bypass는 유지.|
+|U003|Supabase 환경·계정·리전·한도 설정|PARTIAL_VERIFIED|개발/TEST/실서비스 환경 분리·계정 MFA·무료 한도/복구 요구 확인 미완료.|
+|U004|Supabase 외부 환경·DB 변경 적용|PARTIAL_VERIFIED|새 실제 데이터·삭제·무료모드 기능의 DB 변경은 개발 선행 티켓 미구현. 새 schema 적용 완료 아님.|
+|U005|Vercel 프로젝트·Git 연결·배포 실행|PARTIAL_VERIFIED|Git 연결 승인 미완료. 현재 Hobby의 실서비스 용도 적합성 판단과 무료 실제 베타 출시 검증 필요.|
+|U006|환경변수·시크릿 등록과 교체|PARTIAL_VERIFIED|Resend SMTP/Toss TEST/YouTube 서버 키 등록 검증. 환경 분리·회전·재배포 계약 및 기타 조건부 공급자는 미완료.|
+|U007|SMTP 계정·키·발신 도메인 설정|VERIFIED_AUTH_SMTP|인증/복구 발송·실수신 연결 검증. DMARC p=none의 강화 및 운영 발송량 관측은 계속 관리 필요.|
+|U008|Auth 외부 콘솔 설정|PARTIAL_VERIFIED|Site URL·exact callback·한국어 해시 템플릿 적용 완료. 관리자 MFA·세션 보안 및 최종 복구 사용자 확인 미완료.|
+|U009|YouTube 프로젝트·API 키 발급/등록|PARTIAL_VERIFIED|YouTube API 호출·서버 Secret 등록 검증. 콘솔 restriction·쿼터 증거와 D019 수집 어댑터·정책·seed 범위 미완료.|
+|U010|YouTube 이용 정책·파생 지표 승인|BLOCKED_USER_DECISION|정책 개정 수락·필요 심사는 사용자 본인의 법적/계정 동의가 필요. 미확인을 승인으로 표시하지 않음.|
+|U011|웹 수집 대상의 허용 근거 확보|BLOCKED_SOURCE_PERMISSION|정확한 domain/path/field·처리 근거·권리 허가 필요. 무허가 크롤링 미실행.|
+|U012|Instagram 앱·OAuth·심사·키|BLOCKED_IMPLEMENTATION_AND_ACCESS|D022 OAuth·삭제/철회·정책 URL 및 Meta 앱 접근/심사 필요. 사업 요건을 충족할 수 있는지 별도 확인.|
+|U013|TikTok 앱·OAuth·심사·키|BLOCKED_IMPLEMENTATION_AND_ACCESS|D023 OAuth·시연·심사 자료 및 TikTok 계정/승인 필요. Research API 우회 미실행.|
+|U014|실제 크리에이터 시범 참여·운영 동의|BLOCKED_PARTICIPATION|실제 참가자·프로필 소유/자료 권리·협업 수신 동의 및 claim 기능 필요. 무단 연락 미발송.|
+|U015|Toss TEST 계정·호환 키·등록|PARTIAL_VERIFIED|동일 TEST 키 종류·실제 provider DONE·30일 이용권·DB 중복 부여 방어 확인. 무료 베타/TEST 환경 분리·실패/취소 전체 시나리오는 미완료.|
+|U016|선택적 LLM 계정·키·비용 상한|OPTIONAL_NOT_ENABLED|선택적 LLM 활성화는 공급자/비용/처리 조건 결정 및 D048 어댑터 구현 후 진행.|
+|U017|도메인·DNS·TLS·소유권|VERIFIED_CUSTOM_DOMAIN|Custom web domain complete; independent SMTP/provider issues remain.|
+|U018|관측·알림·백업 외부 계정 설정|PARTIAL_VERIFIED|공개/Auth/Storage 덤프·네트워크 격리 복원·RLS13/FK22/고아0 확인. 원자적 snapshot·정기 외부 암호화 보관·알림·파일 복구 미완료.|
+|U019|실제 테스트 참여·브라우저 승인|PARTIAL_VERIFIED|실제 도메인 E2E10/10·외부 이메일 인증·사용자 Toss TEST 승인 완료. 복구 재로그인·SNS OAuth·Toss 실패/취소 및 실데이터 흐름 미완료.|
+|U020|공개 베타 출시·사고 연락·운영 책임|NO_GO|실제 데이터·삭제/동의·외부 가입·무료모드 격리·백업/복원·호스팅 적합성 등 P0/외부 게이트 미충족.|

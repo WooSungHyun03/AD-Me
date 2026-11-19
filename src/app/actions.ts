@@ -2,6 +2,7 @@
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { configured, supabase } from "@/lib/supabase";
+import { authSiteOrigin } from "@/lib/auth-links";
 export async function authAction(_: unknown, form: FormData) {
   if (!configured())
     return {
@@ -26,7 +27,10 @@ export async function authAction(_: unknown, form: FormData) {
       ? await db.auth.signUp({
           email: d.email,
           password: d.password,
-          options: { data: { role: d.role, name: d.name } },
+          options: {
+            data: { role: d.role, name: d.name },
+            emailRedirectTo: `${authSiteOrigin()}/auth/callback`,
+          },
         })
       : await db.auth.signInWithPassword({
           email: d.email,
@@ -44,7 +48,7 @@ export async function authAction(_: unknown, form: FormData) {
   )
     return {
       error:
-        "인증 메일 발송 서비스 설정이 필요합니다. 현재 시연 계정 로그인만 검증되었습니다. 운영자가 SMTP 연결을 준비 중입니다.",
+        "인증 메일을 발송하지 못했습니다. 잠시 후 다시 시도하거나 지원 이메일로 문의해주세요.",
     };
   if (result.error)
     return {

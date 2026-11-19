@@ -32,3 +32,5 @@ __pycache__/
 .playwright-cli/
 
 supabase/.temp/
+
+.external-setup.local.env

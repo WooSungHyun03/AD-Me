@@ -65,7 +65,7 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
   ).toBeVisible();
   await page.getByRole("button", { name: "TEST 이용권 선택" }).first().click();
   await expect(page.locator("p[role=alert]")).toContainText(
-    "TEST 클라이언트 키",
+    /TEST 클라이언트 키|로그인이 필요합니다/,
   );
   expect(
     await page.evaluate(
@@ -195,7 +195,10 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
   const fake = await page.request.post("/api/billing/confirm", {
     data: { orderId: o.id, paymentKey: "fake", amount: 49000 },
   });
-  expect(fake.status()).toBe(503);
+  expect(fake.status()).toBe(400);
+  expect((await fake.json()).error.message).toContain(
+    "이용권은 부여되지 않았습니다",
+  );
   const wrongRole = await cp.request.post("/api/billing/orders", {
     data: { sku: "brand_pro" },
   });

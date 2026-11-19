@@ -52,15 +52,19 @@
     },
     "D009": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "PARTIAL_VERIFIED",
+      "evidence": [
+        "docs/AUTH_PROVIDER_EXECUTION.md"
+      ],
+      "blocker": "외부 이메일 가입 인증 검증; 실서비스 동의·재발송/오류·상세 인수 기준 전체는 미완료."
     },
     "D010": {
       "owner": "DEV-B",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "PARTIAL_VERIFIED",
+      "evidence": [
+        "docs/AUTH_PROVIDER_EXECUTION.md"
+      ],
+      "blocker": "증표 기반 비밀번호 복구 구현/오류 경로 검증; 사용자 복구 확인 및 이메일 변경 전체 범위 미완료."
     },
     "D011": {
       "owner": "DEV-B",
@@ -520,9 +524,11 @@
     },
     "D087": {
       "owner": "DEV-B",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "PARTIAL_VERIFIED",
+      "evidence": [
+        "docs/AUTH_PROVIDER_EXECUTION.md"
+      ],
+      "blocker": "수동 덤프·격리 복원 검증; 정기/외부 보관·일관된 복구·성능/용량 미완료."
     },
     "D088": {
       "owner": "DEV-B",
@@ -580,38 +586,46 @@
     "U006": {
       "status": "PARTIAL_VERIFIED",
       "evidence": [
-        "harness/evidence/external-20261119/ticket-results.json"
+        "harness/evidence/external-20261119/ticket-results.json",
+        "harness/evidence/providers-20261119/summary.json",
+        "docs/AUTH_PROVIDER_EXECUTION.md"
       ],
-      "verified_by": "agent technical audit; partial status retained",
-      "last_checked_at": "2026-11-19T15:05:44+09:00",
-      "remaining": "Toss/YouTube/SMTP 등 공급자 키가 확보되지 않음. 예정 변수는 코드 구현 전 임의 등록하지 않음."
+      "verified_by": "agent technical execution and user-assisted email/TEST authentication",
+      "last_checked_at": "2026-11-19T06:52:43.993952+00:00",
+      "remaining": "Resend SMTP/Toss TEST/YouTube 서버 키 등록 검증. 환경 분리·회전·재배포 계약 및 기타 조건부 공급자는 미완료."
     },
     "U007": {
-      "status": "BLOCKED_PROVIDER_ACCESS",
+      "status": "VERIFIED_AUTH_SMTP",
       "evidence": [
-        "harness/evidence/external-20261119/ticket-results.json"
+        "harness/evidence/external-20261119/ticket-results.json",
+        "harness/evidence/providers-20261119/summary.json",
+        "docs/AUTH_PROVIDER_EXECUTION.md"
       ],
-      "verified_by": "agent technical audit; partial status retained",
-      "last_checked_at": "2026-11-19T15:05:44+09:00",
-      "remaining": "SMTP 공급자·발신자/도메인·자격증명 필요. 이메일 확인을 끄거나 가짜 SMTP를 등록하지 않음."
+      "verified_by": "agent technical execution and user-assisted email/TEST authentication",
+      "last_checked_at": "2026-11-19T06:52:43.993952+00:00",
+      "remaining": "인증/복구 발송·실수신 연결 검증. DMARC p=none의 강화 및 운영 발송량 관측은 계속 관리 필요."
     },
     "U008": {
       "status": "PARTIAL_VERIFIED",
       "evidence": [
-        "harness/evidence/external-20261119/ticket-results.json"
+        "harness/evidence/external-20261119/ticket-results.json",
+        "harness/evidence/providers-20261119/summary.json",
+        "docs/AUTH_PROVIDER_EXECUTION.md"
       ],
-      "verified_by": "agent technical audit; partial status retained",
-      "last_checked_at": "2026-11-19T15:05:44+09:00",
-      "remaining": "신규 callback/recovery 코드·메일 템플릿·관리자 AAL2 적용·MFA 실제 등록 검증 미완료."
+      "verified_by": "agent technical execution and user-assisted email/TEST authentication",
+      "last_checked_at": "2026-11-19T06:52:43.993952+00:00",
+      "remaining": "Site URL·exact callback·한국어 해시 템플릿 적용 완료. 관리자 MFA·세션 보안 및 최종 복구 사용자 확인 미완료."
     },
     "U009": {
-      "status": "BLOCKED_PROVIDER_ACCESS",
+      "status": "PARTIAL_VERIFIED",
       "evidence": [
-        "harness/evidence/external-20261119/ticket-results.json"
+        "harness/evidence/external-20261119/ticket-results.json",
+        "harness/evidence/providers-20261119/summary.json",
+        "docs/AUTH_PROVIDER_EXECUTION.md"
       ],
-      "verified_by": "agent technical audit; partial status retained",
-      "last_checked_at": "2026-11-19T15:05:44+09:00",
-      "remaining": "Google Cloud 프로젝트/권한·YouTube API 키 제한 설정 및 D019 실제 어댑터 필요."
+      "verified_by": "agent technical execution and user-assisted email/TEST authentication",
+      "last_checked_at": "2026-11-19T06:52:43.993952+00:00",
+      "remaining": "YouTube API 호출·서버 Secret 등록 검증. 콘솔 restriction·쿼터 증거와 D019 수집 어댑터·정책·seed 범위 미완료."
     },
     "U010": {
       "status": "BLOCKED_USER_DECISION",
@@ -659,13 +673,15 @@
       "remaining": "실제 참가자·프로필 소유/자료 권리·협업 수신 동의 및 claim 기능 필요. 무단 연락 미발송."
     },
     "U015": {
-      "status": "BLOCKED_PROVIDER_ACCESS",
+      "status": "PARTIAL_VERIFIED",
       "evidence": [
-        "harness/evidence/external-20261119/ticket-results.json"
+        "harness/evidence/external-20261119/ticket-results.json",
+        "harness/evidence/providers-20261119/summary.json",
+        "docs/AUTH_PROVIDER_EXECUTION.md"
       ],
-      "verified_by": "agent technical audit; partial status retained",
-      "last_checked_at": "2026-11-19T15:05:44+09:00",
-      "remaining": "Toss TEST 상점 키 접근/등록·제품 호환 확인·본인 인증 필요. 브라우저 제어 오류로 키 조회 경로 차단."
+      "verified_by": "agent technical execution and user-assisted email/TEST authentication",
+      "last_checked_at": "2026-11-19T06:52:43.993952+00:00",
+      "remaining": "동일 TEST 키 종류·실제 provider DONE·30일 이용권·DB 중복 부여 방어 확인. 무료 베타/TEST 환경 분리·실패/취소 전체 시나리오는 미완료."
     },
     "U016": {
       "status": "OPTIONAL_NOT_ENABLED",
@@ -687,22 +703,26 @@
       "remaining": "Custom web domain complete; independent SMTP/provider issues remain."
     },
     "U018": {
-      "status": "BLOCKED_RECOVERY_AND_ALERT_SETUP",
+      "status": "PARTIAL_VERIFIED",
       "evidence": [
-        "harness/evidence/external-20261119/ticket-results.json"
+        "harness/evidence/external-20261119/ticket-results.json",
+        "harness/evidence/providers-20261119/summary.json",
+        "docs/AUTH_PROVIDER_EXECUTION.md"
       ],
-      "verified_by": "agent technical audit; partial status retained",
-      "last_checked_at": "2026-11-19T15:05:44+09:00",
-      "remaining": "정기 알림 수신 경로·백업 보관처/실행·격리 복원 증빙 없음. 정상 응답을 복구 완료로 간주하지 않음."
+      "verified_by": "agent technical execution and user-assisted email/TEST authentication",
+      "last_checked_at": "2026-11-19T06:52:43.993952+00:00",
+      "remaining": "공개/Auth/Storage 덤프·네트워크 격리 복원·RLS13/FK22/고아0 확인. 원자적 snapshot·정기 외부 암호화 보관·알림·파일 복구 미완료."
     },
     "U019": {
       "status": "PARTIAL_VERIFIED",
       "evidence": [
-        "harness/evidence/external-20261119/ticket-results.json"
+        "harness/evidence/external-20261119/ticket-results.json",
+        "harness/evidence/providers-20261119/summary.json",
+        "docs/AUTH_PROVIDER_EXECUTION.md"
       ],
-      "verified_by": "agent technical audit; partial status retained",
-      "last_checked_at": "2026-11-19T15:05:44+09:00",
-      "remaining": "외부 메일 신규 가입·SNS OAuth·Toss TEST 본인 인증은 미수행. 기존 테스트는 DEMO 기반임."
+      "verified_by": "agent technical execution and user-assisted email/TEST authentication",
+      "last_checked_at": "2026-11-19T06:52:43.993952+00:00",
+      "remaining": "실제 도메인 E2E10/10·외부 이메일 인증·사용자 Toss TEST 승인 완료. 복구 재로그인·SNS OAuth·Toss 실패/취소 및 실데이터 흐름 미완료."
     },
     "U020": {
       "status": "NO_GO",

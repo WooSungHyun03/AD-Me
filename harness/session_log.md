@@ -104,3 +104,12 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - Supabase Auth Site URL을 https://be-celeb.org 로 변경, exact new/legacy root/dashboard redirect 유지. declared diff0 확인. Production NEXT_PUBLIC_APP_URL 등록 후 dpl_3up1TmKNaQd66CvfzCoEKRWGwHnR READY 재배포. 변수는 현재 코드 미사용임을 문서화.
 - 새 실제 URL7개경로 HTTP200·TLS·AD Me·연락처 확인, www308 확인, 실제 브라우저 homepage 캡처. E2E 결과는 별도 summary에 기록. 도메인 완료가 전체 실서비스 출시를 의미하지 않음.
 - 새 도메인 실제 E2E 최종 결과: desktop/mobile 6/6 PASS (1.2m). QA 공개 모집 캠페인은 테스트 계정/이름 한정으로 종료 정리. domain-20261119/e2e-summary.json 증거 저장.
+
+## 2026-11-19 — Resend·가입/복구·YouTube·실제 Toss TEST·격리 복원
+
+- 사용자 제공 비공개 파일을 메모리/표준입력으로 소비, 키 값을 출력하지 않음. Resend 도메인 verified·도메인 전용 발신 키·SMTP TLS 로그인, Supabase 최소 Auth 설정/한국어 템플릿 push 및 diff0 확인. 새 인증 라우트 배포 후 템플릿 전환.
+- 실제 사용자 메일 confirmation/recovery delivered; 사용자가 인증 버튼 완료, DB email_confirmed·brand 프로필 확인. 복구 POST의 증표/유형/비밀번호 확인·GET 미소비·redirect/privacy 가드 구현. 사용자 최종 비밀번호 변경 확인은 대기.
+- Toss 혼합 키를 발견해 요청 후 API 개별 연동 TEST 세트로 수정 등록·재배포. 사용자가 직접 TEST 약관/인증, provider GET order DONE·49000·주문 일치 확인. 서버 paid/30일 이용권 활성화, finalize RPC 두 번 재실행 동일 ID·count1 확인. 공급자 가짜 성공/수동 paid 조작 없음.
+- YouTube 실제 공식 채널 ID1건 조회 성공·서버 Secret 등록. 실제 인플루언서 수입0, 정책/쿼터·restriction 콘솔 증거/수집 어댑터 미완료. Chrome 제어 오류 지속, 사용자 Google 설정/키 입력 협조.
+- public/Auth/Storage 덤프·원본 보존·pg_attver 복원용 정규화·스키마 의존 트리거 지연 적용으로 네트워크 none 임시 PG17 격리 복원. table13/RLS13/FK22/orphan0/Auth5/Storage0 확인 후 컨테이너/볼륨 제거. 여러 시점 덤프, 실제 결제 전 백업이며 정기/원격/암호화 재해복구 완료 아님.
+- lint/typecheck/Vitest35/Python5/build PASS, local E2E10/10·production E2E10/10. 최초 결제 상태 기대값 실패1건 및 인증 locator 충돌은 수정 후 재실행. 상세 증거 docs/AUTH_PROVIDER_EXECUTION.md 및 providers-20261119/summary.json. 전체 U20 및 실제 데이터 베타 완료로 표시하지 않음.

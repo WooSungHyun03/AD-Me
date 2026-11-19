@@ -1,6 +1,6 @@
 # AD Me 환경 설정 계약 — 현재 코드와 예정 설정 구분
 
-2026-11-19 코드 분석 기준. **이 파일에는 값이 없으며 설정을 실행하지 않는다.** USER만 외부 키 발급·등록·교체를 한다. 개발자는 변수명·consumer·환경·누락 동작을 먼저 구현하고 사용자에게 확정 목록을 준다. `NEXT_PUBLIC_`는 브라우저에 공개된다.
+2026-11-19 코드 분석 기준. **이 파일에는 값이 없으며 설정을 실행하지 않는다.** 현재 사용자 승인에 따라 에이전트가 기술 설정·TEST 키 등록을 대행할 수 있다. 법적 동의·본인 인증·비밀번호 입력은 사용자 본인이 수행한다. 개발자는 변수명·consumer·환경·누락 동작을 먼저 구현하고 사용자에게 확정 목록을 준다. `NEXT_PUBLIC_`는 브라우저에 공개된다.
 
 ## 현재 설정
 
@@ -12,7 +12,7 @@
 |TOSS_SECRET_KEY|구현됨: Supabase payment-confirm Edge Function|해당 Supabase Edge Functions Secrets|TEST 전용 server secret. Vercel/브라우저로 복제할 필요 없다. 미설정이면 실제 TEST 승인 불가.|
 |SUPABASE_URL|Edge Function의 기존 런타임 제공 값|Supabase 런타임|payment-confirm이 사용. 프로젝트를 바꾸려고 수동 덮어쓰지 않는다.|
 |SUPABASE_SERVICE_ROLE_KEY|Edge Function의 기존 런타임 제공 값|Supabase 런타임만|현재 Vercel에 등록할 필요 없다. RLS 우회 권한이므로 절대 공개하지 않는다. 필요시 해당 런타임의 현행 키 방식과 호환성을 별도 검토한다.|
-|NEXT_PUBLIC_APP_URL|.env.example에만 선언됨; 현재 앱 코드 사용 없음|D003/인증·콜백 구현 후 확정된 환경|값 등록만으로 인증 URL이 변경되지 않는다. Supabase Site URL/redirect 설정도 U008에서 별도 변경한다.|
+|NEXT_PUBLIC_APP_URL|src/lib/auth-links.ts의 authSiteOrigin 사용|Vercel Production|be-celeb.org로 등록. Supabase Site URL과 exact callback redirect도 함께 반영 완료.|
 |BASE_URL|Playwright 설정이 읽음|개발자 로컬 테스트 프로세스|배포 env 필수 항목 아님. 원격 URL 지정 시 Playwright 웹서버는 시작하지 않는다.|
 
 SMTP host/port/user/password·발신 주소는 **Supabase SMTP 설정 화면**에 등록한다. 앱에 동일 값이 필요한 D053 구현이 추가되면 별도 메일 어댑터 설정 계약을 만든다. API key와 SMTP password가 같은지는 공급자에 따라 다르다.
@@ -53,3 +53,7 @@ SMTP host/port/user/password·발신 주소는 **Supabase SMTP 설정 화면**�
 5. 노출 시 old key 폐기/교체·배포·연결 확인 순서는 공급자 기능에 맞춰 계획한다. 비밀값을 Git 이력에서만 지워서 해결했다고 판단하지 않는다.
 
 [환경변수 공식 안내](https://vercel.com/docs/environment-variables) · [Supabase 함수 secret](https://supabase.com/docs/guides/functions/secrets) · [Toss 키 종류](https://docs.tosspayments.com/reference/using-api/api-keys)
+
+## 2026-11-19 외부 연결 검증
+
+Resend mail.be-celeb.org 인증 완료, 도메인 전용 sending_access 키로 Supabase SMTP 연결. confirmation/recovery 해시 링크 템플릿 적용. Toss API 개별 연동 test_ck_/test_sk_를 각각 Vercel/Supabase에 등록했고 실물 TEST 결제창 표시 확인. YOUTUBE_API_KEY는 서버 Secret으로 등록·단일 공식 채널 ID 조회만 검증했다. 현재 수집 어댑터 consumer가 없어 자동 수집은 활성화하지 않았다. 상세 증거는 docs/AUTH_PROVIDER_EXECUTION.md 참조.
