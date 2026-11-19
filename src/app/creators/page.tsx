@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { configured } from "@/lib/supabase";
+import { getConfig } from "@/lib/config";
 import { Catalog } from "@/components/catalog";
 import { currentUser, supabase } from "@/lib/supabase";
 import { publicCreators } from "@/lib/data";
@@ -10,7 +10,7 @@ export default async function Creators() {
     profile: { name: string };
     expires_at: string;
   }[] = [];
-  if (configured()) {
+  if (getConfig().features.testBilling === "enabled") {
     const db = await supabase();
     const { data } = await db.rpc("active_hot_creators");
     hot = data ?? [];
@@ -32,11 +32,11 @@ export default async function Creators() {
       <p>당신의 다음 캠페인에 어울리는 파트너를 발견하세요.</p>
       <div className="notice">
         DEMO 표식은 가상 데이터, 본인 등록 표식은 크리에이터가 직접 입력한
-        정보입니다. 유료 HOT 노출은 추천 점수에 영향을 주지 않습니다.
+        정보입니다.
       </div>
       {hot.length > 0 && (
         <section className="panel" style={{ marginBottom: 24 }}>
-          <span className="badge lime">유료 광고 · HOT</span>
+          <span className="badge lime">TEST 광고 · HOT</span>
           <h3 style={{ marginTop: 15 }}>지금 주목할 크리에이터</h3>
           <p>
             활성 TEST 이용권의 별도 노출입니다. 아래 일반 추천 순위와

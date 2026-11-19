@@ -2,6 +2,12 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { rank } from "@/lib/catalog";
 import { publicCreators } from "@/lib/data";
+import { PublicProfileLinks } from "@/components/public-profile-links";
+import {
+  normalizeSocialLink,
+  publicProfilePath,
+  safeHttpsLink,
+} from "@/lib/social-links";
 import ads from "../../../../fixtures/ads.demo.json";
 export default async function Detail({
   params,
@@ -12,6 +18,8 @@ export default async function Detail({
   const creators = await publicCreators();
   const c = creators.find((c) => c.seed_id === id);
   if (!c) notFound();
+  const social = c.owner_consent ? normalizeSocialLink(c.social_url) : null;
+  const portfolio = c.owner_consent ? safeHttpsLink(c.portfolio_url) : null;
   const similar = rank(
     {
       category: c.categories[0],
@@ -88,32 +96,15 @@ export default async function Detail({
             <br />
             광고 형식: {c.formats.join(" · ")}
             <br />
-            {!c.social_url && !c.portfolio_url
+            {!social && !portfolio
               ? "등록된 포트폴리오와 SNS 원본 링크가 없습니다."
               : "본인이 등록한 링크이며 플랫폼 소유권은 별도 검증되지 않았습니다."}
           </p>
-          <div className="inline" style={{ marginBottom: 24 }}>
-            {c.social_url && c.social_url.startsWith("https://") && (
-              <a
-                className="button outline small"
-                href={c.social_url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                SNS 원본 ↗
-              </a>
-            )}
-            {c.portfolio_url && c.portfolio_url.startsWith("https://") && (
-              <a
-                className="button outline small"
-                href={c.portfolio_url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                포트폴리오 ↗
-              </a>
-            )}
-          </div>
+          <PublicProfileLinks
+            path={publicProfilePath(id, c.published)}
+            social={social}
+            portfolioUrl={portfolio?.href}
+          />
           <h3>과거 광고 이력</h3>
           {ads
             .filter((a) => a.creator_seed_id === id)

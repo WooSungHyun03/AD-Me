@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { creatorPlatforms } from "./service-catalog";
+import { normalizeSocialLink } from "./social-links";
 export const campaignSchema = z.object({
   title: z.string().trim().min(2).max(120),
   product: z.string().trim().min(1).max(120),
@@ -20,9 +21,19 @@ export const profileSchema = z
       .union([
         z.literal(""),
         z
-          .url()
+          .string()
           .max(1000)
-          .refine((v) => v.startsWith("https://")),
+          .transform((value, ctx) => {
+            const link = normalizeSocialLink(value);
+            if (!link) {
+              ctx.addIssue({
+                code: "custom",
+                message: "공식 SNS 프로필 또는 게시물 링크를 입력해주세요.",
+              });
+              return z.NEVER;
+            }
+            return link.href;
+          }),
       ])
       .optional(),
     portfolio_url: z

@@ -189,9 +189,11 @@
     },
     "D028": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D028/README.md"
+      ],
+      "blocker": "D026 소유 확인, 브라우저 임베드 실패 복구 및 실제 공급원 검증 필요."
     },
     "D029": {
       "owner": "DEV-A",
