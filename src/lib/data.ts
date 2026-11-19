@@ -6,7 +6,8 @@ export async function publicCreators(): Promise<Creator[]> {
   const { data, error } = await db
     .from("creators")
     .select("id,profile,published,owner_id")
-    .eq("published", true);
+    .eq("published", true)
+    .eq("moderation_status", "allowed");
   if (error) throw new Error("크리에이터 목록을 불러오지 못했습니다.");
   return (data ?? []).map((c) => ({
     ...c.profile,

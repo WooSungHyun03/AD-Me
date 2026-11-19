@@ -26,8 +26,14 @@ export default async function Admin() {
     redirect("/admin/security");
   const [{ data: creatorRows }, { data: campaignRows }, { data: passes }] =
     await Promise.all([
-      c.db.from("creators").select("id,profile,published").limit(100),
-      c.db.from("campaigns").select("id,brief,status").limit(100),
+      c.db
+        .from("creators")
+        .select("id,profile,published,moderation_status")
+        .limit(100),
+      c.db
+        .from("campaigns")
+        .select("id,brief,status,moderation_status")
+        .limit(100),
       c.db
         .from("entitlements")
         .select("id,sku,expires_at,credits")
@@ -105,7 +111,11 @@ export default async function Admin() {
               </p>
             </div>
             <div>
-              <Moderate kind="creator" id={r.id} published={r.published} />
+              <Moderate
+                kind="creator"
+                id={r.id}
+                restricted={r.moderation_status === "restricted"}
+              />
             </div>
           </div>
         ))}
@@ -120,11 +130,13 @@ export default async function Admin() {
               {r.brief.title}
               <p>{r.status}</p>
             </div>
-            {r.status !== "closed" && (
-              <div>
-                <Moderate kind="campaign" id={r.id} published={true} />
-              </div>
-            )}
+            <div>
+              <Moderate
+                kind="campaign"
+                id={r.id}
+                restricted={r.moderation_status === "restricted"}
+              />
+            </div>
           </div>
         ))}
       </details>

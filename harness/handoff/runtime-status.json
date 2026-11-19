@@ -383,9 +383,13 @@
     },
     "D059": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "LOCAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/D059/README.md",
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json"
+      ],
+      "blocker": "소유자 재공개/삭제 재등록 우회·운영자 직접 REST 우회 거부, 사유 감사·해제 의미 검증. D016 외부 적용 및 리뷰 대기.",
+      "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
     },
     "D060": {
       "owner": "DEV-A",

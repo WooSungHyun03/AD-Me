@@ -110,6 +110,33 @@ describe("admin API gates before privileged work", () => {
       (await review(request({ id: userId, status: "reviewed" }))).status,
     ).toBe(403);
   });
+  it("preserves audit reason in lock/unlock RPC and rejects absent reason", async () => {
+    expect(
+      (
+        await moderate(
+          request({ kind: "creator", id: "fixture", published: false }),
+        )
+      ).status,
+    ).toBe(422);
+    expect(
+      (
+        await moderate(
+          request({
+            kind: "creator",
+            id: "fixture",
+            published: false,
+            reason: "QA fixture only",
+          }),
+        )
+      ).status,
+    ).toBe(200);
+    expect(db.rpc).toHaveBeenCalledWith("moderate_entity", {
+      p_kind: "creator",
+      p_id: "fixture",
+      p_published: false,
+      p_reason: "QA fixture only",
+    });
+  });
   it("rejects an unknown factor before calling the provider", async () => {
     expect(
       (

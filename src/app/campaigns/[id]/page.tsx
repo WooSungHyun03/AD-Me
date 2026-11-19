@@ -38,7 +38,8 @@ export default async function Campaign({
       .from("creators")
       .select("id,profile,owner_id")
       .not("owner_id", "is", null)
-      .eq("published", true);
+      .eq("published", true)
+      .eq("moderation_status", "allowed");
     people = (cs ?? [])
       .filter((c) => ownerId === user?.id || c.owner_id === user?.id)
       .map((c) => ({ id: c.id, name: c.profile.name }));

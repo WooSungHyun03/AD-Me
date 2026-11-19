@@ -18,19 +18,19 @@ export const POST = apiRoute("proposals.post", async (req) => {
     return fail("역할에 맞는 요청만 가능합니다.", 403);
   const { data: campaign, error: campaignError } = await c.db
     .from("campaigns")
-    .select("id,owner_id,status")
+    .select("id,owner_id,status,moderation_status")
     .eq("id", d.campaignId)
     .maybeSingle();
   if (campaignError)
     failDatabase(campaignError, "캠페인을 불러오지 못했습니다.");
   const { data: creator, error: creatorError } = await c.db
     .from("creators")
-    .select("id,owner_id,published")
+    .select("id,owner_id,published,moderation_status")
     .eq("id", d.creatorId)
     .maybeSingle();
   if (creatorError)
     failDatabase(creatorError, "크리에이터를 불러오지 못했습니다.");
-  if (!campaign || !creator?.owner_id || !creator.published)
+  if (!campaign || !creator?.owner_id || !creator.published || campaign.moderation_status !== "allowed" || creator.moderation_status !== "allowed")
     return fail("협업 가능한 캠페인과 실제 크리에이터 계정이 필요합니다.", 422);
   if (d.kind === "proposal" && campaign.owner_id !== c.user.id)
     return fail("본인 캠페인만 제안할 수 있습니다.", 403);

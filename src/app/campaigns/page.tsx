@@ -14,7 +14,8 @@ export default async function Campaigns() {
     const { data } = await db
       .from("campaigns")
       .select("id,brief,is_demo")
-      .eq("status", "published");
+      .eq("status", "published")
+      .eq("moderation_status", "allowed");
     if (data) records = data;
   }
   return (
