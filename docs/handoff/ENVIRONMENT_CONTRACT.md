@@ -1,18 +1,23 @@
 # AD Me 환경 설정 계약 — 현재 코드와 예정 설정 구분
 
-2026-11-19 코드 분석 기준. **이 파일에는 값이 없으며 설정을 실행하지 않는다.** 현재 사용자 승인에 따라 에이전트가 기술 설정·TEST 키 등록을 대행할 수 있다. 법적 동의·본인 인증·비밀번호 입력은 사용자 본인이 수행한다. 개발자는 변수명·consumer·환경·누락 동작을 먼저 구현하고 사용자에게 확정 목록을 준다. `NEXT_PUBLIC_`는 브라우저에 공개된다.
+2026-11-19 기준. 외부 콘솔·등록·배포는 사용자가 수행한다. 아래에는 공개 및 서버 설정 이름과 안전 기본값을 기록한다. `NEXT_PUBLIC_`에는 공개 가능한 설정만 입력한다.
 
 ## 현재 설정
 
 |설정 이름|현재 상태·consumer|등록 위치|누락/주의|
 |---|---|---|---|
-|NEXT_PUBLIC_SUPABASE_URL|구현됨: src/lib/supabase.ts, billing confirm route|해당 Vercel Production/Preview 및 로컬 ignored .env.local|공개 프로젝트 URL. 환경별 DB를 구분한다.|
-|NEXT_PUBLIC_SUPABASE_ANON_KEY|구현됨: src/lib/supabase.ts, API billing confirm|동일 환경 Vercel/로컬|현재 코드의 정확한 변수명. public anon 키이며 RLS가 보호한다. publishable 키 전환은 코드·인증 호환 검증과 함께 시행한다. service-role을 넣지 않는다.|
-|NEXT_PUBLIC_TOSS_CLIENT_KEY|구현됨: src/components/checkout.tsx|격리된 TEST Vercel 환경|TEST 전용. 실제 상품/SDK 호환 키 세트를 U015에서 확인한다. free_beta에서는 구매 경로를 D001/D065로 차단한다.|
+|NEXT_PUBLIC_SUPABASE_URL|src/lib/config.ts → SSR, proxy, 결제 확인|해당 Vercel Production/Preview 및 로컬 ignored .env.local|공개 프로젝트 origin. 환경별 프로젝트를 구분한다.|
+|NEXT_PUBLIC_SUPABASE_ANON_KEY|src/lib/config.ts → SSR, proxy, 결제 확인|동일 환경 Vercel/로컬|공개 anon JWT 또는 publishable 형식만 수락한다. publishable 전환 시 Edge/Auth 호환을 재검증한다.|
+|NEXT_PUBLIC_TOSS_CLIENT_KEY|src/lib/config.ts → Checkout|격리된 TEST Vercel 환경|TEST API 개별 연동 클라이언트 형식만 수락한다. U015에서 실제 키 세트를 확인한다.|
 |TOSS_SECRET_KEY|구현됨: Supabase payment-confirm Edge Function|해당 Supabase Edge Functions Secrets|TEST 전용 server secret. Vercel/브라우저로 복제할 필요 없다. 미설정이면 실제 TEST 승인 불가.|
 |SUPABASE_URL|Edge Function의 기존 런타임 제공 값|Supabase 런타임|payment-confirm이 사용. 프로젝트를 바꾸려고 수동 덮어쓰지 않는다.|
 |SUPABASE_SERVICE_ROLE_KEY|Edge Function의 기존 런타임 제공 값|Supabase 런타임만|현재 Vercel에 등록할 필요 없다. RLS 우회 권한이므로 절대 공개하지 않는다. 필요시 해당 런타임의 현행 키 방식과 호환성을 별도 검토한다.|
-|NEXT_PUBLIC_APP_URL|src/lib/auth-links.ts의 authSiteOrigin 사용|Vercel Production|be-celeb.org로 등록. Supabase Site URL과 exact callback redirect도 함께 반영 완료.|
+|NEXT_PUBLIC_APP_URL|src/lib/config.ts → 인증 링크|각 Vercel 환경|해당 환경의 HTTPS origin. Supabase Site URL 및 exact /auth/confirm 경로와 일치시킨다. 로컬 개발에서는 loopback HTTP를 허용한다.|
+|ADME_SERVICE_MODE|src/lib/config.ts, payment-confirm|Vercel 서버, 격리 TEST Edge Function|기본 free_beta. test_demo에서만 TEST 결제 가능. 오입력 시 결제 비활성. D001 DB 격리 필요.|
+|ADME_FEATURE_MAIL|src/lib/config.ts → 앱 가입·재발송·복구|Vercel 서버/로컬|기본 off. on 및 Supabase·앱 origin 설정 시 발송 진입점 제공. 기존 이메일 증표 검증은 독립.|
+|ADME_FEATURE_TEST_BILLING|src/lib/config.ts, payment-confirm|격리 TEST Vercel 서버 및 TEST Edge Function|기본 off. 양쪽 설정이 켜져야 주문 및 승인이 동작한다.|
+|ADME_FEATURE_INGESTION|src/lib/config.ts|Vercel 서버/로컬|기본 off. 어댑터·정책 인계 전 on이어도 미가용.|
+|ADME_FEATURE_LLM|src/lib/config.ts|Vercel 서버/로컬|기본 off. 어댑터 인계 전 on이어도 미가용. 규칙 기반 초안은 사용 가능.|
 |BASE_URL|Playwright 설정이 읽음|개발자 로컬 테스트 프로세스|배포 env 필수 항목 아님. 원격 URL 지정 시 Playwright 웹서버는 시작하지 않는다.|
 
 SMTP host/port/user/password·발신 주소는 **Supabase SMTP 설정 화면**에 등록한다. 앱에 동일 값이 필요한 D053 구현이 추가되면 별도 메일 어댑터 설정 계약을 만든다. API key와 SMTP password가 같은지는 공급자에 따라 다르다.
@@ -21,10 +26,6 @@ SMTP host/port/user/password·발신 주소는 **Supabase SMTP 설정 화면**�
 
 |제안 이름|담당 티켓|저장 위치|의도·안전 기본값|
 |---|---|---|---|
-|ADME_SERVICE_MODE|D001/D003|Vercel 서버/로컬|free_beta 또는 test_demo. unknown 값은 실패. 현재 코드 미구현.|
-|ADME_FEATURE_INGESTION|D008/D019/D021|Vercel 서버|off 기본. 공급원 정책도 별도 승인되어야 함.|
-|ADME_FEATURE_LLM|D008/D048|Vercel 서버|off 기본. fallback은 키 없이 사용 가능.|
-|ADME_FEATURE_TEST_BILLING|D008/D065|격리 TEST Vercel 서버|off 기본. service mode와 이중 확인.|
 |YOUTUBE_API_KEY|D003/D019|Vercel 서버만|YouTube API 전용 restriction. 키를 NEXT_PUBLIC_로 바꾸지 않는다.|
 |AI_PROVIDER_TOKEN / AI_MODEL_ID|D003/D048|Vercel 서버만|실제 provider 선택 후 이름 확정. 토큰 없이 deterministic fallback.|
 |META_APP_ID / META_APP_SECRET|D003/D022|서버만, 선택 공급자 계약에 따름|로그인 방식·scope·callback 구현 후 등록. secret은 브라우저 노출 금지.|
@@ -32,6 +33,13 @@ SMTP host/port/user/password·발신 주소는 **Supabase SMTP 설정 화면**�
 |ADME_JOB_AUTH_SECRET|D003/D021|검토된 작업 실행 서버만|외부 job endpoint를 실제로 만들 경우에만 필요. 사용자 cron 설정 전 호출 인증·중복 방지를 구현한다.|
 
 이름은 **제안**이다. 개발자는 D003에서 구현 소비 위치를 확정하고 `harness/handoff/environment-manifest.json` 상태를 IMPLEMENTED로 변경한 뒤 사용자에게 등록을 요청한다. secret으로 OAuth 토큰 저장 암호화를 직접 임의 설계하지 말고 지원되는 비밀 관리/암호화 방식을 검토한다.
+
+## 개발 검증과 플래그 적용 기록
+
+- 개발자 진단 `npm run check:config`는 .env.local 및 프로세스 설정에서 이름, 누락·형식 오류, 최종 기능 상태를 출력한다. 키 본문·일부와 URL 값은 출력하지 않는다. 생산 설정을 검증할 때는 `NODE_ENV=production` 기준으로 확인한다.
+- 설정 변경은 대상 환경, 적용자, 배포 버전, 시각, 이전·이후 기능 상태를 릴리스 기록에 남긴다. 값을 출력하거나 로그를 공개하지 않는다.
+- 결제가 이미 승인됐더라도 기능을 끈 상태에서는 앱·Edge에서 재확인할 수 없다. 격리 TEST에서 다시 활성화한 뒤 기존 주문 ID로 확인한다. Vercel 앱 설정을 끈 뒤 Edge 설정을 끄면 양쪽 경계가 닫힌다.
+- 앱의 메일 플래그는 앱의 발송 동작을 제어한다. Supabase Auth 자체의 SMTP·가입·속도 제한은 USER가 해당 콘솔에서 설정한다. 기존 직접 주문 RPC의 격리 검증은 D001에 남아 있다.
 
 ## 환경별 매핑 양식 — 값은 비공개
 

@@ -16,9 +16,13 @@
     },
     "D003": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "LOCAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/D003/README.md",
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json"
+      ],
+      "blocker": "정확한 잠금 의존성·Node 22·설정 계약·빌드·로컬 E2E 검증. DEV-B 리뷰 및 대상 환경 적용 검증 전 DONE 아님.",
+      "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
     },
     "D004": {
       "owner": "DEV-A",

@@ -34,3 +34,6 @@ __pycache__/
 supabase/.temp/
 
 .external-setup.local.env
+
+# Preserve the earlier independent checkout without adding it to this repository.
+/dev-a-local/

@@ -8,21 +8,21 @@
       "status": "IMPLEMENTED",
       "classification": "PUBLIC",
       "location": "Vercel",
-      "consumer": "src/lib/supabase.ts"
+      "consumer": "src/lib/config.ts"
     },
     {
       "name": "NEXT_PUBLIC_SUPABASE_ANON_KEY",
       "status": "IMPLEMENTED",
       "classification": "PUBLIC",
       "location": "Vercel",
-      "consumer": "src/lib/supabase.ts"
+      "consumer": "src/lib/config.ts"
     },
     {
       "name": "NEXT_PUBLIC_TOSS_CLIENT_KEY",
       "status": "IMPLEMENTED",
       "classification": "PUBLIC",
       "location": "Vercel TEST",
-      "consumer": "src/components/checkout.tsx"
+      "consumer": "src/lib/config.ts"
     },
     {
       "name": "TOSS_SECRET_KEY",
@@ -50,7 +50,7 @@
       "status": "IMPLEMENTED",
       "classification": "PUBLIC",
       "location": "Vercel Production",
-      "consumer": "src/lib/auth-links.ts"
+      "consumer": "src/lib/config.ts"
     },
     {
       "name": "BASE_URL",
@@ -61,31 +61,31 @@
     },
     {
       "name": "ADME_SERVICE_MODE",
-      "status": "PROPOSED",
+      "status": "IMPLEMENTED",
       "classification": "SERVER_CONFIG",
-      "location": "TBD by D003",
-      "consumer": null
+      "location": "Vercel server / local and isolated TEST Supabase Edge Function runtime",
+      "consumer": "src/lib/config.ts"
     },
     {
       "name": "ADME_FEATURE_INGESTION",
-      "status": "PROPOSED",
+      "status": "IMPLEMENTED",
       "classification": "SERVER_CONFIG",
-      "location": "TBD by D003",
-      "consumer": null
+      "location": "Vercel server / local",
+      "consumer": "src/lib/config.ts"
     },
     {
       "name": "ADME_FEATURE_LLM",
-      "status": "PROPOSED",
+      "status": "IMPLEMENTED",
       "classification": "SERVER_CONFIG",
-      "location": "TBD by D003",
-      "consumer": null
+      "location": "Vercel server / local",
+      "consumer": "src/lib/config.ts"
     },
     {
       "name": "ADME_FEATURE_TEST_BILLING",
-      "status": "PROPOSED",
+      "status": "IMPLEMENTED",
       "classification": "SERVER_CONFIG",
-      "location": "TBD by D003",
-      "consumer": null
+      "location": "Vercel server / local and isolated TEST Supabase Edge Function runtime",
+      "consumer": "src/lib/config.ts"
     },
     {
       "name": "YOUTUBE_API_KEY",
@@ -142,7 +142,14 @@
       "classification": "SECRET",
       "location": "TBD by D003",
       "consumer": null
+    },
+    {
+      "name": "ADME_FEATURE_MAIL",
+      "status": "IMPLEMENTED",
+      "classification": "SERVER_CONFIG",
+      "location": "Vercel server / local",
+      "consumer": "src/lib/config.ts"
     }
   ],
-  "technical_execution": "USER_AUTHORIZED_AGENT"
+  "technical_execution": "USER"
 }
