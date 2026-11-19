@@ -93,9 +93,13 @@
     },
     "D012": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D012/README.md",
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json"
+      ],
+      "blocker": "브랜드/담당자 분리·공개 DTO·REST·UI 검증. D011 리뷰와 D027 로고 업로드 연결 미완료; 외부 적용 안 함.",
+      "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
     },
     "D013": {
       "owner": "DEV-B",

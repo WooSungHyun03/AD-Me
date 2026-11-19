@@ -2,6 +2,8 @@ import { redirect } from "next/navigation";
 import { currentUser, supabase } from "@/lib/supabase";
 import { AccountForm } from "@/components/account-form";
 import { ProfileForm } from "@/components/profile-form";
+import { BrandAccountForm } from "@/components/brand-account-form";
+export const dynamic = "force-dynamic";
 export default async function Settings() {
   const user = await currentUser();
   if (!user) redirect("/login");
@@ -16,6 +18,10 @@ export default async function Settings() {
     .select("profile,published")
     .eq("owner_id", user.id)
     .maybeSingle();
+  const { data: brand, error: brandError } =
+    profile?.role === "brand"
+      ? await db.rpc("my_brand_account")
+      : { data: null, error: null };
   return (
     <section className="wrap">
       <span className="eyebrow">Account settings</span>
@@ -32,12 +38,34 @@ export default async function Settings() {
               : undefined
           }
         />
-      ) : (
-        <p className="notice">
-          브랜드 계정입니다. 캠페인에서 브랜드의 상품·목표와 협업 조건을
-          관리하세요.
-        </p>
-      )}
+      ) : profile?.role === "brand" ? (
+        brandError ? (
+          <p role="alert">
+            브랜드 정보를 불러오지 못했습니다. 기존 정보를 보호하기 위해
+            새로고침 후 다시 시도해주세요.
+          </p>
+        ) : (
+          <BrandAccountForm
+            name={profile.name}
+            initial={
+              brand
+                ? {
+                    brandName: brand.brand_name,
+                    industry: brand.industry,
+                    introduction: brand.introduction,
+                    published: brand.published,
+                    contactName: brand.contact_name ?? "",
+                    contactEmail: brand.contact_email ?? "",
+                    contactVisibility:
+                      brand.visibility === "collaborators"
+                        ? "collaborators"
+                        : "private",
+                  }
+                : undefined
+            }
+          />
+        )
+      ) : null}
     </section>
   );
 }

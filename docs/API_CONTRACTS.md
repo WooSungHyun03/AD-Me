@@ -37,6 +37,8 @@
 | `reportContent` | creatorId, reason, relevant source | moderation queue, not public immediately |
 
 ## UI data contract
+
+DEV-A 2026-11-19 후속 계약: 공개 브랜드 DTO v1과 비공개 연락처를 분리했다. `PATCH /api/account`는 기존 name-only 입력과 선택 brand 객체를 받는다. `GET /api/brands/:id`는 id/brandName/industry/introduction/logo(null)만 반환하며 owner_id/이메일/담당자를 포함하지 않는다. 연락처 조회는 `/api/brands/:id/contact`에서 소유자 또는 공유를 허용받은 수락한 참여자에게만 제공한다. 관리자 API는 별도 유효 승인과 최근 15분 TOTP AAL2를 요구한다. `moderate_entity`에는 사유가 필요하며 공개 선호가 아닌 별도 운영 잠금을 바꾼다. 자세한 스키마·호환 경계는 [후속 패킷](handoff/DEV-A_P0_CONTINUATION_PACKET.md)을 따른다.
 - `dataStatus` enum: `verified` / `self_reported` / `synthetic_demo` / `unavailable`.
 - `metrics` may be `null`; never silently present fake performance figures.
 - Every recommendation result displays `score`, `coverage`, `breakdown`, `excluded`, `evidence[]`, and `rankingVersion`.
