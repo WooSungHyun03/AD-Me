@@ -15,3 +15,5 @@ harness/evidence
 *.tsbuildinfo
 
 .playwright-cli
+
+supabase/.temp
