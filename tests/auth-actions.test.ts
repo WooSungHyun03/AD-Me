@@ -1,10 +1,12 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => ({
   configured: vi.fn(),
   verifyOtp: vi.fn(),
   updateUser: vi.fn(),
   signOut: vi.fn(),
   resetPasswordForEmail: vi.fn(),
+  resend: vi.fn(),
+  signUp: vi.fn(),
 }));
 vi.mock("@/lib/supabase", () => ({
   configured: mocks.configured,
@@ -18,8 +20,10 @@ vi.mock("next/navigation", () => ({
 import {
   confirmEmail,
   requestRecovery,
+  resendSignupEmail,
   resetPassword,
 } from "../src/app/auth/actions";
+import { authAction } from "../src/app/actions";
 function form(data: Record<string, string>) {
   const result = new FormData();
   for (const [k, v] of Object.entries(data)) result.set(k, v);
@@ -35,10 +39,94 @@ const reset = () =>
   });
 beforeEach(() => {
   vi.resetAllMocks();
+  vi.stubEnv("NEXT_PUBLIC_APP_URL", "https://preview.example");
+  vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "https://database.example");
+  vi.stubEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY", "sb_publishable_fixture");
+  vi.stubEnv("ADME_FEATURE_MAIL", "on");
   mocks.configured.mockReturnValue(true);
   mocks.signOut.mockResolvedValue({ error: null });
 });
+afterEach(() => vi.unstubAllEnvs());
 describe("email confirmation and recovery server actions", () => {
+  it("uses the token-hash confirmation route and returns the same acknowledgement for duplicate signup", async () => {
+    const signup = form({
+      email: "person@example.com",
+      password: "a-fixture-password",
+      name: "테스트",
+      role: "creator",
+      mode: "signup",
+    });
+    mocks.signUp.mockResolvedValueOnce({
+      data: { session: null },
+      error: null,
+    });
+    const accepted = await authAction(null, signup);
+    mocks.signUp.mockResolvedValueOnce({
+      error: { code: "user_already_exists" },
+    });
+    expect(await authAction(null, signup)).toEqual(accepted);
+    expect(accepted.message).toContain("인증이 필요하면");
+    expect(mocks.signUp).toHaveBeenCalledWith(
+      expect.objectContaining({
+        options: {
+          data: { role: "creator", name: "테스트" },
+          emailRedirectTo: "https://preview.example/auth/confirm",
+        },
+      }),
+    );
+  });
+
+  it("ends any unexpected signup session when confirmation has not taken place", async () => {
+    mocks.signUp.mockResolvedValue({
+      data: { session: { access_token: "fixture" } },
+      error: null,
+    });
+    const result = await authAction(
+      null,
+      form({
+        email: "person@example.com",
+        password: "a-fixture-password",
+        name: "테스트",
+        role: "brand",
+        mode: "signup",
+      }),
+    );
+    expect(result.error).toContain("가입 인증 설정");
+    expect(mocks.signOut).toHaveBeenCalledWith({ scope: "local" });
+  });
+
+  it("resends through the signup provider and hides differences for missing accounts", async () => {
+    const email = form({ email: "person@example.com" });
+    mocks.resend.mockResolvedValueOnce({ error: null });
+    const accepted = await resendSignupEmail({}, email);
+    mocks.resend.mockResolvedValueOnce({ error: { code: "user_not_found" } });
+    expect(await resendSignupEmail({}, email)).toEqual(accepted);
+    expect(accepted.message).toContain("인증이 필요하면");
+    expect(mocks.resend).toHaveBeenCalledWith({
+      type: "signup",
+      email: "person@example.com",
+      options: { emailRedirectTo: "https://preview.example/auth/confirm" },
+    });
+    vi.stubEnv("ADME_FEATURE_MAIL", "off");
+    expect((await resendSignupEmail({}, email)).error).toBeTruthy();
+    expect(mocks.resend).toHaveBeenCalledTimes(2);
+  });
+
+  it("keeps expired and used signup proofs out of protected pages", async () => {
+    mocks.verifyOtp.mockResolvedValue({ error: { code: "otp_expired" } });
+    const result = await confirmEmail(
+      {},
+      form({ token_hash: proof, type: "email" }),
+    );
+    expect(result.error).toContain("만료되었거나 이미 사용");
+  });
+  it("does not send recovery email when disabled", async () => {
+    vi.stubEnv("ADME_FEATURE_MAIL", "off");
+    expect(
+      (await requestRecovery({}, form({ email: "person@example.com" }))).error,
+    ).toBeTruthy();
+    expect(mocks.resetPasswordForEmail).not.toHaveBeenCalled();
+  });
   it("does not send email for invalid input", async () => {
     expect(
       (await requestRecovery({}, form({ email: "bad" }))).error,

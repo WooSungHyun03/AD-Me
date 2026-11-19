@@ -14,6 +14,9 @@ export default async function Confirm({
       <section className="auth">
         <h1>인증 링크를 확인해주세요</h1>
         <p role="alert">유효한 이메일 인증 또는 복구 링크가 필요합니다.</p>
+        <p>
+          <Link href="/signup/resend">가입 확인 메일 다시 받기</Link>
+        </p>
         <Link href="/forgot-password">새 복구 메일 요청</Link>
         <p>
           <Link href="/login">로그인으로 돌아가기</Link>
@@ -35,7 +38,11 @@ export default async function Confirm({
         proofType={parsed.data.type}
       />
       <p>
-        <Link href="/forgot-password">새 복구 메일 요청</Link>
+        {recovery ? (
+          <Link href="/forgot-password">새 복구 메일 요청</Link>
+        ) : (
+          <Link href="/signup/resend">가입 확인 메일 다시 받기</Link>
+        )}
       </p>
     </section>
   );

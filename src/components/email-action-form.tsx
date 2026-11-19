@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import {
   confirmEmail,
   requestRecovery,
+  resendSignupEmail,
   resetPassword,
   type EmailActionState,
 } from "@/app/auth/actions";
@@ -14,23 +15,24 @@ export function EmailActionForm({
   tokenHash = "",
   proofType = "email",
 }: {
-  mode: "request" | "confirm" | "reset";
+  mode: "request" | "resend" | "confirm" | "reset";
   tokenHash?: string;
   proofType?: "email" | "recovery" | "email_change";
 }) {
-  const action =
-    mode === "request"
-      ? requestRecovery
-      : mode === "reset"
-        ? resetPassword
-        : confirmEmail;
+  const request = mode === "request" || mode === "resend";
+  const action = {
+    request: { submit: requestRecovery, label: "복구 메일 요청" },
+    resend: { submit: resendSignupEmail, label: "확인 메일 재발송" },
+    confirm: { submit: confirmEmail, label: "이메일 인증 완료하기" },
+    reset: { submit: resetPassword, label: "비밀번호 변경" },
+  }[mode];
   const [state, formAction, pending] = useActionState<
     EmailActionState,
     FormData
-  >(action, {});
+  >(action.submit, {});
   return (
     <form action={formAction} className="form" aria-busy={pending}>
-      {mode === "request" ? (
+      {request ? (
         <label>
           이메일
           <input
@@ -79,15 +81,7 @@ export function EmailActionForm({
       )}
       {state.error && <p role="alert">{state.error}</p>}
       {state.message && <p role="status">{state.message}</p>}
-      <Button disabled={pending}>
-        {pending
-          ? "처리 중…"
-          : mode === "request"
-            ? "복구 메일 요청"
-            : mode === "reset"
-              ? "비밀번호 변경"
-              : "이메일 인증 완료하기"}
-      </Button>
+      <Button disabled={pending}>{pending ? "처리 중…" : action.label}</Button>
     </form>
   );
 }

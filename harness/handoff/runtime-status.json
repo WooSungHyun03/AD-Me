@@ -64,11 +64,14 @@
     },
     "D009": {
       "owner": "DEV-A",
-      "status": "PARTIAL_VERIFIED",
+      "status": "BLOCKED_EXTERNAL",
       "evidence": [
-        "docs/AUTH_PROVIDER_EXECUTION.md"
+        "docs/AUTH_PROVIDER_EXECUTION.md",
+        "harness/evidence/D009/README.md",
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json"
       ],
-      "blocker": "외부 이메일 가입 인증 검증; 실서비스 동의·재발송/오류·상세 인수 기준 전체는 미완료."
+      "blocker": "로컬 Auth/Mailpit 가입·재발송·증표 재사용 거부 통과. 이번 소스/템플릿의 실제 외부 SMTP·U007/U008 재검증 필요.",
+      "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
     },
     "D010": {
       "owner": "DEV-B",

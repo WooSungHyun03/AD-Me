@@ -2,7 +2,11 @@
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { configured, supabase } from "@/lib/supabase";
-import { authSiteOrigin } from "@/lib/auth-links";
+import { getConfig } from "@/lib/config";
+import {
+  isPrivateSignupResult,
+  signupEmailAcknowledgement,
+} from "@/lib/auth-links";
 export async function authAction(_: unknown, form: FormData) {
   if (!configured())
     return {
@@ -20,8 +24,11 @@ export async function authAction(_: unknown, form: FormData) {
     .safeParse(Object.fromEntries(form));
   if (!parsed.success)
     return { error: "이름, 이메일과 10자 이상의 비밀번호를 확인해주세요." };
-  const db = await supabase();
   const d = parsed.data;
+  const { appOrigin, features } = getConfig();
+  if (d.mode === "signup" && features.mail !== "enabled")
+    return { error: "가입 메일 서비스 연결을 준비 중입니다." };
+  const db = await supabase();
   const result =
     d.mode === "signup"
       ? await db.auth.signUp({
@@ -29,13 +36,15 @@ export async function authAction(_: unknown, form: FormData) {
           password: d.password,
           options: {
             data: { role: d.role, name: d.name },
-            emailRedirectTo: `${authSiteOrigin()}/auth/callback`,
+            emailRedirectTo: `${appOrigin}/auth/confirm`,
           },
         })
       : await db.auth.signInWithPassword({
           email: d.email,
           password: d.password,
         });
+  if (d.mode === "signup" && isPrivateSignupResult(result.error?.code))
+    return { message: signupEmailAcknowledgement };
   if (
     result.error &&
     d.mode === "signup" &&
@@ -57,10 +66,15 @@ export async function authAction(_: unknown, form: FormData) {
           ? "가입을 처리하지 못했습니다. 이메일과 비밀번호를 확인해주세요."
           : "이메일 또는 비밀번호를 확인해주세요.",
     };
-  if (d.mode === "signup" && !result.data.session)
-    return {
-      message: "가입 확인 이메일을 보냈습니다. 이메일 인증 후 로그인해주세요.",
-    };
+  if (d.mode === "signup") {
+    if (result.data.session) {
+      await db.auth.signOut({ scope: "local" });
+      return {
+        error: "가입 인증 설정을 확인 중입니다. 운영자에게 문의해주세요.",
+      };
+    }
+    return { message: signupEmailAcknowledgement };
+  }
   redirect("/dashboard");
 }
 export async function logout() {
