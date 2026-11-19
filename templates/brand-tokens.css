@@ -1,0 +1,20 @@
+/* AD Me design tokens — copy into src/app/globals.css and adapt to Tailwind theme. */
+:root {
+  --ad-lime: #D7FF45;
+  --ad-ink: #111412;
+  --ad-carbon: #191C19;
+  --ad-canvas: #F6F6F1;
+  --ad-surface: #FFFFFF;
+  --ad-muted: #67706A;
+  --ad-border: #DCE2D9;
+  --ad-danger: #B8453D;
+  --ad-warning: #AA6A21;
+  --ad-radius-sm: 0.5rem;
+  --ad-radius-md: 0.75rem;
+  --ad-radius-lg: 1.25rem;
+  --ad-focus: 0 0 0 3px rgba(90, 121, 20, 0.35);
+}
+/* Original wordmark is black and needs a light surface for adequate contrast. */
+.adme-brand-lockup { background: var(--ad-canvas); color: var(--ad-ink); }
+.adme-primary-button { background: var(--ad-lime); color: var(--ad-ink); border-radius: var(--ad-radius-md); }
+.adme-primary-button:focus-visible { outline: 2px solid var(--ad-ink); outline-offset: 2px; }

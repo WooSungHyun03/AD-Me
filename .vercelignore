@@ -1,0 +1,8 @@
+.git
+.env*
+.accounts.local.json
+node_modules
+.next
+output
+playwright-report
+test-results

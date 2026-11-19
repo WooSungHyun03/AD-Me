@@ -1,0 +1,749 @@
+{
+  "schema_version": 1,
+  "project": "AD Me",
+  "warning": "Evidence is agent-claimed and must be independently checked; not proof of test execution",
+  "tasks": [
+    {
+      "id": "T001",
+      "stage": "foundation",
+      "priority": "P0",
+      "title": "Next.js strict TS 프로젝트 및 npm 실행계약 생성",
+      "dependencies": [],
+      "acceptance": [
+        "Next.js 앱 설치",
+        "scripts lint/typecheck/test/build/test:e2e 제공",
+        "로컬 홈 화면 실행"
+      ],
+      "owner": "both",
+      "status": "done",
+      "evidence": "Next 16.4.6; lint/typecheck/build passed; actual DB Playwright desktop/mobile 4 passed (40.0s), 2026-11-19.",
+      "blocker": null
+    },
+    {
+      "id": "T002",
+      "stage": "foundation",
+      "priority": "P0",
+      "title": "AD Me 디자인 토큰 헤더 로고 반응형",
+      "dependencies": [
+        "T001"
+      ],
+      "acceptance": [
+        "제공 로고 그대로 렌더",
+        "390 1440 화면 깨짐 없음",
+        "favicon meta 설정"
+      ],
+      "owner": "A",
+      "status": "done",
+      "evidence": "Original logo+symbol; desktop/mobile screenshot output/playwright/home-*.png; responsive browser E2E 4 passed.",
+      "blocker": null
+    },
+    {
+      "id": "T003",
+      "stage": "foundation",
+      "priority": "P0",
+      "title": "Supabase 타입 스키마 마이그레이션 RLS",
+      "dependencies": [
+        "T001"
+      ],
+      "acceptance": [
+        "schema core migrations",
+        "private tables RLS",
+        "ownership isolation SQL test"
+      ],
+      "owner": "B",
+      "status": "in_progress",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T004",
+      "stage": "foundation",
+      "priority": "P0",
+      "title": "브랜드 크리에이터 인증/역할/설정",
+      "dependencies": [
+        "T003",
+        "T002"
+      ],
+      "acceptance": [
+        "가입 로그인 로그아웃",
+        "역할 우회 차단",
+        "개인정보 프로필 수정"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T005",
+      "stage": "data",
+      "priority": "P0",
+      "title": "Synthetic 48명 8캠페인 DB seed",
+      "dependencies": [
+        "T003"
+      ],
+      "acceptance": [
+        "fixtures 데이터 실제 DB import",
+        "100% DEMO 표식",
+        "DB 재실행 중복 없음"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T006",
+      "stage": "creators",
+      "priority": "P0",
+      "title": "크리에이터 검색 필터 정렬 즐겨찾기",
+      "dependencies": [
+        "T004",
+        "T005"
+      ],
+      "acceptance": [
+        "서버 DB 검색",
+        "분야 태그 플랫폼 견적 조건",
+        "결과 0건 UI",
+        "저장 지속"
+      ],
+      "owner": "A",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T007",
+      "stage": "creators",
+      "priority": "P0",
+      "title": "상세 프로필 포트폴리오 광고 이력 출처",
+      "dependencies": [
+        "T006"
+      ],
+      "acceptance": [
+        "프로필/샘플 포트폴리오/확인 상태/원본링크 표시",
+        "추정 광고 사실화 금지"
+      ],
+      "owner": "A",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T008",
+      "stage": "creators",
+      "priority": "P0",
+      "title": "크리에이터 자기 프로필 CRUD",
+      "dependencies": [
+        "T004",
+        "T005"
+      ],
+      "acceptance": [
+        "본인 수정/공개 비공개",
+        "다른 사람 수정 거부",
+        "데이터 검증"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T009",
+      "stage": "safety",
+      "priority": "P0",
+      "title": "브랜드 안전성 이슈 조회 및 수정 신고",
+      "dependencies": [
+        "T007",
+        "T003"
+      ],
+      "acceptance": [
+        "출처 필드/검토상태/당사자 입장/신고",
+        "가상정보 라벨",
+        "없는 출처 공개 금지"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T010",
+      "stage": "campaigns",
+      "priority": "P0",
+      "title": "브랜드 캠페인 CRUD 폼 유효성",
+      "dependencies": [
+        "T004",
+        "T005"
+      ],
+      "acceptance": [
+        "제품 목표 타깃 예산 분위기 형식 저장",
+        "본인 접근만"
+      ],
+      "owner": "A",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T011",
+      "stage": "matching",
+      "priority": "P0",
+      "title": "추천 점수 엔진과 단위 테스트",
+      "dependencies": [
+        "T010",
+        "T008"
+      ],
+      "acceptance": [
+        "초기 28/25/20/15/12",
+        "결측 재정규화",
+        "선별 로직",
+        "deterministic tests"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T012",
+      "stage": "matching",
+      "priority": "P0",
+      "title": "추천 결과 근거 시각화 랭킹",
+      "dependencies": [
+        "T011",
+        "T007"
+      ],
+      "acceptance": [
+        "실 DB 캠페인으로 결과",
+        "factor 증거 표시",
+        "정보 없는 경우 confidence 낮춤"
+      ],
+      "owner": "A",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T013",
+      "stage": "matching",
+      "priority": "P0",
+      "title": "Shortlist 및 2~3명 비교",
+      "dependencies": [
+        "T012"
+      ],
+      "acceptance": [
+        "브랜드별 저장 영구화",
+        "비교 화면",
+        "다른 회사 데이터 접근 차단"
+      ],
+      "owner": "A",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T014",
+      "stage": "campaigns",
+      "priority": "P0",
+      "title": "크리에이터 공개 캠페인 지원/선정",
+      "dependencies": [
+        "T010",
+        "T008"
+      ],
+      "acceptance": [
+        "공개 모집 리스트",
+        "지원",
+        "브랜드 승인/거절 상태 동기화"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T015",
+      "stage": "proposals",
+      "priority": "P0",
+      "title": "양면 협업 제안 및 상태 머신",
+      "dependencies": [
+        "T013",
+        "T008"
+      ],
+      "acceptance": [
+        "브랜드 제안",
+        "수락/거절",
+        "상대 계정 반영",
+        "타인 제안 변경 금지"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T016",
+      "stage": "proposals",
+      "priority": "P0",
+      "title": "메시지 결과물 알림 대시보드",
+      "dependencies": [
+        "T015"
+      ],
+      "acceptance": [
+        "메시지 저장",
+        "결과물 링크",
+        "두 역할 상태 조회",
+        "읽음 처리"
+      ],
+      "owner": "A",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T017",
+      "stage": "billing",
+      "priority": "P0",
+      "title": "가격 상품 서버 정의 주문 모델",
+      "dependencies": [
+        "T004",
+        "T003"
+      ],
+      "acceptance": [
+        "Free/Pro/Agency/HOT/credits",
+        "DB 금액",
+        "orderId 유일",
+        "역할별 검증"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T018",
+      "stage": "billing",
+      "priority": "P0",
+      "title": "Toss SDK v2 테스트 결제 UI",
+      "dependencies": [
+        "T017",
+        "T002"
+      ],
+      "acceptance": [
+        "test key로 위젯/성공/실패 화면",
+        "키 없으면 연결 불가 표시",
+        "live key 거부"
+      ],
+      "owner": "A",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T019",
+      "stage": "billing",
+      "priority": "P0",
+      "title": "Toss 서버 승인 중복 방지 이용권",
+      "dependencies": [
+        "T018"
+      ],
+      "acceptance": [
+        "서버 order amount owner 검증",
+        "confirm 호출",
+        "재호출 무중복",
+        "failure no entitlement"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T020",
+      "stage": "billing",
+      "priority": "P0",
+      "title": "요금제 권한 HOT 분리 과금내역",
+      "dependencies": [
+        "T019",
+        "T013"
+      ],
+      "acceptance": [
+        "paid order에 따른 pass/credits/hot",
+        "광고표시",
+        "유기적 랭킹 영향 없음"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T021",
+      "stage": "admin",
+      "priority": "P0",
+      "title": "관리자 신고 및 데이터 검토 대시보드",
+      "dependencies": [
+        "T009",
+        "T004"
+      ],
+      "acceptance": [
+        "admin만 신고 처리",
+        "크리에이터 정보 비공개/정정",
+        "감사로그"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T022",
+      "stage": "quality",
+      "priority": "P0",
+      "title": "에러 상태 모바일 접근성 전체 마감",
+      "dependencies": [
+        "T007",
+        "T010",
+        "T012",
+        "T016",
+        "T020",
+        "T021"
+      ],
+      "acceptance": [
+        "로고 일관성",
+        "390 768 1440 뷰",
+        "loading/empty/error",
+        "keyboard a11y"
+      ],
+      "owner": "A",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T023",
+      "stage": "quality",
+      "priority": "P0",
+      "title": "인증 RLS 결제 악용 시나리오 회귀 테스트",
+      "dependencies": [
+        "T020",
+        "T021"
+      ],
+      "acceptance": [
+        "타인 접근 실패",
+        "금액변조 실패",
+        "중복 승인 무중복",
+        "unknown metrics 표시"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T024",
+      "stage": "quality",
+      "priority": "P0",
+      "title": "Playwright 골든패스 로컬 시연",
+      "dependencies": [
+        "T022",
+        "T023",
+        "T014"
+      ],
+      "acceptance": [
+        "브랜드 생성/추천/제안/크리에이터 수락",
+        "모집/지원",
+        "결제 검증 증거"
+      ],
+      "owner": "both",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T025",
+      "stage": "quality",
+      "priority": "P0",
+      "title": "빌드 최종 검수 및 수동 배포 가이드",
+      "dependencies": [
+        "T024"
+      ],
+      "acceptance": [
+        "lint/typecheck/unit/build/e2e",
+        "README 최신화",
+        "user deploy only",
+        "unresolved risks 명시"
+      ],
+      "owner": "both",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T026",
+      "stage": "discover",
+      "priority": "P1",
+      "title": "자연어 AI 검색과 brief 구조화",
+      "dependencies": [
+        "T012"
+      ],
+      "acceptance": [
+        "LLM on/off 폴백",
+        "Zod response",
+        "rate cap",
+        "no fabricated fields"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T027",
+      "stage": "ai",
+      "priority": "P1",
+      "title": "AI 광고 콘셉트/제안 초안 생성",
+      "dependencies": [
+        "T026",
+        "T015"
+      ],
+      "acceptance": [
+        "선정 크리에이터와 제품 기반 기획",
+        "초안 마킹",
+        "생성 횟수 제한"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T028",
+      "stage": "exports",
+      "priority": "P1",
+      "title": "CSV 크리에이터 리스트 가져오기 내보내기",
+      "dependencies": [
+        "T013"
+      ],
+      "acceptance": [
+        "타입검증",
+        "권한 검사",
+        "CSV injection sanitize"
+      ],
+      "owner": "A",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T029",
+      "stage": "campaigns",
+      "priority": "P1",
+      "title": "크리에이터 결과물 검토 승인/수정요청",
+      "dependencies": [
+        "T016"
+      ],
+      "acceptance": [
+        "review status, creator submission and brand approval E2E"
+      ],
+      "owner": "A",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T030",
+      "stage": "billing",
+      "priority": "P1",
+      "title": "Toss 테스트 결제 취소/환불",
+      "dependencies": [
+        "T019"
+      ],
+      "acceptance": [
+        "테스트 취소 endpoint",
+        "권한 재산정",
+        "로그 기록"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T031",
+      "stage": "billing",
+      "priority": "P1",
+      "title": "HOT 기간 노출 및 유료 라벨",
+      "dependencies": [
+        "T020"
+      ],
+      "acceptance": [
+        "기간 유효한 프로필만 광고 슬롯",
+        "match score independence test"
+      ],
+      "owner": "A",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T032",
+      "stage": "analytics",
+      "priority": "P1",
+      "title": "성과 리포트와 정직한 데이터 출처",
+      "dependencies": [
+        "T024"
+      ],
+      "acceptance": [
+        "확인된 또는 demo 데이터만 차트",
+        "CSV",
+        "측정 불가 항목 별도"
+      ],
+      "owner": "A",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T033",
+      "stage": "team",
+      "priority": "P1",
+      "title": "브랜드 워크스페이스 팀 권한",
+      "dependencies": [
+        "T025"
+      ],
+      "acceptance": [
+        "정확한 소유권/역할, member invite and audit"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T034",
+      "stage": "integrations",
+      "priority": "P2",
+      "title": "공식 YouTube API 연결",
+      "dependencies": [
+        "T025"
+      ],
+      "acceptance": [
+        "API quota/cache/field policy",
+        "optional absent fallback"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T035",
+      "stage": "integrations",
+      "priority": "P2",
+      "title": "권한 받은 Meta/TikTok 계정 연동",
+      "dependencies": [
+        "T025"
+      ],
+      "acceptance": [
+        "OAuth approved scopes",
+        "denied users graceful",
+        "no bypass scraping"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T036",
+      "stage": "ai",
+      "priority": "P2",
+      "title": "권한 있는 이미지 임베딩 유사도 검색",
+      "dependencies": [
+        "T026"
+      ],
+      "acceptance": [
+        "owner-permitted media only",
+        "benchmark latency",
+        "disable w/o model"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T037",
+      "stage": "billing",
+      "priority": "P2",
+      "title": "Toss 별도 Billing Key 자동갱신",
+      "dependencies": [
+        "T025"
+      ],
+      "acceptance": [
+        "별도 billing auth/API flow",
+        "real contract before live",
+        "recurring state machine"
+      ],
+      "owner": "B",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T038",
+      "stage": "marketplace",
+      "priority": "P2",
+      "title": "실제 계약 전자서명 정산 및 실적",
+      "dependencies": [
+        "T025"
+      ],
+      "acceptance": [
+        "legal/commercial readiness first",
+        "no demo real payout"
+      ],
+      "owner": "both",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T039",
+      "stage": "deployment",
+      "priority": "P0",
+      "title": "GitHub + Supabase + Vercel 실제 TEST 배포",
+      "dependencies": [
+        "T025"
+      ],
+      "acceptance": [
+        "깃허브에 비밀키 유출 없이 소스 저장소 push",
+        "Supabase 실제 프로젝트 migrations / RLS 설정",
+        "Vercel 배포 성공, 실제 URL 확인"
+      ],
+      "owner": "both",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    },
+    {
+      "id": "T040",
+      "stage": "deployment",
+      "priority": "P0",
+      "title": "배포 사이트 기능 및 보안/결제 TEST 스모크 테스트",
+      "dependencies": [
+        "T039"
+      ],
+      "acceptance": [
+        "공개 URL에서 홈 로그인 검색 매칭 제안 흐름 스모크 통과",
+        "브랜드/크리에이터 권한 및 데이터 persistence 확인",
+        "Toss TEST 경로는 검증 또는 차단 근거 기록",
+        "운영 및 롤백 절차 문서화"
+      ],
+      "owner": "both",
+      "status": "pending",
+      "evidence": null,
+      "blocker": null
+    }
+  ]
+}

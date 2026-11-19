@@ -1,0 +1,46 @@
+[
+  {
+    "seed_id": "issue-001",
+    "creator_seed_id": "creator-001",
+    "title": "출처 없는 게시글을 표시하지 않는 QA 사례",
+    "review_status": "demo_only",
+    "subject_response_url": null,
+    "source_url": null,
+    "is_demo": true,
+    "public_visible": false,
+    "notice": "가상 QA 상황. 실제 인물·실제 기사와 무관하며, 검증된 출처 없이 실서비스 공개 금지"
+  },
+  {
+    "seed_id": "issue-002",
+    "creator_seed_id": "creator-002",
+    "title": "광고 구분 검토 QA 사례",
+    "review_status": "demo_only",
+    "subject_response_url": null,
+    "source_url": null,
+    "is_demo": true,
+    "public_visible": false,
+    "notice": "가상 QA 상황. 실제 인물·실제 기사와 무관하며, 검증된 출처 없이 실서비스 공개 금지"
+  },
+  {
+    "seed_id": "issue-003",
+    "creator_seed_id": "creator-003",
+    "title": "당사자 정정 요청 처리 QA 사례",
+    "review_status": "demo_only",
+    "subject_response_url": null,
+    "source_url": null,
+    "is_demo": true,
+    "public_visible": false,
+    "notice": "가상 QA 상황. 실제 인물·실제 기사와 무관하며, 검증된 출처 없이 실서비스 공개 금지"
+  },
+  {
+    "seed_id": "issue-004",
+    "creator_seed_id": "creator-004",
+    "title": "확인된 소식과 추정 정보 구별 QA 사례",
+    "review_status": "demo_only",
+    "subject_response_url": null,
+    "source_url": null,
+    "is_demo": true,
+    "public_visible": false,
+    "notice": "가상 QA 상황. 실제 인물·실제 기사와 무관하며, 검증된 출처 없이 실서비스 공개 금지"
+  }
+]

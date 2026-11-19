@@ -1,0 +1,138 @@
+[
+  {
+    "seed_id": "campaign-001",
+    "title": "맑은 비건 토너 출시",
+    "product": "맑은",
+    "category": "뷰티",
+    "vibes": [
+      "청아함",
+      "자연스러움"
+    ],
+    "format": "숏폼",
+    "budget_krw": 2500000,
+    "target_audience": "20대~30대 관심 고객 (가상)",
+    "goal": "브랜드 인지도",
+    "status": "published",
+    "is_demo": true,
+    "brand_name": "가상브랜드 A"
+  },
+  {
+    "seed_id": "campaign-002",
+    "title": "여름 러닝화 리뷰",
+    "product": "여름",
+    "category": "피트니스",
+    "vibes": [
+      "건강미",
+      "청량함"
+    ],
+    "format": "제품 리뷰",
+    "budget_krw": 1800000,
+    "target_audience": "20대~30대 관심 고객 (가상)",
+    "goal": "구매 전환",
+    "status": "draft",
+    "is_demo": true,
+    "brand_name": "가상브랜드 B"
+  },
+  {
+    "seed_id": "campaign-003",
+    "title": "무선 이어폰 신제품",
+    "product": "무선",
+    "category": "테크",
+    "vibes": [
+      "전문적",
+      "미니멀"
+    ],
+    "format": "언박싱",
+    "budget_krw": 2200000,
+    "target_audience": "20대~30대 관심 고객 (가상)",
+    "goal": "콘텐츠 확보",
+    "status": "published",
+    "is_demo": true,
+    "brand_name": "가상브랜드 C"
+  },
+  {
+    "seed_id": "campaign-004",
+    "title": "친환경 데일리룩",
+    "product": "친환경",
+    "category": "패션",
+    "vibes": [
+      "고급스러움",
+      "자연스러움"
+    ],
+    "format": "숏폼",
+    "budget_krw": 3500000,
+    "target_audience": "20대~30대 관심 고객 (가상)",
+    "goal": "브랜드 인지도",
+    "status": "draft",
+    "is_demo": true,
+    "brand_name": "가상브랜드 D"
+  },
+  {
+    "seed_id": "campaign-005",
+    "title": "간편 밀키트 홍보",
+    "product": "간편",
+    "category": "푸드",
+    "vibes": [
+      "친근함",
+      "발랄함"
+    ],
+    "format": "브이로그",
+    "budget_krw": 1200000,
+    "target_audience": "20대~30대 관심 고객 (가상)",
+    "goal": "구매 전환",
+    "status": "published",
+    "is_demo": true,
+    "brand_name": "가상브랜드 E"
+  },
+  {
+    "seed_id": "campaign-006",
+    "title": "도시 여행 캠페인",
+    "product": "도시",
+    "category": "여행",
+    "vibes": [
+      "도회적",
+      "청량함"
+    ],
+    "format": "브이로그",
+    "budget_krw": 1500000,
+    "target_audience": "20대~30대 관심 고객 (가상)",
+    "goal": "콘텐츠 확보",
+    "status": "draft",
+    "is_demo": true,
+    "brand_name": "가상브랜드 F"
+  },
+  {
+    "seed_id": "campaign-007",
+    "title": "게임 런칭 이벤트",
+    "product": "게임",
+    "category": "게임",
+    "vibes": [
+      "힙함",
+      "유머러스"
+    ],
+    "format": "라이브 방송",
+    "budget_krw": 3000000,
+    "target_audience": "20대~30대 관심 고객 (가상)",
+    "goal": "브랜드 인지도",
+    "status": "published",
+    "is_demo": true,
+    "brand_name": "가상브랜드 G"
+  },
+  {
+    "seed_id": "campaign-008",
+    "title": "온라인 학습 앱",
+    "product": "온라인",
+    "category": "교육",
+    "vibes": [
+      "전문적",
+      "친근함"
+    ],
+    "format": "튜토리얼",
+    "budget_krw": 1000000,
+    "target_audience": "20대~30대 관심 고객 (가상)",
+    "goal": "구매 전환",
+    "status": "draft",
+    "is_demo": true,
+    "brand_name": "가상브랜드 H"
+  }
+]

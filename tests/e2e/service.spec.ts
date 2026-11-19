@@ -1,0 +1,221 @@
+import { test, expect, type Page } from "@playwright/test";
+import { readFileSync } from "node:fs";
+import { randomUUID } from "node:crypto";
+const accounts = JSON.parse(
+  readFileSync(".accounts.local.json", "utf8"),
+) as Record<string, { email: string; password: string; id: string }>;
+async function login(page: Page, role: string) {
+  await page.goto("/login");
+  await page.getByLabel("이메일", { exact: true }).fill(accounts[role].email);
+  await page
+    .getByLabel("비밀번호", { exact: true })
+    .fill(accounts[role].password);
+  await page.getByRole("button", { name: "로그인", exact: true }).click();
+  await expect(page).toHaveURL(/dashboard/);
+}
+test("public discovery, filters, comparison, history, drafts and responsive layout", async ({
+  page,
+}, info) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    "우리 브랜드다운",
+  );
+  await expect(page.locator('header img[alt="AD Me"]')).toBeVisible();
+  await page.screenshot({
+    path: `output/playwright/home-${info.project.name}.png`,
+    fullPage: true,
+  });
+  await page.goto("/creators");
+  expect(await page.getByTestId("creator-card").count()).toBeGreaterThanOrEqual(
+    48,
+  );
+  await page.getByLabel("크리에이터 검색").fill("서하린");
+  await expect(page.getByTestId("creator-card")).toHaveCount(1);
+  await page.getByLabel("크리에이터 검색").fill("결과없는이름");
+  await expect(
+    page.getByText("조건에 맞는 크리에이터가 없습니다."),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "필터 초기화" }).click();
+  await page.getByLabel("플랫폼", { exact: true }).selectOption("youtube");
+  await page.getByLabel("정렬", { exact: true }).selectOption("price");
+  await page.getByLabel("후보 비교에 담기").nth(0).check();
+  await page.getByLabel("후보 비교에 담기").nth(1).check();
+  await page.getByRole("link", { name: "후보 비교하기" }).click();
+  await expect(page.getByRole("table")).toBeVisible();
+  await page.goto("/creators/creator-001");
+  await expect(
+    page.getByRole("heading", { name: "과거 광고 이력" }),
+  ).toBeVisible();
+  await expect(
+    page.getByText(
+      "실제 광고 계약 또는 협찬 정보를 의미하지 않는 가상 테스트 기록",
+    ),
+  ).toBeVisible();
+  await page.goto("/tools");
+  await page.getByLabel("상품·서비스").fill("비건 토너");
+  await page.getByLabel("타깃 고객").fill("20대");
+  await page.getByLabel("원하는 분위기").fill("자연스러움");
+  await page.getByRole("button", { name: "초안 만들기" }).click();
+  await expect(
+    page.getByText("[규칙 기반 광고 콘셉트 초안]", { exact: false }),
+  ).toBeVisible();
+  await page.goto("/pricing");
+  await expect(
+    page.getByRole("heading", { name: "Brand Pro", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "TEST 이용권 선택" }).first().click();
+  await expect(page.locator("p[role=alert]")).toContainText(
+    "TEST 클라이언트 키",
+  );
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth,
+    ),
+  ).toBe(true);
+  await page.screenshot({
+    path: `output/playwright/pricing-${info.project.name}.png`,
+    fullPage: true,
+  });
+});
+test("two-role real DB golden path, permissions, persistence, delivery, billing validation", async ({
+  page,
+  browser,
+}, info) => {
+  const unique = randomUUID().slice(0, 8);
+  const name = `검증크리에이터 ${unique}`;
+  const creator = await browser.newContext();
+  const cp = await creator.newPage();
+  await login(cp, "creator");
+  await cp.goto("/settings");
+  await cp.getByLabel("크리에이터 이름", { exact: true }).fill(name);
+  await cp
+    .getByLabel("소개", { exact: true })
+    .fill("자연스러운 뷰티 콘텐츠를 만드는 QA 프로필");
+  await cp.getByLabel("프로필 공개", { exact: true }).check();
+  await cp.getByRole("button", { name: "프로필 저장", exact: true }).click();
+  await expect(cp.getByRole("status")).toContainText("저장했습니다");
+  await cp.reload();
+  await expect(cp.getByLabel("크리에이터 이름", { exact: true })).toHaveValue(
+    name,
+  );
+  await login(page, "brand");
+  await page.goto("/campaigns/new");
+  await page
+    .getByLabel("캠페인 이름", { exact: true })
+    .fill(`QA 비건 토너 ${unique}`);
+  await page.getByLabel("상품·서비스", { exact: true }).fill("비건 토너");
+  await page.getByLabel("콘텐츠 분야", { exact: true }).selectOption("뷰티");
+  await page.getByLabel("타깃 고객", { exact: true }).fill("20대~30대");
+  await page.getByLabel("광고 목적", { exact: true }).fill("브랜드 인지도");
+  await page.getByRole("button", { name: "캠페인 저장" }).click();
+  await expect(page).toHaveURL(/campaigns\/[a-f0-9-]{36}/);
+  const campaignId = page.url().split("/").pop()!;
+  await expect(
+    page.getByRole("heading", { name: "브랜드에 어울리는 발견." }),
+  ).toBeVisible();
+  await page.getByRole("link", { name: "상위 후보 3명 비교" }).click();
+  await expect(page.getByRole("table")).toBeVisible();
+  await page.goBack();
+  await page
+    .getByLabel("협업을 제안할 크리에이터")
+    .selectOption({ label: name });
+  await page
+    .getByLabel("협업 제안 메시지")
+    .fill("QA 검증용 비건 토너 협업을 제안합니다. 일정을 확인해주세요.");
+  await page.getByRole("button", { name: "협업 제안 전송" }).click();
+  await expect(page.getByRole("status")).toContainText("전송되었습니다");
+  await cp.goto("/dashboard");
+  const deal = cp
+    .locator("article")
+    .filter({ hasText: "QA 검증용 비건 토너 협업을 제안합니다." })
+    .first();
+  await deal.getByRole("button", { name: "수락", exact: true }).click();
+  await expect(deal.getByText("협업 진행", { exact: true })).toBeVisible();
+  await page.goto("/dashboard");
+  await expect(
+    page.getByText("협업 진행", { exact: true }).first(),
+  ).toBeVisible();
+  await page.reload();
+  await expect(
+    page.getByText("협업 진행", { exact: true }).first(),
+  ).toBeVisible();
+  await page.screenshot({
+    path: `output/playwright/dashboard-${info.project.name}.png`,
+    fullPage: true,
+  });
+  const anonymous = await browser.newContext();
+  const ap = await anonymous.newPage();
+  const denied = await ap.request.patch("/api/proposals", {
+    data: { id: randomUUID(), action: "accepted" },
+  });
+  expect(denied.status()).toBe(401);
+  await ap.goto(`/campaigns/${campaignId}`);
+  await expect(
+    ap.getByRole("heading", { name: "찾으시는 페이지가 없습니다." }),
+  ).toBeVisible();
+  await anonymous.close();
+  const other = await browser.newContext();
+  const op = await other.newPage();
+  await login(op, "other");
+  const forbidden = await op.request.patch("/api/campaigns", {
+    data: {
+      id: campaignId,
+      brief: {
+        title: "타인 수정",
+        product: "토너",
+        category: "뷰티",
+        vibes: ["청아함"],
+        format: "숏폼",
+        platforms: ["instagram"],
+        budget_krw: 100000,
+        target_audience: "20대",
+        goal: "인지도",
+        status: "draft",
+      },
+    },
+  });
+  expect(forbidden.status()).toBe(403);
+  await op.goto("/admin");
+  await expect(
+    op.getByRole("heading", { name: "관리자 권한이 필요합니다." }),
+  ).toBeVisible();
+  await other.close();
+  const order = await page.request.post("/api/billing/orders", {
+    data: { sku: "brand_pro", amount: 1 },
+  });
+  expect(order.status()).toBe(200);
+  const o = await order.json();
+  expect(o.amount).toBe(49000);
+  const bad = await page.request.post("/api/billing/confirm", {
+    data: { orderId: o.id, paymentKey: "fake", amount: 1 },
+  });
+  expect(bad.status()).toBe(409);
+  const fake = await page.request.post("/api/billing/confirm", {
+    data: { orderId: o.id, paymentKey: "fake", amount: 49000 },
+  });
+  expect(fake.status()).toBe(503);
+  const wrongRole = await cp.request.post("/api/billing/orders", {
+    data: { sku: "brand_pro" },
+  });
+  expect(wrongRole.status()).toBe(400);
+  await deal.getByText(/메시지·결과물/).click();
+  await deal
+    .getByLabel("메시지", { exact: true })
+    .fill("QA 결과물 초안입니다.");
+  await deal.getByLabel("종류", { exact: true }).selectOption("deliverable");
+  await deal
+    .getByLabel("결과물 HTTPS 링크")
+    .fill("https://example.com/qa-deliverable");
+  await deal.getByRole("button", { name: "메시지 저장" }).click();
+  await expect(deal.getByRole("status")).toContainText("저장되었습니다");
+  await deal.getByRole("button", { name: "결과물 제출 완료" }).click();
+  await expect(deal.getByText("검토 대기", { exact: true })).toBeVisible();
+  await page.reload();
+  const brandDeal = page
+    .locator("article")
+    .filter({ hasText: "QA 검증용 비건 토너 협업을 제안합니다." })
+    .first();
+  await brandDeal.getByRole("button", { name: "검토 승인" }).click();
+  await expect(brandDeal.getByText("완료", { exact: true })).toBeVisible();
+  await creator.close();
+});
