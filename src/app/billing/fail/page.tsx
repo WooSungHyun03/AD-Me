@@ -1,5 +1,11 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getConfig } from "@/lib/config";
+
+export const dynamic = "force-dynamic";
+
 export default function Fail() {
+  if (getConfig().features.testBilling !== "enabled") notFound();
   return (
     <section className="wrap">
       <h1 className="page-title">결제가 완료되지 않았습니다.</h1>

@@ -404,9 +404,11 @@
     },
     "D065": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D065/README.md"
+      ],
+      "blocker": "D001 격리 인계와 실제 TEST 주문·승인 재검증이 필요."
     },
     "D066": {
       "owner": "DEV-B",

@@ -1,18 +1,19 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
-import { assertTestClient } from "@/lib/billing";
+import { assertTestClient, type TestProduct } from "@/lib/billing";
 import { Button } from "./ui/button";
-export function Checkout({ sku }: { sku: string }) {
+export function Checkout({
+  sku,
+  clientKey,
+  displayedAmount,
+}: {
+  sku: TestProduct["sku"];
+  clientKey: string;
+  displayedAmount: number;
+}) {
   const [error, setError] = useState(""),
     [pending, setPending] = useState(false);
-  if (sku === "brand_free")
-    return (
-      <Link className="button outline" href="/signup">
-        무료로 시작하기
-      </Link>
-    );
   return (
     <>
       <Button
@@ -22,16 +23,18 @@ export function Checkout({ sku }: { sku: string }) {
           setPending(true);
           setError("");
           try {
-            const key = assertTestClient(
-              process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY,
-            );
+            const key = assertTestClient(clientKey);
             const res = await fetch("/api/billing/orders", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ sku }),
+              body: JSON.stringify({ sku, expectedAmount: displayedAmount }),
             });
             const o = await res.json();
             if (!res.ok) throw new Error(o.error?.message || "주문 생성 실패");
+            if (o.amount !== displayedAmount)
+              throw new Error(
+                "상품 금액이 변경되었습니다. 요금제를 새로고침해주세요.",
+              );
             const toss = await loadTossPayments(key);
             await toss.payment({ customerKey: o.owner_id }).requestPayment({
               method: "CARD",
