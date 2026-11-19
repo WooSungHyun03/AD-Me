@@ -28,9 +28,13 @@
     },
     "D004": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "LOCAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/D004/README.md",
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json"
+      ],
+      "blocker": "오류·민감값 비노출·DB/관리자/브랜드 로컬 회귀 통과. DEV-B API 교차 리뷰 및 실제 배포 URL 재검증 필요.",
+      "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
     },
     "D005": {
       "owner": "DEV-B",

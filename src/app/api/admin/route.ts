@@ -1,19 +1,26 @@
 import { NextResponse } from "next/server";
-import { context, fail, safeOrigin } from "@/lib/api";
+import {
+  apiRoute,
+  fail,
+  failDatabase,
+  parseBody,
+  requireContext,
+} from "@/lib/api";
 import { z } from "zod";
-export async function POST(req: Request) {
-  if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
-  const c = await context();
-  if (!c) return fail("로그인이 필요합니다.", 401);
+export const POST = apiRoute("admin.post", async (req) => {
+  const c = await requireContext();
   if (c.role !== "admin") return fail("관리자 권한이 필요합니다.", 403);
-  const p = z
-    .object({ id: z.uuid(), status: z.enum(["reviewed", "dismissed"]) })
-    .safeParse(await req.json().catch(() => null));
-  if (!p.success) return fail("잘못된 요청입니다.");
+  const p = await parseBody(
+    req,
+    z.object({ id: z.uuid(), status: z.enum(["reviewed", "dismissed"]) }),
+    "잘못된 요청입니다.",
+  );
   const { error } = await c.db.rpc("review_report", {
-    p_id: p.data.id,
-    p_status: p.data.status,
+    p_id: p.id,
+    p_status: p.status,
   });
-  if (error) return fail("검토 처리에 실패했습니다.");
+  if (error?.code === "P0001" && error.message === "forbidden")
+    fail("관리자 권한이 필요합니다.", 403);
+  if (error) failDatabase(error, "검토 처리에 실패했습니다.");
   return NextResponse.json({ ok: true });
-}
+});

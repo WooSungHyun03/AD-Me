@@ -1,30 +1,37 @@
 import { NextResponse } from "next/server";
-import { context, fail, safeOrigin } from "@/lib/api";
+import { z } from "zod";
+import {
+  apiRoute,
+  fail,
+  failDatabase,
+  parseBody,
+  requireContext,
+} from "@/lib/api";
 import { proposalSchema, canTransition } from "@/lib/schemas";
-export async function POST(req: Request) {
-  if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
-  const c = await context();
-  if (!c) return fail("로그인이 필요합니다.", 401);
-  const p = proposalSchema.safeParse(await req.json().catch(() => null));
-  if (!p.success) return fail("제안 항목을 확인해주세요.");
-  const d = p.data;
+export const POST = apiRoute("proposals.post", async (req) => {
+  const c = await requireContext();
+  const d = await parseBody(req, proposalSchema, "제안 항목을 확인해주세요.");
   if (
     (d.kind === "proposal" && c.role !== "brand") ||
     (d.kind === "application" && c.role !== "creator")
   )
     return fail("역할에 맞는 요청만 가능합니다.", 403);
-  const { data: campaign } = await c.db
+  const { data: campaign, error: campaignError } = await c.db
     .from("campaigns")
     .select("id,owner_id,status")
     .eq("id", d.campaignId)
-    .single();
-  const { data: creator } = await c.db
+    .maybeSingle();
+  if (campaignError)
+    failDatabase(campaignError, "캠페인을 불러오지 못했습니다.");
+  const { data: creator, error: creatorError } = await c.db
     .from("creators")
     .select("id,owner_id,published")
     .eq("id", d.creatorId)
-    .single();
+    .maybeSingle();
+  if (creatorError)
+    failDatabase(creatorError, "크리에이터를 불러오지 못했습니다.");
   if (!campaign || !creator?.owner_id || !creator.published)
-    return fail("협업 가능한 실제 크리에이터 계정이 필요합니다.");
+    return fail("협업 가능한 캠페인과 실제 크리에이터 계정이 필요합니다.", 422);
   if (d.kind === "proposal" && campaign.owner_id !== c.user.id)
     return fail("본인 캠페인만 제안할 수 있습니다.", 403);
   if (
@@ -44,21 +51,32 @@ export async function POST(req: Request) {
     })
     .select("id")
     .single();
-  if (error) return fail("이미 지원·제안했거나 저장하지 못했습니다.");
+  if (error?.code === "23505") fail("이미 지원하거나 제안했습니다.", 409);
+  if (error) failDatabase(error, "지원·제안을 저장하지 못했습니다.");
   return NextResponse.json(data, { status: 201 });
-}
-export async function PATCH(req: Request) {
-  if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
-  const c = await context();
-  if (!c) return fail("로그인이 필요합니다.", 401);
-  const b = await req.json().catch(() => null);
-  if (!b || typeof b.id !== "string" || typeof b.action !== "string")
-    return fail("잘못된 요청입니다.");
-  const { data: p } = await c.db
+});
+export const PATCH = apiRoute("proposals.patch", async (req) => {
+  const c = await requireContext();
+  const b = await parseBody(
+    req,
+    z.object({
+      id: z.uuid(),
+      action: z.enum([
+        "accepted",
+        "rejected",
+        "submitted",
+        "completed",
+        "revision_requested",
+      ]),
+    }),
+    "잘못된 요청입니다.",
+  );
+  const { data: p, error: readError } = await c.db
     .from("proposals")
     .select("*")
     .eq("id", b.id)
-    .single();
+    .maybeSingle();
+  if (readError) failDatabase(readError, "협업 정보를 불러오지 못했습니다.");
   if (!p || ![p.brand_id, p.creator_user_id].includes(c.user.id))
     return fail("접근할 수 없습니다.", 403);
   const role = p.brand_id === c.user.id ? "brand" : "creator";
@@ -68,10 +86,10 @@ export async function PATCH(req: Request) {
     p_id: p.id,
     p_action: b.action,
   });
-  if (error)
-    return fail(
-      "상태 변경이 충돌했습니다. 새로고침 후 다시 시도해주세요.",
-      409,
-    );
+  if (error?.code === "P0001" && error.message === "forbidden")
+    fail("접근할 수 없습니다.", 403);
+  if (error?.code === "P0001" && error.message === "invalid transition")
+    fail("상태 변경이 충돌했습니다. 새로고침 후 다시 시도해주세요.", 409);
+  if (error) failDatabase(error, "협업 상태를 변경하지 못했습니다.");
   return NextResponse.json({ ok: true, data });
-}
+});

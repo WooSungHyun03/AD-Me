@@ -1,18 +1,20 @@
 import { NextResponse } from "next/server";
-import { context, fail, safeOrigin } from "@/lib/api";
-export async function POST(req: Request) {
-  if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
-  const c = await context();
-  if (!c) return fail("로그인이 필요합니다.", 401);
-  const b = await req.json().catch(() => null);
-  if (typeof b?.creatorId !== "string" || b.creatorId.length > 100)
-    return fail("잘못된 요청입니다.");
-  const { data } = await c.db
+import { z } from "zod";
+import { apiRoute, failDatabase, parseBody, requireContext } from "@/lib/api";
+export const POST = apiRoute("saved.post", async (req) => {
+  const c = await requireContext();
+  const b = await parseBody(
+    req,
+    z.object({ creatorId: z.string().min(1).max(100) }),
+    "잘못된 요청입니다.",
+  );
+  const { data, error } = await c.db
     .from("saved_creators")
     .select("creator_id")
     .eq("owner_id", c.user.id)
     .eq("creator_id", b.creatorId)
     .maybeSingle();
+  if (error) failDatabase(error, "저장 상태를 불러오지 못했습니다.");
   const result = data
     ? await c.db
         .from("saved_creators")
@@ -22,6 +24,6 @@ export async function POST(req: Request) {
     : await c.db
         .from("saved_creators")
         .insert({ owner_id: c.user.id, creator_id: b.creatorId });
-  if (result.error) return fail("저장하지 못했습니다.");
+  if (result.error) failDatabase(result.error, "저장하지 못했습니다.");
   return NextResponse.json({ saved: !data });
-}
+});

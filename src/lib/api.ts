@@ -1,31 +1,169 @@
-import { NextResponse } from "next/server";
+import "server-only";
+import { randomUUID } from "node:crypto";
+import type { z } from "zod";
 import { configured, supabase } from "./supabase";
-export async function context() {
-  if (!configured()) return null;
+import { getConfig } from "./config";
+
+const codes = {
+  400: "BAD_REQUEST",
+  401: "UNAUTHENTICATED",
+  403: "FORBIDDEN",
+  404: "NOT_FOUND",
+  409: "CONFLICT",
+  422: "INVALID_INPUT",
+  429: "RATE_LIMITED",
+  500: "INTERNAL_ERROR",
+  503: "SERVICE_UNAVAILABLE",
+} as const;
+type ErrorStatus = keyof typeof codes;
+
+class ApiFailure extends Error {
+  constructor(
+    message: string,
+    readonly status: ErrorStatus,
+  ) {
+    super(message);
+  }
+}
+
+export function fail(message: string, status: ErrorStatus = 400): never {
+  throw new ApiFailure(message, status);
+}
+
+export function apiRoute(
+  operation: string,
+  handler: (request: Request) => Promise<Response> | Response,
+) {
+  return async (request: Request) => {
+    const requestId = randomUUID();
+    try {
+      if (
+        request.method !== "GET" &&
+        request.method !== "HEAD" &&
+        !safeOrigin(request)
+      )
+        fail("허용되지 않은 요청입니다.", 403);
+      const response = await handler(request);
+      response.headers.set("X-Request-Id", requestId);
+      return response;
+    } catch (error) {
+      const status = error instanceof ApiFailure ? error.status : 500;
+      const code = codes[status];
+      const message =
+        error instanceof ApiFailure
+          ? error.message
+          : "요청을 처리하지 못했습니다. 잠시 후 다시 시도해주세요.";
+      if (status >= 500)
+        console.error("api_error", { operation, code, requestId });
+      return Response.json(
+        { error: { message, code, requestId } },
+        {
+          status,
+          headers: { "Cache-Control": "no-store", "X-Request-Id": requestId },
+        },
+      );
+    }
+  };
+}
+
+export async function parseBody<Schema extends z.ZodType>(
+  request: Request,
+  schema: Schema,
+  message: string,
+): Promise<z.output<Schema>> {
+  const input: unknown = await request.json().catch(() => fail(message));
+  return parseInput(schema, input, message);
+}
+
+export function parseInput<Schema extends z.ZodType>(
+  schema: Schema,
+  input: unknown,
+  message: string,
+): z.output<Schema> {
+  const result = schema.safeParse(input);
+  if (!result.success) fail(message, 422);
+  return result.data;
+}
+
+export function failDatabase(error: { code: string }, message: string): never {
+  switch (error.code) {
+    case "42501":
+      return fail(message, 403);
+    case "23503":
+    case "23505":
+    case "40001":
+    case "40P01":
+    case "55P03":
+      return fail(message, 409);
+    case "23514":
+    case "22023":
+      return fail(message, 422);
+    case "P0002":
+      return fail(message, 404);
+    default:
+      return fail(message, 503);
+  }
+}
+
+export async function context(strict = false) {
+  if (!configured()) {
+    if (strict) fail("계정 서비스 연결을 준비 중입니다.", 503);
+    return null;
+  }
   const db = await supabase();
   const {
     data: { user },
+    error: authError,
   } = await db.auth.getUser();
+  if (strict && authError) {
+    if (authError.status === 429) fail("잠시 후 다시 시도해주세요.", 429);
+    const invalidSession =
+      authError.name === "AuthSessionMissingError" ||
+      [400, 401, 403, 404].includes(authError.status ?? 0);
+    if (!invalidSession) fail("인증 서버에 연결할 수 없습니다.", 503);
+    return null;
+  }
   if (!user) return null;
-  const { data: profile } = await db
+  const { data: profile, error } = await db
     .from("profiles")
     .select("role,name")
     .eq("id", user.id)
-    .single();
+    .maybeSingle();
+  if (strict && error) failDatabase(error, "계정 정보를 불러오지 못했습니다.");
+  if (strict && !profile) fail("계정 정보에 접근할 수 없습니다.", 403);
   return {
     db,
     user,
-    role: profile?.role as string,
-    name: profile?.name as string,
+    role: profile?.role as string | undefined,
+    name: profile?.name as string | undefined,
   };
 }
-export const fail = (message: string, status = 400) =>
-  NextResponse.json({ error: { message } }, { status });
-export function safeOrigin(req: Request) {
+
+export async function requireContext() {
+  const result = await context(true);
+  if (!result) fail("로그인이 필요합니다.", 401);
+  return result;
+}
+
+export function requireTestBilling() {
+  const { features } = getConfig();
+  if (features.testBilling === "off")
+    fail("현재 환경에서 TEST 결제를 제공하지 않습니다.", 404);
+  if (features.testBilling !== "enabled")
+    fail("TEST 결제 연결을 준비 중입니다.", 503);
+}
+
+function safeOrigin(req: Request) {
+  if (req.headers.get("sec-fetch-site") === "cross-site") return false;
   const origin = req.headers.get("origin");
-  if (!origin) return req.headers.get("sec-fetch-site") !== "cross-site";
+  if (!origin) return true;
   try {
-    return new URL(origin).host === req.headers.get("host");
+    const url = new URL(origin);
+    return (
+      url.origin === origin &&
+      (url.protocol === "https:" || url.protocol === "http:") &&
+      url.host === req.headers.get("host")
+    );
   } catch {
     return false;
   }

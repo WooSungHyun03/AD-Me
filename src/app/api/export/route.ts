@@ -1,22 +1,21 @@
-import { context, fail } from "@/lib/api";
+import { apiRoute, failDatabase, requireContext } from "@/lib/api";
 import { toCsv } from "@/lib/csv";
-export async function GET() {
-  const c = await context();
-  if (!c) return fail("로그인이 필요합니다.", 401);
+export const GET = apiRoute("export.get", async () => {
+  const c = await requireContext();
   const { data, error } = await c.db
     .from("saved_creators")
-    .select("creator_id,creators(profile)")
+    .select("creator_id")
     .eq("owner_id", c.user.id);
-  if (error) return fail("내보내기에 실패했습니다.", 500);
+  if (error) failDatabase(error, "내보내기에 실패했습니다.");
   const ids = data?.map((x) => x.creator_id) ?? [];
-  const { data: people } = await c.db
-    .from("creators")
-    .select("id,profile")
-    .in("id", ids);
+  const result = ids.length
+    ? await c.db.from("creators").select("id,profile").in("id", ids)
+    : null;
+  if (result?.error) failDatabase(result.error, "내보내기에 실패했습니다.");
   return new Response(
     toCsv([
       ["이름", "분야", "분위기", "최소견적", "출처"],
-      ...(people ?? []).map((c) => [
+      ...(result?.data ?? []).map((c) => [
         c.profile.name,
         c.profile.categories.join(" / "),
         c.profile.vibes.join(" / "),
@@ -32,4 +31,4 @@ export async function GET() {
       },
     },
   );
-}
+});
