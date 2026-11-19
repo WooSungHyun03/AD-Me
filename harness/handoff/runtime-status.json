@@ -129,9 +129,11 @@
     },
     "D018": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D018/README.md"
+      ],
+      "blocker": "D017 공급원 정책과 마이그레이션 번호 합의, 저장·RLS·backfill 미검증."
     },
     "D019": {
       "owner": "DEV-B",
