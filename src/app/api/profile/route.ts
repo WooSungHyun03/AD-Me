@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     metrics_source: "unavailable",
     is_demo: false,
     data_source: "owner_registration",
-    source_url: null,
+    source_url: p.data.social_url || null,
     portrait_asset: null,
     image_placeholder: "initials",
     owner_id: c.user.id,
@@ -35,13 +35,40 @@ export async function DELETE(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
-  const { error } = await c.db
+  if (c.role !== "creator") return fail("크리에이터 계정이 필요합니다.", 403);
+  const redacted = {
+    seed_id: `user-${c.user.id}`,
+    name: "삭제된 크리에이터",
+    handle: "deleted",
+    bio: "",
+    categories: [],
+    vibes: [],
+    formats: [],
+    platforms: [],
+    price_min_krw: 0,
+    price_max_krw: 0,
+    followers: 0,
+    is_available: false,
+    published: false,
+    is_demo: false,
+    metrics_source: "unavailable",
+    data_source: "owner_removed",
+    owner_id: c.user.id,
+    source_url: null,
+    portrait_asset: null,
+    image_placeholder: "initials",
+  };
+  const { data, error } = await c.db
     .from("creators")
-    .delete()
-    .eq("owner_id", c.user.id);
-  if (error)
-    return fail(
-      "진행 중인 협업이 있어 삭제할 수 없습니다. 비공개 설정을 이용해주세요.",
-    );
-  return NextResponse.json({ ok: true });
+    .update({ published: false, profile: redacted })
+    .eq("owner_id", c.user.id)
+    .select("id")
+    .maybeSingle();
+  if (error) return fail("프로필을 삭제하지 못했습니다.", 500);
+  if (!data) return fail("등록된 프로필이 없습니다.", 404);
+  return NextResponse.json({
+    ok: true,
+    message:
+      "공개 프로필은 삭제되었습니다. 협업·결제 기록은 유지되며 프로필을 다시 등록할 수 있습니다.",
+  });
 }

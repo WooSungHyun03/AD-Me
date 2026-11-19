@@ -32,6 +32,20 @@ export async function authAction(_: unknown, form: FormData) {
           email: d.email,
           password: d.password,
         });
+  if (
+    result.error &&
+    d.mode === "signup" &&
+    [
+      "email_address_not_authorized",
+      "email_address_invalid",
+      "over_email_send_rate_limit",
+      "unexpected_failure",
+    ].includes(result.error.code ?? "")
+  )
+    return {
+      error:
+        "인증 메일 발송 서비스 설정이 필요합니다. 현재 시연 계정 로그인만 검증되었습니다. 운영자가 SMTP 연결을 준비 중입니다.",
+    };
   if (result.error)
     return {
       error:

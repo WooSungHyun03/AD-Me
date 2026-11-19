@@ -88,8 +88,32 @@ export default async function Detail({
             <br />
             광고 형식: {c.formats.join(" · ")}
             <br />
-            등록된 실제 포트폴리오와 SNS 원본 링크가 없습니다.
+            {!c.social_url && !c.portfolio_url
+              ? "등록된 포트폴리오와 SNS 원본 링크가 없습니다."
+              : "본인이 등록한 링크이며 플랫폼 소유권은 별도 검증되지 않았습니다."}
           </p>
+          <div className="inline" style={{ marginBottom: 24 }}>
+            {c.social_url && c.social_url.startsWith("https://") && (
+              <a
+                className="button outline small"
+                href={c.social_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                SNS 원본 ↗
+              </a>
+            )}
+            {c.portfolio_url && c.portfolio_url.startsWith("https://") && (
+              <a
+                className="button outline small"
+                href={c.portfolio_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                포트폴리오 ↗
+              </a>
+            )}
+          </div>
           <h3>과거 광고 이력</h3>
           {ads
             .filter((a) => a.creator_seed_id === id)

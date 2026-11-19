@@ -13,14 +13,12 @@ export async function POST(req: Request) {
     })
     .safeParse(await req.json().catch(() => null));
   if (!p.success) return fail("10자 이상의 사유와 HTTPS 출처를 입력해주세요.");
-  const { error } = await c.db
-    .from("reports")
-    .insert({
-      reporter_id: c.user.id,
-      creator_id: p.data.creatorId,
-      reason: p.data.reason,
-      source_url: p.data.sourceUrl,
-    });
+  const { error } = await c.db.from("reports").insert({
+    reporter_id: c.user.id,
+    creator_id: p.data.creatorId,
+    reason: p.data.reason,
+    source_url: p.data.sourceUrl,
+  });
   if (error) return fail("신고를 저장하지 못했습니다.");
   return NextResponse.json({ ok: true });
 }

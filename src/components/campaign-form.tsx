@@ -3,9 +3,27 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { categories, vibes } from "@/lib/catalog";
 import { Button } from "./ui/button";
-export function CampaignForm() {
-  const [tags, setTags] = useState<string[]>(["자연스러움"]),
-    [platforms, setPlatforms] = useState(["instagram"]),
+type CampaignInput = {
+  title: string;
+  product: string;
+  category: string;
+  vibes: string[];
+  platforms: string[];
+  budget_krw: number;
+  target_audience: string;
+  goal: string;
+  format: string;
+  status: string;
+};
+export function CampaignForm({
+  id,
+  initial,
+}: {
+  id?: string;
+  initial?: CampaignInput;
+}) {
+  const [tags, setTags] = useState<string[]>(initial?.vibes ?? ["자연스러움"]),
+    [platforms, setPlatforms] = useState(initial?.platforms ?? ["instagram"]),
     [error, setError] = useState(""),
     [pending, setPending] = useState(false);
   const router = useRouter();
@@ -16,14 +34,26 @@ export function CampaignForm() {
     const d = Object.fromEntries(new FormData(e.currentTarget));
     try {
       const res = await fetch("/api/campaigns", {
-        method: "POST",
+        method: id ? "PATCH" : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...d,
-          vibes: tags,
-          platforms,
-          budget_krw: Number(d.budget_krw),
-        }),
+        body: JSON.stringify(
+          id
+            ? {
+                id,
+                brief: {
+                  ...d,
+                  vibes: tags,
+                  platforms,
+                  budget_krw: Number(d.budget_krw),
+                },
+              }
+            : {
+                ...d,
+                vibes: tags,
+                platforms,
+                budget_krw: Number(d.budget_krw),
+              },
+        ),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error?.message || "저장 실패");
@@ -41,6 +71,7 @@ export function CampaignForm() {
           캠페인 이름
           <input
             name="title"
+            defaultValue={initial?.title}
             required
             minLength={2}
             maxLength={120}
@@ -51,6 +82,7 @@ export function CampaignForm() {
           상품·서비스
           <input
             name="product"
+            defaultValue={initial?.product}
             required
             maxLength={120}
             placeholder="함께 알리고 싶은 상품"
@@ -58,7 +90,11 @@ export function CampaignForm() {
         </label>
         <label className="field">
           콘텐츠 분야
-          <select name="category" aria-label="콘텐츠 분야">
+          <select
+            name="category"
+            defaultValue={initial?.category}
+            aria-label="콘텐츠 분야"
+          >
             {categories.map((c) => (
               <option key={c}>{c}</option>
             ))}
@@ -72,13 +108,14 @@ export function CampaignForm() {
             required
             min="10000"
             max="100000000"
-            defaultValue="1000000"
+            defaultValue={initial?.budget_krw ?? 1000000}
           />
         </label>
         <label className="field">
           타깃 고객
           <input
             name="target_audience"
+            defaultValue={initial?.target_audience}
             required
             minLength={2}
             maxLength={500}
@@ -89,6 +126,7 @@ export function CampaignForm() {
           광고 목적
           <input
             name="goal"
+            defaultValue={initial?.goal}
             required
             minLength={2}
             maxLength={500}
@@ -97,7 +135,11 @@ export function CampaignForm() {
         </label>
         <label className="field">
           콘텐츠 형식
-          <select name="format" aria-label="콘텐츠 형식">
+          <select
+            name="format"
+            defaultValue={initial?.format}
+            aria-label="콘텐츠 형식"
+          >
             {[
               "숏폼",
               "제품 리뷰",
@@ -114,9 +156,14 @@ export function CampaignForm() {
         </label>
         <label className="field">
           공개 상태
-          <select name="status" aria-label="공개 상태">
+          <select
+            name="status"
+            defaultValue={initial?.status}
+            aria-label="공개 상태"
+          >
             <option value="draft">초안 (나만 보기)</option>
             <option value="published">공개 모집</option>
+            <option value="closed">모집 마감</option>
           </select>
         </label>
       </div>

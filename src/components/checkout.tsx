@@ -33,16 +33,14 @@ export function Checkout({ sku }: { sku: string }) {
             const o = await res.json();
             if (!res.ok) throw new Error(o.error?.message || "주문 생성 실패");
             const toss = await loadTossPayments(key);
-            await toss
-              .payment({ customerKey: o.owner_id })
-              .requestPayment({
-                method: "CARD",
-                amount: { currency: "KRW", value: o.amount },
-                orderId: o.id,
-                orderName: o.name,
-                successUrl: location.origin + "/billing/success",
-                failUrl: location.origin + "/billing/fail",
-              });
+            await toss.payment({ customerKey: o.owner_id }).requestPayment({
+              method: "CARD",
+              amount: { currency: "KRW", value: o.amount },
+              orderId: o.id,
+              orderName: o.name,
+              successUrl: location.origin + "/billing/success",
+              failUrl: location.origin + "/billing/fail",
+            });
           } catch (e) {
             setError(
               e instanceof Error ? e.message : "결제창을 열지 못했습니다.",

@@ -8,15 +8,23 @@ import {
   creators as fixtures,
   type Creator,
 } from "@/lib/catalog";
-export function Catalog({ items = fixtures }: { items?: Creator[] }) {
+export function Catalog({
+  items = fixtures,
+  initialSaved = [],
+}: {
+  items?: Creator[];
+  initialSaved?: string[];
+}) {
   const [query, setQuery] = useState(""),
     [category, setCategory] = useState(""),
     [platform, setPlatform] = useState(""),
     [tag, setTag] = useState(""),
     [budget, setBudget] = useState(""),
+    [minFollowers, setMinFollowers] = useState(""),
+    [maxFollowers, setMaxFollowers] = useState(""),
     [available, setAvailable] = useState(false),
     [sort, setSort] = useState("name"),
-    [saved, setSaved] = useState<string[]>([]),
+    [saved, setSaved] = useState<string[]>(initialSaved),
     [selected, setSelected] = useState<string[]>([]),
     [error, setError] = useState("");
   let list = items.filter(
@@ -29,7 +37,9 @@ export function Catalog({ items = fixtures }: { items?: Creator[] }) {
       (!platform || c.platforms.includes(platform)) &&
       (!tag || c.vibes.includes(tag)) &&
       (!budget || c.price_min_krw <= Number(budget)) &&
-      (!available || c.is_available),
+      (!available || c.is_available) &&
+      (!minFollowers || c.followers >= Number(minFollowers)) &&
+      (!maxFollowers || c.followers <= Number(maxFollowers)),
   );
   list = [...list].sort((a, b) =>
     sort === "followers"
@@ -114,6 +124,26 @@ export function Catalog({ items = fixtures }: { items?: Creator[] }) {
             </select>
           </label>
           <label className="field" style={{ display: "grid", width: "100%" }}>
+            최소 팔로워
+            <input
+              type="number"
+              min="0"
+              value={minFollowers}
+              onChange={(e) => setMinFollowers(e.target.value)}
+              placeholder="제한 없음"
+            />
+          </label>
+          <label className="field" style={{ display: "grid", width: "100%" }}>
+            최대 팔로워
+            <input
+              type="number"
+              min="0"
+              value={maxFollowers}
+              onChange={(e) => setMaxFollowers(e.target.value)}
+              placeholder="제한 없음"
+            />
+          </label>
+          <label className="field" style={{ display: "grid", width: "100%" }}>
             최대 예산 (원)
             <input
               type="number"
@@ -139,6 +169,8 @@ export function Catalog({ items = fixtures }: { items?: Creator[] }) {
               setPlatform("");
               setTag("");
               setBudget("");
+              setMinFollowers("");
+              setMaxFollowers("");
               setAvailable(false);
             }}
           >

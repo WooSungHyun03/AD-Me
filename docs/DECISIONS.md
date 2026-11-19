@@ -12,3 +12,9 @@
 - ADR-010: 2인 14일은 P0 골든패스 우선. P1/P2는 실행가능 backlog로 유지한다.
 
 작업 중 새 결정을 할 때 날짜, 배경, 결정, 근거, 대안, 영향, 관련 task ID를 이 파일에 누적한다.
+
+- ADR-011 (2026-11-19): Actual external services provisioned in user's existing organization/team; Supabase Seoul project `ivtdfioypmzknlhinstg`, Vercel CLI project `prj_BzLpbB8hBOXmjzbg9iJI2kp3Zu7C`. No paid resource purchase or live payments.
+- ADR-012: Core search/matching/collaboration remains free during TEST demonstration. Paid products create a 30-day TEST access record; Agency team features and advanced AI credit consumption are explicitly marked unavailable rather than sold as implemented.
+- ADR-013: Creator profile deletion clears its public profile and unpublishes while retaining collaboration/payment references. Auth account and transaction record deletion are separate operations, not silently cascaded.
+- ADR-014: Do not disable email confirmation to work around default SMTP. Full external signup delivery remains BLOCKED until configured SMTP/approved OAuth.
+- ADR-015: Provider payment confirmation runs in Supabase Edge Function, using its built-in server-only service role for the restricted finalization RPC. Vercel never needs a service-role key; its confirmation route authenticates the user and forwards the authenticated request. Toss secret only belongs in Edge Function secrets.

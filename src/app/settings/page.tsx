@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { currentUser, supabase } from "@/lib/supabase";
+import { AccountForm } from "@/components/account-form";
 import { ProfileForm } from "@/components/profile-form";
 export default async function Settings() {
   const user = await currentUser();
@@ -22,6 +23,7 @@ export default async function Settings() {
       <p>
         {profile?.name} · {profile?.role} · {user.email}
       </p>
+      <AccountForm name={profile?.name ?? ""} />
       {profile?.role === "creator" ? (
         <ProfileForm
           initial={

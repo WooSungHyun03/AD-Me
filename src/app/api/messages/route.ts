@@ -21,15 +21,13 @@ export async function POST(req: Request) {
       !p.data.url.startsWith("https://"))
   )
     return fail("HTTPS 결과물 링크를 입력해주세요.");
-  const { error } = await c.db
-    .from("messages")
-    .insert({
-      proposal_id: p.data.proposalId,
-      sender_id: c.user.id,
-      body: p.data.body,
-      kind: p.data.kind,
-      url: p.data.url,
-    });
+  const { error } = await c.db.from("messages").insert({
+    proposal_id: p.data.proposalId,
+    sender_id: c.user.id,
+    body: p.data.body,
+    kind: p.data.kind,
+    url: p.data.url,
+  });
   if (error)
     return fail("메시지를 저장할 권한이 없거나 저장에 실패했습니다.", 403);
   return NextResponse.json({ ok: true });

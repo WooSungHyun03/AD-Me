@@ -127,3 +127,11 @@ describe("test-only billing", () => {
     expect(activeEntitlement(e, new Date(e.expires_at))).toBe(false);
   });
 });
+import { csvCell, toCsv } from "../src/lib/csv";
+describe("safe exports", () => {
+  it("neutralizes spreadsheet formulas and escapes quotes", () => {
+    expect(csvCell('=HYPERLINK("evil")')).toBe('"\'=HYPERLINK(""evil"")"');
+    expect(csvCell(" @SUM(1)")).toContain("'");
+    expect(toCsv([["한글", "a,b"]])).toContain("\uFEFF");
+  });
+});

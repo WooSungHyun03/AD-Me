@@ -26,6 +26,7 @@ class HarnessTests(unittest.TestCase):
 
     def test_done_without_evidence_rejected(self):
         self.data['tasks'][0]['status']='done'
+        self.data['tasks'][0]['evidence']=None
         self.assertTrue(any('without evidence' in e for e in loop.validate(self.data)))
 
     def test_blocked_without_reason_rejected(self):

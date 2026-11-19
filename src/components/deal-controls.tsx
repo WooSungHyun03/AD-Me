@@ -118,3 +118,22 @@ export function MessageForm({
     </form>
   );
 }
+export function ReadButton({ proposalId }: { proposalId: string }) {
+  const [done, setDone] = useState(false);
+  return (
+    <button
+      className="button ghost small"
+      disabled={done}
+      onClick={async () => {
+        const res = await fetch("/api/read", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ proposalId }),
+        });
+        if (res.ok) setDone(true);
+      }}
+    >
+      {done ? "읽음 처리됨" : "읽음으로 표시"}
+    </button>
+  );
+}

@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { context } from "@/lib/api";
+import { Moderate } from "@/components/moderate";
 import { AdminReview } from "@/components/admin-review";
 export default async function Admin() {
   const c = await context();
@@ -11,6 +12,16 @@ export default async function Admin() {
         <p>운영 데이터는 허가된 관리자에게만 공개됩니다.</p>
       </section>
     );
+  const [{ data: creatorRows }, { data: campaignRows }, { data: passes }] =
+    await Promise.all([
+      c.db.from("creators").select("id,profile,published").limit(100),
+      c.db.from("campaigns").select("id,brief,status").limit(100),
+      c.db
+        .from("entitlements")
+        .select("id,sku,expires_at,credits")
+        .order("expires_at", { ascending: false })
+        .limit(100),
+    ]);
   const [
     { data: members },
     { data: reports },
@@ -67,6 +78,57 @@ export default async function Admin() {
       ))}
       {!reports?.length && (
         <p className="empty">검토 대기 중인 신고가 없습니다.</p>
+      )}
+      <h2>프로필 공개·데이터 관리</h2>
+      <details>
+        <summary>프로필 목록 ({creatorRows?.length ?? 0})</summary>
+        {creatorRows?.map((r) => (
+          <div className="result" key={r.id}>
+            <span>↗</span>
+            <div>
+              {r.profile.name}
+              <p>
+                {r.profile.is_demo ? "DEMO" : "본인 등록"} ·{" "}
+                {r.published ? "공개" : "비공개"}
+              </p>
+            </div>
+            <div>
+              <Moderate kind="creator" id={r.id} published={r.published} />
+            </div>
+          </div>
+        ))}
+      </details>
+      <h2 style={{ marginTop: 35 }}>캠페인 운영</h2>
+      <details>
+        <summary>캠페인 목록 ({campaignRows?.length ?? 0})</summary>
+        {campaignRows?.map((r) => (
+          <div className="result" key={r.id}>
+            <span>↗</span>
+            <div>
+              {r.brief.title}
+              <p>{r.status}</p>
+            </div>
+            {r.status !== "closed" && (
+              <div>
+                <Moderate kind="campaign" id={r.id} published={true} />
+              </div>
+            )}
+          </div>
+        ))}
+      </details>
+      <h2 style={{ marginTop: 35 }}>이용권·HOT 운영</h2>
+      {passes?.length ? (
+        passes.map((p) => (
+          <p key={p.id}>
+            {p.sku} · {new Date(p.expires_at) > new Date() ? "유효" : "만료"} ·
+            만료일 {p.expires_at.slice(0, 10)} · 크레딧 {p.credits}
+          </p>
+        ))
+      ) : (
+        <p>
+          활성화된 이용권이 없습니다. 미결제 주문에 권한을 수동 부여하지
+          않습니다.
+        </p>
       )}
       <h2>회원 관리</h2>
       <div className="table-scroll">

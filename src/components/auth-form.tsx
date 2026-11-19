@@ -7,17 +7,20 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
   return (
     <form action={action}>
       <input type="hidden" name="mode" value={mode} />
-      <label className="field">
-        이름
-        <input
-          name="name"
-          required
-          minLength={2}
-          maxLength={80}
-          autoComplete="name"
-          defaultValue={mode === "login" ? "로그인" : undefined}
-        />
-      </label>
+      {mode === "login" ? (
+        <input type="hidden" name="name" value="로그인" />
+      ) : (
+        <label className="field">
+          이름
+          <input
+            name="name"
+            required
+            minLength={2}
+            maxLength={80}
+            autoComplete="name"
+          />
+        </label>
+      )}
       <label className="field">
         이메일
         <input name="email" type="email" required autoComplete="email" />
@@ -32,13 +35,17 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
           autoComplete={mode === "signup" ? "new-password" : "current-password"}
         />
       </label>
-      <label className="field">
-        이용 역할
-        <select name="role">
-          <option value="brand">브랜드</option>
-          <option value="creator">크리에이터</option>
-        </select>
-      </label>
+      {mode === "login" ? (
+        <input type="hidden" name="role" value="brand" />
+      ) : (
+        <label className="field">
+          이용 역할
+          <select name="role">
+            <option value="brand">브랜드</option>
+            <option value="creator">크리에이터</option>
+          </select>
+        </label>
+      )}
       {state?.error && (
         <p role="alert" className="error">
           {state.error}

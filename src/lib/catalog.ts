@@ -1,6 +1,15 @@
 import creators from "../../fixtures/creators.demo.json";
 import campaigns from "../../fixtures/campaigns.demo.json";
-export type Creator = (typeof creators)[number];
+export type Creator = Omit<
+  (typeof creators)[number],
+  "owner_id" | "source_url"
+> & {
+  owner_id: string | null;
+  source_url: string | null;
+  social_url?: string;
+  portfolio_url?: string;
+  owner_consent?: boolean;
+};
 export type Brief = {
   category: string;
   vibes: string[];
@@ -46,7 +55,7 @@ export function match(brief: Brief, c: Creator) {
         brief.budget_krw > 0
           ? Math.min(1, brief.budget_krw / c.price_min_krw)
           : null,
-      evidence: `최소 견적 ${c.price_min_krw.toLocaleString()}원 (가상)`,
+      evidence: `최소 견적 ${c.price_min_krw.toLocaleString()}원 (${c.is_demo ? "가상" : "본인 등록"})`,
     },
     {
       factor: "광고 형식",

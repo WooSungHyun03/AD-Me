@@ -3,6 +3,9 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { categories, vibes } from "@/lib/catalog";
 type Profile = {
+  social_url?: string;
+  portfolio_url?: string;
+  owner_consent?: boolean;
   name?: string;
   bio?: string;
   categories?: string[];
@@ -33,6 +36,7 @@ export function ProfileForm({ initial = {} }: { initial?: Profile }) {
           price_min_krw: Number(f.get("price_min_krw")),
           price_max_krw: Number(f.get("price_max_krw")),
           published: f.get("published") === "on",
+          owner_consent: f.get("owner_consent") === "on",
           is_available: f.get("is_available") === "on",
         };
         try {
@@ -70,6 +74,34 @@ export function ProfileForm({ initial = {} }: { initial?: Profile }) {
           maxLength={1000}
           defaultValue={initial.bio}
         />
+      </label>
+      <label className="field">
+        대표 SNS 링크
+        <input
+          name="social_url"
+          type="url"
+          defaultValue={initial.social_url ?? ""}
+          placeholder="https://"
+          maxLength={1000}
+        />
+      </label>
+      <label className="field">
+        포트폴리오 링크
+        <input
+          name="portfolio_url"
+          type="url"
+          defaultValue={initial.portfolio_url ?? ""}
+          placeholder="https://"
+          maxLength={1000}
+        />
+      </label>
+      <label className="inline">
+        <input
+          type="checkbox"
+          name="owner_consent"
+          defaultChecked={initial.owner_consent ?? false}
+        />
+        입력한 링크·콘텐츠의 권리가 있으며 공개에 동의합니다.
       </label>
       <div className="form-grid">
         <label className="field">
@@ -178,7 +210,7 @@ export function ProfileForm({ initial = {} }: { initial?: Profile }) {
         onClick={async () => {
           if (
             !window.confirm(
-              "프로필을 삭제하시겠습니까? 진행 중인 협업이 있으면 비공개 설정을 이용해주세요.",
+              "공개 프로필 정보를 삭제하시겠습니까? 기존 협업 기록은 유지됩니다. 이후 다시 등록할 수 있습니다.",
             )
           )
             return;

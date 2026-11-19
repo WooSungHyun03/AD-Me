@@ -15,6 +15,25 @@ export const profileSchema = z
   .object({
     name: z.string().trim().min(2).max(80),
     bio: z.string().max(1000),
+    social_url: z
+      .union([
+        z.literal(""),
+        z
+          .url()
+          .max(1000)
+          .refine((v) => v.startsWith("https://")),
+      ])
+      .optional(),
+    portfolio_url: z
+      .union([
+        z.literal(""),
+        z
+          .url()
+          .max(1000)
+          .refine((v) => v.startsWith("https://")),
+      ])
+      .optional(),
+    owner_consent: z.boolean().default(false),
     categories: z.array(z.string().max(50)).min(1).max(5),
     vibes: z.array(z.string().max(30)).min(1).max(8),
     formats: z.array(z.string().max(40)).min(1).max(8),
@@ -24,6 +43,11 @@ export const profileSchema = z
     is_available: z.boolean(),
     published: z.boolean(),
   })
+  .refine(
+    (d) =>
+      !d.published || (!d.social_url && !d.portfolio_url) || d.owner_consent,
+    { message: "공개 링크의 권리·공개 동의를 확인해주세요." },
+  )
   .refine((d) => d.price_max_krw >= d.price_min_krw, {
     message: "최대 견적은 최소 견적 이상이어야 합니다.",
   });

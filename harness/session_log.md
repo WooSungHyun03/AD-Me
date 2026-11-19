@@ -17,3 +17,31 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - `2026-11-19T02:10:47+00:00` DONE T002 evidence: Original logo+symbol; desktop/mobile screenshot output/playwright/home-*.png; responsive browser E2E 4 passed.
 
 - `2026-11-19T02:10:47+00:00` START T003 Supabase 타입 스키마 마이그레이션 RLS
+
+- `2026-11-19T02:20:47+00:00` DONE T003 evidence: Supabase ivtdfioypmzknlhinstg core+operations migrations applied, all private tables RLS; tests/security.mjs passed privilege escalation/foreign-owner/forged-entitlement/admin audit checks.
+
+- `2026-11-19T02:20:47+00:00` START T005 Synthetic 48명 8캠페인 DB seed
+
+- `2026-11-19T02:20:47+00:00` DONE T005 evidence: Actual SQL counts: 48 DEMO creators, 8 DEMO campaigns; seed inserts use unique seed IDs and ON CONFLICT; public browser discovery verified actual DB.
+
+- `2026-11-19T02:20:47+00:00` START T004 브랜드 크리에이터 인증/역할/설정
+
+- `2026-11-19T02:20:47+00:00` BLOCKED T004: Login, roles, owner profile and persisted sessions pass local/deployed E2E. Full self-signup email delivery BLOCKED by Supabase default SMTP organization-only delivery; custom SMTP or approved OAuth needed. No auth security bypass.
+
+- `2026-11-19T02:20:47+00:00` BLOCKED T018: Toss TEST keys ready per user but browser DOM/screenshot/navigation tools fail with timeoutMs internal error. Actual key retrieval/registration not possible yet; SDK UI and missing-key errors verified.
+
+## 2026-11-19 / implementation and live deployment
+- Bootstrapped Next 16.4.6 / React 19.3.1 / strict TS / Tailwind 4 / Supabase SSR / Zod / Toss v2.
+- Preserved original Harness, logo and synthetic fixtures. Original wordmark + symbol appear on desktop/mobile.
+- Created actual Supabase AD Me Seoul project ivtdfioypmzknlhinstg with user organization approval. Core/operations SQL migrations, RLS, private Storage bucket, idempotent fixture seed applied.
+- Actual DB seed counts: 48 DEMO creators, 8 DEMO campaigns. Disposable QA credentials are ignored local files; no credentials in public source.
+- Local initial gates: lint/typecheck/build success; Vitest 11 then 12 tests pass; Playwright 4 desktop/mobile pass. Extended six-case suite adds application, account settings, CSV, saved state and admin UI.
+- Direct Supabase security tests PASS: foreign-owner campaigns/orders/messages, role escalation, forged paid entitlement, state transitions, admin report review and audit.
+- DB-only transactional check PASS: finalize idempotency, payment mismatch rejection, active HOT selection and expiry. All test paid orders rolled back. This is NOT Toss provider payment evidence.
+- Defects fixed: same-origin comparison against internal Next hostname blocked valid POSTs; fixed to browser Host + origin check. Select/textarea accessible names made explicit for stable form automation. Harness selftest assumed first task had no evidence; fixed test fixture to explicitly clear evidence.
+- GitHub push: de3fa86 initial application source, public WooSungHyun03/AD-Me. Pre-push scan found no secret/private account files.
+- Vercel MCP create 403, env 404; same team CLI fallback succeeded. GitHub automatic linking failed, direct CLI deploy succeeds.
+- First Vercel deploy READY but Other preset served 404; explicitly configured Next.js in vercel.json and redeployed. Public URL https://ad-me-topaz.vercel.app returned HTTP 200.
+- Actual public URL Playwright 4/4 passed in 48.5s: desktop/mobile search, comparison, history, draft tools, pricing missing-key path, two-role DB workflow, cross-user denials, result submission/approval, order manipulation denial.
+- Provider blockers: browser APIs fail with timeoutMs error despite reset and documented fallbacks; user authorizes reading/registering TEST keys but key retrieval unavailable. No actual Toss payment is claimed. Supabase SMTP external self-signup delivery remains unverified.
+- Remaining scope and exact external actions: docs/PROJECT_STATUS.md.

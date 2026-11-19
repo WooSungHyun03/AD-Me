@@ -2,7 +2,11 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { currentUser, supabase } from "@/lib/supabase";
 import { logout } from "@/app/actions";
-import { DealControls, MessageForm } from "@/components/deal-controls";
+import {
+  DealControls,
+  MessageForm,
+  ReadButton,
+} from "@/components/deal-controls";
 import { canTransition } from "@/lib/schemas";
 export default async function Dashboard() {
   const user = await currentUser();
@@ -128,6 +132,7 @@ export default async function Dashboard() {
         proposals.map((p) => (
           <article className="panel" style={{ marginBottom: 20 }} key={p.id}>
             <span className="badge lime">{status[p.status]}</span>
+            <ReadButton proposalId={p.id} />
             <h3 style={{ marginTop: 18 }}>
               {p.kind === "application" ? "캠페인 지원" : "브랜드 제안"}
             </h3>
@@ -193,6 +198,9 @@ export default async function Dashboard() {
         <div className="empty">아직 협업 제안이 없습니다.</div>
       )}
       <h2 style={{ marginTop: 45 }}>저장한 크리에이터</h2>
+      <a href="/api/export" className="button outline small">
+        후보 CSV 내보내기
+      </a>
       <div className="inline">
         {saved?.length ? (
           saved.map((s) => (

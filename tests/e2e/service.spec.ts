@@ -93,7 +93,9 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
     .fill("자연스러운 뷰티 콘텐츠를 만드는 QA 프로필");
   await cp.getByLabel("프로필 공개", { exact: true }).check();
   await cp.getByRole("button", { name: "프로필 저장", exact: true }).click();
-  await expect(cp.getByRole("status")).toContainText("저장했습니다");
+  await expect(
+    cp.getByRole("status").filter({ hasText: "프로필을 저장했습니다" }),
+  ).toContainText("저장했습니다");
   await cp.reload();
   await expect(cp.getByLabel("크리에이터 이름", { exact: true })).toHaveValue(
     name,
@@ -218,4 +220,104 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
   await brandDeal.getByRole("button", { name: "검토 승인" }).click();
   await expect(brandDeal.getByText("완료", { exact: true })).toBeVisible();
   await creator.close();
+});
+
+test("public application, shortlist persistence, account settings and administrator operations", async ({
+  page,
+  browser,
+}) => {
+  await login(page, "brand");
+  const unique = randomUUID().slice(0, 8);
+  const brief = {
+    title: `QA 공개 모집 ${unique}`,
+    product: "QA 제품",
+    category: "뷰티",
+    vibes: ["자연스러움"],
+    format: "숏폼",
+    platforms: ["instagram"],
+    budget_krw: 1000000,
+    target_audience: "20대 QA",
+    goal: "테스트",
+    status: "published",
+  };
+  const made = await page.request.post("/api/campaigns", { data: brief });
+  expect(made.status()).toBe(201);
+  const { id } = await made.json();
+  await page.goto(`/campaigns/${id}/edit`);
+  await page.getByLabel("광고 목적", { exact: true }).fill("수정된 QA 목표");
+  await page.getByRole("button", { name: "캠페인 저장" }).click();
+  await expect(page.getByText("수정된 QA 목표", { exact: true })).toBeVisible();
+  const cc = await browser.newContext();
+  const cp = await cc.newPage();
+  await login(cp, "creator");
+  await cp.goto(`/campaigns/${id}`);
+  await cp
+    .getByLabel("지원 메시지", { exact: true })
+    .fill(`QA 지원 신청 ${unique} 테스트입니다.`);
+  await cp.getByRole("button", { name: "캠페인 지원", exact: true }).click();
+  await expect(cp.getByRole("status")).toContainText("전송되었습니다");
+  await page.goto("/dashboard");
+  const deal = page
+    .locator("article")
+    .filter({ hasText: `QA 지원 신청 ${unique}` });
+  await deal.getByRole("button", { name: "수락", exact: true }).click();
+  await expect(deal.getByText("협업 진행", { exact: true })).toBeVisible();
+  await page.goto("/creators");
+  const save = page.getByRole("button", {
+    name: "서하린 즐겨찾기",
+    exact: true,
+  });
+  if (!(await save.getAttribute("class"))?.includes("saved"))
+    await save.click();
+  await expect(save).toHaveClass(/saved/);
+  await page.reload();
+  await expect(
+    page.getByRole("button", { name: "서하린 즐겨찾기", exact: true }),
+  ).toHaveClass(/saved/);
+  const csv = await page.request.get("/api/export");
+  expect(csv.status()).toBe(200);
+  expect(await csv.text()).toContain("서하린");
+  await page.goto("/settings");
+  await page
+    .getByLabel("계정 표시 이름", { exact: true })
+    .fill("QA 브랜드 설정");
+  await page.getByRole("button", { name: "계정 정보 저장" }).click();
+  await expect(page.getByRole("status")).toContainText("저장했습니다");
+  const admin = await browser.newContext();
+  const ap = await admin.newPage();
+  await login(ap, "admin");
+  await ap.goto("/admin");
+  await expect(
+    ap.getByRole("heading", { name: "서비스 운영 현황." }),
+  ).toBeVisible();
+  await expect(
+    ap.getByRole("heading", { name: "회원 관리", exact: true }),
+  ).toBeVisible();
+  await expect(
+    ap.getByRole("heading", { name: "이용권·HOT 운영" }),
+  ).toBeVisible();
+  await ap.screenshot({
+    path: `output/playwright/admin-${test.info().project.name}.png`,
+    fullPage: true,
+  });
+  await admin.close();
+  const removed = await cp.request.delete("/api/profile");
+  expect(removed.status()).toBe(200);
+  await cp.goto(`/creators/user-${accounts.creator.id}`);
+  await expect(
+    cp.getByRole("heading", { name: "찾으시는 페이지가 없습니다." }),
+  ).toBeVisible();
+  const disposable = await page.request.post("/api/campaigns", {
+    data: { ...brief, title: `QA 삭제검증 ${unique}`, status: "draft" },
+  });
+  expect(disposable.status()).toBe(201);
+  const removeId = (await disposable.json()).id;
+  expect(
+    (await page.request.delete(`/api/campaigns?id=${removeId}`)).status(),
+  ).toBe(200);
+  await page.goto("/dashboard");
+  await page.getByRole("button", { name: "로그아웃", exact: true }).click();
+  await page.goto("/dashboard");
+  await expect(page).toHaveURL(/login/);
+  await cc.close();
 });

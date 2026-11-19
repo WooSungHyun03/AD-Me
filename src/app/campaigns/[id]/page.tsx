@@ -66,6 +66,14 @@ export default async function Campaign({
               <span>총 예산</span>
             </div>
           </div>
+          {ownerId === user?.id && !isDemo && (
+            <Link
+              className="button outline small"
+              href={`/campaigns/${id}/edit`}
+            >
+              캠페인 수정·모집 관리
+            </Link>
+          )}
           <h3>캠페인 목표</h3>
           <p>{brief.goal}</p>
           <h3>타깃 고객</h3>

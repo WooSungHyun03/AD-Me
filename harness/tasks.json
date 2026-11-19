@@ -51,8 +51,8 @@
         "ownership isolation SQL test"
       ],
       "owner": "B",
-      "status": "in_progress",
-      "evidence": null,
+      "status": "done",
+      "evidence": "Supabase ivtdfioypmzknlhinstg core+operations migrations applied, all private tables RLS; tests/security.mjs passed privilege escalation/foreign-owner/forged-entitlement/admin audit checks.",
       "blocker": null
     },
     {
@@ -70,9 +70,9 @@
         "개인정보 프로필 수정"
       ],
       "owner": "B",
-      "status": "pending",
+      "status": "blocked",
       "evidence": null,
-      "blocker": null
+      "blocker": "Login, roles, owner profile and persisted sessions pass local/deployed E2E. Full self-signup email delivery BLOCKED by Supabase default SMTP organization-only delivery; custom SMTP or approved OAuth needed. No auth security bypass."
     },
     {
       "id": "T005",
@@ -88,8 +88,8 @@
         "DB 재실행 중복 없음"
       ],
       "owner": "B",
-      "status": "pending",
-      "evidence": null,
+      "status": "done",
+      "evidence": "Actual SQL counts: 48 DEMO creators, 8 DEMO campaigns; seed inserts use unique seed IDs and ON CONFLICT; public browser discovery verified actual DB.",
       "blocker": null
     },
     {
@@ -110,7 +110,9 @@
       "owner": "A",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "TESTED_CORE",
+      "verification": "Actual local/deployed Playwright, Vitest and/or direct Supabase RLS evidence in docs/PROJECT_STATUS.md; full task acceptance remains dependency-gated."
     },
     {
       "id": "T007",
@@ -127,7 +129,9 @@
       "owner": "A",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "TESTED_CORE",
+      "verification": "Actual local/deployed Playwright, Vitest and/or direct Supabase RLS evidence in docs/PROJECT_STATUS.md; full task acceptance remains dependency-gated."
     },
     {
       "id": "T008",
@@ -146,7 +150,9 @@
       "owner": "B",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "TESTED_CORE",
+      "verification": "Actual local/deployed Playwright, Vitest and/or direct Supabase RLS evidence in docs/PROJECT_STATUS.md; full task acceptance remains dependency-gated."
     },
     {
       "id": "T009",
@@ -165,7 +171,9 @@
       "owner": "B",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "TESTED_CORE",
+      "verification": "Actual local/deployed Playwright, Vitest and/or direct Supabase RLS evidence in docs/PROJECT_STATUS.md; full task acceptance remains dependency-gated."
     },
     {
       "id": "T010",
@@ -183,7 +191,9 @@
       "owner": "A",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "TESTED_CORE",
+      "verification": "Actual local/deployed Playwright, Vitest and/or direct Supabase RLS evidence in docs/PROJECT_STATUS.md; full task acceptance remains dependency-gated."
     },
     {
       "id": "T011",
@@ -203,7 +213,9 @@
       "owner": "B",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "TESTED_CORE",
+      "verification": "Actual local/deployed Playwright, Vitest and/or direct Supabase RLS evidence in docs/PROJECT_STATUS.md; full task acceptance remains dependency-gated."
     },
     {
       "id": "T012",
@@ -222,7 +234,9 @@
       "owner": "A",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "TESTED_CORE",
+      "verification": "Actual local/deployed Playwright, Vitest and/or direct Supabase RLS evidence in docs/PROJECT_STATUS.md; full task acceptance remains dependency-gated."
     },
     {
       "id": "T013",
@@ -240,7 +254,9 @@
       "owner": "A",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "TESTED_CORE",
+      "verification": "Actual local/deployed Playwright, Vitest and/or direct Supabase RLS evidence in docs/PROJECT_STATUS.md; full task acceptance remains dependency-gated."
     },
     {
       "id": "T014",
@@ -259,7 +275,9 @@
       "owner": "B",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "TESTED_CORE",
+      "verification": "Actual local/deployed Playwright, Vitest and/or direct Supabase RLS evidence in docs/PROJECT_STATUS.md; full task acceptance remains dependency-gated."
     },
     {
       "id": "T015",
@@ -279,7 +297,9 @@
       "owner": "B",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "TESTED_CORE",
+      "verification": "Actual local/deployed Playwright, Vitest and/or direct Supabase RLS evidence in docs/PROJECT_STATUS.md; full task acceptance remains dependency-gated."
     },
     {
       "id": "T016",
@@ -298,7 +318,9 @@
       "owner": "A",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "TESTED_CORE",
+      "verification": "Actual local/deployed Playwright, Vitest and/or direct Supabase RLS evidence in docs/PROJECT_STATUS.md; full task acceptance remains dependency-gated."
     },
     {
       "id": "T017",
@@ -318,7 +340,9 @@
       "owner": "B",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "TESTED_CORE",
+      "verification": "Actual local/deployed Playwright, Vitest and/or direct Supabase RLS evidence in docs/PROJECT_STATUS.md; full task acceptance remains dependency-gated."
     },
     {
       "id": "T018",
@@ -335,9 +359,9 @@
         "live key 거부"
       ],
       "owner": "A",
-      "status": "pending",
+      "status": "blocked",
       "evidence": null,
-      "blocker": null
+      "blocker": "Toss TEST keys ready per user but browser DOM/screenshot/navigation tools fail with timeoutMs internal error. Actual key retrieval/registration not possible yet; SDK UI and missing-key errors verified."
     },
     {
       "id": "T019",
@@ -356,7 +380,9 @@
       "owner": "B",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "IMPLEMENTED_PROVIDER_BLOCKED",
+      "verification": "DB-only atomicity/expiry/HOT tests passed with rollback; Toss provider checkout NOT verified."
     },
     {
       "id": "T020",
@@ -375,7 +401,9 @@
       "owner": "B",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "IMPLEMENTED_PROVIDER_BLOCKED",
+      "verification": "DB-only atomicity/expiry/HOT tests passed with rollback; Toss provider checkout NOT verified."
     },
     {
       "id": "T021",
@@ -394,7 +422,9 @@
       "owner": "B",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "TESTED_CORE",
+      "verification": "Actual local/deployed Playwright, Vitest and/or direct Supabase RLS evidence in docs/PROJECT_STATUS.md; full task acceptance remains dependency-gated."
     },
     {
       "id": "T022",
@@ -464,14 +494,14 @@
       "id": "T025",
       "stage": "quality",
       "priority": "P0",
-      "title": "빌드 최종 검수 및 수동 배포 가이드",
+      "title": "최종 검수 및 실제 배포 준비",
       "dependencies": [
         "T024"
       ],
       "acceptance": [
         "lint/typecheck/unit/build/e2e",
         "README 최신화",
-        "user deploy only",
+        "agent deploy + actual URL verification",
         "unresolved risks 명시"
       ],
       "owner": "both",
@@ -515,7 +545,9 @@
       "owner": "B",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "TESTED_CORE",
+      "verification": "Actual local/deployed Playwright, Vitest and/or direct Supabase RLS evidence in docs/PROJECT_STATUS.md; full task acceptance remains dependency-gated."
     },
     {
       "id": "T028",
@@ -549,7 +581,9 @@
       "owner": "A",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "TESTED_CORE",
+      "verification": "Actual local/deployed Playwright, Vitest and/or direct Supabase RLS evidence in docs/PROJECT_STATUS.md; full task acceptance remains dependency-gated."
     },
     {
       "id": "T030",
@@ -584,7 +618,9 @@
       "owner": "A",
       "status": "pending",
       "evidence": null,
-      "blocker": null
+      "blocker": null,
+      "implementation_status": "IMPLEMENTED_PROVIDER_BLOCKED",
+      "verification": "DB-only atomicity/expiry/HOT tests passed with rollback; Toss provider checkout NOT verified."
     },
     {
       "id": "T032",
@@ -745,5 +781,12 @@
       "evidence": null,
       "blocker": null
     }
-  ]
+  ],
+  "deployment_evidence": {
+    "url": "https://ad-me-topaz.vercel.app",
+    "supabase_project": "ivtdfioypmzknlhinstg",
+    "public_e2e": "4/4 passed 48.5s; expanded final suite pending record",
+    "github": "https://github.com/WooSungHyun03/AD-Me",
+    "note": "Full T039/T040 cannot complete until dependencies and external payment/signup gates pass."
+  }
 }

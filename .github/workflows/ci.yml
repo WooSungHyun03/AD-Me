@@ -12,6 +12,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: python3 harness/secret_scan.py
       - run: python3 harness/selftest.py
       - run: npm run lint
       - run: npm run typecheck
