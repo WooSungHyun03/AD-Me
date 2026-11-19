@@ -423,9 +423,11 @@
     },
     "D064": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "BLOCKED_EXTERNAL",
+      "evidence": [
+        "harness/evidence/D064/README.md"
+      ],
+      "blocker": "U001 확정 및 운영 담당 지정, 운영 모의훈련 필요."
     },
     "D065": {
       "owner": "DEV-A",
