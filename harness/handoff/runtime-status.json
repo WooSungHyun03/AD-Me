@@ -50,9 +50,13 @@
     },
     "D007": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D007/README.md",
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json"
+      ],
+      "blocker": "잠금 506개/고지 확인 393개/원문 533개 확보. 113개와 Linux·Edge 실제 배포 아티팩트 및 브랜드 재배포 범위 미확인.",
+      "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
     },
     "D008": {
       "owner": "DEV-A",

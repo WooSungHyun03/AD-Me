@@ -1,5 +1,7 @@
 # Direct dependency license inventory
 
+See [deployment license and asset inventory](licenses/README.md) for the lockfile-level review, asset provenance and remaining verification. The table below records the prior direct dependency summary.
+
 | Package | Version range | License |
 |---|---|---|
 | @radix-ui/react-slot | ^1.5.0 | MIT |
