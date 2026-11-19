@@ -45,3 +45,12 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - Actual public URL Playwright 4/4 passed in 48.5s: desktop/mobile search, comparison, history, draft tools, pricing missing-key path, two-role DB workflow, cross-user denials, result submission/approval, order manipulation denial.
 - Provider blockers: browser APIs fail with timeoutMs error despite reset and documented fallbacks; user authorizes reading/registering TEST keys but key retrieval unavailable. No actual Toss payment is claimed. Supabase SMTP external self-signup delivery remains unverified.
 - Remaining scope and exact external actions: docs/PROJECT_STATUS.md.
+
+## Final hardening and release evidence
+- Local final gates passed: lint, strict typecheck, Vitest 12/12, Harness selftest 5/5, production build, desktop/mobile E2E 6/6 (57.5s).
+- Actual DB JSON-contract migration added to reject malformed public profile/campaign DTOs through direct PostgREST. Direct authenticated malformed-campaign insertion was rejected; RLS security script passed again.
+- Profile deletion now clears public profile information and unpublishes while retaining collaboration references; E2E covers deletion, draft campaign deletion and logout.
+- Extended UI includes campaign edit/status, account name, SNS/portfolio links with owner consent, follower filters, restored saved state, CSV formula neutralization, admin moderation and paid HOT DTO.
+- GitHub Actions validation succeeded: https://github.com/WooSungHyun03/AD-Me/actions/runs/44444025538 . Initial run failed due Harness selftest fixture state; fixed rather than skipped.
+- Runtime error-log query: Vercel returned no log entries for the requested 30-minute window. This is a bounded query, not a claim of permanent error-free operation.
+- Seed executed again; actual counts remain 48 DEMO creators and 8 DEMO campaigns.

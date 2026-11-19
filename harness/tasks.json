@@ -787,6 +787,7 @@
     "supabase_project": "ivtdfioypmzknlhinstg",
     "public_e2e": "4/4 passed 48.5s; expanded final suite pending record",
     "github": "https://github.com/WooSungHyun03/AD-Me",
-    "note": "Full T039/T040 cannot complete until dependencies and external payment/signup gates pass."
+    "note": "Full T039/T040 cannot complete until dependencies and external payment/signup gates pass.",
+    "local_final_e2e": "6/6 passed 57.5s; Vitest12/Harness5/lint/typecheck/build passed"
   }
 }

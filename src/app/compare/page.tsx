@@ -43,12 +43,12 @@ export default async function Compare({
                   (c: (typeof list)[number]) => c.platforms.join(", "),
                 ],
                 [
-                  "가상 팔로워",
+                  "팔로워",
                   (c: (typeof list)[number]) =>
                     c.is_demo ? c.followers.toLocaleString() : "미확보",
                 ],
                 [
-                  "가상 최소 견적",
+                  "최소 견적",
                   (c: (typeof list)[number]) =>
                     c.price_min_krw.toLocaleString() + "원",
                 ],

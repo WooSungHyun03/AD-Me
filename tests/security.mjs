@@ -111,6 +111,7 @@ assert.ok(
   (await admin.from("audit_log").select("id").eq("entity_id", r.id)).data
     .length,
 );
+const malformed=await brand.from('campaigns').insert({owner_id:a.brand.id,brief:{title:{invalid:'object'}},status:'published'});assert.ok(malformed.error);
 console.log(
   "PASS: direct Supabase RLS isolation, privilege escalation, forged entitlement, cross-owner order/message access, invalid transitions, admin moderation + audit. No provider payment simulated.",
 );
