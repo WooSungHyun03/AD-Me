@@ -1,7 +1,7 @@
 {
   "checked_at": "2026-11-19T06:52:43.993952+00:00",
   "production_url": "https://be-celeb.org",
-  "production_deployment": "dpl_BWbJLz5z9GmvV85bHa8gJu2agK9Q",
+  "production_deployment": "dpl_9uQy4CiWiW9FV1E9ABqiu788cyfL",
   "unit_tests_passed": 35,
   "dns_guard_tests_passed": 5,
   "local_e2e_passed": 10,
@@ -51,5 +51,29 @@
     "public_auth_snapshots_atomic": false,
     "offsite_backup": false,
     "scheduled_backup": false
+  },
+  "deployed_source_commit": "36327d70f7f9fb44f6f863c0ef36f7043bdf965c",
+  "source_ci_runs_passed": [
+    44475494118,
+    44475486322
+  ],
+  "final_browser_smoke": [
+    {
+      "name": "desktop",
+      "status": 200,
+      "no_horizontal_overflow": true
+    },
+    {
+      "name": "mobile",
+      "status": 200,
+      "no_horizontal_overflow": true
+    }
+  ],
+  "toss_provider_replay": {
+    "provider_idempotent_replay_http": 200,
+    "provider_status": "DONE",
+    "same_order": true,
+    "same_payment": true,
+    "same_amount": true
   }
 }

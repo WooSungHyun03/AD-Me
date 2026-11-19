@@ -13,6 +13,8 @@
 - 승인 완료 주문의 finalize RPC를 2회 재실행해 동일 이용권 ID 반환·총 1개 유지 확인. 이는 DB 부여 처리의 재시도 검증이며 공급자 인증/결제창의 모든 실패·취소 시나리오 완료를 뜻하지 않는다.
 - Google YouTube Data API v3 실제 channels.list 연결 성공. 공식 Google Developers 채널 ID 1건만 조회했고 실제 인플루언서 DB 수입은 0건이다. 서버 Secret 등록은 완료했으나 수집 어댑터·정책 승인·쿼터 제한 콘솔 검증은 미완료다. 브라우저 제어 오류로 Google 콘솔 변경은 사용자가 수행했다.
 
+- Toss 공급자에 최초 승인과 동일한 Idempotency-Key·주문·금액·paymentKey로 재요청: HTTP200, DONE, 동일 결제·금액 반환. 별도 결제를 생성하지 않았다.
+
 ## 자동 검증
 
 - lint, TypeScript, Vitest 35/35, Resend DNS guard Python 5/5, Next.js build 통과.
@@ -41,3 +43,7 @@ public과 auth/storage는 서로 다른 시점의 덤프다. 원자적 시점 �
 - Instagram/TikTok은 승인/계정 요건 및 개발이 필요한 조건부 범위. 선택 LLM은 비활성.
 
 원본 20개 티켓의 남은 범위는 harness/handoff/runtime-status.json의 user_actions와 docs/EXTERNAL_EXECUTION_STATUS.md를 함께 확인한다. 무료 실제 데이터 베타 출시는 NO-GO 유지.
+
+## 최종 배포·업로드
+
+배포 소스 36327d7, production dpl_9uQy4CiWiW9FV1E9ABqiu788cyfL READY. be-celeb.org의 복구 화면 desktop/mobile HTTP200·가로 넘침 없음 확인. 해당 소스 GitHub Actions 실행 44475494118 및 44475486322 성공. PR: https://github.com/WooSungHyun03/AD-Me/pull/1 . 새 기능을 main에 병합했다고 기록하지 않는다.
