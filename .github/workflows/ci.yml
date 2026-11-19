@@ -14,6 +14,8 @@ jobs:
       - run: npm ci
       - run: python3 harness/secret_scan.py
       - run: python3 harness/selftest.py
+      - run: python3 harness/validate_service_backlog.py
+      - run: python3 harness/validate_handoff.py
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test

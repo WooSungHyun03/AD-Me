@@ -1,0 +1,15 @@
+{
+  "id": "prj_BzLpbB8hBOXmjzbg9iJI2kp3Zu7C",
+  "name": "ad-me",
+  "framework": null,
+  "nodeVersion": "26.x",
+  "rootDirectory": null,
+  "buildCommand": null,
+  "installCommand": null,
+  "link": null,
+  "gitForkProtection": true,
+  "env_names": [
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+  ]
+}

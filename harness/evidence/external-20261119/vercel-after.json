@@ -1,0 +1,10 @@
+{
+  "id": "prj_BzLpbB8hBOXmjzbg9iJI2kp3Zu7C",
+  "name": "ad-me",
+  "framework": "nextjs",
+  "nodeVersion": "22.x",
+  "buildCommand": "npm run build",
+  "installCommand": "npm ci",
+  "gitForkProtection": true,
+  "link": null
+}

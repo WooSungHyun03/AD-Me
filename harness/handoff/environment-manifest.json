@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "contains_values": false,
+  "registration_owner": "USER",
+  "settings": [
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_URL",
+      "status": "IMPLEMENTED",
+      "classification": "PUBLIC",
+      "location": "Vercel",
+      "consumer": "src/lib/supabase.ts"
+    },
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "status": "IMPLEMENTED",
+      "classification": "PUBLIC",
+      "location": "Vercel",
+      "consumer": "src/lib/supabase.ts"
+    },
+    {
+      "name": "NEXT_PUBLIC_TOSS_CLIENT_KEY",
+      "status": "IMPLEMENTED",
+      "classification": "PUBLIC",
+      "location": "Vercel TEST",
+      "consumer": "src/components/checkout.tsx"
+    },
+    {
+      "name": "TOSS_SECRET_KEY",
+      "status": "IMPLEMENTED",
+      "classification": "SECRET",
+      "location": "Supabase Edge Functions Secrets",
+      "consumer": "supabase/functions/payment-confirm/index.ts"
+    },
+    {
+      "name": "SUPABASE_URL",
+      "status": "RUNTIME_PROVIDED",
+      "classification": "PUBLIC",
+      "location": "Supabase runtime",
+      "consumer": "supabase/functions/payment-confirm/index.ts"
+    },
+    {
+      "name": "SUPABASE_SERVICE_ROLE_KEY",
+      "status": "RUNTIME_PROVIDED",
+      "classification": "SECRET",
+      "location": "Supabase runtime",
+      "consumer": "supabase/functions/payment-confirm/index.ts"
+    },
+    {
+      "name": "NEXT_PUBLIC_APP_URL",
+      "status": "DECLARED_UNUSED",
+      "classification": "PUBLIC",
+      "location": "Vercel after implementation",
+      "consumer": ".env.example"
+    },
+    {
+      "name": "BASE_URL",
+      "status": "TEST_ONLY",
+      "classification": "PUBLIC",
+      "location": "local test process",
+      "consumer": "playwright.config.ts"
+    },
+    {
+      "name": "ADME_SERVICE_MODE",
+      "status": "PROPOSED",
+      "classification": "SERVER_CONFIG",
+      "location": "TBD by D003",
+      "consumer": null
+    },
+    {
+      "name": "ADME_FEATURE_INGESTION",
+      "status": "PROPOSED",
+      "classification": "SERVER_CONFIG",
+      "location": "TBD by D003",
+      "consumer": null
+    },
+    {
+      "name": "ADME_FEATURE_LLM",
+      "status": "PROPOSED",
+      "classification": "SERVER_CONFIG",
+      "location": "TBD by D003",
+      "consumer": null
+    },
+    {
+      "name": "ADME_FEATURE_TEST_BILLING",
+      "status": "PROPOSED",
+      "classification": "SERVER_CONFIG",
+      "location": "TBD by D003",
+      "consumer": null
+    },
+    {
+      "name": "YOUTUBE_API_KEY",
+      "status": "PROPOSED",
+      "classification": "SECRET",
+      "location": "TBD by D003",
+      "consumer": null
+    },
+    {
+      "name": "AI_PROVIDER_TOKEN",
+      "status": "PROPOSED",
+      "classification": "SECRET",
+      "location": "TBD by D003",
+      "consumer": null
+    },
+    {
+      "name": "AI_MODEL_ID",
+      "status": "PROPOSED",
+      "classification": "SERVER_CONFIG",
+      "location": "TBD by D003",
+      "consumer": null
+    },
+    {
+      "name": "META_APP_ID",
+      "status": "PROPOSED",
+      "classification": "SERVER_CONFIG",
+      "location": "TBD by D003",
+      "consumer": null
+    },
+    {
+      "name": "META_APP_SECRET",
+      "status": "PROPOSED",
+      "classification": "SECRET",
+      "location": "TBD by D003",
+      "consumer": null
+    },
+    {
+      "name": "TIKTOK_CLIENT_KEY",
+      "status": "PROPOSED",
+      "classification": "SERVER_CONFIG",
+      "location": "TBD by D003",
+      "consumer": null
+    },
+    {
+      "name": "TIKTOK_CLIENT_SECRET",
+      "status": "PROPOSED",
+      "classification": "SECRET",
+      "location": "TBD by D003",
+      "consumer": null
+    },
+    {
+      "name": "ADME_JOB_AUTH_SECRET",
+      "status": "PROPOSED",
+      "classification": "SECRET",
+      "location": "TBD by D003",
+      "consumer": null
+    }
+  ]
+}

@@ -1,0 +1,716 @@
+{
+  "schema_version": 1,
+  "scope": "handoff planning, not completed implementation",
+  "tickets": {
+    "D001": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D002": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D003": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D004": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D005": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D006": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D007": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D008": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D009": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D010": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D011": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D012": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D013": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D014": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D015": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D016": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D017": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D018": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D019": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D020": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D021": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D022": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D023": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D024": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D025": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D026": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D027": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D028": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D029": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D030": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D031": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D032": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D033": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D034": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D035": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D036": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D037": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D038": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D039": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D040": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D041": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D042": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D043": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D044": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D045": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D046": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D047": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D048": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D049": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D050": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D051": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D052": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D053": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D054": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D055": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D056": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D057": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D058": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D059": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D060": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D061": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D062": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D063": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D064": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D065": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D066": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D067": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D068": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D069": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D070": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D071": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D072": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D073": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D074": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D075": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D076": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D077": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D078": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D079": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D080": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D081": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D082": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D083": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D084": {
+      "owner": "DEV-A",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D085": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D086": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D087": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    },
+    "D088": {
+      "owner": "DEV-B",
+      "status": "OPEN",
+      "evidence": [],
+      "blocker": null
+    }
+  },
+  "user_actions": {
+    "U001": {
+      "status": "PARTIAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "보존기간·위탁/국외이전 고지·정책 확정·실제 권리 요청 처리 절차 검증 필요."
+    },
+    "U002": {
+      "status": "PARTIAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "Vercel GitHub 앱 저장소 접근 승인 실패. 개발자 초대 대상·계정 2FA 확인 미완료. 관리자 bypass는 유지."
+    },
+    "U003": {
+      "status": "PARTIAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "개발/TEST/실서비스 환경 분리·계정 MFA·무료 한도/복구 요구 확인 미완료."
+    },
+    "U004": {
+      "status": "PARTIAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "새 실제 데이터·삭제·무료모드 기능의 DB 변경은 개발 선행 티켓 미구현. 새 schema 적용 완료 아님."
+    },
+    "U005": {
+      "status": "PARTIAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "Git 연결 승인 미완료. 현재 Hobby의 실서비스 용도 적합성 판단과 무료 실제 베타 출시 검증 필요."
+    },
+    "U006": {
+      "status": "PARTIAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "Toss/YouTube/SMTP 등 공급자 키가 확보되지 않음. 예정 변수는 코드 구현 전 임의 등록하지 않음."
+    },
+    "U007": {
+      "status": "BLOCKED_PROVIDER_ACCESS",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "SMTP 공급자·발신자/도메인·자격증명 필요. 이메일 확인을 끄거나 가짜 SMTP를 등록하지 않음."
+    },
+    "U008": {
+      "status": "PARTIAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "신규 callback/recovery 코드·메일 템플릿·관리자 AAL2 적용·MFA 실제 등록 검증 미완료."
+    },
+    "U009": {
+      "status": "BLOCKED_PROVIDER_ACCESS",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "Google Cloud 프로젝트/권한·YouTube API 키 제한 설정 및 D019 실제 어댑터 필요."
+    },
+    "U010": {
+      "status": "BLOCKED_USER_DECISION",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "정책 개정 수락·필요 심사는 사용자 본인의 법적/계정 동의가 필요. 미확인을 승인으로 표시하지 않음."
+    },
+    "U011": {
+      "status": "BLOCKED_SOURCE_PERMISSION",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "정확한 domain/path/field·처리 근거·권리 허가 필요. 무허가 크롤링 미실행."
+    },
+    "U012": {
+      "status": "BLOCKED_IMPLEMENTATION_AND_ACCESS",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "D022 OAuth·삭제/철회·정책 URL 및 Meta 앱 접근/심사 필요. 사업 요건을 충족할 수 있는지 별도 확인."
+    },
+    "U013": {
+      "status": "BLOCKED_IMPLEMENTATION_AND_ACCESS",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "D023 OAuth·시연·심사 자료 및 TikTok 계정/승인 필요. Research API 우회 미실행."
+    },
+    "U014": {
+      "status": "BLOCKED_PARTICIPATION",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "실제 참가자·프로필 소유/자료 권리·협업 수신 동의 및 claim 기능 필요. 무단 연락 미발송."
+    },
+    "U015": {
+      "status": "BLOCKED_PROVIDER_ACCESS",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "Toss TEST 상점 키 접근/등록·제품 호환 확인·본인 인증 필요. 브라우저 제어 오류로 키 조회 경로 차단."
+    },
+    "U016": {
+      "status": "OPTIONAL_NOT_ENABLED",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "선택적 LLM 활성화는 공급자/비용/처리 조건 결정 및 D048 어댑터 구현 후 진행."
+    },
+    "U017": {
+      "status": "VERIFIED_EXISTING",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "새 유료 도메인 구매 안 함. 발신 도메인 필요 여부는 SMTP 공급자 결정 시 별도 확인."
+    },
+    "U018": {
+      "status": "BLOCKED_RECOVERY_AND_ALERT_SETUP",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "정기 알림 수신 경로·백업 보관처/실행·격리 복원 증빙 없음. 정상 응답을 복구 완료로 간주하지 않음."
+    },
+    "U019": {
+      "status": "PARTIAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "외부 메일 신규 가입·SNS OAuth·Toss TEST 본인 인증은 미수행. 기존 테스트는 DEMO 기반임."
+    },
+    "U020": {
+      "status": "NO_GO",
+      "evidence": [
+        "harness/evidence/external-20261119/ticket-results.json"
+      ],
+      "verified_by": "agent technical audit; partial status retained",
+      "last_checked_at": "2026-11-19T15:05:44+09:00",
+      "remaining": "실제 데이터·삭제/동의·외부 가입·무료모드 격리·백업/복원·호스팅 적합성 등 P0/외부 게이트 미충족."
+    }
+  }
+}
