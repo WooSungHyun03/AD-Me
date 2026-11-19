@@ -1,15 +1,9 @@
 import { NextResponse } from "next/server";
-import {
-  apiRoute,
-  fail,
-  failDatabase,
-  parseBody,
-  requireContext,
-} from "@/lib/api";
+import { apiRoute, fail, failDatabase, parseBody } from "@/lib/api";
 import { z } from "zod";
+import { requireAdminContext } from "@/lib/admin";
 export const POST = apiRoute("admin.post", async (req) => {
-  const c = await requireContext();
-  if (c.role !== "admin") return fail("관리자 권한이 필요합니다.", 403);
+  const c = await requireAdminContext();
   const p = await parseBody(
     req,
     z.object({ id: z.uuid(), status: z.enum(["reviewed", "dismissed"]) }),

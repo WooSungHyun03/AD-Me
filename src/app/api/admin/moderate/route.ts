@@ -5,11 +5,10 @@ import {
   fail,
   failDatabase,
   parseBody,
-  requireContext,
 } from "@/lib/api";
+import { requireAdminContext } from "@/lib/admin";
 export const POST = apiRoute("admin.moderate.post", async (req) => {
-  const c = await requireContext();
-  if (c.role !== "admin") return fail("관리자 권한이 필요합니다.", 403);
+  const c = await requireAdminContext();
   const p = await parseBody(
     req,
     z.discriminatedUnion("kind", [

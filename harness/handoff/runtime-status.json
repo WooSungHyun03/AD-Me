@@ -117,9 +117,13 @@
     },
     "D016": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "LOCAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/D016/README.md",
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json"
+      ],
+      "blocker": "별도 승인·TOTP 등록/최근 인증·직접 REST/RPC 검증. U008 실제 운영자 신원/승인·외부 MFA 및 DEV-B 리뷰 대기.",
+      "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
     },
     "D017": {
       "owner": "DEV-B",
