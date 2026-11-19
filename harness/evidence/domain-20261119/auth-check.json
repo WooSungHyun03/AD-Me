@@ -1,0 +1,11 @@
+{
+  "project_ref": "ivtdfioypmzknlhinstg",
+  "site_url": "https://be-celeb.org",
+  "redirect_urls": [
+    "https://be-celeb.org/",
+    "https://be-celeb.org/dashboard",
+    "https://ad-me-topaz.vercel.app/",
+    "https://ad-me-topaz.vercel.app/dashboard"
+  ],
+  "declared_pending_changes": 0
+}

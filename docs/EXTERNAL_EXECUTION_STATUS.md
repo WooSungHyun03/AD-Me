@@ -45,3 +45,7 @@
 4. callback/수집/OAuth/삭제/backup 등 개발 선행 항목을 구현한 뒤 실제 외부 검증해야 한다. 미구현 경로를 등록한 것으로 완료 처리하지 않는다.
 
 민감값 없는 상세 증거: `harness/evidence/external-20261119/`. 브라우저 캡처: `output/playwright/privacy-operator-20261119.png` (공개 연락처만 포함).
+
+## 후속 도메인 연결 완료 — 2026-11-19
+
+U017은 후속 요청에 따라 https://be-celeb.org 연결 완료로 갱신했다. www 308·TLS·새 Auth Site URL·Vercel 재배포를 검증했다. [현재 연결 기록](DOMAIN_CONNECTION.md). 위 표는 이전 실행 시점의 이력이며 다른 미완료 항목의 상태를 완료로 바꾸지 않는다.

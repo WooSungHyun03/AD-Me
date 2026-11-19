@@ -677,13 +677,14 @@
       "remaining": "선택적 LLM 활성화는 공급자/비용/처리 조건 결정 및 D048 어댑터 구현 후 진행."
     },
     "U017": {
-      "status": "VERIFIED_EXISTING",
+      "status": "VERIFIED_CUSTOM_DOMAIN",
       "evidence": [
-        "harness/evidence/external-20261119/ticket-results.json"
+        "docs/DOMAIN_CONNECTION.md",
+        "harness/evidence/domain-20261119/verification.json"
       ],
-      "verified_by": "agent technical audit; partial status retained",
-      "last_checked_at": "2026-11-19T15:05:44+09:00",
-      "remaining": "새 유료 도메인 구매 안 함. 발신 도메인 필요 여부는 SMTP 공급자 결정 시 별도 확인."
+      "verified_by": "agent HTTPS/browser/Vercel domain verification",
+      "last_checked_at": "2026-11-19T15:20:10+09:00",
+      "remaining": "Custom web domain complete; independent SMTP/provider issues remain."
     },
     "U018": {
       "status": "BLOCKED_RECOVERY_AND_ALERT_SETUP",

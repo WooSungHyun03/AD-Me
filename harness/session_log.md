@@ -96,3 +96,11 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - 실제 조회: Supabase ACTIVE_HEALTHY·서울·기존3 migration·결제function ACTIVE·public13테이블RLS·private Storage, paid orders0. 제공 backup 목록 null/PITR false. Vercel Hobby·Git link null·Supabase env2개; Toss secret 미등록.
 - GitHub-Vercel 연결 재시도 권한 오류. CUA 바인딩/초기화/DOM/스크린샷 대체에도 timeoutMs 오류. SMTP/Google/Toss 등 계정·자격증명/심사·참가자 동의 미확보. 임의 승인·키 생성·유료 전환 없음.
 - 전체20개 정확한 상태를 docs/EXTERNAL_EXECUTION_STATUS.md 및 evidence/external-20261119/ticket-results.json·runtime-status.json에 기록. 무료 실제 베타 NO-GO 유지. 테스트가 만든 공개 QA 모집 캠페인만 소유권/제목 한정으로 종료 정리했다.
+
+## 2026-11-19 — be-celeb.org 도메인 연결
+
+- 사용자가 Cloudflare 보유 be-celeb.org의 기존 웹 연결을 해제하고 AD Me로 연결하도록 명시 승인. Vercel Domains 및 Plugin Management 스킬 적용. Cloudflare 전용 플러그인 검색 결과 없음, CUA는 기존 timeoutMs 오류. 그러나 기존 Vercel 도메인 소유권·DNS를 이용해 사용자 수동 작업 없이 완료 가능했다.
+- 사전 DNS/프로젝트 연결 기록 저장. 기존 웹404·대상 팀 프로젝트 연결 없음. apex/www를 ad-me에 추가하고 www→apex308(경로/query 유지) 적용. Cloudflare DNS API/NS/메일 설정은 직접 변경하지 않음. 관측 A응답 차이는 별도 기록; NS/MX/SPF/www CNAME 보존·Vercel DNS valid 확인.
+- Supabase Auth Site URL을 https://be-celeb.org 로 변경, exact new/legacy root/dashboard redirect 유지. declared diff0 확인. Production NEXT_PUBLIC_APP_URL 등록 후 dpl_3up1TmKNaQd66CvfzCoEKRWGwHnR READY 재배포. 변수는 현재 코드 미사용임을 문서화.
+- 새 실제 URL7개경로 HTTP200·TLS·AD Me·연락처 확인, www308 확인, 실제 브라우저 homepage 캡처. E2E 결과는 별도 summary에 기록. 도메인 완료가 전체 실서비스 출시를 의미하지 않음.
+- 새 도메인 실제 E2E 최종 결과: desktop/mobile 6/6 PASS (1.2m). QA 공개 모집 캠페인은 테스트 계정/이름 한정으로 종료 정리. domain-20261119/e2e-summary.json 증거 저장.

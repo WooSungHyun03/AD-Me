@@ -1,0 +1,23 @@
+{
+  "base_url": "https://be-celeb.org",
+  "deployment_id": "dpl_3up1TmKNaQd66CvfzCoEKRWGwHnR",
+  "result": "PASS",
+  "passed": 6,
+  "failed": 0,
+  "duration": "1.2m",
+  "projects": [
+    "desktop",
+    "mobile"
+  ],
+  "coverage": [
+    "public discovery/filter/compare/ad-history/template tools",
+    "two-role real DB proposals/accept/delivery/review/permissions/persistence",
+    "campaign application/shortlist/account/admin"
+  ],
+  "limits": [
+    "DEMO fixtures",
+    "external SMTP signup unverified",
+    "Toss provider TEST payment unverified"
+  ],
+  "qa_cleanup": "disposable QA published campaigns closed; creator profile cleanup is included in E2E"
+}
