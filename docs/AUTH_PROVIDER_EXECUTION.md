@@ -6,7 +6,7 @@
 
 - Resend의 mail.be-celeb.org 인증 상태 verified, 서울 리전. 도메인 한정 sending_access 전용 키를 발급해 Supabase SMTP에만 연결했다. SMTP SSL 465 로그인 성공. Cloudflare DNS 변경은 이번에 필요하지 않았다. 부모 도메인 DMARC는 p=none 관측 정책이다.
 - Supabase confirmation/recovery 한국어 템플릿, Site URL, exact callback allowlist 적용. config diff의 선언 설정 차이 0. 원격 이메일 확인/MFA 등 미선언 설정은 보존했다.
-- 2242798@donga.ac.kr 가입 인증 메일과 복구 메일 모두 Resend delivered 확인. 사용자가 가입 인증 완료를 알렸고 DB email_confirmed 및 brand 프로필 생성 확인. 비밀번호 복구의 사용자 입력·재로그인 결과는 별도 확인 대상으로 유지한다.
+- 2242798@donga.ac.kr 가입 인증 메일과 복구 메일 모두 Resend delivered 확인. 사용자가 가입 인증 완료를 알렸고 DB email_confirmed 및 brand 프로필 생성 확인. 2026-11-19 사용자가 복구 메일에서 새 비밀번호 설정 후 재로그인 성공을 직접 보고했다. 비밀번호 값은 수집하지 않았다.
 - /auth/confirm은 GET에서 증표를 사용하지 않는다. POST의 이메일 증표 검증 후 인증/재설정을 수행한다. 복구는 recovery 유형·비밀번호 확인을 검증하며 로그인 세션만으로 재설정할 수 없다. callback은 PKCE 교환과 dashboard redirect만 허용. auth 경로는 no-referrer/no-store/noindex.
 - Toss 초기 gck/sk 혼합 키를 발견해 사용자에게 같은 세트를 요청했다. 수정한 API 개별 연동 test_ck_/test_sk_ 등록 완료. 클라이언트 가드는 gck 및 라이브 키를 거부한다.
 - 실제 Toss TEST 결제: Brand Pro 49,000원, 공급자 조회 DONE 및 주문 일치. 사용자가 TEST 동의·인증을 직접 완료했다. 서버 승인 후 paid 주문과 30일 이용권 1개 확인. 이용권 유효 기간은 2026-11-19 06:49:01 UTC부터 2026-12-19 06:49:01 UTC까지다. 결제 처리·paid 저장을 수동 조작하지 않았다.
@@ -38,7 +38,7 @@ public과 auth/storage는 서로 다른 시점의 덤프다. 원자적 시점 �
 
 - GitHub Vercel 앱의 저장소 접근 실패 해결, 환경 분리 및 호스팅 용도 적합성 확인.
 - Google 키 restriction·쿼터 콘솔 설정 증거, YouTube 정책/실제 수집 범위, 실제 참가자·프로필 권리·연락 동의.
-- 관리자 MFA/세션 보안, 비밀번호 복구 최종 사용자 확인, TEST 실패·취소 및 격리 환경.
+- 관리자 MFA/세션 보안, TEST 실패·취소 및 격리 환경.
 - 개인정보 보존/삭제·국외이전 등 확정 정책, 정기 외부 백업·알림·일관된 복구, 실데이터 개발 선행 기능.
 - Instagram/TikTok은 승인/계정 요건 및 개발이 필요한 조건부 범위. 선택 LLM은 비활성.
 

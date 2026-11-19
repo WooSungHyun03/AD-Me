@@ -11,7 +11,7 @@
   "confirmation_email_delivered": true,
   "recovery_email_delivered": true,
   "operator_email_confirmed": true,
-  "operator_password_reset_user_confirmed": false,
+  "operator_password_reset_user_confirmed": true,
   "toss_provider": {
     "test_secret_only": true,
     "provider_status": "DONE",
@@ -75,5 +75,6 @@
     "same_order": true,
     "same_payment": true,
     "same_amount": true
-  }
+  },
+  "operator_password_reset_evidence": "2026-11-19 사용자 직접 복구 링크에서 새 비밀번호 설정 후 재로그인 성공 보고"
 }

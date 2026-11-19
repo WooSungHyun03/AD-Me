@@ -115,3 +115,7 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - lint/typecheck/Vitest35/Python5/build PASS, local E2E10/10·production E2E10/10. 최초 결제 상태 기대값 실패1건 및 인증 locator 충돌은 수정 후 재실행. 상세 증거 docs/AUTH_PROVIDER_EXECUTION.md 및 providers-20261119/summary.json. 전체 U20 및 실제 데이터 베타 완료로 표시하지 않음.
 
 - 최종 소스 36327d7 업로드·dpl_9uQy4CiWiW9FV1E9ABqiu788cyfL READY 배포 및 실제 복구 UI desktop/mobile HTTP200 확인. GitHub Actions2개 성공. Toss provider 동일 Idempotency-Key 재승인 HTTP200·DONE·동일결제 반환. 익명/인증 사용자의 직접 finalize RPC 권한 false 확인.
+
+## 2026-11-19 — 사용자 비밀번호 복구·재로그인 확인
+
+- 사용자가 복구 메일에서 새 비밀번호를 설정한 뒤 재로그인 성공을 직접 보고했다. providers 증거의 사용자 확인을 true로 갱신하고 D010/U008/U019 및 외부 실행 기록의 해당 대기 조건을 해제했다. 이메일 변경·관리자 MFA·SNS OAuth 등 별도 미완료 범위는 유지했다. 비밀번호 수집·재입력·재발송 및 재배포는 수행하지 않았다.

@@ -64,7 +64,7 @@
       "evidence": [
         "docs/AUTH_PROVIDER_EXECUTION.md"
       ],
-      "blocker": "증표 기반 비밀번호 복구 구현/오류 경로 검증; 사용자 복구 확인 및 이메일 변경 전체 범위 미완료."
+      "blocker": "증표 기반 비밀번호 복구·오류 경로 검증 및 사용자 새 비밀번호 설정/재로그인 성공 확인. 이메일 변경 전체 범위 미완료."
     },
     "D011": {
       "owner": "DEV-B",
@@ -614,7 +614,7 @@
       ],
       "verified_by": "agent technical execution and user-assisted email/TEST authentication",
       "last_checked_at": "2026-11-19T06:52:43.993952+00:00",
-      "remaining": "Site URL·exact callback·한국어 해시 템플릿 적용 완료. 관리자 MFA·세션 보안 및 최종 복구 사용자 확인 미완료."
+      "remaining": "Site URL·exact callback·한국어 해시 템플릿 및 사용자 비밀번호 복구/재로그인 확인 완료. 관리자 MFA·세션 보안 미완료."
     },
     "U009": {
       "status": "PARTIAL_VERIFIED",
@@ -722,7 +722,7 @@
       ],
       "verified_by": "agent technical execution and user-assisted email/TEST authentication",
       "last_checked_at": "2026-11-19T06:52:43.993952+00:00",
-      "remaining": "실제 도메인 E2E10/10·외부 이메일 인증·사용자 Toss TEST 승인 완료. 복구 재로그인·SNS OAuth·Toss 실패/취소 및 실데이터 흐름 미완료."
+      "remaining": "실제 도메인 E2E10/10·외부 이메일 인증·비밀번호 복구 후 재로그인·사용자 Toss TEST 승인 완료. SNS OAuth·Toss 실패/취소 및 실데이터 흐름 미완료."
     },
     "U020": {
       "status": "NO_GO",
