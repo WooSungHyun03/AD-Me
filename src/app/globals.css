@@ -812,3 +812,11 @@ footer span {
     height: 32px;
   }
 }
+
+.ops-nav { display: flex; flex-wrap: wrap; gap: .65rem 1.4rem; margin: 1.5rem 0; }
+.ops-nav a { text-decoration: underline; text-underline-offset: .22em; padding-block: .45rem; }
+.ops-section { padding-block: 1.5rem; border-top: 1px solid #d8d9d0; overflow-wrap: anywhere; }
+.ops-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1rem; }
+.ops-row { padding: 1rem 0; border-block-end: 1px solid #d8d9d0; }
+.ops-row summary { cursor: pointer; min-height: 44px; align-content: center; }
+.ops-section form { max-width: 32rem; }
