@@ -253,33 +253,55 @@ try {
         ).error?.code,
         "42501",
       );
+      sql(
+        `update public.campaigns set status='draft' where id='${secondCampaign}';`,
+      );
+      const hidden = await other.rpc("create_creator_proposal", {
+        ...args,
+        p_campaign: secondCampaign,
+      });
+      const missing = await other.rpc("create_creator_proposal", {
+        ...args,
+        p_campaign: randomUUID(),
+      });
+      assert.equal(hidden.error?.code, "23514");
+      assert.equal(hidden.error?.code, missing.error?.code);
+      assert.equal(hidden.error?.message, missing.error?.message);
       assert.equal(
         (
-          await brand
-            .from("proposals")
-            .insert({
-              campaign_id: secondCampaign,
-              creator_id: creatorId,
-              brand_id: ids.brand,
-              creator_user_id: ids.owner,
-              kind: "proposal",
-              brief: args.p_brief,
-            })
+          await brand.rpc("create_creator_proposal", {
+            ...args,
+            p_kind: null,
+          })
+        ).error?.code,
+        "42501",
+      );
+      sql(
+        `update public.campaigns set status='published' where id='${secondCampaign}';`,
+      );
+      assert.equal(
+        (
+          await brand.from("proposals").insert({
+            campaign_id: secondCampaign,
+            creator_id: creatorId,
+            brand_id: ids.brand,
+            creator_user_id: ids.owner,
+            kind: "proposal",
+            brief: args.p_brief,
+          })
         ).error,
         null,
       );
       assert.equal(
         (
-          await other
-            .from("proposals")
-            .insert({
-              campaign_id: secondCampaign,
-              creator_id: creatorId,
-              brand_id: ids.other,
-              creator_user_id: ids.owner,
-              kind: "proposal",
-              brief: args.p_brief,
-            })
+          await other.from("proposals").insert({
+            campaign_id: secondCampaign,
+            creator_id: creatorId,
+            brand_id: ids.other,
+            creator_user_id: ids.owner,
+            kind: "proposal",
+            brief: args.p_brief,
+          })
         ).error?.code,
         "42501",
       );
