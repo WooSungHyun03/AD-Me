@@ -27,3 +27,18 @@
 [파일별 변경·검증 기록](../../harness/evidence/DEV-A-P0-CONTINUE/ticket-commits.json) · [기존 로컬 검증](../../harness/evidence/DEV-A-P0-CONTINUE/verification.json)
 
 이 문서를 기록하는 후속 커밋은 위 티켓 구현을 바꾸지 않는 공통 이력 기록이다. 이전 적용 ZIP·SHA-256과 미커밋 스냅샷 증거는 당시 상태 그대로 보존하며 새 커밋 해시로 소급 변경하지 않는다.
+
+
+## 2026-11-20 main 통합 계속
+
+|티켓|커밋|내용|
+|---|---|---|
+|D004/integration|69935f1|merge: integrate main 65063c8 and retain DEV-A API and UI contracts|
+|D016|7466c65|fix(D016): enforce expiring approvals and recent OTP for operations roles|
+|D051/partial|93ce710|fix(D051): distinguish message kind from proposal kind in RLS|
+|D076/partial|48e8451|feat(D076): add atomic database quotas and bounded worker budgets|
+|D059|6e36d58|fix(D059): preserve moderation locks in the YouTube directory|
+|D008|0aa6dd3|fix(D008): gate main queue adapters through explicit feature controls|
+|D084|fee00fd|test(D084): verify integrated main with isolated Auth and fixture workers|
+
+최신 결과/미완료 범위: [main 계속 작업](DEV-A_MAIN_CONTINUATION_20261120.md). source SQL 패킷은 별도 산출물 커밋이며 배포가 아니다.

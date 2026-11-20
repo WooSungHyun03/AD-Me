@@ -10,7 +10,7 @@
 |D076 부분|48e8451|공유 DB 원자 쿼터·429/Retry-After·작업/공급원 예산·기본OFF|
 |D059|6e36d58|YouTube 검색에서도 독립 운영 차단, DTO/검색 한도|
 |D008|0aa6dd3|실제 큐 어댑터와 앱 플래그/설정 진단 연결|
-|D084|`test(D084): verify integrated main…`|실제 로컬 Auth 회귀, fixture 분리, Windows/로컬 QA 도구, 적용 패킷 검증|
+|D084|fee00fd|실제 로컬 Auth 회귀, fixture 분리, Windows/로컬 QA 도구, 적용 패킷 검증|
 
 검증: Node22 lint/typecheck/생산 build, Vitest138(16파일), Harness5/백로그 구조, 직접 REST28그룹과 SQL fixture3개, 실제 로컬 Auth 포함 desktop/mobile E2E26, keyless4 통과. [실행·실패 수정·한계](../../harness/evidence/DEV-A-MAIN-20261120/verification.json). 스크린샷은 실제 로컬 화면을 확인했고 OTP secret을 포함하지 않는다. fixture worker는 실제 lease/finish RPC를 사용하지만 공급자를 호출하지 않는다. 실제 YouTube·모델 성능·공급자 성공으로 보고하지 않는다.
 
