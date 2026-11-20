@@ -65,6 +65,9 @@ export default async function Admin() {
   ]);
   return (
     <section className="wrap">
+      <Link className="button outline small" href="/admin/reviews">
+        근거 검토함 ↗
+      </Link>
       <span className="eyebrow">Operations / admin only</span>
       <h1 className="page-title">서비스 운영 현황.</h1>
       <Link href="/admin/intelligence" className="button outline">

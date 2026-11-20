@@ -57,6 +57,9 @@ export default async function Dashboard() {
           <p>발견한 가능성을 함께 만드는 일로.</p>
         </div>
         <div className="inline">
+          <Link className="button outline small" href="/reports">
+            자료 검토·내 입장
+          </Link>
           <Link className="button outline small" href="/settings">
             프로필 설정
           </Link>

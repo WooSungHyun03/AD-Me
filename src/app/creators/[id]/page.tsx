@@ -1,3 +1,4 @@
+import { PublicReviewRecords } from "@/components/public-review-records";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { rank } from "@/lib/catalog";
@@ -122,10 +123,7 @@ export default async function Detail({
               </div>
             ))}
           <h3 style={{ marginTop: 32 }}>브랜드 안전성 검토</h3>
-          <p>
-            검증된 공개 검토 자료가 없습니다. 자료 부족은 안전성을 보증하지
-            않습니다. 미확인 논란을 자동 생성하지 않습니다.
-          </p>
+          <PublicReviewRecords creatorId={id} />
           <Link
             className="button outline small"
             href={`/reports/new?creator=${id}`}

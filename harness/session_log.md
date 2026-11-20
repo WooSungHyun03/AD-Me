@@ -230,3 +230,7 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - unit197/25·신규 API7·lint/typecheck·실제 DB8+기존 rate8·desktop/mobile 새 대화2+두 역할 golden2/build PASS. 동시 retry12→1건/1 quota, 신규25→20허용, cursor 동일 microsecond27행·XSS·foreign/anon/위조·차단/신고 검증. 브라우저에서 서버 저장 후 응답만 끊고 같은 key로 재시도하여1건을 확인했다.
 - 검토 SQL23→24를 두 번째 격리 DB에서 실제 실행, 기존 message hash/legacy INSERT/read_boundary 보존·unknown/repeat 거부 PASS. source18 적용 후 수정하지 않았다. 초기 fixture host/enum·React effect lint·CRLF 비교 오류는 근본 원인을 수정했다.
 - D051만 원장 갱신, 안전 Storage 첨부/D049 리뷰/실제URL은 남아 IN_PROGRESS. 외부 계정/키/콘솔/배포/실제 메시지 없음. 한 SQL과 인계를 전달하고 같은 브랜치 commit/push/CI를 검증한다.
+
+## 2026-11-20G — D057 근거 검토 흐름
+- 019/020 private RLS 제출·정정·당사자 답변·검토/감사·정책OFF 공개 게이트 및 curated DTO 구현. 익명/타인/stale MFA/self review·변경된version 승인을 거부하며 미확인 주장은 점수/검색 제외와 연결하지 않는다. 소스 재검토에서 원본 reason 공개 제외와 모든 owner response의 새version 생성을020으로 보강했다. 적용된019/이전24개 불변.
+- 실제 local DB/REST9그룹 PASS. API/내 검토함·운영 검토함·프로필 표시 연결, 기존 reports 데이터/ID/POST payload 보존. 원장 D057만 진행으로 바꾸며 공개 실제 정책/USER 적용/교차 리뷰는 남긴다. D029 연계 후 브라우저/최종 공통검증과 하나의 USER SQL을 준비한다.
