@@ -4,11 +4,11 @@ import json
 import re
 
 root = Path(__file__).resolve().parents[1]
-backlog = json.loads((root / 'harness/service_backlog_v2.json').read_text())
+backlog = json.loads((root / 'harness/service_backlog_v2.json').read_text(encoding='utf-8'))
 all_ids = {t['id'] for t in backlog['tickets'] + backlog['user_tickets'] + backlog['deferred']}
 seen = set()
 for owner in ('DEV-A', 'DEV-B'):
-    text = (root / f'docs/handoff/{owner}_VIBECODING_TICKETS.md').read_text()
+    text = (root / f'docs/handoff/{owner}_VIBECODING_TICKETS.md').read_text(encoding='utf-8')
     ids = re.findall(r'^## (D\d{3}) — ', text, re.M)
     expected = {t['id'] for t in backlog['tickets'] if t['owner'] == owner}
     assert set(ids) == expected and len(ids) == len(expected), owner
@@ -19,9 +19,9 @@ for owner in ('DEV-A', 'DEV-B'):
         for required in ('선행 인계', '후속 인계', '구현 지시', '완료 조건', '부정 시나리오', '실행 및 테스트', '제출 산출물'):
             assert required in section, (owner, required)
     assert sum(t['points'] for t in backlog['tickets'] if t['owner'] == owner) == 219
-runtime = json.loads((root / 'harness/handoff/runtime-status.json').read_text())
+runtime = json.loads((root / 'harness/handoff/runtime-status.json').read_text(encoding='utf-8'))
 for t in backlog['user_tickets']:
-    text = (root / f'docs/user-tickets/{t["id"]}.md').read_text()
+    text = (root / f'docs/user-tickets/{t["id"]}.md').read_text(encoding='utf-8')
     for required in ('시작 전에 개발자가 준비할 것', '사용자가 수행할 순서', '검증·개발자 인계', '실패·중단·복구', '증거 기록 양식', '공식 참고'):
         assert required in text, (t['id'], required)
     assert len(re.findall(r'^\d+\. ', text, re.M)) >= 4, t['id']
@@ -30,7 +30,7 @@ assert set(runtime['tickets']) == seen
 assert set(runtime['user_actions']) == {t['id'] for t in backlog['user_tickets']}
 for t in backlog['tickets']:
     assert runtime['tickets'][t['id']]['owner'] == t['owner']
-manifest = json.loads((root / 'harness/handoff/environment-manifest.json').read_text())
+manifest = json.loads((root / 'harness/handoff/environment-manifest.json').read_text(encoding='utf-8'))
 assert manifest['contains_values'] is False and manifest['registration_owner'] == 'USER'
 assert all('value' not in x for x in manifest['settings'])
 for setting in manifest['settings']:
@@ -38,10 +38,10 @@ for setting in manifest['settings']:
     if consumer:
         path = root / consumer
         assert path.is_file(), consumer
-        assert setting['name'] in path.read_text(), setting['name']
+        assert setting['name'] in path.read_text(encoding='utf-8'), setting['name']
 files = list((root / 'docs/handoff').glob('*.md')) + list((root / 'docs/user-tickets').glob('*.md')) + [root / 'docs/backlog/USER_ACTIONS.md']
 for file in files:
-    text = file.read_text()
+    text = file.read_text(encoding='utf-8')
     for target in re.findall(r'\[[^\]]*\]\(([^)]+)\)', text):
         if target.startswith(('https://', 'http://', '#')):
             continue

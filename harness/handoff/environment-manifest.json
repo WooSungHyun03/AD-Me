@@ -155,7 +155,8 @@
       "status": "IMPLEMENTED",
       "classification": "SECRET",
       "location": "USER-managed outbound worker; DB stores hash only",
-      "consumer": "scripts/intelligence_worker.py + adme_ops.verify_worker"
+      "consumer": "scripts/intelligence_worker.py",
+      "database_guard": "adme_ops.verify_worker(text)"
     }
   ],
   "technical_execution": "USER"
