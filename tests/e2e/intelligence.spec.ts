@@ -58,11 +58,7 @@ test("operations console checks sessions and permissions on desktop and mobile",
 
 test("brand submits a private Korean draft to the real worker", async ({
   page,
-}, info) => {
-  test.skip(
-    info.project.name !== "desktop",
-    "한 작업으로 동일한 DB와 로컬 모델 경로를 검증합니다.",
-  );
+}) => {
   await login(page, "brand");
   await page.goto("/tools/local");
   await page
