@@ -42,3 +42,15 @@
 |D084|fee00fd|test(D084): verify integrated main with isolated Auth and fixture workers|
 
 최신 결과/미완료 범위: [main 계속 작업](DEV-A_MAIN_CONTINUATION_20261120.md). source SQL 패킷은 별도 산출물 커밋이며 배포가 아니다.
+
+
+## 2026-11-20B 캠페인 조건·조회 제한 계속
+
+|티켓|커밋|내용|
+|---|---|---|
+|D076/partial|a4d9991|fix(D076): enforce draft read quotas at the direct RPC boundary|
+|D041|1054bce|feat(D041): persist structured campaign terms through create and edit flows|
+|D081/partial|35602e9|fix(D081): label fictional campaign recommendations as DEMO|
+|D084|436171c|test(D084): verify free campaign terms and repeatable security fixtures|
+
+최신 인계: [계속 기록](DEV-A_CONTINUATION_20261120B.md). D041 LOCAL_VERIFIED, D076/D081/D084 IN_PROGRESS. 외부 적용/DONE/push/배포 없음.

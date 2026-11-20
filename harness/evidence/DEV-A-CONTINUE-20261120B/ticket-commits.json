@@ -1,0 +1,94 @@
+{
+  "baseline": "955bf8c",
+  "upstream_main": "65063c8",
+  "implementation_commits": [
+    {
+      "ticket": "D076/partial",
+      "commit": "a4d9991d3b20d3addfc48bff81fc093ab22ef585",
+      "title": "fix(D076): enforce draft read quotas at the direct RPC boundary",
+      "changed_paths": [
+        "harness/evidence/D076/README.md",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/PLAN.md",
+        "src/app/api/intelligence/route.ts",
+        "src/lib/rate-limit.ts",
+        "supabase/migrations/202611200011_draft_read_limits.sql",
+        "tests/intelligence-api.test.ts",
+        "tests/local-draft-read-security.mjs",
+        "tests/rate-limit.test.ts"
+      ]
+    },
+    {
+      "ticket": "D041",
+      "commit": "1054bce25950e315571bb1a3ff71fb9941d6dfd6",
+      "title": "feat(D041): persist structured campaign terms through create and edit flows",
+      "changed_paths": [
+        "docs/API_CONTRACTS.md",
+        "harness/evidence/D041/README.md",
+        "src/app/campaigns/[id]/page.tsx",
+        "src/app/globals.css",
+        "src/components/campaign-form.tsx",
+        "src/components/campaign-terms-fields.tsx",
+        "src/components/campaign-terms-summary.tsx",
+        "src/lib/campaign-brief.ts",
+        "src/lib/schemas.ts",
+        "supabase/migrations/202611200012_campaign_terms.sql",
+        "tests/campaign-api.test.ts",
+        "tests/campaign-storage.test.ts",
+        "tests/e2e/service.spec.ts",
+        "tests/local-browser/campaign-terms.spec.ts",
+        "tests/local-campaign-terms-security.mjs",
+        "tests/support/campaign-terms-form.ts"
+      ]
+    },
+    {
+      "ticket": "D081/partial",
+      "commit": "35602e903341f3fb2ed464c310d12f1c950e120f",
+      "title": "fix(D081): label fictional campaign recommendations as DEMO",
+      "changed_paths": [
+        "harness/evidence/D081/README.md",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/PLAN.md",
+        "src/app/campaigns/[id]/page.tsx",
+        "tests/local-browser/campaign-terms.spec.ts"
+      ]
+    },
+    {
+      "ticket": "D084",
+      "commit": "436171c5258e9debb5a3b81ed1ed4f47cd5220b9",
+      "title": "test(D084): verify free campaign terms and repeatable security fixtures",
+      "changed_paths": [
+        "docs/handoff/DEV-A_CONTINUATION_20261120B.md",
+        "docs/handoff/DEV-A_MAIN_CONTINUATION_20261120.md",
+        "harness/evidence/D084/README.md",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/campaign-terms-detail-desktop.png",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/campaign-terms-detail-mobile.png",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/campaign-terms-form-desktop.png",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/campaign-terms-form-mobile.png",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/campaign-terms-security.json",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/draft-read-security.json",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/local-brand-security.json",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/local-security.json",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/ops-security.json",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/packet-from_955bf8c.json",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/packet-from_integrated_dev_a.json",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/packet-from_main.json",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/rate-security.json",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/youtube-security.json",
+        "harness/handoff/runtime-status.json",
+        "harness/session_log.md",
+        "package.json",
+        "playwright.free-local.config.ts",
+        "scripts/package-dev-a-continuation.py",
+        "scripts/serve-local-qa.mjs",
+        "scripts/verify-continuation-packet.mjs",
+        "supabase/tests/intelligence.sql",
+        "tests/intelligence-api.test.ts",
+        "tests/local-draft-read-security.mjs",
+        "tests/local-security.mjs",
+        "tests/rate-limit.test.ts"
+      ]
+    }
+  ],
+  "done_added": 0,
+  "pushed": false
+}
