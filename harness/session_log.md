@@ -220,3 +220,7 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - 최종 unit190/24·lint/typecheck, 전체 local32(21개 이력)와016후6/chooser후4/prefetch후2/017후4, free4·keyless10, SQL/REST54·rollback3을 시점별 기록했다. opt-in DB config 경로 오타는 실제 storage config로 수정해2건 통과했다.
 - 생성 SQL을 기존8/12/16/18/19→23 다섯 기준에서 실제 실행했다. 처음 빈 baseline의 INSERT SELECT0행을 literal fixture/count1로 고친 뒤 profile hash·legacy ID 보존과 staged old read·safe DTO·activation·재개방/중복 거부를 검증했다. 이전22개 증거도 보존한다.
 - D018/D075/D076/D084 네 DEV-A 원장만 갱신, 전체Storage/테넌트/opaqueID·정책/공급자/실제URL·교차 리뷰는 미완료. LOCAL5/진행13/부분1/외부2/OPEN22/DONE0. source/SQL19개·ZIP5개 불변을 확인하고 새 패킷을 준비한다. 외부 콘솔/키/배포 수행 없음.
+
+## 2026-11-20E — 산출물 검증·기존 브랜치 push 준비
+- source5cb77a8의394 Git blob/CRC/비밀 패턴, 새014~017 SQL 원문/이력, 최초 activation source reference를 검증했다. 새ZIP2,725,961bytes/SHA256 fa86f1397ad26c5561800e2938100f885127869aaa13a8b7fe02a2267a7b2418. 이전ZIP5개 hash 불변. artifacts만 후속 커밋한다.
+- 티켓별7a553e5(D075),1b6fbf0(D076),891f5a2/5937456/d85cf28(D075),5cb77a8(D084). push 직전 fetch의 main65063c8 유지. 같은 codex/dev-a-p0-continue만 push하며 배포/main merge/외부 설정은 수행하지 않는다. push 후 exact HEAD의 CI/원격 SHA는 ignored output receipt로 확인한다.
