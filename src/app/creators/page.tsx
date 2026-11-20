@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { getConfig } from "@/lib/config";
 import { Catalog } from "@/components/catalog";
 import { currentUser, supabase } from "@/lib/supabase";
@@ -58,7 +59,11 @@ export default async function Creators() {
           </div>
         </section>
       )}
-      <Catalog items={items} initialSaved={initialSaved} />
+      <Suspense
+        fallback={<p role="status">크리에이터 검색을 준비하고 있습니다.</p>}
+      >
+        <Catalog items={items} initialSaved={initialSaved} />
+      </Suspense>
     </section>
   );
 }

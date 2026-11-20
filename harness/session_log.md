@@ -188,3 +188,9 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 ## 2026-11-20C — D018 사용자 적용 패키지·기존 브랜치 push 준비
 - source554c681, 새 SCHEMA ZIP353파일/2,638,800bytes/SHA256 6f88d205f05462376349df26427ca51957a1805e4ee842c981593245e0f34d97. 네 기준 SQL을 제공하며 ZIP CRC·모든 source Git blob·정규화 migration hash·비밀 패턴·이전 전달 ZIP3개 hash를 검증했다. 이전 산출물은 덮어쓰지 않았다.
 - 소스/회귀를 각각4fd47a9(D018),554c681(D084)로 커밋했다. 최신 전달 메타데이터와 패킷은 후속 산출물 커밋이며 소스 기준은554c681로 명시한다. 사용자 허가 범위에서 codex/dev-a-p0-continue에 push하고 원격 SHA/CI를 확인한다. main/외부 콘솔/키/배포 명령은 실행하지 않는다.
+
+## 2026-11-20D — 첨부43개 기준 검토·D034 독립 구현
+- 첨부 김태권 이번주.md와 저장소 DEV-A 지시서의 전체 내용/해시 일치 확인,43개 기준·선행·커밋·증거 경로를 대조했다. 첨부 폴더 공유 계약 부재로 저장소 계약을 읽었다. c450619 clean/기존브랜치/main65063c8 확인. 과거 완료 주장과 신규 실제 제공자 검증을 혼동하지 않았고 D051 blocker의 누락된 quota 범위를 명확히 했다.
+- D034 single→multi OR/AND, URL 단일 상태/restore/reset/back/forward, 범위·0/미확보·stable sort·empty/error·키보드/모바일 구현. D033 취소/늦은 응답 계약4는 별도 미연결 adapter이며 서버 검색/공개 read switch 구현이라고 주장하지 않는다.
+- Node22 unit176/21(신규20), lint/typecheck/build, keyless actual Chrome10/10(필터6+기존4) PASS. 최초 동시.next build lock은 순차 재실행으로 해결, 테스트 skip 없음. 기존 서비스 E2E의 플랫폼 selector를 실제 변경된 checkbox로 보수했다.
+- D034 IN_PROGRESS, D033 연결·교차 리뷰·대상 적용은 남긴다. 공개 앱 props의 owner/raw JSON 문제는 별도 D018 보수, 직접 REST 공개 권한은 D033/D075 차단으로 기록한다. 외부 계정/키/콘솔/배포 없음.

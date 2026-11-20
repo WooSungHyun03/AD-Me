@@ -253,9 +253,13 @@
     },
     "D034": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D034/README.md",
+        "harness/evidence/D034/PLAN_20261120.md"
+      ],
+      "blocker": "다중 필터/URL 복원·back/forward/reset/0·미확보/stable sort/경합 계약의 unit·브라우저 로컬 검증. D033 server DTO/cursor 검색 연결·대량 데이터/실제 비동기 통합·교차 리뷰·대상 적용 미완료.",
+      "last_checked_at": "2026-11-20T08:29:32.697943+00:00"
     },
     "D035": {
       "owner": "DEV-A",

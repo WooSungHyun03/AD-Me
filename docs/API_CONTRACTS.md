@@ -58,6 +58,12 @@ DEV-A 2026-11-19 후속 계약: 공개 브랜드 DTO v1과 비공개 연락처�
 
 ## D018 private storage snapshot v1 (2026-11-20C)
 
+### D034 client filter URL v1
+
+`/creators` uses repeated `category`/`platform`/`tag` values (OR within a field; AND across fields), `q`, `minPrice`/`maxPrice`, `minFollowers`/`maxFollowers`, `available=1`, `sort=name|price|followers`. Zero is explicit, blank is unrestricted. Price ranges overlap inclusively with creator quote ranges. Numeric invalid/reversed ranges show an error with no results, never silently become unrestricted. Text is bounded120, choices8/field, price0..100000000 and followers0..10000000000. Reset removes all owned keys including sort and preserves unrelated query/hash. Sorts use name/ID ties and missing followers sort last.
+
+This is the current snapshot UI contract, **not** a paginated server search endpoint. D033 must review the contract and connect a validated public DTO/cursor API. `createLatestCreatorSearch` supplies an independently tested cancellation/stale response boundary for that future connection; the current UI filters synchronously. Legacy owner-registration placeholders are unavailable, not real zero observations; synthetic DEMO counts remain labeled. No population-wide search/performance or actual provider verification is claimed.
+
 `my_creator_identity_snapshot()` takes no arguments and returns null when the authenticated caller has no legacy creator, or a private version1 snapshot with creatorId UUID, legacyCreatorId, unchanged legacyProfile, identities and identitiesTruncated. Each identity includes the existing identity contract plus sourceType/policyVersion/collectedAt/metrics/metricsTruncated. It returns at most50 identities and200 latest observations per identity; truncation is explicit. The public wrapper is SECURITY INVOKER; a private implementation selects only auth.uid()'s legacy creator, including after role/ownership changes. Anonymous execution and direct normalized table access are revoked. This is an owner-only DB RPC, not the public CreatorPublicDTO or a search API.
 
 `creator-storage.ts` is a server-only storage validator/legacy adapter. Legacy JSON and normalized observations remain separate; missing real metrics never inherit synthetic legacy followers. No policy is approved, provider writer connected, main YouTube directory migrated or public read source switched by migration013. D017/D019 review is required before those steps; source policy_version is provenance, not proof of approval. Details: [D018 handoff](handoff/DEV-A_SCHEMA_20261120.md).

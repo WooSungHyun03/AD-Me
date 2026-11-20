@@ -58,7 +58,11 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
     page.getByText("조건에 맞는 크리에이터가 없습니다."),
   ).toBeVisible();
   await page.getByRole("button", { name: "필터 초기화" }).click();
-  await page.getByLabel("플랫폼", { exact: true }).selectOption("youtube");
+  await page.getByTestId("filter-platform").locator("summary").click();
+  await page
+    .getByRole("group", { name: "플랫폼", exact: true })
+    .getByLabel("YouTube", { exact: true })
+    .check();
   await page.getByLabel("정렬", { exact: true }).selectOption("price");
   await page.getByLabel("후보 비교에 담기").nth(0).check();
   await page.getByLabel("후보 비교에 담기").nth(1).check();
