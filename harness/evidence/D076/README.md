@@ -12,3 +12,9 @@
 - Reference for direct DB429/headers: https://docs.postgrest.org/en/stable/references/errors.html#add-http-headers-with-raise . Old54000 limits return a conservative60s Retry-After through app; new atomic quotas return exact remaining windows.
 
 - Final shared verification: DEV-A-MAIN-20261120/verification.json. App draft polling uses the shared atomic quota, but direct ops_draft_get RPC polling and the legacy creator catalog still need DB/search-boundary coverage; ticket intentionally remains IN_PROGRESS. Signup/login trusted IP/account and real Auth console limits also remain.
+
+## 2026-11-20B — direct draft getter enforcement
+- Additive202611200011 moves the account120/min quota into the real private getter. Its public invoker wrapper is volatile, so direct GET fails closed; POST RPC cannot omit the quota. Legacy draft_poll stays separate to avoid double-charging old app clients.
+- App GET makes exactly one protected RPC; rate-limit.ts validates status, removes private error metadata and preserves sanitized429/Retry-After/no-store.
+- Actual isolated REST:3 groups PASS,125 concurrent direct getter calls ->120 admitted+5429; owner/foreign/anonymous, GET denial, old-client compatibility and recovery checked. Unit API/limiter20 PASS; strict typecheck PASS.
+- D076 still IN_PROGRESS: trusted signup/login IP/account/Auth controls and legacy catalog search remain. This closes the previously documented direct draft_get bypass; no external/provider calls or deployment.

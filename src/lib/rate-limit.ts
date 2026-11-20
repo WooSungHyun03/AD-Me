@@ -1,27 +1,19 @@
 import "server-only";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { fail, failDatabase } from "./api";
+import { z } from "zod";
 
-export async function enforceRateLimit(
-  db: SupabaseClient,
-  action: "draft_poll",
-) {
-  const { data, error } = await db.rpc("ops_request_quota", {
-    p_action: action,
-  });
-  if (error) failDatabase(error, "요청 한도를 확인하지 못했습니다.");
-  if (
-    !data ||
-    typeof data.allowed !== "boolean" ||
-    !Number.isInteger(data.retryAfter) ||
-    data.retryAfter < 0 ||
-    data.retryAfter > 86400
-  )
-    fail("요청 한도를 확인하지 못했습니다.", 503);
-  if (!data.allowed)
-    fail(
-      "요청이 많습니다. 잠시 후 다시 시도해주세요.",
-      429,
-      Math.max(1, data.retryAfter),
-    );
+const draftState = z.object({
+  status: z.enum(["queued", "running", "done", "failed"]),
+  output: z.unknown(),
+});
+
+export async function readRateLimitedDraft(db: SupabaseClient, id: string) {
+  // ops_draft_get atomically enforces its own quota, including direct REST calls.
+  const { data, error } = await db.rpc("ops_draft_get", { p_id: id });
+  if (error) failDatabase(error, "작업 상태를 확인할 수 없습니다.");
+  if (data === null) fail("작업을 찾을 수 없습니다.", 404);
+  const parsed = draftState.safeParse(data);
+  if (!parsed.success) fail("작업 상태를 확인할 수 없습니다.", 503);
+  return parsed.data;
 }

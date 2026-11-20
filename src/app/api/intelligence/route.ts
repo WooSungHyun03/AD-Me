@@ -10,7 +10,7 @@ import {
   requireFeature,
 } from "@/lib/api";
 import { draftInput, draftResult } from "@/lib/intelligence";
-import { enforceRateLimit } from "@/lib/rate-limit";
+import { readRateLimitedDraft } from "@/lib/rate-limit";
 
 export const POST = apiRoute("intelligence.post", async (request) => {
   requireFeature("llm");
@@ -41,10 +41,7 @@ export const GET = apiRoute("intelligence.get", async (request) => {
     new URL(request.url).searchParams.get("id"),
     "작업 번호를 확인해주세요.",
   );
-  await enforceRateLimit(c.db, "draft_poll");
-  const { data, error } = await c.db.rpc("ops_draft_get", { p_id: id });
-  if (error) failDatabase(error, "작업 상태를 확인할 수 없습니다.");
-  if (!data) return fail("작업을 찾을 수 없습니다.", 404);
+  const data = await readRateLimitedDraft(c.db, id);
   const output = draftResult.safeParse(data.output);
   return NextResponse.json(
     {
