@@ -73,7 +73,7 @@ try {
   sql(body);
   assert.equal(
     sql("select count(*) from supabase_migrations.schema_migrations;"),
-    "22",
+    "23",
   );
   assert.equal(hash(), before);
   assert.equal(sql("select enabled from adme_creator.read_boundary;"), "f");
@@ -136,7 +136,7 @@ try {
     at: new Date().toISOString(),
     mode,
     from_migrations: counts[mode],
-    to_migrations: 22,
+    to_migrations: 23,
     result: "PASS",
     unchanged_profile_hash: true,
     staging_retains_old_source_read: true,
