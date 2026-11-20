@@ -224,3 +224,9 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 ## 2026-11-20E — 산출물 검증·기존 브랜치 push 준비
 - source5cb77a8의394 Git blob/CRC/비밀 패턴, 새014~017 SQL 원문/이력, 최초 activation source reference를 검증했다. 새ZIP2,725,961bytes/SHA256 fa86f1397ad26c5561800e2938100f885127869aaa13a8b7fe02a2267a7b2418. 이전ZIP5개 hash 불변. artifacts만 후속 커밋한다.
 - 티켓별7a553e5(D075),1b6fbf0(D076),891f5a2/5937456/d85cf28(D075),5cb77a8(D084). push 직전 fetch의 main65063c8 유지. 같은 codex/dev-a-p0-continue만 push하며 배포/main merge/외부 설정은 수행하지 않는다. push 후 exact HEAD의 CI/원격 SHA는 ignored output receipt로 확인한다.
+
+## 2026-11-20F — D051 메시지 기능 보강
+- 사용자 마감 피드백에 따라 반복 ZIP 패키징 대신 한 기능의 source/SQL/검증을 묶었다. 기존9a45fc0 브랜치/main65063c8 유지.018 nullable retry key·cursor index·private RLS 차단/신고와 participant RPC, lazy 방별 UI·네트워크 응답 유실 재시도를 구현했다. 기존 상태 전이/본문/ID/정상 direct INSERT는 유지한다.
+- unit197/25·신규 API7·lint/typecheck·실제 DB8+기존 rate8·desktop/mobile 새 대화2+두 역할 golden2/build PASS. 동시 retry12→1건/1 quota, 신규25→20허용, cursor 동일 microsecond27행·XSS·foreign/anon/위조·차단/신고 검증. 브라우저에서 서버 저장 후 응답만 끊고 같은 key로 재시도하여1건을 확인했다.
+- 검토 SQL23→24를 두 번째 격리 DB에서 실제 실행, 기존 message hash/legacy INSERT/read_boundary 보존·unknown/repeat 거부 PASS. source18 적용 후 수정하지 않았다. 초기 fixture host/enum·React effect lint·CRLF 비교 오류는 근본 원인을 수정했다.
+- D051만 원장 갱신, 안전 Storage 첨부/D049 리뷰/실제URL은 남아 IN_PROGRESS. 외부 계정/키/콘솔/배포/실제 메시지 없음. 한 SQL과 인계를 전달하고 같은 브랜치 commit/push/CI를 검증한다.

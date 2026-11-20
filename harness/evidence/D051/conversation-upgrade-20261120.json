@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-20T12:43:48.349Z",
+  "result": "PASS",
+  "from_migrations": 23,
+  "to_migrations": 24,
+  "existing_message_hash_preserved": true,
+  "legacy_insert_and_RLS_compatible": true,
+  "read_boundary_unchanged": true,
+  "unknown_history_and_repeat_rejected": true,
+  "source_sha256_lf": "8447da0aa123d8cd158459f999ab2406496d398e13c1aeb2d7ad96026e2d9d09",
+  "scope": "actual generated USER SQL in exact isolated packet DB; fictional records only; no hosted writes"
+}

@@ -2,11 +2,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { currentUser, supabase } from "@/lib/supabase";
 import { logout } from "@/app/actions";
-import {
-  DealControls,
-  MessageForm,
-  ReadButton,
-} from "@/components/deal-controls";
+import { DealControls, ReadButton } from "@/components/deal-controls";
+import { Conversation } from "@/components/conversation";
 import { canTransition } from "@/lib/schemas";
 export default async function Dashboard() {
   const user = await currentUser();
@@ -41,15 +38,8 @@ export default async function Dashboard() {
       .select("*")
       .eq("owner_id", user.id)
       .gt("expires_at", new Date().toISOString()),
-    db
-      .from("saved_creators")
-      .select("creator_id")
-      .eq("owner_id", user.id),
+    db.from("saved_creators").select("creator_id").eq("owner_id", user.id),
   ]);
-  const { data: messages } = await db
-    .from("messages")
-    .select("*")
-    .order("created_at", { ascending: true });
   const status: Record<string, string> = {
     pending: "응답 대기",
     accepted: "협업 진행",
@@ -159,39 +149,15 @@ export default async function Dashboard() {
                 )}
               />
             </div>
-            <details style={{ marginTop: 24 }}>
-              <summary>
-                메시지·결과물 (
-                {messages?.filter((m) => m.proposal_id === p.id).length ?? 0})
-              </summary>
-              {messages
-                ?.filter((m) => m.proposal_id === p.id)
-                .map((m) => (
-                  <div className="notice" key={m.id}>
-                    <strong>
-                      {m.sender_id === user.id ? "나" : "협업 파트너"} ·{" "}
-                      {m.kind === "deliverable" ? "결과물" : "메시지"}
-                    </strong>
-                    <p style={{ whiteSpace: "pre-wrap", margin: 0 }}>
-                      {m.body}
-                    </p>
-                    {m.url && (
-                      <a href={m.url} target="_blank" rel="noopener noreferrer">
-                        결과물 열기 ↗
-                      </a>
-                    )}
-                  </div>
-                ))}
-              {p.status !== "rejected" && (
-                <MessageForm
-                  proposalId={p.id}
-                  deliverable={
-                    p.creator_user_id === user.id &&
-                    ["accepted", "revision_requested"].includes(p.status)
-                  }
-                />
-              )}
-            </details>
+            <Conversation
+              proposalId={p.id}
+              viewerId={user.id}
+              writable={p.status !== "rejected"}
+              deliverable={
+                p.creator_user_id === user.id &&
+                ["accepted", "revision_requested"].includes(p.status)
+              }
+            />
           </article>
         ))
       ) : (

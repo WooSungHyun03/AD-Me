@@ -1,0 +1,69 @@
+{
+  "at": "2026-11-20T12:46:06.674591+00:00",
+  "baseline": "9a45fc017d4e3539ce1f275e5d4ff47457920ba8",
+  "branch": "codex/dev-a-p0-continue",
+  "upstream_main": "65063c8412d95458e0da61b90f53d2da72decda3",
+  "ticket": "D051",
+  "migration": "202611200018",
+  "migration_count": 24,
+  "gates": {
+    "node": "22.23.5",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": {
+      "passed": 197,
+      "files": 25,
+      "new_api_contracts": 7
+    },
+    "direct_conversation_security_groups": 8,
+    "existing_rate_regression_groups": 8,
+    "production_build": "PASS via local Playwright harness",
+    "desktop_mobile_chrome": {
+      "passed": 4,
+      "new_conversation": 2,
+      "existing_two_role_golden": 2,
+      "command": "npm run test:e2e:local -- --grep 'conversation loads|two-role real DB golden'",
+      "checks": [
+        "lazy room load/no messages in initial RSC",
+        "cursor history20→26",
+        "React text XSS denial",
+        "actual committed send/lost acknowledgement/retry same key→one record",
+        "private report",
+        "block/unblock",
+        "overflow",
+        "old delivery and collaboration transitions"
+      ]
+    },
+    "visual_inspection": [
+      "output/playwright/conversation-desktop.png",
+      "output/playwright/conversation-mobile.png"
+    ],
+    "generated_user_sql_upgrade": "PASS23→24 with nonempty existing message hash and old authenticated INSERT; unknown/repeat denied",
+    "optional_legacy_link_followup": "After browser run, strict unit contract verifies oversized/credential-bearing optional URL is omitted while legacy body remains readable; lint/typecheck/full197 pass."
+  },
+  "resolved_findings": [
+    {
+      "finding": "New API test omitted host header and hit existing CSRF gate403.",
+      "resolution": "Correct same-origin request fixture; retain gate."
+    },
+    {
+      "finding": "Direct test used nonexistent hidden moderation status.",
+      "resolution": "Use existing restricted enum, same denial assertion passes."
+    },
+    {
+      "finding": "React lint rejected effect calling shared state-setting loader.",
+      "resolution": "Separate async request from state application; initial effect attaches completion callbacks and abort cleanup, event reload stays explicit; no lint suppression."
+    },
+    {
+      "finding": "Generated USER SQL/source comparison differed only CRLF/LF.",
+      "resolution": "Compare canonical LF source and SHA256, execute actual unchanged SQL in second local DB."
+    }
+  ],
+  "remaining": [
+    "D027 secure Storage attachments and per-room signed URL authorization",
+    "D049 cross-review and actual target URL validation",
+    "Full auth/IP/bot controls remain separate D076"
+  ],
+  "scope": "actual local PostgreSQL/Auth/Chrome with fictional users/messages only; no external messages/provider validation/hosted writes",
+  "external_applied": false
+}
