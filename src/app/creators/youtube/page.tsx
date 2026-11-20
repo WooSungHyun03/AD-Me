@@ -27,7 +27,7 @@ export default async function YoutubeCreators({
         소유권을 확인하고 공개에 동의한 AD Me 크리에이터를 검색합니다. 구독자
         수는 YouTube API에서 제공한 값입니다.
       </p>
-      <form method="get" className="form">
+      <form method="get" className="form ops-form">
         <label>
           채널 이름
           <input type="search" name="q" maxLength={80} defaultValue={q} />

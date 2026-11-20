@@ -52,7 +52,7 @@ export function Command({
   }
 
   return (
-    <form onSubmit={submit} className="form">
+    <form onSubmit={submit} className="form ops-form">
       {action === "channel" && (
         <label>
           채널 ID 또는 채널 주소

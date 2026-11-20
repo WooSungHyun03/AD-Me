@@ -18,7 +18,7 @@ export function ClaimForm({
   return (
     <form
       action={submit}
-      className="form"
+      className="form ops-form"
       onSubmit={(event) => {
         if (confirmation && !window.confirm(confirmation))
           event.preventDefault();

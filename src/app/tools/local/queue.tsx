@@ -88,7 +88,7 @@ export function DraftQueue() {
 
   return (
     <div className="ops-section">
-      <form className="form" onSubmit={submit}>
+      <form className="form ops-form" onSubmit={submit}>
         <label>
           광고 브리프
           <textarea

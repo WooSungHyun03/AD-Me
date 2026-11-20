@@ -820,3 +820,23 @@ footer span {
 .ops-row { padding: 1rem 0; border-block-end: 1px solid #d8d9d0; }
 .ops-row summary { cursor: pointer; min-height: 44px; align-content: center; }
 .ops-section form { max-width: 32rem; }
+.ops-form {
+  display: grid;
+  justify-items: start;
+  gap: .85rem;
+  width: min(100%, 32rem);
+  margin-block: .75rem;
+}
+.ops-form label {
+  display: grid;
+  gap: .35rem;
+  width: 100%;
+}
+.ops-form input:not([type="hidden"]),
+.ops-form textarea,
+.ops-form select {
+  width: 100%;
+  min-width: 0;
+}
+.ops-form p:empty { display: none; }
+.ops-grid .panel > h3 { margin: 0; }

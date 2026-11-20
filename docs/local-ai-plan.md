@@ -7,3 +7,5 @@ Ollama 0.32.1, Qwen3 1.7B Q4_K_M 및 EmbeddingGemma를 분리된 로컬 모델 �
 Qwen3는 가벼운 다국어 구조화 출력에 적합하며, Ollama는 이미 설치되어 운영 변경 범위가 작았다. vLLM은 GPU가 전용일 때 배치 처리에 적합하다. llama.cpp 직접 운영은 세부 제어가 가능하지만 모델 서빙과 상태 관리가 추가로 필요하다. EmbeddingGemma는 [모델 이용 조건](https://ai.google.dev/gemma/terms)을 따른다. [Qwen3 모델](https://ollama.com/library/qwen3).
 
 AI-07의 광고 콘셉트, 영상 구성, 협업 제안 초안은 브랜드 계정으로 요청할 수 있다. 생성 모델에는 DB 조회, 협업 전송, 결제, 운영 명령 권한이 없다. AI-01/02/03/05/06/08/09의 분석·검색·에이전트 범위와 캐시, GPU 운용, 임베딩 저장은 후속 항목이다. AI-04는 기존 규칙 추천을 유지한다.
+
+호스트에 사용자 서비스 adme-ollama 및 adme-intelligence-worker를 등록하고 부팅 시 동작하도록 활성화했다. 해당 계정의 systemd linger는 이미 활성 상태였다. 워커 구성 파일은 ~/.config/adme/worker.env에 권한 0600으로 저장한다. 워커 로그에는 작업 종류·성공 여부·오류 코드·처리 시간만 남긴다. 이 PC가 종료되면 대기열은 Supabase에 보존된다.
