@@ -153,3 +153,10 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - 운영 Supabase 첫 일일 작업 성공. 실존 채널 6개·공개 영상 메타데이터 29건. 공개 채널 0개. GitHub 기존 관리자 예외 알림과 운영 배포 검증은 docs/implementation-progress.md 참조.
 
 - 배포 주소 전체 E2E 16개 통과. 화면 폼 보정 후 운영 스모크 4개 통과. 실제 채널 설명에 소유권 인증 문자열이 없을 경우 검증 실패, 비공개 유지와 연결 해제를 확인했다. 최종 배포 dpl_Ep82HQoU28bnTM6kQFG9ytZqWkr9 및 1262c5b Actions 성공.
+
+## 2026-11-20 KST — DEV-A main 통합 및 P0 계속
+- 원격 main65063c8의6개 새 커밋과 기존 DEV-A3182ff0의16개 커밋을 codex/dev-a-p0-20261120에서 양쪽 이력 보존 병합(69935f1). 최종 fetch에서도 main 동일 확인. 설정/관리자/로그 충돌은 양쪽 기능 유지 해결.
+- D0167466c65: 새 operations 역할도 초대 승인·만료·철회·최근OTP 요구, private schema/public invoker 경계 보존. D05193ce710: 브랜드 메시지가 거부되던 RLS kind 모호성 보수. D07648e8451: 원자 쿼터/429 Retry-After/공급원 예산/자원 pause 기본OFF. D0596e36d58: YouTube 디렉터리 독립 차단 및 검색 쿼터. D0080aa6dd3: main 큐 플래그/앱·DB 연결 정합성.
+- Node22 lint/typecheck/unit138/생산 build, Harness5/백로그 구조, REST28그룹+SQL3fixture, 실제 로컬 Auth 포함 desktop/mobile E2E26/26 및 keyless4/4 PASS. 초기 검사 실패와 수정은 dated verification에 보존. 실제 YouTube/LLM/SMTP/Toss/호스팅 검증으로 전용하지 않음.
+- 별도 로컬 DB에서 USER SQL패킷 main기준8개 및 기존DEV-A포함기준4개 모두 적용 검증(최종16migration), 잘못된/중복 기준 차단. 예전 패킷과 증빙은 유지. 신규 source/SQL 패키지와 전달 문서 준비.
+- D051/D076은 부분 구현 IN_PROGRESS. 가입/로그인 신뢰IP·Auth 제한, 기존 카탈로그/direct draft_get polling·전체 업로드/협업 등 미완료. 다른 담당/USER 원장은 변경하지 않고 모든 항목 DONE 승격0. push/외부 콘솔/키 등록/배포 없음.

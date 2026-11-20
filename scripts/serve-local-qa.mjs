@@ -13,8 +13,8 @@ const env = {
   ADME_SERVICE_MODE: "test_demo",
   ADME_FEATURE_MAIL: "on",
   ADME_FEATURE_TEST_BILLING: "on",
-  ADME_FEATURE_INGESTION: "off",
-  ADME_FEATURE_LLM: "off",
+  ADME_FEATURE_INGESTION: "on",
+  ADME_FEATURE_LLM: "on",
 };
 const servers = startLocalTls();
 // Build does not contact the Auth API except prerendered public data routes, which read request cookies.

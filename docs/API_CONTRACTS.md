@@ -7,6 +7,8 @@
 
 `apiRoute`가 JSON/CSV API의 성공 및 오류 응답에 서버가 생성한 `X-Request-Id`를 붙인다. 실패 시 `error.requestId`도 같은 값이며 기존 클라이언트의 `error.message`는 유지한다. 로깅은 고정 작업명, 코드, 요청 ID만 사용한다.
 
+2026-11-20: main의 intelligence API도 동일 계약을 사용한다. 429는 `Retry-After`(정수1~86400초)를 포함한다. 신규 원자 쿼터의 DB `PT429`는 남은 고정 윈도우를 전달하며 원문 details는 클라이언트에 보내지 않는다. 구형 `54000`은 보수적60초 fallback이다. 비활성 DB 자원의 `PT404`는 404로 매핑한다. 새 API는 `fail`이 예외를 던진다는 계약을 지키며 반드시 `apiRoute`로 감싼다.
+
 | HTTP | 코드 | 의미 |
 |---|---|---|
 | 400 | BAD_REQUEST | 읽을 수 없는 JSON 또는 요청 형식 오류 |

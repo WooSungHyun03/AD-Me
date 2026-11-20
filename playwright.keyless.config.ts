@@ -30,6 +30,8 @@ export default defineConfig({
       ADME_SERVICE_MODE: "free_beta",
       ADME_FEATURE_MAIL: "off",
       ADME_FEATURE_TEST_BILLING: "off",
+      ADME_FEATURE_INGESTION: "off",
+      ADME_FEATURE_LLM: "off",
     },
   },
 });

@@ -321,7 +321,7 @@ try {
     delete from public.administrator_grants where user_id in (${list});
     delete from auth.users where id in (${list}); commit;`);
   writeFileSync(
-    "harness/evidence/DEV-A-P0-CONTINUE/local-brand-security.json",
+  "output/dev-a-db/local-brand-security.local.json",
     JSON.stringify(
       {
         at: new Date().toISOString(),

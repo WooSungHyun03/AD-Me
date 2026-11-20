@@ -12,8 +12,10 @@ const runtime = localRuntime();
 const admin = localClient(runtime.SERVICE_ROLE_KEY);
 const accounts = {};
 // Explicit opt-in of isolated fixtures only; hosted controls remain default-off.
-sql("update adme_ops.resource_controls set ingestion_enabled=true,llm_enabled=true where singleton=true;");
-for (const role of ["brand", "creator", "other", "admin"]) {
+sql(
+  "update adme_ops.resource_controls set ingestion_enabled=true,llm_enabled=true where singleton=true;",
+);
+for (const role of ["brand", "creator", "other", "admin", "staff"]) {
   const email = `qa-${role}-${randomBytes(6).toString("hex")}@example.test`;
   const password = randomBytes(24).toString("base64url");
   const { data, error } = await admin.auth.admin.createUser({
@@ -30,6 +32,9 @@ for (const role of ["brand", "creator", "other", "admin"]) {
 }
 sql(
   `select public.provision_administrator('${accounts.admin.id}', 'LOCAL QA fixture, no external approval', now()+interval '1 day');`,
+);
+sql(
+  `select adme_ops.provision_staff('${accounts.staff.id}', 'content', 'LOCAL QA delegated fixture', now()+interval '1 day');`,
 );
 const client = localClient();
 assert.equal(
@@ -58,5 +63,5 @@ writeFileSync(
   JSON.stringify(accounts, null, 2),
 );
 console.log(
-  "Prepared four isolated local accounts and a real local Auth TOTP factor; no credentials printed.",
+  "Prepared five isolated local accounts and a real local Auth TOTP factor; no credentials printed.",
 );

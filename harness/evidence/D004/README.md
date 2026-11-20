@@ -8,3 +8,8 @@ DEV-A · 기준 d1b2aa5 · 2026-11-19 KST
 - 성공 DTO와 기존 클라이언트의 `error.message` 소비를 유지한다. 오류에는 코드, 서버가 만든 요청 ID, 비저장 헤더를 추가한다.
 - DB 스키마 변경은 없다. 잘못된 JSON/필드, DB 장애/권한/경합, 결제 공급자 응답과 로그의 민감값 비노출을 검증한다.
 - Vitest에서 잘못된 JSON/필드, 출처, 인증 누락/장애/한도, SQL 오류 분류, 알 수 없는 예외와 로그 비노출 통과. 계약 테스트는 실제 DB 장애나 RLS 검사와 별개다. [공통 검증 결과](../DEV-A-LOCAL/verification.json)
+
+## 2026-11-20 main API compatibility
+- New intelligence routes use error v1, strict body/UUID validation, no raw DB/provider messages. main's former safeOrigin/Response-returning fail call sites were adapted to apiRoute/throwing fail.
+- New429 responses include bounded Retry-After; DB PT429 carries exact remaining atomic window, old54000 fallback60s. PT404 maps disabled DB resources safely. Output DTO validation and no-store remain.
+- Node22 unit138/16 files, build, local E2E26 and keyless4 PASS. Full evidence: ../DEV-A-MAIN-20261120/verification.json. External deployment/cross-review remains; not DONE.

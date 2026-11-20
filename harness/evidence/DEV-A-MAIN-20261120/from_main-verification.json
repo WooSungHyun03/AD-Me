@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-20T02:33:21.550Z",
+  "baseline": "from_main",
+  "result": "PASS",
+  "migration_count": 16,
+  "flags_default_off": true,
+  "rls": true,
+  "browser_provision": false,
+  "reapply_rejected": true,
+  "no_hosted_access": true
+}

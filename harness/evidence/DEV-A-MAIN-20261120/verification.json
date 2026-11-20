@@ -1,0 +1,79 @@
+{
+  "at": "2026-11-20T02:36:28.405549+00:00",
+  "branch": "codex/dev-a-p0-20261120",
+  "upstream_main": "65063c8412d95458e0da61b90f53d2da72decda3",
+  "scope": "isolated local implementation and USER application packet; no hosted changes",
+  "gates": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": {
+      "files": 16,
+      "passed": 138
+    },
+    "production_build": "PASS via serve-local-qa and serve-keyless-qa (each invokes npm run build)",
+    "harness_selftest": {
+      "passed": 5
+    },
+    "backlog_integrity": "PASS 88 development/20 USER/6 deferred, allocation unchanged",
+    "local_e2e": {
+      "passed": 26,
+      "projects": [
+        "desktop1440x900",
+        "mobile390x844"
+      ],
+      "command": "npm run test:e2e:local",
+      "auth": "actual local Supabase Auth TOTP enrollment/verification; local Mailpit inbox sink",
+      "worker": "synthetic fixture consumer of real local lease/finish RPCs, no actual provider"
+    },
+    "keyless_e2e": {
+      "passed": 4,
+      "command": "ADME_BROWSER_CHANNEL=chrome npm run test:e2e:keyless"
+    },
+    "direct_rest_security": {
+      "groups_passed": 28,
+      "breakdown": {
+        "prior_admin_brand": 13,
+        "ops": 5,
+        "rate_and_message": 8,
+        "youtube_directory": 2
+      },
+      "jwt": "synthetic signed JWTs in isolated Docker only; never hosted tokens"
+    },
+    "sql_contract_fixtures": {
+      "passed": [
+        "intelligence",
+        "youtube_ownership",
+        "message_policy"
+      ],
+      "rollback": true
+    },
+    "user_sql_packet": {
+      "both_baselines": "PASS actual generated SQL,16 migrations, default-off flags, private RLS, privileged routine denial, duplicate apply rejected"
+    },
+    "screenshots": "desktop/mobile screenshots visually inspected, no OTP secret, no horizontal overflow"
+  },
+  "resolved_failures": [
+    "Ordinary brand message RLS failed because kind resolved to proposals.kind; repaired in additive D051 migration and positive/negative SQL/REST tests.",
+    "One test assertion checked disabled ingestion before disabling it; moved to the intended disabled-state scenario; rerun8 groups PASS.",
+    "Initial E2E25/26: delegated OTP test inspected DOM before streamed security form was ready; waits for heading, final26/26 PASS.",
+    "Local TLS proxy attempted to resend502 headers on shutdown; guards sent/destroyed responses; final run clean.",
+    "Initial keyless browser launch had no bundled Chromium; used installed Chrome via supported ADME_BROWSER_CHANNEL option, final4/4 PASS.",
+    "Windows cp949 failed backlog reader; explicit UTF-8 reads in validator and secret scan. Integrity checks PASS."
+  ],
+  "not_verified": [
+    "Actual YouTube collection or ownership with an external provider",
+    "Actual LLM model/provider execution or performance",
+    "Hosted SMTP/Toss/MFA or target deployment configuration this session",
+    "All P0 or full D051/D076/D084 acceptance",
+    "Default external-account/real-worker test:e2e suite; isolated local equivalent is recorded separately"
+  ],
+  "remaining": [
+    "D076 signup/login trusted IP+account controls and direct Supabase Auth limits/CAPTCHA validation",
+    "D076 legacy full-table creator catalog and direct ops_draft_get polling remain outside the new app quota; coordinate D033/D075",
+    "D051 pagination/uploads/spam UX and D049 contract",
+    "External USER application/activation, release coordination and DEV-B interface review"
+  ],
+  "done_tickets_added": 0,
+  "push_performed": false,
+  "deployment_performed": false
+}

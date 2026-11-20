@@ -13,7 +13,7 @@ findings=[]
 for path in filter(None,paths):
  if path.startswith(('.vercel/','.accounts.')) or (path.startswith('.env') and path!='.env.example'):
   findings.append((path,'private environment/account file'))
- try:text=(root/path).read_text()
+ try:text=(root/path).read_text(encoding='utf-8')
  except (UnicodeError,IsADirectoryError,FileNotFoundError):continue
  if any(re.search(pattern,text) for pattern in patterns):findings.append((path,'credential-like content'))
  for token in re.findall(r'eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+',text):

@@ -247,7 +247,7 @@ await check(
   },
 );
 writeFileSync(
-  "harness/evidence/DEV-A-P0-CONTINUE/local-security.json",
+  "output/dev-a-db/local-security.local.json",
   JSON.stringify(
     {
       at: new Date().toISOString(),

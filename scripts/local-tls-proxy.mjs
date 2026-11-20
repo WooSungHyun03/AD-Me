@@ -27,6 +27,11 @@ export function startLocalTls() {
         },
       );
       upstream.on("error", () => {
+        if (response.destroyed) return;
+        if (response.headersSent) {
+          response.destroy();
+          return;
+        }
         response.writeHead(502);
         response.end("Local QA upstream not ready");
       });

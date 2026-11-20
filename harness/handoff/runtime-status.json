@@ -31,10 +31,11 @@
       "status": "LOCAL_VERIFIED",
       "evidence": [
         "harness/evidence/D004/README.md",
-        "harness/evidence/DEV-A-P0-CONTINUE/verification.json"
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+        "harness/evidence/DEV-A-MAIN-20261120/verification.json"
       ],
-      "blocker": "오류·민감값 비노출·DB/관리자/브랜드 로컬 회귀 통과. DEV-B API 교차 리뷰 및 실제 배포 URL 재검증 필요.",
-      "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
+      "blocker": "main 신규 API도 오류 v1·검증·안전한 DB 매핑으로 통합. 실제 대상 URL/DEV-B 교차 리뷰 전 DONE 아님.",
+      "last_checked_at": "2026-11-20T02:36:28.405549+00:00"
     },
     "D005": {
       "owner": "DEV-B",
@@ -62,9 +63,11 @@
       "owner": "DEV-A",
       "status": "IN_PROGRESS",
       "evidence": [
-        "harness/evidence/D008/README.md"
+        "harness/evidence/D008/README.md",
+        "harness/evidence/DEV-A-MAIN-20261120/verification.json"
       ],
-      "blocker": "앱/Edge 계약 확인. 실제 Edge 및 직접 주문 RPC는 D001 검증, 수집·LLM은 어댑터 인계 필요."
+      "blocker": "앱/DB 큐·lease 기본OFF 및 계약검증. 실제 환경·수집 정책·worker 활성화와 TEST DB 격리는 USER/D001 인계 필요.",
+      "last_checked_at": "2026-11-20T02:36:28.405549+00:00"
     },
     "D009": {
       "owner": "DEV-A",
@@ -124,10 +127,11 @@
       "status": "LOCAL_VERIFIED",
       "evidence": [
         "harness/evidence/D016/README.md",
-        "harness/evidence/DEV-A-P0-CONTINUE/verification.json"
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+        "harness/evidence/DEV-A-MAIN-20261120/verification.json"
       ],
-      "blocker": "별도 승인·TOTP 등록/최근 인증·직접 REST/RPC 검증. U008 실제 운영자 신원/승인·외부 MFA 및 DEV-B 리뷰 대기.",
-      "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
+      "blocker": "main 운영 역할까지 승인 만료·철회·최근OTP 강제. 실제 로컬 Auth 및 직접REST 검증. U008 외부 승인·MFA·DEV-B 리뷰 대기.",
+      "last_checked_at": "2026-11-20T02:36:28.405549+00:00"
     },
     "D017": {
       "owner": "DEV-B",
@@ -351,9 +355,13 @@
     },
     "D051": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D051/README.md",
+        "harness/evidence/DEV-A-MAIN-20261120/verification.json"
+      ],
+      "blocker": "브랜드 일반 메시지 RLS 모호성만 보수. 페이지네이션·첨부·스팸 UX 및 D049 통합 미완료.",
+      "last_checked_at": "2026-11-20T02:36:28.405549+00:00"
     },
     "D052": {
       "owner": "DEV-B",
@@ -402,10 +410,11 @@
       "status": "LOCAL_VERIFIED",
       "evidence": [
         "harness/evidence/D059/README.md",
-        "harness/evidence/DEV-A-P0-CONTINUE/verification.json"
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+        "harness/evidence/DEV-A-MAIN-20261120/verification.json"
       ],
-      "blocker": "소유자 재공개/삭제 재등록 우회·운영자 직접 REST 우회 거부, 사유 감사·해제 의미 검증. D016 외부 적용 및 리뷰 대기.",
-      "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
+      "blocker": "main YouTube 공개 디렉터리도 독립 moderation lock 준수. 공개 DTO/동시검색·로컬 Auth/DB 검증. 외부 적용·교차 리뷰 대기.",
+      "last_checked_at": "2026-11-20T02:36:28.405549+00:00"
     },
     "D060": {
       "owner": "DEV-A",
@@ -509,9 +518,13 @@
     },
     "D076": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D076/README.md",
+        "harness/evidence/DEV-A-MAIN-20261120/verification.json"
+      ],
+      "blocker": "DB 원자 쿼터·메시지/신고·작업/공급원 예산·앱 polling 검증. 가입/로그인 신뢰IP·Auth 직접API·기존 카탈로그 및 direct draft_get polling 제한 미완료.",
+      "last_checked_at": "2026-11-20T02:36:28.405549+00:00"
     },
     "D077": {
       "owner": "DEV-B",
@@ -560,10 +573,11 @@
       "status": "IN_PROGRESS",
       "evidence": [
         "harness/evidence/D084/README.md",
-        "harness/evidence/DEV-A-P0-CONTINUE/verification.json"
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+        "harness/evidence/DEV-A-MAIN-20261120/verification.json"
       ],
-      "blocker": "격리 setup·직접 REST 13개·실제 로컬 DB E2E18/무료 모드4 검증. D049/D075 및 실제 수집·계정삭제·경합 전 범위 미완료.",
-      "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
+      "blocker": "Node22 단위138, 로컬Auth/DB E2E26, keyless4, REST28그룹 및 SQL 패킷 두 기준 검증. 실제 provider/외부 환경과 전체 삭제/협업/접근성 수용 기준 미완료.",
+      "last_checked_at": "2026-11-20T02:36:28.405549+00:00"
     },
     "D085": {
       "owner": "DEV-B",

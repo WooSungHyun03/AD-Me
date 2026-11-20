@@ -14,3 +14,6 @@ SQL 004, admin-security/admin helper, 관리자 API·화면 게이트와 TOTP �
 - Own enrollment RPC discloses only own approved role. Delegated staff can use existing local Auth OTP enrollment without classic admin permissions.
 - Verified isolated PostgreSQL+direct PostgREST: 5 operation security groups PASS, upstream intelligence/ownership SQL transactions PASS, previous13 security groups PASS; unit admin14 PASS; typecheck PASS. Synthetic signed JWT tests are contract tests, not provider verification. Desktop/mobile OTP regression follows in D084 evidence.
 - State remains IN_PROGRESS pending integrated browser/final gates and external approval/MFA settings. USER must apply ordered migrations; no hosted changes made.
+
+## Final 2026-11-20 integrated local verification
+- Actual local Auth delegated OTP enrollment/verification and scoped operations desktop/mobile PASS, alongside classic admin and opposite-role denials. Shared evidence DEV-A-MAIN-20261120/verification.json. No hosted MFA settings changed; external/cross-review gate retained.
