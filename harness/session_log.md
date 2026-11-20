@@ -214,3 +214,9 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - safe DB DTO/cursor, private raw owner/admin RLS, HOT/saved/후보 최소DTO, 원자 제안 RPC와 기존 직접 INSERT helper를 함께 구현했다. 원본 ID/FK/JSON/주소/HTTP 입력·응답을 유지했다. 기존 원본 공개 fixture 조회 테스트는 명시적42501 및 공개 RPC moderation 부정 검사로 강화했다.
 - 직접8그룹과 이전44, 별도 catalog quota2를 순차 검증했다. 메타데이터 inventory28table/81function/35policy, 전체RLS28/privateclientSELECT0. 전체Storage/테넌트 등 완료로 오인하지 않는다.
 - 별도 build/DB 준비와 테스트를 중복 실행해 격리 컨테이너 중단1건이 발생했고 순차 재실행54그룹 통과. source014·015는 적용 뒤 수정하지 않았으며016 단계적 활성화로 구버전 적용 순서를 보강한다. 외부 콘솔/키/배포는 수행하지 않았다.
+
+## 2026-11-20E — 최종 호환 보수·증거·패킷
+- 017을 추가해 비공개 campaign/없는 campaign 오류 동등성과 NULL kind 거부를 보강했다. 적용된014~016과 기존19개는 수정하지 않았다. 직접8·desktop/mobile 두 역할 영향4·DB→TS2 PASS.
+- 최종 unit190/24·lint/typecheck, 전체 local32(21개 이력)와016후6/chooser후4/prefetch후2/017후4, free4·keyless10, SQL/REST54·rollback3을 시점별 기록했다. opt-in DB config 경로 오타는 실제 storage config로 수정해2건 통과했다.
+- 생성 SQL을 기존8/12/16/18/19→23 다섯 기준에서 실제 실행했다. 처음 빈 baseline의 INSERT SELECT0행을 literal fixture/count1로 고친 뒤 profile hash·legacy ID 보존과 staged old read·safe DTO·activation·재개방/중복 거부를 검증했다. 이전22개 증거도 보존한다.
+- D018/D075/D076/D084 네 DEV-A 원장만 갱신, 전체Storage/테넌트/opaqueID·정책/공급자/실제URL·교차 리뷰는 미완료. LOCAL5/진행13/부분1/외부2/OPEN22/DONE0. source/SQL19개·ZIP5개 불변을 확인하고 새 패킷을 준비한다. 외부 콘솔/키/배포 수행 없음.

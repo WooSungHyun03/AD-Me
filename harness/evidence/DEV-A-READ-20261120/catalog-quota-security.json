@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-20T09:11:02.905Z",
+  "scope": "isolated fictional Auth/PostgREST; no hosted changes or real provider",
+  "results": [
+    {
+      "name": "65 concurrent direct POST calls admit exactly60 and return five exact429 Retry-After responses",
+      "result": "PASS"
+    },
+    {
+      "name": "other-account access survives and GET/raw-table/private-leaf bypasses remain denied",
+      "result": "PASS"
+    }
+  ]
+}

@@ -81,3 +81,6 @@
 [새 사용자 패킷](../../deliverables/dev-a-filters-20261120/README_KO.md)은 source06bb2c1, 신규 migration0이다. 이전 SCHEMA에서 검증한 SQL4기준을 바이트 그대로 재사용하고 기존ZIP4개를 보존했다. 이미19 migration이면 SQL 반복 적용을 요구하지 않는다. USER에게 코드 편집·터미널·패키지 설치를 맡기지 않으며 외부 콘솔/키/배포를 대행하지 않았다.
 
 다음 우선 개발은 D018/D033/D075의 공개 read·직접 REST 권한·opaque-ID/alias·제안 접근 이관이다. 이어 D017/D019 정책/실제 수집·정규화 read switch, D073/D080 정책/동의 버전과 성인 범위, D014/D079 삭제/보존, D051 idempotency/페이지네이션/첨부를 연결한다. 선행 승인 없는 정책/실제 데이터로 표시하거나 외부 키 부재를 이유로 모든 독립 구현을 멈추지 않는다.
+
+## 2026-11-20E 후속 — 원본 공개 읽기 경계
+[최신 인계](DEV-A_READ_BOUNDARY_20261120.md)와 [증거](../../harness/evidence/DEV-A-READ-20261120/verification.json)에 이번 구현을 기록했다. 위 착수 전 표의 공개 REST 미구현은014~017에서 로컬 보수했으며 아직 USER staged source 적용/activation 전이다. legacy 공개ID·전체 권한/Storage 감사·정책/실제 공급자 연결은 남는다. 상태는 LOCAL5/진행13/부분1/외부2/OPEN22/DONE0이다.

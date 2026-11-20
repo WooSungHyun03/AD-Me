@@ -146,10 +146,11 @@
         "harness/evidence/D018/README.md",
         "harness/evidence/D018/normalization-security-20261120.json",
         "harness/evidence/D018/packet-terms_18-20261120.json",
-        "docs/handoff/DEV-A_SCHEMA_20261120.md"
+        "docs/handoff/DEV-A_SCHEMA_20261120.md",
+        "harness/evidence/DEV-A-READ-20261120/verification.json"
       ],
-      "blocker": "정규화 private DB/백필/본인 snapshot 및 공개 앱 allowlist·null 지표 검증. 직접 REST의 legacy owner/raw JSON·user-AuthUUID 공개ID 이관(D033/D075), D017 정책/보존 계약, D019 writer/운영 YouTube 이관·정규화 read switch·교차 리뷰·대상 적용 미완료.",
-      "last_checked_at": "2026-11-20T08:42:22.935427+00:00"
+      "blocker": "정규화 private storage와 앱/DB 공개 allowlist·null 지표 및 strict raw read 보수 로컬 검증. USER staged source 확인/활성화·opaque 공개ID·D017 정책/실제 수집·D019 writer/정규화 read switch·철회/삭제/보존 연결 미완료.",
+      "last_checked_at": "2026-11-20T09:51:25.373900+00:00"
     },
     "D019": {
       "owner": "DEV-B",
@@ -528,10 +529,11 @@
         "harness/evidence/D075/README.md",
         "harness/evidence/D075/PLAN_20261120.md",
         "harness/evidence/D075/creator-read-security-20261120.json",
-        "harness/evidence/D075/permission-inventory-20261120.json"
+        "harness/evidence/D075/permission-inventory-20261120.json",
+        "harness/evidence/DEV-A-READ-20261120/verification.json"
       ],
-      "blocker": "호환 public RPC/원본 owner·MFA admin RLS·HOT/saved/제안 경계 로컬 검증. USER 단계적 적용·새 source 확인 후 활성화·전체 Storage/RPC/테넌트 감사·opaque ID 및 교차 리뷰 미완료.",
-      "last_checked_at": "2026-11-20T09:37:47.758832+00:00"
+      "blocker": "014~017 호환 RPC/본인·MFA admin raw RLS·safe HOT/saved·원자 제안 및 비공개 campaign 오류 동등성,5개 SQL 기준23개 이력 검증. USER source/활성화·실제 URL·교차 리뷰·전체 Storage/RPC/테넌트 감사·opaque ID 미완료. staging은 보안 완료 아님.",
+      "last_checked_at": "2026-11-20T09:51:25.373900+00:00"
     },
     "D076": {
       "owner": "DEV-A",
@@ -540,10 +542,11 @@
         "harness/evidence/D076/README.md",
         "harness/evidence/DEV-A-MAIN-20261120/verification.json",
         "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json",
-        "harness/evidence/D076/catalog-quota-security-20261120.json"
+        "harness/evidence/D076/catalog-quota-security-20261120.json",
+        "harness/evidence/DEV-A-READ-20261120/verification.json"
       ],
-      "blocker": "strict public catalog RPC60/min·anon shared300/min·GET/leaf 우회 거부 및 실제getter120/min 검증. USER source 적용/경계활성화, 가입/로그인 trustedIP·Auth 설정·D033 실제 검색/대량 UX 미완료.",
-      "last_checked_at": "2026-11-20T09:38:45.490854+00:00"
+      "blocker": "strict catalog DB60/account/min·anon shared300/min·GET/leaf 거부 및 prefetch 제거 검증. USER read 활성화·가입/로그인 trustedIP/계정/Auth 설정·D033 대용량 서버 검색 UX 미완료. shared anon 한도는 IP별 한도가 아님.",
+      "last_checked_at": "2026-11-20T09:51:25.373900+00:00"
     },
     "D077": {
       "owner": "DEV-B",
@@ -600,10 +603,11 @@
         "harness/evidence/DEV-A-MAIN-20261120/verification.json",
         "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json",
         "harness/evidence/DEV-A-SCHEMA-20261120/verification.json",
-        "harness/evidence/DEV-A-FILTERS-20261120/verification.json"
+        "harness/evidence/DEV-A-FILTERS-20261120/verification.json",
+        "harness/evidence/DEV-A-READ-20261120/verification.json"
       ],
-      "blocker": "Node22 unit181+local DB contract1, 실제 Auth/DB 전체 E2E32 및 최종 URL 보수 뒤 영향4·keyless10·free4, SQL/REST44·rollback3 검증. 직접REST/legacy-ID 노출·미구현 개인정보/협업·실제 provider/출시 검증 미완료.",
-      "last_checked_at": "2026-11-20T08:43:49.378599+00:00"
+      "blocker": "Node22 lint/typecheck/unit190·실제 DB→TS2·전체 로컬 Auth/DB E2E32 및 최종 영향4·prefetch2·free4·keyless10, SQL/REST54·rollback3·USER SQL5기준23개 이력 PASS. 미구현 시나리오·전체 권한 감사·실제 공급자/URL·교차 리뷰 미완료.",
+      "last_checked_at": "2026-11-20T09:51:25.373900+00:00"
     },
     "D085": {
       "owner": "DEV-B",

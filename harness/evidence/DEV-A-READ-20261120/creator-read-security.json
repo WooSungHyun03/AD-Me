@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-20T09:46:55.116Z",
+  "scope": "fictional isolated Auth/REST fixtures; HOT entitlement is a DB authorization fixture only, not Toss/provider validation; legacy IDs retained",
+  "results": [
+    {
+      "name": "anonymous and foreign raw reads are denied while own settings and fresh approved admin remain compatible",
+      "result": "PASS"
+    },
+    {
+      "name": "direct public RPC returns only allowlisted fields, keeps legacy URLs and preserves null versus demo zero",
+      "result": "PASS"
+    },
+    {
+      "name": "cursor pages are bounded/stable with no duplicates and reject invalid limits/cursors",
+      "result": "PASS"
+    },
+    {
+      "name": "saved foreign embeds cannot bypass RLS; own saved RPC/CSV projection contains public fields only",
+      "result": "PASS"
+    },
+    {
+      "name": "proposal choices reveal only id/name for authorized campaign actors; foreign/anonymous access is denied",
+      "result": "PASS"
+    },
+    {
+      "name": "atomic create preserves proposal IDs/status, rejects duplicates/forgeries and supports old direct REST RLS",
+      "result": "PASS"
+    },
+    {
+      "name": "HOT uses the same safe projection; isolated TEST entitlement fixture is not a provider payment verification",
+      "result": "PASS"
+    },
+    {
+      "name": "moderation survives republish and gates public/saved/HOT/choices/create while retaining private ownership",
+      "result": "PASS"
+    }
+  ]
+}

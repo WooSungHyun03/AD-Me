@@ -30,3 +30,6 @@ setup:qa:local은 표식 있는 별도 Docker 프로젝트에 마이그레이션
 - [Verification](../DEV-A-FILTERS-20261120/verification.json): Node22 unit181/22, SQL/RPC→TS1, lint/typecheck, production builds. Full actual local Auth/DB E2E32 passed after route-wait correction. After the final D034 synchronous URL-store fix, affected local discovery/RSC4 and keyless10 passed again; unaffected free-beta4 passed. Direct SQL/REST44 and rollback fixtures3 pass for their specified cases.
 - Captures/keyboard/overflow checked for catalog at320/390/768/1440. Legacy owner placeholder0 becomes unavailable/null and injected private JSON canaries are absent from actual RSC output. D033 cancellation boundary tests are standalone; no fictional endpoint/provider claimed.
 - Initial build-lock, navigation-wait and mobile controlled-state failures are recorded with real fixes. No test skip/assertion deletion/sleep/force retry. Known direct REST/legacy-public-ID disclosures remain explicit release blockers; passing44 covered security groups does not claim all DB paths are safe. Full D084/D018/D034 remain IN_PROGRESS.
+
+## 2026-11-20E — 공개 읽기 경계 최종 회귀
+- DEV-A-READ-20261120/verification.json: unit190/24·실제 DB→TS2·lint/typecheck/build, 로컬 Auth/DB 전체32·최종017 영향4, free4/keyless10, SQL/REST54·rollback3, 생성 SQL5기준→23 PASS. 검증 시점/실패와 수정/fixture 구분을 명시했다. 전체 D084 IN_PROGRESS와 외부/미구현 게이트를 유지한다.
