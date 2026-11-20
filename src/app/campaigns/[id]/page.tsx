@@ -93,6 +93,16 @@ export default async function Campaign({
             태그와 예산을 바탕으로 계산한 설명 가능한 추천입니다. HOT 유료
             노출과 독립적입니다.
           </p>
+          {configured() && ownerId === user?.id && (
+            <p>
+              <Link
+                className="button outline small"
+                href={`/campaigns/${id}/recommendations`}
+              >
+                추천 저장·이전 결과 확인 ↗
+              </Link>
+            </p>
+          )}
           <Link
             className="button outline small"
             href={`/compare?ids=${results

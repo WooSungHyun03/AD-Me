@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-20T14:47:00.418Z",
+  "result": "PASS",
+  "from_migrations": 31,
+  "to_migrations": 34,
+  "nonempty_profiles_creators_campaigns_messages_delivery_boundary_hash_preserved": true,
+  "interrupted_bundle_rolls_back_schema_and_ledger": true,
+  "unknown_and_repeat_rejected": true,
+  "owner_retry_rls_rpc_budget_privileges_and_campaign_delete_verified": true,
+  "sources": [
+    {
+      "path": "supabase/migrations/202611200026_recommendation_snapshots.sql",
+      "sha256_lf": "bebd251c8f0b0d632a0a87230db20d683b77aa40697319278b0d6ad8a7653e99"
+    },
+    {
+      "path": "supabase/migrations/202611200027_recommendation_campaign_delete.sql",
+      "sha256_lf": "2c48c1d0dab0ee5acdd3927b199ff4d23a1ddd40a96748dbef13c77f7dacfd79"
+    },
+    {
+      "path": "supabase/migrations/202611200028_recommendation_read_budget.sql",
+      "sha256_lf": "b60203eb7c75ac90c413e1dda3d9d188770b4f698b8533e8ecde36473d82798a"
+    }
+  ],
+  "scope": "actual generated USER SQL in exact isolated packet DB; fictional account/campaign and role claims, no hosted execution"
+}

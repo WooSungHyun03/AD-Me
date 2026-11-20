@@ -335,9 +335,15 @@
     },
     "D045": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "LOCAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/D045/PLAN_20261120.md",
+        "harness/evidence/D045/README.md",
+        "harness/evidence/D045/verification.json",
+        "docs/handoff/DEV-A_RECOMMENDATIONS_20261120.md"
+      ],
+      "blocker": "Existing v1 snapshot local acceptance passed. D044 steward/normalized model and D033 search integration, USER exact31→34 SQL/source deployment/actual URL checks remain; not DONE. Catalogue cap1000 explicit; legacy public user-UUID IDs and retention/account deletion remain separate release work.",
+      "last_checked_at": "2026-11-20T14:51:00.191610+00:00"
     },
     "D046": {
       "owner": "DEV-B",
@@ -628,10 +634,11 @@
         "harness/evidence/DEV-A-FILTERS-20261120/verification.json",
         "harness/evidence/DEV-A-READ-20261120/verification.json",
         "harness/evidence/DEV-A-EVIDENCE-20261120/verification.json",
-        "harness/evidence/D054/verification.json"
+        "harness/evidence/D054/verification.json",
+        "harness/evidence/D045/verification.json"
       ],
-      "blocker": "최신 unit218/28·lint/typecheck/build, D054 actual DB10+기존 rate8/conversation8, 영향 browser6+최종2·USER SQL30→31 PASS. 전체 historical suite/미구현·외부 공급자/실제 URL/출시 전수 검증은 남음.",
-      "last_checked_at": "2026-11-20T14:19:22.165916+00:00"
+      "blocker": "최신 unit225/29·lint/typecheck/build, D045 실제 SQL/REST11·DB→TS145사례·영향 browser4+UI보정후2·USER SQL31→34/rollback PASS. 전체 historical suite/미구현·외부 공급자/실제 URL·출시 전수 검증은 남음.",
+      "last_checked_at": "2026-11-20T14:51:00.191610+00:00"
     },
     "D085": {
       "owner": "DEV-B",

@@ -1,0 +1,100 @@
+{
+  "at": "2026-11-20T14:51:00.191610+00:00",
+  "ticket": "D045",
+  "status": "LOCAL_VERIFIED",
+  "baseline": "5044f459d31c1199b48b5079970d633644ae465a",
+  "branch": "codex/dev-a-p0-continue",
+  "upstream_main": "65063c8412d95458e0da61b90f53d2da72decda3",
+  "acceptance_map": {
+    "stored_model_input_source": "DB-selected adme-1.0/public-catalog-v1, campaign scoring input, per-result input/source hash, catalogue fingerprint/count, actual created_at and immutable result ID.",
+    "explainable_factors": "Saved tag/category/budget/format factor values/evidence/weights, score/coverage/missing audience and other unknowns. Coverage0 persisted as null score, no invented metrics.",
+    "reproduction": "Actual PostgreSQL scorer parity across48 fictional creators x3 inputs + zero-price boundary=145; explicit same-input recalculation produces identical results.",
+    "source_refresh": "Read compares current scoring input/public catalogue fingerprint; stale annotation without implicit writes. Recalculation saves another record; old score remains readable.",
+    "paid_separation": "Allowlisted scoring projection has no HOT/payment/contact/owner fields; HOT/raw irrelevant changes keep source version, results and ordering identical.",
+    "privacy": "Owner brand/current role/moderation only. Archived reads withhold currently hidden creators and null revoked/changed URLs. No private owner/request key/note fields returned; legacy public user-UUID IDs retained.",
+    "boundaries": "1000 catalogue cap fails closed; results6/history20. Context budget before scan; writes10/hour; concurrent same-key12→1 row/1 charge; FK cascade preserves actual owner campaign DELETE and denies foreign DELETE."
+  },
+  "gates": {
+    "node": "22.23.5",
+    "lint": "PASS full repository + final affected paths",
+    "typecheck": "PASS",
+    "unit": {
+      "passed": 225,
+      "files": 29,
+      "new_api_contracts": 7
+    },
+    "actual_DB_model_parity": {
+      "tests": 1,
+      "cases": 145,
+      "command": "vitest run --config vitest.storage.config.ts tests/local-db-contract/recommendation-snapshots.spec.ts",
+      "result": "PASS"
+    },
+    "actual_SQL_REST": {
+      "groups": 11,
+      "result": "PASS",
+      "evidence": "recommendation-security-20261120.json"
+    },
+    "production_build": "PASS in serial local browser harness",
+    "browser": {
+      "initial_affected_passed": 4,
+      "final_ui_recheck_passed": 2,
+      "scenarios": [
+        "desktop/mobile actual local Auth saved recommendations/lost real acknowledgement/retry/persistence/stale/recalculate/old history/withdrawal/foreign denial",
+        "desktop/mobile existing two-role DB delivery/permission/golden flow"
+      ],
+      "desktop": "Chrome1440x900",
+      "mobile": "Chrome iPhone13 390x844",
+      "url": "https://127.0.0.1:3143/campaigns/<fictional-campaign>/recommendations",
+      "visual_review": "Desktop and mobile captures inspected; mobile score/unit grid corrected, final scenario rerun2/2; no horizontal overflow",
+      "captures": [
+        "output/playwright/recommendations-desktop.png",
+        "output/playwright/recommendations-mobile.png"
+      ]
+    },
+    "user_packet": {
+      "from_migrations": 31,
+      "to_migrations": 34,
+      "sql_files": 3,
+      "result": "PASS",
+      "evidence": "recommendation-upgrade-20261120.json",
+      "atomic_failure_rollback": true,
+      "original_nonempty_data_hash_preserved": true
+    },
+    "harness_selftest": 5,
+    "backlog_validation": "PASS"
+  },
+  "findings": [
+    {
+      "problem": "Initial DTO canary test mistook the existing public user-UUID creator ID for a newly exposed private actor field.",
+      "resolution": "Retained published creator ID contract, explicitly checked absence of private owner/actor/key/canary/HOT fields. Opaque ID migration remains D075 blocker."
+    },
+    {
+      "problem": "New snapshot parent FK could block existing campaign DELETE.",
+      "resolution": "Frozen026 kept; additive027 allows only actual parent cascade, tested foreign deletion denial/direct history DELETE denial/actual owner deletion cleanup."
+    },
+    {
+      "problem": "Catalogue work should be gated before scan.",
+      "resolution": "Additive028 adds private context shared quota before capture; budget test returns rate-limit before oversized catalogue error."
+    },
+    {
+      "problem": "Local packet analytics port54327 collided with root QA.",
+      "resolution": "Changed only exact ignored packet project analytics port to54337; no root or hosted config change."
+    },
+    {
+      "problem": "Mobile screenshot showed score/unit split due different element than existing grid contract.",
+      "resolution": "Used existing final-div score grid contract, nowrap and13px unit. Final browser2/2 pass."
+    }
+  ],
+  "not_claimed": [
+    "D044 full normalized recommendation/model or D033 complete indexed search",
+    "Hosted configuration/SQL/deployment or actual target URL validation",
+    "Real provider/platform/advertising/legal/performance/Toss validation",
+    "Entire historical E2E rerun or overall release readiness"
+  ],
+  "remaining": [
+    "D044 steward cross-review/future normalized model and search contract integration",
+    "USER exact31 SQL/new source deployment/actual URL verification",
+    "D014/D073 retention and full account deletion, D075 existing opaque public ID issue",
+    "Full D084 unimplemented/provider/release gates"
+  ]
+}
