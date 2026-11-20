@@ -184,3 +184,7 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - 실제 로컬 PostgreSQL/RPC 응답을 server-only TypeScript adapter로 읽는 별도 Vitest suite1 추가. normal unit CI는 Docker 없이156개 유지. 최초 mergeConfig 배열 병합으로157개 전체가 실행된 뒤 include를 명시 덮어쓰기로 고쳐 독립 suite1 PASS 확인.
 - Node22 lint/typecheck/build, unit156/19files, 실제 로컬 Auth/DB E2E30/30 desktop/mobile, 무료베타4/4, keyless4/4, 직접 SQL/REST44그룹, SQL rollback3 PASS. 사용자 SQL8/12/16/18→19 네 기준, legacy hash불변·wrong/duplicate 거부·RLS/권한 검증. 민감 인증 trace/개인 메일/키는 공개 증거에서 제외.
 - DEV-A-SCHEMA-20261120에 실행 결과와 초기 assertion/config 수정 이유를 보존했다. D018/D084 이외 runtime 항목과 USER 전체가 4977225 기준 동일함을 비교 확인. 실제 provider/출시/미구현 서비스 범위는 별도 미완료이며 DONE 승격 없음.
+
+## 2026-11-20C — D018 사용자 적용 패키지·기존 브랜치 push 준비
+- source554c681, 새 SCHEMA ZIP353파일/2,638,800bytes/SHA256 6f88d205f05462376349df26427ca51957a1805e4ee842c981593245e0f34d97. 네 기준 SQL을 제공하며 ZIP CRC·모든 source Git blob·정규화 migration hash·비밀 패턴·이전 전달 ZIP3개 hash를 검증했다. 이전 산출물은 덮어쓰지 않았다.
+- 소스/회귀를 각각4fd47a9(D018),554c681(D084)로 커밋했다. 최신 전달 메타데이터와 패킷은 후속 산출물 커밋이며 소스 기준은554c681로 명시한다. 사용자 허가 범위에서 codex/dev-a-p0-continue에 push하고 원격 SHA/CI를 확인한다. main/외부 콘솔/키/배포 명령은 실행하지 않는다.

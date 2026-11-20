@@ -60,3 +60,14 @@
 D003 후속 `036c83d`: Windows UTF-8 인계 검사와 worker 소비 source 경로/DB guard를 분리해 기존 검증기를 실제 통과시켰다. 실제 설정명·값·앱 동작은 바꾸지 않았다.
 
 [DEV-A43개 남은 범위·우선순위·18개 티켓 커밋 전체표](DEV-A_PUSH_STATUS_20261120.md). 이 표가 이번 push의 현재 상태 기준이며 앞선 기록/ZIP은 당시 스냅샷으로 보존한다.
+
+## 2026-11-20C 기존 브랜치 계속
+
+`codex/dev-a-p0-continue`에4977225까지 fast-forward한 후 아래 커밋을 추가했다. 기존 이력은 보존하며 main65063c8 변동 없음. 새 브랜치는 만들지 않았다.
+
+|티켓|커밋|내용|
+|---|---|---|
+|D018/partial|4fd47a9|비공개 정규화 저장소·UUID 백필·본인 snapshot·기존 JSON 호환|
+|D084/partial|554c681|실제 SQL/RPC→TS adapter 테스트 및 전체 로컬 회귀 증빙|
+
+패키지 source head는554c681이다. source353파일, SQL4기준8/12/16/18→19, 이전 ZIP3개 불변. 이후 산출물 커밋은 새 ZIP/manifest/SQL/전달 메타데이터이며 앱 코드 기준은 바뀌지 않는다. [최신 인계](DEV-A_SCHEMA_20261120.md), [검증](../../harness/evidence/DEV-A-SCHEMA-20261120/verification.json), [패키지](../../deliverables/dev-a-schema-20261120/README_KO.md). D018/D084 IN_PROGRESS, DONE 승격0, 실제 provider/대상 적용·배포 미검증.
