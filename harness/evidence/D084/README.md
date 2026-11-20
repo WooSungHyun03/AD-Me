@@ -39,3 +39,6 @@ DEV-A-EVIDENCE-20261120/verification.json: unit210/27·신규13·lint/typecheck/
 
 ## 2026-11-20H — 결과물 버전 회귀
 D054/verification.json: unit218/28·lint/typecheck/build·Harness5·backlog PASS, 실제 DB 신규10+rate8/conversation8, desktop/mobile 신규2+golden2+ordinary conversation2 및 최종 locator 보강 후 신규2 재통과. 정확한30→31 생성 SQL의 비어 있지 않은 기존 자료 hash·구형 stage·managed 방·일방향 activation 검증. 새 audit FK에 따른 fixture 정리 실패를 해당 local room 기록만 정리해 해결했고 기존 assertions를 유지했다. 실제 URL/외부 공급자·전체 historical 회귀/미구현 workflow는 남아 IN_PROGRESS다. 전달4 SQL은 LF/Git source hash를 검증하며 이전30개 SQL/6 ZIP은 불변이다.
+
+## 2026-11-20I — 추천 snapshot 회귀
+D045/verification.json: unit225/29·lint/typecheck/build·Harness5/backlog PASS. Actual SQL→TS145사례·보안/경합11그룹, desktop/mobile snapshot2+기존 두 역할 golden2 및 모바일 score grid 보정 후2 재통과. 실제 생성 SQL31→34의 원본/기존 delivery stamp hash 보존·중간 오류 전체 rollback·unknown/reapply·권한/retry/campaign DELETE 검증. 기존 public user-UUID 경계와 정규화 D044/검색·삭제/보존·실제 URL/provider/전수 회귀는 남아 IN_PROGRESS다. 기존31 SQL/이전 전달 SQL/6 ZIP 보존, 새3 SQL의 LF/Git hash는 별도 receipt로 남긴다.

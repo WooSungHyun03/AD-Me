@@ -262,3 +262,14 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 ## 2026-11-20H — source·전달 패킷 확정
 - D054 source b0ba55f, 패킷 MANIFEST source_head와 activation reference를 동일40자리로 생성했다. 새025 Git blob/LF 원문·전달4 SQL hash와 기존30개 source SQL/6 ZIP SHA256 불변 PASS. 증거 D054/packet-integrity-20261120.json. 실제30→31 stage/activation 동작 증거와 최종 static source hash 검사를 구분했다. SQL/metadata/개발자 검증기만 다음 D084 커밋에 포함하며 앱 변경 없음.
 - push 전 main65063c8 유지·새 main commit 없음. 기존 브랜치만 push하고 exact 최종 HEAD 원격/CI는 ignored output receipt로 남긴다. 원격 배포 수행/완료를 주장하지 않는다. 격리 QA 컨테이너는 검증 후 volumes를 보존하고 중지한다.
+
+## 2026-11-20I — D045 추천 근거·snapshot
+- 사용자 잔여 요청을 이어5044f45/기존 브랜치와 최신 main65063c8 신규 없음 확인. v2 backlog/역사 tasks40/세션/실제 source·D045 지시를 확인하고026 steward 의도를 먼저 기록했다. 기존 adme-1.0 모델의 입력/출처 fingerprint·태그/예산/미확인·근거/충족률/score를 DB가 저장하고 owner 전용 명시적 저장·재계산·과거 기록·갱신 안내를 구현했다. HOT/owner/private JSON은 점수 입력에 없다.
+-026 적용 후 불변 유지. 새 FK가 기존 campaign DELETE를 막는 문제를027 부모 cascade 한정으로 보강하고,028로 catalogue scan 전 공유 quota를 추가했다. 직접 snapshot UPDATE/DELETE는 거부, 타인 campaign 삭제 거부/본인 삭제 정리 통과. 기존31 SQL/다른 담당/USER 원장 보존.
+- unit225/29·lint/typecheck/build·Harness5/backlog, 실제 SQL→TS48×3+견적0=145사례, 실제 SQL/REST11그룹 PASS. 새 Auth/TLS Chrome desktop/mobile2+기존 golden2 및 모바일 grid의 점수 단위 줄바꿈 보정 후 새2 재통과. ACK 유실 retry12→1/1 quota·HOT 동일·stale/재계산·withdraw·role/moderation·cap1000·quota 선검사 검증. TEST backend503은 예상 거부이지 공급자 통과가 아니다.
+- 최초 private UID assertion이 기존 공개 user-UUID ID를 오인해 published ID와 private actor 필드를 구분했고 실제 owner/key/canary/HOT 비노출을 검증했다. opaque ID 전환은 D075 잔여다. 별도 packet DB analytics port54327 충돌은 ignored config54337로 격리했으며 root/hosted 설정 변경 없음. 테스트 삭제/skip 없음.
+- 생성 USER SQL31→34를 별도 DB에 실제 적용, 중간 오류 전체 schema/ledger rollback·비어 있지 않은 원본 profile/creator/campaign/message/delivery boundary hash 보존·unknown/reapply·retry/RLS/cascade 검증. D045 LOCAL_VERIFIED/D084 IN_PROGRESS만 갱신: Local9/진행13/부분1/외부2/OPEN18/DONE0. D044 정규화 모델/검색 통합·교차 리뷰·USER 적용/실제 URL·전체 출시 게이트는 남는다. 티켓 source와 D084 패킷/증거를 분리 커밋해 같은 브랜치 push/CI를 확인한다.
+
+## 2026-11-20I — source·패킷 검증
+- D045 source47632b5를 manifest에 확정, 새026~028 Git blob/LF SHA256·전달3 SQL hash와 기존31 migration/이전 전달 SQL103개/ZIP6개 불변 PASS. D045/packet-integrity-20261120.json. 실제31→34 동작 검증과 최종 static source hash 증거를 구분했다. 후속 D084 커밋은 패킷/개발자 검증기/기록이며 앱 코드 변경 없음.
+- push 전 재 fetch에서 main65063c8 유지, 새 main commit 없음. 기존 codex/dev-a-p0-continue만 push하고 exact HEAD 원격/CI 결과는 ignored output receipt로 남긴다. 실제 외부 SQL/계정/키/설정/배포는 수행하지 않았다. 검증 후 두 격리 QA stack은 volumes를 보존해 중지한다.
