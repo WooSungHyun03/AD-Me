@@ -329,6 +329,31 @@ try {
       );
       assert.deepEqual(await publicRows(), []);
       assert.equal((await decide(admin)).error?.code, "40001");
+      const auditCount = sql(
+        `select count(*) from public.audit_log where entity_id='${caseId}';`,
+      );
+      for (let i = 0; i < 3; i++)
+        assert.equal(
+          (
+            await reporter.rpc("review_withdraw", {
+              p_id: caseId,
+              p_expected: version,
+            })
+          ).data,
+          true,
+        );
+      assert.equal(
+        sql(
+          `select count(*) from public.audit_log where entity_id='${caseId}';`,
+        ),
+        auditCount,
+      );
+      assert.equal(
+        sql(
+          `select sum(used) from adme_ops.rate_windows where subject='${ids.reporter}' and scope='review_withdraw';`,
+        ),
+        "1",
+      );
       assert.ok(
         Number(
           sql(
