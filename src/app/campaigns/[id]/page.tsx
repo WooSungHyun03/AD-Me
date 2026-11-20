@@ -4,6 +4,8 @@ import { campaigns, rank, type Brief } from "@/lib/catalog";
 import { configured, supabase, currentUser } from "@/lib/supabase";
 import { publicCreators } from "@/lib/data";
 import { ProposalForm } from "@/components/proposal-form";
+import { CampaignTermsSummary } from "@/components/campaign-terms-summary";
+import type { CampaignTerms } from "@/lib/campaign-brief";
 export default async function Campaign({
   params,
 }: {
@@ -16,6 +18,7 @@ export default async function Campaign({
         product: string;
         goal: string;
         target_audience: string;
+        terms?: CampaignTerms;
       })
     | undefined = campaigns.find((c) => c.seed_id === id);
   let isDemo = true,
@@ -77,6 +80,7 @@ export default async function Campaign({
           )}
           <h3>캠페인 목표</h3>
           <p>{brief.goal}</p>
+          <CampaignTermsSummary terms={brief.terms} />
           <h3>타깃 고객</h3>
           <p>{brief.target_audience}</p>
           <div className="tags">

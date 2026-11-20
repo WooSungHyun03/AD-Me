@@ -9,6 +9,16 @@
 
 2026-11-20: main의 intelligence API도 동일 계약을 사용한다. 429는 `Retry-After`(정수1~86400초)를 포함한다. 신규 원자 쿼터의 DB `PT429`는 남은 고정 윈도우를 전달하며 원문 details는 클라이언트에 보내지 않는다. 구형 `54000`은 보수적60초 fallback이다. 비활성 DB 자원의 `PT404`는 404로 매핑한다. 새 API는 `fail`이 예외를 던진다는 계약을 지키며 반드시 `apiRoute`로 감싼다.
 
+2026-11-20B: `ops_draft_get` 자체가 사용자별120회/분을 원자적으로 소비한다. public invoker wrapper는 volatile이며 직접 REST GET으로 조회를 우회할 수 없다. 앱은 별도 quota RPC 없이 getter를 한 번 호출한다. 오래된 앱용 `ops_request_quota('draft_poll')`는 별도 카운터로 유지한다.
+
+## 캠페인 terms v2 — D041
+
+- POST `/api/campaigns`의 브리프와 PATCH의 `brief`에 선택적 `terms`를 추가한다. API/저장은 `version:2`, `recruitment/production/posting: {start,end}`의 정규 UTC 분 단위 문자열(`YYYY-MM-DDTHH:mm:00.000Z`)이다. 폼은 KST를 입력받아 한 번만 변환한다. 각 기간은 start<end, 시작 순서는 모집≤제작≤게시이며 단계가 겹칠 수 있다. 날짜가 공개 상태를 자동 변경하지 않는다.
+- `compensation`은 `{mode:'unknown'}` 또는 `{mode:'declared',cash?:{minimumKrw,maximumKrw},product?:{description,quantity}}`. declared는 cash/product 하나 이상, 금액은 정수0~1억 원·최소≤최대, 제품 수량1~1000. 미정을0원으로 바꾸지 않는다. 기존 `budget_krw`는 필수 총 예산으로 유지하며 이 단가와 별도다.
+- `deliverables`는1~20개, `{format,quantity:1~100,usageRights,exclusivity:string|null}`. 문자열 길이와 비어 있지 않은 사용권을 검증한다. 중첩 구조의 미지원 필드를 거부한다. 실제 계약 체결·권리 검증·결제 승인을 뜻하지 않는다.
+- v1 요청·행에는 terms가 없어도 되며 과거 날짜/보상을 생성하지 않는다. v2를 저장한 뒤 terms가 누락된 오래된 업데이트는422로 거부하여 정보 손실을 막는다. DB CHECK/trigger도 직접 REST에 동일 경계를 적용한다. 기존 RLS·moderation·제안 이력은 유지한다.
+- 후속 D042/D043/D044/D050/D055는 이 버전을 소비하고 총 예산/단가·미정·모집 상태를 혼동하지 않아야 한다. 실제 협업 합의 버전·추천 스냅샷은 해당 티켓의 별도 구현이다.
+
 | HTTP | 코드 | 의미 |
 |---|---|---|
 | 400 | BAD_REQUEST | 읽을 수 없는 JSON 또는 요청 형식 오류 |

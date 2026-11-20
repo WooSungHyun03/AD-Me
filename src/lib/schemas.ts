@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { creatorPlatforms } from "./service-catalog";
 import { normalizeSocialLink } from "./social-links";
+import { campaignBriefTermsStorageSchema } from "./campaign-brief";
 export const campaignSchema = z.object({
   title: z.string().trim().min(2).max(120),
   product: z.string().trim().min(1).max(120),
@@ -12,6 +13,7 @@ export const campaignSchema = z.object({
   target_audience: z.string().min(2).max(500),
   goal: z.string().min(2).max(500),
   status: z.enum(["draft", "published", "closed"]),
+  terms: campaignBriefTermsStorageSchema.optional(),
 });
 export const profileSchema = z
   .object({

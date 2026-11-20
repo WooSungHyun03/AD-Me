@@ -4,6 +4,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { categories, vibes } from "@/lib/catalog";
 import { Button } from "./ui/button";
+import { ZodError } from "zod";
+import {
+  campaignTermsFromForm,
+  type CampaignTerms,
+} from "@/lib/campaign-brief";
+import { CampaignTermsFields } from "./campaign-terms-fields";
 type CampaignInput = {
   title: string;
   product: string;
@@ -15,6 +21,7 @@ type CampaignInput = {
   goal: string;
   format: string;
   status: string;
+  terms?: CampaignTerms;
 };
 export function CampaignForm({
   id,
@@ -28,39 +35,47 @@ export function CampaignForm({
     [error, setError] = useState(""),
     [pending, setPending] = useState(false);
   const router = useRouter();
+  const [structured, setStructured] = useState(!id || Boolean(initial?.terms));
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setPending(true);
     setError("");
-    const d = Object.fromEntries(new FormData(e.currentTarget));
+    const form = new FormData(e.currentTarget);
+    const d = Object.fromEntries(form);
     try {
+      const brief = {
+        ...Object.fromEntries(
+          [
+            "title",
+            "product",
+            "category",
+            "target_audience",
+            "goal",
+            "format",
+            "status",
+          ].map((key) => [key, d[key]]),
+        ),
+        vibes: tags,
+        platforms,
+        budget_krw: Number(d.budget_krw),
+        ...(structured ? { terms: campaignTermsFromForm(form) } : {}),
+      };
       const res = await fetch("/api/campaigns", {
         method: id ? "PATCH" : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(
-          id
-            ? {
-                id,
-                brief: {
-                  ...d,
-                  vibes: tags,
-                  platforms,
-                  budget_krw: Number(d.budget_krw),
-                },
-              }
-            : {
-                ...d,
-                vibes: tags,
-                platforms,
-                budget_krw: Number(d.budget_krw),
-              },
-        ),
+        body: JSON.stringify(id ? { id, brief } : brief),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error?.message || "저장 실패");
       router.push(`/campaigns/${data.id}`);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "네트워크 오류입니다.");
+      setError(
+        e instanceof ZodError
+          ? "일정 순서·제공 조건·산출물 항목을 확인해주세요."
+          : e instanceof Error
+            ? e.message
+            : "네트워크 오류입니다.",
+      );
     } finally {
       setPending(false);
     }
@@ -168,6 +183,23 @@ export function CampaignForm({
           </select>
         </label>
       </div>
+      {id && !initial?.terms && (
+        <div className="notice" style={{ marginTop: 24 }}>
+          <p>
+            이전 버전 캠페인입니다. 기존 정보를 유지하면서 상세 협업 조건을
+            추가할 수 있습니다.
+          </p>
+          <label>
+            <input
+              type="checkbox"
+              checked={structured}
+              onChange={(e) => setStructured(e.target.checked)}
+            />{" "}
+            일정·제공 조건·산출물 추가
+          </label>
+        </div>
+      )}
+      {structured && <CampaignTermsFields initial={initial?.terms} />}
       <h3 style={{ marginTop: 30, fontSize: 15 }}>
         선호하는 이미지·분위기 (최대 8개)
       </h3>

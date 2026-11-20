@@ -2,6 +2,7 @@ import { test, expect, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import { totp } from "../support/local-qa.mjs";
+import { fillCampaignTerms } from "../support/campaign-terms-form";
 const accounts = JSON.parse(
   readFileSync(
     process.env.ADME_ACCOUNTS_FILE || ".accounts.local.json",
@@ -124,6 +125,7 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
   await page.getByLabel("콘텐츠 분야", { exact: true }).selectOption("뷰티");
   await page.getByLabel("타깃 고객", { exact: true }).fill("20대~30대");
   await page.getByLabel("광고 목적", { exact: true }).fill("브랜드 인지도");
+  await fillCampaignTerms(page);
   await page.getByRole("button", { name: "캠페인 저장" }).click();
   await expect(page).toHaveURL(/campaigns\/[a-f0-9-]{36}/);
   const campaignId = page.url().split("/").pop()!;
