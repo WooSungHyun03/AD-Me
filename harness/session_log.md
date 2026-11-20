@@ -244,3 +244,7 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - D057/D029 수용 기준별 source/실제 local DB17·API/schema13·desktop/mobile 새4+기존golden2 및 SQL23/24→30 검증을 저장했다. unit210/27·lint/typecheck/build 통과. 023 강한 근거 분류/024 최신 답변 consent·022 반복 철회는 부정 조건을 추가해 검증했다. 제출/검토자/date는 DB, 원본 주장/메모/UID/비공개 입장 공개 거부, 실제 광고/법률/공급자 성공 주장 없음.
 - 두 티켓을 문서의 local 수용 기준 LOCAL_VERIFIED로 기록, 실제 U001/D073 정책/USER 적용/실제 URL·출처 검토/교차 리뷰는 별도 차단이며 DONE0 유지. D084는 전체 미구현/전체회귀·외부 게이트로 IN_PROGRESS. Local7/진행13/부분1/외부2/OPEN20.
 - 새 패킷은 ZIP 반복 대신 SQL5파일/원본6개 hash·source_head manifest를 전달한다. 기존24 SQL/ZIP6개 보존. 두 공개 정책은 독립적으로 기본OFF, actual 승인 값은 USER 확정 후 개발자가 별도 SQL 생성. source/콘솔/배포를 사용자에게 직접 적용하도록 인계하며 터미널/코드 편집/설치는 요구하지 않는다.
+
+## 2026-11-20G — 전달 SQL·source hash 검증
+- sourceee83210의019~024 여섯 SQL Git blob/LF hash, 전달 SQL5파일hash·이전 메시지SQL prefix·기존24 source migration/ZIP6개 SHA256 불변을 검증했다. current24/previous23→30은 실제 로컬 생성 SQL에서 비어 있지 않은 legacy 자료와 기존 권한을 보존했다.
+- 변경은D05714dc12d/0a65d7c/8ad223b, D029fed59dd, D084ee83210으로 분리했다. 같은 codex/dev-a-p0-continue에 push 후 exactHEAD 원격/CI를 확인하며 산출물 이후 앱 코드 변경 없음. 실제 외부 정책·콘솔/키/배포·출처/공급자 검증은 하지 않았다.
