@@ -5,7 +5,7 @@ const accounts = JSON.parse(
   readFileSync(".accounts.local.json", "utf8"),
 ) as Record<string, { email: string; password: string }>;
 
-async function login(page: Page, account: "admin" | "brand") {
+async function login(page: Page, account: "admin" | "brand" | "creator") {
   await page.goto("/login");
   await page
     .getByLabel("이메일", { exact: true })
@@ -75,4 +75,35 @@ test("brand submits a private Korean draft to the real worker", async ({
     page.getByRole("heading", { name: "협업 제안 초안" }),
   ).toBeVisible({ timeout: 75000 });
   await expect(page.locator("article").first()).toContainText(/[가-힣]/);
+});
+
+test("unverified YouTube candidates remain private and creators can unlink a claim", async ({
+  page,
+}) => {
+  await page.goto("/creators/youtube");
+  await expect(
+    page.getByRole("heading", { name: "확인된 YouTube 채널" }),
+  ).toBeVisible();
+  await page
+    .getByRole("searchbox", { name: "채널 이름" })
+    .fill("Google for Developers");
+  await page.getByRole("button", { name: "검색", exact: true }).click();
+  await expect(
+    page.getByText("공개된 채널 중 검색 조건과 일치하는 채널이 없습니다."),
+  ).toBeVisible();
+  await login(page, "creator");
+  await page.goto("/settings/youtube");
+  await page
+    .getByLabel("YouTube 채널 ID 또는 주소")
+    .fill("UC_x5XG1OV2P6uZZ5FSM9Ttw");
+  await page.getByRole("button", { name: "채널 추가", exact: true }).click();
+  await expect(page.locator("code")).toHaveText(/^ADME-[a-f0-9]{32}$/);
+  await expect(
+    page.getByRole("button", { name: "채널 검색 공개에 동의", exact: true }),
+  ).toHaveCount(0);
+  page.once("dialog", (dialog) => dialog.accept());
+  await page
+    .getByRole("button", { name: "채널 연결 해제", exact: true })
+    .click();
+  await expect(page.locator("code")).toHaveCount(0);
 });

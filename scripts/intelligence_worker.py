@@ -132,6 +132,16 @@ def process(job):
     match job["kind"]:
         case "marketing_draft":
             return draft(job["input"])
+        case "youtube_claim":
+            _, channel_id, challenge = job["input"].split(":")
+            data = youtube("channels", part="snippet", id=channel_id, fields="items(id,snippet/description)")
+            if not data.get("items"):
+                raise WorkerError("CHANNEL_UNAVAILABLE")
+            description = data["items"][0]["snippet"].get("description", "")
+            proof = "ADME-" + challenge
+            if not re.search(r"(?<![A-Za-z0-9_-])" + re.escape(proof) + r"(?![A-Za-z0-9_-])", description):
+                return {"verified": False}
+            return {"verified": True}
         case "youtube_channel":
             rows = channels([job["input"]])
             if not rows:

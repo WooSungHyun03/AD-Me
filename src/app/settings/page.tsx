@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { currentUser, supabase } from "@/lib/supabase";
 import { AccountForm } from "@/components/account-form";
@@ -25,13 +26,18 @@ export default async function Settings() {
       </p>
       <AccountForm name={profile?.name ?? ""} />
       {profile?.role === "creator" ? (
-        <ProfileForm
-          initial={
-            creator
-              ? { ...creator.profile, published: creator.published }
-              : undefined
-          }
-        />
+        <>
+          <p>
+            <Link href="/settings/youtube">YouTube 채널 연결</Link>
+          </p>
+          <ProfileForm
+            initial={
+              creator
+                ? { ...creator.profile, published: creator.published }
+                : undefined
+            }
+          />
+        </>
       ) : (
         <p className="notice">
           브랜드 계정입니다. 캠페인에서 브랜드의 상품·목표와 협업 조건을
