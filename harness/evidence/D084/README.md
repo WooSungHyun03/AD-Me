@@ -33,3 +33,6 @@ setup:qa:local은 표식 있는 별도 Docker 프로젝트에 마이그레이션
 
 ## 2026-11-20E — 공개 읽기 경계 최종 회귀
 - DEV-A-READ-20261120/verification.json: unit190/24·실제 DB→TS2·lint/typecheck/build, 로컬 Auth/DB 전체32·최종017 영향4, free4/keyless10, SQL/REST54·rollback3, 생성 SQL5기준→23 PASS. 검증 시점/실패와 수정/fixture 구분을 명시했다. 전체 D084 IN_PROGRESS와 외부/미구현 게이트를 유지한다.
+
+## 2026-11-20G — 근거 검토·광고 이력 회귀
+DEV-A-EVIDENCE-20261120/verification.json: unit210/27·신규13·lint/typecheck/build, 실제 DB17·새 desktop/mobile4+기존 golden2, 실제 USER SQL23/24→30 원본 message/report/profile hash·legacy INSERT/read boundary 보존 PASS. 검증 시점/locator 실패/새 부정 조건을 구분했다. 전체 historical32/실제 provider/출시 전수 검증을 이번에 재수행했다고 주장하지 않는다.

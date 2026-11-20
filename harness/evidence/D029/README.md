@@ -9,3 +9,6 @@
 신규 schema/API 단위6 + 기존7 = 전체 unit210/27파일, lint/typecheck PASS. 실제 Chrome desktop/mobile에서 제출→검토→공개→정정→구버전 승인 거부→새 version 재검토2건 PASS. 최초 실패는 label 전체 텍스트에 select options가 포함되는 테스트 locator 문제였고, 동일한 정확한 accessible name의 combobox role을 사용해 수정했다. 제품 판정이나 보안 조건을 완화하지 않았다.
 
 최종 묶음의 SQL23/24→30 및 D057 consent 회귀/공통 증거는 후속 D084 인계에 기록한다. USER 정책 승인/적용·실제 URL·교차 리뷰는 남는다. D030 전체 검색/대량 timeline pagination, D018 실제 정규화 수집/플랫폼 소유 확인, 실제 출처 내용의 운영 검토는 별도이며 이번 fixture 통과로 완료를 주장하지 않는다.
+
+## 최종 local 수용 기준 검증
+실제 DB8(29개 이력)·API/schema6·전체210 unit·desktop/mobile2 및 실제 생성 SQL23/24→30 검증. 수용 기준 LOCAL_VERIFIED이며 실제 정책/USER 적용/출처 내용·플랫폼/URL·교차 리뷰는 외부/후속으로 남는다. DONE 아님. 종합 증거 DEV-A-EVIDENCE-20261120/verification.json.

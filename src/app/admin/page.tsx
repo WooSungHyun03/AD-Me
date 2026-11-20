@@ -90,10 +90,10 @@ export default async function Admin() {
           <strong>
             {reports?.filter((r) => r.status === "pending").length ?? 0}
           </strong>
-          <span>미처리 신고</span>
+          <span>이전 접수 신고 미처리</span>
         </div>
       </div>
-      <h2>신고·데이터 검토</h2>
+      <h2>이전 접수 신고·데이터 검토</h2>
       {reports?.map((r) => (
         <article className="panel" style={{ marginBottom: 15 }} key={r.id}>
           <span className="badge">{r.status}</span>
@@ -105,7 +105,7 @@ export default async function Admin() {
         </article>
       ))}
       {!reports?.length && (
-        <p className="empty">검토 대기 중인 신고가 없습니다.</p>
+        <p className="empty">이전 접수 기록 중 검토 대기 신고가 없습니다. 새 제출 자료는 근거 검토함에서 확인해주세요.</p>
       )}
       <h2>프로필 공개·데이터 관리</h2>
       <details>

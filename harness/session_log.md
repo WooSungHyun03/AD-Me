@@ -239,3 +239,8 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - D057 흐름에021/023 owner-only 광고 이력/출처/권한확인·정정·중복 URL guard, 별도 기본OFF 광고 공개 정책, 강한 근거 분류 및 공개 DTO를 연결했다. 단순 언급/본인 진술/unknown interest는 비공개 상태에서도 확인 광고 분류를 거부한다. actor/is_demo/검토자·시각은 DB 결정, 실제 로고·콘텐츠 복제/수집 없음.
 - 실제 DB8·신규 API/schema6·unit210/27·lint/typecheck와 desktop/mobile 제출/승인/공개/정정/구버전 승인 거부2 PASS. D057 새 브라우저2+기존 두 역할 golden2도 PASS. getByLabel exact/option label text 차이를 동일한 정확한 accessible combobox role로 수정, 조건 완화/skip 없음.
 -022 반복 철회 quota/no-op과024 최신 답변 consent를 보강해 이전 공개 동의 답변이 새 비공개 입장을 대신 노출하지 않도록 했고 직접D0579그룹 재검증. 적용된19~23 및 이전24개 SQL은 수정하지 않았다. 최종 SQL23/24→30·USER gate/교차 리뷰·정책/실제URL은 묶음 인계한다.
+
+## 2026-11-20G — 최종 수용 기준·인계
+- D057/D029 수용 기준별 source/실제 local DB17·API/schema13·desktop/mobile 새4+기존golden2 및 SQL23/24→30 검증을 저장했다. unit210/27·lint/typecheck/build 통과. 023 강한 근거 분류/024 최신 답변 consent·022 반복 철회는 부정 조건을 추가해 검증했다. 제출/검토자/date는 DB, 원본 주장/메모/UID/비공개 입장 공개 거부, 실제 광고/법률/공급자 성공 주장 없음.
+- 두 티켓을 문서의 local 수용 기준 LOCAL_VERIFIED로 기록, 실제 U001/D073 정책/USER 적용/실제 URL·출처 검토/교차 리뷰는 별도 차단이며 DONE0 유지. D084는 전체 미구현/전체회귀·외부 게이트로 IN_PROGRESS. Local7/진행13/부분1/외부2/OPEN20.
+- 새 패킷은 ZIP 반복 대신 SQL5파일/원본6개 hash·source_head manifest를 전달한다. 기존24 SQL/ZIP6개 보존. 두 공개 정책은 독립적으로 기본OFF, actual 승인 값은 USER 확정 후 개발자가 별도 SQL 생성. source/콘솔/배포를 사용자에게 직접 적용하도록 인계하며 터미널/코드 편집/설치는 요구하지 않는다.

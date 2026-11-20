@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-20T13:28:10.155Z",
+  "result": "PASS",
+  "from_migrations": 23,
+  "to_migrations": 30,
+  "nonempty_legacy_message_report_profile_hash_preserved": true,
+  "legacy_authenticated_message_and_report_insert_preserved": true,
+  "old_read_boundary_and_grants_unchanged": true,
+  "issue_and_ad_policy_both_default_off": true,
+  "private_tables_all_RLS_and_no_client_select": true,
+  "unknown_and_repeat_rejected": true,
+  "full_migration_sources_match_lf_hashes": true,
+  "scope": "actual generated USER SQL in exact isolated packet DB; fictional data only; no hosted changes"
+}

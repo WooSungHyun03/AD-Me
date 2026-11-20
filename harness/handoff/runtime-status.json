@@ -224,14 +224,16 @@
     },
     "D029": {
       "owner": "DEV-A",
-      "status": "IN_PROGRESS",
+      "status": "LOCAL_VERIFIED",
       "evidence": [
         "harness/evidence/D029/PLAN_20261120.md",
         "harness/evidence/D029/README.md",
-        "harness/evidence/D029/ad-history-security-v29-20261120.json"
+        "harness/evidence/D029/ad-history-security-v29-20261120.json",
+        "harness/evidence/DEV-A-EVIDENCE-20261120/verification.json",
+        "docs/handoff/DEV-A_EVIDENCE_20261120.md"
       ],
-      "blocker": "021/023 본인 광고 증거 제출·정정/검토·중복/강한 근거 분류·별도 기본OFF 정책·공개 allowlist 구현. local DB8/단위6/desktop-mobile2 검증. 최종 묶음 증빙·정책 승인/USER 적용·실제 URL·교차 리뷰는 남음. 실제 공급자·광고 사실 검증으로 보고하지 않음.",
-      "last_checked_at": "2026-11-20T13:29:43.705300+00:00"
+      "blocker": "문서 수용 기준의 local source/API/DB·권한·version·공개 경계·desktop/mobile 흐름 검증. 실제 U001/D073 정책 승인, USER 적용/실제 URL·실제 출처 운영 검토·DEV-B 교차 리뷰 전 DONE 아님. 장기 history pagination/규모 및 정규화·동의/보존 연결은 별도 미완료.",
+      "last_checked_at": "2026-11-20T13:32:52.161982+00:00"
     },
     "D030": {
       "owner": "DEV-A",
@@ -414,14 +416,16 @@
     },
     "D057": {
       "owner": "DEV-A",
-      "status": "IN_PROGRESS",
+      "status": "LOCAL_VERIFIED",
       "evidence": [
         "harness/evidence/D057/PLAN_20261120.md",
         "harness/evidence/D057/README.md",
-        "harness/evidence/D057/review-security-20261120.json"
+        "harness/evidence/D057/review-security-20261120.json",
+        "harness/evidence/DEV-A-EVIDENCE-20261120/verification.json",
+        "docs/handoff/DEV-A_EVIDENCE_20261120.md"
       ],
-      "blocker": "019/020 비공개 version/당사자 답변/검토·감사/공개 allowlist, 직접 DB9그룹 검증. 공개 정책 기본OFF. D029 연계 최종 UI/브라우저·공통 회귀, U001/D073 실제 정책 승인·USER 적용/실제 URL·교차 리뷰와 장기 history pagination은 남음.",
-      "last_checked_at": "2026-11-20T13:04:57.915390+00:00"
+      "blocker": "문서 수용 기준의 local source/API/DB·권한·version·공개 경계·desktop/mobile 흐름 검증. 실제 U001/D073 정책 승인, USER 적용/실제 URL·실제 출처 운영 검토·DEV-B 교차 리뷰 전 DONE 아님. 장기 history pagination/규모 및 정규화·동의/보존 연결은 별도 미완료.",
+      "last_checked_at": "2026-11-20T13:32:52.161982+00:00"
     },
     "D058": {
       "owner": "DEV-B",
@@ -616,10 +620,11 @@
         "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json",
         "harness/evidence/DEV-A-SCHEMA-20261120/verification.json",
         "harness/evidence/DEV-A-FILTERS-20261120/verification.json",
-        "harness/evidence/DEV-A-READ-20261120/verification.json"
+        "harness/evidence/DEV-A-READ-20261120/verification.json",
+        "harness/evidence/DEV-A-EVIDENCE-20261120/verification.json"
       ],
-      "blocker": "Node22 lint/typecheck/unit190·실제 DB→TS2·전체 로컬 Auth/DB E2E32 및 최종 영향4·prefetch2·free4·keyless10, SQL/REST54·rollback3·USER SQL5기준23개 이력 PASS. 미구현 시나리오·전체 권한 감사·실제 공급자/URL·교차 리뷰 미완료.",
-      "last_checked_at": "2026-11-20T09:51:25.373900+00:00"
+      "blocker": "최신 unit210/27·lint/typecheck/build, review/ad actual DB17그룹·새 browser4+기존 two-role2·SQL23/24→30 검증. 이전 전체 E2E32는 이번에 재실행하지 않았으며 source 시점별 증거로 보존. 미구현/외부 공급자·정책·실제 URL·전체 권한 감사 및 전체 출시 회귀는 남음.",
+      "last_checked_at": "2026-11-20T13:32:52.161982+00:00"
     },
     "D085": {
       "owner": "DEV-B",
