@@ -100,6 +100,8 @@ export function failDatabase(error: { code: string }, message: string): never {
       return fail(message, 422);
     case "P0002":
       return fail(message, 404);
+    case "54000":
+      return fail(message, 429);
     default:
       return fail(message, 503);
   }

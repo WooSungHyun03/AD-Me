@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { currentUser, supabase } from "@/lib/supabase";
 import { AccountForm } from "@/components/account-form";
@@ -31,6 +32,8 @@ export default async function Settings() {
       </p>
       <AccountForm name={profile?.name ?? ""} />
       {profile?.role === "creator" ? (
+        <>
+          <p><Link href="/settings/youtube">YouTube 채널 연결</Link></p>
         <ProfileForm
           initial={
             creator
@@ -38,6 +41,7 @@ export default async function Settings() {
               : undefined
           }
         />
+        </>
       ) : profile?.role === "brand" ? (
         brandError ? (
           <p role="alert">

@@ -144,3 +144,12 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - 사용자 요청으로 DEV-A 구현을 15개 티켓 커밋으로 분리했다. 원본 문서/외부 연동 이력 6개를 별도 체크아웃에서 로컬로 복원해 원래 SHA를 보존했다. codex/pre-ticket-split-20261119가 원래 루트 HEAD를 보존한다.
 - 파일 내용 313개 해시 일치 확인. 공유 파일은 index blob 단계에서 분리했고 각 커밋 추출 트리 typecheck15/15, 최종 커밋 추출 트리 단위115/115 통과. 미완료 상태와 외부 차단은 유지, push·배포·계정/키 변경 없음.
 - 커밋 목록·파일별 경계·검증은 docs/handoff/DEV-A_TICKET_COMMITS.md 및 harness/evidence/DEV-A-P0-CONTINUE/ticket-commits.json. 기존 적용 ZIP과 과거 검증 결과는 소급 변경하지 않았다.
+
+## 2026-11-20 — 운영 콘솔, YouTube 수집과 로컬 AI
+
+- main을 기존 인증·결제 브랜치로 fast-forward해 이전 운영 기능을 포함했다. 이후 관리자 운영, 공식 API 수집, 로컬 초안, 소유권 공개 조건을 검증하며 main에 커밋했다.
+- 롤별 DB 권한 및 사용자의 AI 작업 읽기 경계를 검증했다. 공개 데이터는 운영 승인·본인 인증·공개 동의·공개 프로필을 모두 요구한다.
+- 로컬 Ollama CPU 4스레드로 한국어 구조화 응답과 임베딩을 실제 생성했다. 워커는 Supabase에 전용 인증으로 연결한다. Vercel에서는 로컬 추론 포트에 연결하지 않는다.
+- 운영 Supabase 첫 일일 작업 성공. 실존 채널 6개·공개 영상 메타데이터 29건. 공개 채널 0개. GitHub 기존 관리자 예외 알림과 운영 배포 검증은 docs/implementation-progress.md 참조.
+
+- 배포 주소 전체 E2E 16개 통과. 화면 폼 보정 후 운영 스모크 4개 통과. 실제 채널 설명에 소유권 인증 문자열이 없을 경우 검증 실패, 비공개 유지와 연결 해제를 확인했다. 최종 배포 dpl_Ep82HQoU28bnTM6kQFG9ytZqWkr9 및 1262c5b Actions 성공.

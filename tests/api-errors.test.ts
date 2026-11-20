@@ -80,6 +80,7 @@ describe("API errors", () => {
     ["08006", 503, "SERVICE_UNAVAILABLE"],
     ["22023", 422, "INVALID_INPUT"],
     ["P0002", 404, "NOT_FOUND"],
+    ["54000", 429, "RATE_LIMITED"],
   ])(
     "maps database code %s without sending provider messages",
     async (code, status, label) => {

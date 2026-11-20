@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { AiStudio } from "@/components/ai-studio";
 export default function Tools() {
   return (
@@ -9,6 +10,9 @@ export default function Tools() {
         도구입니다.
       </p>
       <AiStudio />
+      <p>
+        <Link href="/tools/local">로컬 AI로 캠페인 초안 만들기</Link>
+      </p>
     </section>
   );
 }

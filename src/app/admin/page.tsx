@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { context } from "@/lib/api";
 import { Moderate } from "@/components/moderate";
@@ -7,13 +8,16 @@ export const dynamic = "force-dynamic";
 export default async function Admin() {
   const c = await context();
   if (!c) redirect("/login");
-  if (c.role !== "admin")
+  if (c.role !== "admin") {
+    const { data: role } = await c.db.rpc("ops_current_role");
+    if (role) redirect("/admin/intelligence");
     return (
       <section className="wrap">
         <h1 className="page-title">관리자 권한이 필요합니다.</h1>
         <p>운영 데이터는 허가된 관리자에게만 공개됩니다.</p>
       </section>
     );
+  }
   const { data: claims, error: claimsError } = await c.db.auth.getClaims();
   const { data: allowed, error: adminError } = await c.db.rpc("is_admin");
   if (
@@ -63,6 +67,9 @@ export default async function Admin() {
     <section className="wrap">
       <span className="eyebrow">Operations / admin only</span>
       <h1 className="page-title">서비스 운영 현황.</h1>
+      <Link href="/admin/intelligence" className="button outline">
+        수집·AI 운영 콘솔
+      </Link>
       <div className="metric-row">
         <div>
           <strong>{members?.length ?? 0}</strong>
