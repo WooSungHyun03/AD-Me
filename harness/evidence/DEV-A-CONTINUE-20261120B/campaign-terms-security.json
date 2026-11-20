@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-20T03:18:53.394Z",
+  "scope": "isolated fictional campaigns and synthetic local JWTs; no real contract/payment",
+  "results": [
+    {
+      "name": "legacy campaigns remain unchanged; v2 stores exact UTC and explicit unknown without invented zero",
+      "result": "PASS"
+    },
+    {
+      "name": "foreign mutation, creator creation and silent removal of v2 terms are denied",
+      "result": "PASS"
+    },
+    {
+      "name": "direct REST rejects malformed periods, money, quantities and unsupported nested fields",
+      "result": "PASS"
+    },
+    {
+      "name": "cash-zero, product-only, mixed and explicit recruitment status survive updates and publication",
+      "result": "PASS"
+    }
+  ]
+}

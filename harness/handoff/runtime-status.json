@@ -291,11 +291,13 @@
     },
     "D041": {
       "owner": "DEV-A",
-      "status": "IN_PROGRESS",
+      "status": "LOCAL_VERIFIED",
       "evidence": [
-        "harness/evidence/D041/README.md"
+        "harness/evidence/D041/README.md",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json"
       ],
-      "blocker": "D012 이후 폼/저장 연동과 기존 v1 호환 검증 필요."
+      "blocker": "기간/제공 유형/수량/사용권/독점 조건의 폼·API·DB·공개조회/수정 및 무료모드 검증. 실제 적용/DEV-B 후속 계약 리뷰 전 DONE 아님.",
+      "last_checked_at": "2026-11-20T03:24:38.584845+00:00"
     },
     "D042": {
       "owner": "DEV-A",
@@ -521,10 +523,11 @@
       "status": "IN_PROGRESS",
       "evidence": [
         "harness/evidence/D076/README.md",
-        "harness/evidence/DEV-A-MAIN-20261120/verification.json"
+        "harness/evidence/DEV-A-MAIN-20261120/verification.json",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json"
       ],
-      "blocker": "DB 원자 쿼터·메시지/신고·작업/공급원 예산·앱 polling 검증. 가입/로그인 신뢰IP·Auth 직접API·기존 카탈로그 및 direct draft_get polling 제한 미완료.",
-      "last_checked_at": "2026-11-20T02:36:28.405549+00:00"
+      "blocker": "직접 draft_get RPC 쿼터 우회 해결; 실제 getter120/min와 앱1회 호출 검증. 가입/로그인 신뢰IP·계정/Auth 설정 및 기존 카탈로그 제한 미완료.",
+      "last_checked_at": "2026-11-20T03:24:38.584845+00:00"
     },
     "D077": {
       "owner": "DEV-B",
@@ -552,9 +555,13 @@
     },
     "D081": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D081/README.md",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json"
+      ],
+      "blocker": "캠페인 추천의 가상 프로필 DEMO 누락 보수·시각검증. 실제 메인 집계/출처 신뢰 재설계 및 D024/D002 후속 인계 남음.",
+      "last_checked_at": "2026-11-20T03:24:38.584845+00:00"
     },
     "D082": {
       "owner": "DEV-A",
@@ -574,10 +581,11 @@
       "evidence": [
         "harness/evidence/D084/README.md",
         "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
-        "harness/evidence/DEV-A-MAIN-20261120/verification.json"
+        "harness/evidence/DEV-A-MAIN-20261120/verification.json",
+        "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json"
       ],
-      "blocker": "Node22 단위138, 로컬Auth/DB E2E26, keyless4, REST28그룹 및 SQL 패킷 두 기준 검증. 실제 provider/외부 환경과 전체 삭제/협업/접근성 수용 기준 미완료.",
-      "last_checked_at": "2026-11-20T02:36:28.405549+00:00"
+      "blocker": "Node22 단위150, 로컬E2E30+무료DB4+keyless4, 직접REST35/SQL3 및 세 적용기준 패킷 검증. 실제 공급자/미구현 전체 워크플로는 미완료.",
+      "last_checked_at": "2026-11-20T03:24:38.584845+00:00"
     },
     "D085": {
       "owner": "DEV-B",

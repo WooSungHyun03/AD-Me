@@ -3,16 +3,17 @@ import { localRuntime } from "../tests/support/local-qa.mjs";
 import { resolve } from "node:path";
 import { startLocalTls } from "./local-tls-proxy.mjs";
 const runtime = localRuntime();
+const freeBeta = process.env.ADME_QA_MODE === "free_beta";
 const env = {
   ...process.env,
   NEXT_PUBLIC_APP_URL: "https://127.0.0.1:3143",
   NEXT_PUBLIC_SUPABASE_URL: "https://127.0.0.1:54325",
   NODE_EXTRA_CA_CERTS: resolve("output/dev-a-db/tls.local.crt"),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: runtime.ANON_KEY,
-  NEXT_PUBLIC_TOSS_CLIENT_KEY: "test_ck_local_fixture_only",
-  ADME_SERVICE_MODE: "test_demo",
+  NEXT_PUBLIC_TOSS_CLIENT_KEY: freeBeta ? "" : "test_ck_local_fixture_only",
+  ADME_SERVICE_MODE: freeBeta ? "free_beta" : "test_demo",
   ADME_FEATURE_MAIL: "on",
-  ADME_FEATURE_TEST_BILLING: "on",
+  ADME_FEATURE_TEST_BILLING: freeBeta ? "off" : "on",
   ADME_FEATURE_INGESTION: "on",
   ADME_FEATURE_LLM: "on",
 };

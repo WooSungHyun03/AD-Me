@@ -119,6 +119,8 @@ describe("main intelligence routes share the D004 API contract", () => {
     );
     expect(await response.json()).toEqual({ status: "done", output: null });
     expect(response.headers.get("Cache-Control")).toBe("private, no-store");
-    expect(state.rpc).toHaveBeenCalledExactlyOnceWith("ops_draft_get",{p_id:"00000000-0000-4000-8000-000000000001"});
+    expect(state.rpc).toHaveBeenCalledExactlyOnceWith("ops_draft_get", {
+      p_id: "00000000-0000-4000-8000-000000000001",
+    });
   });
 });

@@ -160,3 +160,10 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - Node22 lint/typecheck/unit138/생산 build, Harness5/백로그 구조, REST28그룹+SQL3fixture, 실제 로컬 Auth 포함 desktop/mobile E2E26/26 및 keyless4/4 PASS. 초기 검사 실패와 수정은 dated verification에 보존. 실제 YouTube/LLM/SMTP/Toss/호스팅 검증으로 전용하지 않음.
 - 별도 로컬 DB에서 USER SQL패킷 main기준8개 및 기존DEV-A포함기준4개 모두 적용 검증(최종16migration), 잘못된/중복 기준 차단. 예전 패킷과 증빙은 유지. 신규 source/SQL 패키지와 전달 문서 준비.
 - D051/D076은 부분 구현 IN_PROGRESS. 가입/로그인 신뢰IP·Auth 제한, 기존 카탈로그/direct draft_get polling·전체 업로드/협업 등 미완료. 다른 담당/USER 원장은 변경하지 않고 모든 항목 DONE 승격0. push/외부 콘솔/키 등록/배포 없음.
+
+## 2026-11-20 KST — DEV-A 계속: 직접 조회 제한·캠페인 조건
+- 시작955bf8c/깨끗한 codex/dev-a-p0-20261120, origin/main65063c8 변동 없음. D076a4d9991: getter 내부 계정120/min, volatile public invoker, 앱은1회 RPC. D0411054bce: KST/UTC 기간·미정/현금/제품/혼합 보상·산출물/사용권/독점 조건을 생성·수정·조회·직접DB 검증까지 연결. D08135602e9: 시각검증에서 발견한 캠페인 추천의 가상 크리에이터 DEMO 표기 누락 보수.
+- 신규011/012만 추가, 이전 적용 SQL 불변. legacy 캠페인 내용 유지, 새 날짜/보상을 발명하지 않음. v2 조건 누락 업데이트422, 기존 RLS/moderation 유지. 총 예산과 단가/미정은 별개다.
+- Node22 unit150/18, lint/typecheck/production builds, 실제 로컬Auth E2E30/30, 무료베타·TEST키없음 조건4/4, keyless4/4 PASS. 직접REST35그룹 및 SQL3 PASS. fixture 충돌/순서·테스트 locator 수정은 dated verification에 기록. 실제 provider 호출 없음.
+- USER 적용 패킷은 main8개/기존DEV-A포함12개/직전955bf8c16개 세 기준을 별도 로컬DB로 검증, 최종18 migration과 legacy hash 일치, 잘못된/중복 적용 거부 확인. 이전 두 패킷과 증거는 보존.
+- D041 LOCAL_VERIFIED, D076/D081/D084 IN_PROGRESS. USER/DEV-B 원장·원본 배분 미수정, DONE 승격0. 외부 콘솔·키·push·배포 없음. 다음 미완료 범위와 적용 안내는 DEV-A_CONTINUATION_20261120B.md.

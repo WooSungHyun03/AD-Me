@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import assert from "node:assert/strict";
 import { readFileSync, writeFileSync } from "node:fs";
 import {
@@ -115,14 +116,18 @@ await check(
       .select("profile")
       .eq("id", "creator-001")
       .single();
-    const id = `user-${accounts.creator.id}`;
-    assert.equal(
-      (
-        await creator
-          .from("creators")
-          .insert({
+    const fixtureOwner = randomUUID();
+    const id = `user-${fixtureOwner}`;
+    sql(
+      `insert into auth.users(id,raw_user_meta_data) values('${fixtureOwner}','{"role":"creator","name":"QA isolated lock fixture"}');`,
+    );
+    const fixtureCreator = localClient(undefined, localJwt(fixtureOwner));
+    try {
+      assert.equal(
+        (
+          await fixtureCreator.from("creators").insert({
             id,
-            owner_id: accounts.creator.id,
+            owner_id: fixtureOwner,
             published: true,
             profile: {
               ...fixture.profile,
@@ -130,71 +135,88 @@ await check(
               is_demo: false,
             },
           })
-      ).error,
-      null,
-    );
-    assert.equal(
-      (
-        await adminFresh.rpc("moderate_entity", {
-          p_kind: "creator",
-          p_id: id,
-          p_published: false,
-          p_reason: "QA isolated lock",
-        })
-      ).error,
-      null,
-    );
-    assert.equal(
-      (await anonymous.from("creators").select("id").eq("id", id)).data.length,
-      0,
-    );
-    assert.equal(
-      (await creator.from("creators").update({ published: true }).eq("id", id))
-        .error,
-      null,
-    );
-    assert.equal(
-      (await anonymous.from("creators").select("id").eq("id", id)).data.length,
-      0,
-    );
-    assert.equal(
-      (
-        await creator
-          .from("creators")
-          .update({ moderation_status: "allowed" })
-          .eq("id", id)
-      ).error?.code,
-      "42501",
-    );
-    assert.equal(
-      (await creator.from("creators").delete().eq("id", id)).error?.code,
-      "42501",
-    );
-    assert.equal(
-      (await creator.from("creators").update({ published: false }).eq("id", id))
-        .error,
-      null,
-    );
-    assert.equal(
-      (
-        await adminFresh.rpc("moderate_entity", {
-          p_kind: "creator",
-          p_id: id,
-          p_published: true,
-          p_reason: "QA local release",
-        })
-      ).error,
-      null,
-    );
-    assert.equal(
-      (await anonymous.from("creators").select("id").eq("id", id)).data.length,
-      0,
-      "release does not republish owner-hidden content",
-    );
-    assert.equal(
-      (await creator.from("creators").delete().eq("id", id)).error,
-      null,
-    );
+        ).error,
+        null,
+      );
+      assert.equal(
+        (
+          await adminFresh.rpc("moderate_entity", {
+            p_kind: "creator",
+            p_id: id,
+            p_published: false,
+            p_reason: "QA isolated lock",
+          })
+        ).error,
+        null,
+      );
+      assert.equal(
+        (await anonymous.from("creators").select("id").eq("id", id)).data
+          .length,
+        0,
+      );
+      assert.equal(
+        (
+          await fixtureCreator
+            .from("creators")
+            .update({ published: true })
+            .eq("id", id)
+        ).error,
+        null,
+      );
+      assert.equal(
+        (await anonymous.from("creators").select("id").eq("id", id)).data
+          .length,
+        0,
+      );
+      assert.equal(
+        (
+          await fixtureCreator
+            .from("creators")
+            .update({ moderation_status: "allowed" })
+            .eq("id", id)
+        ).error?.code,
+        "42501",
+      );
+      assert.equal(
+        (await fixtureCreator.from("creators").delete().eq("id", id)).error
+          ?.code,
+        "42501",
+      );
+      assert.equal(
+        (
+          await fixtureCreator
+            .from("creators")
+            .update({ published: false })
+            .eq("id", id)
+        ).error,
+        null,
+      );
+      assert.equal(
+        (
+          await adminFresh.rpc("moderate_entity", {
+            p_kind: "creator",
+            p_id: id,
+            p_published: true,
+            p_reason: "QA local release",
+          })
+        ).error,
+        null,
+      );
+      assert.equal(
+        (await anonymous.from("creators").select("id").eq("id", id)).data
+          .length,
+        0,
+        "release does not republish owner-hidden content",
+      );
+      assert.equal(
+        (await fixtureCreator.from("creators").delete().eq("id", id)).error,
+        null,
+      );
+    } finally {
+      sql(
+        `delete from public.creators where owner_id='${fixtureOwner}'; delete from auth.users where id='${fixtureOwner}';`,
+      );
+    }
   },
 );
 await check(

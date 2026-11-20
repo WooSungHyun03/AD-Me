@@ -9,7 +9,7 @@ beforeEach(() => vi.resetAllMocks());
 it("uses only DB-chosen account quota and returns exact bounded retry metadata", async () => {
   rpc.mockResolvedValue({
     data: null,
-    error: {code:"PT429",details:'{"retryAfter":37}'},
+    error: { code: "PT429", details: '{"retryAfter":37}' },
   });
   const response = await apiRoute("test", async () => {
     await readRateLimitedDraft(db, "fixture");
@@ -20,13 +20,15 @@ it("uses only DB-chosen account quota and returns exact bounded retry metadata",
   expect(await response.json()).toMatchObject({
     error: { code: "RATE_LIMITED" },
   });
-  expect(rpc).toHaveBeenCalledExactlyOnceWith("ops_draft_get", {p_id:"fixture"});
+  expect(rpc).toHaveBeenCalledExactlyOnceWith("ops_draft_get", {
+    p_id: "fixture",
+  });
 });
 it.each([
   undefined,
-  { status:"unexpected",output:null },
-  { output:null },
-  { status:99,output:null },
+  { status: "unexpected", output: null },
+  { output: null },
+  { status: 99, output: null },
 ])("fails closed on malformed quota responses", async (data) => {
   vi.spyOn(console, "error").mockImplementation(() => {});
   rpc.mockResolvedValue({ data, error: null });
@@ -36,11 +38,23 @@ it.each([
   })(request);
   expect(response.status).toBe(503);
 });
-it("maps an absent or inaccessible draft to404 and strips private provider fields",async()=>{
-  rpc.mockResolvedValue({data:null,error:null});
-  expect((await apiRoute("test",async()=>Response.json(await readRateLimitedDraft(db,"fixture")))(request)).status).toBe(404);
-  rpc.mockResolvedValue({data:{status:"queued",output:null,error:"PRIVATE_FIXTURE"},error:null});
-  expect(await readRateLimitedDraft(db,"fixture")).toEqual({status:"queued",output:null});
+it("maps an absent or inaccessible draft to404 and strips private provider fields", async () => {
+  rpc.mockResolvedValue({ data: null, error: null });
+  expect(
+    (
+      await apiRoute("test", async () =>
+        Response.json(await readRateLimitedDraft(db, "fixture")),
+      )(request)
+    ).status,
+  ).toBe(404);
+  rpc.mockResolvedValue({
+    data: { status: "queued", output: null, error: "PRIVATE_FIXTURE" },
+    error: null,
+  });
+  expect(await readRateLimitedDraft(db, "fixture")).toEqual({
+    status: "queued",
+    output: null,
+  });
 });
 it.each([
   ['{"retryAfter":19}', "19"],

@@ -1,0 +1,88 @@
+{
+  "at": "2026-11-20T03:24:38.584845+00:00",
+  "baseline": "955bf8c",
+  "branch": "codex/dev-a-p0-20261120",
+  "upstream_main": "65063c8412d95458e0da61b90f53d2da72decda3",
+  "scope": "local DEV-A implementation; no external console/keys/push/deployment",
+  "gates": {
+    "unit": {
+      "passed": 150,
+      "files": 18,
+      "node": "22.23.5"
+    },
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "production_build": "PASS via local QA server scripts in TEST/free/keyless modes",
+    "local_e2e": {
+      "passed": 30,
+      "scope": "actual local Auth/DB, desktop/mobile; worker responses explicitly fixture, no provider"
+    },
+    "free_beta_e2e": {
+      "passed": 4,
+      "command": "npm run test:e2e:free-local",
+      "scope": "actual local Auth/DB with ADME_SERVICE_MODE=free_beta, TEST billing off and no Toss client key; direct orders404 and campaigns work"
+    },
+    "keyless_e2e": {
+      "passed": 4,
+      "command": "ADME_BROWSER_CHANNEL=chrome npm run test:e2e:keyless"
+    },
+    "direct_rest": {
+      "groups_passed": 35,
+      "node": "22.23.5",
+      "breakdown": {
+        "previous_security": 28,
+        "draft_getter": 3,
+        "campaign_terms": 4
+      },
+      "data": "isolated fictional fixtures and synthetic signed local JWTs"
+    },
+    "sql_fixtures": {
+      "passed": [
+        "intelligence",
+        "youtube_ownership",
+        "message_policy"
+      ],
+      "rolled_back": true
+    },
+    "packet_sql": {
+      "baselines_passed": [
+        "main65063c8",
+        "main_plus_previous_dev_a",
+        "955bf8c_packet"
+      ],
+      "migration_count": 18,
+      "legacy_briefs_preserved": true,
+      "wrong_and_duplicate_baselines_rejected": true
+    },
+    "visual": "1440x900/390x844 captures inspected. KST/UTC, compensation and rights readable, no overflow; six recommendation fixtures visibly DEMO. No OTP/PII trace shared.",
+    "harness_selftest": 5,
+    "backlog_integrity": "PASS, allocations and original OPEN planning records unchanged"
+  },
+  "resolved_failures": [
+    "Initial D041 select locator included nested option text; switched to semantic named combobox.",
+    "Next route announcer is also role=alert; scoped expected form validation text instead of ambiguous global alert. Initial28/30 runs recorded, corrected full30/30 and free4/4 passed; no skip.",
+    "SQL intelligence assumed empty global orders and transaction timestamp insertion order; now asserts permitted array shape and explicitly orders its queue fixture. Three SQL scenarios pass after existing TEST orders.",
+    "Re-running old security fixture after E2E collided with retained primary creator profile; now creates/cleans a dedicated fictional account without changing primary collaboration history. Final Node22 security35 groups pass.",
+    "Visual QA found unlabeled seeded recommendations; D081 per-row DEMO repair tested in free-mode desktop/mobile."
+  ],
+  "migration_versions": [
+    "202611200011",
+    "202611200012"
+  ],
+  "states": {
+    "D041": "LOCAL_VERIFIED",
+    "D076": "IN_PROGRESS",
+    "D081": "IN_PROGRESS",
+    "D084": "IN_PROGRESS"
+  },
+  "remaining": [
+    "USER target application/deployment and DEV-B interface review",
+    "D076 trusted signup/login IP/account/Auth controls and legacy creator search",
+    "D018 source/metrics storage integration, D073 policy approval/version workflow, D051 full collaboration message/uploads, other original P0",
+    "D081 home real-data aggregates/redesign and broader D082 accessibility",
+    "Actual YouTube/LLM/SMTP/Toss/provider workflows and complete D084 release matrix"
+  ],
+  "done_tickets_added": 0,
+  "push": false,
+  "deployment": false
+}

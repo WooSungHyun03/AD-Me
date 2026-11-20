@@ -23,3 +23,5 @@ DEV-B 인계: D033은 기존 카탈로그 검색을 새 서버 검색 경계로 
 남은 D076: 가입/로그인의 신뢰 IP·계정/CAPTCHA·직접 Auth 설정, 기존 카탈로그, direct `ops_draft_get` polling 제한. 앱의 polling120/min을 직접 RPC 전체 보호로 표현하지 않는다. 익명 YouTube 검색300/min은 공유 전역 fallback이며 사용자별 IP 제한이 아니다. 고정 UTC 윈도우는 경계 양쪽 burst를 허용한다. 실제 provider 쿼터·정책·운영 환경 검증은 USER 적용 후 별도다.
 
 어느 티켓도 이번 작업만으로 DONE으로 올리지 않았다. 전체 P0/U 출시 게이트는 미완료다. push/외부 배포 없이 로컬 티켓 커밋과 검토 패키지를 남긴다.
+
+후속 작업은 [2026-11-20B 계속 기록](DEV-A_CONTINUATION_20261120B.md)을 따른다. 이 문서에 남긴 direct draft getter 우회는 후속011에서 보수했고 D041도 저장·수정까지 연결했다. 이 문서는 이전 검증 시점의 기록으로 보존한다.

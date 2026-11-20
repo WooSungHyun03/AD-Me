@@ -14,3 +14,9 @@ setup:qa:local은 표식 있는 별도 Docker 프로젝트에 마이그레이션
 - Local harness shutdown headers guarded; Windows readers explicitly UTF-8; repeated security results go to ignored output before copying dated evidence, preserving earlier snapshots.
 - Actual generated console SQL verified on second local Supabase container for both main-only and integrated DEV-A baselines,16 migrations/RLS/privileges/default-off/reapply rejection PASS. Both source and SQL are secret-free local review artifacts, not hosted execution.
 - Evidence and failures resolved: ../DEV-A-MAIN-20261120/verification.json. Full ticket remains IN_PROGRESS for external provider and missing service workflows. No authenticated traces/OTP secrets shared.
+
+## 2026-11-20B — continued local validation
+- Final Node22: unit150/18, lint/typecheck, production builds; complete local Auth/DB E2E30, free-beta/no-Toss-key campaign4, keyless4 PASS. Direct REST35 groups and SQL3 fixture transactions PASS. New D041 screens and D081 provenance labels visually checked on desktop/mobile.
+- Regression fixtures now use a dedicated creator account rather than a primary account retained for collaboration history; SQL queue order is explicit and finance array checks allow unrelated TEST orders. No tests skipped/deleted to pass. Initial failures and corrected results are preserved in DEV-A-CONTINUE-20261120B/verification.json.
+- New optional developer QA mode free_beta verifies actual campaign flow while direct TEST orders are404. No deployment setting/key change. USER console SQL validated for3 exact prior baselines,18 total migrations, unchanged old briefs, wrong/duplicate baseline denial.
+- Full D084 remains IN_PROGRESS for unimplemented delete/privacy/collaboration/provider workflows and actual target release verification. No provider success or legal/payment approval claimed from fixtures.
