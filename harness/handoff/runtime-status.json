@@ -539,10 +539,11 @@
       "evidence": [
         "harness/evidence/D076/README.md",
         "harness/evidence/DEV-A-MAIN-20261120/verification.json",
-        "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json"
+        "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json",
+        "harness/evidence/D076/catalog-quota-security-20261120.json"
       ],
-      "blocker": "직접 draft_get RPC 쿼터 우회 해결; 실제 getter120/min와 앱1회 호출 검증. 가입/로그인 신뢰IP·계정/Auth 설정 및 기존 카탈로그 제한 미완료.",
-      "last_checked_at": "2026-11-20T03:24:38.584845+00:00"
+      "blocker": "strict public catalog RPC60/min·anon shared300/min·GET/leaf 우회 거부 및 실제getter120/min 검증. USER source 적용/경계활성화, 가입/로그인 trustedIP·Auth 설정·D033 실제 검색/대량 UX 미완료.",
+      "last_checked_at": "2026-11-20T09:38:45.490854+00:00"
     },
     "D077": {
       "owner": "DEV-B",

@@ -18,3 +18,8 @@
 - App GET makes exactly one protected RPC; rate-limit.ts validates status, removes private error metadata and preserves sanitized429/Retry-After/no-store.
 - Actual isolated REST:3 groups PASS,125 concurrent direct getter calls ->120 admitted+5429; owner/foreign/anonymous, GET denial, old-client compatibility and recovery checked. Unit API/limiter20 PASS; strict typecheck PASS.
 - D076 still IN_PROGRESS: trusted signup/login IP/account/Auth controls and legacy catalog search remain. This closes the previously documented direct draft_get bypass; no external/provider calls or deployment.
+
+## 2026-11-20E — 공개 catalog RPC 한도
+- 별도015에서 DB 소유 subject/원자 fixed window, authenticated60/min 및 anon shared300/min. public wrapper volatile, private unmetered leaf 실행 권한 회수. 직접 GET 우회405/원본 read/leaf 거부, 계정 격리와65동시→60성공/5정확한429·Retry-After 검증. schema 검사의 PG char concat cast만 고쳐 재실행했고 앱 한도를 완화하지 않았다.
+- 카탈로그 카드의 자동 prefetch를 꺼서 사용자가 누르지 않은 프로필 조회가 quota를 소비하지 않도록 했다. 클릭/URL/비교 흐름은 유지한다.
+- 원본 read 경계가 활성화된 strict에서의 검사다. USER staging 중에는 기존 legacy 읽기가 남으며 아직 보안/전체D076 완료가 아니다. 가입/로그인 trustedIP/Auth 설정 및 D033 실제 server search/대규모 UX 등은 남는다.

@@ -212,7 +212,7 @@ export function Catalog({
                 className="creator"
                 data-testid="creator-card"
               >
-                <Link href={`/creators/${c.seed_id}`}>
+                <Link href={`/creators/${c.seed_id}`} prefetch={false}>
                   <div
                     className="creator-visual"
                     style={{
@@ -228,7 +228,7 @@ export function Catalog({
                   </div>
                 </Link>
                 <div className="creator-top">
-                  <Link href={`/creators/${c.seed_id}`}>
+                  <Link href={`/creators/${c.seed_id}`} prefetch={false}>
                     <h3>
                       {c.name}{" "}
                       <ArrowUpRight size={14} style={{ display: "inline" }} />
