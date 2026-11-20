@@ -130,23 +130,25 @@ try {
       );
     },
   );
-  const seed = (
-    await anon
-      .from("creators")
-      .select("profile")
-      .eq("id", "creator-001")
-      .single()
-  ).data.profile;
+  assert.equal(
+    (await anon.from("creators").select("profile")).error?.code,
+    "42501",
+  );
+  const catalog = await anon.rpc("creator_catalog_page", {
+    p_after: "",
+    p_limit: 200,
+  });
+  assert.equal(catalog.error, null);
+  const seed = catalog.data.items.find((row) => row.seed_id === "creator-001");
+  assert.ok(seed);
   assert.equal(
     (
-      await clients.creator
-        .from("creators")
-        .insert({
-          id: creatorId,
-          owner_id: ids.creator,
-          published: true,
-          profile: { ...seed, name: "QA fictional identity", is_demo: false },
-        })
+      await clients.creator.from("creators").insert({
+        id: creatorId,
+        owner_id: ids.creator,
+        published: true,
+        profile: { ...seed, name: "QA fictional identity", is_demo: false },
+      })
     ).error,
     null,
   );
@@ -321,7 +323,7 @@ try {
     delete from public.administrator_grants where user_id in (${list});
     delete from auth.users where id in (${list}); commit;`);
   writeFileSync(
-  "output/dev-a-db/local-brand-security.local.json",
+    "output/dev-a-db/local-brand-security.local.json",
     JSON.stringify(
       {
         at: new Date().toISOString(),

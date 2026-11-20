@@ -1,0 +1,1482 @@
+{
+  "tables": [
+    {
+      "rls": true,
+      "table": "identities",
+      "schema": "adme_creator",
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "metric_observations",
+      "schema": "adme_creator",
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "read_boundary",
+      "schema": "adme_creator",
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "records",
+      "schema": "adme_creator",
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "channel_claims",
+      "schema": "adme_ops",
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "channels",
+      "schema": "adme_ops",
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "jobs",
+      "schema": "adme_ops",
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "rate_windows",
+      "schema": "adme_ops",
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "resource_controls",
+      "schema": "adme_ops",
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "settings",
+      "schema": "adme_ops",
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "staff",
+      "schema": "adme_ops",
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "ad_collaborations",
+      "schema": "public",
+      "anon_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "administrator_grants",
+      "schema": "public",
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "audit_log",
+      "schema": "public",
+      "anon_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "brand_contacts",
+      "schema": "public",
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "brand_profiles",
+      "schema": "public",
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "campaigns",
+      "schema": "public",
+      "anon_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "creators",
+      "schema": "public",
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "entitlements",
+      "schema": "public",
+      "anon_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "messages",
+      "schema": "public",
+      "anon_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "moderation_events",
+      "schema": "public",
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "orders",
+      "schema": "public",
+      "anon_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "products",
+      "schema": "public",
+      "anon_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "profiles",
+      "schema": "public",
+      "anon_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "proposal_reads",
+      "schema": "public",
+      "anon_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "proposals",
+      "schema": "public",
+      "anon_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "reports",
+      "schema": "public",
+      "anon_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "saved_creators",
+      "schema": "public",
+      "anon_select": true,
+      "authenticated_select": true
+    }
+  ],
+  "policies": [
+    {
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "table": "ad_collaborations",
+      "using": "(is_demo OR ((verified_at IS NOT NULL) AND (source_url ~~ 'https://%'::text)))",
+      "policy": "ads_read",
+      "schema": "public",
+      "command": "SELECT"
+    },
+    {
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "table": "audit_log",
+      "using": "is_admin()",
+      "policy": "audit_read",
+      "schema": "public",
+      "command": "SELECT"
+    },
+    {
+      "check": null,
+      "roles": [
+        "authenticated"
+      ],
+      "table": "brand_contacts",
+      "using": "((owner_id = auth.uid()) AND (my_role() = 'brand'::text))",
+      "policy": "brand_contacts_delete",
+      "schema": "public",
+      "command": "DELETE"
+    },
+    {
+      "check": "((owner_id = auth.uid()) AND (my_role() = 'brand'::text))",
+      "roles": [
+        "authenticated"
+      ],
+      "table": "brand_contacts",
+      "using": null,
+      "policy": "brand_contacts_insert",
+      "schema": "public",
+      "command": "INSERT"
+    },
+    {
+      "check": null,
+      "roles": [
+        "authenticated"
+      ],
+      "table": "brand_contacts",
+      "using": "((owner_id = auth.uid()) OR ((visibility = 'collaborators'::text) AND (EXISTS ( SELECT 1\n   FROM proposals p\n  WHERE ((p.brand_id = brand_contacts.owner_id) AND (p.creator_user_id = auth.uid()) AND (p.status = ANY (ARRAY['accepted'::text, 'submitted'::text, 'revision_requested'::text, 'completed'::text])))))))",
+      "policy": "brand_contacts_read",
+      "schema": "public",
+      "command": "SELECT"
+    },
+    {
+      "check": "((owner_id = auth.uid()) AND (my_role() = 'brand'::text))",
+      "roles": [
+        "authenticated"
+      ],
+      "table": "brand_contacts",
+      "using": "((owner_id = auth.uid()) AND (my_role() = 'brand'::text))",
+      "policy": "brand_contacts_update",
+      "schema": "public",
+      "command": "UPDATE"
+    },
+    {
+      "check": null,
+      "roles": [
+        "authenticated"
+      ],
+      "table": "brand_profiles",
+      "using": "((owner_id = auth.uid()) AND (my_role() = 'brand'::text))",
+      "policy": "brand_profiles_delete",
+      "schema": "public",
+      "command": "DELETE"
+    },
+    {
+      "check": "((owner_id = auth.uid()) AND (my_role() = 'brand'::text))",
+      "roles": [
+        "authenticated"
+      ],
+      "table": "brand_profiles",
+      "using": "((owner_id = auth.uid()) AND (my_role() = 'brand'::text))",
+      "policy": "brand_profiles_edit",
+      "schema": "public",
+      "command": "UPDATE"
+    },
+    {
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "table": "brand_profiles",
+      "using": "(published OR (owner_id = auth.uid()))",
+      "policy": "brand_profiles_read",
+      "schema": "public",
+      "command": "SELECT"
+    },
+    {
+      "check": "((owner_id = auth.uid()) AND (my_role() = 'brand'::text))",
+      "roles": [
+        "authenticated"
+      ],
+      "table": "brand_profiles",
+      "using": null,
+      "policy": "brand_profiles_write",
+      "schema": "public",
+      "command": "INSERT"
+    },
+    {
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "table": "campaigns",
+      "using": "(owner_id = auth.uid())",
+      "policy": "campaigns_delete",
+      "schema": "public",
+      "command": "DELETE"
+    },
+    {
+      "check": "((owner_id = auth.uid()) AND (my_role() = 'brand'::text) AND (NOT is_demo) AND (seed_id IS NULL))",
+      "roles": [
+        "public"
+      ],
+      "table": "campaigns",
+      "using": null,
+      "policy": "campaigns_insert",
+      "schema": "public",
+      "command": "INSERT"
+    },
+    {
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "table": "campaigns",
+      "using": "(((status = 'published'::text) AND (moderation_status = 'allowed'::text)) OR (owner_id = auth.uid()) OR is_admin())",
+      "policy": "campaigns_read",
+      "schema": "public",
+      "command": "SELECT"
+    },
+    {
+      "check": "((owner_id = auth.uid()) AND (NOT is_demo) AND (seed_id IS NULL))",
+      "roles": [
+        "public"
+      ],
+      "table": "campaigns",
+      "using": "((owner_id = auth.uid()) AND (my_role() = 'brand'::text))",
+      "policy": "campaigns_update",
+      "schema": "public",
+      "command": "UPDATE"
+    },
+    {
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "table": "creators",
+      "using": "(owner_id = auth.uid())",
+      "policy": "creators_delete",
+      "schema": "public",
+      "command": "DELETE"
+    },
+    {
+      "check": "((owner_id = auth.uid()) AND (my_role() = 'creator'::text) AND (id = ('user-'::text || (auth.uid())::text)))",
+      "roles": [
+        "public"
+      ],
+      "table": "creators",
+      "using": null,
+      "policy": "creators_insert",
+      "schema": "public",
+      "command": "INSERT"
+    },
+    {
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "table": "creators",
+      "using": "((owner_id = auth.uid()) OR is_admin() OR ((NOT adme_creator.read_boundary_enabled()) AND published AND (moderation_status = 'allowed'::text)))",
+      "policy": "creators_read",
+      "schema": "public",
+      "command": "SELECT"
+    },
+    {
+      "check": "((owner_id = auth.uid()) OR is_admin())",
+      "roles": [
+        "public"
+      ],
+      "table": "creators",
+      "using": "((owner_id = auth.uid()) OR is_admin())",
+      "policy": "creators_update",
+      "schema": "public",
+      "command": "UPDATE"
+    },
+    {
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "table": "entitlements",
+      "using": "((owner_id = auth.uid()) OR is_admin())",
+      "policy": "entitlements_read",
+      "schema": "public",
+      "command": "SELECT"
+    },
+    {
+      "check": "((sender_id = auth.uid()) AND (EXISTS ( SELECT 1\n   FROM proposals p\n  WHERE ((p.id = messages.proposal_id) AND ((auth.uid() = p.brand_id) OR (auth.uid() = p.creator_user_id)) AND (p.status <> 'rejected'::text) AND ((messages.kind = 'message'::text) OR ((p.creator_user_id = auth.uid()) AND (p.status = ANY (ARRAY['accepted'::text, 'revision_requested'::text])) AND (messages.kind = 'deliverable'::text)))))))",
+      "roles": [
+        "public"
+      ],
+      "table": "messages",
+      "using": null,
+      "policy": "messages_insert",
+      "schema": "public",
+      "command": "INSERT"
+    },
+    {
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "table": "messages",
+      "using": "(EXISTS ( SELECT 1\n   FROM proposals p\n  WHERE ((p.id = messages.proposal_id) AND ((auth.uid() = p.brand_id) OR (auth.uid() = p.creator_user_id)))))",
+      "policy": "messages_read",
+      "schema": "public",
+      "command": "SELECT"
+    },
+    {
+      "check": null,
+      "roles": [
+        "authenticated"
+      ],
+      "table": "moderation_events",
+      "using": "is_admin()",
+      "policy": "moderation_events_admin",
+      "schema": "public",
+      "command": "SELECT"
+    },
+    {
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "table": "orders",
+      "using": "((owner_id = auth.uid()) OR is_admin())",
+      "policy": "orders_read",
+      "schema": "public",
+      "command": "SELECT"
+    },
+    {
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "table": "products",
+      "using": "true",
+      "policy": "products_read",
+      "schema": "public",
+      "command": "SELECT"
+    },
+    {
+      "check": "(id = auth.uid())",
+      "roles": [
+        "public"
+      ],
+      "table": "profiles",
+      "using": "(id = auth.uid())",
+      "policy": "profiles_edit",
+      "schema": "public",
+      "command": "UPDATE"
+    },
+    {
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "table": "profiles",
+      "using": "((id = auth.uid()) OR is_admin())",
+      "policy": "profiles_read",
+      "schema": "public",
+      "command": "SELECT"
+    },
+    {
+      "check": "((user_id = auth.uid()) AND (EXISTS ( SELECT 1\n   FROM proposals p\n  WHERE ((p.id = proposal_reads.proposal_id) AND ((auth.uid() = p.brand_id) OR (auth.uid() = p.creator_user_id))))))",
+      "roles": [
+        "public"
+      ],
+      "table": "proposal_reads",
+      "using": "(user_id = auth.uid())",
+      "policy": "reads_own",
+      "schema": "public",
+      "command": "ALL"
+    },
+    {
+      "check": "((status = 'pending'::text) AND adme_creator.proposal_allowed(campaign_id, creator_id, brand_id, creator_user_id, kind))",
+      "roles": [
+        "authenticated"
+      ],
+      "table": "proposals",
+      "using": null,
+      "policy": "proposals_insert",
+      "schema": "public",
+      "command": "INSERT"
+    },
+    {
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "table": "proposals",
+      "using": "(((auth.uid() = brand_id) OR (auth.uid() = creator_user_id)) OR is_admin())",
+      "policy": "proposals_read",
+      "schema": "public",
+      "command": "SELECT"
+    },
+    {
+      "check": "((reporter_id = auth.uid()) AND (status = 'pending'::text))",
+      "roles": [
+        "public"
+      ],
+      "table": "reports",
+      "using": null,
+      "policy": "reports_insert",
+      "schema": "public",
+      "command": "INSERT"
+    },
+    {
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "table": "reports",
+      "using": "((reporter_id = auth.uid()) OR is_admin())",
+      "policy": "reports_read",
+      "schema": "public",
+      "command": "SELECT"
+    },
+    {
+      "check": "(owner_id = auth.uid())",
+      "roles": [
+        "public"
+      ],
+      "table": "saved_creators",
+      "using": "(owner_id = auth.uid())",
+      "policy": "saved_own",
+      "schema": "public",
+      "command": "ALL"
+    },
+    {
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "table": "objects",
+      "using": "((bucket_id = 'portfolios'::text) AND ((storage.foldername(name))[1] = (auth.uid())::text))",
+      "policy": "portfolio_delete",
+      "schema": "storage",
+      "command": "DELETE"
+    },
+    {
+      "check": "((bucket_id = 'portfolios'::text) AND ((storage.foldername(name))[1] = (auth.uid())::text))",
+      "roles": [
+        "public"
+      ],
+      "table": "objects",
+      "using": null,
+      "policy": "portfolio_insert",
+      "schema": "storage",
+      "command": "INSERT"
+    },
+    {
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "table": "objects",
+      "using": "((bucket_id = 'portfolios'::text) AND ((storage.foldername(name))[1] = (auth.uid())::text))",
+      "policy": "portfolio_select",
+      "schema": "storage",
+      "command": "SELECT"
+    }
+  ],
+  "functions": [
+    {
+      "schema": "adme_creator",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_creator.activate_read_boundary(text)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_creator",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_creator.catalog_dto(creators)",
+      "volatility": "i",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_creator",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_creator.catalog_page(text,integer)",
+      "volatility": "v",
+      "anon_execute": true,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_creator",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_creator.catalog_page_rows(text,integer)",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_creator",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_creator.create_proposal(uuid,text,text,text)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_creator",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_creator.guard_identity()",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_creator",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_creator.guard_read_boundary()",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_creator",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_creator.hot_catalog()",
+      "volatility": "s",
+      "anon_execute": true,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_creator",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_creator.my_snapshot()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_creator",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_creator.proposal_allowed(uuid,text,uuid,uuid,text)",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_creator",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_creator.proposal_choices(uuid)",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_creator",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_creator.public_https(text)",
+      "volatility": "i",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_creator",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_creator.public_social(text)",
+      "volatility": "i",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_creator",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_creator.read_boundary_enabled()",
+      "volatility": "s",
+      "anon_execute": true,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_creator",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_creator.saved_catalog()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_creator",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_creator.sync_legacy()",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.capture_ownership()",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.daily_tick()",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.enrollment_role()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.guard_discovery_enable()",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.guard_staff_approval()",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.job_enabled(text)",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.limit_job_enqueue()",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.limit_private_writes()",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.ops_admin_command(text,text,text)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.ops_channel_owner(text,text)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.ops_current_role()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.ops_dashboard()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.ops_draft_create(text)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.ops_draft_get(uuid)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.ops_enrollment_role()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.ops_own_channels()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.ops_public_channels(text)",
+      "volatility": "v",
+      "anon_execute": true,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.ops_request_quota(text)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.ops_worker_claim(text)",
+      "volatility": "v",
+      "anon_execute": true,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.ops_worker_finish(text,uuid,uuid,jsonb,text,integer)",
+      "volatility": "v",
+      "anon_execute": true,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.pause_discovery()",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.provision_staff(uuid,text,text,timestamp with time zone)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.require_quota(text,text,integer,integer,integer)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.staff_role()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.take_quota(text,text,integer,integer,integer)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "adme_ops",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "adme_ops.verify_worker(text)",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "active_hot_creators()",
+      "volatility": "s",
+      "anon_execute": true,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "admin_mfa_recent()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "brand_contact_for(uuid)",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "create_creator_proposal(uuid,text,text,text)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=public"
+      ],
+      "signature": "create_test_order(text)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "creator_catalog_page(text,integer)",
+      "volatility": "v",
+      "anon_execute": true,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "creator_proposal_choices(uuid)",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=public"
+      ],
+      "signature": "finalize_test_order(uuid,uuid,text,integer)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "guard_moderation_lock()",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=public"
+      ],
+      "signature": "handle_new_user()",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "is_admin()",
+      "volatility": "s",
+      "anon_execute": true,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "is_admin_provisioned()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "moderate_entity(text,text,boolean)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "moderate_entity(text,text,boolean,text)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "my_brand_account()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "my_creator_identity_snapshot()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=public"
+      ],
+      "signature": "my_role()",
+      "volatility": "s",
+      "anon_execute": true,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "my_saved_creator_catalog()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "ops_admin_command(text,text,text)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "ops_channel_owner(text,text)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "ops_current_role()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "ops_dashboard()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "ops_draft_create(text)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "ops_draft_get(uuid)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "ops_enrollment_role()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "ops_own_channels()",
+      "volatility": "s",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "ops_public_channels(text)",
+      "volatility": "v",
+      "anon_execute": true,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "ops_request_quota(text)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "ops_worker_claim(text)",
+      "volatility": "v",
+      "anon_execute": true,
+      "security_definer": false,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "ops_worker_finish(text,uuid,uuid,jsonb,text,integer)",
+      "volatility": "v",
+      "anon_execute": true,
+      "security_definer": false,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "preserve_campaign_terms()",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "provision_administrator(uuid,text,timestamp with time zone)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=public"
+      ],
+      "signature": "review_report(uuid,text)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "revoke_administrator(uuid)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": false
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "save_brand_account(text,text,text,text,boolean,text,text,text)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=public"
+      ],
+      "signature": "transition_proposal(uuid,text)",
+      "volatility": "v",
+      "anon_execute": false,
+      "security_definer": true,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=public"
+      ],
+      "signature": "valid_campaign_dto(jsonb)",
+      "volatility": "i",
+      "anon_execute": true,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=\"\""
+      ],
+      "signature": "valid_campaign_terms(jsonb)",
+      "volatility": "i",
+      "anon_execute": false,
+      "security_definer": false,
+      "authenticated_execute": true
+    },
+    {
+      "schema": "public",
+      "settings": [
+        "search_path=public"
+      ],
+      "signature": "valid_creator_dto(jsonb)",
+      "volatility": "i",
+      "anon_execute": true,
+      "security_definer": false,
+      "authenticated_execute": true
+    }
+  ],
+  "at": "2026-11-20T09:16:07.771084+00:00",
+  "scope": "isolated local metadata only, no hosted verification or records; full tenant/Storage/provider audit remains incomplete"
+}

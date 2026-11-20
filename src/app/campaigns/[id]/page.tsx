@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { campaigns, rank, type Brief } from "@/lib/catalog";
 import { configured, supabase, currentUser } from "@/lib/supabase";
 import { publicCreators } from "@/lib/data";
+import { readCreatorProposalChoices } from "@/lib/creator-catalog-read";
 import { ProposalForm } from "@/components/proposal-form";
 import { CampaignTermsSummary } from "@/components/campaign-terms-summary";
 import type { CampaignTerms } from "@/lib/campaign-brief";
@@ -37,15 +38,9 @@ export default async function Campaign({
       isDemo = data.is_demo;
       ownerId = data.owner_id;
     } else if (!id.startsWith("campaign-")) notFound();
-    const { data: cs } = await db
-      .from("creators")
-      .select("id,profile,owner_id")
-      .not("owner_id", "is", null)
-      .eq("published", true)
-      .eq("moderation_status", "allowed");
-    people = (cs ?? [])
-      .filter((c) => ownerId === user?.id || c.owner_id === user?.id)
-      .map((c) => ({ id: c.id, name: c.profile.name }));
+    if (user && data) {
+      people = await readCreatorProposalChoices(db, data.id);
+    }
   }
   if (!brief) notFound();
   const catalog = await publicCreators();

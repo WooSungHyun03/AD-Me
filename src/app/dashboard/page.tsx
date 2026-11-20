@@ -43,7 +43,7 @@ export default async function Dashboard() {
       .gt("expires_at", new Date().toISOString()),
     db
       .from("saved_creators")
-      .select("creator_id,creators(profile)")
+      .select("creator_id")
       .eq("owner_id", user.id),
   ]);
   const { data: messages } = await db

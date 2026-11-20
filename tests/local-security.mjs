@@ -111,7 +111,11 @@ await check(
 await check(
   "audited locks hide creators even after owner republish and deny delete/recreate",
   async () => {
-    const { data: fixture } = await anonymous
+    assert.equal(
+      (await anonymous.from("creators").select("profile")).error?.code,
+      "42501",
+    );
+    const { data: fixture } = await adminFresh
       .from("creators")
       .select("profile")
       .eq("id", "creator-001")
@@ -150,9 +154,18 @@ await check(
         null,
       );
       assert.equal(
-        (await anonymous.from("creators").select("id").eq("id", id)).data
-          .length,
-        0,
+        (await anonymous.from("creators").select("id").eq("id", id)).error
+          ?.code,
+        "42501",
+      );
+      const publicRows = await anonymous.rpc("creator_catalog_page", {
+        p_after: "",
+        p_limit: 200,
+      });
+      assert.equal(publicRows.error, null);
+      assert.equal(
+        publicRows.data.items.some((row) => row.seed_id === id),
+        false,
       );
       assert.equal(
         (
@@ -163,11 +176,10 @@ await check(
         ).error,
         null,
       );
-      assert.equal(
-        (await anonymous.from("creators").select("id").eq("id", id)).data
-          .length,
-        0,
-      );
+      assert.equal((await anonymous.from("creators").select("id").eq("id", id)).error?.code, "42501");
+      const afterRepublish = await anonymous.rpc("creator_catalog_page", { p_after: "", p_limit: 200 });
+      assert.equal(afterRepublish.error, null);
+      assert.equal(afterRepublish.data.items.some((row) => row.seed_id === id), false);
       assert.equal(
         (
           await fixtureCreator
@@ -202,12 +214,10 @@ await check(
         ).error,
         null,
       );
-      assert.equal(
-        (await anonymous.from("creators").select("id").eq("id", id)).data
-          .length,
-        0,
-        "release does not republish owner-hidden content",
-      );
+      assert.equal((await anonymous.from("creators").select("id").eq("id", id)).error?.code, "42501");
+      const afterRelease = await anonymous.rpc("creator_catalog_page", { p_after: "", p_limit: 200 });
+      assert.equal(afterRelease.error, null);
+      assert.equal(afterRelease.data.items.some((row) => row.seed_id === id), false, "release does not republish owner-hidden content");
       assert.equal(
         (await fixtureCreator.from("creators").delete().eq("id", id)).error,
         null,

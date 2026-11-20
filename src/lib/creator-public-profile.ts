@@ -6,6 +6,60 @@ export type PublicCatalogCreator = Omit<
   Creator,
   "owner_id" | "owner_consent" | "followers"
 > & { followers: number | null };
+// Contract of the database allowlist, never a raw legacy profile. Unknown keys
+// fail closed so a future SQL change cannot silently reintroduce private fields.
+export const publicCatalogCreatorSchema = z
+  .strictObject({
+    seed_id: z.string().min(1).max(100),
+    name: z.string().min(2).max(80),
+    handle: z.string().max(160),
+    bio: z.string().max(1000),
+    categories: z.array(z.string().max(50)).max(5),
+    vibes: z.array(z.string().max(50)).max(8),
+    formats: z.array(z.string().max(50)).max(8),
+    platforms: z.array(z.string().max(50)).max(5),
+    price_min_krw: z.number().int().min(0).max(100000000),
+    price_max_krw: z.number().int().min(0).max(100000000),
+    followers: z.number().int().min(0).max(10000000000).nullable(),
+    metrics_source: z.enum(["synthetic_demo_not_verified", "unavailable"]),
+    is_available: z.boolean(),
+    is_demo: z.boolean(),
+    data_source: z.enum([
+      "generated fictional test fixture",
+      "owner_registration",
+    ]),
+    source_url: z.string().max(2000).nullable(),
+    portrait_asset: z.null(),
+    image_placeholder: z.enum(["gradient_initials", "initials"]),
+    published: z.literal(true),
+    social_url: z.string().max(2000).optional(),
+    portfolio_url: z.string().max(2000).optional(),
+  })
+  .superRefine((p, ctx) => {
+    if (
+      (!p.is_demo && p.followers !== null) ||
+      (p.metrics_source === "unavailable" && p.followers !== null) ||
+      p.source_url !== (p.social_url ?? null) ||
+      p.price_max_krw < p.price_min_krw
+    )
+      ctx.addIssue({
+        code: "custom",
+        message: "Invalid public catalog provenance",
+      });
+  })
+  .transform((p) => {
+    // A malformed optional public link must not take down the whole catalog.
+    // Unknown/private keys still fail the strict object check above.
+    const { social_url, portfolio_url, ...base } = p;
+    const social = normalizeSocialLink(social_url);
+    const portfolio = safeHttpsLink(portfolio_url);
+    return {
+      ...base,
+      source_url: social?.href ?? null,
+      ...(social ? { social_url: social.href } : {}),
+      ...(portfolio ? { portfolio_url: portfolio.href } : {}),
+    };
+  });
 const tags = (maximum: number) => z.array(z.string().max(50)).max(maximum);
 const profile = z.object({
   name: z.string().min(2).max(80),
@@ -31,8 +85,8 @@ const rowSchema = z.object({
   profile: z.unknown(),
 });
 
-// Explicit app DTO, not raw JSON spreading. Direct DB REST and legacy public IDs
-// require the separate D018/D033/D075 read migration before that release gate clears.
+// Legacy/keyless projection without raw JSON spreading. Configured public reads
+// use the DB allowlist and staged activation boundary. Legacy IDs remain intact.
 export function projectPublicCreator(
   input: unknown,
 ): PublicCatalogCreator | null {

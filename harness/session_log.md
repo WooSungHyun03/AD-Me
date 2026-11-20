@@ -208,3 +208,9 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 ## 2026-11-20D — 최종 패킷·같은 브랜치 push 준비
 - source06bb2c1의371파일, 새 FILTERS ZIP3,173,820bytes/SHA256 54c9010f93128e2e8d4a410574c76fcf668a13c61cd610c945123f006f4193d9. 모든 source Git blob/CRC/비밀 패턴, 기존 검증 archive와 SQL 바이트21파일 일치, 이전ZIP4개 hash불변을 검증했다. 산출물 커밋은 소스/SQL 코드를 바꾸지 않는다.
 - 작업은 검토28d1d1b, D0340899fa4/2377cdc, D018eb65d37, D08406bb2c1로 분리했다. push 전 fetch에서도 origin/main65063c8 유지. 최신 검토 문서에 전체43개 착수 전 표와 실제 후속 상태·잔여 출시 차단을 함께 기록했다. codex/dev-a-p0-continue의 원격 SHA/CI를 push 후 확인하며 main/키/배포 설정은 바꾸지 않는다.
+
+## 2026-11-20E — 소스 의존성 확인·D075 호환 읽기 경계
+- 사용자 최신 요청은 소스를 참고해 기존 기능에 문제가 생기지 않는 범위에서 가능한 잔여 구현을 진행하는 것이다.665fcae clean/기존브랜치/main65063c8 확인. 공개 읽기만 닫으면 제안/후보/CSV/embedded saved가 깨지는 경로를 먼저 조사하고014 steward 변경안을 기록했다.
+- safe DB DTO/cursor, private raw owner/admin RLS, HOT/saved/후보 최소DTO, 원자 제안 RPC와 기존 직접 INSERT helper를 함께 구현했다. 원본 ID/FK/JSON/주소/HTTP 입력·응답을 유지했다. 기존 원본 공개 fixture 조회 테스트는 명시적42501 및 공개 RPC moderation 부정 검사로 강화했다.
+- 직접8그룹과 이전44, 별도 catalog quota2를 순차 검증했다. 메타데이터 inventory28table/81function/35policy, 전체RLS28/privateclientSELECT0. 전체Storage/테넌트 등 완료로 오인하지 않는다.
+- 별도 build/DB 준비와 테스트를 중복 실행해 격리 컨테이너 중단1건이 발생했고 순차 재실행54그룹 통과. source014·015는 적용 뒤 수정하지 않았으며016 단계적 활성화로 구버전 적용 순서를 보강한다. 외부 콘솔/키/배포는 수행하지 않았다.

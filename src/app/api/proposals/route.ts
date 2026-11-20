@@ -16,44 +16,17 @@ export const POST = apiRoute("proposals.post", async (req) => {
     (d.kind === "application" && c.role !== "creator")
   )
     return fail("역할에 맞는 요청만 가능합니다.", 403);
-  const { data: campaign, error: campaignError } = await c.db
-    .from("campaigns")
-    .select("id,owner_id,status,moderation_status")
-    .eq("id", d.campaignId)
-    .maybeSingle();
-  if (campaignError)
-    failDatabase(campaignError, "캠페인을 불러오지 못했습니다.");
-  const { data: creator, error: creatorError } = await c.db
-    .from("creators")
-    .select("id,owner_id,published,moderation_status")
-    .eq("id", d.creatorId)
-    .maybeSingle();
-  if (creatorError)
-    failDatabase(creatorError, "크리에이터를 불러오지 못했습니다.");
-  if (!campaign || !creator?.owner_id || !creator.published || campaign.moderation_status !== "allowed" || creator.moderation_status !== "allowed")
-    return fail("협업 가능한 캠페인과 실제 크리에이터 계정이 필요합니다.", 422);
-  if (d.kind === "proposal" && campaign.owner_id !== c.user.id)
-    return fail("본인 캠페인만 제안할 수 있습니다.", 403);
-  if (
-    d.kind === "application" &&
-    (creator.owner_id !== c.user.id || campaign.status !== "published")
-  )
-    return fail("지원 권한이 없습니다.", 403);
-  const { data, error } = await c.db
-    .from("proposals")
-    .insert({
-      campaign_id: campaign.id,
-      creator_id: creator.id,
-      brand_id: campaign.owner_id,
-      creator_user_id: creator.owner_id,
-      brief: d.brief,
-      kind: d.kind,
-    })
-    .select("id")
-    .single();
+  const { data, error } = await c.db.rpc("create_creator_proposal", {
+    p_campaign: d.campaignId,
+    p_creator: d.creatorId,
+    p_kind: d.kind,
+    p_brief: d.brief,
+  });
   if (error?.code === "23505") fail("이미 지원하거나 제안했습니다.", 409);
   if (error) failDatabase(error, "지원·제안을 저장하지 못했습니다.");
-  return NextResponse.json(data, { status: 201 });
+  const id = z.uuid().safeParse(data);
+  if (!id.success) fail("지원·제안 응답을 확인하지 못했습니다.", 503);
+  return NextResponse.json({ id: id.data }, { status: 201 });
 });
 export const PATCH = apiRoute("proposals.patch", async (req) => {
   const c = await requireContext();

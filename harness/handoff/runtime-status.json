@@ -523,9 +523,15 @@
     },
     "D075": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D075/README.md",
+        "harness/evidence/D075/PLAN_20261120.md",
+        "harness/evidence/D075/creator-read-security-20261120.json",
+        "harness/evidence/D075/permission-inventory-20261120.json"
+      ],
+      "blocker": "호환 public RPC/원본 owner·MFA admin RLS·HOT/saved/제안 경계 로컬 검증. USER 단계적 적용·새 source 확인 후 활성화·전체 Storage/RPC/테넌트 감사·opaque ID 및 교차 리뷰 미완료.",
+      "last_checked_at": "2026-11-20T09:37:47.758832+00:00"
     },
     "D076": {
       "owner": "DEV-A",
