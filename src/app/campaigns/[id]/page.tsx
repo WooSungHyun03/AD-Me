@@ -111,6 +111,9 @@ export default async function Campaign({
             <div key={r.creatorId} className="result">
               <span className="muted">{String(i + 1).padStart(2, "0")}</span>
               <div>
+                {r.creator.is_demo && (
+                  <span className="badge">가상 크리에이터 · DEMO</span>
+                )}
                 <Link href={`/creators/${r.creatorId}`}>
                   <h3>{r.creator.name} ↗</h3>
                 </Link>
