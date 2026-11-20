@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-20T13:24:45.566Z",
+  "scope": "isolated actual Auth/PostgREST/SQL, fictional profiles and sources; both policy fixtures restored; no real advertising/provider verification",
+  "results": [
+    {
+      "name": "owner-only submission, explicit attestation, typed dates and private-key allowlist are enforced",
+      "result": "PASS"
+    },
+    {
+      "name": "concurrent same-key retry is one case with server-derived demo/actor; duplicate source and correction collision roll back",
+      "result": "PASS"
+    },
+    {
+      "name": "issue policy alone never enables advertising publication and brand mention is not accepted evidence",
+      "result": "PASS"
+    },
+    {
+      "name": "self declaration and unknown economic interest cannot be published as confirmed advertising",
+      "result": "PASS"
+    },
+    {
+      "name": "approved advertising exposes bounded public fields without attestation, actor IDs or internal review text",
+      "result": "PASS"
+    },
+    {
+      "name": "correction hides old publication and an older approval cannot approve the new submission",
+      "result": "PASS"
+    },
+    {
+      "name": "advertising and issue publication policy switches/versions are independent",
+      "result": "PASS"
+    },
+    {
+      "name": "withdrawal preserves immutable history and legacy fictional ad data remains unchanged",
+      "result": "PASS"
+    }
+  ]
+}

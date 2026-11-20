@@ -29,6 +29,7 @@ export async function ReviewInbox({
           key={item.id}
           style={{ marginBottom: 20, overflowWrap: "anywhere" }}
           data-testid="review-case"
+          data-review-id={item.id}
         >
           <div className="inline">
             <span className="badge">{status[item.status]}</span>
@@ -40,7 +41,11 @@ export async function ReviewInbox({
                 : "비공개"}
             </span>
           </div>
-          <h2>{item.payload.reason}</h2>
+          <h2>
+            {"reason" in item.payload
+              ? item.payload.reason
+              : item.payload.brandLabel}
+          </h2>
           <Link href={`/creators/${item.creatorId}`}>대상 프로필 ↗</Link>
           {" · "}
           <a
@@ -59,7 +64,11 @@ export async function ReviewInbox({
             {item.history.map((h) => (
               <div className="notice" key={h.version}>
                 <strong>버전 {h.version}</strong>
-                <p>{h.payload.reason}</p>
+                <p>
+                  {"reason" in h.payload
+                    ? h.payload.reason
+                    : h.payload.brandLabel}
+                </p>
                 <a
                   href={h.payload.sourceUrl}
                   target="_blank"
@@ -89,7 +98,14 @@ export async function ReviewInbox({
               <strong>검토 기록 · 버전 {d.version}</strong>
               <p>
                 {d.verdict === "approved" ? "승인" : "반려"} ·{" "}
-                {d.classification}
+                {
+                  {
+                    unverified_claim: "미확인 주장",
+                    confirmed_fact: "출처 확인 사실",
+                    official_correction: "공식 정정",
+                    ad_evidence: "광고 근거 검토",
+                  }[d.classification]
+                }
               </p>
               <p>{d.summary}</p>
               {d.note && <p>내부 근거: {d.note}</p>}

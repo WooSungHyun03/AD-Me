@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { AdHistoryFields, adPayloadFromForm } from "./ad-history-fields";
 import { evidenceKinds, type ReviewCase } from "@/lib/reviews";
 export function ReviewCaseActions({ item }: { item: ReviewCase }) {
   const [result, setResult] = useState(""),
@@ -55,54 +56,67 @@ export function ReviewCaseActions({ item }: { item: ReviewCase }) {
                 const d = new FormData(e.currentTarget);
                 void run("/api/reviews", {
                   action: "revise",
-                  payload: {
-                    reason: d.get("reason"),
-                    sourceUrl: d.get("sourceUrl"),
-                    evidenceKind: d.get("evidenceKind"),
-                  },
+                  payload:
+                    item.kind === "ad"
+                      ? {
+                          ...adPayloadFromForm(d),
+                          ownershipConfirmed:
+                            d.get("ownershipConfirmed") === "on",
+                        }
+                      : {
+                          reason: d.get("reason"),
+                          sourceUrl: d.get("sourceUrl"),
+                          evidenceKind: d.get("evidenceKind"),
+                        },
                 });
               }}
             >
-              <label className="field">
-                정정 내용
-                <textarea
-                  name="reason"
-                  defaultValue={item.payload.reason}
-                  required
-                  minLength={10}
-                  maxLength={2000}
-                />
-              </label>
-              <label className="field">
-                정정 출처 URL
-                <input
-                  name="sourceUrl"
-                  defaultValue={item.payload.sourceUrl}
-                  type="url"
-                  required
-                  maxLength={1000}
-                />
-              </label>
-              <label className="field">
-                근거 종류
-                <select
-                  name="evidenceKind"
-                  defaultValue={item.payload.evidenceKind}
-                >
-                  {evidenceKinds.map((v) => (
-                    <option key={v} value={v}>
-                      {
-                        {
-                          claim: "미확인 주장",
-                          source: "출처 자료",
-                          official_statement: "공식 입장",
-                          correction: "공식 정정",
-                        }[v]
-                      }
-                    </option>
-                  ))}
-                </select>
-              </label>
+              {"reason" in item.payload ? (
+                <>
+                  <label className="field">
+                    정정 내용
+                    <textarea
+                      name="reason"
+                      defaultValue={item.payload.reason}
+                      required
+                      minLength={10}
+                      maxLength={2000}
+                    />
+                  </label>
+                  <label className="field">
+                    정정 출처 URL
+                    <input
+                      name="sourceUrl"
+                      defaultValue={item.payload.sourceUrl}
+                      type="url"
+                      required
+                      maxLength={1000}
+                    />
+                  </label>
+                  <label className="field">
+                    근거 종류
+                    <select
+                      name="evidenceKind"
+                      defaultValue={item.payload.evidenceKind}
+                    >
+                      {evidenceKinds.map((v) => (
+                        <option key={v} value={v}>
+                          {
+                            {
+                              claim: "미확인 주장",
+                              source: "출처 자료",
+                              official_statement: "공식 입장",
+                              correction: "공식 정정",
+                            }[v]
+                          }
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </>
+              ) : (
+                <AdHistoryFields initial={item.payload} />
+              )}
               <button className="button outline small" disabled={pending}>
                 새 버전 제출
               </button>
@@ -191,8 +205,14 @@ export function ReviewCaseActions({ item }: { item: ReviewCase }) {
                 <option value="unverified_claim">
                   미확인 주장 — 공개 불가
                 </option>
-                <option value="confirmed_fact">출처에서 확인한 사실</option>
-                <option value="official_correction">공식 정정</option>
+                {item.kind === "ad" ? (
+                  <option value="ad_evidence">확인 가능한 광고 근거</option>
+                ) : (
+                  <>
+                    <option value="confirmed_fact">출처에서 확인한 사실</option>
+                    <option value="official_correction">공식 정정</option>
+                  </>
+                )}
               </select>
             </label>
             <label className="field">

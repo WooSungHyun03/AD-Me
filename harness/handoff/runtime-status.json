@@ -224,9 +224,14 @@
     },
     "D029": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D029/PLAN_20261120.md",
+        "harness/evidence/D029/README.md",
+        "harness/evidence/D029/ad-history-security-v29-20261120.json"
+      ],
+      "blocker": "021/023 본인 광고 증거 제출·정정/검토·중복/강한 근거 분류·별도 기본OFF 정책·공개 allowlist 구현. local DB8/단위6/desktop-mobile2 검증. 최종 묶음 증빙·정책 승인/USER 적용·실제 URL·교차 리뷰는 남음. 실제 공급자·광고 사실 검증으로 보고하지 않음.",
+      "last_checked_at": "2026-11-20T13:29:43.705300+00:00"
     },
     "D030": {
       "owner": "DEV-A",

@@ -1,3 +1,4 @@
+import { PublicAdHistory } from "@/components/public-ad-history";
 import { PublicReviewRecords } from "@/components/public-review-records";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -109,6 +110,7 @@ export default async function Detail({
             portfolioUrl={portfolio?.href}
           />
           <h3>과거 광고 이력</h3>
+          <PublicAdHistory creatorId={id} />
           {ads
             .filter((a) => a.creator_seed_id === id)
             .map((a) => (

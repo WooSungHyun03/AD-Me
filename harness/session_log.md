@@ -234,3 +234,8 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 ## 2026-11-20G — D057 근거 검토 흐름
 - 019/020 private RLS 제출·정정·당사자 답변·검토/감사·정책OFF 공개 게이트 및 curated DTO 구현. 익명/타인/stale MFA/self review·변경된version 승인을 거부하며 미확인 주장은 점수/검색 제외와 연결하지 않는다. 소스 재검토에서 원본 reason 공개 제외와 모든 owner response의 새version 생성을020으로 보강했다. 적용된019/이전24개 불변.
 - 실제 local DB/REST9그룹 PASS. API/내 검토함·운영 검토함·프로필 표시 연결, 기존 reports 데이터/ID/POST payload 보존. 원장 D057만 진행으로 바꾸며 공개 실제 정책/USER 적용/교차 리뷰는 남긴다. D029 연계 후 브라우저/최종 공통검증과 하나의 USER SQL을 준비한다.
+
+## 2026-11-20G — D029 광고 이력 제출·검토
+- D057 흐름에021/023 owner-only 광고 이력/출처/권한확인·정정·중복 URL guard, 별도 기본OFF 광고 공개 정책, 강한 근거 분류 및 공개 DTO를 연결했다. 단순 언급/본인 진술/unknown interest는 비공개 상태에서도 확인 광고 분류를 거부한다. actor/is_demo/검토자·시각은 DB 결정, 실제 로고·콘텐츠 복제/수집 없음.
+- 실제 DB8·신규 API/schema6·unit210/27·lint/typecheck와 desktop/mobile 제출/승인/공개/정정/구버전 승인 거부2 PASS. D057 새 브라우저2+기존 두 역할 golden2도 PASS. getByLabel exact/option label text 차이를 동일한 정확한 accessible combobox role로 수정, 조건 완화/skip 없음.
+-022 반복 철회 quota/no-op과024 최신 답변 consent를 보강해 이전 공개 동의 답변이 새 비공개 입장을 대신 노출하지 않도록 했고 직접D0579그룹 재검증. 적용된19~23 및 이전24개 SQL은 수정하지 않았다. 최종 SQL23/24→30·USER gate/교차 리뷰·정책/실제URL은 묶음 인계한다.
