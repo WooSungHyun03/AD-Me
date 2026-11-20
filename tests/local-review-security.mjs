@@ -305,6 +305,18 @@ try {
         (await publicRows())[0].response.body,
         "가상 당사자가 공개에 동의한 새 입장입니다.",
       );
+      const privateReply = await owner.rpc("review_respond", {
+        p_id: caseId,
+        p_expected: version,
+        p_body: "최신 비공개 당사자 입장으로 변경한 가상 자료입니다.",
+        p_source: null,
+        p_public: false,
+      });
+      assert.equal(privateReply.error, null);
+      version = 5;
+      assert.deepEqual(await publicRows(), []);
+      assert.equal((await decide(admin)).error, null);
+      assert.equal((await publicRows())[0].response, null);
     },
   );
   await check(
