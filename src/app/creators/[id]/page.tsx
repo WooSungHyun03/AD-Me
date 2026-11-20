@@ -18,8 +18,8 @@ export default async function Detail({
   const creators = await publicCreators();
   const c = creators.find((c) => c.seed_id === id);
   if (!c) notFound();
-  const social = c.owner_consent ? normalizeSocialLink(c.social_url) : null;
-  const portfolio = c.owner_consent ? safeHttpsLink(c.portfolio_url) : null;
+  const social = normalizeSocialLink(c.social_url);
+  const portfolio = safeHttpsLink(c.portfolio_url);
   const similar = rank(
     {
       category: c.categories[0],
@@ -75,7 +75,9 @@ export default async function Detail({
           <div className="metric-row">
             <div>
               <strong>
-                {c.is_demo ? c.followers.toLocaleString() : "미확보"}
+                {c.is_demo && c.followers !== null
+                  ? c.followers.toLocaleString()
+                  : "미확보"}
               </strong>
               <span>{c.is_demo ? "가상 팔로워" : "팔로워"}</span>
             </div>

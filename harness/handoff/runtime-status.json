@@ -148,8 +148,8 @@
         "harness/evidence/D018/packet-terms_18-20261120.json",
         "docs/handoff/DEV-A_SCHEMA_20261120.md"
       ],
-      "blocker": "정규화 private DB/RLS·UUID 백필·본인 snapshot·JSON 호환 adapter 로컬 검증 완료. D017 승인/허용 필드·보존/목적/재배포 계약, D019 writer/운영 YouTube 이관, 공개 DTO read switch·교차 리뷰·대상 적용 미완료.",
-      "last_checked_at": "2026-11-20T07:52:49.981196+00:00"
+      "blocker": "정규화 private DB/백필/본인 snapshot 및 공개 앱 allowlist·null 지표 검증. 직접 REST의 legacy owner/raw JSON·user-AuthUUID 공개ID 이관(D033/D075), D017 정책/보존 계약, D019 writer/운영 YouTube 이관·정규화 read switch·교차 리뷰·대상 적용 미완료.",
+      "last_checked_at": "2026-11-20T08:42:22.935427+00:00"
     },
     "D019": {
       "owner": "DEV-B",

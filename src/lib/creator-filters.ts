@@ -142,7 +142,9 @@ export function creatorFilterIssues(filters: CreatorFilters) {
   return issues;
 }
 
-type FilterItem = Omit<Creator, "followers"> & { followers: number | null };
+type FilterItem = Omit<Creator, "followers" | "owner_id" | "owner_consent"> & {
+  followers: number | null;
+};
 const finiteNonnegative = (value: number | null) =>
   value !== null && Number.isFinite(value) && value >= 0;
 

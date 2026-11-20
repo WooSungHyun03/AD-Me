@@ -3,7 +3,8 @@ import { creatorPlatforms, platformLabels } from "@/lib/service-catalog";
 import Link from "next/link";
 import { useState } from "react";
 import { Heart, ArrowUpRight } from "lucide-react";
-import { creators as fixtures, type Creator } from "@/lib/catalog";
+import { creators as fixtures } from "@/lib/catalog";
+import type { PublicCatalogCreator } from "@/lib/creator-public-profile";
 import {
   catalogFollowerValue,
   creatorFilterIssues,
@@ -52,7 +53,7 @@ export function Catalog({
   items = fixtures,
   initialSaved = [],
 }: {
-  items?: Creator[];
+  items?: PublicCatalogCreator[];
   initialSaved?: string[];
 }) {
   const { filters, update, reset } = useCatalogFilters();

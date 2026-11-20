@@ -45,7 +45,9 @@ export default async function Compare({
                 [
                   "팔로워",
                   (c: (typeof list)[number]) =>
-                    c.is_demo ? c.followers.toLocaleString() : "미확보",
+                    c.is_demo && c.followers !== null
+                      ? c.followers.toLocaleString()
+                      : "미확보",
                 ],
                 [
                   "최소 견적",

@@ -194,3 +194,8 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - D034 single→multi OR/AND, URL 단일 상태/restore/reset/back/forward, 범위·0/미확보·stable sort·empty/error·키보드/모바일 구현. D033 취소/늦은 응답 계약4는 별도 미연결 adapter이며 서버 검색/공개 read switch 구현이라고 주장하지 않는다.
 - Node22 unit176/21(신규20), lint/typecheck/build, keyless actual Chrome10/10(필터6+기존4) PASS. 최초 동시.next build lock은 순차 재실행으로 해결, 테스트 skip 없음. 기존 서비스 E2E의 플랫폼 selector를 실제 변경된 checkbox로 보수했다.
 - D034 IN_PROGRESS, D033 연결·교차 리뷰·대상 적용은 남긴다. 공개 앱 props의 owner/raw JSON 문제는 별도 D018 보수, 직접 REST 공개 권한은 D033/D075 차단으로 기록한다. 외부 계정/키/콘솔/배포 없음.
+
+## 2026-11-20D — D034 모바일 경합·D018 공개 앱 DTO
+- 모바일 controlled checkbox가 router transition-priority URL 업데이트 전 잠깐 되돌아가는 실패를 확인했다. URL을 useSyncExternalStore로 동기 구독해 복구 경합을 제거하고 keyless10/10·실제 DB 공개탐색/DTO4/4 재검증. 네 viewport overflow/keyboard와 desktop/mobile 캡처 확인. 단순 sleep/force/재시도로 우회하지 않았다.
+- D018 steward 계획을 기록한 뒤 allowlist public app DTO, unavailable=null, unconsented links 제외, private/unknown JSON 제외를 구현했다. 매칭 입력 타입만 최소 공개 필드로 분리했고 알고리즘/점수/DB/원본 JSON을 바꾸지 않았다. unit181/22, 실제 로컬 DB/Auth E2E32/32·free4/4 PASS. 초기 새E2E2건은 목록/상세 동명 heading과 URL 이동 대기 누락을 정확한 URL+level1 대기로 고쳤다.
+- 앱 DTO 보수는 직접 REST published creators의 owner_id/raw profile 및 user-<Auth UUID> legacy ID 이관을 대신하지 않는다. D033/D075 연계 개발 및 D017/D019/정규화 read switch는 출시 차단으로 유지한다. 해당 범위를 사용자 소스 편집 작업으로 떠넘기지 않는다. D018 IN_PROGRESS, 외부 승인/DONE 승격 없음.

@@ -56,14 +56,20 @@ DEV-A 2026-11-19 후속 계약: 공개 브랜드 DTO v1과 비공개 연락처�
 - Every recommendation result displays `score`, `coverage`, `breakdown`, `excluded`, `evidence[]`, and `rankingVersion`.
 - Store server-provided timestamps as ISO-8601 with explicit timezone conversion in UI.
 
-## D018 private storage snapshot v1 (2026-11-20C)
-
-### D034 client filter URL v1
+## D034 client filter URL v1
 
 `/creators` uses repeated `category`/`platform`/`tag` values (OR within a field; AND across fields), `q`, `minPrice`/`maxPrice`, `minFollowers`/`maxFollowers`, `available=1`, `sort=name|price|followers`. Zero is explicit, blank is unrestricted. Price ranges overlap inclusively with creator quote ranges. Numeric invalid/reversed ranges show an error with no results, never silently become unrestricted. Text is bounded120, choices8/field, price0..100000000 and followers0..10000000000. Reset removes all owned keys including sort and preserves unrelated query/hash. Sorts use name/ID ties and missing followers sort last.
 
 This is the current snapshot UI contract, **not** a paginated server search endpoint. D033 must review the contract and connect a validated public DTO/cursor API. `createLatestCreatorSearch` supplies an independently tested cancellation/stale response boundary for that future connection; the current UI filters synchronously. Legacy owner-registration placeholders are unavailable, not real zero observations; synthetic DEMO counts remain labeled. No population-wide search/performance or actual provider verification is claimed.
 
+## D018 private storage snapshot v1 (2026-11-20C)
+
 `my_creator_identity_snapshot()` takes no arguments and returns null when the authenticated caller has no legacy creator, or a private version1 snapshot with creatorId UUID, legacyCreatorId, unchanged legacyProfile, identities and identitiesTruncated. Each identity includes the existing identity contract plus sourceType/policyVersion/collectedAt/metrics/metricsTruncated. It returns at most50 identities and200 latest observations per identity; truncation is explicit. The public wrapper is SECURITY INVOKER; a private implementation selects only auth.uid()'s legacy creator, including after role/ownership changes. Anonymous execution and direct normalized table access are revoked. This is an owner-only DB RPC, not the public CreatorPublicDTO or a search API.
 
 `creator-storage.ts` is a server-only storage validator/legacy adapter. Legacy JSON and normalized observations remain separate; missing real metrics never inherit synthetic legacy followers. No policy is approved, provider writer connected, main YouTube directory migrated or public read source switched by migration013. D017/D019 review is required before those steps; source policy_version is provenance, not proof of approval. Details: [D018 handoff](handoff/DEV-A_SCHEMA_20261120.md).
+
+## D018 transitional public app catalog DTO (2026-11-20D)
+
+`projectPublicCreator` projects legacy JSON through a validated allowlist. `publicCreators` no longer selects the owner column or spreads raw JSON into client props. It omits owner_id/owner_consent/contact/OAuth/internal/unknown fields; source/SNS/portfolio links require explicit consent and safe HTTPS normalization. Unavailable real metrics are null, and only labeled fictional source counts remain numeric. Malformed or unpublished rows are omitted. Matching accepts only required public fields; fixture recommendations retain their scores.
+
+This is an app boundary repair. **Direct REST access to published legacy creators and user-<Auth UUID> public IDs still require a coordinated read/opaque-ID migration under D018/D033/D075.** No DB grant/RLS/schema change, approved provider policy or actual normalized ingestion read switch is implied. D033 must connect its reviewed public pagination/search contract rather than assume the current snapshot API meets that ticket.

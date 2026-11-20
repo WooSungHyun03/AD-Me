@@ -21,7 +21,19 @@ export type Brief = {
 export { creators, campaigns };
 export const categories = [...new Set(creators.flatMap((c) => c.categories))];
 export const vibes = [...new Set(creators.flatMap((c) => c.vibes))];
-export function match(brief: Brief, c: Creator) {
+export type MatchingCreator = Pick<
+  Creator,
+  | "seed_id"
+  | "published"
+  | "is_available"
+  | "platforms"
+  | "vibes"
+  | "categories"
+  | "price_min_krw"
+  | "is_demo"
+  | "formats"
+>;
+export function match(brief: Brief, c: MatchingCreator) {
   const eligible =
     c.published &&
     c.is_available &&
@@ -82,7 +94,18 @@ export function match(brief: Brief, c: Creator) {
     missing: breakdown.filter((b) => b.value === null).map((b) => b.factor),
   };
 }
-export function rank(brief: Brief, list: Creator[] = creators) {
+type Ranked<T extends MatchingCreator> = ReturnType<typeof match> & {
+  creator: T;
+};
+export function rank(brief: Brief): Ranked<Creator>[];
+export function rank<T extends MatchingCreator>(
+  brief: Brief,
+  list: readonly T[],
+): Ranked<T>[];
+export function rank(
+  brief: Brief,
+  list: readonly MatchingCreator[] = creators,
+) {
   return list
     .map((c) => ({ creator: c, ...match(brief, c) }))
     .filter((r) => r.eligible)
