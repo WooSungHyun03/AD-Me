@@ -273,3 +273,7 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 ## 2026-11-20I — source·패킷 검증
 - D045 source47632b5를 manifest에 확정, 새026~028 Git blob/LF SHA256·전달3 SQL hash와 기존31 migration/이전 전달 SQL103개/ZIP6개 불변 PASS. D045/packet-integrity-20261120.json. 실제31→34 동작 검증과 최종 static source hash 증거를 구분했다. 후속 D084 커밋은 패킷/개발자 검증기/기록이며 앱 코드 변경 없음.
 - push 전 재 fetch에서 main65063c8 유지, 새 main commit 없음. 기존 codex/dev-a-p0-continue만 push하고 exact HEAD 원격/CI 결과는 ignored output receipt로 남긴다. 실제 외부 SQL/계정/키/설정/배포는 수행하지 않았다. 검증 후 두 격리 QA stack은 volumes를 보존해 중지한다.
+
+## 2026-11-21 — 작업 속도 우선 실행 방식 반영
+- 사용자는 앞으로 가능한 한 빠른 마무리를 요청했다. AGENTS.md에 진행 중 독립 P0 우선/준비된 미착수 순차 처리, 연관 티켓 묶음의 공통 검증·최종 패킷1회, QA 재사용·불변 외부 차단 재검토 축소를 기록했다. 티켓별 커밋/증빙·영향 권한/데이터 검사·최종 exit gate는 유지한다.
+- 이번 변경은 실행 규칙/세션 기록만이며 기능 구현·티켓 상태 변경 없음. 현재 Local9/진행13/부분1/외부2/OPEN18/DONE0을 그대로 보존한다. 앱/DB/배포 변경과 무관한 전체 앱 테스트·SQL 패킷/ZIP 재생성은 하지 않는다. 문서 diff와 인계 일관성 검증 후 같은 브랜치에 커밋/푸시한다.

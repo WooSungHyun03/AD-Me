@@ -11,6 +11,13 @@ The latest user explicitly requested direct execution of all 20 external tickets
 5. Never touch real payment keys. Only Toss test keys, never real money and never charge anything unrequested.
 6. Do not scrape platforms contrary to their terms or remove security gates. OSS license obligations apply even for non-commercial/open source.
 
+## Execution efficiency — user preference 2026-11-21
+- Prioritize finishing independently actionable IN_PROGRESS P0 work, then ready OPEN P0 work, then P1/P2. When a prerequisite is external or owned by DEV-B, record the exact remaining gate and continue independent implementation; do not repeatedly revisit an unchanged blocker or relabel it complete.
+- Implement related tickets sequentially in one batch, preserving a separate commit and acceptance evidence for each ticket. Run affected unit/API/permission/data-integrity tests after the relevant change. Run shared lint/typecheck/full unit/build/affected desktop-mobile regression once against the final batch source; repeat only checks invalidated by subsequent changes or failures. All required exit gates still apply.
+- Reuse the marked disposable QA environment within the batch; serialize operations sharing its database/build output. Inspect logs and changed paths narrowly. Preserve prior evidence and reference it with its tested source instead of repeatedly reproducing unaffected historical results.
+- Produce one reviewed USER application packet at batch end when SQL/configuration handoff changed. Keep old artifacts immutable. Avoid repeated ZIP generation, full archive/hash inventories and duplicate prose without a changed artifact or integrity concern. Keep ticket evidence concise, with commands/results/source, actual versus fixture scope, and remaining gates.
+- Keep the existing working branch and ticket commits, push the authorized batch, and report actual implementation progress separately from USER application/review/provider gates. Completion criteria, applied migration immutability, permission checks and truthful status reporting are unchanged.
+
 ## Stack
 - Next.js App Router (current stable), TypeScript strict, React, Tailwind, shadcn/ui, Lucide.
 - Supabase Postgres/Auth/Storage, `@supabase/ssr` current supported API. SQL migrations in `supabase/migrations/`; RLS on every private table.
