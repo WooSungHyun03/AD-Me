@@ -11,3 +11,5 @@ USER가 외부 콘솔·배포를 수행한다. 개발자는 source/마이그레�
 기존 접수 신고는 기존 관리자 화면, 새 제출/당사자 입장/광고 이력은 근거 검토함에서 확인한다. legacy reports POST payload/ok:true와 기존 DB 정상 INSERT·ID는 유지한다. 공개는 승인된 현재 version·강한 근거·출처·정책·프로필 게시/moderation 조건을 모두 확인한다. 원본 주장/내부 메모/UID/비공개 입장은 공개하지 않는다. 실제 브랜드 로고·콘텐츠를 복제/수집하지 않았다. fixture 통과는 실제 광고·플랫폼·법률 검증이 아니다.
 
 복구는 forward fix이며 데이터/이력 삭제·MFA 우회·원본 공개 권한 재개방을 하지 않는다. 문의/이상 상태는 개발자가 재현·수정한다. 장기 history pagination/대규모 검색·Storage/철회·보존·실제 정규화/정책·출시 전체 게이트는 남아 있다.
+
+해시 검증은 SQL_CANONICAL.json의 UTF-8/LF 기준과 최초 전달 Git commit의 실제 SQL blob을 함께 사용한다. Windows/Linux 줄바꿈 차이는 허용하며 SQL 내용 변경은 거부한다. MANIFEST.json의 raw hash/size는 최초 생성 시점의 증거로 그대로 보존했다. 전달 SQL 원문을 다시 수정하지 않았다.

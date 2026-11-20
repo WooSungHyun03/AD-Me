@@ -248,3 +248,6 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 ## 2026-11-20G — 전달 SQL·source hash 검증
 - sourceee83210의019~024 여섯 SQL Git blob/LF hash, 전달 SQL5파일hash·이전 메시지SQL prefix·기존24 source migration/ZIP6개 SHA256 불변을 검증했다. current24/previous23→30은 실제 로컬 생성 SQL에서 비어 있지 않은 legacy 자료와 기존 권한을 보존했다.
 - 변경은D05714dc12d/0a65d7c/8ad223b, D029fed59dd, D084ee83210으로 분리했다. 같은 codex/dev-a-p0-continue에 push 후 exactHEAD 원격/CI를 확인하며 산출물 이후 앱 코드 변경 없음. 실제 외부 정책·콘솔/키/배포·출처/공급자 검증은 하지 않았다.
+
+## 2026-11-20G — 전달 SQL 줄바꿈 검증 보강
+- plain SQL을 Git에서 받는 Windows/Linux 환경의 CRLF/LF 차이를 고려해 최초 전달9a7fcce SQL blob과 일치하는 canonical LF hash receipt를 추가했다. 기존 SQL/원본 raw manifest는 수정하지 않았다. 검증기는 LF 내용/최초 Git blob을 함께 비교하므로 다른 OS의 정상 checkout을 변조로 오인하지 않는다. 앱 소스 변경 없음.

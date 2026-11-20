@@ -1,9 +1,11 @@
 {
-  "at": "2026-11-20T13:33:42.218316+00:00",
+  "at": "2026-11-20T13:36:30.268159+00:00",
   "result": "PASS",
   "source_head": "ee832100b7b9f831a1107d4921ac8fb4028e0f52",
   "migration_count": 30,
   "all_sql_file_hashes": true,
+  "sql_canonical_lf_and_original_release_git_blobs": true,
+  "sql_release_ref": "9a7fccebbc43f580241d6426d6363b72c59cb8d9",
   "six_new_migration_git_blobs_match": true,
   "previous_message_SQL_prefix_unchanged": true,
   "old24_migrations_unchanged": true,
