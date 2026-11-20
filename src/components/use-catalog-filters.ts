@@ -1,5 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
+import { useSyncExternalStore } from "react";
 import {
   emptyCreatorFilters,
   parseCreatorFilters,
@@ -7,11 +8,27 @@ import {
   type CreatorFilters,
 } from "@/lib/creator-filters";
 
+const filterUrlChanged = "adme:catalog-url-changed";
+function subscribe(listener: () => void) {
+  window.addEventListener("popstate", listener);
+  window.addEventListener(filterUrlChanged, listener);
+  return () => {
+    window.removeEventListener("popstate", listener);
+    window.removeEventListener(filterUrlChanged, listener);
+  };
+}
+const browserQuery = () => window.location.search;
+
 export function useCatalogFilters() {
   const searchParams = useSearchParams();
-  const filters = parseCreatorFilters(
-    new URLSearchParams(searchParams.toString()),
+  // Router URL updates can be transition-priority. A synchronous URL store
+  // prevents controlled checkboxes reverting before the router rerender.
+  const query = useSyncExternalStore(
+    subscribe,
+    browserQuery,
+    () => `?${searchParams.toString()}`,
   );
+  const filters = parseCreatorFilters(new URLSearchParams(query));
   function update(
     patch:
       | Partial<CreatorFilters>
@@ -33,6 +50,7 @@ export function useCatalogFilters() {
       return;
     if (replace) window.history.replaceState(null, "", url);
     else window.history.pushState(null, "", url);
+    window.dispatchEvent(new Event(filterUrlChanged));
   }
   return { filters, update, reset: () => update(emptyCreatorFilters()) };
 }
