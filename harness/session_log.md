@@ -204,3 +204,7 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - 최종 코드의 unit181/22·local SQL/RPC→TS1·lint/typecheck/생산 build 통과. 공개 DTO 보수 후 전체 실제 로컬 Auth/DB E2E32, free4 통과. 마지막 D034 URL 동기 구독 보수 뒤 영향4와 keyless10 재검증, 공개 가상 캡처2개를 직접 확인. SQL/REST44 및 SQL rollback3 통과 범위와 미해결 직접 REST/legacy-ID 경계를 구분했다.
 - 새 DEV-A-FILTERS-20261120 증빙에 initial failures/수정/검증 시점/실제 대 fixture 구분을 보존했다. 원장 변경은 D018/D034/D051/D084 네 DEV-A 항목뿐이며 USER/DEV-B/원본 배분은 동일. 상태는 LOCAL5/진행12/부분1/외부2/OPEN23/DONE0.
 - 새로운 source 패킷은 기존 SCHEMA의 검증된 SQL4기준을 바이트 그대로 재사용하며 신규 migration0, 기존19개 불변이다. 이미19개 적용 환경에는 새 SQL 반복 적용이 없다. 기존ZIP4개를 보존하고 외부 콘솔/키/배포 없이 같은 브랜치 commit/push/CI 검증을 이어간다.
+
+## 2026-11-20D — 최종 패킷·같은 브랜치 push 준비
+- source06bb2c1의371파일, 새 FILTERS ZIP3,173,820bytes/SHA256 54c9010f93128e2e8d4a410574c76fcf668a13c61cd610c945123f006f4193d9. 모든 source Git blob/CRC/비밀 패턴, 기존 검증 archive와 SQL 바이트21파일 일치, 이전ZIP4개 hash불변을 검증했다. 산출물 커밋은 소스/SQL 코드를 바꾸지 않는다.
+- 작업은 검토28d1d1b, D0340899fa4/2377cdc, D018eb65d37, D08406bb2c1로 분리했다. push 전 fetch에서도 origin/main65063c8 유지. 최신 검토 문서에 전체43개 착수 전 표와 실제 후속 상태·잔여 출시 차단을 함께 기록했다. codex/dev-a-p0-continue의 원격 SHA/CI를 push 후 확인하며 main/키/배포 설정은 바꾸지 않는다.

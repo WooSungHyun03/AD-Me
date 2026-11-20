@@ -71,3 +71,15 @@ D003 후속 `036c83d`: Windows UTF-8 인계 검사와 worker 소비 source 경�
 |D084/partial|554c681|실제 SQL/RPC→TS adapter 테스트 및 전체 로컬 회귀 증빙|
 
 패키지 source head는554c681이다. source353파일, SQL4기준8/12/16/18→19, 이전 ZIP3개 불변. 이후 산출물 커밋은 새 ZIP/manifest/SQL/전달 메타데이터이며 앱 코드 기준은 바뀌지 않는다. [최신 인계](DEV-A_SCHEMA_20261120.md), [검증](../../harness/evidence/DEV-A-SCHEMA-20261120/verification.json), [패키지](../../deliverables/dev-a-schema-20261120/README_KO.md). D018/D084 IN_PROGRESS, DONE 승격0, 실제 provider/대상 적용·배포 미검증.
+
+## 2026-11-20D 첨부 문서 대조·계속 구현
+
+|티켓|커밋|내용|
+|---|---|---|
+|공통 검토|28d1d1b|첨부43개 기준/커밋/증거 대조, D051 원장 범위 보수|
+|D034/partial|0899fa4|다중 필터·URL/뒤로가기·범위·0/미확보·취소 계약|
+|D034/partial|2377cdc|router transition 전에 URL 기반 checkbox 상태 동기화|
+|D018/partial|eb65d37|공개 앱 DTO allowlist·null·동의 없는 링크 제외, private 필드 최소화|
+|D084/partial|06bb2c1|문서 대조 보수의 실제 로컬 회귀·화면·실패/수정 증빙|
+
+source06bb2c1, 같은 codex/dev-a-p0-continue. 신규 SQL0/기존19개 불변, 이전 검증 SQL을 재사용한 FILTERS 산출물은 후속 커밋에 들어간다. [최신 검토·남은 범위](DEV-A_DOCUMENT_AUDIT_20261120.md). 직접 REST/legacy 공개ID 이관·D033 연결·정책/실제 수집 및 기타 출시 게이트는 미완료다. DONE 승격0.

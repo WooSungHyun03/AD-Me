@@ -1556,5 +1556,38 @@
       "finding": "정적 정책/프로필 숨김만으로 동의 버전·성인 확인·Auth/Storage/파생 삭제가 구현된 것은 아님.",
       "resolution": "정책 승인 및 삭제 수용 기준 미충족 유지."
     }
-  ]
+  ],
+  "follow_up": {
+    "source_head": "06bb2c1d68d4214d1727ff9f4392149097832928",
+    "commits": {
+      "review": [
+        "28d1d1b"
+      ],
+      "D034": [
+        "0899fa4",
+        "2377cdc"
+      ],
+      "D018": [
+        "eb65d37"
+      ],
+      "D084": [
+        "06bb2c1"
+      ]
+    },
+    "status_counts_after": {
+      "LOCAL_VERIFIED": 5,
+      "IN_PROGRESS": 12,
+      "PARTIAL_VERIFIED": 1,
+      "BLOCKED_EXTERNAL": 2,
+      "OPEN": 23,
+      "DONE": 0
+    },
+    "verification": "harness/evidence/DEV-A-FILTERS-20261120/verification.json",
+    "remaining_release_blockers": [
+      "D033 server search/cursor/live cancellation integration",
+      "Published legacy creators direct REST owner_id/raw JSON and user-AuthUUID public ID migration under D018/D033/D075",
+      "D017/D019 policy and actual normalized ingestion/read switch",
+      "Other P0/USER/privacy/collaboration/provider/release gates"
+    ]
+  }
 }

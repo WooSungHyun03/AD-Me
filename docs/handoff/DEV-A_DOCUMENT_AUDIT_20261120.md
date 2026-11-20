@@ -64,3 +64,20 @@
 |D084 회귀 테스트·실제 수집 계약 테스트|P0|IN_PROGRESS|기존 6개 E2E를 가입·삭제·수집·정정·권한·모바일·결측·동시성까지 확장한다. 외부 연동은 실제/계약 테스트를 구분한다.|Node22 unit156+실제 로컬 SQL/RPC→TS contract1, DB/Auth E2E30·free4·keyless4, SQL/REST44그룹·rollback3·사용자 SQL4기준 통과. 개인정보 삭제·미구현 협업·실제 provider/대상 환경 출시 검증 미완료. [증거1](../../harness/evidence/D084/README.md) [증거2](../../harness/evidence/DEV-A-P0-CONTINUE/verification.json)|
 
 이번 후속 코드·실행 결과·커밋과 최종 상태는 이 문서 아래에 이어 기록한다. 다른 담당/USER 상태와 원본 배분은 바꾸지 않는다.
+
+## 이번 후속 구현과 현재 상태
+
+|티켓|커밋|반영 내용|
+|---|---|---|
+|공통 검토|28d1d1b|첨부43개 기준/선행/커밋/증거 대조, D051 기존 quota 범위 설명 보수|
+|D034|0899fa4 / 2377cdc|다중 OR/AND·URL restore/back/forward/reset·0/미확보·범위 오류·정렬·최신 요청 계약, 모바일 controlled state 경합 보수|
+|D018|eb65d37|공개 앱 allowlist·nullable 지표·동의 없는 링크 제외, private/raw JSON client props 제거, 매칭 점수 호환|
+|D084|06bb2c1|실제 SQL/RPC/브라우저/역할별 회귀와 실패 원인·검증 범위 증빙|
+
+현재 DEV-A43개는 LOCAL_VERIFIED5, IN_PROGRESS12, PARTIAL_VERIFIED1, BLOCKED_EXTERNAL2, OPEN23, DONE0이다. 이번에 D034를 독립 착수했고 완료 수용 기준 미충족 티켓을 DONE으로 올리지 않았다. D018/D034의 현재 앱 동작과 D033 서버 검색/실제 수집·출시 승인을 구분했다.
+
+[실행 결과](../../harness/evidence/DEV-A-FILTERS-20261120/verification.json): Node22 unit181/22, 실제 local SQL/RPC→TS1, lint/typecheck/production builds. 공개 DTO 보수 뒤 전체 actual local Auth/DB E2E32, free-beta4 통과. 최종 URL 동기 보수 뒤 영향4와 keyless10 통과. SQL/REST44그룹/SQL rollback3은 명시한 검사 범위만 통과이며, 미해결 직접 REST 공개 읽기의 보안 완료 증거가 아니다. 초기 build lock/상세 이동 대기/모바일 transition 경합과 수정 내용을 보존했다. catalog320/390/768/1440 overflow/keyboard 및 desktop/mobile 캡처를 확인했다.
+
+[새 사용자 패킷](../../deliverables/dev-a-filters-20261120/README_KO.md)은 source06bb2c1, 신규 migration0이다. 이전 SCHEMA에서 검증한 SQL4기준을 바이트 그대로 재사용하고 기존ZIP4개를 보존했다. 이미19 migration이면 SQL 반복 적용을 요구하지 않는다. USER에게 코드 편집·터미널·패키지 설치를 맡기지 않으며 외부 콘솔/키/배포를 대행하지 않았다.
+
+다음 우선 개발은 D018/D033/D075의 공개 read·직접 REST 권한·opaque-ID/alias·제안 접근 이관이다. 이어 D017/D019 정책/실제 수집·정규화 read switch, D073/D080 정책/동의 버전과 성인 범위, D014/D079 삭제/보존, D051 idempotency/페이지네이션/첨부를 연결한다. 선행 승인 없는 정책/실제 데이터로 표시하거나 외부 키 부재를 이유로 모든 독립 구현을 멈추지 않는다.
