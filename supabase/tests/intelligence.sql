@@ -4,11 +4,12 @@ insert into auth.users(id,raw_user_meta_data) values
   ('ad000000-0000-4000-8000-000000000001','{"name":"Integration Admin"}'),
   ('ad000000-0000-4000-8000-000000000002','{"name":"Integration Brand"}'),
   ('ad000000-0000-4000-8000-000000000003','{"name":"Integration Finance"}');
-update public.profiles set role='admin' where id='ad000000-0000-4000-8000-000000000001';
-insert into adme_ops.staff values ('ad000000-0000-4000-8000-000000000003','finance');
+select public.provision_administrator('ad000000-0000-4000-8000-000000000001','Local integration fixture',now()+interval '1 day');
+select adme_ops.provision_staff('ad000000-0000-4000-8000-000000000003','finance','Local integration fixture',now()+interval '1 day');
 
 set local role authenticated;
 select set_config('request.jwt.claim.sub','ad000000-0000-4000-8000-000000000003',true);
+select set_config('request.jwt.claims',jsonb_build_object('aal','aal2','amr',jsonb_build_array(jsonb_build_object('method','totp','timestamp',floor(extract(epoch from now())))))::text,true);
 do $$
 begin
   assert public.ops_current_role()='finance';

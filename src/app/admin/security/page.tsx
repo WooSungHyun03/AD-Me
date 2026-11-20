@@ -7,14 +7,8 @@ export const dynamic = "force-dynamic";
 export default async function AdminSecurity() {
   const c = await context();
   if (!c) redirect("/login");
-  if (c.role !== "admin")
-    return (
-      <section className="wrap">
-        <h1 className="page-title">관리자 권한이 필요합니다.</h1>
-      </section>
-    );
-  const { data: provisioned, error } = await c.db.rpc("is_admin_provisioned");
-  if (error || provisioned !== true)
+  const { data: provisioned, error } = await c.db.rpc("ops_enrollment_role");
+  if (error || typeof provisioned !== "string")
     return (
       <section className="wrap">
         <h1 className="page-title">관리자 초대를 확인해주세요.</h1>

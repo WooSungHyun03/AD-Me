@@ -138,5 +138,5 @@ if (fixtures.status !== 0)
     "Local QA fixture preparation failed. No hosted account was accessed.",
   );
 console.log(
-  `Prepared isolated local Supabase, seven local migrations, Mailpit and TLS. Private runtime files remain under ${resolve(workdir)}.`,
+  `Prepared isolated local Supabase, ${readdirSync("supabase/migrations").filter((name) => name.endsWith(".sql")).length} local migrations, Mailpit and TLS. Private runtime files remain under ${resolve(workdir)}.`,
 );

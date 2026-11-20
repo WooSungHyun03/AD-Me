@@ -9,7 +9,7 @@ export default async function Admin() {
   const c = await context();
   if (!c) redirect("/login");
   if (c.role !== "admin") {
-    const { data: role } = await c.db.rpc("ops_current_role");
+    const { data: role } = await c.db.rpc("ops_enrollment_role");
     if (role) redirect("/admin/intelligence");
     return (
       <section className="wrap">

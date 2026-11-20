@@ -72,7 +72,7 @@ describe("admin API gates before privileged work", () => {
     expect(await response.text()).not.toContain("PRIVATE_PROVIDER_FIXTURE");
     expect(db.rpc).not.toHaveBeenCalledWith("review_report", expect.anything());
   });
-  it.each([review, moderate, mfa])(
+  it.each([review, moderate])(
     "denies ordinary accounts before any RPC",
     async (handler) => {
       db.role = "brand";
@@ -80,6 +80,24 @@ describe("admin API gates before privileged work", () => {
       expect(db.rpc).not.toHaveBeenCalled();
     },
   );
+  it("checks delegated enrollment without granting classic administrator access", async () => {
+    db.role = "brand";
+    db.rpc.mockResolvedValue({ data: null, error: null });
+    expect((await mfa(request({}))).status).toBe(403);
+    expect(db.rpc).toHaveBeenCalledWith("ops_enrollment_role");
+    db.rpc.mockResolvedValue({ data: "finance", error: null });
+    expect(
+      (
+        await mfa(
+          request({ action: "verify", factorId: userId, code: "123456" }),
+        )
+      ).status,
+    ).toBe(403);
+    expect(
+      (await review(request({ id: userId, status: "reviewed" }))).status,
+    ).toBe(403);
+    expect(db.getClaims).not.toHaveBeenCalled();
+  });
   it.each([review, moderate, mfa])(
     "denies missing or revoked provision",
     async (handler) => {

@@ -7,3 +7,10 @@ SQL 004, admin-security/admin helper, 관리자 API·화면 게이트와 TOTP �
 일반/미승인/철회/만료/AAL1/오래된·미래 AMR/계정 불일치/공급자 장애를 검증했다. 실제 로컬 Auth의 신규 TOTP 등록과 OTP 확인을 desktop/mobile로 완료했다. 시간 변형 REST JWT는 합성 로컬 증표로 구분한다. [공통 결과](../DEV-A-P0-CONTINUE/verification.json), [직접 REST](../DEV-A-P0-CONTINUE/local-security.json).
 
 **LOCAL_VERIFIED**: U008 외부 설정·사용자가 확정한 운영자 신원/승인·DEV-B 리뷰·실제 URL 검증 전 DONE이 아니다. 외부 권한을 부여하지 않았다.
+
+## 2026-11-20 main compatibility — D016
+- Additive 202611200006_ops_mfa.sql preserves private implementations and public invoker wrappers. Profile admin alone cannot become operations super; approved current grant plus OTP <=15min is required.
+- Delegated staff approval expires after 7 days (console owner approval max90 days); historical role-only rows fail closed. Fresh super can invite/revoke scoped roles; browser cannot grant super or change own role. No implicit profile elevation.
+- Own enrollment RPC discloses only own approved role. Delegated staff can use existing local Auth OTP enrollment without classic admin permissions.
+- Verified isolated PostgreSQL+direct PostgREST: 5 operation security groups PASS, upstream intelligence/ownership SQL transactions PASS, previous13 security groups PASS; unit admin14 PASS; typecheck PASS. Synthetic signed JWT tests are contract tests, not provider verification. Desktop/mobile OTP regression follows in D084 evidence.
+- State remains IN_PROGRESS pending integrated browser/final gates and external approval/MFA settings. USER must apply ordered migrations; no hosted changes made.

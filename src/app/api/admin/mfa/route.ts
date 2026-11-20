@@ -1,9 +1,9 @@
 import { z } from "zod";
 import { apiRoute, fail, parseBody } from "@/lib/api";
-import { requireProvisionedAdmin } from "@/lib/admin";
+import { requireMfaEnrollmentContext } from "@/lib/admin";
 
 export const POST = apiRoute("admin.mfa.post", async (request) => {
-  const c = await requireProvisionedAdmin();
+  const c = await requireMfaEnrollmentContext();
   const input = await parseBody(
     request,
     z.discriminatedUnion("action", [

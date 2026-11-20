@@ -11,6 +11,16 @@ export async function requireProvisionedAdmin() {
   return c;
 }
 
+// Delegated operations staff may enroll OTP, but never gain classic admin powers.
+export async function requireMfaEnrollmentContext() {
+  const c = await requireContext();
+  if (c.role === "admin") return requireProvisionedAdmin();
+  const { data, error } = await c.db.rpc("ops_enrollment_role");
+  if (error) failDatabase(error, "운영자 초대를 확인하지 못했습니다.");
+  if (typeof data !== "string") fail("유효한 운영자 초대가 필요합니다.", 403);
+  return c;
+}
+
 export async function requireAdminContext() {
   const c = await requireProvisionedAdmin();
   const { data, error } = await c.db.auth.getClaims();
