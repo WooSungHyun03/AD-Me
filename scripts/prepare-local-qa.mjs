@@ -11,6 +11,8 @@ import {
 const runtime = localRuntime();
 const admin = localClient(runtime.SERVICE_ROLE_KEY);
 const accounts = {};
+// Explicit opt-in of isolated fixtures only; hosted controls remain default-off.
+sql("update adme_ops.resource_controls set ingestion_enabled=true,llm_enabled=true where singleton=true;");
 for (const role of ["brand", "creator", "other", "admin"]) {
   const email = `qa-${role}-${randomBytes(6).toString("hex")}@example.test`;
   const password = randomBytes(24).toString("base64url");

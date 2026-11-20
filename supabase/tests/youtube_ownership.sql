@@ -1,5 +1,6 @@
 \set ON_ERROR_STOP on
 begin;
+update adme_ops.resource_controls set ingestion_enabled=true,llm_enabled=true where singleton=true;
 insert into auth.users(id,raw_user_meta_data) values
  ('ad000000-0000-4000-8000-000000000101','{"role":"creator"}'),
  ('ad000000-0000-4000-8000-000000000102','{"role":"creator"}');

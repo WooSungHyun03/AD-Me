@@ -21,13 +21,18 @@ class ApiFailure extends Error {
   constructor(
     message: string,
     readonly status: ErrorStatus,
+    readonly retryAfter?: number,
   ) {
     super(message);
   }
 }
 
-export function fail(message: string, status: ErrorStatus = 400): never {
-  throw new ApiFailure(message, status);
+export function fail(
+  message: string,
+  status: ErrorStatus = 400,
+  retryAfter?: number,
+): never {
+  throw new ApiFailure(message, status, retryAfter);
 }
 
 export function apiRoute(
@@ -59,7 +64,22 @@ export function apiRoute(
         { error: { message, code, requestId } },
         {
           status,
-          headers: { "Cache-Control": "no-store", "X-Request-Id": requestId },
+          headers: {
+            "Cache-Control": "no-store",
+            "X-Request-Id": requestId,
+            ...(status === 429
+              ? {
+                  "Retry-After": String(
+                    error instanceof ApiFailure &&
+                      Number.isInteger(error.retryAfter) &&
+                      error.retryAfter! > 0 &&
+                      error.retryAfter! <= 86400
+                      ? error.retryAfter
+                      : 60,
+                  ),
+                }
+              : {}),
+          },
         },
       );
     }
@@ -85,7 +105,10 @@ export function parseInput<Schema extends z.ZodType>(
   return result.data;
 }
 
-export function failDatabase(error: { code: string }, message: string): never {
+export function failDatabase(
+  error: { code: string; details?: string },
+  message: string,
+): never {
   switch (error.code) {
     case "42501":
       return fail(message, 403);
@@ -99,9 +122,28 @@ export function failDatabase(error: { code: string }, message: string): never {
     case "22023":
       return fail(message, 422);
     case "P0002":
+    case "PT404":
       return fail(message, 404);
     case "54000":
       return fail(message, 429);
+    case "PT429": {
+      let retry: unknown;
+      try {
+        retry = JSON.parse(error.details ?? "{}").retryAfter;
+      } catch {
+        /* No provider text is forwarded. */
+      }
+      return fail(
+        message,
+        429,
+        typeof retry === "number" &&
+          Number.isInteger(retry) &&
+          retry > 0 &&
+          retry <= 86400
+          ? retry
+          : 60,
+      );
+    }
     default:
       return fail(message, 503);
   }
@@ -154,6 +196,7 @@ export function requireTestBilling() {
   if (features.testBilling !== "enabled")
     fail("TEST 결제 연결을 준비 중입니다.", 503);
 }
+
 
 function safeOrigin(req: Request) {
   if (req.headers.get("sec-fetch-site") === "cross-site") return false;
