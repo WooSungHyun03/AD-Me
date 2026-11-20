@@ -21,6 +21,7 @@ begin
 end;
 $$;
 select set_config('request.jwt.claim.sub','ad000000-0000-4000-8000-000000000001',true);
+select public.ops_admin_command('discovery','뷰티 리뷰','true');
 select public.ops_admin_command('channel','UC_x5XG1OV2P6uZZ5FSM9Ttw');
 select public.ops_admin_command('channel','UC_x5XG1OV2P6uZZ5FSM9Ttw');
 select set_config('request.jwt.claim.sub','ad000000-0000-4000-8000-000000000002',true);
@@ -44,6 +45,7 @@ do $$
 declare v_token text := repeat('a',64); j jsonb;
 begin
   update adme_ops.settings set worker_hash=sha256(convert_to(v_token,'UTF8'));
+  assert (select discovery_enabled from adme_ops.settings);
   assert (select count(*) from adme_ops.jobs where kind='youtube_channel')=1;
   begin
     perform public.ops_worker_claim(repeat('b',64));
