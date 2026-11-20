@@ -167,3 +167,9 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - Node22 unit150/18, lint/typecheck/production builds, 실제 로컬Auth E2E30/30, 무료베타·TEST키없음 조건4/4, keyless4/4 PASS. 직접REST35그룹 및 SQL3 PASS. fixture 충돌/순서·테스트 locator 수정은 dated verification에 기록. 실제 provider 호출 없음.
 - USER 적용 패킷은 main8개/기존DEV-A포함12개/직전955bf8c16개 세 기준을 별도 로컬DB로 검증, 최종18 migration과 legacy hash 일치, 잘못된/중복 적용 거부 확인. 이전 두 패킷과 증거는 보존.
 - D041 LOCAL_VERIFIED, D076/D081/D084 IN_PROGRESS. USER/DEV-B 원장·원본 배분 미수정, DONE 승격0. 외부 콘솔·키·push·배포 없음. 다음 미완료 범위와 적용 안내는 DEV-A_CONTINUATION_20261120B.md.
+
+## 2026-11-20 — 남은 티켓 설명·작업 브랜치 push 요청
+- 최신 사용자가 남은 티켓 설명과 티켓별 커밋·push를 명시 요청했다. codex/dev-a-p0-20261120을 대상으로 하며 main 병합·외부 설정/배포 명령은 포함하지 않는다. origin/main65063c8, 시작0d7b31f, 기존 작업 트리 clean 확인.
+- DEV-A43(P0 29/P1 12/P2 2): LOCAL_VERIFIED5, IN_PROGRESS11, BLOCKED_EXTERNAL2, main 기반 PARTIAL_VERIFIED1, OPEN24, DONE0. 구현 이력18개 티켓을 Git 태그/원장과 대조해 전 범위 설명·선행·후속 우선순위를 DEV-A_PUSH_STATUS_20261120.md 및 dated JSON으로 저장했다.
+- push 전 인계 검사가 Windows cp949와 worker-token 복합 consumer 경로에서 실패했다. 036c83d(D003)에서 UTF-8/실제 파일 경로+DB guard로 고치고 규칙 완화 없이 handoff/backlog/secret 검사를 통과했다. 앱 변경 없음, 이전 실제 앱 검증 unit150/E2E30+free4+keyless4/REST35 증거 보존. 원본 분배·타 담당/USER 상태 미변경.
+- 기존 ZIP3개의 source_head는 역사 스냅샷으로 보존한다. 최신 메타데이터 보수와 이번 설명은 저장소 브랜치를 기준으로 한다. GitHub push 워크플로는 검증뿐이며 별도 호스팅 자동화를 배포 완료로 추정하지 않는다. 원격 ref/SHA는 push 후 확인한다.

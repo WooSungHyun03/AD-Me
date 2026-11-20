@@ -54,3 +54,9 @@
 |D084|436171c|test(D084): verify free campaign terms and repeatable security fixtures|
 
 최신 인계: [계속 기록](DEV-A_CONTINUATION_20261120B.md). D041 LOCAL_VERIFIED, D076/D081/D084 IN_PROGRESS. 외부 적용/DONE/push/배포 없음.
+
+## 2026-11-20 push 전 인계 검사
+
+D003 후속 `036c83d`: Windows UTF-8 인계 검사와 worker 소비 source 경로/DB guard를 분리해 기존 검증기를 실제 통과시켰다. 실제 설정명·값·앱 동작은 바꾸지 않았다.
+
+[DEV-A43개 남은 범위·우선순위·18개 티켓 커밋 전체표](DEV-A_PUSH_STATUS_20261120.md). 이 표가 이번 push의 현재 상태 기준이며 앞선 기록/ZIP은 당시 스냅샷으로 보존한다.

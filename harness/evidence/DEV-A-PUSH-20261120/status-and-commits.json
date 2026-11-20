@@ -1,0 +1,190 @@
+{
+  "at": "2026-11-20T03:35:25.323089+00:00",
+  "code_head": "036c83d9c65bec1843bb47f2959fe7d0360d6b96",
+  "branch": "codex/dev-a-p0-20261120",
+  "main": "65063c8",
+  "scope": "DEV-A",
+  "total": 43,
+  "priorities": {
+    "P0": 29,
+    "P1": 12,
+    "P2": 2
+  },
+  "statuses": {
+    "IN_PROGRESS": 11,
+    "LOCAL_VERIFIED": 5,
+    "BLOCKED_EXTERNAL": 2,
+    "OPEN": 24,
+    "PARTIAL_VERIFIED": 1
+  },
+  "ticket_commits": {
+    "D003": [
+      {
+        "sha": "68c8777c9a8f0a5ca75d2fe671368fc3783b04be",
+        "title": "feat(D003): validate server configuration and safe diagnostics"
+      },
+      {
+        "sha": "036c83d9c65bec1843bb47f2959fe7d0360d6b96",
+        "title": "fix(D003): keep handoff environment consumers verifiable on Windows"
+      }
+    ],
+    "D002": [
+      {
+        "sha": "bfd1866ece5489e6a272f709bdc4c45267a6f72d",
+        "title": "refactor(D002): centralize service features and product descriptions"
+      }
+    ],
+    "D004": [
+      {
+        "sha": "3a8a183e01a53b1867a914ad35a275cd0d9c4a25",
+        "title": "refactor(D004): unify API validation and sanitized errors"
+      }
+    ],
+    "D008": [
+      {
+        "sha": "88469e6731f8776936e944548cc574f0d45bcd55",
+        "title": "feat(D008): enforce disabled feature and TEST payment gates"
+      },
+      {
+        "sha": "0aa6dd3fff0f53cee4c74871328ba4fe3142b2ac",
+        "title": "fix(D008): gate main queue adapters through explicit feature controls"
+      }
+    ],
+    "D065": [
+      {
+        "sha": "48e674da6faa81fa9ace33f1a4f23ea0b9f40d08",
+        "title": "feat(D065): separate free beta and database TEST catalog"
+      }
+    ],
+    "D009": [
+      {
+        "sha": "5a6dac25aea5d13f0fe0fd734e6a89f9e4603b82",
+        "title": "feat(D009): complete safe email confirmation and resend flows"
+      }
+    ],
+    "D007": [
+      {
+        "sha": "7196d26b2926477b34ebe6907311a1fe527e9377",
+        "title": "docs(D007): inventory exact dependency notices and asset rights"
+      }
+    ],
+    "D028": [
+      {
+        "sha": "2882507e823471361b44480fb49eef86212d76e0",
+        "title": "feat(D028): normalize official social links and consented embeds"
+      }
+    ],
+    "D018": [
+      {
+        "sha": "4dbab188e3e1edf32456cafe11c1369939010a39",
+        "title": "feat(D018): define creator identity and metric contracts"
+      }
+    ],
+    "D016": [
+      {
+        "sha": "d7077fe228df65b8b876539418e3622530440f0b",
+        "title": "feat(D016): require provisioned administrators and recent TOTP"
+      },
+      {
+        "sha": "7466c65af6afd65e948a951887c57b9c95a4c053",
+        "title": "fix(D016): enforce expiring approvals and recent OTP for operations roles"
+      }
+    ],
+    "D059": [
+      {
+        "sha": "e4fca4bc75d75e7bed7feddf65b13097a1d65960",
+        "title": "feat(D059): enforce audited moderation locks across REST and UI"
+      },
+      {
+        "sha": "6e36d5877cf3d6dad4b5247d27ff7343ac64d661",
+        "title": "fix(D059): preserve moderation locks in the YouTube directory"
+      }
+    ],
+    "D012": [
+      {
+        "sha": "bb35fb57d536d597b1f3a748f9462a79ff188987",
+        "title": "feat(D012): separate public brands from private contacts"
+      }
+    ],
+    "D041": [
+      {
+        "sha": "c817d644bbadab94b6769373c550f24290a935ef",
+        "title": "feat(D041): define versioned campaign terms validation"
+      },
+      {
+        "sha": "1054bce25950e315571bb1a3ff71fb9941d6dfd6",
+        "title": "feat(D041): persist structured campaign terms through create and edit flows"
+      }
+    ],
+    "D064": [
+      {
+        "sha": "b6d48389f9bc10ba8ae544ed8325d3ca247d6d35",
+        "title": "docs(D064): draft content and account incident runbooks"
+      }
+    ],
+    "D084": [
+      {
+        "sha": "5c9afd0b65848c6eddb5fbc8af0a5db54adc54f2",
+        "title": "test(D084): add isolated DB MFA mail and browser regressions"
+      },
+      {
+        "sha": "fee00fd1daf701a1a1a759dc8aefef43743539d1",
+        "title": "test(D084): verify integrated main with isolated Auth and fixture workers"
+      },
+      {
+        "sha": "436171c5258e9debb5a3b81ed1ed4f47cd5220b9",
+        "title": "test(D084): verify free campaign terms and repeatable security fixtures"
+      }
+    ],
+    "D051": [
+      {
+        "sha": "93ce710d7614e9a95424888fd94c7bb608a1b7e3",
+        "title": "fix(D051): distinguish message kind from proposal kind in RLS"
+      }
+    ],
+    "D076": [
+      {
+        "sha": "48e845179ef0766145907db6793997e930c59024",
+        "title": "feat(D076): add atomic database quotas and bounded worker budgets"
+      },
+      {
+        "sha": "a4d9991d3b20d3addfc48bff81fc093ab22ef585",
+        "title": "fix(D076): enforce draft read quotas at the direct RPC boundary"
+      }
+    ],
+    "D081": [
+      {
+        "sha": "35602e903341f3fb2ed464c310d12f1c950e120f",
+        "title": "fix(D081): label fictional campaign recommendations as DEMO"
+      }
+    ]
+  },
+  "unstarted": [
+    "D014",
+    "D020",
+    "D022",
+    "D029",
+    "D030",
+    "D031",
+    "D034",
+    "D035",
+    "D037",
+    "D039",
+    "D042",
+    "D045",
+    "D047",
+    "D050",
+    "D054",
+    "D055",
+    "D057",
+    "D060",
+    "D067",
+    "D071",
+    "D073",
+    "D075",
+    "D080",
+    "D082"
+  ],
+  "done": 0,
+  "push_target": "https://github.com/WooSungHyun03/AD-Me/tree/codex/dev-a-p0-20261120"
+}
