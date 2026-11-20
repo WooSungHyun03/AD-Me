@@ -179,3 +179,8 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - D018 steward 계획에013 번호를 먼저 기록하고 private adme_creator3테이블, UUID legacy bridge, provider키 unique·시계열 nullable/출처/정책/수집시각·claim/consent 상태, 소유자 전용 invoker snapshot 및 server-only JSON 호환 adapter를 추가했다. 기존18개 migration과 원본48개 JSON은 보존했다.
 - 직접 SQL/REST9그룹, 신규 unit6/전체156, 네 SQL 패킷 기준8/12/16/18→19 적용·원본hash불변·RLS/권한·wrong/duplicate 거부를 로컬에서 검증했다. 기존 UI/Auth 회귀와 실제 SQL→TS adapter 증거는 D084 후속에 저장한다. 초기 unit의 JSON 키 순서 비교는 구조 값 보존 비교로 바로잡았고 DB 원본 hash 별도 검증, skip 없음.
 - D017 정책 승인·필드/목적/보존/재배포 연결 및 D019 실제 writer/main YouTube 이관·공개 read switch는 미완료다. 가상 ID/지표를 실제 데이터로 전환하거나 정책 승인을 발명하지 않았다. D018은 IN_PROGRESS, DONE0. USER/DEV-B 및 v2 원본 미수정. 외부 콘솔/키/배포 없음.
+
+## 2026-11-20C — D084 정규화 회귀
+- 실제 로컬 PostgreSQL/RPC 응답을 server-only TypeScript adapter로 읽는 별도 Vitest suite1 추가. normal unit CI는 Docker 없이156개 유지. 최초 mergeConfig 배열 병합으로157개 전체가 실행된 뒤 include를 명시 덮어쓰기로 고쳐 독립 suite1 PASS 확인.
+- Node22 lint/typecheck/build, unit156/19files, 실제 로컬 Auth/DB E2E30/30 desktop/mobile, 무료베타4/4, keyless4/4, 직접 SQL/REST44그룹, SQL rollback3 PASS. 사용자 SQL8/12/16/18→19 네 기준, legacy hash불변·wrong/duplicate 거부·RLS/권한 검증. 민감 인증 trace/개인 메일/키는 공개 증거에서 제외.
+- DEV-A-SCHEMA-20261120에 실행 결과와 초기 assertion/config 수정 이유를 보존했다. D018/D084 이외 runtime 항목과 USER 전체가 4977225 기준 동일함을 비교 확인. 실제 provider/출시/미구현 서비스 범위는 별도 미완료이며 DONE 승격 없음.

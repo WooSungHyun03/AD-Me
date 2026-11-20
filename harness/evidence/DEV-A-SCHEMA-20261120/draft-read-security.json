@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-20T07:44:45.265Z",
+  "scope": "isolated local Auth JWT contracts; no provider",
+  "results": [
+    {
+      "name": "direct draft getter preserves owner isolation and anonymous denial",
+      "result": "PASS"
+    },
+    {
+      "name": "direct RPC admits120 of125 concurrent reads with429 and bounded exact retry",
+      "result": "PASS"
+    },
+    {
+      "name": "legacy optional quota cannot bypass or double-charge the getter and recovery is account-local",
+      "result": "PASS"
+    }
+  ]
+}

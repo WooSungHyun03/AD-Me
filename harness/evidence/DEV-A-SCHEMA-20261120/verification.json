@@ -1,0 +1,90 @@
+{
+  "at": "2026-11-20T07:55:56.715994+00:00",
+  "baseline": "4977225",
+  "implementation_commit": "4fd47a9",
+  "branch": "codex/dev-a-p0-continue",
+  "upstream_main": "65063c8412d95458e0da61b90f53d2da72decda3",
+  "scope": "local schema stage 1 and regression; no hosted console/key/deployment/provider calls",
+  "gates": {
+    "node": "22.23.5",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": {
+      "passed": 156,
+      "files": 19
+    },
+    "local_sql_to_typescript_contract": {
+      "passed": 1,
+      "files": 1,
+      "command": "npm exec -- vitest run --config vitest.storage.config.ts"
+    },
+    "production_build": "PASS",
+    "local_auth_db_e2e": {
+      "passed": 30,
+      "desktop": "1440x900 Chrome",
+      "mobile": "390x844 Chrome",
+      "fixture_worker": "explicit local lease/finish; no provider"
+    },
+    "free_beta_no_test_client_e2e": {
+      "passed": 4
+    },
+    "keyless_e2e": {
+      "passed": 4
+    },
+    "direct_sql_rest": {
+      "passed_groups": 44,
+      "existing_breakdown": {
+        "local-security": 7,
+        "local-brand-security": 6,
+        "ops-security": 5,
+        "rate-security": 8,
+        "youtube-security": 2,
+        "draft-read-security": 3,
+        "campaign-terms-security": 4
+      },
+      "new_creator_storage": 9,
+      "new_evidence": "harness/evidence/D018/normalization-security-20261120.json"
+    },
+    "sql_rollback_fixtures": {
+      "passed": [
+        "intelligence",
+        "youtube_ownership",
+        "message_policy"
+      ]
+    },
+    "user_sql_packet": {
+      "baselines_passed": [
+        8,
+        12,
+        16,
+        18
+      ],
+      "after_migrations": 19,
+      "legacy_profile_hash_unchanged": true,
+      "new_rls_tables": 3,
+      "wrong_and_duplicate_baselines": "REJECTED"
+    },
+    "harness_selftest": 5,
+    "backlog_validation": "PASS",
+    "handoff_validation": "PASS",
+    "secret_scan": "PASS"
+  },
+  "resolved_findings": [
+    {
+      "finding": "Initial new unit assertion compared serialized JSON key order; Zod orders declared fields first.",
+      "resolution": "Assert all legacy field values by deep equality; verify exact persisted legacy JSON hash independently in all four packet drills. No fixture or feature behavior changed to bypass failure."
+    },
+    {
+      "finding": "Vitest mergeConfig concatenated normal and explicit local-only include arrays (157 tests ran).",
+      "resolution": "Use explicit include override so isolated suite runs exactly its one actual SQL/RPC/adapter test. Normal CI remains 156 unit tests without Docker."
+    }
+  ],
+  "remaining": [
+    "D017 approved policy fields/purpose/retention/redistribution and enforcement",
+    "D019 ingestion writer and existing YouTube store migration",
+    "public DTO/read switch and cross-review",
+    "D084 missing privacy/deletion/collaboration and actual provider/release coverage"
+  ],
+  "done_promotions": 0,
+  "private_auth_traces_committed": false
+}
