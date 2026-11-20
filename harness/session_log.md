@@ -173,3 +173,9 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - DEV-A43(P0 29/P1 12/P2 2): LOCAL_VERIFIED5, IN_PROGRESS11, BLOCKED_EXTERNAL2, main 기반 PARTIAL_VERIFIED1, OPEN24, DONE0. 구현 이력18개 티켓을 Git 태그/원장과 대조해 전 범위 설명·선행·후속 우선순위를 DEV-A_PUSH_STATUS_20261120.md 및 dated JSON으로 저장했다.
 - push 전 인계 검사가 Windows cp949와 worker-token 복합 consumer 경로에서 실패했다. 036c83d(D003)에서 UTF-8/실제 파일 경로+DB guard로 고치고 규칙 완화 없이 handoff/backlog/secret 검사를 통과했다. 앱 변경 없음, 이전 실제 앱 검증 unit150/E2E30+free4+keyless4/REST35 증거 보존. 원본 분배·타 담당/USER 상태 미변경.
 - 기존 ZIP3개의 source_head는 역사 스냅샷으로 보존한다. 최신 메타데이터 보수와 이번 설명은 저장소 브랜치를 기준으로 한다. GitHub push 워크플로는 검증뿐이며 별도 호스팅 자동화를 배포 완료로 추정하지 않는다. 원격 ref/SHA는 push 후 확인한다.
+
+## 2026-11-20C — 기존 브랜치 복귀·D018 정규화 저장소
+- 사용자 최신 요청으로 남은 티켓 구현/티켓별 commit/push를 이어간다. codex/dev-a-p0-continue를 3182ff0에서4977225로 fast-forward해 분리됐던 모든 이력을 보존했다. 새 브랜치 생성/이력 재작성 없음. fetch 후 origin/main65063c8 유지 확인.
+- D018 steward 계획에013 번호를 먼저 기록하고 private adme_creator3테이블, UUID legacy bridge, provider키 unique·시계열 nullable/출처/정책/수집시각·claim/consent 상태, 소유자 전용 invoker snapshot 및 server-only JSON 호환 adapter를 추가했다. 기존18개 migration과 원본48개 JSON은 보존했다.
+- 직접 SQL/REST9그룹, 신규 unit6/전체156, 네 SQL 패킷 기준8/12/16/18→19 적용·원본hash불변·RLS/권한·wrong/duplicate 거부를 로컬에서 검증했다. 기존 UI/Auth 회귀와 실제 SQL→TS adapter 증거는 D084 후속에 저장한다. 초기 unit의 JSON 키 순서 비교는 구조 값 보존 비교로 바로잡았고 DB 원본 hash 별도 검증, skip 없음.
+- D017 정책 승인·필드/목적/보존/재배포 연결 및 D019 실제 writer/main YouTube 이관·공개 read switch는 미완료다. 가상 ID/지표를 실제 데이터로 전환하거나 정책 승인을 발명하지 않았다. D018은 IN_PROGRESS, DONE0. USER/DEV-B 및 v2 원본 미수정. 외부 콘솔/키/배포 없음.

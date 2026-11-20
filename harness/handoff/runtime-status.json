@@ -143,9 +143,13 @@
       "owner": "DEV-A",
       "status": "IN_PROGRESS",
       "evidence": [
-        "harness/evidence/D018/README.md"
+        "harness/evidence/D018/README.md",
+        "harness/evidence/D018/normalization-security-20261120.json",
+        "harness/evidence/D018/packet-terms_18-20261120.json",
+        "docs/handoff/DEV-A_SCHEMA_20261120.md"
       ],
-      "blocker": "D017 공급원 정책과 마이그레이션 번호 합의, 저장·RLS·backfill 미검증."
+      "blocker": "정규화 private DB/RLS·UUID 백필·본인 snapshot·JSON 호환 adapter 로컬 검증 완료. D017 승인/허용 필드·보존/목적/재배포 계약, D019 writer/운영 YouTube 이관, 공개 DTO read switch·교차 리뷰·대상 적용 미완료.",
+      "last_checked_at": "2026-11-20T07:52:49.981196+00:00"
     },
     "D019": {
       "owner": "DEV-B",
