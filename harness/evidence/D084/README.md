@@ -36,3 +36,6 @@ setup:qa:local은 표식 있는 별도 Docker 프로젝트에 마이그레이션
 
 ## 2026-11-20G — 근거 검토·광고 이력 회귀
 DEV-A-EVIDENCE-20261120/verification.json: unit210/27·신규13·lint/typecheck/build, 실제 DB17·새 desktop/mobile4+기존 golden2, 실제 USER SQL23/24→30 원본 message/report/profile hash·legacy INSERT/read boundary 보존 PASS. 검증 시점/locator 실패/새 부정 조건을 구분했다. 전체 historical32/실제 provider/출시 전수 검증을 이번에 재수행했다고 주장하지 않는다.
+
+## 2026-11-20H — 결과물 버전 회귀
+D054/verification.json: unit218/28·lint/typecheck/build·Harness5·backlog PASS, 실제 DB 신규10+rate8/conversation8, desktop/mobile 신규2+golden2+ordinary conversation2 및 최종 locator 보강 후 신규2 재통과. 정확한30→31 생성 SQL의 비어 있지 않은 기존 자료 hash·구형 stage·managed 방·일방향 activation 검증. 새 audit FK에 따른 fixture 정리 실패를 해당 local room 기록만 정리해 해결했고 기존 assertions를 유지했다. 실제 URL/외부 공급자·전체 historical 회귀/미구현 workflow는 남아 IN_PROGRESS다. 전달4 SQL은 LF/Git source hash를 검증하며 이전30개 SQL/6 ZIP은 불변이다.

@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-20T14:20:27.430164+00:00",
+  "result": "PASS",
+  "source_head": "b0ba55f70db4d6c7bae69f9c133702cd4fc7da9a",
+  "migration_sha256_lf": "a30a0c532e127e0166c90c819451898e8abfd47945b2f3b280d2977bd2b8260f",
+  "sql_files": [
+    "00_preflight_current_30.sql",
+    "01_stage_current_30.sql",
+    "02_verify.sql",
+    "03_activate.sql"
+  ],
+  "preserved_previous_migrations": 30,
+  "preserved_archives": [
+    "deliverables/AD-Me_DEV-A_FILTERS_20261120_review.zip",
+    "deliverables/AD-Me_DEV-A_MAIN_20261120_review.zip",
+    "deliverables/AD-Me_DEV-A_P0_20261119_review.zip",
+    "deliverables/AD-Me_DEV-A_READ_BOUNDARY_20261120_review.zip",
+    "deliverables/AD-Me_DEV-A_SCHEMA_20261120_review.zip",
+    "deliverables/AD-Me_DEV-A_TERMS_20261120_review.zip"
+  ],
+  "scope": "Static Git/LF integrity only. Actual old30 SQL upgrade proof is delivery-upgrade-20261120.json; no hosted execution."
+}

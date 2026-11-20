@@ -1,0 +1,33 @@
+{
+  "source_head": "b0ba55f70db4d6c7bae69f9c133702cd4fc7da9a",
+  "migration_count": 31,
+  "new_migration": {
+    "path": "supabase/migrations/202611200025_deliverable_versions.sql",
+    "sha256_lf": "a30a0c532e127e0166c90c819451898e8abfd47945b2f3b280d2977bd2b8260f"
+  },
+  "files": [
+    {
+      "path": "00_preflight_current_30.sql",
+      "sha256_lf": "877e173297acffb8f96c7ded1893ee0f092ce8c948d16201425b3e1255ef97a2",
+      "bytes_lf": 1474
+    },
+    {
+      "path": "01_stage_current_30.sql",
+      "sha256_lf": "75a4b625a95c526081455176917c9ecff2ac5d99ef245643dfd03a2e02693132",
+      "bytes_lf": 51159
+    },
+    {
+      "path": "02_verify.sql",
+      "sha256_lf": "7b0f3defe79c4d8a629184ecac3b901b7c965e345403a6306908116bc3b24006",
+      "bytes_lf": 724
+    },
+    {
+      "path": "03_activate.sql",
+      "sha256_lf": "c4643bcc18bf6d76df5be0f45856805f88cc9c35bc7bad48745f666470e0679f",
+      "bytes_lf": 299
+    }
+  ],
+  "staging": "old30 compatibility only; not version enforcement; managed rooms always enforced",
+  "default_raw_migration": "strict",
+  "external_applied": false
+}

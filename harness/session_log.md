@@ -251,3 +251,14 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 
 ## 2026-11-20G — 전달 SQL 줄바꿈 검증 보강
 - plain SQL을 Git에서 받는 Windows/Linux 환경의 CRLF/LF 차이를 고려해 최초 전달9a7fcce SQL blob과 일치하는 canonical LF hash receipt를 추가했다. 기존 SQL/원본 raw manifest는 수정하지 않았다. 검증기는 LF 내용/최초 Git blob을 함께 비교하므로 다른 OS의 정상 checkout을 변조로 오인하지 않는다. 앱 소스 변경 없음.
+
+## 2026-11-20H — D054 결과물 버전·검토
+- 사용자 잔여 티켓 요청에 따라 다음 준비 P0 D054를 진행했다. 기존0abc1ee/codex/dev-a-p0-continue 유지, fetch 후 main65063c8 신규 없음. D049/D056 steward 변경 의도를 먼저 기록하고025 additive private RLS snapshot/attestation/event와 버전 전제·retry·검토 API/전용 화면을 구현했다. 기존 수락/거절·일반 메시지·ID/URL/광고 이력은 보존했다.
+- 실제 local DB/REST10+기존 rate8/conversation8, unit218/28·lint/typecheck/build·Harness5/backlog PASS. Auth/TLS Chrome desktop/mobile 새 흐름2+golden2+일반 메시지2, 마지막 상태 badge 동기화 보강 후 새2 재통과. 서버 ACK 유실 retry1건·수정본 필수·오래된 승인409·최신 표시 체크 재확인·확정 이력 불변·역할/차단/중재/우회 거부를 확인했다.
+- 기존 message 회귀8개 통과 뒤 fixture auth-user cleanup이 새 audit FK로 실패했다. exact local DB의 해당 방 감사만 삭제하도록 cleanup을 확장해8개 재통과했다. 제품 gate/불변 trigger를 완화하지 않았고 fixture 정리는 같은 transaction에서 trigger를 복원한다. 적용된025/기존30 SQL 수정 없음.
+- USER SQL30→31을 별도 DB에서 실제 실행, 기존 비어 있지 않은 proposal/message/profile hash·구형 stage·managed 방 선행 보호·activation·unknown/custom/hardened/reapply 거부 PASS. raw025 기본 strict, 검토된30 stage만 구형 unmanaged 호환이며 stage를 보안 완료로 보고하지 않는다.
+- D054 LOCAL_VERIFIED, D084 IN_PROGRESS만 갱신: Local8/진행13/부분1/외부2/OPEN19/DONE0. USER SQL/새 source 배포/실제 URL/owner 활성화·D049 교차 리뷰는 남는다. 실제 광고/법률/외부 콘텐츠·플랫폼/Toss 성공 주장과 외부 콘솔/키/배포 수행 없음. 티켓 source와 D084 패킷/증거를 분리 커밋하고 기존 브랜치 push/CI를 확인한다.
+
+## 2026-11-20H — source·전달 패킷 확정
+- D054 source b0ba55f, 패킷 MANIFEST source_head와 activation reference를 동일40자리로 생성했다. 새025 Git blob/LF 원문·전달4 SQL hash와 기존30개 source SQL/6 ZIP SHA256 불변 PASS. 증거 D054/packet-integrity-20261120.json. 실제30→31 stage/activation 동작 증거와 최종 static source hash 검사를 구분했다. SQL/metadata/개발자 검증기만 다음 D084 커밋에 포함하며 앱 변경 없음.
+- push 전 main65063c8 유지·새 main commit 없음. 기존 브랜치만 push하고 exact 최종 HEAD 원격/CI는 ignored output receipt로 남긴다. 원격 배포 수행/완료를 주장하지 않는다. 격리 QA 컨테이너는 검증 후 volumes를 보존하고 중지한다.
