@@ -141,13 +141,7 @@ export default async function Dashboard() {
             <div style={{ marginTop: 22 }}>
               <DealControls
                 id={p.id}
-                actions={[
-                  "accepted",
-                  "rejected",
-                  "submitted",
-                  "completed",
-                  "revision_requested",
-                ].filter((a) =>
+                actions={["accepted", "rejected"].filter((a) =>
                   canTransition(
                     p.kind,
                     p.status,
@@ -157,14 +151,17 @@ export default async function Dashboard() {
                 )}
               />
             </div>
+            <Link
+              className="button outline small"
+              href={`/collaborations/${p.id}/deliverables`}
+            >
+              결과물 제출·검토 ↗
+            </Link>
             <Conversation
               proposalId={p.id}
               viewerId={user.id}
               writable={p.status !== "rejected"}
-              deliverable={
-                p.creator_user_id === user.id &&
-                ["accepted", "revision_requested"].includes(p.status)
-              }
+              deliverable={false}
             />
           </article>
         ))

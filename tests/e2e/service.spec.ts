@@ -230,25 +230,32 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
     data: { sku: "brand_pro" },
   });
   expect(wrongRole.status()).toBe(403);
-  await deal.getByText(/메시지·결과물/).click();
-  await deal
-    .getByLabel("메시지", { exact: true })
+  await deal.getByRole("link", { name: "결과물 제출·검토" }).click();
+  await cp
+    .getByLabel("결과물 설명", { exact: true })
     .fill("QA 결과물 초안입니다.");
-  await deal.getByLabel("종류", { exact: true }).selectOption("deliverable");
-  await deal
+  await cp
     .getByLabel("결과물 HTTPS 링크")
     .fill("https://example.com/qa-deliverable");
-  await deal.getByRole("button", { name: "메시지 저장" }).click();
-  await expect(deal.getByRole("status")).toContainText("저장되었습니다");
-  await deal.getByRole("button", { name: "결과물 제출 완료" }).click();
-  await expect(deal.getByText("검토 대기", { exact: true })).toBeVisible();
+  await cp.locator('input[name="confirmed"]').check();
+  await cp.getByRole("button", { name: "새 제출본 저장" }).click();
+  await expect(cp.getByTestId("active-submission")).toContainText("버전 1");
+  await cp.getByRole("button", { name: "현재 버전 제출 완료" }).click();
+  await expect(cp.getByText("검토 대기", { exact: true })).toBeVisible();
   await page.reload();
   const brandDeal = page
     .locator("article")
     .filter({ hasText: "QA 검증용 비건 토너 협업을 제안합니다." })
     .first();
-  await brandDeal.getByRole("button", { name: "검토 승인" }).click();
-  await expect(brandDeal.getByText("완료", { exact: true })).toBeVisible();
+  await brandDeal.getByRole("link", { name: "결과물 제출·검토" }).click();
+  await page
+    .getByLabel("검토 의견·승인 근거")
+    .fill("가상 결과물과 표시 내용을 확인한 검토 근거입니다.");
+  await page
+    .getByLabel("현재 제출본의 광고 표시를 확인했습니다.", { exact: true })
+    .check();
+  await page.getByRole("button", { name: "현재 버전 검토 승인" }).click();
+  await expect(page.getByText("완료", { exact: true })).toBeVisible();
   await creator.close();
 });
 

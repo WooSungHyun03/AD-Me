@@ -1,0 +1,88 @@
+{
+  "at": "2026-11-20T14:19:22.165916+00:00",
+  "baseline": "0abc1eeff47c004511ef3b5481f80e8629c637fe",
+  "branch": "codex/dev-a-p0-continue",
+  "upstream_main": "65063c8412d95458e0da61b90f53d2da72decda3",
+  "ticket": "D054",
+  "status": "LOCAL_VERIFIED",
+  "acceptance_map": {
+    "link_and_version": "Immutable URL/body/author/time snapshot, monotonic per-room version and distinct active ID; creation separate from submitted status.",
+    "review_and_grounds": "Immutable actor/time/version-bound submitted/revision_requested/completed events; review note10..2000; completion requires advertising_checked=true.",
+    "disclosure": "Explicit creator declaration/confirmation before submit or complete; old records never gain fabricated attestations.",
+    "stale_approval": "Room revision plus active ID and ordered DB locks; prior version/other tab409; new version resets checkbox.",
+    "duplicate_revision": "Concurrent same key/payload one event/quota, changed key payload23505; requested version cannot resubmit without new version.",
+    "final_immutability": "Snapshot/attestation/event UPDATE/DELETE rejected; completed room cannot accept new uploads. Remote URL content bytes are outside scope.",
+    "participant_approval": "Actual DB participant/current role, block/moderation/status gates; foreign/anon/role forgery/raw REST/legacy bypass denied when strict or managed.",
+    "legacy_and_shared_contract": "Old IDs/messages/proposal status/profile hashes preserved; no synthetic prior reviewer/date; D049 existing state/accept/reject kept, interface review pending."
+  },
+  "gates": {
+    "node": "22.23.5",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": {
+      "passed": 218,
+      "files": 28,
+      "new_delivery_contracts": 8
+    },
+    "harness_selftest": 5,
+    "backlog_validation": "PASS",
+    "production_build": "PASS via serial local browser harness",
+    "direct_DB_REST": {
+      "new_delivery_groups": 10,
+      "rate_regression_groups": 8,
+      "conversation_regression_groups": 8,
+      "scope": "actual local SQL/PostgREST with fictional users only"
+    },
+    "browser": {
+      "initial_affected_passed": 6,
+      "scenarios": [
+        "versioned delivery lost real server acknowledgement/retry/revision/new version/stale tab rejection/approval x2",
+        "two-role DB gold path x2",
+        "ordinary conversation/block/report x2"
+      ],
+      "final_affected_recheck_passed": 2,
+      "reason": "Stronger actual-state badge synchronization and local fixture audit cleanup",
+      "desktop": "Chrome1440x900",
+      "mobile": "Chrome iPhone13 390x844",
+      "url": "https://127.0.0.1:3143/collaborations/<fictional-room>/deliverables",
+      "visual_review": "Desktop/mobile captures inspected; active version, version history, grounds/time, no horizontal overflow",
+      "capture_paths": [
+        "output/playwright/deliverables-desktop.png",
+        "output/playwright/deliverables-mobile.png"
+      ],
+      "provider_scope": "Actual local Supabase Auth/TLS/DB, fictional deliverables/declarations; gold path test billing backend503 is expected denial, not Toss validation"
+    },
+    "user_packet": {
+      "from_migrations": 30,
+      "to_migrations": 31,
+      "result": "PASS",
+      "evidence": "delivery-upgrade-20261120.json",
+      "source_migration_applied_then_frozen": true,
+      "final_release_hash_verification": "packet-integrity-20261120.json generated after source commit"
+    }
+  },
+  "findings": [
+    {
+      "problem": "Existing conversation assertions8 passed, fixture auth-user cleanup failed due new audit actor FK.",
+      "fix": "Exact loopback-only fixture cleanup deletes audit entries only for its own room, restores immutable triggers in same transaction.",
+      "verification": "All8 original assertions and cleanup pass; no product permission relaxation/skip."
+    },
+    {
+      "problem": "Revision-request browser wait could match the action button before state refresh.",
+      "fix": "Wait for exact status badge instead.",
+      "verification": "Both final desktop/mobile delivery scenarios passed again."
+    }
+  ],
+  "not_claimed": [
+    "Hosted SQL/configuration/deployment",
+    "Actual source URL or external file bytes verification",
+    "Actual advertising/legal/provider/Toss verification",
+    "Entire historical E2E suite rerun",
+    "D049 cross-review or overall release complete"
+  ],
+  "remaining": [
+    "USER exact30 preflight/stage, source deployment and actual URL two-role checks, owner activation",
+    "D049 steward interface review",
+    "Full D084 missing workflows/external providers/release checks"
+  ]
+}

@@ -1,3 +1,4 @@
+import { cleanDeliveryFixtures } from "./support/delivery-fixture-cleanup.mjs";
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { writeFileSync } from "node:fs";
@@ -332,6 +333,7 @@ try {
     },
   );
 } finally {
+  cleanDeliveryFixtures([room]);
   sql(`delete from adme_messaging.reports where reporter_id in ('${ids.brand}','${ids.creator}'); delete from adme_messaging.blocks where proposal_id='${room}';
     delete from public.messages where proposal_id='${room}'; delete from public.proposals where id='${room}'; delete from public.campaigns where id='${campaign}'; delete from public.creators where id='${creatorId}';
     delete from adme_ops.rate_windows where subject in ('${ids.brand}','${ids.creator}','${ids.other}'); delete from auth.users where id in ('${ids.brand}','${ids.creator}','${ids.other}');`);

@@ -1,3 +1,4 @@
+import { cleanDeliveryFixtures } from "./support/delivery-fixture-cleanup.mjs";
 import assert from "node:assert/strict";
 import { randomUUID, randomBytes } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
@@ -38,15 +39,13 @@ try {
     async () => {
       const actor = localClient(undefined, localJwt(accounts.creator.id));
       const send = (c, id, kind) =>
-        c
-          .from("messages")
-          .insert({
-            proposal_id: proposal,
-            sender_id: id,
-            body: "Local message policy fixture",
-            kind,
-            url: kind === "deliverable" ? "https://example.test/result" : null,
-          });
+        c.from("messages").insert({
+          proposal_id: proposal,
+          sender_id: id,
+          body: "Local message policy fixture",
+          kind,
+          url: kind === "deliverable" ? "https://example.test/result" : null,
+        });
       assert.equal(
         (await send(brand, accounts.brand.id, "message")).error,
         null,
@@ -89,14 +88,12 @@ try {
       clear("message_day");
       const responses = await Promise.all(
         Array.from({ length: 25 }, () =>
-          brand
-            .from("messages")
-            .insert({
-              proposal_id: proposal,
-              sender_id: accounts.brand.id,
-              body: "Local fixture",
-              kind: "message",
-            }),
+          brand.from("messages").insert({
+            proposal_id: proposal,
+            sender_id: accounts.brand.id,
+            body: "Local fixture",
+            kind: "message",
+          }),
         ),
       );
       assert.equal(
@@ -130,28 +127,24 @@ try {
       assert.ok(Number(raw.headers.get("Retry-After")) >= 1);
       assert.equal(
         (
-          await other
-            .from("messages")
-            .insert({
-              proposal_id: proposal,
-              sender_id: accounts.brand.id,
-              body: "Impersonation",
-              kind: "message",
-            })
+          await other.from("messages").insert({
+            proposal_id: proposal,
+            sender_id: accounts.brand.id,
+            body: "Impersonation",
+            kind: "message",
+          })
         ).error?.code,
         "42501",
       );
       clear("message_minute");
       assert.equal(
         (
-          await brand
-            .from("messages")
-            .insert({
-              proposal_id: proposal,
-              sender_id: accounts.brand.id,
-              body: "Recovered after local window reset",
-              kind: "message",
-            })
+          await brand.from("messages").insert({
+            proposal_id: proposal,
+            sender_id: accounts.brand.id,
+            body: "Recovered after local window reset",
+            kind: "message",
+          })
         ).error,
         null,
       );
@@ -177,14 +170,12 @@ try {
       clear("report_day");
       const replies = await Promise.all(
         Array.from({ length: 8 }, () =>
-          brand
-            .from("reports")
-            .insert({
-              reporter_id: accounts.brand.id,
-              creator_id: creator,
-              reason: "Local fixture report, no real allegation",
-              source_url: "https://example.test/evidence",
-            }),
+          brand.from("reports").insert({
+            reporter_id: accounts.brand.id,
+            creator_id: creator,
+            reason: "Local fixture report, no real allegation",
+            source_url: "https://example.test/evidence",
+          }),
         ),
       );
       assert.equal(replies.filter((r) => !r.error).length, 5);
@@ -195,14 +186,12 @@ try {
       );
       assert.equal(
         (
-          await other
-            .from("reports")
-            .insert({
-              reporter_id: accounts.brand.id,
-              creator_id: creator,
-              reason: "Impersonation rejected",
-              source_url: "https://example.test",
-            })
+          await other.from("reports").insert({
+            reporter_id: accounts.brand.id,
+            creator_id: creator,
+            reason: "Impersonation rejected",
+            source_url: "https://example.test",
+          })
         ).error?.code,
         "42501",
       );
@@ -403,6 +392,7 @@ try {
     },
   );
 } finally {
+  cleanDeliveryFixtures([proposal]);
   sql(
     `delete from public.messages where proposal_id='${proposal}'; delete from public.reports where creator_id='${creator}'; delete from public.proposals where id='${proposal}'; delete from public.campaigns where id='${campaign}'; delete from public.creators where id='${creator}'; delete from adme_ops.jobs; delete from adme_ops.rate_windows; update adme_ops.settings set worker_hash=null where singleton=true; update adme_ops.resource_controls set ingestion_enabled=true,llm_enabled=true where singleton=true;`,
   );

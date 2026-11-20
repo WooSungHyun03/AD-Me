@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-20T14:10:10.343Z",
+  "result": "PASS",
+  "from_migrations": 30,
+  "to_migrations": 31,
+  "nonempty_original_proposal_message_profile_hash_preserved": true,
+  "legacy_complete_not_fabricated_as_version_approval": true,
+  "staging_retains_old_unmanaged_app": true,
+  "managed_room_enforces_versions_before_global_activation": true,
+  "activation_closes_legacy_bypass": true,
+  "existing_submitted_records_can_be_adopted_without_source_edits": true,
+  "activation_owner_only_and_one_way": true,
+  "unknown_custom_hardened_and_repeat_rejected": true,
+  "source_sha256_lf": "a30a0c532e127e0166c90c819451898e8abfd47945b2f3b280d2977bd2b8260f",
+  "scope": "actual generated USER SQL in exact disposable packet DB; fictional legacy records/role claims only; not hosted deployment"
+}

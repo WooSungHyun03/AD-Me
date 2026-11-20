@@ -398,9 +398,15 @@
     },
     "D054": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "LOCAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/D054/PLAN_20261120.md",
+        "harness/evidence/D054/README.md",
+        "harness/evidence/D054/verification.json",
+        "docs/handoff/DEV-A_DELIVERABLES_20261120.md"
+      ],
+      "blocker": "Local version/review/ad-check/duplicate/stale/immutability/permissions passed. USER exact30 SQL stage/source deployment/actual URL validation/one-way activation and D049 steward review remain. Staging alone is not security complete; not DONE.",
+      "last_checked_at": "2026-11-20T14:19:22.165916+00:00"
     },
     "D055": {
       "owner": "DEV-A",
@@ -621,10 +627,11 @@
         "harness/evidence/DEV-A-SCHEMA-20261120/verification.json",
         "harness/evidence/DEV-A-FILTERS-20261120/verification.json",
         "harness/evidence/DEV-A-READ-20261120/verification.json",
-        "harness/evidence/DEV-A-EVIDENCE-20261120/verification.json"
+        "harness/evidence/DEV-A-EVIDENCE-20261120/verification.json",
+        "harness/evidence/D054/verification.json"
       ],
-      "blocker": "최신 unit210/27·lint/typecheck/build, review/ad actual DB17그룹·새 browser4+기존 two-role2·SQL23/24→30 검증. 이전 전체 E2E32는 이번에 재실행하지 않았으며 source 시점별 증거로 보존. 미구현/외부 공급자·정책·실제 URL·전체 권한 감사 및 전체 출시 회귀는 남음.",
-      "last_checked_at": "2026-11-20T13:32:52.161982+00:00"
+      "blocker": "최신 unit218/28·lint/typecheck/build, D054 actual DB10+기존 rate8/conversation8, 영향 browser6+최종2·USER SQL30→31 PASS. 전체 historical suite/미구현·외부 공급자/실제 URL/출시 전수 검증은 남음.",
+      "last_checked_at": "2026-11-20T14:19:22.165916+00:00"
     },
     "D085": {
       "owner": "DEV-B",
