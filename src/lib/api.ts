@@ -197,6 +197,11 @@ export function requireTestBilling() {
     fail("TEST 결제 연결을 준비 중입니다.", 503);
 }
 
+export function requireFeature(feature: "ingestion" | "llm") {
+  const state = getConfig().features[feature];
+  if (state === "off") fail("현재 제공하지 않는 기능입니다.", 404);
+  if (state !== "enabled") fail("서비스 연결을 준비 중입니다.", 503);
+}
 
 function safeOrigin(req: Request) {
   if (req.headers.get("sec-fetch-site") === "cross-site") return false;

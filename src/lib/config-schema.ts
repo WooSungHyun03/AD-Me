@@ -86,8 +86,14 @@ export function parseConfig(env: Readonly<Record<string, string | undefined>>) {
         : supabase && tossClientKey
           ? "enabled"
           : "missing_prerequisites",
-    ingestion: ingestionFlag === "on" ? "adapter_unavailable" : "off",
-    llm: llmFlag === "on" ? "adapter_unavailable" : "off",
+    ingestion:
+      ingestionFlag !== "on"
+        ? "off"
+        : supabase
+          ? "enabled"
+          : "missing_prerequisites",
+    llm:
+      llmFlag !== "on" ? "off" : supabase ? "enabled" : "missing_prerequisites",
   } as const;
 
   return {

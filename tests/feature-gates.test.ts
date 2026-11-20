@@ -37,7 +37,7 @@ describe("feature gates", () => {
     ).toBe("missing_prerequisites");
   });
 
-  it("leaves unimplemented adapters unavailable even if requested", () => {
+  it("exposes implemented queue adapters only with explicit flags and database config", () => {
     const { features } = parseConfig({
       ...config,
       ADME_FEATURE_INGESTION: "on",
@@ -45,10 +45,17 @@ describe("feature gates", () => {
       ADME_FEATURE_MAIL: "on",
     });
     expect(features).toMatchObject({
-      ingestion: "adapter_unavailable",
-      llm: "adapter_unavailable",
+      ingestion: "enabled",
+      llm: "enabled",
       mail: "enabled",
       testBilling: "off",
+    });
+    expect(
+      parseConfig({ ADME_FEATURE_INGESTION: "on", ADME_FEATURE_LLM: "on" })
+        .features,
+    ).toMatchObject({
+      ingestion: "missing_prerequisites",
+      llm: "missing_prerequisites",
     });
   });
 

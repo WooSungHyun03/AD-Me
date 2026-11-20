@@ -7,11 +7,13 @@ import {
   parseBody,
   parseInput,
   requireContext,
+  requireFeature,
 } from "@/lib/api";
 import { draftInput, draftResult } from "@/lib/intelligence";
 import { enforceRateLimit } from "@/lib/rate-limit";
 
 export const POST = apiRoute("intelligence.post", async (request) => {
+  requireFeature("llm");
   const c = await requireContext();
   if (c.role !== "brand")
     return fail("브랜드 계정에서 사용할 수 있습니다.", 403);

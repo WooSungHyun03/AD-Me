@@ -54,6 +54,10 @@ SMTP host/port/user/password·발신 주소는 **Supabase SMTP 설정 화면**�
 
 ## 변경·교체 체크
 
+2026-11-20 main 통합: `ADME_FEATURE_INGESTION` / `ADME_FEATURE_LLM`은 구현된 작업 큐의 앱 접수를 제어한다. `on`과 유효한 Supabase 설정이면 앱 상태는 enabled이며, worker가 실행 중이거나 공급자 검증을 마쳤다는 뜻은 아니다. DB의 `adme_ops.resource_controls`도 각각 true여야 접수/lease가 열린다. 새 마이그레이션은 두 값을 false로 만들고 discovery를 중지한다. DB owner인 USER가 검토 후 활성화한다. false로 바꾸면 새 lease와 접수를 차단하지만 이미 시작한 외부 호출은 중단하지 않는다. 기존 조회·철회·연결 해제는 유지한다.
+
+main의 worker 설정명은 `ADME_WORKER_TOKEN`(서버 전용64자 무작위 토큰), `YOUTUBE_API_KEY`(YouTube 전용), `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY`(공개 연결)다. 현재 worker는 기존 특정 프로젝트만 허용하며 로컬 계약 테스트는 별도 fixture 소비자를 쓴다. `--smoke`는 실제 모델을 최대3회 호출하므로 이번 로컬 검증에서는 실행하지 않는다. 키 발급/등록 및 실제 worker 운영은 USER 작업이다.
+
 1. USER가 대상 계정·환경·설정 이름을 확인한다.
 2. 공급자에서 발급한 값은 해당 전용 콘솔에 직접 등록한다. 키 일부도 증거에 넣지 않는다.
 3. USER가 필요한 새 배포를 실행한다. `NEXT_PUBLIC_`는 빌드 시 반영되므로 기존 배포에서 즉시 바뀐다고 가정하지 않는다.

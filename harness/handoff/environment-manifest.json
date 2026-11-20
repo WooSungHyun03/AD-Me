@@ -89,10 +89,10 @@
     },
     {
       "name": "YOUTUBE_API_KEY",
-      "status": "REGISTERED_NOT_CONSUMED",
+      "status": "IMPLEMENTED_WORKER_CONSUMER",
       "classification": "SECRET",
-      "location": "Vercel Production Secret; provider probe only",
-      "consumer": null
+      "location": "USER-managed outbound worker only; existing historical registration retained",
+      "consumer": "scripts/intelligence_worker.py"
     },
     {
       "name": "AI_PROVIDER_TOKEN",
@@ -149,6 +149,13 @@
       "classification": "SERVER_CONFIG",
       "location": "Vercel server / local",
       "consumer": "src/lib/config.ts"
+    },
+    {
+      "name": "ADME_WORKER_TOKEN",
+      "status": "IMPLEMENTED",
+      "classification": "SECRET",
+      "location": "USER-managed outbound worker; DB stores hash only",
+      "consumer": "scripts/intelligence_worker.py + adme_ops.verify_worker"
     }
   ],
   "technical_execution": "USER"

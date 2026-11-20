@@ -39,6 +39,21 @@ beforeEach(() => {
 });
 afterEach(() => vi.unstubAllEnvs());
 describe("main intelligence routes share the D004 API contract", () => {
+  it("rejects new work when the app feature is off", async () => {
+    vi.stubEnv("ADME_FEATURE_LLM", "off");
+    vi.stubEnv("ADME_FEATURE_INGESTION", "off");
+    expect(
+      (await create(request({ brief: "Fictional local brief" }))).status,
+    ).toBe(404);
+    expect(
+      (
+        await command(
+          request({ action: "channel", value: "UC_x5XG1OV2P6uZZ5FSM9Ttw" }),
+        )
+      ).status,
+    ).toBe(404);
+    expect(state.rpc).not.toHaveBeenCalled();
+  });
   it.each([command, create, get])(
     "returns a safe correlatable auth error",
     async (handler) => {
