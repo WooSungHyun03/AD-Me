@@ -364,10 +364,11 @@
       "status": "IN_PROGRESS",
       "evidence": [
         "harness/evidence/D051/README.md",
-        "harness/evidence/DEV-A-MAIN-20261120/verification.json"
+        "harness/evidence/DEV-A-MAIN-20261120/verification.json",
+        "harness/evidence/DEV-A-SCHEMA-20261120/rate-security.json"
       ],
-      "blocker": "브랜드 일반 메시지 RLS 모호성만 보수. 페이지네이션·첨부·스팸 UX 및 D049 통합 미완료.",
-      "last_checked_at": "2026-11-20T02:36:28.405549+00:00"
+      "blocker": "브랜드 메시지 kind RLS 보수와 직접 REST 원자 메시지/신고 한도 검증 완료. idempotency·cursor 페이지네이션·첨부·스팸/신고 UX 및 D049/D027 통합 미완료.",
+      "last_checked_at": "2026-11-20T08:28:38.749620+00:00"
     },
     "D052": {
       "owner": "DEV-B",
