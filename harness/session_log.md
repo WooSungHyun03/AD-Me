@@ -127,3 +127,5 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - 롤별 DB 권한 및 사용자의 AI 작업 읽기 경계를 검증했다. 공개 데이터는 운영 승인·본인 인증·공개 동의·공개 프로필을 모두 요구한다.
 - 로컬 Ollama CPU 4스레드로 한국어 구조화 응답과 임베딩을 실제 생성했다. 워커는 Supabase에 전용 인증으로 연결한다. Vercel에서는 로컬 추론 포트에 연결하지 않는다.
 - 운영 Supabase 첫 일일 작업 성공. 실존 채널 6개·공개 영상 메타데이터 29건. 공개 채널 0개. GitHub 기존 관리자 예외 알림과 운영 배포 검증은 docs/implementation-progress.md 참조.
+
+- 배포 주소 전체 E2E 16개 통과. 화면 폼 보정 후 운영 스모크 4개 통과. 실제 채널 설명에 소유권 인증 문자열이 없을 경우 검증 실패, 비공개 유지와 연결 해제를 확인했다. 최종 배포 dpl_Ep82HQoU28bnTM6kQFG9ytZqWkr9 및 1262c5b Actions 성공.

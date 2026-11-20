@@ -97,6 +97,25 @@ test("unverified YouTube candidates remain private and creators can unlink a cla
   await expect(
     page.getByRole("button", { name: "채널 검색 공개에 동의", exact: true }),
   ).toHaveCount(0);
+  await page
+    .getByRole("button", { name: "소유권 확인 요청", exact: true })
+    .click();
+  await expect(
+    page.getByRole("status").filter({ hasText: "확인 작업을 등록했습니다" }),
+  ).toBeVisible();
+  await expect
+    .poll(
+      async () => {
+        await page.reload();
+        return page
+          .getByText("채널 설명에서 인증 문자열을 확인하지 못했습니다.", {
+            exact: true,
+          })
+          .count();
+      },
+      { timeout: 45000, intervals: [1000, 2000, 3000] },
+    )
+    .toBe(1);
   page.once("dialog", (dialog) => dialog.accept());
   await page
     .getByRole("button", { name: "채널 연결 해제", exact: true })
