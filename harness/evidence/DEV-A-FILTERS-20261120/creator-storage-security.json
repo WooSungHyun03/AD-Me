@@ -1,0 +1,42 @@
+{
+  "at": "2026-11-20T08:33:27.130Z",
+  "scope": "isolated fictional identities/metrics and synthetic local JWT authorization only; no approved provider integration",
+  "results": [
+    {
+      "name": "legacy UUID backfill and insert trigger create mappings without fabricated SNS IDs or metrics",
+      "result": "PASS"
+    },
+    {
+      "name": "private tables deny direct REST and SQL table access for anon, authenticated and service_role",
+      "result": "PASS"
+    },
+    {
+      "name": "provider/external ID uniqueness survives handle changes and rejects cross-record duplicates",
+      "result": "PASS"
+    },
+    {
+      "name": "nullable time series preserves zero, source, policy and derived/original distinction",
+      "result": "PASS"
+    },
+    {
+      "name": "DB constraints reject negative/non-finite/fractional/unsafe counts, invalid units, times and credential URLs",
+      "result": "PASS"
+    },
+    {
+      "name": "publication requires owner, claim, consent and allowed state; parent moderation is always enforced",
+      "result": "PASS"
+    },
+    {
+      "name": "bounded history reports truncation and returns the latest 200 observations in stable order",
+      "result": "PASS"
+    },
+    {
+      "name": "ownership transfer resets claim/consent/publication and denies the previous owner",
+      "result": "PASS"
+    },
+    {
+      "name": "deleting a legacy creator cascades all normalized private rows while preserving the 48 legacy fixtures",
+      "result": "PASS"
+    }
+  ]
+}

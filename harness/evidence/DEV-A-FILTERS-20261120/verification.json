@@ -1,0 +1,108 @@
+{
+  "at": "2026-11-20T08:43:49.378599+00:00",
+  "baseline": "c450619",
+  "branch": "codex/dev-a-p0-continue",
+  "upstream_main": "65063c8412d95458e0da61b90f53d2da72decda3",
+  "review_commit": "28d1d1b",
+  "implementation_commits": {
+    "D034": [
+      "0899fa4",
+      "2377cdc"
+    ],
+    "D018": [
+      "eb65d37"
+    ]
+  },
+  "scope": "local document audit, filters and transitional app public projection; no provider/cloud approval/deployment",
+  "gates": {
+    "node": "22.23.5",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": {
+      "passed": 181,
+      "files": 22,
+      "new": 25
+    },
+    "local_sql_rpc_to_typescript_contract": 1,
+    "production_builds": "PASS in actual local Auth/DB, free-beta and keyless harness modes",
+    "full_local_auth_db_e2e": {
+      "passed": 32,
+      "scope": "two-role actual local Auth/DB and explicit fixture lease/finish, desktop/mobile",
+      "timing": "after public app projection and route-wait correction; before final synchronous URL store repair"
+    },
+    "after_final_url_store_repair": {
+      "keyless_e2e_passed": 10,
+      "affected_local_auth_db_e2e_passed": 4,
+      "command": "npm run test:e2e:local -- --grep public discovery|public RSC catalog",
+      "scope": "actual discovery/filter/compare plus private RSC canary and null-metric behavior"
+    },
+    "free_beta_e2e": {
+      "passed": 4,
+      "test_billing_off": true,
+      "toss_client_key": false
+    },
+    "direct_sql_rest": {
+      "groups_passed": 44,
+      "breakdown": {
+        "local-security": 7,
+        "local-brand-security": 6,
+        "ops-security": 5,
+        "rate-security": 8,
+        "youtube-security": 2,
+        "draft-read-security": 3,
+        "campaign-terms-security": 4,
+        "creator-storage-security": 9
+      },
+      "scope": "specified role/quota/identity/terms tests; not proof all public DB disclosure paths are closed"
+    },
+    "sql_fixtures": {
+      "passed": [
+        "intelligence",
+        "youtube_ownership",
+        "message_policy"
+      ],
+      "rolled_back": true
+    },
+    "viewport_overflow_and_keyboard": {
+      "widths": [
+        320,
+        390,
+        768,
+        1440
+      ],
+      "result": "PASS",
+      "scope": "catalog only, not D082 whole-service completion"
+    },
+    "visual_review": [
+      "harness/evidence/D034/catalog-filters-desktop-20261120.png",
+      "harness/evidence/D034/catalog-filters-mobile-20261120.png"
+    ],
+    "harness_selftest": 5,
+    "backlog_validation": "PASS",
+    "handoff_validation": "PASS",
+    "secret_scan": "PASS",
+    "new_migrations": 0
+  },
+  "resolved_findings": [
+    {
+      "finding": "Parallel manual build and keyless harness both attempted .next build; webServer start rejected.",
+      "resolution": "Serialize all production build/e2e modes. No test was skipped."
+    },
+    {
+      "finding": "First full local E2E30/32: new test matched same-named card heading before route navigation finished.",
+      "resolution": "Wait for exact detail URL and level1 heading; reset the explicitly disposable QA fixtures before the full rerun32/32."
+    },
+    {
+      "finding": "Later keyless9/10: transition-priority router update briefly restored a controlled checkbox to false although later snapshot was checked.",
+      "resolution": "Read URL through useSyncExternalStore, signal same-event changes and popstate synchronously. Unchanged assertions passed keyless10/10 and affected real-local-DB4/4. No sleep/force/retry bypass."
+    }
+  ],
+  "remaining_release_blockers": [
+    "D033 validated public server DTO/cursor/index/performance and live cancellation adapter integration",
+    "Direct REST published legacy creators still expose owner_id/raw JSON; legacy user-AuthUUID IDs need coordinated opaque-ID/alias and permission migration under D018/D033/D075",
+    "D017 policy approval/retention/redistribution and D019 normalized writer/read switch",
+    "Other unimplemented P0/USER and actual provider/target release verification"
+  ],
+  "done_promotions": 0,
+  "authenticated_traces_committed": false
+}

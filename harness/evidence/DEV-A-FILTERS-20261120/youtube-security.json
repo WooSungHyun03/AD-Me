@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-20T08:33:18.373Z",
+  "scope": "isolated fictional SQL ownership/consent fixtures; no real YouTube verification",
+  "results": [
+    {
+      "name": "public YouTube DTO excludes owner/contacts and honors moderation even after owner republication",
+      "result": "PASS"
+    },
+    {
+      "name": "direct search RPC admits60 of65 concurrent account calls and returns429 with exact retry metadata",
+      "result": "PASS"
+    }
+  ]
+}

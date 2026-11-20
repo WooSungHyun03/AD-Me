@@ -11,7 +11,7 @@
 ## 확인한 누락과 처리
 
 - **D034**: 단일 선택만 있고 URL·reload/back/forward 복원이 없다. 본인 등록의 미확보 followers0을 숫자로 필터링하며 정렬 tie-break도 없다. 이번에 독립 가능한 다중 필터/URL/0·결측/오류/경합 계약을 구현하고 실제 브라우저로 검증한다. D033 서버 검색은 별도 미완료다.
-- **D018/D075/D033**: publicCreators가 owner_id와 raw profile 전체를 client props로 전달한다. 공개 DTO allowlist와 nullable 지표로 앱 경계를 보수한다. **기존 직접 REST의 공개 creators 행/owner_id 권한은 별도 출시 차단**이며 앱 projection만으로 고쳤다고 보고하지 않는다. D033 읽기 경로와 제안 권한 계약을 함께 이관해야 한다.
+- **D018/D075/D033**: publicCreators가 owner_id와 raw profile 전체를 client props로 전달한다. 공개 DTO allowlist와 nullable 지표로 앱 경계를 보수한다. **기존 직접 REST의 공개 creators 행/owner_id 권한과 user-<Auth UUID> 공개 주소는 별도 출시 차단**이며 앱 projection만으로 고쳤다고 보고하지 않는다. D033 읽기 경로·opaque-ID/alias와 제안 권한 계약을 함께 이관해야 한다.
 - **D051**: RLS·메시지 한도는 있지만 idempotency·cursor 페이지네이션·안전한 첨부·신고 UX는 미완료다. 원장 blocker의 “RLS만” 표현은 quota 증거까지 포함하도록 명확히 하되 완료로 승격하지 않는다.
 - **D073/D080/D014**: 정적 정책 안내/프로필 숨김은 동의 버전·성인 범위 확인·Auth/Storage/파생 데이터 완전 삭제가 아니다. U001 정책 승인과 D079 보존/철회 계약을 발명하지 않는다.
 

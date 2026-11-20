@@ -199,3 +199,8 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - 모바일 controlled checkbox가 router transition-priority URL 업데이트 전 잠깐 되돌아가는 실패를 확인했다. URL을 useSyncExternalStore로 동기 구독해 복구 경합을 제거하고 keyless10/10·실제 DB 공개탐색/DTO4/4 재검증. 네 viewport overflow/keyboard와 desktop/mobile 캡처 확인. 단순 sleep/force/재시도로 우회하지 않았다.
 - D018 steward 계획을 기록한 뒤 allowlist public app DTO, unavailable=null, unconsented links 제외, private/unknown JSON 제외를 구현했다. 매칭 입력 타입만 최소 공개 필드로 분리했고 알고리즘/점수/DB/원본 JSON을 바꾸지 않았다. unit181/22, 실제 로컬 DB/Auth E2E32/32·free4/4 PASS. 초기 새E2E2건은 목록/상세 동명 heading과 URL 이동 대기 누락을 정확한 URL+level1 대기로 고쳤다.
 - 앱 DTO 보수는 직접 REST published creators의 owner_id/raw profile 및 user-<Auth UUID> legacy ID 이관을 대신하지 않는다. D033/D075 연계 개발 및 D017/D019/정규화 read switch는 출시 차단으로 유지한다. 해당 범위를 사용자 소스 편집 작업으로 떠넘기지 않는다. D018 IN_PROGRESS, 외부 승인/DONE 승격 없음.
+
+## 2026-11-20D — D084 실행 증빙 및 전달 준비
+- 최종 코드의 unit181/22·local SQL/RPC→TS1·lint/typecheck/생산 build 통과. 공개 DTO 보수 후 전체 실제 로컬 Auth/DB E2E32, free4 통과. 마지막 D034 URL 동기 구독 보수 뒤 영향4와 keyless10 재검증, 공개 가상 캡처2개를 직접 확인. SQL/REST44 및 SQL rollback3 통과 범위와 미해결 직접 REST/legacy-ID 경계를 구분했다.
+- 새 DEV-A-FILTERS-20261120 증빙에 initial failures/수정/검증 시점/실제 대 fixture 구분을 보존했다. 원장 변경은 D018/D034/D051/D084 네 DEV-A 항목뿐이며 USER/DEV-B/원본 배분은 동일. 상태는 LOCAL5/진행12/부분1/외부2/OPEN23/DONE0.
+- 새로운 source 패킷은 기존 SCHEMA의 검증된 SQL4기준을 바이트 그대로 재사용하며 신규 migration0, 기존19개 불변이다. 이미19개 적용 환경에는 새 SQL 반복 적용이 없다. 기존ZIP4개를 보존하고 외부 콘솔/키/배포 없이 같은 브랜치 commit/push/CI 검증을 이어간다.

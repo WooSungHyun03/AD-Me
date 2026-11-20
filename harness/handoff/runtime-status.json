@@ -592,10 +592,11 @@
         "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
         "harness/evidence/DEV-A-MAIN-20261120/verification.json",
         "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json",
-        "harness/evidence/DEV-A-SCHEMA-20261120/verification.json"
+        "harness/evidence/DEV-A-SCHEMA-20261120/verification.json",
+        "harness/evidence/DEV-A-FILTERS-20261120/verification.json"
       ],
-      "blocker": "Node22 unit156+실제 로컬 SQL/RPC→TS contract1, DB/Auth E2E30·free4·keyless4, SQL/REST44그룹·rollback3·사용자 SQL4기준 통과. 개인정보 삭제·미구현 협업·실제 provider/대상 환경 출시 검증 미완료.",
-      "last_checked_at": "2026-11-20T07:55:56.715994+00:00"
+      "blocker": "Node22 unit181+local DB contract1, 실제 Auth/DB 전체 E2E32 및 최종 URL 보수 뒤 영향4·keyless10·free4, SQL/REST44·rollback3 검증. 직접REST/legacy-ID 노출·미구현 개인정보/협업·실제 provider/출시 검증 미완료.",
+      "last_checked_at": "2026-11-20T08:43:49.378599+00:00"
     },
     "D085": {
       "owner": "DEV-B",
