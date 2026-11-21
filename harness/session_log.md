@@ -283,3 +283,10 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - 035~046 additive SQL: 홈 실제 집계, TEST DB isolation, bounded filtered server search, service Auth HMAC budget, private verified PNG Storage/logo, opaque public refs, normalized policy-gated public read. 기존34 SQL/PK/FK/실데이터 내용 불변, 실제 marked QA 이력46.
 - 최종 unit234/33·DB→TS4·local security17/110·47table/189function/2privatebucket inventory·lint/typecheck/build PASS. 실제 로컬 Auth/Storage desktop/mobile48개 시나리오의 영향 재검증, free actual DB6·keyless10의 영향 filter6 PASS. 첫 실패와 실제 수정은 DEV-A-P0-FINISH-20261121/README.md에 보존. 단일48-green 실행으로 과장하지 않는다.
 - 실제 USER SQL34→46/중간 rollback/미지·중복·수정 baseline STOP/비어 있지 않은6종 데이터 hash/old-to-opaque ID switch 및 cursor 경계 PASS. 새 USER 적용 패킷1개, 이전 ZIP·SQL 산출물은 불변. source/티켓 commit과 실제 push/CI는 최종 인계에 기록한다. 외부 설정/키/배포/메시지 발송 없음.
+
+
+## 2026-11-21 DEV-A 남은 P0 (기존 codex/dev-a-p0-continue)
+
+사용자 요청: 남은 P0 진행, 기존 티켓별 commit/push 권한 유지. 시작7b8fcdc/main65063c8, 첨부 DEV-A와 저장소 동일·shared contract/AGENTS 준수. 기존46 SQL 불변, 추가047~054. D021/D064/D080/D082 LOCAL_VERIFIED, D073 BLOCKED_EXTERNAL, D014/D084 IN_PROGRESS; D007/D009 외부 gate 유지. DONE 없음. 로컬 구현 기준 남은 P0 5개, DEV-A 전체 미완료19개(LOCAL_VERIFIED24/DONE0).
+
+실제 로컬 Auth/DB/Storage와 가상 자료: unit244/36, SQL/REST121그룹19파일, DB→TS4, 전체 desktop/mobile54, 최종 settings4, free6, keyless10, Python 전체9(new4), lint/typecheck/build/harness 통과. 원장/RPC metadata52tables/220functions/2privateBuckets. 실제 생성 USER46→54 packet 독립DB 데이터 보존·오류 rollback·중복 거부·구가입 동의 소급 없음·단방향 활성화 검증. 공급자/SMTP/법률/클라우드 적용 성공은 주장하지 않는다. D014는 production adapter/API 없이 독립 계약만 구현했다. 근거/실패 수정/범위 및 정확한 source/티켓 commit은 harness/evidence/DEV-A-P0-NEXT-20261121/{verification.json,README.md,commits.json}. 새 USER 패킷 deliverables/dev-a-p0-next-20261121/README.md. old artifacts 불변, ZIP 중복 생성 없음. 외부 콘솔/keys/deploy/실제 결제/대외 연락 없음.

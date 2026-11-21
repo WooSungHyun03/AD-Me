@@ -1,6 +1,6 @@
 // Read-only metadata audit in the exact marked loopback QA database.
 import assert from "node:assert/strict";
-import { writeFileSync } from "node:fs";
+import { writeFileSync, existsSync } from "node:fs";
 import { localRuntime, sql } from "../tests/support/local-qa.mjs";
 localRuntime();
 const tables = JSON.parse(
@@ -26,7 +26,9 @@ const storagePolicies = JSON.parse(
 assert.ok(tables.length > 20);
 assert.ok(tables.every((t) => t.rls));
 for (const t of tables.filter((t) =>
-  ["adme_upload", "adme_release", "adme_creator"].includes(t.schema),
+  ["adme_upload", "adme_release", "adme_creator", "adme_consent"].includes(
+    t.schema,
+  ),
 ))
   assert.ok(
     !t.anon_select && !t.authenticated_select,
@@ -34,7 +36,9 @@ for (const t of tables.filter((t) =>
   );
 for (const f of functions.filter(
   (f) =>
-    f.signature.includes("_legacy_ref(") || f.signature.includes("_legacy("),
+    f.signature.includes("_legacy_ref(") ||
+    f.signature.includes("_legacy(") ||
+    /_before\d+\(/.test(f.signature),
 ))
   assert.ok(
     !f.anon_execute && !f.authenticated_execute && !f.service_execute,
@@ -51,7 +55,16 @@ assert.equal(
   4194304,
 );
 writeFileSync(
-  "harness/evidence/D075/permission-inventory-20261121.json",
+  (() => {
+    const path = process.argv[2];
+    assert.ok(
+      path &&
+        /^harness\/evidence\/[A-Za-z0-9/_-]+\.json$/.test(path) &&
+        !existsSync(path),
+      "Choose a new evidence snapshot; prior files are immutable",
+    );
+    return path;
+  })(),
   JSON.stringify(
     {
       at: new Date().toISOString(),

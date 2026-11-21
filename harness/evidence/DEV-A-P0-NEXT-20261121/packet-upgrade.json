@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-21T06:07:41.276Z",
+  "result": "PASS",
+  "from_migrations": 46,
+  "to_migrations": 54,
+  "nonempty_legacy_profiles_campaigns_proposals_messages_orders_jobs_channels_preserved": true,
+  "unknown_history_or_modified_function_stop": true,
+  "mid_bundle_failure_atomic_rollback": true,
+  "duplicate_apply_rejected": true,
+  "stage_retains_legacy_signup_without_fabricating_consent": true,
+  "stage_is_policy_or_security_completion": false,
+  "acknowledged_new_source_records_three_purposes_during_stage": true,
+  "activation_owner_only_one_way_first_stamp_preserved": true,
+  "active_boundary_denies_missing_acknowledgements": true,
+  "policy_and_ingestion_defaults_off": true,
+  "old_unreviewed_cache_hidden_without_erasing_original_rows": true,
+  "scope": "Actual generated SQL in marked independent loopback DB; Auth DB role simulated for rollout. Actual GoTrue exercised separately in local-consent-security. No hosted operation/legal/provider approval."
+}
