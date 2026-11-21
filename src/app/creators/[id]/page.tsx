@@ -1,5 +1,6 @@
 import { PublicAdHistory } from "@/components/public-ad-history";
 import { NormalizedPublic } from "@/components/normalized-public";
+import { MetricHistory } from "@/components/metric-history";
 import { PublicReviewRecords } from "@/components/public-review-records";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
@@ -76,6 +77,7 @@ export default async function Detail({
           </p>
           <p>{c.bio}</p>
           <NormalizedPublic reference={c.seed_id} />
+          <MetricHistory reference={c.seed_id} />
           <div className="tags">
             {c.vibes.map((t) => (
               <span key={t} className="badge">
