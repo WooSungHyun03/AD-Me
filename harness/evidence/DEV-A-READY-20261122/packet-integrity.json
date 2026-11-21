@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-21T16:06:35.767Z",
+  "result": "PASS",
+  "source_head": "25e7f08d379b297a9fdfef84607eab9b7ba7f710",
+  "old60_sql_old_tracked_deliverables_notices_lock_and_policy_snapshot_unchanged": true,
+  "new7_applied_source_matches_ledger": true,
+  "packet_embedded_source_and_manifest_hashes_match": true,
+  "no_intake_policy_provider_activation": true,
+  "external_applied": false
+}

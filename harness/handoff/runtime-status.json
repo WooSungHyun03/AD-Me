@@ -264,15 +264,23 @@
     },
     "D030": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "LOCAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/D030/VERIFY_READY_20261122.md",
+        "harness/evidence/DEV-A-READY-20261122/verification.json"
+      ],
+      "blocker": "로컬 광고 검색/최신승인·정정/철회·개인 경쟁사 권한 구현 검증. 실제 광고/권리/정책·USER67+새앱 적용/실제URL·교차 리뷰 전 DONE 아님. 팀 공유는 D071 범위.",
+      "last_checked_at": "2026-11-21T16:07:49.985119+00:00"
     },
     "D031": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "LOCAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/D031/VERIFY_READY_20261122.md",
+        "harness/evidence/DEV-A-READY-20261122/verification.json"
+      ],
+      "blocker": "시계열/원본·파생/출처·기간·표본·null/0/관측공백 구현. history_allowed 기본OFF, 실제 공급원별 이력 공개/window/근거 승인·D017/D019 실제 자료/USER 적용·URL·교차 리뷰 필요.",
+      "last_checked_at": "2026-11-21T16:07:49.985119+00:00"
     },
     "D032": {
       "owner": "DEV-B",
@@ -300,9 +308,13 @@
     },
     "D035": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "LOCAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/D035/VERIFY_READY_20261122.md",
+        "harness/evidence/DEV-A-READY-20261122/verification.json"
+      ],
+      "blocker": "신선·공개·정책·표본/산식/기간이 허용된 비 YouTube 참여율만 DB 필터/가용성 meta. 실제 공급원 승인/실제 지표/USER 적용·대상URL·교차 검토 전 DONE 아님.",
+      "last_checked_at": "2026-11-21T16:07:49.985119+00:00"
     },
     "D036": {
       "owner": "DEV-B",
@@ -489,9 +501,13 @@
     },
     "D060": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "LOCAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/D060/VERIFY_READY_20261122.md",
+        "harness/evidence/DEV-A-READY-20261122/verification.json"
+      ],
+      "blocker": "최근OTP/현재업무권한·최소DTO/검색/페이지·신고사유/잠금·append-only support audit 구현. 기존 전문 검토/수집 감사와 구분. 보존정책/USER67+앱 적용·실제URL/교차 리뷰 필요.",
+      "last_checked_at": "2026-11-21T16:07:49.985119+00:00"
     },
     "D061": {
       "owner": "DEV-B",

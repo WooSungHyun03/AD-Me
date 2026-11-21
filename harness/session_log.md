@@ -312,3 +312,14 @@ D007 known notice1,602,660bytes/페이지/footer와 actual Linux Node22.23.5 pro
 최종 unit248/38, DB→TS7/actual quarantine3,20security127groups, full desktop/mobile64 +stricter401/403 permission4, free6/keyless10, lint/typecheck/build, Python9/harness5/backlog88/20/6 PASS.57tables/240functions/3privateBuckets audit, 실제 독립 DB USER57→60 preflight/customhookSTOP/rollback/기존비어있지않은data불변/intakeOFF/duplicateSTOP PASS. 가상 계정/파일/정책·TEST값/실패 주입/실제 local infrastructure 구분.
 
 D007/D009/D073 BLOCKED_EXTERNAL, D014/D084 IN_PROGRESS, LOCAL24/외부3/진행2/OPEN14/DONE0 동일·잔여P0 5. 모든 티켓을 검토했지만 승인/실제 파기/출시 완료로 바꾸지 않음. 원본배분/DEV-B D079 재배분/완료 없음. 외부콘솔/키/배포/외부메일·메시지·실제결제 없음. 새 단일 deliverables/dev-a-p0-all-20261121 패킷, ZIP중복없음. source/티켓 commit 및 세부 commands는 evidence DEV-A-P0-ALL-20261121, exact remote/CI와 QA중지(볼륨보존)는 ignored receipt.
+
+
+## 2026-11-22 DEV-A 선행 없는 P1 처리
+
+사용자: 선행 티켓 제외 P0/P1/P2 구현·필요 선행사항 전달. 기존80e8d1e/codex/dev-a-p0-continue·main65063c8 확인. 준비된 D030→D031→D035→D060을 순차 구현/티켓별 commit, 15개(P0 5/P1 8/P2 2)는 보류하고 DEV-A_PREREQUISITES_20261122에 담당/필요 결과를 정리했다. 원본배분·다른39 티켓/USER 상태 불변. LOCAL28/외부3/진행2/OPEN10/DONE0.
+
+061~067: 최신 승인 광고 검색/총건수/커서·개인 브랜드 경쟁사, 공개 관측 그래프/단위·산식/표본/기간/0·null·갭, 승인 fresh 비 YouTube 참여율 필터/가용성meta, 업무역할별 운영검색·사유/요청ID/append-only 지원감사. 역사 공개는 현재값 승인과 별도 defaultOFF/window/근거로 제한, 새 승인/활성화 없음. 기존60/과거패킷/고지/lock/정책snapshot 불변. 새 USER60→67 단일 SQL 패킷을 실제 독립 DB에 적용/rollback/비어있지않은 자료·이력 보존/unknown·custom hook·modified baseline·duplicate STOP 검증했다. 66검증 proof도 보존.
+
+최종 unit257/41·actual DB계약7/5·security23파일138그룹·lint/typecheck/production build·Python9/harness5/backlog PASS. full browser68 중62pass/6fail(새 운영경로/선택자 기대), 영향8 재검증6pass/2fail(추가axe가 광고notice 대비 발견), scoped대비 fix 후새4pass, 최종067 history gate/window 포함새4pass. 단일68green으로 과장하지 않는다. unchanged 시나리오 재실행 대신 영향만 검증. free6/keyless10 PASS, native Auth/TOTP와 합성 권한 JWT·가상 자료/정책을 구분. 기존review 보안 검사 old5 RLS table 기대가 새competitors로6이 된 것을 고쳐9그룹 재검증, grant 거부 기준 유지. packet QA 초기fixture는 미시드profile SELECT0을 literal 가상 자료로 수정. 적용065 실패 문법은 transaction rollback 후 최초 적용, 적용 SQL 수정 없음.
+
+자세한 source/커밋/명령·실패/범위: evidence DEV-A-READY-20261122. 운영가이드 discovery-support-contract, 미확정 처리register 보강. 외부콘솔/키/호스팅배포/외부메일·연락/실제결제 없음. 미확정 U001 답변 유지, D014 영구파기/D079·공급자·SMTP·권리·출시 gate 그대로. exact remote/CI·QA중지(볼륨 보존)는 ignored receipt로 기록한다.

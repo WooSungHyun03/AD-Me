@@ -115,7 +115,7 @@ try {
         sql(
           "select count(*) from pg_class c where c.relnamespace='adme_review'::regnamespace and c.relkind='r' and c.relrowsecurity;",
         ),
-        "5",
+        "6",
       );
     },
   );

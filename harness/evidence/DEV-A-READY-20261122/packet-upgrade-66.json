@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-21T15:50:39.328Z",
+  "result": "PASS",
+  "from_migrations": 60,
+  "to_migrations": 66,
+  "unknown_history_custom_hook_modified_function_rejected": true,
+  "mid_bundle_failure_atomic_rollback": true,
+  "nonempty_profiles_creators_campaigns_ad_history_original_metric_values_preserved": true,
+  "old60_source_ledger_unchanged": true,
+  "private_tables_default_deny": true,
+  "policy_intake_not_activated": true,
+  "duplicate_apply_rejected": true,
+  "scope": "Actual generated USER SQL in independent marked loopback DB; fictional records, no hosted deployment/provider approval"
+}
