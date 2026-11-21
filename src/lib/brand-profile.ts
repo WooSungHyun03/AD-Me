@@ -1,10 +1,11 @@
 import { z } from "zod";
+import { safePublicText } from "./sensitive-data";
 
 export const brandAccountSchema = z
   .object({
-    brandName: z.string().trim().min(2).max(120),
-    industry: z.string().trim().min(1).max(80),
-    introduction: z.string().trim().max(2000),
+    brandName: z.string().trim().min(2).max(120).refine(safePublicText),
+    industry: z.string().trim().min(1).max(80).refine(safePublicText),
+    introduction: z.string().trim().max(2000).refine(safePublicText),
     published: z.boolean(),
     contactName: z.string().trim().max(80),
     contactEmail: z.union([z.literal(""), z.email().max(254)]),
@@ -33,7 +34,13 @@ export type BrandPublicRow = {
   published: boolean;
 };
 export function publicBrandDTO(row: BrandPublicRow) {
-  if (!row.published) return null;
+  if (
+    !row.published ||
+    !safePublicText(row.brand_name) ||
+    !safePublicText(row.industry) ||
+    !safePublicText(row.introduction)
+  )
+    return null;
   return {
     version: 1 as const,
     id: row.id,

@@ -2,6 +2,7 @@ import { z } from "zod";
 import { creatorPlatforms } from "./service-catalog";
 import { normalizeSocialLink } from "./social-links";
 import { campaignBriefTermsStorageSchema } from "./campaign-brief";
+import { safePublicText } from "./sensitive-data";
 export const campaignSchema = z.object({
   title: z.string().trim().min(2).max(120),
   product: z.string().trim().min(1).max(120),
@@ -16,9 +17,23 @@ export const campaignSchema = z.object({
   terms: campaignBriefTermsStorageSchema.optional(),
 });
 export const profileSchema = z
-  .object({
-    name: z.string().trim().min(2).max(80),
-    bio: z.string().max(1000),
+  .strictObject({
+    name: z
+      .string()
+      .trim()
+      .min(2)
+      .max(80)
+      .refine(
+        safePublicText,
+        "공개 이름에서 개인 연락처·고유식별번호를 제외해주세요.",
+      ),
+    bio: z
+      .string()
+      .max(1000)
+      .refine(
+        safePublicText,
+        "공개 소개에서 개인 연락처·고유식별번호를 제외해주세요.",
+      ),
     social_url: z
       .union([
         z.literal(""),

@@ -29,7 +29,10 @@ export function ProfileForm({ initial = {} }: { initial?: Profile }) {
         setPending(true);
         const f = new FormData(e.currentTarget);
         const body = {
-          ...Object.fromEntries(f),
+          name: String(f.get("name") ?? ""),
+          bio: String(f.get("bio") ?? ""),
+          social_url: String(f.get("social_url") ?? ""),
+          portfolio_url: String(f.get("portfolio_url") ?? ""),
           categories: [f.get("category")],
           vibes: [f.get("vibe")],
           formats: [f.get("format")],
@@ -76,6 +79,10 @@ export function ProfileForm({ initial = {} }: { initial?: Profile }) {
           defaultValue={initial.bio}
         />
       </label>
+      <p className="notice">
+        공개 소개에는 개인 이메일·전화번호·주민등록번호를 넣지 마세요.
+        건강·정치·종교 등 민감 특성이나 얼굴 인식을 지표로 수집하지 않습니다.
+      </p>
       <label className="field">
         대표 SNS 링크
         <input

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { safeHttpsLink } from "../social-links";
+import { safeMetricName, safePublicText } from "../sensitive-data";
 
 const publicSource = z
   .string()
@@ -8,27 +9,33 @@ const publicSource = z
 const version = z.string().min(1).max(80);
 const time = z.iso.datetime({ offset: true });
 
+// Projection of an already validated identity; handles are never part of its key.
 export const providerKeySchema = z.object({
   provider: z.enum(["youtube", "instagram", "tiktok", "approved_web"]),
   externalId: z.string().min(1).max(256),
 });
 
-export const creatorIdentitySchema = providerKeySchema.extend({
-  id: z.uuid(),
-  handle: z.string().min(1).max(160).nullable(),
-  displayName: z.string().trim().min(1).max(160),
-  canonicalUrl: publicSource,
-  observedAt: time,
-  claimStatus: z.enum(["unclaimed", "pending", "claimed"]),
-  ownerId: z.uuid().nullable(),
-  ownerConsent: z.boolean(),
-  publicationStatus: z.enum(["private", "published"]),
-  moderationStatus: z.enum(["allowed", "restricted"]),
-  isDemo: z.boolean(),
-});
+export const creatorIdentitySchema = providerKeySchema
+  .extend({
+    id: z.uuid(),
+    handle: z.string().min(1).max(160).nullable(),
+    displayName: z.string().trim().min(1).max(160).refine(safePublicText),
+    canonicalUrl: publicSource,
+    observedAt: time,
+    claimStatus: z.enum(["unclaimed", "pending", "claimed"]),
+    ownerId: z.uuid().nullable(),
+    ownerConsent: z.boolean(),
+    publicationStatus: z.enum(["private", "published"]),
+    moderationStatus: z.enum(["allowed", "restricted"]),
+    isDemo: z.boolean(),
+  })
+  .strict();
 
-export const metricObservationSchema = z.object({
-  name: z.string().regex(/^[a-z][a-z0-9_]{0,79}$/),
+export const metricObservationSchema = z.strictObject({
+  name: z
+    .string()
+    .regex(/^[a-z][a-z0-9_]{0,79}$/)
+    .refine(safeMetricName),
   value: z.number().nonnegative().nullable(),
   unit: z.enum(["count", "percent", "ratio"]),
   observedAt: time,
