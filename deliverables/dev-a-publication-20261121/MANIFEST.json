@@ -1,0 +1,40 @@
+{
+  "baseline_head": "0a2be26f2c1571c68d51378e2d84908bec8eef3b",
+  "source_head": "5b94cd78ab1034ee59e1b1aeefb5ff96cc284d6c",
+  "from_migrations": 54,
+  "to_migrations": 57,
+  "sources": [
+    {
+      "path": "supabase/migrations/202611210055_publication_transactions.sql",
+      "sha256_lf": "439b75ace598ae8b3ce762b7e54628046186379d96e114b9155bb8b421190e69"
+    },
+    {
+      "path": "supabase/migrations/202611210056_publication_guard_record.sql",
+      "sha256_lf": "562bf777ce07e11f73232cba999afa9c29dfa8c959b997ee89a044c5fb0f1560"
+    },
+    {
+      "path": "supabase/migrations/202611210057_global_withdrawal_receipts.sql",
+      "sha256_lf": "e55f629ebe2947c12a0242031c1f2f63ce607afe6fe9a64cd6240ed3f92cf84d"
+    }
+  ],
+  "files": [
+    {
+      "path": "00_preflight.sql",
+      "sha256_lf": "dc0d2ff291883aa50a6df64780f375cf31dcc23f34b3dad4736039b58f441996"
+    },
+    {
+      "path": "01_apply_current_54.sql",
+      "sha256_lf": "80a412eae14c0e297d1f7f43a358a0a800d8111fb8903d65b5140c4891750806"
+    },
+    {
+      "path": "02_verify.sql",
+      "sha256_lf": "18cfcb73c247f55911c11d88f108294a4a0cf28e42111eb57986ce0d51774da5"
+    },
+    {
+      "path": "03_activate_after_source_review.sql",
+      "sha256_lf": "55330ff43d33064baaa2ebacdf5ca67781f4a6c0bbac82cc9e1e24071c53dc4e"
+    }
+  ],
+  "external_applied": false,
+  "stage_is_publication_consent_completion": false
+}

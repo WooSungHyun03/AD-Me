@@ -1,0 +1,8 @@
+-- STOP on unknown/modified/partial baseline. Never edit history to force this gate.
+do $$begin
+ if(select count(*) from supabase_migrations.schema_migrations)<>54 or exists(select 1 from supabase_migrations.schema_migrations where version not in('202611190001','202611190002','202611190003','202611190004','202611190005','202611190006','202611190007','202611200001','202611200002','202611200003','202611200004','202611200005','202611200006','202611200007','202611200008','202611200010','202611200011','202611200012','202611200013','202611200014','202611200015','202611200016','202611200017','202611200018','202611200019','202611200020','202611200021','202611200022','202611200023','202611200024','202611200025','202611200026','202611200027','202611200028','202611210035','202611210036','202611210037','202611210038','202611210039','202611210040','202611210041','202611210042','202611210043','202611210044','202611210045','202611210046','202611210047','202611210048','202611210049','202611210050','202611210051','202611210052','202611210053','202611210054'))
+ or to_regclass('adme_consent.publication_boundary') is not null or to_regclass('adme_consent.publication_requests') is not null
+ or md5(replace(pg_get_functiondef('adme_consent.record_optional(text,text,boolean,uuid)'::regprocedure),E'\r\n',E'\n'))<>'b072d31073d9e9fb7d247e468594d127'
+ or md5(replace(pg_get_functiondef('public.save_brand_account(text,text,text,text,boolean,text,text,text)'::regprocedure),E'\r\n',E'\n'))<>'5a39e0feef70d6d1433859865e5f7082'
+ then raise exception 'STOP: expected reviewed54 baseline; developer inspection required';end if;
+end$$;

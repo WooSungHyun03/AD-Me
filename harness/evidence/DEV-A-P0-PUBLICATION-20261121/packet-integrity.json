@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-21T06:50:01.020Z",
+  "result": "PASS",
+  "source_head": "5b94cd78ab1034ee59e1b1aeefb5ff96cc284d6c",
+  "old54_source_and_old_tracked_packets_unchanged": true,
+  "new3_applied_source_matches_ledger": true,
+  "new3_bundle_embedded_source_matches": true,
+  "manifest_sql_hashes_match": true,
+  "final_source_activation_sql_executed_in_marked_root_qa": true,
+  "first_stamp_preserved_on_repeat": true,
+  "activation_previous_ref": "NULL",
+  "upgrade_evidence": "packet-upgrade.json: same01 SQL;03 only release ref regenerated after source commits",
+  "external_applied": false
+}

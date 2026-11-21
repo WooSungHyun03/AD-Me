@@ -11,3 +11,5 @@ strict 경계는 기존 direct REST/brand·logo RPC의 공개 갱신 우회를 �
 실제 검증에서 발견한055 trigger의 brand record에 없는 profile 필드 참조는056 forward fix로 수정했다.055를 고쳐 쓰지 않았다. 패킷 검증의 forbidden owner_id WHERE 조건은 공개 id로 수정해 private owner 열 권한을 유지했다. CLI raw reset의 CRLF와 이전 packet LF 차이는 함수 fingerprint에서 CRLF→LF만 정규화했으며, unknown history·보안 속성 변경·중간 오류 롤백 negative를 유지했다. 원장 시각은 사용자 timestamp가 아닌 DB clock으로 기록한다.
 
 실제 local GoTrue/Postgres/PostgREST/Storage + 명백한 가상 자료/정책 승인/TEST fixture다. 공급자 호출·법률 승인·외부 SMTP·클라우드 적용·배포·대외 메시지 발송 없음. USER 패킷은 하나의54→57 증분이며 stage는 동의 통합 완료가 아니다. D073은 U001 최종 내용/보존·위탁/국외이전/권리 절차 승인 대기로 유지한다. D014 실제 삭제 어댑터·D079 보존/백업 재삭제와 D084 전체 공급자/출시 게이트는 미완료다. P0 잔여5개를 숫자만 줄이기 위해 DONE 처리하지 않는다.
+
+최종 source5b94cd78ab1034ee59e1b1aeefb5ff96cc284d6c와 USER SQL/적용 이력은 [packet-integrity.json](packet-integrity.json)에 대조했다. 기존54 source/이전 tracked 패킷 불변, 새3 SQL의 ledger/embedded source/manifest 일치, 최종 source 활성화 SQL을 marked root QA에서 실행하고 최초 stamp 재실행 불변 PASS. 문서/패킷 후속 커밋은 제품 소스를 바꾸지 않는다. 최종 두-role 캡처는 실제 새 문서·streamed h1 준비를 기다려 확인했으며 초기 loading-only 캡처를 완료 화면 증거로 사용하지 않았다.
