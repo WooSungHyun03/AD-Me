@@ -34,7 +34,30 @@ assert.equal(
   manifest.lockfile_sha256_lf,
 );
 for (const s of manifest.sources)
-  assert.equal(sha(Buffer.from(readFileSync(s.path,'utf8').replaceAll('\r\n','\n'))), s.sha256_lf);
+  assert.equal(
+    sha(Buffer.from(readFileSync(s.path, "utf8").replaceAll("\r\n", "\n"))),
+    s.sha256_lf,
+  );
+const supplementManifest = JSON.parse(
+  readFileSync("docs/licenses/20261122-supplement/manifest.json", "utf8"),
+);
+const supplement = readFileSync(supplementManifest.shipped_path);
+assert.equal(sha(supplement), supplementManifest.sha256);
+assert.equal(
+  supplementManifest.lockfile_sha256_lf,
+  manifest.lockfile_sha256_lf,
+);
+const supplementInventoryText = readFileSync(
+  "docs/licenses/20261122-supplement/inventory.json",
+  "utf8",
+).replaceAll("\r\n", "\n");
+assert.equal(
+  sha(Buffer.from(supplementInventoryText)),
+  supplementManifest.inventory_sha256_lf,
+);
+const supplementalIndex = new Map(
+  JSON.parse(supplementInventoryText).map((r) => [r.path, r]),
+);
 function csv(text) {
   const rows = [];
   let row = [],
@@ -117,6 +140,27 @@ for (const trace of traces)
       version: entry.version,
       review: r.review,
       license: r.license,
+      supplemental_material: supplementalIndex.has(key)
+        ? (() => {
+            const item = supplementalIndex.get(key);
+            assert.equal(item.version, entry.version);
+            assert.equal(item.package_metadata_verified, true);
+            assert.equal(
+              item.archive_integrity,
+              lock.packages[item.carrier]?.integrity,
+            );
+            assert.equal(item.source, lock.packages[item.carrier]?.resolved);
+            assert.equal(item.notice_complete, false);
+            return {
+              review: item.review,
+              declared_license: item.declared_license,
+              carrier: item.carrier,
+              exact_archive_verified: true,
+              materials: item.files.map((f) => f.kind),
+              notice_complete: false,
+            };
+          })()
+        : null,
     });
   }
 let http = false;
@@ -152,6 +196,14 @@ if (args.includes("--probe")) {
       await new Promise((r) => setTimeout(r, 250));
     }
     assert.ok(ready, "Local notice HTTP probe failed");
+    const extra = await fetch(
+      "http://127.0.0.1:3217/legal/third-party-supplement-20261122.txt",
+    );
+    assert.ok(extra.ok);
+    assert.equal(
+      sha(Buffer.from(await extra.arrayBuffer())),
+      supplementManifest.sha256,
+    );
     const page = await fetch("http://127.0.0.1:3217/licenses");
     assert.ok(page.ok && (await page.text()).includes("오픈소스 고지"));
     http = true;
@@ -178,6 +230,12 @@ const result = {
   unresolved_runtime_packages: gaps,
   package_versions_match_lock: true,
   known_notice_file_sha256: manifest.sha256,
+  supplemental_material_sha256: supplementManifest.sha256,
+  supplemental_material_bytes: supplement.length,
+  runtime_with_exact_archive_disclosure: rows.filter((r) =>
+    r.supplemental_material?.materials.includes("README_LICENSING_DISCLOSURE"),
+  ).length,
+  supplemental_material_does_not_close_notice_or_source_obligations: true,
   notice_bytes: notice.length,
   source_documents_unchanged: true,
   http_notice_and_korean_page_verified: http,

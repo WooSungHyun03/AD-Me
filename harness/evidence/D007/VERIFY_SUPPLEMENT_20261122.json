@@ -1,0 +1,71 @@
+{
+  "at": "2026-11-21T16:28:21.423995+00:00",
+  "base_commit": "8d9232c755012eb81b3bc85f27d1b16e886ad55c",
+  "branch": "codex/dev-a-p0-continue",
+  "tested_source_tree": "67dc4a47c2ab5f1aed6195cea16cd6677ddc33e2",
+  "source_binding": "Git tree compiled in isolated Linux; all final product/audit/generator/test/material paths match tree. Follow-up evidence/runtime/session records only.",
+  "ticket": "D007",
+  "status": "BLOCKED_EXTERNAL",
+  "summary": {
+    "total_previous_unresolved": 71,
+    "metadata_verified": 71,
+    "archive_blocked": 0,
+    "notice_text_recovered": 0,
+    "readme_disclosures": 10,
+    "declaration_only": 61,
+    "notice_complete_claims": 0,
+    "rights_approval": false
+  },
+  "shipped": {
+    "path": "public/legal/third-party-supplement-20261122.txt",
+    "bytes": 58218,
+    "sha256": "210db707d6ac9185a48ea01eb105d2335db56c99d3ae669ed179a0abe3175006"
+  },
+  "checks": {
+    "artifact_metadata": "71/71 exact name/version and SRI; three previously blocked carriers/root shapes now verified",
+    "python": "14 PASS, five new archive/identity/URL/SRI/path/link/LF/overwrite regression tests",
+    "unit": "257/41 PASS",
+    "lint": "PASS no warnings",
+    "typecheck": "PASS",
+    "browser": "12/12 PASS same keyless production build; includes desktop/mobile notice links and old/new byte hashes, axe zero violations, no overflow",
+    "build": "Windows keyless and isolated Linux Node22.23.5 production PASS",
+    "linux": {
+      "traced_packages": 17,
+      "full_notice_gaps": 4,
+      "exact_disclosures": 2,
+      "http": true
+    },
+    "win32": {
+      "traced_packages": 12,
+      "full_notice_gaps": 2,
+      "http": true
+    },
+    "harness": "5 PASS; backlog88/USER20/deferred6 and historical40 preserved",
+    "old_artifacts_and_sql_and_lock_and_policy": "UNCHANGED",
+    "final_source_matches_linux_tree": true
+  },
+  "prior_evidence_reused": {
+    "source_head": "8d9232c755012eb81b3bc85f27d1b16e886ad55c",
+    "scope": "DB/Auth/RLS/domain code unchanged; previous actual DB7/security138/role workflows remain referenced, not rerun or claimed current provider proof."
+  },
+  "failure_and_fix": "Initial manifest inventory_sha256_lf hashed Windows CRLF bytes. Auditor rejected it before probing. Generator now writes LF JSON, new cross-platform regression passes; first attempt preserved ignored. Public supplement bytes unchanged, so passing12 browser proof remains valid.",
+  "external": {
+    "config_or_deployment": false,
+    "keys": false,
+    "outreach": false,
+    "real_payment": false,
+    "provider_verification": false,
+    "rights_approval": false
+  },
+  "remaining": {
+    "total": 15,
+    "P0": 5,
+    "P1": 8,
+    "P2": 2
+  },
+  "limitations": [
+    "README licensing disclosures and component versions do not supply absent complete permission/copyright or prove source/relink compliance. No new full notice resolved.",
+    "Linux four/Windows two runtime notice review gates remain; all71 previous cases still need applicable full-notice/obligation review despite metadata verification.",
+    "D073/U001 policy facts and DEV-B/API/provider/SMTP/actual deployment gates unchanged; no dependency assumed complete."
+  ]
+}

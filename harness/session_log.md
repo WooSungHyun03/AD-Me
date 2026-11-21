@@ -323,3 +323,12 @@ D007/D009/D073 BLOCKED_EXTERNAL, D014/D084 IN_PROGRESS, LOCAL24/외부3/진행2/
 최종 unit257/41·actual DB계약7/5·security23파일138그룹·lint/typecheck/production build·Python9/harness5/backlog PASS. full browser68 중62pass/6fail(새 운영경로/선택자 기대), 영향8 재검증6pass/2fail(추가axe가 광고notice 대비 발견), scoped대비 fix 후새4pass, 최종067 history gate/window 포함새4pass. 단일68green으로 과장하지 않는다. unchanged 시나리오 재실행 대신 영향만 검증. free6/keyless10 PASS, native Auth/TOTP와 합성 권한 JWT·가상 자료/정책을 구분. 기존review 보안 검사 old5 RLS table 기대가 새competitors로6이 된 것을 고쳐9그룹 재검증, grant 거부 기준 유지. packet QA 초기fixture는 미시드profile SELECT0을 literal 가상 자료로 수정. 적용065 실패 문법은 transaction rollback 후 최초 적용, 적용 SQL 수정 없음.
 
 자세한 source/커밋/명령·실패/범위: evidence DEV-A-READY-20261122. 운영가이드 discovery-support-contract, 미확정 처리register 보강. 외부콘솔/키/호스팅배포/외부메일·연락/실제결제 없음. 미확정 U001 답변 유지, D014 영구파기/D079·공급자·SMTP·권리·출시 gate 그대로. exact remote/CI·QA중지(볼륨 보존)는 ignored receipt로 기록한다.
+
+
+## 2026-11-22 DEV-A D007 독립 고지 보완
+
+사용자 잔여 요청에 기존8d9232c/동일브랜치·main65063c8/전체원장·계약/세션을 확인했다. 새 선행완료 기록 없음. 앞선 선행대기 제외 원칙을 유지하고 독립 P0 D007만 진행했다. 기존 미확인71개 exact archive SRI/name/version을 대조: inBundle carrier2·비표준 @types root1의 archive 검증 실패3→0, README Licensing/versions10개 확보. SPDX 선언/README를 완전한 permission/copyright 원문으로 바꾸거나 임의 저작권자를 작성하지 않았다. full notice 새 해결0, D007 BLOCKED_EXTERNAL·잔여15(P0 5/P1 8/P2 2), 다른42/USER 상태 불변.
+
+원문 supplement58,218bytes와 /licenses 링크, 새안전 추출기/immutable Linux Git-tree build helper·desktop/mobile notice+keyless 검증을 추가했다. unit257/41·Python14(새5)/Harness5/backlog·lint/typecheck·browser12/axe·Windows/Linux 실제build/HTTP hashes PASS. Linux17traced/미확인4(그중 exact disclosure2), Win12/미확인2 그대로이며 material collection과 rights review를 구분한다. 첫 inventory LF hash 혼동은 audit가 거부, generator LF JSON과 회귀검사로 수정했고 첫 시도 ignored보존/공개body동일. 적용SQL67/과거고지·패킷·lock·정책snapshot·DB/Auth권한 경로 불변. 영향없는 기존 DB7/security138·역할 시나리오는8d9232c proof를 인용, 공급자 통과로 확대하지 않음.
+
+증거 D007/VERIFY_SUPPLEMENT_20261122.json과 두 runtime proof, 자료 docs/licenses/20261122-supplement. 외부콘솔/키/배포/연락·메일/실제결제 없음. SQL/handoff 변경 없어 사용자 적용 ZIP/SQL 패킷 반복 생성 없음. 기존브랜치 D007 commit/push/정확CI 확인 및 Linux --rm container 종료/기존 QA volumes 보존은 ignoredreceipt에 기록한다.

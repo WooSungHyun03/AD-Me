@@ -61,10 +61,14 @@
         "harness/evidence/D007/VERIFY_20261121.md",
         "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json",
         "harness/evidence/D007/VERIFY_ALL_20261121.md",
-        "harness/evidence/DEV-A-P0-ALL-20261121/verification.json"
+        "harness/evidence/DEV-A-P0-ALL-20261121/verification.json",
+        "harness/evidence/D007/VERIFY_SUPPLEMENT_20261122.json",
+        "harness/evidence/D007/supplement-runtime-linux-20261122.json",
+        "harness/evidence/D007/supplement-runtime-win32-20261122.json",
+        "docs/licenses/20261122-supplement/summary.json"
       ],
-      "blocker": "알려진 exact notices1,602,660bytes 실제 제공 및 Windows/Linux production trace/HTTP 검증. Linux17개 traced package 중 고지4개, Windows12개 중2개 미확인; 전체 optional archive71개·로고/외부자료 권리·실제 최종 호스팅/Edge 산출물 review 남음. 법적 승인 아님.",
-      "last_checked_at": "2026-11-21T10:56:22.341913+00:00"
+      "blocker": "기존 고지 불변 + supplement58,218bytes 실제 제공. 이전71개 exact SRI/name/version metadata 검증(archive 실패3→0), README Licensing/구성요소 자료10개 확보. full notice 새 해결0이며 Linux runtime4/Windows2 full notice·source/relink/optional71·로고/외부자료 권리·최종 호스팅/Edge 검토는 계속 남음. 자료 수집과 법적 승인 구분.",
+      "last_checked_at": "2026-11-21T16:28:21.423995+00:00"
     },
     "D008": {
       "owner": "DEV-A",
