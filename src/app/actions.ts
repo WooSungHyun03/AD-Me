@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { configured, supabase } from "@/lib/supabase";
 import { getConfig } from "@/lib/config";
+import { reserveRequestBudget } from "@/lib/request-budget";
 import {
   isPrivateSignupResult,
   signupEmailAcknowledgement,
@@ -29,6 +30,8 @@ export async function authAction(_: unknown, form: FormData) {
   if (d.mode === "signup" && features.mail !== "enabled")
     return { error: "가입 메일 서비스 연결을 준비 중입니다." };
   const db = await supabase();
+  const budget = await reserveRequestBudget(d.mode, d.email);
+  if (budget) return { error: budget };
   const result =
     d.mode === "signup"
       ? await db.auth.signUp({

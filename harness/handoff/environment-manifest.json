@@ -40,10 +40,10 @@
     },
     {
       "name": "SUPABASE_SERVICE_ROLE_KEY",
-      "status": "RUNTIME_PROVIDED",
+      "status": "USER_ACTION_REQUIRED",
       "classification": "SECRET",
-      "location": "Supabase runtime",
-      "consumer": "supabase/functions/payment-confirm/index.ts"
+      "location": "Supabase Edge runtime; Vercel server-only for verified images and keyed request budgets",
+      "consumer": "src/lib/server-admin.ts"
     },
     {
       "name": "NEXT_PUBLIC_APP_URL",
@@ -157,6 +157,13 @@
       "location": "USER-managed outbound worker; DB stores hash only",
       "consumer": "scripts/intelligence_worker.py",
       "database_guard": "adme_ops.verify_worker(text)"
+    },
+    {
+      "name": "VERCEL",
+      "status": "RUNTIME_PROVIDED",
+      "classification": "PUBLIC",
+      "location": "Vercel built-in, never manually spoof in a proxy",
+      "consumer": "src/lib/request-budget.ts"
     }
   ],
   "technical_execution": "USER"

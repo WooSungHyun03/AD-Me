@@ -7,7 +7,9 @@ const mocks = vi.hoisted(() => ({
   resetPasswordForEmail: vi.fn(),
   resend: vi.fn(),
   signUp: vi.fn(),
+  budget:vi.fn(),
 }));
+vi.mock("@/lib/request-budget",()=>({reserveRequestBudget:mocks.budget}));
 vi.mock("@/lib/supabase", () => ({
   configured: mocks.configured,
   supabase: async () => ({ auth: mocks }),
@@ -45,6 +47,7 @@ beforeEach(() => {
   vi.stubEnv("ADME_FEATURE_MAIL", "on");
   mocks.configured.mockReturnValue(true);
   mocks.signOut.mockResolvedValue({ error: null });
+  mocks.budget.mockResolvedValue(null);
 });
 afterEach(() => vi.unstubAllEnvs());
 describe("email confirmation and recovery server actions", () => {

@@ -47,6 +47,17 @@ export function parseConfig(env: Readonly<Record<string, string | undefined>>) {
     ADME_FEATURE_TEST_BILLING: z.enum(["off", "on"]),
     ADME_FEATURE_INGESTION: z.enum(["off", "on"]),
     ADME_FEATURE_LLM: z.enum(["off", "on"]),
+    SUPABASE_SERVICE_ROLE_KEY: z.string().refine((value) => {
+      if (/^sb_secret_[\w-]+$/.test(value)) return true;
+      try {
+        return (
+          JSON.parse(Buffer.from(value.split(".")[1], "base64url").toString())
+            .role === "service_role"
+        );
+      } catch {
+        return false;
+      }
+    }),
   };
   type Setting = keyof typeof schemas;
   const settings: { name: Setting; reason: "missing" | "invalid" }[] = [];
@@ -73,6 +84,11 @@ export function parseConfig(env: Readonly<Record<string, string | undefined>>) {
   const billingFlag = read("ADME_FEATURE_TEST_BILLING", "off");
   const ingestionFlag = read("ADME_FEATURE_INGESTION", "off");
   const llmFlag = read("ADME_FEATURE_LLM", "off");
+  const uploads = !!(
+    supabase &&
+    env.SUPABASE_SERVICE_ROLE_KEY &&
+    read("SUPABASE_SERVICE_ROLE_KEY")
+  );
   const features = {
     mail:
       mailFlag !== "on"
@@ -105,7 +121,7 @@ export function parseConfig(env: Readonly<Record<string, string | undefined>>) {
     features,
     diagnostics: {
       settings,
-      availability: { account: Boolean(supabase), ...features },
+      availability: { account: Boolean(supabase), uploads, ...features },
     },
   };
 }

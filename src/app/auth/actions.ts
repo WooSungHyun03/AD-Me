@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { configured, supabase } from "@/lib/supabase";
 import { getConfig } from "@/lib/config";
+import { reserveRequestBudget } from "@/lib/request-budget";
 import {
   emailProofSchema,
   isPrivateSignupResult,
@@ -22,6 +23,8 @@ export async function resendSignupEmail(
   const { appOrigin, features } = getConfig();
   if (features.mail !== "enabled")
     return { error: "가입 메일 서비스 연결을 준비 중입니다." };
+  const budget = await reserveRequestBudget("resend", email.data);
+  if (budget) return { error: budget };
   const db = await supabase();
   const { error } = await db.auth.resend({
     type: "signup",
@@ -45,6 +48,8 @@ export async function requestRecovery(
   if (features.mail !== "enabled")
     return { error: "계정 서비스 연결을 준비 중입니다." };
   const db = await supabase();
+  const budget = await reserveRequestBudget("recovery", email.data);
+  if (budget) return { error: budget };
   const { error } = await db.auth.resetPasswordForEmail(email.data, {
     redirectTo: `${appOrigin}/auth/confirm`,
   });
