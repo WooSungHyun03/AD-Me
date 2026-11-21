@@ -8,6 +8,7 @@
 |약관·개인정보 안내·성인 자기확인|Auth trigger가 actor/version/purpose/서버UTC시각/방법/멱등키를 append-only 저장. 본인 최근50개 외 원장 접근 불가|미리 체크하지 않음. 정책별 근거 검토가 동의의 법적 적정성을 대신하지 않음. Auth 파기 시 원장 FK cascade, 별도 보존 예외는 D079 승인 필요|
 |선택적 공개 프로필·SNS 링크/브랜드 소개|권리·공개 선택, 기존 owner/claim/moderation·공개 DTO 적용|가입과 별도. 철회 시 기존/정규화 프로필 비공개, 계정/Storage 전체 삭제 아님|
 |공개 저장 동의·재시도 receipt|새 save_publication이 creator/brand scope와 정책 버전/hash/서버 시각·요청 키를 실제 저장과 한 트랜잭션에 기록. global 철회와 구분|private actor/key/scope/payload hash·결과 ID만 저장. hash를 익명으로 단정하지 않음. 최종 보존/예외는 D079/U001 검토. Auth 삭제 cascade|
+|계정 삭제 접수·파일 격리(기본 비활성)|본인 재인증 후 request/actor/접수·재인증 시각/receipt hash/단계·lease와 검증된 private 보관 복사본을 처리. 접수 비밀값·비밀번호·OTP를 DB/주소/로그에 저장하지 않음|영구 파기 엔진·보존 기간/예외/백업 재삭제는 D079/U001 미확정. 현재 정책 snapshot에 새 온라인 접수 고지·확정 기간을 반영하기 전 intake를 활성화하지 않음. hash/UUID도 익명 보장 아님|
 |담당자가 명시한 업무 연락 이메일|비공개 담당자 저장, 선택한 현재 협업 상대 권한 확인|공개 소개 필드와 분리. 업무 목적/보존 검토, 사적 연락처 대량 수집·외부 스크랩 금지|
 |캠페인·제안·메시지·결과물/첨부|현재 당사자 협업. 업로드 실제 디코딩·위치 메타데이터 제거·private Storage|공동 기록/분쟁 증거/예외 근거와 기한은 D079. unlink/공개 철회를 바이트 파기로 보고하지 않음|
 |승인된 공식 출처의 필드·관측 지표|출처/정책 버전·시간·동의·claim 확인, 0/null/TTL 구분|D017/D019 실제 승인/수집 전 기본 비활성. source policy/보존/삭제 tombstone 검토|
