@@ -59,10 +59,12 @@
         "harness/evidence/D007/README.md",
         "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
         "harness/evidence/D007/VERIFY_20261121.md",
-        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json"
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json",
+        "harness/evidence/D007/VERIFY_ALL_20261121.md",
+        "harness/evidence/DEV-A-P0-ALL-20261121/verification.json"
       ],
-      "blocker": "71개 배포 대상/상위 소스 고지 근거, 실제 Linux/Edge 최종 산출물 포함 여부, 제공 로고/외부 콘텐츠 재배포 범위와 필요한 권리 승인이 미검증이다. 법적 동의/권리 승인을 대신 수행하거나 전체 ticket DONE으로 표시하지 않는다.",
-      "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
+      "blocker": "알려진 exact notices1,602,660bytes 실제 제공 및 Windows/Linux production trace/HTTP 검증. Linux17개 traced package 중 고지4개, Windows12개 중2개 미확인; 전체 optional archive71개·로고/외부자료 권리·실제 최종 호스팅/Edge 산출물 review 남음. 법적 승인 아님.",
+      "last_checked_at": "2026-11-21T10:56:22.341913+00:00"
     },
     "D008": {
       "owner": "DEV-A",
@@ -82,10 +84,12 @@
       "evidence": [
         "docs/AUTH_PROVIDER_EXECUTION.md",
         "harness/evidence/D009/README.md",
-        "harness/evidence/DEV-A-P0-CONTINUE/verification.json"
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+        "harness/evidence/D009/VERIFY_ALL_20261121.md",
+        "harness/evidence/DEV-A-P0-ALL-20261121/verification.json"
       ],
-      "blocker": "로컬 Auth/Mailpit 가입·재발송·증표 재사용 거부 통과. 이번 소스/템플릿의 실제 외부 SMTP·U007/U008 재검증 필요.",
-      "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
+      "blocker": "새 access gate 포함 desktop/mobile actual local Auth/Mailpit 가입·재발송·증표/권한 회귀 통과. 이번 source의 외부 SMTP/U007/U008·실제 외부수신/대상URL은 미검증. 외부메일 발송/콘솔 변경 미수행.",
+      "last_checked_at": "2026-11-21T10:56:22.341913+00:00"
     },
     "D010": {
       "owner": "DEV-B",
@@ -124,10 +128,12 @@
       "status": "IN_PROGRESS",
       "evidence": [
         "harness/evidence/D014/VERIFY_NEXT_20261121.md",
-        "harness/evidence/DEV-A-P0-NEXT-20261121/verification.json"
+        "harness/evidence/DEV-A-P0-NEXT-20261121/verification.json",
+        "harness/evidence/D014/VERIFY_ALL_20261121.md",
+        "harness/evidence/DEV-A-P0-ALL-20261121/verification.json"
       ],
-      "blocker": "삭제 순서/재인증/lease/checkpoint/승인 보존 계획 계약5개만 구현·검증. 실제 adapter/API/내구 queue/RLS·Storage·signed URL 무효화·보존/복구 재삭제 D079 및 U001 승인 필요. mock을 실제 파기로 보고하지 않는다.",
-      "last_checked_at": "2026-11-21T06:12:43.809026+00:00"
+      "blocker": "실제 재인증/TOTP·DB receipt/lease·DataAPI/Storage stale-JWT 제한·Auth ban 확인·hash검증 private copy→원래경로제거/재시도·소유수집lease취소 구현. intake 기본OFF. 영구파기/Auth삭제 어댑터·D079 shared 보존/backup replay·주기 worker/receipt분실복구는 미구현이며 U001 정책 확정/USER 적용·DEV-B review 필요.",
+      "last_checked_at": "2026-11-21T10:56:22.341913+00:00"
     },
     "D015": {
       "owner": "DEV-B",
@@ -576,10 +582,12 @@
         "harness/evidence/D073/VERIFY_NEXT_20261121.md",
         "harness/evidence/DEV-A-P0-NEXT-20261121/verification.json",
         "harness/evidence/D073/VERIFY_PUBLICATION_20261121.md",
-        "harness/evidence/DEV-A-P0-PUBLICATION-20261121/verification.json"
+        "harness/evidence/DEV-A-P0-PUBLICATION-20261121/verification.json",
+        "harness/evidence/D073/VERIFY_ALL_20261121.md",
+        "harness/evidence/DEV-A-P0-ALL-20261121/verification.json"
       ],
-      "blocker": "기존 profile/brand 공개 저장의 동의 원자 통합 부족분 해결:055~057 scope/receipt/strict gate, actual local SQL/REST6그룹과 두-role ACK 유실·stale replay/v2 현재상태 브라우저 통과. U001 실제 보존·근거·기한/위탁·국외이전/권리 절차 확정 후 새 정책/hash 및 USER 적용·대상URL·DEV-B review 필요. 실제 계정 파기 D014/D079는 미완료.",
-      "last_checked_at": "2026-11-21T06:48:26.619609+00:00"
+      "blocker": "USER가 아직 미확정—구현계속이라고 확인. 신규 삭제 접수/격리의 항목·목적/보관 bytes register 보강, 기존 정책snapshot/hash 불변·intake OFF·승인/활성화 SQL 없음. U001 보존근거/기간/예외·위탁/국외이전·권리 절차 및 D079/새 정책고지 필요.",
+      "last_checked_at": "2026-11-21T10:56:22.341913+00:00"
     },
     "D074": {
       "owner": "DEV-B",
@@ -692,10 +700,12 @@
         "harness/evidence/D084/VERIFY_NEXT_20261121.md",
         "harness/evidence/DEV-A-P0-NEXT-20261121/verification.json",
         "harness/evidence/D084/VERIFY_PUBLICATION_20261121.md",
-        "harness/evidence/DEV-A-P0-PUBLICATION-20261121/verification.json"
+        "harness/evidence/DEV-A-P0-PUBLICATION-20261121/verification.json",
+        "harness/evidence/D084/VERIFY_ALL_20261121.md",
+        "harness/evidence/DEV-A-P0-ALL-20261121/verification.json"
       ],
-      "blocker": "공개 저장/동의 actual regression 추가: unit246/37, SQL security20파일127그룹, DB→TS4, 전체browser58(055/056)+최종057영향10/캡처4, free6/keyless10 PASS. 전체 실제 계정 삭제 D014/D079·실제 공급자/외부SMTP/대상URL·USER적용/DEV-B 통합 gate 미완료.",
-      "last_checked_at": "2026-11-21T06:48:26.619609+00:00"
+      "blocker": "unit248/38, actual DB→TS7/격리3, security20파일127그룹, 전체browser64+마지막권한4, free6/keyless10, actual Linux build/notice HTTP 및57→60 upgrade/rollback PASS. 영구삭제/D079·실제 공급자/외부SMTP/대상URL·USER적용/DEV-B 통합 gate 미완료.",
+      "last_checked_at": "2026-11-21T10:56:22.341913+00:00"
     },
     "D085": {
       "owner": "DEV-B",

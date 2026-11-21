@@ -301,3 +301,14 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 Actual local SQL/REST127그룹20파일, unit246/37, DB→TS4, Python9, 전체browser58(055/056), 최종057/v2 영향10+capture4, free6/keyless10, lint/typecheck/production build/harness PASS. metadata54tables/227functions/2privateBuckets. 생성 USER54→57 SQL의 실제 독립DB upgrade/기존 비어 있지 않은 데이터 보존/unknown·modified baseline STOP/중간 rollback/legacy staged no-fabricated-consent/one-way strict activation/duplicate STOP PASS. 초기055 record 필드 오류는056 forward fix, old global replay는057; 접근성 대비/폼 refresh/streaming 캡처 준비를 수정. 과거 evidence 유지·새 패킷1개, ZIP 중복 생성 없음.
 
 D073 BLOCKED_EXTERNAL(U001 실제 최종 정책/보존·위탁/국외이전/권리 절차), D084 IN_PROGRESS(실제 삭제 D014/D079·공급자·릴리스) 유지. 기존 profile/brand 원장 통합 코드 부족은 해결. 남은 P0 상태 집계5(진행2/외부3), DEV-A LOCAL24/외부3/진행2/OPEN14/DONE0 동일. 타인 담당/원본 배분 변경 없음. 실제 정책/공급자/SMTP/배포/결제 성공 아님. 외부 콘솔/keys/deploy/outreach 수행 없음. 상세 evidence DEV-A-P0-PUBLICATION-20261121, 정확한 source/티켓 SHA commits.json, 새 USER 패킷 deliverables/dev-a-publication-20261121/README.md. 최종 push/CI 및 QA stack 중지(볼륨 보존)는 ignored receipt.
+
+
+## 2026-11-21 DEV-A 남은 P0 전체 처리 배치
+
+사용자: 남은 P0 모두 진행. 기존 codex/dev-a-p0-continue/aab0be9, main65063c8 유지. USER 정책 답변은 아직 미확정—구현계속. D014 실제 비밀번호/MFA·DB접수/receipt/lease·stale JWT/RLS·Auth 제한·Storage 검증 보관→원래경로 제거·재시도·소유수집 작업 취소를 구현했으나 영구 파기/Auth삭제/D079 shared 보존/backup·주기worker/receipt복구는 미구현. intake 기본OFF/승인SQL없음.058 source 후속 수정이 섞여 실제 ledger 원본으로 복구하고059 forward hardening으로 분리,060 owned jobs취소. 기존57 및 과거 증빙/패킷 불변.
+
+D007 known notice1,602,660bytes/페이지/footer와 actual Linux Node22.23.5 production build/trace/HTTP proof 추가:17traced/고지4미확인, Windows12/2, optional71/자산권리/최종호스팅Edge gate 유지. 첫 Git archive CRLF byte mismatch는 LF archive/.gitattributes -text로 수정, 고지 trailing whitespace 보존용 해당파일만 -whitespace. D009 local Mailpit current source regression을 외부SMTP로 보고하지 않음. D073 신규 처리 register만 보강, 정책snapshot/hash/승인상태 불변.
+
+최종 unit248/38, DB→TS7/actual quarantine3,20security127groups, full desktop/mobile64 +stricter401/403 permission4, free6/keyless10, lint/typecheck/build, Python9/harness5/backlog88/20/6 PASS.57tables/240functions/3privateBuckets audit, 실제 독립 DB USER57→60 preflight/customhookSTOP/rollback/기존비어있지않은data불변/intakeOFF/duplicateSTOP PASS. 가상 계정/파일/정책·TEST값/실패 주입/실제 local infrastructure 구분.
+
+D007/D009/D073 BLOCKED_EXTERNAL, D014/D084 IN_PROGRESS, LOCAL24/외부3/진행2/OPEN14/DONE0 동일·잔여P0 5. 모든 티켓을 검토했지만 승인/실제 파기/출시 완료로 바꾸지 않음. 원본배분/DEV-B D079 재배분/완료 없음. 외부콘솔/키/배포/외부메일·메시지·실제결제 없음. 새 단일 deliverables/dev-a-p0-all-20261121 패킷, ZIP중복없음. source/티켓 commit 및 세부 commands는 evidence DEV-A-P0-ALL-20261121, exact remote/CI와 QA중지(볼륨보존)는 ignored receipt.

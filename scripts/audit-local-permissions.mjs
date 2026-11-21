@@ -26,9 +26,13 @@ const storagePolicies = JSON.parse(
 assert.ok(tables.length > 20);
 assert.ok(tables.every((t) => t.rls));
 for (const t of tables.filter((t) =>
-  ["adme_upload", "adme_release", "adme_creator", "adme_consent"].includes(
-    t.schema,
-  ),
+  [
+    "adme_upload",
+    "adme_release",
+    "adme_creator",
+    "adme_consent",
+    "adme_privacy",
+  ].includes(t.schema),
 ))
   assert.ok(
     !t.anon_select && !t.authenticated_select,

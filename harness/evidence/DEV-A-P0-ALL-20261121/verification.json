@@ -1,0 +1,233 @@
+{
+  "at": "2026-11-21T10:56:22.341913+00:00",
+  "base_commit": "aab0be95766970ec8d6670214e1b4edc2edd1906",
+  "branch": "codex/dev-a-p0-continue",
+  "source_binding": "commits.json source_head; final product batch tested together. Linux source_tree records exact compiled product source; .gitattributes whitespace-only addition does not alter product bytes.",
+  "node": "22.23.5",
+  "shared_gates": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": "248/38 PASS",
+    "build": "PASS local TEST/free/keyless + isolated Linux production"
+  },
+  "unit": {
+    "command": "node node_modules/vitest/vitest.mjs run",
+    "files": 38,
+    "tests": 248
+  },
+  "db_to_ts": {
+    "command": "node node_modules/vitest/vitest.mjs run --config vitest.storage.config.ts",
+    "files": 5,
+    "tests": 7,
+    "result": "PASS actual local SQL/PostgREST/Storage/Auth"
+  },
+  "deletion_integration": {
+    "command": "same config tests/local-db-contract/deletion-quarantine.spec.ts",
+    "tests": 3,
+    "result": "PASS after final owned-job cancellation assertions",
+    "scope": "Actual GoTrue users, actual private Storage bytes, signed test URL/current source removal, hash-preserving retention copy, old-JWT DataAPI/RPC/Storage denial, lease/checkpoint failure injection and retry, owned job cancellation, untracked object waiting_review. No permanent user erasure claim."
+  },
+  "security": {
+    "command": "node local-security +all19 local-*-security drivers, serialized",
+    "files": 20,
+    "groups": 127,
+    "result": "PASS",
+    "results": [
+      {
+        "exit": 0,
+        "test": "local-security",
+        "pass_groups": 7
+      },
+      {
+        "exit": 0,
+        "test": "local-ad-history-security",
+        "pass_groups": 8
+      },
+      {
+        "exit": 0,
+        "test": "local-brand-security",
+        "pass_groups": 6
+      },
+      {
+        "exit": 0,
+        "test": "local-campaign-terms-security",
+        "pass_groups": 4
+      },
+      {
+        "exit": 0,
+        "test": "local-catalog-quota-security",
+        "pass_groups": 2
+      },
+      {
+        "exit": 0,
+        "test": "local-consent-security",
+        "pass_groups": 4
+      },
+      {
+        "exit": 0,
+        "test": "local-conversation-security",
+        "pass_groups": 8
+      },
+      {
+        "exit": 0,
+        "test": "local-creator-read-security",
+        "pass_groups": 8
+      },
+      {
+        "exit": 0,
+        "test": "local-creator-storage-security",
+        "pass_groups": 9
+      },
+      {
+        "exit": 0,
+        "test": "local-delivery-security",
+        "pass_groups": 10
+      },
+      {
+        "exit": 0,
+        "test": "local-draft-read-security",
+        "pass_groups": 3
+      },
+      {
+        "exit": 0,
+        "test": "local-ingestion-recovery-security",
+        "pass_groups": 7
+      },
+      {
+        "exit": 0,
+        "test": "local-ops-security",
+        "pass_groups": 5
+      },
+      {
+        "exit": 0,
+        "test": "local-p0-privacy-security",
+        "pass_groups": 5
+      },
+      {
+        "exit": 0,
+        "test": "local-p0-release-security",
+        "pass_groups": 5
+      },
+      {
+        "exit": 0,
+        "test": "local-publication-security",
+        "pass_groups": 6
+      },
+      {
+        "exit": 0,
+        "test": "local-rate-security",
+        "pass_groups": 8
+      },
+      {
+        "exit": 0,
+        "test": "local-recommendation-security",
+        "pass_groups": 11
+      },
+      {
+        "exit": 0,
+        "test": "local-review-security",
+        "pass_groups": 9
+      },
+      {
+        "exit": 0,
+        "test": "local-youtube-security",
+        "pass_groups": 2
+      }
+    ]
+  },
+  "browser": {
+    "full": {
+      "command": "node node_modules/@playwright/test/cli.js test --config playwright.local.config.ts",
+      "tests": 64,
+      "result": "PASS final product source"
+    },
+    "stronger_final_permission": {
+      "command": "same config --grep 'deletion request reauthenticates'",
+      "tests": 4,
+      "result": "PASS after tightening denial to401/403; product source unchanged"
+    },
+    "free": {
+      "command": "node node_modules/@playwright/test/cli.js test --config playwright.free-local.config.ts",
+      "tests": 6,
+      "result": "PASS"
+    },
+    "keyless": {
+      "command": "ADME_BROWSER_CHANNEL=chrome node node_modules/@playwright/test/cli.js test --config playwright.keyless.config.ts",
+      "tests": 10,
+      "result": "PASS"
+    },
+    "scope": "Two roles desktop/mobile, actual local infrastructure with fictional accounts/profiles/policies/TEST data. Real local Mailpit is not external SMTP."
+  },
+  "permissions": {
+    "tables": 57,
+    "functions": 240,
+    "private_buckets": 3,
+    "result": "PASS",
+    "evidence": "permission-inventory.json"
+  },
+  "licenses": {
+    "shipped_notice_bytes": 1602660,
+    "linux": {
+      "node": "v22.23.5",
+      "source_tree": "51b79fda0370611b057d124f7555300c27cc72d9",
+      "traced_packages": 17,
+      "notice_gaps": 4,
+      "http": true,
+      "evidence": "runtime-notices-linux.json"
+    },
+    "win32": {
+      "traced_packages": 12,
+      "notice_gaps": 2,
+      "evidence": "runtime-notices-win32-final.json"
+    },
+    "whole_optional_unresolved": 71,
+    "rights_approval": false,
+    "scope": "Actual production target trace/version/HTTP proof, not final Vercel/Edge bundle or blanket copyright approval"
+  },
+  "packet": {
+    "from_migrations": 57,
+    "to_migrations": 60,
+    "result": "PASS",
+    "evidence": "packet-upgrade.json",
+    "online_intake_default_off": true,
+    "permanent_erasure_implemented": false,
+    "activation_sql_included": false
+  },
+  "harness": {
+    "selftest": 5,
+    "backlog": "88/20/6 PASS",
+    "historical_tasks": 40,
+    "python_contract_tests": 9
+  },
+  "user_policy_answer": "아직 미확정 — 구현 계속",
+  "ticket_status": {
+    "D007": "BLOCKED_EXTERNAL",
+    "D009": "BLOCKED_EXTERNAL",
+    "D014": "IN_PROGRESS",
+    "D073": "BLOCKED_EXTERNAL",
+    "D084": "IN_PROGRESS"
+  },
+  "remaining_p0": [
+    "D007",
+    "D009",
+    "D014",
+    "D073",
+    "D084"
+  ],
+  "external": {
+    "hosted_configuration_or_deployment": false,
+    "keys_issued_or_registered": false,
+    "external_smtp_verification": false,
+    "actual_provider_verification": false,
+    "legal_approval": false,
+    "real_payment": false,
+    "outreach": false
+  },
+  "limitations": [
+    "D014 runtime stops at quarantine/retention review. No permanent purge/Auth-delete implementation, D079 shared-record retention/backup replay, periodic worker or lost-receipt recovery.",
+    "AuthRestricted verifies ban, not deletion of every auth session or immediate JWT expiry. Original local signed-path denial does not prove CDN/downloaded-copy recall.",
+    "Default intake is OFF and no policy/intake activation SQL is provided. User explicitly did not approve policy.",
+    "D007 exact missing target notices/asset rights/actual final hosting and Edge distribution need review.",
+    "D009 external SMTP/actual target URL and D084 full erase/provider/release acceptance remain. No whole ticket DONE."
+  ]
+}
