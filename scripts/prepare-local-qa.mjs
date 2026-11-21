@@ -1,6 +1,8 @@
 import { randomBytes } from "node:crypto";
 import { writeFileSync } from "node:fs";
 import assert from "node:assert/strict";
+import { enableLocalConsent, qaSignupConsent } from "../tests/support/consent-fixture.mjs";
+import { enableLocalIngestionPolicy } from "../tests/support/ingestion-fixture.mjs";
 import {
   localRuntime,
   localClient,
@@ -9,6 +11,8 @@ import {
 } from "../tests/support/local-qa.mjs";
 
 const runtime = localRuntime();
+enableLocalConsent();
+enableLocalIngestionPolicy();
 const admin = localClient(runtime.SERVICE_ROLE_KEY);
 const accounts = {};
 // Explicit opt-in of isolated fixtures only; hosted controls remain default-off.
@@ -23,6 +27,7 @@ for (const role of ["brand", "creator", "other", "admin", "staff"]) {
     password,
     email_confirm: true,
     user_metadata: {
+      ...qaSignupConsent,
       role: role === "creator" ? "creator" : "brand",
       name: `QA local ${role}`,
     },

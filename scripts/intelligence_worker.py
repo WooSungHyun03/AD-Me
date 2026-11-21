@@ -30,11 +30,18 @@ class WorkerError(Exception):
     pass
 
 
+def read_bounded_json(response):
+    value = response.read(2097153)
+    if len(value) > 2097152:
+        raise WorkerError("UPSTREAM_RESPONSE_TOO_LARGE")
+    return json.loads(value)
+
+
 def request(url, headers=None, payload=None, timeout=10):
     req = Request(url, headers={"Content-Type": "application/json", **(headers or {})},
                   data=json.dumps(payload).encode() if payload is not None else None)
     with urlopen(req, timeout=timeout) as response:
-        return json.load(response)
+        return read_bounded_json(response)
 
 
 def youtube(path, **params):
@@ -46,7 +53,7 @@ def youtube(path, **params):
                        {"X-Goog-Api-Key": key})
     except HTTPError as exc:
         if exc.code in (403, 429):
-            body = json.load(exc)
+            body = read_bounded_json(exc)
             reasons = {error.get("reason") for error in body.get("error", {}).get("errors", [])}
             if exc.code == 429 or reasons & {"quotaExceeded", "dailyLimitExceeded", "rateLimitExceeded"}:
                 raise WorkerError("QUOTA") from None
@@ -56,10 +63,16 @@ def youtube(path, **params):
 def channels(ids):
     if not ids:
         return []
+    if len(ids) > 25 or any(not re.fullmatch(r"UC[A-Za-z0-9_-]{22}", value) for value in ids):
+        raise WorkerError("CHANNEL_INPUT_INVALID")
     data = youtube("channels", part="snippet,statistics,contentDetails", id=",".join(ids),
                    fields="items(id,snippet/title,statistics(subscriberCount,hiddenSubscriberCount),contentDetails/relatedPlaylists/uploads)")
+    items = data.get("items", [])
+    returned_ids = [item.get("id") for item in items]
+    if len(items) > len(ids) or len(set(returned_ids)) != len(returned_ids) or any(value not in ids for value in returned_ids):
+        raise WorkerError("UPSTREAM_INVALID_RESPONSE")
     rows = []
-    for item in data.get("items", []):
+    for item in items:
         info = item.get("statistics", {})
         subscribers = info.get("subscriberCount")
         playlist = item.get("contentDetails", {}).get("relatedPlaylists", {}).get("uploads")
@@ -129,6 +142,39 @@ def rpc(name, **params):
 
 
 def process(job):
+    if job["kind"] in ("youtube_channel", "youtube_daily") and job.get("policyVersion"):
+        if not rpc("ops_worker_heartbeat", p_id=job["id"], p_lease=job["lease"]):
+            raise WorkerError("LEASE_LOST")
+        checkpoint = job.get("checkpoint") or {}
+        candidates = checkpoint.get("candidates")
+        if candidates is None:
+            if job["kind"] == "youtube_channel":
+                candidates = [job["input"]]
+            else:
+                if not job.get("keyword"):
+                    raise WorkerError("DISCOVERY_DISABLED")
+                data = youtube("search", part="snippet", type="channel", maxResults=5,
+                               regionCode="KR", relevanceLanguage="ko", q=job["keyword"],
+                               fields="items/id/channelId")
+                discovered = [entry["id"]["channelId"] for entry in data.get("items", [])]
+                candidates = list(dict.fromkeys([*job.get("refresh", []), *discovered]))[:25]
+            checkpoint = rpc("ops_worker_checkpoint", p_id=job["id"], p_lease=job["lease"],
+                             p_candidates=candidates, p_result=None)
+        completed = set(checkpoint.get("completed", []))
+        for channel_id in candidates:
+            if channel_id in completed:
+                continue
+            if not rpc("ops_worker_heartbeat", p_id=job["id"], p_lease=job["lease"]):
+                raise WorkerError("LEASE_LOST")
+            batch = channels([channel_id])
+            if not batch:
+                raise WorkerError("CHANNEL_UNAVAILABLE")
+            checkpoint = rpc("ops_worker_checkpoint", p_id=job["id"], p_lease=job["lease"],
+                             p_candidates=candidates, p_result=batch)
+            completed = set(checkpoint["completed"])
+        # Every batch is already committed atomically with its checkpoint.
+        # A lost process/acknowledgement never skips an uncommitted result.
+        return []
     match job["kind"]:
         case "marketing_draft":
             return draft(job["input"])

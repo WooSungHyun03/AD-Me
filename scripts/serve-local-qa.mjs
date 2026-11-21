@@ -2,7 +2,11 @@ import { spawn, spawnSync } from "node:child_process";
 import { localRuntime, sql } from "../tests/support/local-qa.mjs";
 import { resolve } from "node:path";
 import { startLocalTls } from "./local-tls-proxy.mjs";
+import { enableLocalConsent } from "../tests/support/consent-fixture.mjs";
+import { enableLocalIngestionPolicy } from "../tests/support/ingestion-fixture.mjs";
 const runtime = localRuntime();
+enableLocalConsent();
+enableLocalIngestionPolicy();
 const freeBeta = process.env.ADME_QA_MODE === "free_beta";
 // Exact marked loopback DB only; public source/env flags cannot enable this gate.
 sql(`select adme_release.set_test_billing(${freeBeta ? "false" : "true"},'local-fictional-qa-only');`);
