@@ -10,6 +10,7 @@ export type CreatorFilters = {
   maxPrice: string;
   minFollowers: string;
   maxFollowers: string;
+  minEngagement?: string;
   available: boolean;
   sort: "name" | "followers" | "price";
 };
@@ -22,6 +23,7 @@ export const creatorFilterKeys = [
   "maxPrice",
   "minFollowers",
   "maxFollowers",
+  "minEngagement",
   "available",
   "sort",
 ] as const;
@@ -34,6 +36,7 @@ export const emptyCreatorFilters = (): CreatorFilters => ({
   maxPrice: "",
   minFollowers: "",
   maxFollowers: "",
+  minEngagement: "",
   available: false,
   sort: "name",
 });
@@ -66,6 +69,7 @@ export function parseCreatorFilters(params: URLSearchParams): CreatorFilters {
     maxPrice: boundedText(params.get("maxPrice") ?? "", 24),
     minFollowers: boundedText(params.get("minFollowers") ?? "", 24),
     maxFollowers: boundedText(params.get("maxFollowers") ?? "", 24),
+    minEngagement: boundedText(params.get("minEngagement") ?? "", 24),
     available: params.get("available") === "1",
     sort: sort === "price" || sort === "followers" ? sort : "name",
   };
@@ -92,6 +96,7 @@ export function serializeCreatorFilters(
   ] as const)
     if (filters[key] !== "") params.set(key, filters[key]);
   if (filters.available) params.set("available", "1");
+  if (filters.minEngagement) params.set("minEngagement", filters.minEngagement);
   if (filters.sort !== "name") params.set("sort", filters.sort);
   return params;
 }
@@ -110,6 +115,12 @@ const labels = {
 } as const;
 export function creatorFilterIssues(filters: CreatorFilters) {
   const issues: string[] = [];
+  if (
+    filters.minEngagement &&
+    (!/^[0-9]{1,3}$/.test(filters.minEngagement) ||
+      Number(filters.minEngagement) > 100)
+  )
+    issues.push("최소 참여율은 0~100 사이 정수로 입력해주세요.");
   for (const key of Object.keys(bounds) as (keyof typeof bounds)[]) {
     const text = filters[key];
     if (text !== "" && (!/^\d{1,11}$/.test(text) || Number(text) > bounds[key]))
@@ -170,6 +181,8 @@ export function filterCreators<T extends FilterItem>(
     .normalize("NFKC")
     .toLocaleLowerCase("ko-KR");
   const list = items.filter((c) => {
+    if (filters.minEngagement !== undefined && filters.minEngagement !== "")
+      return false; // Keyless fixtures have no permissioned metric evidence.
     const followers = catalogFollowerValue(c);
     return (
       (!query ||

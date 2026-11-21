@@ -13,6 +13,10 @@ export const creatorFilterSchema = z
     maxPrice: bound,
     minFollowers: bound,
     maxFollowers: bound,
+    minEngagement: z
+      .string()
+      .regex(/^(?:|[0-9]{1,3})$/)
+      .default(""),
     available: z.boolean(),
     sort: z.enum(["name", "price", "followers"]),
   })
@@ -29,6 +33,34 @@ export const filteredCatalogSchema = z.strictObject({
     categories: z.array(z.string().max(50)).max(1000),
     tags: z.array(z.string().max(50)).max(1000),
   }),
+  metrics: z
+    .strictObject({
+      engagement: z.strictObject({
+        available: z.boolean(),
+        profiles: z.number().int().nonnegative(),
+        unit: z.literal("percent"),
+        minimumSample: z.literal(2),
+        rule: z.literal("any_permissioned_non_youtube_identity"),
+        definitions: z
+          .array(
+            z.strictObject({
+              provider: z.string().max(30),
+              policyVersion: z.string().max(80),
+              formula: z.string().max(500),
+            }),
+          )
+          .max(20),
+      }),
+      age: z.strictObject({
+        available: z.literal(false),
+        reason: z.literal("not_collected"),
+      }),
+      gender: z.strictObject({
+        available: z.literal(false),
+        reason: z.literal("not_collected"),
+      }),
+    })
+    .optional(),
 });
 export type FilteredCatalog = z.infer<typeof filteredCatalogSchema>;
 export async function readFilteredCatalog(

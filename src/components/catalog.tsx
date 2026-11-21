@@ -193,6 +193,54 @@ export function Catalog({
             같은 항목은 하나라도 일치하면 포함하고, 서로 다른 항목은 모두
             일치해야 합니다. 항목별 최대 8개를 선택할 수 있습니다.
           </p>
+          <div data-testid="metric-filter-availability">
+            <label className="field">
+              최소 참여율 (%)
+              <input
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                value={filters.minEngagement ?? ""}
+                disabled={
+                  !remoteState.page.metrics?.engagement.available || !remote
+                }
+                onChange={(e) =>
+                  update({ minEngagement: e.target.value }, true)
+                }
+              />
+            </label>
+            <p className="catalog-filter-help">
+              {remote && remoteState.page.metrics?.engagement.available
+                ? `승인된 자료 ${remoteState.page.metrics.engagement.profiles}개 프로필 · 표본 2개 이상, 갱신 기한 내 비 YouTube 자료 중 하나가 조건을 충족해야 합니다. 미확보 값은 0%가 아닙니다.`
+                : "승인된 참여율 자료가 없어 필터를 제공하지 않습니다. YouTube 파생 참여율은 제외합니다."}
+            </p>
+            {filters.minEngagement && (
+              <button
+                className="button ghost small"
+                onClick={() => update({ minEngagement: "" })}
+              >
+                참여율 조건 해제
+              </button>
+            )}
+            <p className="catalog-filter-help">
+              연령·성별 필터는 수집하지 않아 제공하지 않습니다.
+            </p>
+            {!!remoteState.page.metrics?.engagement.definitions.length && (
+              <details>
+                <summary>참여율 출처·산식</summary>
+                {remoteState.page.metrics.engagement.definitions.map((d, n) => (
+                  <p key={n}>
+                    {d.provider} · 정책 {d.policyVersion} · {d.formula}
+                  </p>
+                ))}
+                <p>
+                  최대 20개 산식을 표시합니다. 상세 관측 기간·표본·출처는
+                  프로필에서 확인해주세요.
+                </p>
+              </details>
+            )}
+          </div>
           <FilterChoices
             name="platform"
             title="플랫폼"
