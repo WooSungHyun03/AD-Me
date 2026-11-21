@@ -3,12 +3,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { z } from "zod";
+import { publicationWithdrawnEvent } from "./use-publication-choice";
 const recordSchema = z.strictObject({
   id: z.uuid(),
   version: z.string().max(80),
   purpose: z.enum(["terms", "privacy", "adult_beta", "profile_publication"]),
   accepted: z.boolean(),
   recordedAt: z.iso.datetime({ offset: true }),
+  scope: z.enum(["global", "creator", "brand"]).default("global"),
 });
 const labels = {
   terms: "이용약관",
@@ -56,12 +58,20 @@ export function ConsentSettings() {
       });
       const data = await res.json();
       if (!res.ok) throw Error();
-      recordSchema.parse(data);
+      const receipt = recordSchema
+        .extend({ currentWithdrawal: z.boolean() })
+        .parse(data);
       key.current = null;
+      if (!receipt.currentWithdrawal) {
+        // Another later publication exists: an old receipt is not current state.
+        window.location.reload();
+        return;
+      }
       setMessage(
         "선택적 공개를 철회했습니다. 프로필·링크·브랜드 소개의 공개를 중단했습니다. 계정·파일 전체 삭제는 별도입니다.",
       );
       setItems(null);
+      window.dispatchEvent(new Event(publicationWithdrawnEvent));
       router.refresh();
     } catch {
       setError(
@@ -118,8 +128,14 @@ export function ConsentSettings() {
           <ul>
             {items.map((r) => (
               <li key={r.id}>
-                {labels[r.purpose]} · {r.accepted ? "확인·동의" : "철회"} ·{" "}
-                {r.version} ·{" "}
+                {r.purpose === "profile_publication"
+                  ? {
+                      global: "모든 프로필 공개",
+                      creator: "크리에이터 프로필 공개",
+                      brand: "브랜드 소개 공개",
+                    }[r.scope]
+                  : labels[r.purpose]}{" "}
+                · {r.accepted ? "확인·동의" : "비공개·철회"} · {r.version} ·{" "}
                 {new Date(r.recordedAt).toLocaleString("ko-KR", {
                   timeZone: "Asia/Seoul",
                 })}

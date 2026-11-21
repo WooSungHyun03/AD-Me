@@ -1,6 +1,9 @@
 "use client";
 import { creatorPlatforms } from "@/lib/service-catalog";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import Link from "next/link";
+import { policyDocument, publicationIntent } from "@/lib/consent";
+import { usePublicationChoice } from "./use-publication-choice";
 import { Button } from "./ui/button";
 import { categories, vibes } from "@/lib/catalog";
 type Profile = {
@@ -19,6 +22,13 @@ type Profile = {
   published?: boolean;
 };
 export function ProfileForm({ initial = {} }: { initial?: Profile }) {
+  const [published, setPublished] = usePublicationChoice(
+    initial.published ?? false,
+  );
+  const [ownerConsent, setOwnerConsent] = usePublicationChoice(
+    initial.owner_consent ?? false,
+  );
+  const intent = useRef<ReturnType<typeof publicationIntent> | null>(null);
   const [message, setMessage] = useState(""),
     [pending, setPending] = useState(false);
   return (
@@ -43,13 +53,22 @@ export function ProfileForm({ initial = {} }: { initial?: Profile }) {
           owner_consent: f.get("owner_consent") === "on",
           is_available: f.get("is_available") === "on",
         };
+        intent.current = publicationIntent(intent.current, body);
         try {
           const res = await fetch("/api/profile", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(body),
+            body: JSON.stringify({
+              profile: body,
+              publication: {
+                version: policyDocument.version,
+                documentHash: policyDocument.documentHash,
+                requestKey: intent.current.requestKey,
+              },
+            }),
           });
           const d = await res.json();
+          if (res.ok) intent.current = null;
           setMessage(
             res.ok ? "프로필을 저장했습니다." : d.error?.message || "저장 실패",
           );
@@ -107,7 +126,8 @@ export function ProfileForm({ initial = {} }: { initial?: Profile }) {
         <input
           type="checkbox"
           name="owner_consent"
-          defaultChecked={initial.owner_consent ?? false}
+          checked={ownerConsent}
+          onChange={(e) => setOwnerConsent(e.target.checked)}
         />
         입력한 링크·콘텐츠의 권리가 있으며 공개에 동의합니다.
       </label>
@@ -203,11 +223,18 @@ export function ProfileForm({ initial = {} }: { initial?: Profile }) {
         <input
           type="checkbox"
           name="published"
-          defaultChecked={initial.published ?? false}
+          checked={published}
+          onChange={(e) => setPublished(e.target.checked)}
         />
         프로필 공개
       </label>
       <div className="notice">
+        <p className="publication-policy">
+          공개 선택과 저장 결과를 정책 {policyDocument.version}에 기록합니다.{" "}
+          <Link href="/privacy">처리 안내</Link> ·{" "}
+          <Link href="/terms">이용약관</Link>. 공개하지 않아도 계정을 사용할 수
+          있으며, 비공개 저장은 계정·파일 전체 삭제와 다릅니다.
+        </p>
         본인 등록 정보로 표시됩니다. 외부 SNS 팔로워·참여율은 검증된 데이터 연결
         전까지 미확보로 처리합니다.
       </div>

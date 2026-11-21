@@ -22,6 +22,21 @@ export const signupConsentMetadata = {
   privacy_accepted: true,
   adult_beta_confirmed: true,
 };
+export const publicationProofSchema = z.strictObject({
+  version: z.literal(document.version),
+  documentHash: z.literal(document.documentHash),
+  requestKey: z.uuid(),
+});
+// Keep the same key after a lost response; a changed user intent needs a new key.
+export function publicationIntent(
+  previous: { payload: string; requestKey: string } | null,
+  data: unknown,
+) {
+  const payload = JSON.stringify(data);
+  return previous?.payload === payload
+    ? previous
+    : { payload, requestKey: crypto.randomUUID() };
+}
 export async function readCurrentPolicy(
   db: SupabaseClient,
 ): Promise<PolicyStatus> {

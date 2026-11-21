@@ -38,7 +38,6 @@ export default async function Settings() {
             <Link href="/settings/youtube">YouTube 채널 연결</Link>
           </p>
           <ProfileForm
-            key={`${creator?.published}:${creator?.profile?.owner_consent}`}
             initial={
               creator
                 ? { ...creator.profile, published: creator.published }
@@ -54,7 +53,6 @@ export default async function Settings() {
           </p>
         ) : (
           <BrandAccountForm
-            key={String(brand?.published)}
             name={profile.name}
             brandId={brand?.id}
             initial={

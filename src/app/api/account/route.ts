@@ -8,6 +8,7 @@ import {
   requireContext,
 } from "@/lib/api";
 import { brandAccountSchema } from "@/lib/brand-profile";
+import { publicationProofSchema } from "@/lib/consent";
 export const PATCH = apiRoute("account.patch", async (req) => {
   const c = await requireContext();
   const p = await parseBody(
@@ -16,6 +17,7 @@ export const PATCH = apiRoute("account.patch", async (req) => {
       .object({
         name: z.string().trim().min(2).max(80),
         brand: brandAccountSchema.optional(),
+        publication: publicationProofSchema.optional(),
       })
       .strict(),
     "이름은 2~80자여야 합니다.",
@@ -23,25 +25,17 @@ export const PATCH = apiRoute("account.patch", async (req) => {
   if (p.brand) {
     if (c.role !== "brand")
       fail("브랜드 계정만 브랜드 정보를 수정할 수 있습니다.", 403);
-    const b = p.brand;
-    const { data, error } = await c.db.rpc(
-      b.logoUploadId === undefined
-        ? "save_brand_account"
-        : "save_brand_account_logo",
-      {
-        p_name: p.name,
-        p_brand_name: b.brandName,
-        p_industry: b.industry,
-        p_introduction: b.introduction,
-        p_published: b.published,
-        p_contact_name: b.contactName,
-        p_contact_email: b.contactEmail,
-        p_contact_visibility: b.contactVisibility,
-        ...(b.logoUploadId === undefined ? {} : { p_logo: b.logoUploadId }),
-      },
-    );
+    if (!p.publication)
+      fail("공개 선택의 정책 버전과 요청 정보를 확인해주세요.", 422);
+    const { data, error } = await c.db.rpc("save_publication", {
+      p_scope: "brand",
+      p_data: { name: p.name, ...p.brand },
+      p_version: p.publication.version,
+      p_hash: p.publication.documentHash,
+      p_key: p.publication.requestKey,
+    });
     if (error) failDatabase(error, "브랜드 정보를 저장하지 못했습니다.");
-    return NextResponse.json({ ok: true, brandId: data });
+    return NextResponse.json(data);
   }
   const { error } = await c.db
     .from("profiles")

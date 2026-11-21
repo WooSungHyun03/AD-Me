@@ -7,36 +7,28 @@ import {
   requireContext,
 } from "@/lib/api";
 import { profileSchema } from "@/lib/schemas";
+import { z } from "zod";
+import { publicationProofSchema } from "@/lib/consent";
 export const POST = apiRoute("profile.post", async (req) => {
   const c = await requireContext();
   if (c.role !== "creator") return fail("크리에이터 계정이 필요합니다.", 403);
   const p = await parseBody(
     req,
-    profileSchema,
+    z.strictObject({
+      profile: profileSchema,
+      publication: publicationProofSchema,
+    }),
     "프로필 입력 항목을 확인해주세요.",
   );
-  const id = `user-${c.user.id}`;
-  const profile = {
-    ...p,
-    seed_id: id,
-    handle: "self_reported",
-    followers: 0,
-    metrics_source: "unavailable",
-    is_demo: false,
-    data_source: "owner_registration",
-    source_url: p.social_url || null,
-    portrait_asset: null,
-    image_placeholder: "initials",
-    owner_id: c.user.id,
-  };
-  const { error } = await c.db
-    .from("creators")
-    .upsert(
-      { id, owner_id: c.user.id, published: p.published, profile },
-      { onConflict: "id" },
-    );
+  const { data, error } = await c.db.rpc("save_publication", {
+    p_scope: "creator",
+    p_data: p.profile,
+    p_version: p.publication.version,
+    p_hash: p.publication.documentHash,
+    p_key: p.publication.requestKey,
+  });
   if (error) failDatabase(error, "프로필을 저장하지 못했습니다.");
-  return NextResponse.json({ id });
+  return NextResponse.json(data);
 });
 export const DELETE = apiRoute("profile.delete", async () => {
   const c = await requireContext();

@@ -1,5 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import Link from "next/link";
+import { policyDocument, publicationIntent } from "@/lib/consent";
+import { usePublicationChoice } from "./use-publication-choice";
 import { useRouter } from "next/navigation";
 import type { BrandAccount } from "@/lib/brand-profile";
 import { ImageUpload } from "./image-upload";
@@ -15,9 +18,13 @@ export function BrandAccountForm({
   brandId?: string;
 }) {
   const [pending, setPending] = useState(false);
+  const [published, setPublished] = usePublicationChoice(
+    initial?.published ?? false,
+  );
   const [message, setMessage] = useState("");
   const router = useRouter();
   const [logo, setLogo] = useState<string | null | undefined>(undefined);
+  const intent = useRef<ReturnType<typeof publicationIntent> | null>(null);
   return (
     <form
       className="panel form-stack"
@@ -26,25 +33,35 @@ export function BrandAccountForm({
         const form = new FormData(event.currentTarget);
         setPending(true);
         setMessage("");
+        const body = {
+          name: form.get("name"),
+          brand: {
+            brandName: form.get("brandName"),
+            industry: form.get("industry"),
+            introduction: form.get("introduction"),
+            published: form.has("published"),
+            contactName: form.get("contactName"),
+            contactEmail: form.get("contactEmail"),
+            contactVisibility: form.get("contactVisibility"),
+            ...(logo === undefined ? {} : { logoUploadId: logo }),
+          },
+        };
+        intent.current = publicationIntent(intent.current, body);
         try {
           const response = await fetch("/api/account", {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              name: form.get("name"),
-              brand: {
-                brandName: form.get("brandName"),
-                industry: form.get("industry"),
-                introduction: form.get("introduction"),
-                published: form.has("published"),
-                contactName: form.get("contactName"),
-                contactEmail: form.get("contactEmail"),
-                contactVisibility: form.get("contactVisibility"),
-                ...(logo === undefined ? {} : { logoUploadId: logo }),
+              ...body,
+              publication: {
+                version: policyDocument.version,
+                documentHash: policyDocument.documentHash,
+                requestKey: intent.current.requestKey,
               },
             }),
           });
           const result = await response.json();
+          if (response.ok) intent.current = null;
           setMessage(
             response.ok
               ? "브랜드와 담당자 정보를 저장했습니다."
@@ -126,13 +143,17 @@ export function BrandAccountForm({
         <input
           type="checkbox"
           name="published"
-          defaultChecked={initial?.published}
+          checked={published}
+          onChange={(e) => setPublished(e.target.checked)}
         />
         브랜드 소개 공개
       </label>
       <p className="notice">
-        업로드한 로고는 브랜드 정보 저장 시 적용되며, 소개 공개 설정에 따라
-        표시됩니다. 외부 이미지 주소는 받지 않습니다.
+        공개 선택과 저장 결과를 정책 {policyDocument.version}에 기록합니다.{" "}
+        <Link href="/privacy">처리 안내</Link> ·{" "}
+        <Link href="/terms">이용약관</Link>. 비공개로도 계정을 사용할 수
+        있습니다. 업로드한 로고는 브랜드 정보 저장 시 적용되며, 소개 공개 설정에
+        따라 표시됩니다. 외부 이미지 주소는 받지 않습니다.
       </p>
       <label className="field">
         담당자 이름

@@ -4,7 +4,7 @@ import { apiRoute, failDatabase, parseBody, requireContext } from "@/lib/api";
 import { policyDocument } from "@/lib/consent";
 export const GET = apiRoute("consent.history", async () => {
   const c = await requireContext(),
-    result = await c.db.rpc("my_consent_history");
+    result = await c.db.rpc("my_consent_history_v2");
   if (result.error)
     failDatabase(result.error, "확인 기록을 불러오지 못했습니다.");
   return NextResponse.json(
@@ -23,7 +23,7 @@ export const POST = apiRoute("consent.publication", async (req) => {
       }),
       "공개 선택 항목을 확인해주세요.",
     );
-  const { data, error } = await c.db.rpc("record_publication_consent", {
+  const { data, error } = await c.db.rpc("record_publication_consent_v2", {
     p_version: policyDocument.version,
     p_hash: policyDocument.documentHash,
     p_accept: p.accepted,
