@@ -93,7 +93,7 @@ for (const directory of ["migrations", "templates"]) {
 }
 copyFileSync("supabase/seed.sql", `${workdir}/supabase/seed.sql`);
 cli(
-  `start --workdir ${workdir} -x realtime,storage-api,imgproxy,postgres-meta,studio,edge-runtime,logflare,vector,supavisor`,
+  `start --workdir ${workdir} -x realtime,imgproxy,postgres-meta,studio,edge-runtime,logflare,vector,supavisor`,
 );
 cli(`db reset --local --workdir ${workdir} --yes`);
 const status = cli(`status --workdir ${workdir} --output json`);

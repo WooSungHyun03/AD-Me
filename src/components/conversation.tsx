@@ -6,6 +6,7 @@ import {
 } from "@/lib/conversation";
 import { safeHttpsLink } from "@/lib/social-links";
 import { MessageForm } from "./deal-controls";
+import { RoomImages } from "./image-upload";
 
 function MessageReport({ id }: { id: string }) {
   const [result, setResult] = useState("");
@@ -255,6 +256,9 @@ function ConversationBody({
           대화가 차단되어 새 메시지를 보낼 수 없습니다. 기존 대화는 확인할 수
           있습니다.
         </p>
+      )}
+      {loaded && (
+        <RoomImages proposalId={proposalId} canUpload={!blocked && writable} />
       )}
       {loaded && !blocked && writable && (
         <MessageForm

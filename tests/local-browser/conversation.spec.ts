@@ -68,13 +68,15 @@ test("conversation loads one room lazily, pages history, retries lost acknowledg
     await roomPanel
       .getByRole("button", { name: "메시지 저장", exact: true })
       .click();
-    await expect(roomPanel.getByRole("status")).toContainText(
-      "같은 내용으로 다시 시도",
-    );
+    const messageStatus = roomPanel
+      .locator("form")
+      .filter({ has: page.getByLabel("메시지", { exact: true }) })
+      .getByRole("status");
+    await expect(messageStatus).toContainText("같은 내용으로 다시 시도");
     await roomPanel
       .getByRole("button", { name: "메시지 저장", exact: true })
       .click();
-    await expect(roomPanel.getByRole("status")).toContainText("저장되었습니다");
+    await expect(messageStatus).toContainText("저장되었습니다");
     expect(requestKeys).toHaveLength(2);
     expect(requestKeys[0]).toBe(requestKeys[1]);
     expect(
