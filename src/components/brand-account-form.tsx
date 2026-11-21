@@ -59,7 +59,7 @@ export function BrandAccountForm({
       }}
     >
       <div>
-        <h3>브랜드 로고</h3>
+        <h2 style={{ fontSize: 21 }}>브랜드 로고</h2>
         {brandId && (
           <Image
             key={logo ?? brandId}
@@ -131,7 +131,8 @@ export function BrandAccountForm({
         브랜드 소개 공개
       </label>
       <p className="notice">
-        업로드한 로고는 브랜드 정보 저장 시 적용되며, 소개 공개 설정에 따라 표시됩니다. 외부 이미지 주소는 받지 않습니다.
+        업로드한 로고는 브랜드 정보 저장 시 적용되며, 소개 공개 설정에 따라
+        표시됩니다. 외부 이미지 주소는 받지 않습니다.
       </p>
       <label className="field">
         담당자 이름

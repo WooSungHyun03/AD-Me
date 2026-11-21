@@ -7,6 +7,11 @@
   --lime: #d7ff45;
   --surface: #fff;
 }
+.consent-fields { border: 1px solid var(--line); padding: 16px; margin: 16px 0; min-width: 0; }
+.consent-fields label { display: block; margin: 12px 0; line-height: 1.7; }
+.consent-fields input[type="checkbox"] { width: 20px; height: 20px; vertical-align: middle; margin-right: 8px; }
+.consent-fields a,.prose a,.panel a[href^="mailto:"] { text-decoration: underline; text-underline-offset: 3px; }
+[role="alert"]:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
 * {
   box-sizing: border-box;
 }

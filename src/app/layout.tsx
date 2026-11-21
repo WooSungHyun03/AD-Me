@@ -45,7 +45,9 @@ export default function RootLayout({
             내 워크스페이스 <span>↗</span>
           </Link>
         </header>
-        <main id="main">{children}</main>
+        <main id="main" tabIndex={-1}>
+          {children}
+        </main>
         <footer>
           <div>
             <Image
@@ -59,6 +61,7 @@ export default function RootLayout({
           <div>
             <Link href="/about">서비스·데이터 안내</Link>
             <Link href="/privacy">개인정보 처리방침</Link>
+            <Link href="/terms">이용약관</Link>
             <Link href="/login">로그인</Link>
             <span>© 2026 AD Me · 대학 프로젝트</span>
           </div>

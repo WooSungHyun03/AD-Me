@@ -277,6 +277,7 @@ export function Catalog({
               </>
             )}
           </p>
+          <h2 className="sr-only">검색 결과</h2>
           <div className="creator-grid" aria-busy={loading}>
             {list.map((c, i) => (
               <article

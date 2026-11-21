@@ -30,6 +30,7 @@ export default async function Campaigns() {
           캠페인 만들기 ↗
         </Link>
       </div>
+      <h2 className="sr-only">공개 모집 목록</h2>
       {records.map((c) => (
         <Link className="result" key={c.id} href={`/campaigns/${c.id}`}>
           <span>↗</span>

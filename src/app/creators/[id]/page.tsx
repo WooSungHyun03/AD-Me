@@ -70,6 +70,7 @@ export default async function Detail({
             </span>
           </div>
           <h1 className="page-title">{c.name}</h1>
+          <h2 className="sr-only">크리에이터 상세 정보</h2>
           <p>
             @{c.handle} · {c.platforms.join(" / ")}
           </p>
