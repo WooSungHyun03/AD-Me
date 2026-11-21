@@ -1,0 +1,149 @@
+{
+  "at": "2026-11-21T10:35:48.980Z",
+  "result": "INVENTORY_VERIFIED_WITH_NOTICE_GAPS",
+  "target": "linux",
+  "node": "v22.23.5",
+  "trace_files": 79,
+  "traced_packages": 17,
+  "unresolved_runtime_packages": [
+    {
+      "path": "node_modules/@img/sharp-libvips-linux-x64",
+      "version": "1.3.4",
+      "review": "EXACT_ARCHIVE_NOTICE_MISSING",
+      "license": "UNKNOWN"
+    },
+    {
+      "path": "node_modules/@img/sharp-libvips-linuxmusl-x64",
+      "version": "1.3.4",
+      "review": "EXACT_ARCHIVE_NOTICE_MISSING",
+      "license": "UNKNOWN"
+    },
+    {
+      "path": "node_modules/@next/env",
+      "version": "16.4.6",
+      "review": "EXACT_ARCHIVE_NOTICE_MISSING",
+      "license": "MIT"
+    },
+    {
+      "path": "node_modules/client-only",
+      "version": "0.0.1",
+      "review": "EXACT_ARCHIVE_NOTICE_MISSING",
+      "license": "MIT"
+    }
+  ],
+  "package_versions_match_lock": true,
+  "known_notice_file_sha256": "2ec261c46fdcd7223927163ae68515ed2c0261542d602631b40eb10ead9a9241",
+  "notice_bytes": 1602660,
+  "source_documents_unchanged": true,
+  "http_notice_and_korean_page_verified": true,
+  "outside_workspace_trace_paths": 0,
+  "rights_approval": false,
+  "packages": [
+    {
+      "path": "node_modules/@emnapi/runtime",
+      "version": "1.11.3",
+      "review": "EXACT_ARCHIVE_NOTICES",
+      "license": "UNKNOWN"
+    },
+    {
+      "path": "node_modules/@img/colour",
+      "version": "1.1.0",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "MIT"
+    },
+    {
+      "path": "node_modules/@img/sharp-libvips-linux-x64",
+      "version": "1.3.4",
+      "review": "EXACT_ARCHIVE_NOTICE_MISSING",
+      "license": "UNKNOWN"
+    },
+    {
+      "path": "node_modules/@img/sharp-libvips-linuxmusl-x64",
+      "version": "1.3.4",
+      "review": "EXACT_ARCHIVE_NOTICE_MISSING",
+      "license": "UNKNOWN"
+    },
+    {
+      "path": "node_modules/@img/sharp-linux-x64",
+      "version": "0.35.5",
+      "review": "EXACT_ARCHIVE_NOTICES",
+      "license": "UNKNOWN"
+    },
+    {
+      "path": "node_modules/@img/sharp-linuxmusl-x64",
+      "version": "0.35.5",
+      "review": "EXACT_ARCHIVE_NOTICES",
+      "license": "UNKNOWN"
+    },
+    {
+      "path": "node_modules/@img/sharp-wasm32",
+      "version": "0.35.5",
+      "review": "EXACT_ARCHIVE_NOTICES",
+      "license": "UNKNOWN"
+    },
+    {
+      "path": "node_modules/@next/env",
+      "version": "16.4.6",
+      "review": "EXACT_ARCHIVE_NOTICE_MISSING",
+      "license": "MIT"
+    },
+    {
+      "path": "node_modules/@swc/helpers",
+      "version": "0.5.23",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "node_modules/client-only",
+      "version": "0.0.1",
+      "review": "EXACT_ARCHIVE_NOTICE_MISSING",
+      "license": "MIT"
+    },
+    {
+      "path": "node_modules/detect-libc",
+      "version": "2.1.2",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "node_modules/next",
+      "version": "16.4.6",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "MIT"
+    },
+    {
+      "path": "node_modules/react",
+      "version": "19.3.1",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "MIT"
+    },
+    {
+      "path": "node_modules/react-dom",
+      "version": "19.3.1",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "MIT"
+    },
+    {
+      "path": "node_modules/semver",
+      "version": "7.8.6",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "ISC"
+    },
+    {
+      "path": "node_modules/sharp",
+      "version": "0.35.5",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "node_modules/styled-jsx",
+      "version": "5.1.6",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "MIT"
+    }
+  ],
+  "scope": "Actual target production trace and shipped known notices; unresolved notices and supplied logo/content rights remain release blockers. Not a blanket licensing approval.",
+  "source_tree": "51b79fda0370611b057d124f7555300c27cc72d9",
+  "image_id": "sha256:e9f565d32859f0cbfb52125eafe8be39390f24dac302dc3cdf566e8ba3ab21ee",
+  "isolation": "Git archive only, no host env/keys/home/ports; local disposable Docker volume, not deployment."
+}
