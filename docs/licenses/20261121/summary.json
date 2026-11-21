@@ -1,0 +1,293 @@
+{
+  "lockfile_sha256": "871ea475759042d14d465a988b9b9800b58939fe1ce082bcb72f987d5f165b64",
+  "lock_entries": 506,
+  "exact_installed": 393,
+  "exact_archive": 42,
+  "unresolved": [
+    {
+      "path": "node_modules/@humanfs/types",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@img/sharp-libvips-darwin-arm64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@img/sharp-libvips-darwin-x64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@img/sharp-libvips-linux-arm",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@img/sharp-libvips-linux-arm64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@img/sharp-libvips-linux-ppc64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@img/sharp-libvips-linux-riscv64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@img/sharp-libvips-linux-s390x",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@img/sharp-libvips-linux-x64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@img/sharp-libvips-linuxmusl-arm64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@img/sharp-libvips-linuxmusl-x64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@napi-rs/wasm-runtime",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@next/env",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@next/eslint-plugin-next",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@next/swc-darwin-arm64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@next/swc-darwin-x64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@next/swc-linux-arm64-gnu",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@next/swc-linux-arm64-musl",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@next/swc-linux-x64-gnu",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@next/swc-linux-x64-musl",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@next/swc-win32-arm64-msvc",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@next/swc-win32-x64-msvc",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@rolldown/binding-android-arm-eabi",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@rolldown/binding-android-arm64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@rolldown/binding-darwin-arm64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@rolldown/binding-darwin-x64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@rolldown/binding-freebsd-x64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@rolldown/binding-linux-arm-gnueabihf",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@rolldown/binding-linux-arm64-gnu",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@rolldown/binding-linux-arm64-musl",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@rolldown/binding-linux-ppc64-gnu",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@rolldown/binding-linux-s390x-gnu",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@rolldown/binding-linux-x64-gnu",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@rolldown/binding-linux-x64-musl",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@rolldown/binding-openharmony-arm64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@rolldown/binding-wasm32-wasi",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@rolldown/binding-win32-arm64-msvc",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@rolldown/binding-win32-x64-msvc",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@tailwindcss/oxide-wasm32-wasi/node_modules/@napi-rs/wasm-runtime",
+      "reason": "ARCHIVE_REVIEW_BLOCKED"
+    },
+    {
+      "path": "node_modules/@tailwindcss/oxide-wasm32-wasi/node_modules/@tybys/wasm-util",
+      "reason": "ARCHIVE_REVIEW_BLOCKED"
+    },
+    {
+      "path": "node_modules/@types/json5",
+      "reason": "ARCHIVE_REVIEW_BLOCKED"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-android-arm-eabi",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-android-arm64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-darwin-arm64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-darwin-x64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-freebsd-x64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-linux-arm-gnueabihf",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-linux-arm-musleabihf",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-linux-arm64-gnu",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-linux-arm64-musl",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-linux-loong64-gnu",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-linux-loong64-musl",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-linux-ppc64-gnu",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-linux-riscv64-gnu",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-linux-riscv64-musl",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-linux-s390x-gnu",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-linux-x64-gnu",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-linux-x64-musl",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-openharmony-arm64",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-win32-arm64-msvc",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-win32-ia32-msvc",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/@unrs/resolver-binding-win32-x64-msvc",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/client-only",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/eslint-config-next",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/esrecurse",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/imurmurhash",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/keyv",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/language-subtag-registry",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/language-tags",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/natural-compare",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    },
+    {
+      "path": "node_modules/stable-hash",
+      "reason": "EXACT_ARCHIVE_NOTICE_MISSING"
+    }
+  ],
+  "scope": "Exact host plus optional lock artifacts. Final deployment bundle/Edge Deno dependencies and brand redistribution rights remain separate review gates."
+}
