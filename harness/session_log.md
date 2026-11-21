@@ -277,3 +277,9 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 ## 2026-11-21 — 작업 속도 우선 실행 방식 반영
 - 사용자는 앞으로 가능한 한 빠른 마무리를 요청했다. AGENTS.md에 진행 중 독립 P0 우선/준비된 미착수 순차 처리, 연관 티켓 묶음의 공통 검증·최종 패킷1회, QA 재사용·불변 외부 차단 재검토 축소를 기록했다. 티켓별 커밋/증빙·영향 권한/데이터 검사·최종 exit gate는 유지한다.
 - 이번 변경은 실행 규칙/세션 기록만이며 기능 구현·티켓 상태 변경 없음. 현재 Local9/진행13/부분1/외부2/OPEN18/DONE0을 그대로 보존한다. 앱/DB/배포 변경과 무관한 전체 앱 테스트·SQL 패킷/ZIP 재생성은 하지 않는다. 문서 diff와 인계 일관성 검증 후 같은 브랜치에 커밋/푸시한다.
+
+## 2026-11-21 — 진행 중 DEV-A P0 13개 마무리 배치
+- 기존 codex/dev-a-p0-continue/a1e8080에서 대상13개를 처리했다. D002/D008/D012/D018/D028/D034/D051/D065/D075/D076/D081은 LOCAL_VERIFIED, D007은 BLOCKED_EXTERNAL, D084는 IN_PROGRESS. 다른 담당/미착수/원본 배분은 불변이며 DONE0. 외부 정책·권리·실제 공급자·삭제/보존 전체 흐름·USER 적용/URL/교차 검토를 완료로 가정하지 않았다.
+- 035~046 additive SQL: 홈 실제 집계, TEST DB isolation, bounded filtered server search, service Auth HMAC budget, private verified PNG Storage/logo, opaque public refs, normalized policy-gated public read. 기존34 SQL/PK/FK/실데이터 내용 불변, 실제 marked QA 이력46.
+- 최종 unit234/33·DB→TS4·local security17/110·47table/189function/2privatebucket inventory·lint/typecheck/build PASS. 실제 로컬 Auth/Storage desktop/mobile48개 시나리오의 영향 재검증, free actual DB6·keyless10의 영향 filter6 PASS. 첫 실패와 실제 수정은 DEV-A-P0-FINISH-20261121/README.md에 보존. 단일48-green 실행으로 과장하지 않는다.
+- 실제 USER SQL34→46/중간 rollback/미지·중복·수정 baseline STOP/비어 있지 않은6종 데이터 hash/old-to-opaque ID switch 및 cursor 경계 PASS. 새 USER 적용 패킷1개, 이전 ZIP·SQL 산출물은 불변. source/티켓 commit과 실제 push/CI는 최종 인계에 기록한다. 외부 설정/키/배포/메시지 발송 없음.

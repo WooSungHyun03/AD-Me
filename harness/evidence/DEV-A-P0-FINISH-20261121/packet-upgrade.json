@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-21T04:22:37.901Z",
+  "result": "PASS",
+  "from_migrations": 34,
+  "to_migrations": 46,
+  "preserved_nonempty_profiles_campaigns_proposals_messages_orders_saved": true,
+  "unknown_history_and_modified_functions_rejected": true,
+  "mid_bundle_failure_atomic_rollback": true,
+  "reapply_rejected": true,
+  "stage_keeps_legacy_public_refs": true,
+  "stage_is_privacy_completion": false,
+  "activate_hides_auth_uid_and_private_canary": true,
+  "old_cursor_rejected_after_read_switch": true,
+  "activation_owner_only_one_way_and_first_evidence_preserved": true,
+  "private_storage_four_mib_and_all_new_private_tables_rls": true,
+  "scope": "Actual generated SQL, fictional records in marked loopback packet DB. No hosted configuration/deployment/provider verification."
+}

@@ -10,11 +10,14 @@
     },
     "D002": {
       "owner": "DEV-A",
-      "status": "IN_PROGRESS",
+      "status": "LOCAL_VERIFIED",
       "evidence": [
-        "harness/evidence/D002/README.md"
+        "harness/evidence/D002/README.md",
+        "harness/evidence/D002/VERIFY_20261121.md",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json"
       ],
-      "blocker": "D001의 DB·모드 격리와 TEST 카탈로그의 실제 화면/주문 대조가 남음."
+      "blocker": "USER release config/실제 URL/DEV-B D001 검토는 미완료. 사업자 없는 유료 운영/실제 성과/실제 Toss 승인을 단정하지 않는다.",
+      "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
     },
     "D003": {
       "owner": "DEV-A",
@@ -51,23 +54,27 @@
     },
     "D007": {
       "owner": "DEV-A",
-      "status": "IN_PROGRESS",
+      "status": "BLOCKED_EXTERNAL",
       "evidence": [
         "harness/evidence/D007/README.md",
-        "harness/evidence/DEV-A-P0-CONTINUE/verification.json"
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+        "harness/evidence/D007/VERIFY_20261121.md",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json"
       ],
-      "blocker": "잠금 506개/고지 확인 393개/원문 533개 확보. 113개와 Linux·Edge 실제 배포 아티팩트 및 브랜드 재배포 범위 미확인.",
-      "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
+      "blocker": "71개 배포 대상/상위 소스 고지 근거, 실제 Linux/Edge 최종 산출물 포함 여부, 제공 로고/외부 콘텐츠 재배포 범위와 필요한 권리 승인이 미검증이다. 법적 동의/권리 승인을 대신 수행하거나 전체 ticket DONE으로 표시하지 않는다.",
+      "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
     },
     "D008": {
       "owner": "DEV-A",
-      "status": "IN_PROGRESS",
+      "status": "LOCAL_VERIFIED",
       "evidence": [
         "harness/evidence/D008/README.md",
-        "harness/evidence/DEV-A-MAIN-20261120/verification.json"
+        "harness/evidence/DEV-A-MAIN-20261120/verification.json",
+        "harness/evidence/D008/VERIFY_20261121.md",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json"
       ],
-      "blocker": "앱/DB 큐·lease 기본OFF 및 계약검증. 실제 환경·수집 정책·worker 활성화와 TEST DB 격리는 USER/D001 인계 필요.",
-      "last_checked_at": "2026-11-20T02:36:28.405549+00:00"
+      "blocker": "USER 환경 적용·실제 공급자/Toss TEST 성공 미검증. 실제 결제/키/배포는 수행하지 않았다.",
+      "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
     },
     "D009": {
       "owner": "DEV-A",
@@ -96,13 +103,15 @@
     },
     "D012": {
       "owner": "DEV-A",
-      "status": "IN_PROGRESS",
+      "status": "LOCAL_VERIFIED",
       "evidence": [
         "harness/evidence/D012/README.md",
-        "harness/evidence/DEV-A-P0-CONTINUE/verification.json"
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+        "harness/evidence/D012/VERIFY_20261121.md",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json"
       ],
-      "blocker": "브랜드/담당자 분리·공개 DTO·REST·UI 검증. D011 리뷰와 D027 로고 업로드 연결 미완료; 외부 적용 안 함.",
-      "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
+      "blocker": "업로드는 승인된 동일 프로젝트 서버 전용 key 필요(없으면503). USER 설정/URL·교차 검토 미완료. 원본 사용자 자산 권리/삭제 정책은 별도.",
+      "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
     },
     "D013": {
       "owner": "DEV-B",
@@ -141,16 +150,18 @@
     },
     "D018": {
       "owner": "DEV-A",
-      "status": "IN_PROGRESS",
+      "status": "LOCAL_VERIFIED",
       "evidence": [
         "harness/evidence/D018/README.md",
         "harness/evidence/D018/normalization-security-20261120.json",
         "harness/evidence/D018/packet-terms_18-20261120.json",
         "docs/handoff/DEV-A_SCHEMA_20261120.md",
-        "harness/evidence/DEV-A-READ-20261120/verification.json"
+        "harness/evidence/DEV-A-READ-20261120/verification.json",
+        "harness/evidence/D018/VERIFY_20261121.md",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json"
       ],
-      "blocker": "정규화 private storage와 앱/DB 공개 allowlist·null 지표 및 strict raw read 보수 로컬 검증. USER staged source 확인/활성화·opaque 공개ID·D017 정책/실제 수집·D019 writer/정규화 read switch·철회/삭제/보존 연결 미완료.",
-      "last_checked_at": "2026-11-20T09:51:25.373900+00:00"
+      "blocker": "D017 실제 정책/권리 승인과 D019 실제 writer는 미완료. publication policy 기본0/OFF이며 QA 승인 정책은 fictional fixture로만 삽입·정리했다. 실제 공급자/플랫폼 소유 검증 또는 전체 삭제/보존 구현으로 보고하지 않는다.",
+      "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
     },
     "D019": {
       "owner": "DEV-B",
@@ -216,11 +227,14 @@
     },
     "D028": {
       "owner": "DEV-A",
-      "status": "IN_PROGRESS",
+      "status": "LOCAL_VERIFIED",
       "evidence": [
-        "harness/evidence/D028/README.md"
+        "harness/evidence/D028/README.md",
+        "harness/evidence/D028/VERIFY_20261121.md",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json"
       ],
-      "blocker": "D026 소유 확인, 브라우저 임베드 실패 복구 및 실제 공급원 검증 필요."
+      "blocker": "D026 실제 claim/플랫폼 정책 검토는 별도. 가상11자리 영상 ID 및 요청 차단 fixture로 재생/공급자 성공을 주장하지 않는다. Next streamed not-found는 HTTP200 가능하며 not-found UI·비공개 내용 부재를 함께 단언했다.",
+      "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
     },
     "D029": {
       "owner": "DEV-A",
@@ -261,13 +275,15 @@
     },
     "D034": {
       "owner": "DEV-A",
-      "status": "IN_PROGRESS",
+      "status": "LOCAL_VERIFIED",
       "evidence": [
         "harness/evidence/D034/README.md",
-        "harness/evidence/D034/PLAN_20261120.md"
+        "harness/evidence/D034/PLAN_20261120.md",
+        "harness/evidence/D034/VERIFY_20261121.md",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json"
       ],
-      "blocker": "다중 필터/URL 복원·back/forward/reset/0·미확보/stable sort/경합 계약의 unit·브라우저 로컬 검증. D033 server DTO/cursor 검색 연결·대량 데이터/실제 비동기 통합·교차 리뷰·대상 적용 미완료.",
-      "last_checked_at": "2026-11-20T08:29:32.697943+00:00"
+      "blocker": "D033 steward 검토·실제 대용량 운영 성능/URL은 별도. facets 각1000개 상한이며 무한 facet을 주장하지 않는다. ID read switch 전 cursor는 거부되므로 첫 페이지 재조회.",
+      "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
     },
     "D035": {
       "owner": "DEV-A",
@@ -379,16 +395,18 @@
     },
     "D051": {
       "owner": "DEV-A",
-      "status": "IN_PROGRESS",
+      "status": "LOCAL_VERIFIED",
       "evidence": [
         "harness/evidence/D051/README.md",
         "harness/evidence/DEV-A-MAIN-20261120/verification.json",
         "harness/evidence/DEV-A-SCHEMA-20261120/rate-security.json",
         "harness/evidence/D051/verification-20261120.json",
-        "docs/handoff/DEV-A_MESSAGES_20261120.md"
+        "docs/handoff/DEV-A_MESSAGES_20261120.md",
+        "harness/evidence/D051/VERIFY_20261121.md",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json"
       ],
-      "blocker": "018에서 방별 lazy cursor·key 재시도/중복 방지·차단·비공개 신고·DB 한도·직접 INSERT guard 구현 및 unit197/DB16그룹/desktop-mobile4/SQL23→24 보존 검증. D027 안전 Storage 첨부·방별 signed URL 재인가, D049 교차 리뷰·실제 URL 검증 미완료. HTTPS 결과물 링크를 파일 첨부 완료로 보지 않음.",
-      "last_checked_at": "2026-11-20T12:46:06.674591+00:00"
+      "blocker": "PDF/일반 파일 첨부는 제공하지 않는다. private 인증 스트림을 사용해 장기 signed URL이 없다. D027/D049 교차 검토·실제 URL·D014/D079 보존/수거는 별도이며 파일 unlink를 완전 삭제라고 부르지 않는다.",
+      "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
     },
     "D052": {
       "owner": "DEV-B",
@@ -490,11 +508,14 @@
     },
     "D065": {
       "owner": "DEV-A",
-      "status": "IN_PROGRESS",
+      "status": "LOCAL_VERIFIED",
       "evidence": [
-        "harness/evidence/D065/README.md"
+        "harness/evidence/D065/README.md",
+        "harness/evidence/D065/VERIFY_20261121.md",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json"
       ],
-      "blocker": "D001 격리 인계와 실제 TEST 주문·승인 재검증이 필요."
+      "blocker": "실제 Toss SDK TEST key+provider confirmation 미검증은 D066/U 외부 gate다. DB-only local confirmation을 Toss 성공으로 부르지 않으며 실제 결제 금지.",
+      "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
     },
     "D066": {
       "owner": "DEV-B",
@@ -552,29 +573,33 @@
     },
     "D075": {
       "owner": "DEV-A",
-      "status": "IN_PROGRESS",
+      "status": "LOCAL_VERIFIED",
       "evidence": [
         "harness/evidence/D075/README.md",
         "harness/evidence/D075/PLAN_20261120.md",
         "harness/evidence/D075/creator-read-security-20261120.json",
         "harness/evidence/D075/permission-inventory-20261120.json",
-        "harness/evidence/DEV-A-READ-20261120/verification.json"
+        "harness/evidence/DEV-A-READ-20261120/verification.json",
+        "harness/evidence/D075/VERIFY_20261121.md",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json"
       ],
-      "blocker": "014~017 호환 RPC/본인·MFA admin raw RLS·safe HOT/saved·원자 제안 및 비공개 campaign 오류 동등성,5개 SQL 기준23개 이력 검증. USER source/활성화·실제 URL·교차 리뷰·전체 Storage/RPC/테넌트 감사·opaque ID 미완료. staging은 보안 완료 아님.",
-      "last_checked_at": "2026-11-20T09:51:25.373900+00:00"
+      "blocker": "USER source 적용·owner-only one-way activation과 D018/DEV-B 검토/대상 URL은 미완료. staging은 old-source 호환이며 개인정보 경계 완료가 아니다. 메타데이터 감사와 실제 역할 동작 검증 범위를 구분한다.",
+      "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
     },
     "D076": {
       "owner": "DEV-A",
-      "status": "IN_PROGRESS",
+      "status": "LOCAL_VERIFIED",
       "evidence": [
         "harness/evidence/D076/README.md",
         "harness/evidence/DEV-A-MAIN-20261120/verification.json",
         "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json",
         "harness/evidence/D076/catalog-quota-security-20261120.json",
-        "harness/evidence/DEV-A-READ-20261120/verification.json"
+        "harness/evidence/DEV-A-READ-20261120/verification.json",
+        "harness/evidence/D076/VERIFY_20261121.md",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json"
       ],
-      "blocker": "strict catalog DB60/account/min·anon shared300/min·GET/leaf 거부 및 prefetch 제거 검증. USER read 활성화·가입/로그인 trustedIP/계정/Auth 설정·D033 대용량 서버 검색 UX 미완료. shared anon 한도는 IP별 한도가 아님.",
-      "last_checked_at": "2026-11-20T09:51:25.373900+00:00"
+      "blocker": "실제 Vercel trusted header/서비스키 등록은 USER; direct GoTrue API 공급자 한도도 USER 확인. shared fallback은 IP별 한도가 아니며 app budget으로 direct Auth 보호를 주장하지 않는다.",
+      "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
     },
     "D077": {
       "owner": "DEV-B",
@@ -602,13 +627,15 @@
     },
     "D081": {
       "owner": "DEV-A",
-      "status": "IN_PROGRESS",
+      "status": "LOCAL_VERIFIED",
       "evidence": [
         "harness/evidence/D081/README.md",
-        "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json"
+        "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json",
+        "harness/evidence/D081/VERIFY_20261121.md",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json"
       ],
-      "blocker": "캠페인 추천의 가상 프로필 DEMO 누락 보수·시각검증. 실제 메인 집계/출처 신뢰 재설계 및 D024/D002 후속 인계 남음.",
-      "last_checked_at": "2026-11-20T03:24:38.584845+00:00"
+      "blocker": "D024 공급원·실제 인기/HOT 성과 및 대상 URL/DEV-B 검토는 별도. 가상 QA와 본인 입력을 실제 검증된 인플루언서로 보고하지 않는다.",
+      "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
     },
     "D082": {
       "owner": "DEV-A",
@@ -635,10 +662,12 @@
         "harness/evidence/DEV-A-READ-20261120/verification.json",
         "harness/evidence/DEV-A-EVIDENCE-20261120/verification.json",
         "harness/evidence/D054/verification.json",
-        "harness/evidence/D045/verification.json"
+        "harness/evidence/D045/verification.json",
+        "harness/evidence/D084/VERIFY_20261121.md",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json"
       ],
-      "blocker": "최신 unit225/29·lint/typecheck/build, D045 실제 SQL/REST11·DB→TS145사례·영향 browser4+UI보정후2·USER SQL31→34/rollback PASS. 전체 historical suite/미구현·외부 공급자/실제 URL·출시 전수 검증은 남음.",
-      "last_checked_at": "2026-11-20T14:51:00.191610+00:00"
+      "blocker": "전체 계정 삭제/보존 및 미구현 D014/D079 등 전체 서비스 흐름·실제 공급자·실제 대상 URL/릴리스 게이트가 남는다. 이 배치 통과를 전체 서비스 E2E/출시 완료로 보고하지 않는다.",
+      "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
     },
     "D085": {
       "owner": "DEV-B",

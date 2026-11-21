@@ -48,9 +48,9 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
     fullPage: true,
   });
   await page.goto("/creators");
-  expect(await page.getByTestId("creator-card").count()).toBeGreaterThanOrEqual(
-    48,
-  );
+  await expect(page.getByTestId("creator-card")).toHaveCount(24);
+  await page.getByRole("button", { name: "다음 후보 더 불러오기" }).click();
+  await expect(page.getByTestId("creator-card")).toHaveCount(48);
   await page.getByLabel("크리에이터 검색").fill("서하린");
   await expect(page.getByTestId("creator-card")).toHaveCount(1);
   await page.getByLabel("크리에이터 검색").fill("결과없는이름");
