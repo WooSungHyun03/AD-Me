@@ -333,11 +333,13 @@ test("public application, shortlist persistence, account settings and administra
     ap.getByRole("heading", { name: "서비스 운영 현황." }),
   ).toBeVisible();
   await expect(
-    ap.getByRole("heading", { name: "회원 관리", exact: true }),
+    ap.getByRole("heading", { name: "업무별 운영 검색", exact: true }),
   ).toBeVisible();
-  await expect(
-    ap.getByRole("heading", { name: "이용권·HOT 운영" }),
-  ).toBeVisible();
+  await ap
+    .getByLabel("조회 사유", { exact: true })
+    .fill("가상 사용자 문의에 따른 조회");
+  await ap.getByRole("button", { name: "운영 검색", exact: true }).click();
+  await expect(ap.getByTestId("admin-search-results")).toBeVisible();
   await ap.screenshot({
     path: `output/playwright/admin-${test.info().project.name}.png`,
     fullPage: true,

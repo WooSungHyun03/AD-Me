@@ -48,6 +48,16 @@ test("approved delegated staff enroll real local Auth OTP without classic admin 
   }
   await page.getByLabel("6자리 OTP").fill(totp(secret));
   await page.getByRole("button", { name: "OTP 확인", exact: true }).click();
+  await expect(page).toHaveURL(/\/admin$/);
+  await expect(
+    page.getByRole("combobox", { name: "운영 검색 대상", exact: true }),
+  ).toContainText("크리에이터");
+  await expect(
+    page.getByRole("combobox", { name: "운영 검색 대상", exact: true }),
+  ).not.toContainText("TEST 주문");
+  await page
+    .getByRole("link", { name: "수집·AI 운영 콘솔", exact: true })
+    .click();
   await expect(page).toHaveURL(/admin\/intelligence/);
   await expect(
     page.getByRole("heading", { name: "운영 콘솔", exact: true }),

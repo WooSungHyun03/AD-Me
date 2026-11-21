@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-21T16:02:11.152Z",
+  "scope": "Actual local DB/PostgREST; synthetic local signed JWTs test permissions, not native MFA/provider acceptance",
+  "results": [
+    {
+      "name": "normal, anonymous and stale MFA denied; delegated support limited to support scope",
+      "result": "PASS"
+    },
+    {
+      "name": "all admin domains bounded/minimal; cursor bound to search context; search audit records exact request",
+      "result": "PASS"
+    },
+    {
+      "name": "review reason/status/request enforced atomically; legacy reasonless route blocked",
+      "result": "PASS"
+    },
+    {
+      "name": "immutable audit and private table/function grants; no self-promotion/export from support APIs",
+      "result": "PASS"
+    }
+  ]
+}

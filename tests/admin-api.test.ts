@@ -70,7 +70,10 @@ describe("admin API gates before privileged work", () => {
     const response = await review(request({ id: userId, status: "reviewed" }));
     expect(response.status).toBe(503);
     expect(await response.text()).not.toContain("PRIVATE_PROVIDER_FIXTURE");
-    expect(db.rpc).not.toHaveBeenCalledWith("review_report", expect.anything());
+    expect(db.rpc).not.toHaveBeenCalledWith(
+      "admin_review_report",
+      expect.anything(),
+    );
   });
   it.each([review, moderate])(
     "denies ordinary accounts before any RPC",
@@ -117,7 +120,10 @@ describe("admin API gates before privileged work", () => {
     expect(
       (await review(request({ id: userId, status: "reviewed" }))).status,
     ).toBe(403);
-    expect(db.rpc).not.toHaveBeenCalledWith("review_report", expect.anything());
+    expect(db.rpc).not.toHaveBeenCalledWith(
+      "admin_review_report",
+      expect.anything(),
+    );
   });
   it("checks the actual database JWT after application verification", async () => {
     db.rpc.mockImplementation(async (name) => ({
@@ -148,11 +154,12 @@ describe("admin API gates before privileged work", () => {
         )
       ).status,
     ).toBe(200);
-    expect(db.rpc).toHaveBeenCalledWith("moderate_entity", {
+    expect(db.rpc).toHaveBeenCalledWith("admin_moderate_entity", {
       p_kind: "creator",
       p_id: "fixture",
       p_published: false,
       p_reason: "QA fixture only",
+      p_request: expect.stringMatching(/^[a-f0-9-]{36}$/),
     });
   });
   it("rejects an unknown factor before calling the provider", async () => {

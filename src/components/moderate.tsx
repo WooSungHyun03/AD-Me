@@ -5,10 +5,12 @@ export function Moderate({
   id,
   kind,
   restricted,
+  onChanged,
 }: {
   id: string;
   kind: "creator" | "campaign";
   restricted: boolean;
+  onChanged?: () => void;
 }) {
   const [message, setMessage] = useState("");
   const [reason, setReason] = useState("");
@@ -38,7 +40,10 @@ export function Moderate({
               body: JSON.stringify({ id, kind, published: restricted, reason }),
             });
             setMessage(res.ok ? "처리했습니다." : "처리하지 못했습니다.");
-            if (res.ok) router.refresh();
+            if (res.ok) {
+              router.refresh();
+              onChanged?.();
+            }
           } catch {
             setMessage("네트워크 오류입니다.");
           } finally {

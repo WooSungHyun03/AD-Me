@@ -142,8 +142,17 @@ test("administrator MFA and audited moderation survive owner republish", async (
     ).status(),
   ).toBe(200);
   await page.reload();
-  await page.getByText(/프로필 목록 \(/).click();
-  const row = page.locator(".result").filter({ hasText: profile.name });
+  await page
+    .getByRole("combobox", { name: "운영 검색 대상", exact: true })
+    .selectOption("creators");
+  await page.getByLabel("운영 검색어", { exact: true }).fill(profile.name);
+  await page
+    .getByLabel("조회 사유", { exact: true })
+    .fill("QA 격리 환경 운영 잠금 확인");
+  await page.getByRole("button", { name: "운영 검색", exact: true }).click();
+  const row = page
+    .getByTestId("admin-record")
+    .filter({ hasText: profile.name });
   await row.getByLabel("운영 조치 사유").fill("QA 격리 환경 운영 잠금 확인");
   await row.getByRole("button", { name: "운영 비공개 잠금" }).click();
   await expect(

@@ -2,16 +2,22 @@ import { NextResponse } from "next/server";
 import { apiRoute, fail, failDatabase, parseBody } from "@/lib/api";
 import { z } from "zod";
 import { requireAdminContext } from "@/lib/admin";
-export const POST = apiRoute("admin.post", async (req) => {
+export const POST = apiRoute("admin.post", async (req, requestId) => {
   const c = await requireAdminContext();
   const p = await parseBody(
     req,
-    z.object({ id: z.uuid(), status: z.enum(["reviewed", "dismissed"]) }),
+    z.strictObject({
+      id: z.uuid(),
+      status: z.enum(["reviewed", "dismissed"]),
+      reason: z.string().trim().min(5).max(500),
+    }),
     "잘못된 요청입니다.",
   );
-  const { error } = await c.db.rpc("review_report", {
+  const { error } = await c.db.rpc("admin_review_report", {
     p_id: p.id,
     p_status: p.status,
+    p_reason: p.reason,
+    p_request: requestId,
   });
   if (error?.code === "P0001" && error.message === "forbidden")
     fail("관리자 권한이 필요합니다.", 403);

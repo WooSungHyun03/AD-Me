@@ -37,7 +37,10 @@ export function fail(
 
 export function apiRoute(
   operation: string,
-  handler: (request: Request) => Promise<Response> | Response,
+  handler: (
+    request: Request,
+    requestId: string,
+  ) => Promise<Response> | Response,
 ) {
   return async (request: Request) => {
     const requestId = randomUUID();
@@ -48,7 +51,7 @@ export function apiRoute(
         !safeOrigin(request)
       )
         fail("허용되지 않은 요청입니다.", 403);
-      const response = await handler(request);
+      const response = await handler(request, requestId);
       response.headers.set("X-Request-Id", requestId);
       return response;
     } catch (error) {
