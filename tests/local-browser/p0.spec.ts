@@ -2,7 +2,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { qaSignupConsent } from "../support/consent-fixture.mjs";
 import { readFileSync } from "node:fs";
 import { totp, localRuntime, localClient, sql } from "../support/local-qa.mjs";
-import { randomBytes } from "node:crypto";
+import { randomBytes, randomUUID } from "node:crypto";
 const accounts = JSON.parse(
   readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
 );
@@ -128,7 +128,18 @@ test("administrator MFA and audited moderation survive owner republish", async (
     published: true,
   };
   expect(
-    (await cp.request.post("/api/profile", { data: profile })).status(),
+    (
+      await cp.request.post("/api/profile", {
+        data: {
+          profile,
+          publication: {
+            version: qaSignupConsent.policy_version,
+            documentHash: qaSignupConsent.policy_hash,
+            requestKey: randomUUID(),
+          },
+        },
+      })
+    ).status(),
   ).toBe(200);
   await page.reload();
   await page.getByText(/프로필 목록 \(/).click();
@@ -139,7 +150,18 @@ test("administrator MFA and audited moderation survive owner republish", async (
     row.getByRole("button", { name: "운영 잠금 해제" }),
   ).toBeVisible();
   expect(
-    (await cp.request.post("/api/profile", { data: profile })).status(),
+    (
+      await cp.request.post("/api/profile", {
+        data: {
+          profile,
+          publication: {
+            version: qaSignupConsent.policy_version,
+            documentHash: qaSignupConsent.policy_hash,
+            requestKey: randomUUID(),
+          },
+        },
+      })
+    ).status(),
   ).toBe(200);
   const id = `user-${accounts.creator.id}`;
   await cp.goto(`/creators/${id}`);
@@ -169,7 +191,11 @@ test("new provisioned administrator completes actual local TOTP enrollment", asy
     email,
     password,
     email_confirm: true,
-    user_metadata: { ...qaSignupConsent, role: "brand", name: "QA enrollment fixture" },
+    user_metadata: {
+      ...qaSignupConsent,
+      role: "brand",
+      name: "QA enrollment fixture",
+    },
   });
   expect(created.error).toBeNull();
   const id = created.data.user!.id;

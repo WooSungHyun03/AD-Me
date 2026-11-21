@@ -173,7 +173,7 @@ test("P0 own consent history, lost acknowledgement retry, optional withdrawal an
     ).toBe("f");
     expect(
       sql(
-        `select count(*) from adme_consent.events where actor_id='${actor.id}' and purpose='profile_publication';`,
+        `select count(*) from adme_consent.events where actor_id='${actor.id}' and purpose='profile_publication' and scope='global';`,
       ),
     ).toBe("1");
     const publicResult = await page.request.get(`/creators/${actor.creatorId}`);

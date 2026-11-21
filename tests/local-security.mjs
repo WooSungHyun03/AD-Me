@@ -2,6 +2,10 @@ import { randomUUID } from "node:crypto";
 import assert from "node:assert/strict";
 import { readFileSync, writeFileSync } from "node:fs";
 import {
+  publicationArgs,
+  creatorPublicationData,
+} from "./support/publication-fixture.mjs";
+import {
   localClient,
   localJwt,
   localRuntime,
@@ -129,16 +133,17 @@ await check(
     try {
       assert.equal(
         (
-          await fixtureCreator.from("creators").insert({
-            id,
-            owner_id: fixtureOwner,
-            published: true,
-            profile: {
-              ...fixture.profile,
-              name: "QA isolated fixture",
-              is_demo: false,
-            },
-          })
+          await fixtureCreator.rpc(
+            "save_publication",
+            publicationArgs(
+              "creator",
+              creatorPublicationData({
+                ...fixture.profile,
+                name: "QA isolated fixture",
+                published: true,
+              }),
+            ),
+          )
         ).error,
         null,
       );
@@ -176,10 +181,20 @@ await check(
         ).error,
         null,
       );
-      assert.equal((await anonymous.from("creators").select("id").eq("id", id)).error?.code, "42501");
-      const afterRepublish = await anonymous.rpc("creator_catalog_page", { p_after: "", p_limit: 200 });
+      assert.equal(
+        (await anonymous.from("creators").select("id").eq("id", id)).error
+          ?.code,
+        "42501",
+      );
+      const afterRepublish = await anonymous.rpc("creator_catalog_page", {
+        p_after: "",
+        p_limit: 200,
+      });
       assert.equal(afterRepublish.error, null);
-      assert.equal(afterRepublish.data.items.some((row) => row.seed_id === id), false);
+      assert.equal(
+        afterRepublish.data.items.some((row) => row.seed_id === id),
+        false,
+      );
       assert.equal(
         (
           await fixtureCreator
@@ -214,10 +229,21 @@ await check(
         ).error,
         null,
       );
-      assert.equal((await anonymous.from("creators").select("id").eq("id", id)).error?.code, "42501");
-      const afterRelease = await anonymous.rpc("creator_catalog_page", { p_after: "", p_limit: 200 });
+      assert.equal(
+        (await anonymous.from("creators").select("id").eq("id", id)).error
+          ?.code,
+        "42501",
+      );
+      const afterRelease = await anonymous.rpc("creator_catalog_page", {
+        p_after: "",
+        p_limit: 200,
+      });
       assert.equal(afterRelease.error, null);
-      assert.equal(afterRelease.data.items.some((row) => row.seed_id === id), false, "release does not republish owner-hidden content");
+      assert.equal(
+        afterRelease.data.items.some((row) => row.seed_id === id),
+        false,
+        "release does not republish owner-hidden content",
+      );
       assert.equal(
         (await fixtureCreator.from("creators").delete().eq("id", id)).error,
         null,

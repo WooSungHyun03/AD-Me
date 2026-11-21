@@ -2,6 +2,11 @@ import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { writeFileSync } from "node:fs";
 import {
+  publicationArgs,
+  brandPublicationData,
+  creatorPublicationData,
+} from "./support/publication-fixture.mjs";
+import {
   localClient,
   localJwt,
   localRuntime,
@@ -47,9 +52,12 @@ try {
     p_contact_email: "private@example.test",
     p_contact_visibility: "collaborators",
   };
-  const saved = await clients.brand.rpc("save_brand_account", args);
+  const saved = await clients.brand.rpc(
+    "save_publication",
+    publicationArgs("brand", brandPublicationData(args)),
+  );
   assert.equal(saved.error, null, "brand save transaction");
-  const brandId = saved.data;
+  const brandId = saved.data.brandId;
   await check(
     "public brand fields exclude contacts and owner ID, including direct REST",
     async () => {
@@ -106,12 +114,18 @@ try {
     async () => {
       assert.ok(
         (
-          await clients.brand.rpc("save_brand_account", {
-            ...args,
-            p_name: "SHOULD ROLLBACK",
-            p_brand_name: "SHOULD ROLLBACK",
-            p_contact_email: "invalid",
-          })
+          await clients.brand.rpc(
+            "save_publication",
+            publicationArgs(
+              "brand",
+              brandPublicationData({
+                ...args,
+                p_name: "SHOULD ROLLBACK",
+                p_brand_name: "SHOULD ROLLBACK",
+                p_contact_email: "invalid",
+              }),
+            ),
+          )
         ).error,
       );
       assert.equal(
@@ -143,12 +157,17 @@ try {
   assert.ok(seed);
   assert.equal(
     (
-      await clients.creator.from("creators").insert({
-        id: creatorId,
-        owner_id: ids.creator,
-        published: true,
-        profile: { ...seed, name: "QA fictional identity", is_demo: false },
-      })
+      await clients.creator.rpc(
+        "save_publication",
+        publicationArgs(
+          "creator",
+          creatorPublicationData({
+            ...seed,
+            name: "QA fictional identity",
+            published: true,
+          }),
+        ),
+      )
     ).error,
     null,
   );

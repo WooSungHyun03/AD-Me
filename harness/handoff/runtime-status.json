@@ -574,10 +574,12 @@
       "status": "BLOCKED_EXTERNAL",
       "evidence": [
         "harness/evidence/D073/VERIFY_NEXT_20261121.md",
-        "harness/evidence/DEV-A-P0-NEXT-20261121/verification.json"
+        "harness/evidence/DEV-A-P0-NEXT-20261121/verification.json",
+        "harness/evidence/D073/VERIFY_PUBLICATION_20261121.md",
+        "harness/evidence/DEV-A-P0-PUBLICATION-20261121/verification.json"
       ],
-      "blocker": "정책 snapshot/hash/개별 동의 원장·철회·staging/단방향 강제 경계 및 실제 GoTrue/REST/브라우저 통과. U001 실제 보존/근거·위탁/국외이전·권리 절차 미승인. 기본 신규 정책 OFF; 가상 QA 승인을 운영에 복사하지 않는다. 기존 profile/brand 공개 저장의 동의 부여/철회를 버전 원장과 원자적으로 연결하는 후속 코드/직접 REST 회귀도 남는다. 가입/설정 전역 철회 외 모든 공개 저장 통합 완료는 아님.",
-      "last_checked_at": "2026-11-21T06:12:43.809026+00:00"
+      "blocker": "기존 profile/brand 공개 저장의 동의 원자 통합 부족분 해결:055~057 scope/receipt/strict gate, actual local SQL/REST6그룹과 두-role ACK 유실·stale replay/v2 현재상태 브라우저 통과. U001 실제 보존·근거·기한/위탁·국외이전/권리 절차 확정 후 새 정책/hash 및 USER 적용·대상URL·DEV-B review 필요. 실제 계정 파기 D014/D079는 미완료.",
+      "last_checked_at": "2026-11-21T06:48:26.619609+00:00"
     },
     "D074": {
       "owner": "DEV-B",
@@ -688,10 +690,12 @@
         "harness/evidence/D084/VERIFY_20261121.md",
         "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json",
         "harness/evidence/D084/VERIFY_NEXT_20261121.md",
-        "harness/evidence/DEV-A-P0-NEXT-20261121/verification.json"
+        "harness/evidence/DEV-A-P0-NEXT-20261121/verification.json",
+        "harness/evidence/D084/VERIFY_PUBLICATION_20261121.md",
+        "harness/evidence/DEV-A-P0-PUBLICATION-20261121/verification.json"
       ],
-      "blocker": "244 unit/실제 SQL security121그룹/DB→TS4/전체 browser54+최종 설정4/free6/keyless10 및 worker 전체9 계약 검증. 전체 계정 파기 D014/D079·실제 공급자/외부SMTP/실제대상URL·USER적용·DEV-B통합은 미완료.",
-      "last_checked_at": "2026-11-21T06:12:43.809026+00:00"
+      "blocker": "공개 저장/동의 actual regression 추가: unit246/37, SQL security20파일127그룹, DB→TS4, 전체browser58(055/056)+최종057영향10/캡처4, free6/keyless10 PASS. 전체 실제 계정 삭제 D014/D079·실제 공급자/외부SMTP/대상URL·USER적용/DEV-B 통합 gate 미완료.",
+      "last_checked_at": "2026-11-21T06:48:26.619609+00:00"
     },
     "D085": {
       "owner": "DEV-B",

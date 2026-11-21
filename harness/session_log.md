@@ -292,3 +292,12 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 실제 로컬 Auth/DB/Storage와 가상 자료: unit244/36, SQL/REST121그룹19파일, DB→TS4, 전체 desktop/mobile54, 최종 settings4, free6, keyless10, Python 전체9(new4), lint/typecheck/build/harness 통과. 원장/RPC metadata52tables/220functions/2privateBuckets. 실제 생성 USER46→54 packet 독립DB 데이터 보존·오류 rollback·중복 거부·구가입 동의 소급 없음·단방향 활성화 검증. 공급자/SMTP/법률/클라우드 적용 성공은 주장하지 않는다. D014는 production adapter/API 없이 독립 계약만 구현했다. 근거/실패 수정/범위 및 정확한 source/티켓 commit은 harness/evidence/DEV-A-P0-NEXT-20261121/{verification.json,README.md,commits.json}. 새 USER 패킷 deliverables/dev-a-p0-next-20261121/README.md. old artifacts 불변, ZIP 중복 생성 없음. 외부 콘솔/keys/deploy/실제 결제/대외 연락 없음.
 
 최종 경로 대조: D073 가입3목적·설정 전역 철회 외 기존 profile/brand 공개 저장의 동의 부여/철회를 버전 원장과 원자 연결하는 후속 코드/직접 REST 회귀가 남는다. 해당 티켓 부분 진행이며 정책 외부 gate만으로 모든 로컬 구현이 완료된 것은 아니다. 최종 source5748a86, 패킷 소스/SQL/적용이력 무결성 PASS. 후속 문서·패킷 커밋은 제품 변경 없음.
+
+
+## 2026-11-21 DEV-A 남은 P0: D073 공개 저장 원자 통합 / D084 회귀
+
+사용자 요청: 남은 P0 진행, 기존 codex/dev-a-p0-continue·티켓별 commit/push 유지. 시작0a2be26/main65063c8. 기존54 SQL/이전 패킷 불변,055~057 추가. 프로필/브랜드 저장과 scoped 동의 event·receipt를 원자 통합하고 legacy/direct REST 공개 우회·key payload 충돌을 거부한다. scoped/global 오래된 성공 요청은 receipt만 반환해 이후 철회/공개를 재적용하지 않으며 UI는 stale global receipt를 현재 철회 성공으로 오인하지 않고 상태를 재조회한다. 서버 처리 순서이며 클라이언트 클릭 CAS는 아니다.
+
+Actual local SQL/REST127그룹20파일, unit246/37, DB→TS4, Python9, 전체browser58(055/056), 최종057/v2 영향10+capture4, free6/keyless10, lint/typecheck/production build/harness PASS. metadata54tables/227functions/2privateBuckets. 생성 USER54→57 SQL의 실제 독립DB upgrade/기존 비어 있지 않은 데이터 보존/unknown·modified baseline STOP/중간 rollback/legacy staged no-fabricated-consent/one-way strict activation/duplicate STOP PASS. 초기055 record 필드 오류는056 forward fix, old global replay는057; 접근성 대비/폼 refresh/streaming 캡처 준비를 수정. 과거 evidence 유지·새 패킷1개, ZIP 중복 생성 없음.
+
+D073 BLOCKED_EXTERNAL(U001 실제 최종 정책/보존·위탁/국외이전/권리 절차), D084 IN_PROGRESS(실제 삭제 D014/D079·공급자·릴리스) 유지. 기존 profile/brand 원장 통합 코드 부족은 해결. 남은 P0 상태 집계5(진행2/외부3), DEV-A LOCAL24/외부3/진행2/OPEN14/DONE0 동일. 타인 담당/원본 배분 변경 없음. 실제 정책/공급자/SMTP/배포/결제 성공 아님. 외부 콘솔/keys/deploy/outreach 수행 없음. 상세 evidence DEV-A-P0-PUBLICATION-20261121, 정확한 source/티켓 SHA commits.json, 새 USER 패킷 deliverables/dev-a-publication-20261121/README.md. 최종 push/CI 및 QA stack 중지(볼륨 보존)는 ignored receipt.
