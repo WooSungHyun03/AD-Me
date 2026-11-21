@@ -576,7 +576,7 @@
         "harness/evidence/D073/VERIFY_NEXT_20261121.md",
         "harness/evidence/DEV-A-P0-NEXT-20261121/verification.json"
       ],
-      "blocker": "정책 snapshot/hash/개별 동의 원장·철회·staging/단방향 강제 경계 및 실제 GoTrue/REST/브라우저 통과. U001 실제 보존/근거·위탁/국외이전·권리 절차 미승인. 기본 신규 정책 OFF; 가상 QA 승인을 운영에 복사하지 않는다.",
+      "blocker": "정책 snapshot/hash/개별 동의 원장·철회·staging/단방향 강제 경계 및 실제 GoTrue/REST/브라우저 통과. U001 실제 보존/근거·위탁/국외이전·권리 절차 미승인. 기본 신규 정책 OFF; 가상 QA 승인을 운영에 복사하지 않는다. 기존 profile/brand 공개 저장의 동의 부여/철회를 버전 원장과 원자적으로 연결하는 후속 코드/직접 REST 회귀도 남는다. 가입/설정 전역 철회 외 모든 공개 저장 통합 완료는 아님.",
       "last_checked_at": "2026-11-21T06:12:43.809026+00:00"
     },
     "D074": {

@@ -11,3 +11,7 @@ D021 큐 복구/TTL/정책별 예산/tombstone, D064 다섯 사고 runbook·기�
 QA 환경 문제: packet DB의 오래된 migration 폴더를 그대로 reset하려다 순서 오류를 확인해 불변 기존46으로 복원했다. DB-owner의 auth session 전환/peer 접속이 제한되어 marked loopback TCP의 실제 auth DB 역할로 검사했다. 최종 생성 패킷 검증은 PASS다. 키 없는 브라우저는 bundled Chromium 미설치로 launch 실패했으며 기존 설치 Chrome을 명시해 재검증한다. 실패를 공급자 실패/성공으로 오인하지 않는다. 중간 raw 로그·계정·키·trace는 ignored output에만 둔다.
 
 공통 전체 브라우저54개 이후 마지막 설정 refresh 변경은 영향받는 두-role 설정/동의와 keyless 회귀를 별도로 수행했다. 변하지 않은 전체 경로 결과와 최종 변경 검사를 구분해 재사용한다. axe 자동 검사와 표시/키보드 확인은 WCAG 인증·실제 스크린리더 전수 검사와 같지 않다. USER 패킷/법률·보존·공급자·대상 URL·DEV-B 검토는 별도 release gate다.
+
+최종 경로 대조에서 D073의 기존 profile/brand 저장은 owner_consent/published를 유지하고 있음을 명시했다. 가입 필수3목적과 설정 전역 철회 외에 각 공개 저장의 부여/철회를 버전 원장과 원자적으로 연결하는 후속 개발·직접 REST 회귀가 남는다. 정책 외부 대기 상태를 유지하지만 모든 D073 로컬 구현이 끝났다는 뜻이 아니다.
+
+최종 source `5748a86829de32204a56b0d590d7854c2d97ddfd`와 생성 SQL/실제 적용 이력의 대조는 [packet-integrity.json](packet-integrity.json)에 기록했다. 이전46 source·기존 tracked deliverables 불변, 새8 SQL/embedded source/manifest 일치, 최종 source 활성화 SQL을 marked root QA에서 실행하고 최초 stamp 재실행 불변을 확인했다. 이후 커밋은 인계·패킷/범위 보정 문서이며 제품 소스 변경이 아니다.

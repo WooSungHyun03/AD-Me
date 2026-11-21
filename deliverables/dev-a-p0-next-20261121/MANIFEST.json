@@ -1,0 +1,60 @@
+{
+  "source_head": "5748a86829de32204a56b0d590d7854c2d97ddfd",
+  "baseline_head": "7b8fcdc1e61a86b90a2ec1df59d6195f36dc0855",
+  "from_migrations": 46,
+  "to_migrations": 54,
+  "sources": [
+    {
+      "path": "supabase/migrations/202611210047_consent_versions.sql",
+      "sha256_lf": "3d46f4170d2cb4bff332ff4d2478b212f001f619771dfc37d19b06cc585afa71"
+    },
+    {
+      "path": "supabase/migrations/202611210048_sensitive_boundaries.sql",
+      "sha256_lf": "1508b7c68f56b804ab536cef76c3c29df7f6a1f57164c63fbe11af960d0b82c9"
+    },
+    {
+      "path": "supabase/migrations/202611210049_ingestion_recovery.sql",
+      "sha256_lf": "32cd45a234e476bea15ef2bf6cf6cf4a987c2ca6e32bf782bb6f279e98ad5b2a"
+    },
+    {
+      "path": "supabase/migrations/202611210050_source_budget_public_refs.sql",
+      "sha256_lf": "2eb18cc1732e44a599ca48827b6d8a855aefd108167a9d67f103efdf3a9ef37c"
+    },
+    {
+      "path": "supabase/migrations/202611210051_brand_public_text.sql",
+      "sha256_lf": "4c9dcdf274073f3ea79692be8cfbacd81fd18abf5d8334e47a73f82110bc15a4"
+    },
+    {
+      "path": "supabase/migrations/202611210052_checkpoint_quota_reservation.sql",
+      "sha256_lf": "5dfdf0e17a9620b67c9d6ecfb008ef410be6516d96eadcb2fa65661c24c41cf1"
+    },
+    {
+      "path": "supabase/migrations/202611210053_withdraw_channel_consent.sql",
+      "sha256_lf": "bb61c6b11268467b39d8eee7269fc19c137293ec7b20686d467c104307532a72"
+    },
+    {
+      "path": "supabase/migrations/202611210054_consent_rollout_boundary.sql",
+      "sha256_lf": "28b6c1fc725137bae74693e30b8fe8e7c11ac84fd72943495b7f0c65d932d923"
+    }
+  ],
+  "files": [
+    {
+      "path": "00_preflight.sql",
+      "sha256_lf": "b3673065e7d9eb6409114ce16689bca5490950272cb3e30b9ff54391d8003d26"
+    },
+    {
+      "path": "01_apply_current_46.sql",
+      "sha256_lf": "80becf9c0977e5b522ece56bc286e384981718d3ac8dba80c0c229e0c9dd0de1"
+    },
+    {
+      "path": "02_verify.sql",
+      "sha256_lf": "f0937c3b7e24a26a519aa48f84e3d23bbab3a0df525b8f1482ef403d43b9391b"
+    },
+    {
+      "path": "03_activate_after_source_review.sql",
+      "sha256_lf": "a66898205e1ba1d86c18e96a627d449bd1c398c42fda35196a32746b8faa8c28"
+    }
+  ],
+  "external_applied": false,
+  "staging_is_policy_or_security_completion": false
+}

@@ -1,0 +1,43 @@
+{
+  "base_commit": "7b8fcdc1e61a86b90a2ec1df59d6195f36dc0855",
+  "branch": "codex/dev-a-p0-continue",
+  "source_head": "5748a86829de32204a56b0d590d7854c2d97ddfd",
+  "ticket_commits": [
+    {
+      "ticket": "D073",
+      "commit": "09ccc803186b40d0248c5c6736499905610e1af7",
+      "subject": "record versioned consent and reversible publication choices"
+    },
+    {
+      "ticket": "D080",
+      "commit": "2e6dc07d9be408d2d54b9fc27c244c0ec1a76658",
+      "subject": "enforce adult beta and sensitive data boundaries"
+    },
+    {
+      "ticket": "D021",
+      "commit": "144df0238129296bf3a7874517da5225e757b15e",
+      "subject": "resume ingestion safely with checkpoints quotas and tombstones"
+    },
+    {
+      "ticket": "D014",
+      "commit": "2c0f492610f4f477134098d731699a2880e7aca9",
+      "subject": "define resumable account deletion adapter contracts"
+    },
+    {
+      "ticket": "D064",
+      "commit": "f6d2346c4b5fc51e571d2b0792db700abbc1f31e",
+      "subject": "document incident response and five fictional drills"
+    },
+    {
+      "ticket": "D082",
+      "commit": "c441520ec1a2c4f0deeb3a7240b6c3d91ef70e1a",
+      "subject": "verify keyboard accessibility and responsive state recovery"
+    },
+    {
+      "ticket": "D084",
+      "commit": "5748a86829de32204a56b0d590d7854c2d97ddfd",
+      "subject": "record P0 regression and remaining external gates"
+    }
+  ],
+  "scope": "Batch source tested together; individual intermediate commits are review boundaries, not independent deployment units. D014 contracts only; no entire ticket DONE."
+}
