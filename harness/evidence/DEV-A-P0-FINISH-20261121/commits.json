@@ -1,0 +1,198 @@
+{
+  "base": "a1e808067906d2ccf720402a701f753d9740419a",
+  "branch": "codex/dev-a-p0-continue",
+  "source_head": "105bbbb73db8c849197db2e9ef950f58dfc4a634",
+  "tickets": [
+    {
+      "ticket": "D081",
+      "commit": "7ead15e7c7d35d5d173ca409cedd9a00ad43f0e9",
+      "subject": "feat(D081): read current public home counts and provenance",
+      "paths": [
+        "harness/evidence/D081/VERIFY_20261121.md",
+        "src/app/page.tsx",
+        "src/lib/home-catalog.ts",
+        "supabase/migrations/202611210035_home_catalog.sql",
+        "tests/home-catalog.test.ts"
+      ]
+    },
+    {
+      "ticket": "D008",
+      "commit": "7f42cf31fe908e815117b15dfcdba739babcb6a0",
+      "subject": "fix(D008): enforce default-off TEST billing in database and Edge",
+      "paths": [
+        "harness/evidence/D008/VERIFY_20261121.md",
+        "supabase/functions/payment-confirm/index.ts",
+        "supabase/migrations/202611210036_test_billing_boundary.sql"
+      ]
+    },
+    {
+      "ticket": "D076",
+      "commit": "771b13871b3d3437280bc19c8356e58ef340d977",
+      "subject": "feat(D076): reserve shared auth and search budgets before provider calls",
+      "paths": [
+        ".env.example",
+        "harness/evidence/D076/VERIFY_20261121.md",
+        "harness/handoff/environment-manifest.json",
+        "scripts/serve-local-qa.mjs",
+        "src/app/actions.ts",
+        "src/app/auth/actions.ts",
+        "src/lib/config-schema.ts",
+        "src/lib/config.ts",
+        "src/lib/request-budget-subjects.ts",
+        "src/lib/request-budget.ts",
+        "src/lib/server-admin.ts",
+        "supabase/migrations/202611210038_auth_request_budget.sql",
+        "supabase/migrations/202611210044_service_budget_usage.sql",
+        "tests/auth-actions.test.ts",
+        "tests/request-budget-subjects.test.ts"
+      ]
+    },
+    {
+      "ticket": "D051",
+      "commit": "073645c9bcee9476e691ea8478d4f6e56f1e341b",
+      "subject": "feat(D051): verify private image messages and reauthorize downloads",
+      "paths": [
+        "harness/evidence/D051/VERIFY_20261121.md",
+        "package-lock.json",
+        "package.json",
+        "scripts/setup-local-qa.mjs",
+        "src/app/api/images/[id]/route.ts",
+        "src/app/api/images/room/route.ts",
+        "src/app/api/images/route.ts",
+        "src/components/conversation.tsx",
+        "src/components/image-upload.tsx",
+        "src/lib/image-limits.ts",
+        "src/lib/private-images.ts",
+        "supabase/migrations/202611210039_private_images.sql",
+        "supabase/migrations/202611210043_image_transport_limit.sql",
+        "tests/local-browser/conversation.spec.ts",
+        "tests/private-images.test.ts",
+        "tests/support/image-fixture-cleanup.mjs"
+      ]
+    },
+    {
+      "ticket": "D012",
+      "commit": "a18752177c2058c6fb5b9fa2fbf18e25d9ed10a0",
+      "subject": "feat(D012): save verified private brand logos with publication checks",
+      "paths": [
+        "harness/evidence/D012/VERIFY_20261121.md",
+        "src/app/api/account/route.ts",
+        "src/app/api/brands/[id]/logo/route.ts",
+        "src/app/api/brands/[id]/route.ts",
+        "src/app/settings/page.tsx",
+        "src/components/brand-account-form.tsx",
+        "src/lib/brand-profile.ts",
+        "supabase/migrations/202611210040_brand_logo_projection.sql"
+      ]
+    },
+    {
+      "ticket": "D034",
+      "commit": "560f71da48f381f169ceed44432065aff68eb5a5",
+      "subject": "feat(D034): connect filtered cursor search with cancellation and recovery",
+      "paths": [
+        "harness/evidence/D034/VERIFY_20261121.md",
+        "src/app/api/creators/search/route.ts",
+        "src/app/creators/page.tsx",
+        "src/components/catalog.tsx",
+        "src/lib/creator-search-store.ts",
+        "src/lib/filtered-catalog.ts",
+        "supabase/migrations/202611210037_filtered_catalog.sql",
+        "supabase/migrations/202611210046_filter_reference_epoch.sql",
+        "tests/browser/catalog-filters.spec.ts",
+        "tests/creator-search-store.test.ts",
+        "tests/local-db-contract/filtered-catalog.spec.ts"
+      ]
+    },
+    {
+      "ticket": "D018",
+      "commit": "8a0ca616d9f5056656ba9148ae3f90cc13e35972",
+      "subject": "feat(D018): expose policy-approved normalized public observations",
+      "paths": [
+        "harness/evidence/D018/VERIFY_20261121.md",
+        "src/components/normalized-public.tsx",
+        "src/lib/ingestion/normalized-public.ts",
+        "supabase/migrations/202611210042_normalized_public_read.sql"
+      ]
+    },
+    {
+      "ticket": "D075",
+      "commit": "322b4b1ba4ebad85da3f58adad39528633d1a056",
+      "subject": "fix(D075): hide Auth identifiers behind compatible public references",
+      "paths": [
+        "harness/evidence/D075/VERIFY_20261121.md",
+        "harness/evidence/D075/permission-inventory-20261121.json",
+        "scripts/audit-local-permissions.mjs",
+        "src/app/api/saved/route.ts",
+        "src/app/compare/page.tsx",
+        "src/app/creators/[id]/page.tsx",
+        "src/lib/data.ts",
+        "supabase/migrations/202611210041_public_creator_references.sql",
+        "supabase/migrations/202611210045_reference_precedence.sql",
+        "tests/local-browser/public-catalog.spec.ts",
+        "tests/local-creator-read-security.mjs",
+        "tests/local-p0-privacy-security.mjs",
+        "tests/local-recommendation-security.mjs"
+      ]
+    },
+    {
+      "ticket": "D028",
+      "commit": "f53ad6b6730503ea1ebbe911648f864cd8eb7d6f",
+      "subject": "fix(D028): recover optional embeds and denied clipboard sharing",
+      "paths": [
+        "harness/evidence/D028/VERIFY_20261121.md",
+        "src/components/public-profile-links.tsx",
+        "tests/local-browser/public-embed-recovery.spec.ts"
+      ]
+    },
+    {
+      "ticket": "D007",
+      "commit": "d816a372b01b2834dbef205b8b76342f93637c6f",
+      "subject": "chore(D007): audit exact artifact notices and lock Edge dependencies",
+      "paths": [
+        "docs/licenses/20261121/ARTIFACT_NOTICES.md",
+        "docs/licenses/20261121/dependencies.csv",
+        "docs/licenses/20261121/edge-lock-audit.json",
+        "docs/licenses/20261121/summary.json",
+        "harness/evidence/D007/VERIFY_20261121.md",
+        "scripts/resolve-license-artifacts.py",
+        "supabase/functions/payment-confirm/deno.lock"
+      ]
+    },
+    {
+      "ticket": "D065",
+      "commit": "33a435e8542d69616ebaab566db39c87ef3b0e89",
+      "subject": "test(D065): verify free-mode application and direct database isolation",
+      "paths": [
+        "harness/evidence/D065/VERIFY_20261121.md",
+        "playwright.free-local.config.ts",
+        "tests/local-free/release-boundary.spec.ts"
+      ]
+    },
+    {
+      "ticket": "D002",
+      "commit": "4c9ce8268d9d60b236453824e483ba2e416d3a9d",
+      "subject": "test(D002): verify TEST catalogue quantities prices and role contracts",
+      "paths": [
+        "harness/evidence/D002/VERIFY_20261121.md",
+        "tests/local-p0-release-security.mjs"
+      ]
+    },
+    {
+      "ticket": "D084",
+      "commit": "105bbbb73db8c849197db2e9ef950f58dfc4a634",
+      "subject": "test(D084): record final P0 regression coverage and remaining gates",
+      "paths": [
+        "harness/evidence/D084/VERIFY_20261121.md",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/PLAN.md",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/README.md",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/packet-upgrade.json",
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json",
+        "harness/handoff/runtime-status.json",
+        "harness/session_log.md",
+        "tests/e2e/service.spec.ts",
+        "tests/local-browser/p0-finish.spec.ts"
+      ]
+    }
+  ],
+  "scope": "Separate ticket commits, validated as the final batch; shared files are owned once and referenced by related ticket evidence. Not13 independent deployment units."
+}

@@ -1,7 +1,7 @@
 {
   "at": "2026-11-21T04:39:38.253195+00:00",
   "base_commit": "a1e808067906d2ccf720402a701f753d9740419a",
-  "source_head": "See commits.json; final source commit recorded after ticket commits.",
+  "source_head": "105bbbb73db8c849197db2e9ef950f58dfc4a634",
   "branch": "codex/dev-a-p0-continue",
   "node": "22.23.5",
   "shared_gates": {
@@ -127,9 +127,9 @@
       "all_final_covered": true,
       "commands": [
         "npm run test:e2e:local",
-        "npm run test:e2e -- --config playwright.local.config.ts --grep public-discovery/conversation/embed",
+        "npm run test:e2e -- --config playwright.local.config.ts --grep 'public discovery|conversation loads|opt-in embed'",
         "npm run test:e2e:local -- tests/local-browser/conversation.spec.ts",
-        "npm run test:e2e:local -- --grep P0-home/public-RSC/public-discovery"
+        "npm run test:e2e:local -- --grep 'P0 home|public RSC|public discovery'"
       ],
       "scope": "42 unchanged passes retained; corrected6 and invalidated catalogue6 rerun. This is combined final coverage, not a claimed single48-green run."
     },
@@ -161,12 +161,14 @@
     "new_migrations": 12,
     "local_history": 46,
     "actual_packet_upgrade": "packet-upgrade.json",
-    "scope": "Actual nonempty34→46/atomic rollback/read-switch proof; USER external application not performed."
+    "scope": "Actual nonempty34→46/atomic rollback/read-switch proof; USER external application not performed.",
+    "final_integrity": "packet-integrity.json"
   },
   "harness": {
     "selftest": 5,
     "backlog": "88 development /20 USER /6 deferred; acyclic; unchanged scope",
-    "secret_scan": "PASS; final scan repeated after all evidence"
+    "secret_scan": "PASS; final scan repeated after all evidence",
+    "handoff": "PASS: A43/B45, references/runtime/environment consumers"
   },
   "actual_scope": {
     "local_postgres": true,

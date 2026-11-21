@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-21T04:41:38.752Z",
+  "result": "PASS",
+  "source_head": "105bbbb73db8c849197db2e9ef950f58dfc4a634",
+  "generated_sql_files": 4,
+  "new_sources": 12,
+  "previous34_migrations_immutable": true,
+  "previous_tracked_deliverables_unchanged": true,
+  "git_source_and_lf_hashes_match": true,
+  "license_inventory_matches_final_lock": true,
+  "exact_final_activation_sql_applied_in_marked_local_root_db": true,
+  "first_previous_activation_evidence_preserved": true,
+  "test_billing_remains_off": true,
+  "packet_upgrade_proof": "packet-upgrade.json",
+  "verification_correction": "First activation assertion incorrectly assumed already-enabled local read boundary had a non-null stamp. Final SQL correctly added its first stamp and preserved existing delivery evidence. Assert preservation of prior non-null stamps; no SQL source change.",
+  "scope": "Static exact Git/source/packet hashes plus actual final activation SQL in marked local QA. Earlier nonempty packet34→46 proof tested the same01 body. No hosted execution or legal/provider approval."
+}

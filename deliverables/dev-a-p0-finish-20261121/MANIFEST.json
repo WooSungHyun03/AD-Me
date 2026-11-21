@@ -1,0 +1,76 @@
+{
+  "source_head": "105bbbb73db8c849197db2e9ef950f58dfc4a634",
+  "baseline_head": "a1e808067906d2ccf720402a701f753d9740419a",
+  "from_migrations": 34,
+  "to_migrations": 46,
+  "sources": [
+    {
+      "path": "supabase/migrations/202611210035_home_catalog.sql",
+      "sha256_lf": "4d4a94dfa7b91a99d5e96334b443662e98f23bc2336a7f006b546d32e4587b01"
+    },
+    {
+      "path": "supabase/migrations/202611210036_test_billing_boundary.sql",
+      "sha256_lf": "4664fc48fb8b21c1952330d6d4f98b5e4e42d5f7f319c25420d9dc52d77512ec"
+    },
+    {
+      "path": "supabase/migrations/202611210037_filtered_catalog.sql",
+      "sha256_lf": "9acf5d1f488863f22d4eb0291f0814abb8c8e819279ae11ae3e53e95aacfff7d"
+    },
+    {
+      "path": "supabase/migrations/202611210038_auth_request_budget.sql",
+      "sha256_lf": "e416b743f5eef504cf46615e75f276bbc4cbf241136fe09e45770fdef57d96fb"
+    },
+    {
+      "path": "supabase/migrations/202611210039_private_images.sql",
+      "sha256_lf": "2bebdbf857ae088ca986c271eb9a941aed61ccd4cfb425dab200591bdbdc46aa"
+    },
+    {
+      "path": "supabase/migrations/202611210040_brand_logo_projection.sql",
+      "sha256_lf": "0dfd30313dd6a2124b9bcdfa6a80c686b127b2b5f44208cbf2f223441829cb62"
+    },
+    {
+      "path": "supabase/migrations/202611210041_public_creator_references.sql",
+      "sha256_lf": "0a6ee06c7f2ec4cc575cd69fdddad8aae2a227a885b8940e281c4e3512585bb6"
+    },
+    {
+      "path": "supabase/migrations/202611210042_normalized_public_read.sql",
+      "sha256_lf": "6b8e098c7e13a5377b26326fae727cecf9c8e8a2e39659e174f863cd1345edbf"
+    },
+    {
+      "path": "supabase/migrations/202611210043_image_transport_limit.sql",
+      "sha256_lf": "b7c839ff8b4a0b9ebdbb4c2b0dd73b5991cb0db713b4bd480b7efa292830deb2"
+    },
+    {
+      "path": "supabase/migrations/202611210044_service_budget_usage.sql",
+      "sha256_lf": "d79edd683ab526c023a132e8bcda78b28f2e21fc58b2f17c51b8abf2f51b1512"
+    },
+    {
+      "path": "supabase/migrations/202611210045_reference_precedence.sql",
+      "sha256_lf": "e88d5cff0f24b8e3a23f556a1293d182722d3be0aa57a1c5dc56c3a151c93306"
+    },
+    {
+      "path": "supabase/migrations/202611210046_filter_reference_epoch.sql",
+      "sha256_lf": "0e2d88674fb8e63cb97531892c53b4d217010966f870ca5ce21ffcaf5d77b9f0"
+    }
+  ],
+  "files": [
+    {
+      "path": "00_preflight.sql",
+      "sha256_lf": "7f35c625875a5aea5c7850dc54c47f12eac5436a560ebca3cd7f91f5d52a0c44"
+    },
+    {
+      "path": "01_apply_current_34.sql",
+      "sha256_lf": "be34c036011caa9e6400f27cc3db5e3895b54bdd8f981e1e042f575377e27c56"
+    },
+    {
+      "path": "02_verify.sql",
+      "sha256_lf": "95eaff024396e3f0ea3bbb6046a7e786b7558b1b8b86712786fed9021d4c5377"
+    },
+    {
+      "path": "03_activate_after_source_review.sql",
+      "sha256_lf": "e1348bdac47c76c579cda7b2d27cb71acaac15ce4e7437cfbb1cb6f414b08056"
+    }
+  ],
+  "external_applied": false,
+  "staging_is_privacy_completion": false
+}

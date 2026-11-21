@@ -83,3 +83,23 @@ D003 후속 `036c83d`: Windows UTF-8 인계 검사와 worker 소비 source 경�
 |D084/partial|06bb2c1|문서 대조 보수의 실제 로컬 회귀·화면·실패/수정 증빙|
 
 source06bb2c1, 같은 codex/dev-a-p0-continue. 신규 SQL0/기존19개 불변, 이전 검증 SQL을 재사용한 FILTERS 산출물은 후속 커밋에 들어간다. [최신 검토·남은 범위](DEV-A_DOCUMENT_AUDIT_20261120.md). 직접 REST/legacy 공개ID 이관·D033 연결·정책/실제 수집 및 기타 출시 게이트는 미완료다. DONE 승격0.
+
+## 2026-11-21 진행 중 P0 마무리
+
+|티켓|커밋|변경|
+|---|---|---|
+|D081|7ead15e7c7d3|read current public home counts and provenance|
+|D008|7f42cf31fe90|enforce default-off TEST billing in database and Edge|
+|D076|771b13871b3d|reserve shared auth and search budgets before provider calls|
+|D051|073645c9bcee|verify private image messages and reauthorize downloads|
+|D012|a18752177c20|save verified private brand logos with publication checks|
+|D034|560f71da48f3|connect filtered cursor search with cancellation and recovery|
+|D018|8a0ca616d9f5|expose policy-approved normalized public observations|
+|D075|322b4b1ba4eb|hide Auth identifiers behind compatible public references|
+|D028|f53ad6b67305|recover optional embeds and denied clipboard sharing|
+|D007|d816a372b01b|audit exact artifact notices and lock Edge dependencies|
+|D065|33a435e8542d|verify free-mode application and direct database isolation|
+|D002|4c9ce8268d9d|verify TEST catalogue quantities prices and role contracts|
+|D084|105bbbb73db8|record final P0 regression coverage and remaining gates|
+
+앱/SQL source105bbbb, [상태·수용 결과·남은 gate](DEV-A_P0_FINISH_20261121.md). 대상13 중 LOCAL11/외부1/진행1, DONE 승격0. 후속 artifact commit은 검토된 USER 패킷·source hash·증빙이며 앱 변경 없음.
