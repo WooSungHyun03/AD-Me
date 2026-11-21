@@ -9,3 +9,5 @@ D007은 알려진 notice를 실제 제공하고 Linux build/HTTP/NFT17패키지(
 실패/수정: Docker daemon이 중지돼 로컬 Docker Desktop을 background 시작했다.058 후속 수정이 섞인 것을 발견해 실제 적용 ledger/스냅샷과 일치하는 원본을 복구하고059에 분리했다.060은 소유 작업 취소다. 초기 unknown-object test가 존재하지 않는 legacy bucket 이름을 써 실제 private bucket의 untracked 경로로 수정했다. 첫 Linux archive는 Windows CRLF 변환으로 byte 검증에 실패해 archive LF 옵션/제공 파일 -text를 적용했고 다시 actual build/probe했다. 정확한 upstream trailing whitespace는 제공 notice 파일에만 -whitespace를 적용해 보존한다. assertion/테스트를 삭제·skip하거나 권한을 완화하지 않았다.
 
 actual local Auth/PostgREST/Postgres/Storage·native TOTP·signed 테스트 URL·실파일 bytes를 가상 계정/정책과 함께 검사했다. checkpoint ACK 실패 주입은 실제 외부 공급자 성공이 아니다. source에 포함하지 않은 credentials/home 없이 격리 Linux build를 수행했다. 이미 다운로드/캐시된 사본·실제 CDN 즉시 회수·전역 Auth session row 삭제·전체 파기를 이 증거로 보장하지 않는다. external console/keys/deploy/메일·메시지/실제 결제 없음.
+
+최종 source fd701851ceef1839e5b88ac2f234620747a049aa에 대해 packet-integrity.json PASS: 기존57/과거 패킷·고지·lock 불변, 신규058~060 실제 적용 ledger와 source 일치, SQL 묶음·manifest hash 일치, Linux 검증 tree와 최종 제품 경로 일치, 제공 notice Git blob hash 일치를 확인했다. 고지 파일이 Node 기본 버퍼1MiB를 넘어서 마지막 blob hash 검사만 버퍼8MiB로 재실행했다. 제품/검사 기준 변경 없이 통과했다.

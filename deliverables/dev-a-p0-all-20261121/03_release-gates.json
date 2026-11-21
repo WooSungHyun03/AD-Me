@@ -1,0 +1,14 @@
+{
+  "source_head": "fd701851ceef1839e5b88ac2f234620747a049aa",
+  "online_intake_enabled": false,
+  "permanent_erasure_implemented": false,
+  "policy_user_answer": "아직 미확정 — 구현 계속",
+  "policy_retention_basis_period_exceptions": null,
+  "processors_regions_overseas": null,
+  "rights_process": null,
+  "dev_b_D079_retention_backup_replay": "OPEN",
+  "SMTP_U007_U008": "EXTERNAL_VERIFICATION_REQUIRED",
+  "license_rights": "UNRESOLVED; see target runtime inventories",
+  "activation_sql_included": false,
+  "developer_will_prepare_activation_after_actual_review": true
+}
