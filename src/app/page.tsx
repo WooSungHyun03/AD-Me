@@ -2,7 +2,40 @@ import Link from "next/link";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { creators } from "@/lib/catalog";
-export default function Home() {
+import { configured, supabase } from "@/lib/supabase";
+import { getConfig } from "@/lib/config";
+import { projectPublicCreator } from "@/lib/creator-public-profile";
+import { homeCatalogSchema } from "@/lib/home-catalog";
+export const dynamic = "force-dynamic";
+export default async function Home() {
+  const demoMode = getConfig().serviceMode === "test_demo";
+  let summary: ReturnType<typeof homeCatalogSchema.parse> | null = null;
+  if (configured()) {
+    const db = await supabase(),
+      { data, error } = await db.rpc("creator_home_summary", {
+        p_demo: demoMode,
+      });
+    const parsed = homeCatalogSchema.safeParse(data);
+    if (!error && parsed.success) summary = parsed.data;
+  } else if (demoMode) {
+    const samples = creators
+      .map((c) =>
+        projectPublicCreator({
+          id: c.seed_id,
+          published: c.published,
+          profile: c,
+        }),
+      )
+      .filter((c) => c !== null);
+    summary = homeCatalogSchema.parse({
+      version: 1,
+      total: samples.length,
+      demo: samples.length,
+      registered: 0,
+      asOf: new Date().toISOString(),
+      featured: samples.slice(0, 3),
+    });
+  }
   return (
     <>
       <section className="wrap hero">
@@ -70,7 +103,7 @@ export default function Home() {
           </Link>
         </div>
         <div className="creator-grid">
-          {creators.slice(1, 4).map((c, i) => (
+          {summary?.featured.map((c, i) => (
             <Link
               key={c.seed_id}
               href={`/creators/${c.seed_id}`}
@@ -80,7 +113,11 @@ export default function Home() {
                 className="creator-visual"
                 style={{ background: ["#dde3cc", "#e6ddcd", "#d6dad8"][i] }}
               >
-                <span className="badge">가상 프로필 · DEMO</span>
+                <span className="badge">
+                  {c.is_demo
+                    ? "가상 프로필 · DEMO"
+                    : "본인 등록 · 외부 검증 미확인"}
+                </span>
                 {c.name.slice(1)}
               </div>
               <div className="creator-top">
@@ -100,6 +137,13 @@ export default function Home() {
             </Link>
           ))}
         </div>
+        {(!summary || summary.total === 0) && (
+          <p className="notice" role="status">
+            {summary
+              ? "현재 공개된 프로필이 없습니다. 등록된 프로필이 공개되면 여기에 표시됩니다."
+              : "공개 프로필 현황을 불러오지 못했습니다. 잠시 후 다시 확인해주세요."}
+          </p>
+        )}
       </section>
       <section className="band">
         <div className="wrap">
@@ -156,8 +200,19 @@ export default function Home() {
           </Button>
         </div>
         <p style={{ fontSize: 12 }}>
-          현재 카탈로그는 가상 크리에이터 48명의 시연 데이터입니다. 실제
-          인물·광고 성과와 무관합니다.
+          {summary
+            ? `현재 공개 프로필 ${summary.total}명 · 본인 등록 ${summary.registered}명${summary.demo ? ` · 가상 시연 ${summary.demo}명` : ""}. 본인 등록은 플랫폼 소유·지표 검증 완료를 뜻하지 않습니다.`
+            : "현재 공개 현황은 확인 중입니다. 확보 인원이나 성과를 추정해 표시하지 않습니다."}
+          {summary && (
+            <>
+              <br />
+              집계 시각{" "}
+              {new Date(summary.asOf).toLocaleString("ko-KR", {
+                timeZone: "Asia/Seoul",
+              })}{" "}
+              (KST) · 무료 베타 · 공개 범위에 따라 변경됩니다.
+            </>
+          )}
         </p>
       </section>
     </>
