@@ -10,7 +10,7 @@ export const brandAccountSchema = z
     contactEmail: z.union([z.literal(""), z.email().max(254)]),
     contactVisibility: z.enum(["private", "collaborators"]),
     // D027 owns upload authorization. Do not accept arbitrary external logo URLs.
-    logoUploadId: z.null().optional(),
+    logoUploadId: z.uuid().nullable().optional(),
   })
   .strict()
   .refine(
@@ -25,6 +25,7 @@ export const brandAccountSchema = z
 export type BrandAccount = z.infer<typeof brandAccountSchema>;
 
 export type BrandPublicRow = {
+  logoAvailable?: boolean;
   id: string;
   brand_name: string;
   industry: string;
@@ -39,6 +40,8 @@ export function publicBrandDTO(row: BrandPublicRow) {
     brandName: row.brand_name,
     industry: row.industry,
     introduction: row.introduction,
-    logo: null,
+    logo: row.logoAvailable
+      ? { url: `/api/brands/${row.id}/logo`, mime: "image/png" }
+      : null,
   };
 }

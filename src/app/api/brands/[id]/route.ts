@@ -19,7 +19,14 @@ export const GET = apiRoute("brands.get", async (request) => {
     .maybeSingle();
   if (error) failDatabase(error, "브랜드 정보를 불러오지 못했습니다.");
   if (!data) fail("브랜드를 찾을 수 없습니다.", 404);
-  return Response.json(publicBrandDTO(data), {
-    headers: { "Cache-Control": "no-store" },
-  });
+  const logo = await db.rpc("brand_logo_available", { p_brand: id });
+  return Response.json(
+    publicBrandDTO({
+      ...data,
+      logoAvailable: !logo.error && logo.data === true,
+    }),
+    {
+      headers: { "Cache-Control": "no-store" },
+    },
+  );
 });

@@ -2,17 +2,22 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { BrandAccount } from "@/lib/brand-profile";
+import { ImageUpload } from "./image-upload";
+import Image from "next/image";
 
 export function BrandAccountForm({
   name,
   initial,
+  brandId,
 }: {
   name: string;
   initial?: BrandAccount;
+  brandId?: string;
 }) {
   const [pending, setPending] = useState(false);
   const [message, setMessage] = useState("");
   const router = useRouter();
+  const [logo, setLogo] = useState<string | null | undefined>(undefined);
   return (
     <form
       className="panel form-stack"
@@ -35,7 +40,7 @@ export function BrandAccountForm({
                 contactName: form.get("contactName"),
                 contactEmail: form.get("contactEmail"),
                 contactVisibility: form.get("contactVisibility"),
-                logoUploadId: null,
+                ...(logo === undefined ? {} : { logoUploadId: logo }),
               },
             }),
           });
@@ -53,6 +58,36 @@ export function BrandAccountForm({
         }
       }}
     >
+      <div>
+        <h3>브랜드 로고</h3>
+        {brandId && (
+          <Image
+            key={logo ?? brandId}
+            src={`/api/brands/${brandId}/logo`}
+            width={128}
+            height={128}
+            unoptimized
+            alt="공개 브랜드 로고"
+            style={{ objectFit: "contain", background: "#F5F5F0" }}
+            onError={(e) => {
+              e.currentTarget.hidden = true;
+            }}
+          />
+        )}
+        <ImageUpload purpose="brand_logo" onUploaded={(id) => setLogo(id)} />
+        <button
+          type="button"
+          className="button ghost small"
+          onClick={() => setLogo(null)}
+        >
+          저장 시 로고 연결 해제
+        </button>
+        {logo === null && (
+          <p role="status">
+            브랜드 정보를 저장하면 로고 공개 연결을 해제합니다.
+          </p>
+        )}
+      </div>
       <h2>브랜드 소개와 담당자</h2>
       <p>
         브랜드 소개와 담당자 연락처는 따로 관리합니다. 사업자번호나 사업자
@@ -96,7 +131,7 @@ export function BrandAccountForm({
         브랜드 소개 공개
       </label>
       <p className="notice">
-        로고 업로드는 준비 중입니다. 현재는 외부 이미지 주소를 받지 않습니다.
+        업로드한 로고는 브랜드 정보 저장 시 적용되며, 소개 공개 설정에 따라 표시됩니다. 외부 이미지 주소는 받지 않습니다.
       </p>
       <label className="field">
         담당자 이름

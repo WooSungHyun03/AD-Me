@@ -33,14 +33,16 @@ export default async function Settings() {
       <AccountForm name={profile?.name ?? ""} />
       {profile?.role === "creator" ? (
         <>
-          <p><Link href="/settings/youtube">YouTube 채널 연결</Link></p>
-        <ProfileForm
-          initial={
-            creator
-              ? { ...creator.profile, published: creator.published }
-              : undefined
-          }
-        />
+          <p>
+            <Link href="/settings/youtube">YouTube 채널 연결</Link>
+          </p>
+          <ProfileForm
+            initial={
+              creator
+                ? { ...creator.profile, published: creator.published }
+                : undefined
+            }
+          />
         </>
       ) : profile?.role === "brand" ? (
         brandError ? (
@@ -51,6 +53,7 @@ export default async function Settings() {
         ) : (
           <BrandAccountForm
             name={profile.name}
+            brandId={brand?.id}
             initial={
               brand
                 ? {

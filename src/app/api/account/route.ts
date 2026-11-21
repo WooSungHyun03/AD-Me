@@ -24,16 +24,22 @@ export const PATCH = apiRoute("account.patch", async (req) => {
     if (c.role !== "brand")
       fail("브랜드 계정만 브랜드 정보를 수정할 수 있습니다.", 403);
     const b = p.brand;
-    const { data, error } = await c.db.rpc("save_brand_account", {
-      p_name: p.name,
-      p_brand_name: b.brandName,
-      p_industry: b.industry,
-      p_introduction: b.introduction,
-      p_published: b.published,
-      p_contact_name: b.contactName,
-      p_contact_email: b.contactEmail,
-      p_contact_visibility: b.contactVisibility,
-    });
+    const { data, error } = await c.db.rpc(
+      b.logoUploadId === undefined
+        ? "save_brand_account"
+        : "save_brand_account_logo",
+      {
+        p_name: p.name,
+        p_brand_name: b.brandName,
+        p_industry: b.industry,
+        p_introduction: b.introduction,
+        p_published: b.published,
+        p_contact_name: b.contactName,
+        p_contact_email: b.contactEmail,
+        p_contact_visibility: b.contactVisibility,
+        ...(b.logoUploadId === undefined ? {} : { p_logo: b.logoUploadId }),
+      },
+    );
     if (error) failDatabase(error, "브랜드 정보를 저장하지 못했습니다.");
     return NextResponse.json({ ok: true, brandId: data });
   }
