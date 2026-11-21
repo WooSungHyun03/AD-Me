@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { SocialLink } from "@/lib/social-links";
 
 export function PublicProfileLinks({
@@ -15,6 +15,16 @@ export function PublicProfileLinks({
   const [showVideo, setShowVideo] = useState(false);
   const [share, setShare] = useState("");
   const [copied, setCopied] = useState(false);
+  const [attempt, setAttempt] = useState(0),
+    [videoError, setVideoError] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    if (!showVideo) return;
+    timer.current = setTimeout(() => setVideoError(true), 8000);
+    return () => {
+      if (timer.current) clearTimeout(timer.current);
+    };
+  }, [showVideo, attempt]);
   if (!path) return null;
 
   return (
@@ -45,7 +55,10 @@ export function PublicProfileLinks({
             className="button outline small"
             type="button"
             aria-expanded={showVideo}
-            onClick={() => setShowVideo(!showVideo)}
+            onClick={() => {
+              setVideoError(false);
+              setShowVideo(!showVideo);
+            }}
           >
             {showVideo ? "YouTube 영상 닫기" : "YouTube 플레이어 연결"}
           </button>
@@ -80,20 +93,45 @@ export function PublicProfileLinks({
         </label>
       )}
       {showVideo && social?.videoId && (
-        <iframe
-          title="크리에이터 YouTube 동영상"
-          src={`https://www.youtube-nocookie.com/embed/${social.videoId}`}
-          allow="encrypted-media; picture-in-picture; fullscreen"
-          allowFullScreen
-          sandbox="allow-scripts allow-same-origin allow-presentation"
-          referrerPolicy="strict-origin"
-          style={{
-            width: "100%",
-            minHeight: 200,
-            aspectRatio: "16 / 9",
-            border: 0,
-          }}
-        />
+        <>
+          <p role="status">
+            {videoError
+              ? "플레이어 연결을 확인하지 못했습니다. 원본에서 확인하거나 다시 연결해주세요."
+              : "공식 플레이어 연결을 요청했습니다. 재생 제한·네트워크 오류가 있으면 원본에서 확인해주세요."}{" "}
+            <a href={social.href} target="_blank" rel="noopener noreferrer">
+              YouTube 원본에서 보기 ↗
+            </a>
+          </p>
+          <button
+            type="button"
+            className="button outline small"
+            onClick={() => {
+              setVideoError(false);
+              setAttempt((n) => n + 1);
+            }}
+          >
+            플레이어 다시 연결
+          </button>
+          <iframe
+            key={attempt}
+            title="크리에이터 YouTube 동영상"
+            src={`https://www.youtube-nocookie.com/embed/${social.videoId}`}
+            allow="encrypted-media; picture-in-picture; fullscreen"
+            allowFullScreen
+            sandbox="allow-scripts allow-same-origin allow-presentation"
+            referrerPolicy="strict-origin"
+            onError={() => setVideoError(true)}
+            onLoad={() => {
+              if (timer.current) clearTimeout(timer.current);
+            }}
+            style={{
+              width: "100%",
+              minHeight: 200,
+              aspectRatio: "16 / 9",
+              border: 0,
+            }}
+          />
+        </>
       )}
     </div>
   );
