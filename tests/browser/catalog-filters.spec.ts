@@ -105,9 +105,12 @@ test("filter groups support keyboard selection without overflow at 320/390/768/1
 }) => {
   await page.goto("/creators");
   await expect(page.getByTestId("creator-card")).toHaveCount(48);
-  const summary = page.getByTestId("filter-platform").locator("summary");
+  const group = page.getByTestId("filter-platform");
+  await expect(group).toHaveAttribute("aria-busy", "false");
+  const summary = group.locator("summary");
   await summary.focus();
   await summary.press("Enter");
+  await expect(group).toHaveAttribute("open", "");
   const checkbox = page
     .getByRole("group", { name: "플랫폼", exact: true })
     .getByLabel("YouTube", { exact: true });

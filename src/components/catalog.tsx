@@ -1,7 +1,7 @@
 "use client";
 import { creatorPlatforms, platformLabels } from "@/lib/service-catalog";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { Heart, ArrowUpRight } from "lucide-react";
 import { creators as fixtures } from "@/lib/catalog";
 import type { PublicCatalogCreator } from "@/lib/creator-public-profile";
@@ -9,9 +9,18 @@ import {
   catalogFollowerValue,
   creatorFilterIssues,
   filterCreators,
+  parseCreatorFilters,
+  serializeCreatorFilters,
+  emptyCreatorFilters,
   type CreatorFilters,
 } from "@/lib/creator-filters";
 import { useCatalogFilters } from "./use-catalog-filters";
+import { createCreatorSearchStore } from "@/lib/creator-search-store";
+import type { FilteredCatalog } from "@/lib/filtered-catalog";
+
+const subscribeToHydration = () => () => {};
+const clientReady = () => true;
+const serverReady = () => false;
 
 function FilterChoices({
   name,
@@ -26,8 +35,18 @@ function FilterChoices({
   selected: string[];
   toggle: (value: string) => void;
 }) {
+  const interactive = useSyncExternalStore(
+    subscribeToHydration,
+    clientReady,
+    serverReady,
+  );
   return (
-    <details className="catalog-filter-choices" data-testid={`filter-${name}`}>
+    <details
+      className="catalog-filter-choices"
+      data-testid={`filter-${name}`}
+      inert={!interactive}
+      aria-busy={!interactive}
+    >
       <summary>
         {title}{" "}
         <span>{selected.length ? `${selected.length}개 선택` : "전체"}</span>
@@ -52,16 +71,47 @@ function FilterChoices({
 export function Catalog({
   items = fixtures,
   initialSaved = [],
+  remote = false,
+  initialPage,
+  initialFilters = emptyCreatorFilters(),
 }: {
   items?: PublicCatalogCreator[];
   initialSaved?: string[];
+  remote?: boolean;
+  initialPage?: FilteredCatalog;
+  initialFilters?: CreatorFilters;
 }) {
   const { filters, update, reset } = useCatalogFilters();
   const [saved, setSaved] = useState<string[]>(initialSaved),
     [selected, setSelected] = useState<string[]>([]),
     [error, setError] = useState("");
-  const list = filterCreators(items, filters);
   const issues = creatorFilterIssues(filters);
+  const [store] = useState(() =>
+    createCreatorSearchStore(initialPage, initialFilters),
+  );
+  const remoteState = useSyncExternalStore(
+    store.subscribe,
+    store.getSnapshot,
+    store.getSnapshot,
+  );
+  const filterKey = serializeCreatorFilters(filters).toString();
+  const invalid = issues.length > 0;
+  useEffect(() => {
+    if (!remote) return;
+    if (invalid) {
+      store.cancel();
+      return;
+    }
+    void store.load(parseCreatorFilters(new URLSearchParams(filterKey)));
+  }, [remote, store, filterKey, invalid]);
+  useEffect(() => () => store.cancel(), [store]);
+  const list = invalid
+    ? []
+    : remote
+      ? remoteState.page.items
+      : filterCreators(items, filters);
+  const loading = remote && remoteState.loading && !invalid;
+  const searchError = remote ? remoteState.error : "";
   const options = (values: string[]) =>
     [...new Set(values)]
       .sort((a, b) => a.localeCompare(b, "ko-KR"))
@@ -118,6 +168,18 @@ export function Catalog({
           {error} <Link href="/login">로그인 →</Link>
         </div>
       )}
+      {searchError && (
+        <div role="alert" className="notice">
+          {searchError}{" "}
+          <button
+            type="button"
+            className="button outline small"
+            onClick={() => void store.load(filters, false, true)}
+          >
+            검색 다시 시도
+          </button>
+        </div>
+      )}
       {issues.length > 0 && (
         <div role="alert" className="notice" data-testid="filter-errors">
           {issues.map((issue) => (
@@ -146,6 +208,7 @@ export function Catalog({
             title="콘텐츠 분야"
             options={options([
               ...items.flatMap((c) => c.categories),
+              ...(remote ? remoteState.page.facets.categories : []),
               ...filters.categories,
             ])}
             selected={filters.categories}
@@ -156,6 +219,7 @@ export function Catalog({
             title="이미지·분위기"
             options={options([
               ...items.flatMap((c) => c.vibes),
+              ...(remote ? remoteState.page.facets.tags : []),
               ...filters.tags,
             ])}
             selected={filters.tags}
@@ -202,10 +266,18 @@ export function Catalog({
         </aside>
         <div>
           <p style={{ fontSize: 13 }} role="status" data-testid="catalog-count">
-            <strong style={{ color: "#111312" }}>{list.length}명</strong>의
-            크리에이터
+            {remote && !remoteState.loaded ? (
+              "검색 결과를 확인하고 있습니다."
+            ) : (
+              <>
+                <strong style={{ color: "#111312" }}>
+                  {remote ? remoteState.page.total : list.length}명
+                </strong>
+                의 크리에이터
+              </>
+            )}
           </p>
-          <div className="creator-grid">
+          <div className="creator-grid" aria-busy={loading}>
             {list.map((c, i) => (
               <article
                 key={c.seed_id}
@@ -289,7 +361,21 @@ export function Catalog({
               </article>
             ))}
           </div>
-          {!list.length && (
+          {loading && <p role="status">검색 결과를 불러오고 있습니다.</p>}
+          {remote &&
+            remoteState.page.nextCursor &&
+            !invalid &&
+            !searchError && (
+              <button
+                type="button"
+                className="button outline"
+                disabled={loading}
+                onClick={() => void store.load(filters, true)}
+              >
+                다음 후보 더 불러오기
+              </button>
+            )}
+          {!list.length && !loading && !searchError && (
             <div className="empty">
               조건에 맞는 크리에이터가 없습니다. 필터를 조정해주세요.
             </div>

@@ -2,10 +2,38 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { getConfig } from "@/lib/config";
 import { Catalog } from "@/components/catalog";
-import { currentUser, supabase } from "@/lib/supabase";
+import { configured, currentUser, supabase } from "@/lib/supabase";
 import { publicCreators } from "@/lib/data";
-export default async function Creators() {
-  const items = await publicCreators();
+import { readMySavedCreatorCatalog } from "@/lib/creator-catalog-read";
+import { parseCreatorFilters } from "@/lib/creator-filters";
+import {
+  readFilteredCatalog,
+  type FilteredCatalog,
+} from "@/lib/filtered-catalog";
+export default async function Creators({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const query = new URLSearchParams();
+  for (const [key, value] of Object.entries(await searchParams))
+    for (const v of Array.isArray(value) ? value : value ? [value] : [])
+      query.append(key, v);
+  const filters = parseCreatorFilters(query),
+    remote = configured();
+  let initialPage: FilteredCatalog | undefined;
+  if (remote) {
+    try {
+      initialPage = await readFilteredCatalog(
+        await supabase(),
+        filters,
+        getConfig().serviceMode === "test_demo",
+      );
+    } catch {
+      /* Client retry preserves the page and filter inputs. */
+    }
+  }
+  const items = remote ? (initialPage?.items ?? []) : await publicCreators();
   let hot: {
     creator_id: string;
     profile: { name: string };
@@ -20,11 +48,13 @@ export default async function Creators() {
   const user = await currentUser();
   if (user) {
     const db = await supabase();
-    const { data } = await db
-      .from("saved_creators")
-      .select("creator_id")
-      .eq("owner_id", user.id);
-    initialSaved = data?.map((x) => x.creator_id) ?? [];
+    try {
+      initialSaved = (await readMySavedCreatorCatalog(db)).map(
+        (x) => x.creator_id,
+      );
+    } catch {
+      /* Saving errors remain recoverable in the catalogue. */
+    }
   }
   return (
     <section className="wrap">
@@ -62,7 +92,13 @@ export default async function Creators() {
       <Suspense
         fallback={<p role="status">크리에이터 검색을 준비하고 있습니다.</p>}
       >
-        <Catalog items={items} initialSaved={initialSaved} />
+        <Catalog
+          items={items}
+          initialSaved={initialSaved}
+          remote={remote}
+          initialPage={initialPage}
+          initialFilters={filters}
+        />
       </Suspense>
     </section>
   );
