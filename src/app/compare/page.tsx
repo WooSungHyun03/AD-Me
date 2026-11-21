@@ -1,15 +1,22 @@
 import Link from "next/link";
-import { publicCreators } from "@/lib/data";
+import { publicCreator } from "@/lib/data";
 export default async function Compare({
   searchParams,
 }: {
   searchParams: Promise<{ ids?: string }>;
 }) {
   const p = await searchParams;
-  const creators = await publicCreators();
-  const list = creators.filter((c) =>
-    p.ids?.split(",").slice(0, 3).includes(c.seed_id),
-  );
+  const refs = [
+    ...new Set(
+      p.ids
+        ?.split(",")
+        .filter((v) => v.length > 0 && v.length <= 100)
+        .slice(0, 3) ?? [],
+    ),
+  ];
+  const list = (
+    await Promise.all(refs.map((ref) => publicCreator(ref)))
+  ).filter((c) => c !== null);
   return (
     <section className="wrap">
       <span className="eyebrow">Side by side</span>

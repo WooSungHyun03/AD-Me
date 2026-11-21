@@ -48,6 +48,7 @@ const profile = {
   social_url: "https://www.youtube.com/@fictionalSnapshotQA",
   private_note: "PRIVATE_D045_CANARY",
 };
+let creatorRef;
 let first,
   newer,
   key = randomUUID();
@@ -59,6 +60,7 @@ try {
   sql(`insert into public.creators(id,owner_id,published,profile) values('${creatorId}','${ids.creator}',true,'${literal(profile)}');
  insert into public.campaigns(id,owner_id,brief,status) select '${campaign}','${ids.brand}',brief||jsonb_build_object('vibes',jsonb_build_array('snapshot-qa'),'category','${seed.categories[0]}','format','${seed.formats[0]}','platforms',to_jsonb(array['${seed.platforms[0]}']),'budget_krw',10000),'published' from public.campaigns limit 1;
  insert into public.campaigns(id,owner_id,brief) select '${second}','${ids.brand}',brief from public.campaigns where id='${campaign}';`);
+  creatorRef=sql(`select adme_creator.public_reference('${creatorId}');`);
   await check(
     "anonymous/foreign/creator requests, private table access and helper execution are denied",
     async () => {
@@ -135,20 +137,20 @@ try {
       assert.equal(p.snapshot.id, first);
       assert.equal(p.snapshot.stale, false);
       assert.equal(p.snapshot.modelVersion, "adme-1.0");
-      const r = p.snapshot.results.find((x) => x.creatorId === creatorId);
+      const r = p.snapshot.results.find((x) => x.creatorId === creatorRef);
       assert.ok(r);
       assert.equal(r.score, 100);
       assert.equal(r.coverage, 80);
       assert.deepEqual(r.missing, ["타깃 고객"]);
       assert.deepEqual(r.matchedTags, ["snapshot-qa"]);
       assert.equal(r.isDemo, true);
-      // Existing public creator IDs use user-<UUID>; D075's opaque-ID migration is
-      // separate. Assert private fields, not absence of that published identifier.
+      // D075 now keeps Auth identifiers out of persisted public projections too.
       for (const value of [
         "PRIVATE_D045_CANARY",
         "owner_id",
         "request_key",
         ids.brand,
+        ids.creator,
         '"hot"',
       ])
         assert.ok(!JSON.stringify(p).includes(value));
@@ -181,7 +183,7 @@ try {
       const old = (await page(first)).snapshot;
       assert.equal(old.stale, true);
       assert.equal(
-        old.results.find((x) => x.creatorId === creatorId).score,
+        old.results.find((x) => x.creatorId === creatorRef).score,
         100,
       );
       const r = await create();
@@ -192,11 +194,11 @@ try {
       assert.equal(current.id, newer);
       assert.equal(current.stale, false);
       assert.ok(
-        current.results.find((x) => x.creatorId === creatorId).score < 100,
+        current.results.find((x) => x.creatorId === creatorRef).score < 100,
       );
       assert.equal(
         (await page(first)).snapshot.results.find(
-          (x) => x.creatorId === creatorId,
+          (x) => x.creatorId === creatorRef,
         ).score,
         100,
       );
@@ -221,7 +223,7 @@ try {
         `update public.creators set published=true,profile=jsonb_set(profile,'{owner_consent}','false') where id='${creatorId}';`,
       );
       const r = (await page(first)).snapshot.results.find(
-        (x) => x.creatorId === creatorId,
+        (x) => x.creatorId === creatorRef,
       );
       assert.equal(r.sourceUrl, null);
     },

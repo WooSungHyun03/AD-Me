@@ -1,9 +1,10 @@
 import { PublicAdHistory } from "@/components/public-ad-history";
+import { NormalizedPublic } from "@/components/normalized-public";
 import { PublicReviewRecords } from "@/components/public-review-records";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { rank } from "@/lib/catalog";
-import { publicCreators } from "@/lib/data";
+import { publicCreators, publicCreator } from "@/lib/data";
 import { PublicProfileLinks } from "@/components/public-profile-links";
 import {
   normalizeSocialLink,
@@ -17,9 +18,15 @@ export default async function Detail({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const creators = await publicCreators();
-  const c = creators.find((c) => c.seed_id === id);
+  const c = await publicCreator(id);
   if (!c) notFound();
+  if (c.seed_id !== id) redirect(`/creators/${encodeURIComponent(c.seed_id)}`);
+  let creators: Awaited<ReturnType<typeof publicCreators>> = [];
+  try {
+    creators = await publicCreators();
+  } catch {
+    /* Main profile remains readable when the bounded similar-list is unavailable. */
+  }
   const social = normalizeSocialLink(c.social_url);
   const portfolio = safeHttpsLink(c.portfolio_url);
   const similar = rank(
@@ -67,6 +74,7 @@ export default async function Detail({
             @{c.handle} · {c.platforms.join(" / ")}
           </p>
           <p>{c.bio}</p>
+          <NormalizedPublic reference={c.seed_id} />
           <div className="tags">
             {c.vibes.map((t) => (
               <span key={t} className="badge">

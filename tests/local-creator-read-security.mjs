@@ -41,7 +41,12 @@ const hash = () =>
     "select md5(string_agg(id||profile::text,',' order by id)) from public.creators where id like 'creator-%';",
   );
 const before = hash();
+const initialPublicCount=Number(sql("select count(*) from public.creators c where adme_creator.catalog_dto(c) is not null;"));
+const initialOwnedPublicCount=Number(sql("select count(*) from public.creators c where c.owner_id is not null and adme_creator.catalog_dto(c) is not null;"));
+let publicId;
+const previousBilling=sql("select enabled from adme_release.billing_boundary;");
 try {
+  sql("select adme_release.set_test_billing(true,'local-read-security-qa');");
   for (const [role, id] of Object.entries(ids))
     sql(
       `insert into auth.users(id,raw_user_meta_data) values('${id}','{"role":"${role === "owner" ? "creator" : "brand"}","name":"가상 읽기 경계 QA"}');`,
@@ -52,6 +57,8 @@ try {
       'social_url','https://www.youtube.com/watch?v=abcdefghijk','portfolio_url','https://example.org/fictional') from public.creators where id='creator-001';
     insert into public.campaigns(id,owner_id,brief,status) select '${campaign}','${ids.brand}',brief,'published' from public.campaigns limit 1;
     insert into public.campaigns(id,owner_id,brief,status) select '${secondCampaign}','${ids.brand}',brief,'published' from public.campaigns limit 1;`);
+  publicId=sql(`select adme_creator.public_reference('${creatorId}');`);
+  assert.ok(!publicId.includes(ids.owner));
   await check(
     "anonymous and foreign raw reads are denied while own settings and fresh approved admin remain compatible",
     async () => {
@@ -102,7 +109,7 @@ try {
     "direct public RPC returns only allowlisted fields, keeps legacy URLs and preserves null versus demo zero",
     async () => {
       const rows = await catalog();
-      const row = rows.find((c) => c.seed_id === creatorId);
+      const row = rows.find((c) => c.seed_id === publicId);
       assert.ok(row);
       assert.equal(row.followers, null);
       assert.equal(
@@ -144,8 +151,8 @@ try {
         if (!response.data.nextCursor) break;
         after = response.data.nextCursor;
       }
-      assert.equal(seen.length, 49);
-      assert.equal(new Set(seen).size, 49);
+      assert.equal(seen.length, initialPublicCount+1);
+      assert.equal(new Set(seen).size, initialPublicCount+1);
       for (const limit of [0, 201])
         assert.equal(
           (
@@ -185,7 +192,7 @@ try {
       assert.equal(embedded.data[0].creators, null);
       const saved = await brand.rpc("my_saved_creator_catalog");
       assert.equal(saved.error, null);
-      assert.equal(saved.data[0].creator_id, creatorId);
+      assert.equal(saved.data[0].creator_id, publicId);
       assert.equal(saved.data[0].creator.name, "가상 읽기 경계 QA");
       assert.ok(!JSON.stringify(saved.data).includes(marker));
       assert.deepEqual((await other.rpc("my_saved_creator_catalog")).data, []);
@@ -202,9 +209,9 @@ try {
         p_campaign: campaign,
       });
       assert.equal(choices.error, null);
-      assert.deepEqual(choices.data, [
-        { id: creatorId, name: "가상 읽기 경계 QA" },
-      ]);
+      assert.equal(choices.data.length,initialOwnedPublicCount+1);
+      assert.ok(choices.data.some(c=>c.id===publicId&&c.name==='가상 읽기 경계 QA'));
+      for(const choice of choices.data)assert.deepEqual(Object.keys(choice).sort(),['id','name']);
       assert.deepEqual(
         (await other.rpc("creator_proposal_choices", { p_campaign: campaign }))
           .data,
@@ -213,7 +220,7 @@ try {
       assert.deepEqual(
         (await owner.rpc("creator_proposal_choices", { p_campaign: campaign }))
           .data,
-        choices.data,
+        [{id:publicId,name:'가상 읽기 경계 QA'}],
       );
       assert.equal(
         (await anon.rpc("creator_proposal_choices", { p_campaign: campaign }))
@@ -314,7 +321,7 @@ try {
       insert into public.entitlements(owner_id,order_id,sku,expires_at) select '${ids.owner}',id,'creator_hot',now()+interval '1 day' from o;`);
       const hot = await anon.rpc("active_hot_creators");
       assert.equal(hot.error, null);
-      assert.equal(hot.data[0].creator_id, creatorId);
+      assert.equal(hot.data[0].creator_id, publicId);
       assert.ok(!JSON.stringify(hot.data).includes(marker));
       assert.ok(!("owner_id" in hot.data[0].profile));
     },
@@ -343,19 +350,17 @@ try {
         null,
       );
       assert.equal(
-        (await catalog()).some((c) => c.seed_id === creatorId),
+        (await catalog()).some((c) => c.seed_id === publicId),
         false,
       );
       assert.equal(
         (await brand.rpc("my_saved_creator_catalog")).data[0].creator,
         null,
       );
-      assert.deepEqual((await anon.rpc("active_hot_creators")).data, []);
-      assert.deepEqual(
-        (await brand.rpc("creator_proposal_choices", { p_campaign: campaign }))
-          .data,
-        [],
-      );
+      assert.ok(!(await anon.rpc("active_hot_creators")).data.some(c=>c.creator_id===publicId));
+      const remainingChoices=(await brand.rpc("creator_proposal_choices", { p_campaign: campaign })).data;
+      assert.equal(remainingChoices.length,initialOwnedPublicCount);
+      assert.ok(!remainingChoices.some(c=>c.id===publicId));
       assert.equal(
         (
           await brand.rpc("create_creator_proposal", {
@@ -376,6 +381,7 @@ try {
     },
   );
 } finally {
+  sql(`select adme_release.set_test_billing(${previousBilling==='t'},'local-read-security-restored');`);
   sql(`delete from public.proposals where brand_id in ('${ids.brand}','${ids.other}'); delete from public.campaigns where id in ('${campaign}','${secondCampaign}');
     delete from public.saved_creators where owner_id in ('${ids.brand}','${ids.other}'); delete from public.entitlements where owner_id='${ids.owner}'; delete from public.orders where owner_id='${ids.owner}';
     delete from public.moderation_events where entity_id='${creatorId}'; delete from public.audit_log where entity_id='${creatorId}'; delete from public.creators where id='${creatorId}';

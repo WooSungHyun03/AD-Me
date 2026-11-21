@@ -32,7 +32,7 @@ test("public RSC catalog excludes private JSON fields and treats owner placehold
       .getByTestId("creator-card")
       .getByRole("heading", { name: "가상 공개 DTO QA" })
       .click();
-    await expect(page).toHaveURL(new RegExp(`/creators/${id}$`));
+    await expect(page).toHaveURL(/\/creators\/c-[a-f0-9-]{36}$/);
     await expect(
       page.getByRole("heading", {
         name: "가상 공개 DTO QA",
@@ -41,9 +41,10 @@ test("public RSC catalog excludes private JSON fields and treats owner placehold
       }),
     ).toBeVisible();
     await expect(page.getByRole("link", { name: "SNS 원본" })).toHaveCount(0);
-    // Legacy user-<Auth UUID> route still exists: opaque-ID and direct-REST
-    // migrations remain explicit D018/D033/D075 release blockers.
-    expect(page.url()).toContain(id);
+    expect(page.url()).not.toContain(owner);
+    const legacy = await page.goto(`/creators/${id}`);
+    expect(legacy?.status()).toBe(200);
+    await expect(page).toHaveURL(/\/creators\/c-[a-f0-9-]{36}$/);
   } finally {
     sql(
       `delete from public.creators where id='${id}'; delete from auth.users where id='${owner}';`,
