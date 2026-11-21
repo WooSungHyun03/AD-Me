@@ -13,6 +13,7 @@
 .consent-fields a,.prose a,.panel a[href^="mailto:"] { text-decoration: underline; text-underline-offset: 3px; }
 [role="alert"]:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
 .notice .publication-policy { color: var(--ink); }
+.ad-timeline-record p { color: var(--ink); }
 .notice a { text-decoration: underline; text-underline-offset: 3px; }
 * {
   box-sizing: border-box;

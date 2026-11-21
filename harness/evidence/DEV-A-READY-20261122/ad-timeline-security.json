@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-21T16:02:08.031Z",
+  "scope": "Actual local DB/PostgREST; fictional profiles/ad evidence/policy; no provider or legal approval",
+  "results": [
+    {
+      "name": "latest verified evidence only; stable keyset and period-overlap filtered totals",
+      "result": "PASS"
+    },
+    {
+      "name": "brand-private rival replacement; cross-account/anonymous/creator access denied",
+      "result": "PASS"
+    },
+    {
+      "name": "correction and withdrawal update timeline totals immediately; policy/restriction fails closed",
+      "result": "PASS"
+    }
+  ]
+}
