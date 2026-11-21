@@ -5,6 +5,7 @@ import sharp from "sharp";
 import { localRuntime, localClient, sql } from "../support/local-qa.mjs";
 import { createReviewBrowserCreator } from "../support/review-browser-fixtures.mjs";
 import { cleanImageFixtures } from "../support/image-fixture-cleanup.mjs";
+import { qaSignupConsent } from "../support/consent-fixture.mjs";
 const accounts = JSON.parse(
   readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
 );
@@ -75,7 +76,7 @@ test("P0 private image and logo flow uses real Auth/Storage, retries once and de
     email: brand.email,
     password: brand.password,
     email_confirm: true,
-    user_metadata: { role: "brand", name: "가상 P0 브랜드" },
+    user_metadata: { ...qaSignupConsent, role: "brand", name: "가상 P0 브랜드" },
   });
   expect(created.error).toBeNull();
   brand.id = created.data.user!.id;

@@ -27,6 +27,9 @@ test("local Auth signup, real inbox sink resend, GET non-consumption and proof r
     await page.getByLabel("이름", { exact: true }).fill("QA 가입 검증");
     await page.getByLabel("이메일", { exact: true }).fill(email);
     await page.getByLabel("비밀번호", { exact: true }).fill(password);
+    await page.getByLabel("이용약관에 동의합니다", {exact:false}).check();
+    await page.getByLabel("개인정보 처리 안내를 확인했습니다", {exact:false}).check();
+    await page.getByLabel("만 19세 이상 성인임을 확인합니다", {exact:false}).check();
     await page
       .getByRole("button", { name: "계정 만들기", exact: true })
       .click();

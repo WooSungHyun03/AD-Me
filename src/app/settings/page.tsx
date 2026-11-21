@@ -4,6 +4,7 @@ import { currentUser, supabase } from "@/lib/supabase";
 import { AccountForm } from "@/components/account-form";
 import { ProfileForm } from "@/components/profile-form";
 import { BrandAccountForm } from "@/components/brand-account-form";
+import { ConsentSettings } from "@/components/consent-settings";
 export const dynamic = "force-dynamic";
 export default async function Settings() {
   const user = await currentUser();
@@ -37,6 +38,7 @@ export default async function Settings() {
             <Link href="/settings/youtube">YouTube 채널 연결</Link>
           </p>
           <ProfileForm
+            key={`${creator?.published}:${creator?.profile?.owner_consent}`}
             initial={
               creator
                 ? { ...creator.profile, published: creator.published }
@@ -52,6 +54,7 @@ export default async function Settings() {
           </p>
         ) : (
           <BrandAccountForm
+            key={String(brand?.published)}
             name={profile.name}
             brandId={brand?.id}
             initial={
@@ -73,6 +76,7 @@ export default async function Settings() {
           />
         )
       ) : null}
+      <ConsentSettings />
     </section>
   );
 }

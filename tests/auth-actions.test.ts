@@ -7,12 +7,13 @@ const mocks = vi.hoisted(() => ({
   resetPasswordForEmail: vi.fn(),
   resend: vi.fn(),
   signUp: vi.fn(),
-  budget:vi.fn(),
+  budget: vi.fn(),
+  rpc: vi.fn(),
 }));
-vi.mock("@/lib/request-budget",()=>({reserveRequestBudget:mocks.budget}));
+vi.mock("@/lib/request-budget", () => ({ reserveRequestBudget: mocks.budget }));
 vi.mock("@/lib/supabase", () => ({
   configured: mocks.configured,
-  supabase: async () => ({ auth: mocks }),
+  supabase: async () => ({ auth: mocks, rpc: mocks.rpc }),
 }));
 vi.mock("next/navigation", () => ({
   redirect: (path: string) => {
@@ -26,9 +27,19 @@ import {
   resetPassword,
 } from "../src/app/auth/actions";
 import { authAction } from "../src/app/actions";
+import { policyDocument, signupConsentMetadata } from "../src/lib/consent";
 function form(data: Record<string, string>) {
   const result = new FormData();
   for (const [k, v] of Object.entries(data)) result.set(k, v);
+  if (data.mode === "signup")
+    for (const [k, v] of Object.entries({
+      policyVersion: policyDocument.version,
+      policyHash: policyDocument.documentHash,
+      termsAccepted: "on",
+      privacyAccepted: "on",
+      adultConfirmed: "on",
+    }))
+      result.set(k, v);
   return result;
 }
 const proof = "a".repeat(64);
@@ -48,9 +59,42 @@ beforeEach(() => {
   mocks.configured.mockReturnValue(true);
   mocks.signOut.mockResolvedValue({ error: null });
   mocks.budget.mockResolvedValue(null);
+  mocks.rpc.mockResolvedValue({
+    data: {
+      version: policyDocument.version,
+      documentHash: policyDocument.documentHash,
+      approved: true,
+    },
+    error: null,
+  });
 });
 afterEach(() => vi.unstubAllEnvs());
 describe("email confirmation and recovery server actions", () => {
+  it("rejects missing checks, stale policy and unapproved policy before signup provider calls", async () => {
+    const d = {
+      email: "person@example.com",
+      password: "a-fixture-password",
+      name: "테스트",
+      role: "creator",
+      mode: "signup",
+    };
+    const missing = form(d);
+    missing.delete("adultConfirmed");
+    expect((await authAction(null, missing)).error).toContain("각각 선택");
+    const stale = form(d);
+    stale.set("policyHash", "b".repeat(64));
+    expect((await authAction(null, stale)).error).toBeTruthy();
+    mocks.rpc.mockResolvedValueOnce({
+      data: {
+        version: policyDocument.version,
+        documentHash: policyDocument.documentHash,
+        approved: false,
+      },
+      error: null,
+    });
+    expect((await authAction(null, form(d))).error).toContain("정책 검토");
+    expect(mocks.signUp).not.toHaveBeenCalled();
+  });
   it("uses the token-hash confirmation route and returns the same acknowledgement for duplicate signup", async () => {
     const signup = form({
       email: "person@example.com",
@@ -72,7 +116,7 @@ describe("email confirmation and recovery server actions", () => {
     expect(mocks.signUp).toHaveBeenCalledWith(
       expect.objectContaining({
         options: {
-          data: { role: "creator", name: "테스트" },
+          data: { role: "creator", name: "테스트", ...signupConsentMetadata },
           emailRedirectTo: "https://preview.example/auth/confirm",
         },
       }),

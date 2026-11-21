@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { qaSignupConsent } from "../support/consent-fixture.mjs";
 import { readFileSync } from "node:fs";
 import { totp, localRuntime, localClient, sql } from "../support/local-qa.mjs";
 import { randomBytes } from "node:crypto";
@@ -168,7 +169,7 @@ test("new provisioned administrator completes actual local TOTP enrollment", asy
     email,
     password,
     email_confirm: true,
-    user_metadata: { role: "brand", name: "QA enrollment fixture" },
+    user_metadata: { ...qaSignupConsent, role: "brand", name: "QA enrollment fixture" },
   });
   expect(created.error).toBeNull();
   const id = created.data.user!.id;

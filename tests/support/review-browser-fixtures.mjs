@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { randomUUID, randomBytes } from "node:crypto";
 import { localRuntime, localClient, sql } from "./local-qa.mjs";
 import { cleanReviewFixtures } from "./review-fixture-cleanup.mjs";
+import { qaSignupConsent } from "./consent-fixture.mjs";
 export async function createReviewBrowserCreator() {
   const runtime = localRuntime(),
     client = localClient(runtime.SERVICE_ROLE_KEY),
@@ -12,7 +13,7 @@ export async function createReviewBrowserCreator() {
     email,
     password,
     email_confirm: true,
-    user_metadata: { role: "creator", name: "가상 근거 검토 QA" },
+    user_metadata: { ...qaSignupConsent, role: "creator", name: "가상 근거 검토 QA" },
   });
   assert.equal(error, null);
   const id = data.user.id,

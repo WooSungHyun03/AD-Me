@@ -5,6 +5,11 @@ import { configured, supabase } from "@/lib/supabase";
 import { getConfig } from "@/lib/config";
 import { reserveRequestBudget } from "@/lib/request-budget";
 import {
+  consentFieldsSchema,
+  readCurrentPolicy,
+  signupConsentMetadata,
+} from "@/lib/consent";
+import {
   isPrivateSignupResult,
   signupEmailAcknowledgement,
 } from "@/lib/auth-links";
@@ -30,6 +35,20 @@ export async function authAction(_: unknown, form: FormData) {
   if (d.mode === "signup" && features.mail !== "enabled")
     return { error: "가입 메일 서비스 연결을 준비 중입니다." };
   const db = await supabase();
+  if (d.mode === "signup") {
+    if (!consentFieldsSchema.safeParse(Object.fromEntries(form)).success)
+      return {
+        error: "이용약관·개인정보 안내와 성인 베타 확인을 각각 선택해주세요.",
+      };
+    try {
+      if (!(await readCurrentPolicy(db)).approved)
+        return { error: "정책 검토가 완료된 뒤 가입할 수 있습니다." };
+    } catch {
+      return {
+        error: "정책 정보를 확인하지 못했습니다. 잠시 후 다시 시도해주세요.",
+      };
+    }
+  }
   const budget = await reserveRequestBudget(d.mode, d.email);
   if (budget) return { error: budget };
   const result =
@@ -38,7 +57,7 @@ export async function authAction(_: unknown, form: FormData) {
           email: d.email,
           password: d.password,
           options: {
-            data: { role: d.role, name: d.name },
+            data: { role: d.role, name: d.name, ...signupConsentMetadata },
             emailRedirectTo: `${appOrigin}/auth/confirm`,
           },
         })
