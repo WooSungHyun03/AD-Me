@@ -4,12 +4,16 @@ import { resolve } from "node:path";
 import { startLocalTls } from "./local-tls-proxy.mjs";
 import { enableLocalConsent } from "../tests/support/consent-fixture.mjs";
 import { enableLocalIngestionPolicy } from "../tests/support/ingestion-fixture.mjs";
+import { enableLocalDeletionIntake } from "../tests/support/deletion-fixture.mjs";
 const runtime = localRuntime();
 enableLocalConsent();
 enableLocalIngestionPolicy();
+enableLocalDeletionIntake();
 const freeBeta = process.env.ADME_QA_MODE === "free_beta";
 // Exact marked loopback DB only; public source/env flags cannot enable this gate.
-sql(`select adme_release.set_test_billing(${freeBeta ? "false" : "true"},'local-fictional-qa-only');`);
+sql(
+  `select adme_release.set_test_billing(${freeBeta ? "false" : "true"},'local-fictional-qa-only');`,
+);
 const env = {
   ...process.env,
   NEXT_PUBLIC_APP_URL: "https://127.0.0.1:3143",

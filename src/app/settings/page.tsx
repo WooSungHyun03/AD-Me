@@ -5,11 +5,13 @@ import { AccountForm } from "@/components/account-form";
 import { ProfileForm } from "@/components/profile-form";
 import { BrandAccountForm } from "@/components/brand-account-form";
 import { ConsentSettings } from "@/components/consent-settings";
+import { AccountDeletionForm } from "@/components/account-deletion-form";
 export const dynamic = "force-dynamic";
 export default async function Settings() {
   const user = await currentUser();
   if (!user) redirect("/login");
   const db = await supabase();
+  const intake = await db.rpc("deletion_intake_status");
   const { data: profile } = await db
     .from("profiles")
     .select("name,role")
@@ -75,6 +77,7 @@ export default async function Settings() {
         )
       ) : null}
       <ConsentSettings />
+      <AccountDeletionForm enabled={!intake.error && intake.data === true} />
     </section>
   );
 }

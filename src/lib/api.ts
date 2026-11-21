@@ -175,6 +175,7 @@ export async function context(strict = false) {
     .maybeSingle();
   if (strict && error) failDatabase(error, "계정 정보를 불러오지 못했습니다.");
   if (strict && !profile) fail("계정 정보에 접근할 수 없습니다.", 403);
+  if (error || !profile) return null;
   return {
     db,
     user,

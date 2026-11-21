@@ -28,5 +28,7 @@ export async function currentUser() {
   const {
     data: { user },
   } = await db.auth.getUser();
-  return user;
+  if (!user) return null;
+  const active = await db.rpc("account_access");
+  return !active.error && active.data === true ? user : null;
 }
