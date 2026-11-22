@@ -7,24 +7,30 @@ import {
   type CreatorFilters,
 } from "@/lib/creator-filters";
 import type { z } from "zod";
+async function readSavedSearches(signal?: AbortSignal) {
+  const r = await fetch("/api/saved-searches", { signal, cache: "no-store" }),
+    data = await r.json();
+  if (!r.ok) throw Error(data.error?.message || "목록을 불러오지 못했습니다.");
+  return savedSearchList.parse(data);
+}
 export function SavedSearches({ filters }: { filters: CreatorFilters }) {
   const [items, setItems] = useState<z.infer<typeof savedSearchList>>([]),
     [name, setName] = useState(""),
     [error, setError] = useState(""),
     [pending, setPending] = useState(false);
   async function reload(signal?: AbortSignal) {
-    const r = await fetch("/api/saved-searches", { signal, cache: "no-store" }),
-      data = await r.json();
-    if (!r.ok)
-      throw Error(data.error?.message || "목록을 불러오지 못했습니다.");
-    setItems(savedSearchList.parse(data));
+    setItems(await readSavedSearches(signal));
   }
   useEffect(() => {
     const c = new AbortController();
-    void reload(c.signal).catch((e) => {
-      if (!c.signal.aborted)
-        setError(e instanceof Error ? e.message : "목록 오류");
-    });
+    void readSavedSearches(c.signal)
+      .then((items) => {
+        if (!c.signal.aborted) setItems(items);
+      })
+      .catch((e) => {
+        if (!c.signal.aborted)
+          setError(e instanceof Error ? e.message : "목록 오류");
+      });
     return () => c.abort();
   }, []);
   async function mutate(method: string, body: unknown) {
