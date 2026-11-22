@@ -161,7 +161,7 @@ export default async function Dashboard() {
                 )}
               />
             </div>
-            <details style={{ marginTop: 24 }}>
+            <details data-live-chat style={{ marginTop: 24 }}>
               <summary>
                 메시지·결과물 (
                 {messages?.filter((m) => m.proposal_id === p.id).length ?? 0})

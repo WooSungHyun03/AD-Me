@@ -16,19 +16,44 @@ export function LiveMessages() {
       if (timer) clearTimeout(timer);
       timer = setTimeout(() => router.refresh(), 250);
     }
-    const channel = client
-      .channel("workspace-messages")
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "messages" },
-        refresh,
+    let mounted = true;
+    let channel: ReturnType<typeof client.channel> | undefined;
+    let connected = false;
+    async function listen() {
+      const { data } = await client.auth.getSession();
+      if (!mounted || !data.session) return;
+      await client.realtime.setAuth(data.session.access_token);
+      if (!mounted) return;
+      channel = client
+        .channel("workspace-messages")
+        .on(
+          "postgres_changes",
+          { event: "INSERT", schema: "public", table: "messages" },
+          refresh,
+        )
+        .subscribe((status) => {
+          connected = status === "SUBSCRIBED";
+          if (connected) refresh();
+        });
+    }
+    void listen().catch(() => {
+      connected = false;
+    });
+    // Recover on tab focus or while an open conversation waits for a disconnected socket.
+    const fallback = setInterval(() => {
+      if (
+        document.visibilityState === "visible" &&
+        document.querySelector("[data-live-chat][open]")
       )
-      .subscribe((status) => {
-        if (status === "SUBSCRIBED") refresh();
-      });
+        refresh();
+    }, 6500);
+    window.addEventListener("focus", refresh);
     return () => {
+      mounted = false;
+      window.removeEventListener("focus", refresh);
+      clearInterval(fallback);
       if (timer) clearTimeout(timer);
-      void client.removeChannel(channel);
+      if (channel) void client.removeChannel(channel);
     };
   }, [router]);
   return null;
