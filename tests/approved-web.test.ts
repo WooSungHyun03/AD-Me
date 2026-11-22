@@ -3,6 +3,7 @@ import {
   fetchApprovedWeb,
   isPublicWebAddress,
   robotsPermit,
+  type pinnedWebDownload,
 } from "@/lib/ingestion/web";
 const policy = {
   approved: true,
@@ -17,7 +18,7 @@ const policy = {
 const ports = () => ({
   reserve: vi.fn(async () => true),
   resolve: vi.fn(async () => ["8.8.8.8"]),
-  download: vi.fn(async (u: URL) => ({
+  download: vi.fn<typeof pinnedWebDownload>(async (u: URL) => ({
     status: 200,
     contentType: u.pathname === "/robots.txt" ? "text/plain" : "text/html",
     body:
