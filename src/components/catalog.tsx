@@ -17,6 +17,7 @@ import {
 import { useCatalogFilters } from "./use-catalog-filters";
 import { createCreatorSearchStore } from "@/lib/creator-search-store";
 import type { FilteredCatalog } from "@/lib/filtered-catalog";
+import { SearchProposalForm } from "./search-proposal";
 
 const subscribeToHydration = () => () => {};
 const clientReady = () => true;
@@ -142,6 +143,7 @@ export function Catalog({
   }
   return (
     <>
+      <SearchProposalForm apply={update} />
       <div className="toolbar">
         <input
           className="search"
