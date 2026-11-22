@@ -54,7 +54,7 @@ export default async function YoutubeCreators({
                 · 조회 {profile.fetched_at.slice(0, 10)}
               </p>
               <p>
-                <Link href={"/creators/" + profile.creator_id}>
+                <Link href={"/creators/youtube/" + profile.channel_id}>
                   AD Me 프로필
                 </Link>{" "}
                 ·{" "}

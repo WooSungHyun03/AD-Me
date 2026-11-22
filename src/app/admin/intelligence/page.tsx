@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { featuredYoutube } from "@/lib/featured-youtube";
 import { context } from "@/lib/api";
 import { Command } from "./commands";
 
@@ -64,6 +65,13 @@ export default async function Intelligence() {
       </section>
     );
   const ops = data as Overview;
+  const publicIds = new Set(
+    ops.channels
+      ? (await featuredYoutube("", null, 50)).items.map(
+          (channel) => channel.channel_id,
+        )
+      : [],
+  );
   const reports = ["super", "support"].includes(ops.role)
     ? await c.db.rpc("chat_report_queue")
     : null;
@@ -150,6 +158,15 @@ export default async function Intelligence() {
                 >
                   {channel.channel_id} · 원본 채널
                 </a>
+                {publicIds.has(channel.channel_id) && (
+                  <>
+                    {" "}
+                    ·{" "}
+                    <Link href={`/creators/youtube/${channel.channel_id}`}>
+                      공개 상세 프로필
+                    </Link>
+                  </>
+                )}
               </p>
               <p>
                 구독자{" "}

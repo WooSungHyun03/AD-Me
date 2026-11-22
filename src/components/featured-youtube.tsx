@@ -1,6 +1,8 @@
 import Link from "next/link";
-import { ArrowUpRight, Video } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { youtubeCount, type FeaturedChannel } from "@/lib/featured-youtube";
+
+import { YoutubeImage } from "./youtube-image";
 
 export function YoutubeChannelCards({
   channels,
@@ -17,8 +19,10 @@ export function YoutubeChannelCards({
           href={"/creators/youtube/" + channel.channel_id}
         >
           <div className="inline">
-            <Video size={17} aria-hidden="true" />
-            <span className="badge">YouTube 공개 채널</span>
+            <YoutubeImage src={channel.metadata?.avatar} kind="avatar" />
+            <span className="badge">
+              {channel.creator_id ? "AD Me 소유권 인증" : "YouTube 공개 채널"}
+            </span>
           </div>
           <div className="creator-top">
             <h3>{channel.title}</h3>

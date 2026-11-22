@@ -6,10 +6,12 @@ import { publicCreators } from "@/lib/data";
 import { ProposalForm } from "@/components/proposal-form";
 export default async function Campaign({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ creator?: string | string[] }>;
 }) {
-  const { id } = await params;
+  const [{ id }, { creator }] = await Promise.all([params, searchParams]);
   let brief:
     | (Brief & {
         title: string;
@@ -145,7 +147,9 @@ export default async function Campaign({
               </div>
             </div>
           ))}
-          <h2 style={{ marginTop: 40 }}>협업의 첫 문장.</h2>
+          <h2 id="proposal" style={{ marginTop: 40 }}>
+            협업의 첫 문장.
+          </h2>
           {isDemo ? (
             <div className="notice">
               가상 캠페인입니다. 실제 제안·지원은 로그인 후 본인 캠페인과 실제
@@ -155,6 +159,12 @@ export default async function Campaign({
             <ProposalForm
               campaignId={id}
               creators={people}
+              selectedCreatorId={
+                ownerId === user?.id &&
+                people.some((person) => person.id === creator)
+                  ? String(creator)
+                  : undefined
+              }
               kind={ownerId === user?.id ? "proposal" : "application"}
             />
           )}

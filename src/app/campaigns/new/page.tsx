@@ -1,5 +1,14 @@
 import { CampaignForm } from "@/components/campaign-form";
-export default function NewCampaign() {
+export default async function NewCampaign({
+  searchParams,
+}: {
+  searchParams: Promise<{ creator?: string | string[] }>;
+}) {
+  const { creator } = await searchParams;
+  const creatorId =
+    typeof creator === "string" && /^user-[a-f0-9-]{36}$/.test(creator)
+      ? creator
+      : undefined;
   return (
     <section className="wrap">
       <span className="eyebrow">Start a collaboration</span>
@@ -8,7 +17,7 @@ export default function NewCampaign() {
         브리프를 구체적으로 작성할수록 추천의 이유가 명확해집니다. 저장에는
         브랜드 로그인이 필요합니다.
       </p>
-      <CampaignForm />
+      <CampaignForm creatorId={creatorId} />
     </section>
   );
 }
