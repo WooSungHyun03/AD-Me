@@ -66,16 +66,36 @@ export default async function Campaign({
             </div>
           </div>
           {ownerId === user?.id && !isDemo && (
-            <div className="actions"><Link
-              className="button outline small"
-              href={`/campaigns/${id}/edit`}
-            >
-              캠페인 수정·모집 관리
-            </Link><Link className="button outline small" href={`/campaigns/${id}/copy`}>새 초안으로 복제</Link></div>
+            <div className="actions">
+              <Link
+                className="button outline small"
+                href={`/campaigns/${id}/edit`}
+              >
+                캠페인 수정·모집 관리
+              </Link>
+              <Link
+                className="button outline small"
+                href={`/campaigns/${id}/copy`}
+              >
+                새 초안으로 복제
+              </Link>
+            </div>
           )}
           <h3>캠페인 목표</h3>
           <p>{brief.goal}</p>
           <CampaignTermsSummary terms={brief.terms} />
+          {ownerId === user?.id && !isDemo && brief.terms && (
+            <p>
+              <a
+                className="button outline small"
+                href={`/api/campaigns/${id}/calendar`}
+              >
+                캠페인 일정 다운로드
+              </a>
+              <br />내 캘린더에 가져올 수 있습니다. 다운로드한 일정은 자동
+              갱신되지 않습니다.
+            </p>
+          )}
           <h3>타깃 고객</h3>
           <p>{brief.target_audience}</p>
           <div className="tags">
