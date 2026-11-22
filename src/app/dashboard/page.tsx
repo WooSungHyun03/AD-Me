@@ -1,3 +1,4 @@
+import { LiveMessages, ChatSafety } from "@/components/live-chat";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { currentUser, supabase } from "@/lib/supabase";
@@ -60,6 +61,7 @@ export default async function Dashboard() {
   };
   return (
     <section className="wrap">
+      <LiveMessages />
       <div className="section-heading">
         <div>
           <span className="eyebrow">Your workspace / {profile?.role}</span>
@@ -191,6 +193,7 @@ export default async function Dashboard() {
                   }
                 />
               )}
+              <ChatSafety id={p.id} />
             </details>
           </article>
         ))

@@ -203,16 +203,23 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
     data: { sku: "brand_pro" },
   });
   expect(wrongRole.status()).toBe(400);
+  const liveDeal = page
+    .locator("article")
+    .filter({ hasText: "QA 검증용 비건 토너 협업을 제안합니다." })
+    .first();
+  await liveDeal.getByText(/메시지·결과물/).click();
+  const liveBody = "QA 결과물 초안 " + unique;
   await deal.getByText(/메시지·결과물/).click();
-  await deal
-    .getByLabel("메시지", { exact: true })
-    .fill("QA 결과물 초안입니다.");
+  await deal.getByLabel("메시지", { exact: true }).fill(liveBody);
   await deal.getByLabel("종류", { exact: true }).selectOption("deliverable");
   await deal
     .getByLabel("결과물 HTTPS 링크")
     .fill("https://example.com/qa-deliverable");
   await deal.getByRole("button", { name: "메시지 저장" }).click();
   await expect(deal.getByRole("status")).toContainText("저장되었습니다");
+  await expect(liveDeal.getByText(liveBody, { exact: true })).toBeVisible({
+    timeout: 15000,
+  });
   await deal.getByRole("button", { name: "결과물 제출 완료" }).click();
   await expect(deal.getByText("검토 대기", { exact: true })).toBeVisible();
   await page.reload();
