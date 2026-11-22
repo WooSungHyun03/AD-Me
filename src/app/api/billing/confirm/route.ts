@@ -9,18 +9,10 @@ import {
 } from "@/lib/api";
 import { validateConfirmation } from "@/lib/billing";
 import { getConfig } from "@/lib/config";
-import { z } from "zod";
-
-const confirmationInput = z.object({
-  orderId: z.uuid(),
-  paymentKey: z.string().min(1).max(300),
-  amount: z.number().int().positive(),
-});
-
-const confirmationResult = z.union([
-  z.object({ ok: z.literal(true), duplicate: z.literal(true) }),
-  z.object({ ok: z.literal(true), entitlementId: z.uuid() }),
-]);
+import {
+  confirmationInput,
+  confirmationResult,
+} from "@/lib/billing-confirmation";
 
 export const POST = apiRoute("billing.confirm.post", async (req) => {
   requireTestBilling();
