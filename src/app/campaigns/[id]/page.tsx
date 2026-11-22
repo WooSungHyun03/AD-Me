@@ -66,12 +66,12 @@ export default async function Campaign({
             </div>
           </div>
           {ownerId === user?.id && !isDemo && (
-            <Link
+            <div className="actions"><Link
               className="button outline small"
               href={`/campaigns/${id}/edit`}
             >
               캠페인 수정·모집 관리
-            </Link>
+            </Link><Link className="button outline small" href={`/campaigns/${id}/copy`}>새 초안으로 복제</Link></div>
           )}
           <h3>캠페인 목표</h3>
           <p>{brief.goal}</p>
