@@ -840,3 +840,8 @@ footer span {
 }
 .ops-form p:empty { display: none; }
 .ops-grid .panel > h3 { margin: 0; }
+
+.youtube-hero { align-self: center; }
+.youtube-directory-card { padding: 1.25rem; min-width: 0; overflow-wrap: anywhere; }
+.youtube-directory-card .creator-top { margin-top: 1rem; }
+.youtube-directory-card .creator-top svg { flex: 0 0 auto; }

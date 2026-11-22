@@ -93,15 +93,20 @@ export default async function Campaign({
             태그와 예산을 바탕으로 계산한 설명 가능한 추천입니다. HOT 유료
             노출과 독립적입니다.
           </p>
-          <Link
-            className="button outline small"
-            href={`/compare?ids=${results
-              .slice(0, 3)
-              .map((r) => r.creatorId)
-              .join(",")}`}
-          >
-            상위 후보 3명 비교 ↗
-          </Link>
+          {results.length >= 2 && (
+            <Link
+              className="button outline small"
+              href={`/compare?ids=${results
+                .slice(0, 3)
+                .map((r) => r.creatorId)
+                .join(",")}`}
+            >
+              상위 후보 비교 ↗
+            </Link>
+          )}
+          {results.length === 0 && (
+            <p className="empty">캠페인에 추천할 등록 프로필이 없습니다.</p>
+          )}
           {results.map((r, i) => (
             <div key={r.creatorId} className="result">
               <span className="muted">{String(i + 1).padStart(2, "0")}</span>
