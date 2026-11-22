@@ -118,22 +118,43 @@ export function MessageForm({
     </form>
   );
 }
-export function ReadButton({ proposalId }: { proposalId: string }) {
-  const [done, setDone] = useState(false);
+export function ReadButton({
+  proposalId,
+  unread,
+}: {
+  proposalId: string;
+  unread: number;
+}) {
+  const [pending, setPending] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const router = useRouter();
+  if (!unread) return null;
   return (
-    <button
-      className="button ghost small"
-      disabled={done}
-      onClick={async () => {
-        const res = await fetch("/api/read", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ proposalId }),
-        });
-        if (res.ok) setDone(true);
-      }}
-    >
-      {done ? "읽음 처리됨" : "읽음으로 표시"}
-    </button>
+    <>
+      <button
+        className="button ghost small"
+        disabled={pending}
+        onClick={async () => {
+          setPending(true);
+          setFailed(false);
+          try {
+            const res = await fetch("/api/read", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ proposalId }),
+            });
+            if (res.ok) router.refresh();
+            else setFailed(true);
+          } catch {
+            setFailed(true);
+          } finally {
+            setPending(false);
+          }
+        }}
+      >
+        {pending ? "처리 중…" : `안 읽은 메시지 ${unread}개 · 읽음으로 표시`}
+      </button>
+      {failed && <p role="alert">읽음 상태를 저장하지 못했습니다.</p>}
+    </>
   );
 }

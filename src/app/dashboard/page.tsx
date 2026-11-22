@@ -47,10 +47,25 @@ export default async function Dashboard() {
       .select("creator_id,creators(profile)")
       .eq("owner_id", user.id),
   ]);
-  const { data: messages } = await db
-    .from("messages")
-    .select("*")
-    .order("created_at", { ascending: true });
+  const [{ data: messages }, { data: reads }] = await Promise.all([
+    db.from("messages").select("*").order("created_at", { ascending: true }),
+    db
+      .from("proposal_reads")
+      .select("proposal_id,last_read_at")
+      .eq("user_id", user.id),
+  ]);
+  const lastRead = new Map(
+    reads?.map((row) => [row.proposal_id, Date.parse(row.last_read_at)]),
+  );
+  const unread = new Map<string, number>();
+  for (const row of messages ?? []) {
+    if (
+      row.sender_id !== user.id &&
+      Date.parse(row.created_at) > (lastRead.get(row.proposal_id) ?? 0)
+    ) {
+      unread.set(row.proposal_id, (unread.get(row.proposal_id) ?? 0) + 1);
+    }
+  }
   const status: Record<string, string> = {
     pending: "응답 대기",
     accepted: "협업 진행",
@@ -72,6 +87,11 @@ export default async function Dashboard() {
           <Link className="button outline small" href="/settings">
             프로필 설정
           </Link>
+          {profile?.role === "brand" && (
+            <Link className="button outline small" href="/brand/products">
+              광고 상품
+            </Link>
+          )}
           {profile?.role === "admin" && (
             <Link className="button outline small" href="/admin">
               운영 관리
@@ -134,7 +154,7 @@ export default async function Dashboard() {
         proposals.map((p) => (
           <article className="panel" style={{ marginBottom: 20 }} key={p.id}>
             <span className="badge lime">{status[p.status]}</span>
-            <ReadButton proposalId={p.id} />
+            <ReadButton proposalId={p.id} unread={unread.get(p.id) ?? 0} />
             <h3 style={{ marginTop: 18 }}>
               {p.kind === "application" ? "캠페인 지원" : "브랜드 제안"}
             </h3>

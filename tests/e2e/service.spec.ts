@@ -220,6 +220,10 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
   await expect(liveDeal.getByText(liveBody, { exact: true })).toBeVisible({
     timeout: 15000,
   });
+  const markRead = liveDeal.getByRole("button", { name: /안 읽은 메시지 1개/ });
+  await expect(markRead).toBeVisible();
+  await markRead.click();
+  await expect(markRead).toHaveCount(0);
   await deal.getByRole("button", { name: "결과물 제출 완료" }).click();
   await expect(deal.getByText("검토 대기", { exact: true })).toBeVisible();
   await page.reload();
