@@ -2,12 +2,6 @@ import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { randomUUID, createHash } from "node:crypto";
-const config = readFileSync(
-  "output/dev-a-packet-db/supabase/config.toml",
-  "utf8",
-);
-assert.match(config, /^project_id = "dev-a-packet-db"$/m);
-assert.match(config, /port = 54332/);
 const sql = (input) =>
   execFileSync(
     "docker",
@@ -30,12 +24,27 @@ const dir = "deliverables/dev-a-independent-20261122",
   manifest = JSON.parse(readFileSync(`${dir}/MANIFEST.json`, "utf8")),
   hash = (value) => createHash("sha256").update(value).digest("hex");
 for (const f of manifest.files)
-  assert.equal(hash(readFileSync(`${dir}/${f.path}`)), f.sha256_lf);
+  assert.equal(
+    hash(readFileSync(`${dir}/${f.path}`, "utf8").replaceAll("\r\n", "\n")),
+    f.sha256_lf,
+  );
 for (const f of manifest.sources)
   assert.equal(
     hash(readFileSync(f.path, "utf8").replaceAll("\r\n", "\n")),
     f.sha256_lf,
   );
+if (process.argv.includes("--integrity")) {
+  console.log(
+    "PASS immutable packet/source LF hashes (including CRLF checkouts); no database accessed",
+  );
+  process.exit(0);
+}
+const config = readFileSync(
+  "output/dev-a-packet-db/supabase/config.toml",
+  "utf8",
+);
+assert.match(config, /^project_id = "dev-a-packet-db"$/m);
+assert.match(config, /port = 54332/);
 assert.equal(
   sql("select count(*)from supabase_migrations.schema_migrations;"),
   "67",

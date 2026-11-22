@@ -20,7 +20,7 @@
     "tests": 291,
     "result": "PASS"
   },
-  "python": 14,
+  "python": 15,
   "harness": 5,
   "lint": "PASS after effect fix",
   "typecheck": "PASS after test-port fixes",
@@ -92,5 +92,6 @@
   "test_sha256_lf": {
     "tests/local-browser/independent-tickets.spec.ts": "24fe7b83442eaa58e95f590a1afddb652e418ba6876f3402880814eaea67bf25",
     "tests/local-saved-search-security.mjs": "742e59ee57027de3e4aec4b7c2e0f052b7d67f481af2074d3f218c59ba8d5d1d"
-  }
+  },
+  "packet_cross_platform_integrity": "PASS actual verifier on temporary CRLF checkout; edited body denied, no DB access"
 }
