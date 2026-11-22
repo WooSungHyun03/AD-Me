@@ -144,6 +144,11 @@ export function Catalog({
   return (
     <>
       <SearchProposalForm apply={update} />
+      <p>
+        <Link href={`/saved-searches?${serializeCreatorFilters(filters)}`}>
+          현재 조건 저장·내 저장 검색
+        </Link>
+      </p>
       <div className="toolbar">
         <input
           className="search"
