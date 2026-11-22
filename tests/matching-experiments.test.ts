@@ -25,7 +25,9 @@ const e = {
 const ports = () => ({
   reserveCost: vi.fn(async () => true),
   embed: vi.fn(async () => [0, 1]),
-  saveIfCurrent: vi.fn(async () => true),
+  saveIfCurrent: vi.fn<
+    Parameters<typeof runEmbeddingExperiment>[2]["saveIfCurrent"]
+  >(async () => true),
 });
 it("does not call a provider without source/consent/policy/budget approval", async () => {
   const p = ports();
