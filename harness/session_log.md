@@ -332,3 +332,9 @@ D007/D009/D073 BLOCKED_EXTERNAL, D014/D084 IN_PROGRESS, LOCAL24/외부3/진행2/
 원문 supplement58,218bytes와 /licenses 링크, 새안전 추출기/immutable Linux Git-tree build helper·desktop/mobile notice+keyless 검증을 추가했다. unit257/41·Python14(새5)/Harness5/backlog·lint/typecheck·browser12/axe·Windows/Linux 실제build/HTTP hashes PASS. Linux17traced/미확인4(그중 exact disclosure2), Win12/미확인2 그대로이며 material collection과 rights review를 구분한다. 첫 inventory LF hash 혼동은 audit가 거부, generator LF JSON과 회귀검사로 수정했고 첫 시도 ignored보존/공개body동일. 적용SQL67/과거고지·패킷·lock·정책snapshot·DB/Auth권한 경로 불변. 영향없는 기존 DB7/security138·역할 시나리오는8d9232c proof를 인용, 공급자 통과로 확대하지 않음.
 
 증거 D007/VERIFY_SUPPLEMENT_20261122.json과 두 runtime proof, 자료 docs/licenses/20261122-supplement. 외부콘솔/키/배포/연락·메일/실제결제 없음. SQL/handoff 변경 없어 사용자 적용 ZIP/SQL 패킷 반복 생성 없음. 기존브랜치 D007 commit/push/정확CI 확인 및 Linux --rm container 종료/기존 QA volumes 보존은 ignoredreceipt에 기록한다.
+
+## 2026-11-22 DEV-A main 통합 사전 리뷰 / Git 배포 보류
+
+사용자가 main 자동 운영배포 분리 확인 후 기존 A branch 리뷰/머지를 명시 승인했다. 기존 f04736a/동일 브랜치, main65063c8 ancestor/99 commits, clean 시작. mandatory Auth/account/search RPC, 서버전용 권한, 삭제 접수/quarantine, 운영 MFA/역할/audit, feature 기본값과 이전 actual-local 증빙을 확인했다. main8 SQL 원본 불변/추가59(총67), CI/build에 DB 적용·배포 단계 없음. Vercel 공식 현재 문서와 schema에 따라 main 및 현재 A branch의 Git deploymentEnabled=false, CI drift guard 추가. CLI/dashboard/hook 수동배포를 차단하거나 외부 콘솔 OFF를 확인했다고 주장하지 않는다.
+
+로컬 unit257/41·secret scan995files·배포hold/4음성변이·diff whitespace·handoff PASS. 처음 ad-hoc Python 명령 quote 실패는 here-string으로 정정 후 통과. 새 commit CI 및 보호된 PR 조건을 확인 후 정상 머지하며 승인/보호를 우회하지 않는다. 상태 원장에 별도 통합검토 정보만 기록, D/U 티켓 완료·DEV-B 교차 수용·실제 공급자/클라우드/정책 승인으로 확대하지 않는다. 상세 docs/handoff/DEV-A_MAIN_INTEGRATION_20261122.md. 실제 머지/체크 SHA와 결과는 후속 로컬 receipt로 기록한다.

@@ -950,5 +950,16 @@
       "last_checked_at": "2026-11-19T15:05:44+09:00",
       "remaining": "실제 데이터·삭제/동의·외부 가입·무료모드 격리·백업/복원·호스팅 적합성 등 P0/외부 게이트 미충족."
     }
+  },
+  "integration_review_20261122": {
+    "branch": "codex/dev-a-p0-continue",
+    "reviewed_head": "f04736af66911731ac14b761a2833cfab2568edc",
+    "main_baseline": "65063c8",
+    "state": "AWAITING_PROTECTED_PR_MERGE",
+    "evidence": [
+      "docs/handoff/DEV-A_MAIN_INTEGRATION_20261122.md"
+    ],
+    "deployment_hold": "Vercel Git main and DEV-A branch disabled in repository configuration; console state not asserted; no deployment/DB application",
+    "ticket_status_changes": false
   }
 }
