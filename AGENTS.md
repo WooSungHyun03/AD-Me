@@ -1,5 +1,8 @@
 # AD Me — Agent operating contract (always read first)
 
+## 2026-11-22 YouTube-only execution
+New marketplace work follows the YouTube-only requirements in docs/youtube-harness and the A/B/C queue under harness/youtube. Keep the earlier queues as historical evidence. The user authorized ordinary origin/main pushes and existing deployment infrastructure. Do not change protection settings or enable paid/live external resources. Preserve legacy campaign and account records while building the YouTube marketplace.
+
 ## Current session authorization — 2026-11-19
 The latest user explicitly requested direct execution of all 20 external tickets. This supersedes the earlier USER-only technical-execution restriction for this work: the agent may perform reversible GitHub/Supabase/Vercel configuration, approved TEST integration and deployment using authorized existing accounts. Identity verification, personal consent/legal acceptance, paid upgrades, third-party outreach and final unverified launch claims remain excluded. Never mark an entire U ticket complete from a partial configuration change. Retain earlier handoff instructions as historical policy and record exact evidence and blockers.
 

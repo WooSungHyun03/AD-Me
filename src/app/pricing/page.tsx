@@ -1,4 +1,35 @@
-import { products } from "@/lib/billing";
+import Link from "next/link";
+
+const products = [
+  {
+    sku: "search_run",
+    name: "AI 검색권",
+    amount: 3000,
+    role: "brand",
+    features: ["후보가 있는 새 조건 검색 1회", "동일 조건 재검색은 무료"],
+  },
+  {
+    sku: "job_post",
+    name: "광고 공고 게시권",
+    amount: 5000,
+    role: "brand",
+    features: ["YouTube 광고 공고 게시 1회", "무료 초안 작성"],
+  },
+  {
+    sku: "job_application",
+    name: "광고 지원권",
+    amount: 1000,
+    role: "creator",
+    features: ["YouTube 광고 공고 지원 1회", "채널 소유권 인증 필요"],
+  },
+  {
+    sku: "creator_hot",
+    name: "Creator HOT",
+    amount: 9900,
+    role: "creator",
+    features: ["30일 스폰서 노출", "일반 점수에 영향 없음"],
+  },
+];
 import { Checkout } from "@/components/checkout";
 export default function Pricing() {
   return (
@@ -8,19 +39,18 @@ export default function Pricing() {
       <p>브랜드의 규모와 크리에이터의 다음 단계에 맞는 선택.</p>
       <div className="notice">
         Toss Payments TEST 결제 전용 · 실제 청구 없음 · 자동 갱신 없는 30일
-        이용권입니다. TEST 키가 연결되지 않으면 결제가 진행되지 않습니다. 현재
-        핵심 기능은 무료로 이용할 수 있으며 유료 이용권으로 추가 제한을 해제하지
-        않습니다.
+        이용권입니다. TEST 키가 연결되지 않으면 결제가 진행되지 않습니다.
+        검색·게시·지원권은 성공한 작업에 사용합니다.
       </div>
       <div className="plans">
         {products.map((p) => (
           <article
             key={p.sku}
-            className={`plan ${p.sku === "brand_pro" ? "featured" : ""}`}
+            className={`plan ${p.sku === "job_post" ? "featured" : ""}`}
           >
             <span
               className="eyebrow"
-              style={p.sku === "brand_pro" ? { color: "#d7ff45" } : {}}
+              style={p.sku === "job_post" ? { color: "#d7ff45" } : {}}
             >
               {p.role === "brand" ? "FOR BRANDS" : "FOR CREATORS"}
             </span>
@@ -39,15 +69,9 @@ export default function Pricing() {
           </article>
         ))}
       </div>
-      <div className="section-heading" style={{ marginTop: 45 }}>
-        <div>
-          <h3>AI 분석 크레딧</h3>
-          <p>
-            20 크레딧 / 4,900원 · TEST 구매 · 고급 분석 사용은 준비 중입니다.
-          </p>
-        </div>
-        <Checkout sku="ai_credits" />
-      </div>
+      <p>
+        <Link href="/dashboard">워크스페이스에서 구매 및 유효 기간 확인</Link>
+      </p>
     </section>
   );
 }

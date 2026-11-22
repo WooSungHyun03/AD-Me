@@ -39,7 +39,7 @@ export default async function Creators() {
       </div>
       {hot.length > 0 && (
         <section className="panel" style={{ marginBottom: 24 }}>
-          <span className="badge lime">유료 광고 · HOT</span>
+          <span className="badge lime">스폰서 · HOT</span>
           <h3 style={{ marginTop: 15 }}>지금 주목할 크리에이터</h3>
           <p>
             활성 TEST 이용권의 별도 노출입니다. 아래 일반 추천 순위와

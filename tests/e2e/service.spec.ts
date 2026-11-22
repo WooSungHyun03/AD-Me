@@ -61,7 +61,7 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
   ).toBeVisible();
   await page.goto("/pricing");
   await expect(
-    page.getByRole("heading", { name: "Brand Pro", exact: true }),
+    page.getByRole("heading", { name: "AI 검색권", exact: true }),
   ).toBeVisible();
   await page.getByRole("button", { name: "TEST 이용권 선택" }).first().click();
   await expect(page.locator("p[role=alert]")).toContainText(

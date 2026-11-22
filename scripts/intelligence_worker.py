@@ -80,12 +80,16 @@ def channels(ids):
     ids_to_fetch = list(dict.fromkeys(video for row in rows for video in row["video_ids"]))
     public_videos = {}
     for i in range(0, len(ids_to_fetch), 50):
-        data = youtube("videos", part="snippet,status", id=",".join(ids_to_fetch[i:i + 50]),
-                       fields="items(id,snippet(title,publishedAt),status/privacyStatus)")
+        data = youtube("videos", part="snippet,status,statistics", id=",".join(ids_to_fetch[i:i + 50]),
+                       fields="items(id,snippet(title,publishedAt),status/privacyStatus,statistics/viewCount)")
         for item in data.get("items", []):
             if item.get("status", {}).get("privacyStatus") == "public":
-                public_videos[item["id"]] = {"id": item["id"], "title": item["snippet"]["title"],
-                                            "publishedAt": item["snippet"]["publishedAt"]}
+                views = item.get("statistics", {}).get("viewCount")
+                public_videos[item["id"]] = {
+                    "id": item["id"], "title": item["snippet"]["title"],
+                    "publishedAt": item["snippet"]["publishedAt"],
+                    "views": int(views) if views is not None else None,
+                }
     for row in rows:
         row["videos"] = [public_videos[video] for video in row.pop("video_ids") if video in public_videos]
     return rows
