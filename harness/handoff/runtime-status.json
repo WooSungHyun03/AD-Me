@@ -187,9 +187,14 @@
     },
     "D020": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D020/INDEPENDENT_20261122.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json"
+      ],
+      "blocker": "독립 부분 구현/로컬 계약 검증. 전체 미완료 선행·API/저장소/실제 공급자·교차 검토 범위는 DEV-A-INDEPENDENT-20261122/README.md 표 참조. 외부 성공/전체 완료 아님.",
+      "last_checked_at": "2026-11-22T11:51:39.993406+00:00"
     },
     "D021": {
       "owner": "DEV-A",
@@ -204,9 +209,14 @@
     },
     "D022": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D022/INDEPENDENT_20261122.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json"
+      ],
+      "blocker": "독립 부분 구현/로컬 계약 검증. 전체 미완료 선행·API/저장소/실제 공급자·교차 검토 범위는 DEV-A-INDEPENDENT-20261122/README.md 표 참조. 외부 성공/전체 완료 아님.",
+      "last_checked_at": "2026-11-22T11:51:39.993441+00:00"
     },
     "D023": {
       "owner": "DEV-B",
@@ -328,9 +338,14 @@
     },
     "D037": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D037/INDEPENDENT_20261122.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json"
+      ],
+      "blocker": "독립 부분 구현/로컬 계약 검증. 전체 미완료 선행·API/저장소/실제 공급자·교차 검토 범위는 DEV-A-INDEPENDENT-20261122/README.md 표 참조. 외부 성공/전체 완료 아님.",
+      "last_checked_at": "2026-11-22T11:51:39.993446+00:00"
     },
     "D038": {
       "owner": "DEV-B",
@@ -340,9 +355,14 @@
     },
     "D039": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D039/INDEPENDENT_20261122.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json"
+      ],
+      "blocker": "독립 부분 구현/로컬 계약 검증. 전체 미완료 선행·API/저장소/실제 공급자·교차 검토 범위는 DEV-A-INDEPENDENT-20261122/README.md 표 참조. 외부 성공/전체 완료 아님.",
+      "last_checked_at": "2026-11-22T11:51:39.993451+00:00"
     },
     "D040": {
       "owner": "DEV-B",
@@ -362,9 +382,14 @@
     },
     "D042": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D042/INDEPENDENT_20261122.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json"
+      ],
+      "blocker": "독립 부분 구현/로컬 계약 검증. 전체 미완료 선행·API/저장소/실제 공급자·교차 검토 범위는 DEV-A-INDEPENDENT-20261122/README.md 표 참조. 외부 성공/전체 완료 아님.",
+      "last_checked_at": "2026-11-22T11:51:39.993454+00:00"
     },
     "D043": {
       "owner": "DEV-B",
@@ -398,9 +423,14 @@
     },
     "D047": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D047/INDEPENDENT_20261122.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json"
+      ],
+      "blocker": "독립 부분 구현/로컬 계약 검증. 전체 미완료 선행·API/저장소/실제 공급자·교차 검토 범위는 DEV-A-INDEPENDENT-20261122/README.md 표 참조. 외부 성공/전체 완료 아님.",
+      "last_checked_at": "2026-11-22T11:51:39.993456+00:00"
     },
     "D048": {
       "owner": "DEV-B",
@@ -418,9 +448,14 @@
     },
     "D050": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D050/INDEPENDENT_20261122.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json"
+      ],
+      "blocker": "독립 부분 구현/로컬 계약 검증. 전체 미완료 선행·API/저장소/실제 공급자·교차 검토 범위는 DEV-A-INDEPENDENT-20261122/README.md 표 참조. 외부 성공/전체 완료 아님.",
+      "last_checked_at": "2026-11-22T11:51:39.993458+00:00"
     },
     "D051": {
       "owner": "DEV-A",
@@ -463,9 +498,14 @@
     },
     "D055": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D055/INDEPENDENT_20261122.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json"
+      ],
+      "blocker": "독립 부분 구현/로컬 계약 검증. 전체 미완료 선행·API/저장소/실제 공급자·교차 검토 범위는 DEV-A-INDEPENDENT-20261122/README.md 표 참조. 외부 성공/전체 완료 아님.",
+      "last_checked_at": "2026-11-22T11:51:39.993461+00:00"
     },
     "D056": {
       "owner": "DEV-B",
@@ -561,9 +601,14 @@
     },
     "D067": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D067/INDEPENDENT_20261122.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json"
+      ],
+      "blocker": "독립 부분 구현/로컬 계약 검증. 전체 미완료 선행·API/저장소/실제 공급자·교차 검토 범위는 DEV-A-INDEPENDENT-20261122/README.md 표 참조. 외부 성공/전체 완료 아님.",
+      "last_checked_at": "2026-11-22T11:51:39.993463+00:00"
     },
     "D068": {
       "owner": "DEV-B",
@@ -585,9 +630,14 @@
     },
     "D071": {
       "owner": "DEV-A",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "IN_PROGRESS",
+      "evidence": [
+        "harness/evidence/D071/INDEPENDENT_20261122.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json"
+      ],
+      "blocker": "독립 부분 구현/로컬 계약 검증. 전체 미완료 선행·API/저장소/실제 공급자·교차 검토 범위는 DEV-A-INDEPENDENT-20261122/README.md 표 참조. 외부 성공/전체 완료 아님.",
+      "last_checked_at": "2026-11-22T11:51:39.993466+00:00"
     },
     "D072": {
       "owner": "DEV-B",
@@ -722,7 +772,9 @@
         "harness/evidence/D084/VERIFY_PUBLICATION_20261121.md",
         "harness/evidence/DEV-A-P0-PUBLICATION-20261121/verification.json",
         "harness/evidence/D084/VERIFY_ALL_20261121.md",
-        "harness/evidence/DEV-A-P0-ALL-20261121/verification.json"
+        "harness/evidence/DEV-A-P0-ALL-20261121/verification.json",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json"
       ],
       "blocker": "unit248/38, actual DB→TS7/격리3, security20파일127그룹, 전체browser64+마지막권한4, free6/keyless10, actual Linux build/notice HTTP 및57→60 upgrade/rollback PASS. 영구삭제/D079·실제 공급자/외부SMTP/대상URL·USER적용/DEV-B 통합 gate 미완료.",
       "last_checked_at": "2026-11-21T10:56:22.341913+00:00"

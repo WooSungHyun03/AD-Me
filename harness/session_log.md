@@ -338,3 +338,13 @@ D007/D009/D073 BLOCKED_EXTERNAL, D014/D084 IN_PROGRESS, LOCAL24/외부3/진행2/
 사용자가 main 자동 운영배포 분리 확인 후 기존 A branch 리뷰/머지를 명시 승인했다. 기존 f04736a/동일 브랜치, main65063c8 ancestor/99 commits, clean 시작. mandatory Auth/account/search RPC, 서버전용 권한, 삭제 접수/quarantine, 운영 MFA/역할/audit, feature 기본값과 이전 actual-local 증빙을 확인했다. main8 SQL 원본 불변/추가59(총67), CI/build에 DB 적용·배포 단계 없음. Vercel 공식 현재 문서와 schema에 따라 main 및 현재 A branch의 Git deploymentEnabled=false, CI drift guard 추가. CLI/dashboard/hook 수동배포를 차단하거나 외부 콘솔 OFF를 확인했다고 주장하지 않는다.
 
 로컬 unit257/41·secret scan995files·배포hold/4음성변이·diff whitespace·handoff PASS. 처음 ad-hoc Python 명령 quote 실패는 here-string으로 정정 후 통과. 새 commit CI 및 보호된 PR 조건을 확인 후 정상 머지하며 승인/보호를 우회하지 않는다. 상태 원장에 별도 통합검토 정보만 기록, D/U 티켓 완료·DEV-B 교차 수용·실제 공급자/클라우드/정책 승인으로 확대하지 않는다. 상세 docs/handoff/DEV-A_MAIN_INTEGRATION_20261122.md. 실제 머지/체크 SHA와 결과는 후속 로컬 receipt로 기록한다.
+
+## 2026-11-22 DEV-A 독립 구현10개 배치
+
+사용자: 독립 가능한 티켓 전부 진행. 기존3a3f09f/codex/dev-a-p0-continue·main65063c8·열린 PR2, clean 시작. 선행 사실 변경 없음. D042/D039/D055/D037/D020/D022/D050/D071/D047/D067에 티켓별 commit, 기존계약에 연결 가능한5개 화면/API와 선행용5개 안전 계약 코어를 구현했다. 이전 OPEN10→IN_PROGRESS10이며 LOCAL28/진행12/외부3/OPEN0/DONE0. 전체 수용 미완료15(P0 5/P1 8/P2 2)는 그대로다. DEV-B/USER 원장·원본 배분 불변. D014 영구파기/정책/실제 공급자·SMTP·권리/릴리스 gate를 완료로 바꾸지 않았다.
+
+068 private saved-search condition/RPC CAS·20cap·직접권한 없음. 기존67 SQL 불변. owner brief whitelist복제, limited parser명시확인/모호조건거부, privateUTC iCalendar, TEST승인증거/동일주문 재시도. 웹은 승인가드/IPv4 DNS pin/robots subset/redirect거부·quota port; IG는소유자결합 암호화/state/refresh CAS; 합의·팀·embedding은검증된caller/repository CAS가 필요한 독립코어이며 실제연동·DB/RLS전체완료로 보고하지 않는다. private검색처리 register 추가·정책snapshot불변·온라인새정책/알림활성화없음.
+
+최종 unit291/51·Python14/Harness5·lint/typecheck/secret1047/handoff/backlog/hold PASS. 실제local 저장검색7보안그룹·DB계약7/5·release5그룹·metadata60tables/260functions/3privatebuckets PASS. 새browser6은 최초4pass2fail 후 buttonlabel/streamedheading 준비·Next16 documented streamednotFound UI 기대를 정정하고 영향2 PASS; APIforeign404/creator403은유지. keyless10/freeactualDB6·각productionbuild PASS. 초기effect lint1/testporttyping2 수정. actual local fixture와 DNS/OAuth/결제응답/embedding/팀·합의계약을 실제공급자로 과장하지 않는다.
+
+한 USER67→68 packet을 실제독립DB에검증: unknown/modifiedhistory/dependency/customhook STOP, 중간오류전체rollback, 비어있지않은자료/oldledger보존, defaultdeny, duplicateSTOP. generatorquota함수5인자정정, 최초 single-format preflight가 CLI split026이력을거부한문제는 실패산출물ignored보존 후 양QA DB의baseline256함수정의/ACL일치대조+각version정확히알려진두이력hash만허용했다. SQL/이력rewrite나포괄적정규화없음. packet알림/수집/IG/팀/실험활성화·배포없음. 상세 source/티켓commits/실패·증거는 harness/evidence/DEV-A-INDEPENDENT-20261122. 사용자packet deliverables/dev-a-independent-20261122. 동일Abranch/PR2에push후CI확인, main은승인대기유지. QA두stack은중지하고volumes보존한다. 외부콘솔/키/배포/실제결제/대외연락없음.

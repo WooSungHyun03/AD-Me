@@ -1,0 +1,96 @@
+{
+  "source_head": "47b11d6ceea845ea9e1ad4f0ebaa518aefa0d8ca",
+  "source_binding": "Product files match this commit; follow-up files are tests, packet scripts, evidence and processing register only.",
+  "base": "3a3f09f77f24b66321d61f18b5105e430234699a",
+  "tickets": [
+    "D020",
+    "D022",
+    "D037",
+    "D039",
+    "D042",
+    "D047",
+    "D050",
+    "D055",
+    "D067",
+    "D071"
+  ],
+  "status": "IN_PROGRESS for all ten; no acceptance completion",
+  "unit": {
+    "files": 51,
+    "tests": 291,
+    "result": "PASS"
+  },
+  "python": 14,
+  "harness": 5,
+  "lint": "PASS after effect fix",
+  "typecheck": "PASS after test-port fixes",
+  "saved_search_actual_security": {
+    "groups": 7,
+    "result": "PASS"
+  },
+  "db_contract": {
+    "tests": 7,
+    "files": 5,
+    "result": "PASS actual local Auth/PostgREST/Storage"
+  },
+  "release_security": {
+    "groups": 5,
+    "result": "PASS actual local DB-only TEST finalization, not Toss"
+  },
+  "new_browser": {
+    "full": {
+      "pass": 4,
+      "fail": 2
+    },
+    "first_copy_recheck": {
+      "pass": 0,
+      "fail": 2,
+      "reason": "streamed notFound transport status expectation"
+    },
+    "final_affected": {
+      "pass": 2,
+      "fail": 0
+    },
+    "scope": "6 unique desktop/mobile scenarios across original and targeted runs; axe/overflow; TEST confirmation intercepted fixture clearly separate from provider"
+  },
+  "keyless_browser": {
+    "tests": 10,
+    "result": "PASS"
+  },
+  "build": "PASS TEST, keyless and actual-DB free_beta production builds via existing Playwright webServers",
+  "metadata": {
+    "tables": 60,
+    "functions": 260,
+    "privateBuckets": 3
+  },
+  "user_packet": "deliverables/dev-a-independent-20261122/README.md",
+  "packet_actual": "packet-upgrade.json",
+  "external_config_deploy_keys_outreach_provider": false,
+  "scope": "Local actual infrastructure with fictional QA data, injected DNS/OAuth/embedding/team/agreement and payment-response contracts; not actual provider approval.",
+  "ticket_remaining": {
+    "P0": 5,
+    "P1": 8,
+    "P2": 2,
+    "total": 15
+  },
+  "counts": {
+    "LOCAL_VERIFIED": 28,
+    "IN_PROGRESS": 12,
+    "BLOCKED_EXTERNAL": 3,
+    "OPEN": 0,
+    "DONE": 0
+  },
+  "free_actual_db_browser": {
+    "tests": 6,
+    "result": "PASS desktop/mobile existing terms and direct TEST isolation"
+  },
+  "secret_scan": {
+    "files": 1047,
+    "result": "PASS"
+  },
+  "baseline_function_acl_comparison": 256,
+  "test_sha256_lf": {
+    "tests/local-browser/independent-tickets.spec.ts": "24fe7b83442eaa58e95f590a1afddb652e418ba6876f3402880814eaea67bf25",
+    "tests/local-saved-search-security.mjs": "742e59ee57027de3e4aec4b7c2e0f052b7d67f481af2074d3f218c59ba8d5d1d"
+  }
+}
