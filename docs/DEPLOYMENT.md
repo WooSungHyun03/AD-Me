@@ -49,5 +49,6 @@
 - Service-role key is absent from Vercel; payment finalization occurs inside the protected Supabase Edge Function.
 - Reproducible release uses the existing CLI authentication and explicit team scope; the agent runs local gates, pushes GitHub, deploys, then checks the public alias and actual browser flows.
 - Rollback: the agent selects a previously verified production deployment through `vercel rollback <deployment-url> --scope sunghyuns-projects-da008879`, then reruns public URL checks. Never point the alias to the first Other-framework deployment, which was 404.
+- Migration order, phases (expand/backfill/switch/contract), env list and the user deploy checklist: `docs/handoff/RELEASE_MANIFEST.md` (D085). Hosted DB currently has 001–003 only; 0004–0015 pending user-approved `supabase db push`.
 - DB rollback is not automatic. Current migrations are additive; take a database backup and review forward-compatible queries before destructive schema work. Do not delete test payment/order history as a rollback strategy.
 - GitHub automatic Vercel linking is still blocked by provider access; direct CLI deployments are working. Do not claim push-to-deploy integration until repository access approval is verified.

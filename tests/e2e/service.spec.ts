@@ -26,9 +26,12 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
     fullPage: true,
   });
   await page.goto("/creators");
-  expect(await page.getByTestId("creator-card").count()).toBeGreaterThanOrEqual(
-    48,
-  );
+  // D033: first server page only (24), the rest via keyset "더 보기".
+  await expect(page.getByTestId("creator-card")).toHaveCount(24);
+  await page.getByRole("button", { name: "더 보기" }).click();
+  await expect(page.getByTestId("creator-card")).toHaveCount(48);
+  const html = await page.content();
+  expect(html).not.toMatch(/owner_id\\?":\\?"[0-9a-f]{8}-/); // no owner ids in RSC payload
   await page.getByLabel("크리에이터 검색").fill("서하린");
   await expect(page.getByTestId("creator-card")).toHaveCount(1);
   await page.getByLabel("크리에이터 검색").fill("결과없는이름");
@@ -56,9 +59,9 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
   await page.getByLabel("타깃 고객").fill("20대");
   await page.getByLabel("원하는 분위기").fill("자연스러움");
   await page.getByRole("button", { name: "초안 만들기" }).click();
-  await expect(
-    page.getByText("[규칙 기반 광고 콘셉트 초안]", { exact: false }),
-  ).toBeVisible();
+  await expect(page.getByLabel("초안 (직접 수정 가능)")).toHaveValue(
+    /\[규칙 기반 광고 콘셉트 초안\]/,
+  );
   await page.goto("/pricing");
   await expect(
     page.getByRole("heading", { name: "Brand Pro", exact: true }),
@@ -125,7 +128,10 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
     .getByLabel("협업 제안 메시지")
     .fill("QA 검증용 비건 토너 협업을 제안합니다. 일정을 확인해주세요.");
   await page.getByRole("button", { name: "협업 제안 전송" }).click();
-  await expect(page.getByRole("status")).toContainText("전송되었습니다");
+  // Scoped: the page also has one status region per recommendation-rating form (D046).
+  await expect(
+    page.getByRole("status").filter({ hasText: "전송되었습니다" }),
+  ).toBeVisible();
   await cp.goto("/dashboard");
   const deal = cp
     .locator("article")
@@ -263,6 +269,7 @@ test("public application, shortlist persistence, account settings and administra
   await deal.getByRole("button", { name: "수락", exact: true }).click();
   await expect(deal.getByText("협업 진행", { exact: true })).toBeVisible();
   await page.goto("/creators");
+  await page.getByLabel("크리에이터 검색").fill("서하린");
   const save = page.getByRole("button", {
     name: "서하린 즐겨찾기",
     exact: true,
@@ -271,6 +278,7 @@ test("public application, shortlist persistence, account settings and administra
     await save.click();
   await expect(save).toHaveClass(/saved/);
   await page.reload();
+  await page.getByLabel("크리에이터 검색").fill("서하린");
   await expect(
     page.getByRole("button", { name: "서하린 즐겨찾기", exact: true }),
   ).toHaveClass(/saved/);
@@ -282,7 +290,12 @@ test("public application, shortlist persistence, account settings and administra
     .getByLabel("계정 표시 이름", { exact: true })
     .fill("QA 브랜드 설정");
   await page.getByRole("button", { name: "계정 정보 저장" }).click();
-  await expect(page.getByRole("status")).toContainText("저장했습니다");
+  // Settings now has several forms, each with its own status line.
+  await expect(
+    page
+      .locator("form", { has: page.getByLabel("계정 표시 이름") })
+      .getByRole("status"),
+  ).toContainText("저장했습니다");
   const admin = await browser.newContext();
   const ap = await admin.newPage();
   await login(ap, "admin");

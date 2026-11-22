@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
+import { reportError } from "@/lib/observability";
 import { context, fail, safeOrigin } from "@/lib/api";
+import { isDemoMode } from "@/lib/mode";
 import { validateConfirmation } from "@/lib/billing";
 import { z } from "zod";
 export async function POST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
+  if (!isDemoMode())
+    return fail("무료 베타에서는 결제·유료 이용권을 제공하지 않습니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
   const p = z
@@ -51,7 +55,8 @@ export async function POST(req: Request) {
         res.status,
       );
     return NextResponse.json(data);
-  } catch {
+  } catch (e) {
+    await reportError(e, { route: "/api/billing/confirm" });
     return fail(
       "승인 서버에 연결할 수 없습니다. 결제 내역을 확인하고 다시 시도해주세요.",
       503,

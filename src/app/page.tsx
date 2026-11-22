@@ -2,6 +2,11 @@ import Link from "next/link";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { creators } from "@/lib/catalog";
+import { isDemoMode } from "@/lib/mode";
+import { PromotionSlot } from "@/components/promotion-slot";
+export const metadata = {
+  alternates: { canonical: "/" },
+};
 export default function Home() {
   return (
     <>
@@ -69,8 +74,9 @@ export default function Home() {
             전체 탐색 <ArrowUpRight size={18} />
           </Link>
         </div>
+        <PromotionSlot />
         <div className="creator-grid">
-          {creators.slice(1, 4).map((c, i) => (
+          {(isDemoMode() ? creators.slice(1, 4) : []).map((c, i) => (
             <Link
               key={c.seed_id}
               href={`/creators/${c.seed_id}`}
@@ -156,8 +162,9 @@ export default function Home() {
           </Button>
         </div>
         <p style={{ fontSize: 12 }}>
-          현재 카탈로그는 가상 크리에이터 48명의 시연 데이터입니다. 실제
-          인물·광고 성과와 무관합니다.
+          {isDemoMode()
+            ? "현재 카탈로그는 가상 크리에이터 48명의 시연 데이터입니다. 실제 인물·광고 성과와 무관합니다."
+            : "무료 베타 서비스입니다. 본인이 등록·공개한 프로필만 표시합니다."}
         </p>
       </section>
     </>

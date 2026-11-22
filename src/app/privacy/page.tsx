@@ -1,3 +1,8 @@
+import { RETENTION_RULES } from "@/lib/privacy-retention";
+export const metadata = {
+  title: "개인정보 처리방침",
+  alternates: { canonical: "/privacy" },
+};
 export default function Privacy() {
   return (
     <section className="wrap prose">
@@ -16,6 +21,31 @@ export default function Privacy() {
         공개 캠페인만 익명 방문자에게 표시됩니다. 제안·메시지·결제 정보는 당사자
         및 권한을 가진 운영자만 열람합니다. 가상 시연 데이터는 실존 인물과
         무관합니다.
+      </p>
+      <h3>보존 기간</h3>
+      <div className="table-scroll">
+        <table className="data-table" data-testid="retention-table">
+          <thead>
+            <tr>
+              <th>정보</th>
+              <th>보존</th>
+              <th>이후 처리</th>
+            </tr>
+          </thead>
+          <tbody>
+            {RETENTION_RULES.map((r) => (
+              <tr key={r.data}>
+                <td>{r.data}</td>
+                <td>{r.keep}</td>
+                <td>{r.then}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p>
+        삭제한 정보는 백업에서 복구되더라도 삭제 기록에 따라 다시 삭제됩니다.
+        삭제 기록에는 내용 없이 식별번호와 복원 불가능한 해시만 남습니다.
       </p>
       <h2>처리 서비스</h2>
       <p>

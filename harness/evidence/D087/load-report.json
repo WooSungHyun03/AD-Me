@@ -1,0 +1,117 @@
+{
+  "at": "2026-11-22T04:38:48.323Z",
+  "base": "http://localhost:3100",
+  "budgets": {
+    "page": 1000,
+    "rpc": 300
+  },
+  "results": [
+    {
+      "name": "GET / (landing)",
+      "n": 200,
+      "concurrency": 10,
+      "p50": 4,
+      "p95": 8,
+      "max": 18,
+      "rps": 2212,
+      "errors": 0
+    },
+    {
+      "name": "GET /creators (search page)",
+      "n": 200,
+      "concurrency": 10,
+      "p50": 40,
+      "p95": 82,
+      "max": 171,
+      "rps": 212,
+      "errors": 0
+    },
+    {
+      "name": "GET /creators?q=뷰티",
+      "n": 200,
+      "concurrency": 10,
+      "p50": 37,
+      "p95": 67,
+      "max": 167,
+      "rps": 243,
+      "errors": 0
+    },
+    {
+      "name": "GET /campaigns",
+      "n": 200,
+      "concurrency": 10,
+      "p50": 28,
+      "p95": 72,
+      "max": 146,
+      "rps": 322,
+      "errors": 0
+    },
+    {
+      "name": "GET /api/health",
+      "n": 300,
+      "concurrency": 20,
+      "p50": 17,
+      "p95": 22,
+      "max": 25,
+      "rps": 1152,
+      "errors": 0
+    },
+    {
+      "name": "RPC search_creators (name)",
+      "n": 300,
+      "concurrency": 20,
+      "p50": 5,
+      "p95": 13,
+      "max": 17,
+      "rps": 3316,
+      "errors": 0
+    },
+    {
+      "name": "RPC search_creators name @10057 rows",
+      "n": 300,
+      "concurrency": 20,
+      "p50": 4,
+      "p95": 6,
+      "max": 8,
+      "rps": 4769,
+      "errors": 0
+    },
+    {
+      "name": "RPC search_creators followers @10057 rows",
+      "n": 300,
+      "concurrency": 20,
+      "p50": 7,
+      "p95": 8,
+      "max": 9,
+      "rps": 3009,
+      "errors": 0
+    },
+    {
+      "name": "RPC search_creators q='부하 데모 77' @10057 rows",
+      "n": 300,
+      "concurrency": 20,
+      "p50": 9,
+      "p95": 16,
+      "max": 27,
+      "rps": 1984,
+      "errors": 0
+    },
+    {
+      "name": "GET /creators @10057 rows",
+      "n": 200,
+      "concurrency": 10,
+      "p50": 35,
+      "p95": 50,
+      "max": 56,
+      "rps": 273,
+      "errors": 0
+    }
+  ],
+  "capacity": {
+    "rows": 10057,
+    "bytes_per_creator_row": 2259,
+    "creators_per_500mb_estimate": 116044,
+    "trigram_index_used": true
+  },
+  "plan": "Function Scan on search_creators  (cost=0.25..10.25 rows=1000 width=128)"
+}

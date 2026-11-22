@@ -23,9 +23,28 @@ for (const role of ["brand", "creator", "other", "admin"]) {
   clients[role] = db;
 }
 const { brand, creator, other, admin } = clients;
-const {data:fixture,error:fixtureError}=await brand.from("campaigns").insert({owner_id:a.brand.id,status:"draft",brief:{title:"QA 보안 격리 검증",product:"QA",category:"뷰티",vibes:["자연스러움"],format:"숏폼",platforms:["instagram"],budget_krw:100000,target_audience:"QA 고객",goal:"권한 검증",status:"draft"}}).select("id").single();
-assert.equal(fixtureError,null);
-const id=fixture.id;
+const { data: fixture, error: fixtureError } = await brand
+  .from("campaigns")
+  .insert({
+    owner_id: a.brand.id,
+    status: "draft",
+    brief: {
+      title: "QA 보안 격리 검증",
+      product: "QA",
+      category: "뷰티",
+      vibes: ["자연스러움"],
+      format: "숏폼",
+      platforms: ["instagram"],
+      budget_krw: 100000,
+      target_audience: "QA 고객",
+      goal: "권한 검증",
+      status: "draft",
+    },
+  })
+  .select("id")
+  .single();
+assert.equal(fixtureError, null);
+const id = fixture.id;
 assert.equal(
   (await other.from("campaigns").select("id").eq("id", id)).data.length,
   0,
@@ -78,37 +97,82 @@ assert.ok(
   (await other.rpc("transition_proposal", { p_id: p.id, p_action: "accepted" }))
     .error,
 );
-const { data: r, error: re } = await creator
-  .from("reports")
-  .insert({
-    reporter_id: a.creator.id,
-    creator_id: "creator-001",
-    reason: "QA 정정 검토 테스트입니다. 가상 데이터 검증.",
-    source_url: "https://example.com/qa-source",
-  })
-  .select("id")
-  .single();
-assert.equal(re, null);
+// Reports: direct insert is closed; requests go through submit_report (fresh account: 5/day limit).
 assert.ok(
-  (await brand.rpc("review_report", { p_id: r.id, p_status: "reviewed" }))
-    .error,
+  (
+    await creator
+      .from("reports")
+      .insert({
+        reporter_id: a.creator.id,
+        creator_id: "creator-001",
+        reason: "직접 삽입 시도입니다. 거부되어야 합니다.",
+        source_url: "https://example.com/x",
+      })
+  ).error,
+);
+const reporter = createClient(
+  e.NEXT_PUBLIC_SUPABASE_URL,
+  e.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  { auth: { persistSession: false } },
 );
 assert.equal(
-  (await admin.rpc("review_report", { p_id: r.id, p_status: "reviewed" }))
-    .error,
+  (
+    await reporter.auth.signUp({
+      email: `adme-qa-sec-${Date.now()}@example.com`,
+      password: `Sec-${Date.now()}-Aa!`,
+      options: { data: { role: "brand", name: "QA" } },
+    })
+  ).error,
+  null,
+);
+const { data: rr, error: re } = await reporter.rpc("submit_report", {
+  p_kind: "correction",
+  p_creator: "creator-001",
+  p_reason: "QA 정정 검토 테스트입니다. 가상 데이터 검증.",
+  p_source_url: "https://example.com/qa-source",
+});
+assert.equal(re, null);
+const r = rr[0];
+assert.ok(
+  (
+    await brand.rpc("review_report", {
+      p_id: r.id,
+      p_status: "resolved",
+      p_response: "브랜드는 처리 불가",
+    })
+  ).error,
+);
+assert.equal(
+  (
+    await admin.rpc("review_report", {
+      p_id: r.id,
+      p_status: "resolved",
+      p_response: "확인 후 정정했습니다.",
+    })
+  ).error,
   null,
 );
 assert.equal(
-  (await creator.from("reports").select("status").eq("id", r.id).single()).data
+  (await reporter.from("reports").select("status").eq("id", r.id).single()).data
     .status,
-  "reviewed",
+  "resolved",
+);
+assert.equal(
+  (await creator.from("reports").select("id").eq("id", r.id)).data.length,
+  0,
+  "other users cannot see the request",
 );
 assert.ok(
   (await admin.from("audit_log").select("id").eq("entity_id", r.id)).data
     .length,
 );
-const malformed=await brand.from('campaigns').insert({owner_id:a.brand.id,brief:{title:{invalid:'object'}},status:'published'});assert.ok(malformed.error);
-assert.equal((await brand.from("campaigns").delete().eq("id",id)).error,null);
+const malformed = await brand.from("campaigns").insert({
+  owner_id: a.brand.id,
+  brief: { title: { invalid: "object" } },
+  status: "published",
+});
+assert.ok(malformed.error);
+assert.equal((await brand.from("campaigns").delete().eq("id", id)).error, null);
 console.log(
   "PASS: direct Supabase RLS isolation, privilege escalation, forged entitlement, cross-owner order/message access, invalid transitions, admin moderation + audit. No provider payment simulated.",
 );

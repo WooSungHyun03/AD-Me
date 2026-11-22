@@ -1,3 +1,8 @@
+import Link from "next/link";
+export const metadata = {
+  title: "서비스·데이터 안내",
+  alternates: { canonical: "/about" },
+};
 export default function About() {
   return (
     <section className="wrap prose">
@@ -30,6 +35,12 @@ export default function About() {
         Toss Payments TEST 키만 사용합니다. 실제 과금이나 자동 갱신은 없습니다.
         이용권은 승인 후 30일간 유효합니다. 팀 초대·고급 AI 분석 등 준비 중인
         기능은 별도 표시합니다.
+      </p>
+      <h2>도움말·문의</h2>
+      <p>
+        이용 방법, 데이터 한계, 문의 접수는{" "}
+        <Link href="/help">도움말·문의</Link>
+        에서 확인하세요.
       </p>
     </section>
   );

@@ -1,28 +1,24 @@
-import Link from "next/link";
-import { configured } from "@/lib/supabase";
 import { Catalog } from "@/components/catalog";
 import { currentUser, supabase } from "@/lib/supabase";
-import { publicCreators } from "@/lib/data";
+import { searchCreators, searchSchema } from "@/lib/search";
+import { PromotionSlot } from "@/components/promotion-slot";
+export const metadata = {
+  title: "크리에이터 탐색",
+  alternates: { canonical: "/creators" },
+};
 export default async function Creators() {
-  const items = await publicCreators();
-  let hot: {
-    creator_id: string;
-    profile: { name: string };
-    expires_at: string;
-  }[] = [];
-  if (configured()) {
-    const db = await supabase();
-    const { data } = await db.rpc("active_hot_creators");
-    hot = data ?? [];
-  }
+  // First page only; further pages come from /api/creators (no full list sent to the browser).
+  const initial = await searchCreators(searchSchema.parse({}));
   let initialSaved: string[] = [];
   const user = await currentUser();
   if (user) {
     const db = await supabase();
+    await db.rpc("track_explore"); // D006: one pseudonymous event per day, no search terms
     const { data } = await db
-      .from("saved_creators")
-      .select("creator_id")
-      .eq("owner_id", user.id);
+      .from("saved_list_items")
+      .select("creator_id,saved_lists!inner(is_default)")
+      .eq("owner_id", user.id)
+      .eq("saved_lists.is_default", true);
     initialSaved = data?.map((x) => x.creator_id) ?? [];
   }
   return (
@@ -34,28 +30,8 @@ export default async function Creators() {
         DEMO 표식은 가상 데이터, 본인 등록 표식은 크리에이터가 직접 입력한
         정보입니다. 유료 HOT 노출은 추천 점수에 영향을 주지 않습니다.
       </div>
-      {hot.length > 0 && (
-        <section className="panel" style={{ marginBottom: 24 }}>
-          <span className="badge lime">유료 광고 · HOT</span>
-          <h3 style={{ marginTop: 15 }}>지금 주목할 크리에이터</h3>
-          <p>
-            활성 TEST 이용권의 별도 노출입니다. 아래 일반 추천 순위와
-            무관합니다.
-          </p>
-          <div className="inline">
-            {hot.map((h) => (
-              <Link
-                className="button outline"
-                href={`/creators/${h.creator_id}`}
-                key={h.creator_id}
-              >
-                {h.profile.name} ↗
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-      <Catalog items={items} initialSaved={initialSaved} />
+      <PromotionSlot />
+      <Catalog initial={initial} initialSaved={initialSaved} />
     </section>
   );
 }

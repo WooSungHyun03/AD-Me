@@ -33,5 +33,9 @@ export const config = {
     "/campaigns/:path*",
     "/api/:path*",
     "/admin/:path*",
+    "/auth/:path*",
+    "/lists/:path*",
+    "/notifications/:path*",
+    "/reports/:path*",
   ],
 };

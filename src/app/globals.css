@@ -485,6 +485,7 @@ input[type="checkbox"] {
 .data-table td,
 .data-table th {
   text-align: left;
+  word-break: keep-all;
   padding: 18px 12px;
   border-bottom: 1px solid var(--line);
 }
@@ -755,7 +756,7 @@ footer span {
     grid-template-columns: 25px 1fr;
     gap: 12px;
   }
-  .result > div:last-child {
+  .result > :nth-child(3) {
     grid-column: 2;
   }
   .panel {

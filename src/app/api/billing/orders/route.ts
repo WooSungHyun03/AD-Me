@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 import { context, fail, safeOrigin } from "@/lib/api";
+import { isDemoMode } from "@/lib/mode";
 export async function POST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
+  if (!isDemoMode())
+    return fail("무료 베타에서는 결제·유료 이용권을 제공하지 않습니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
   const body = await req.json().catch(() => null);

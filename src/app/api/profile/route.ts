@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
+import { storageAdmin } from "@/lib/uploads";
+import { snapshotAfterDeletion } from "@/lib/privacy-retention";
 import { context, fail, safeOrigin } from "@/lib/api";
 import { profileSchema } from "@/lib/schemas";
+import { REAUTH_MESSAGE, recentSignIn } from "@/lib/auth-links";
 export async function POST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
@@ -28,6 +31,11 @@ export async function POST(req: Request) {
       { id, owner_id: c.user.id, published: p.data.published, profile },
       { onConflict: "id" },
     );
+  if (error?.message.includes("locked by moderation"))
+    return fail(
+      "운영 검토로 비공개 처리된 프로필입니다. 공개 전환은 운영자 검토 후 가능합니다. 비공개로 저장해주세요.",
+      409,
+    );
   if (error) return fail("프로필을 저장하지 못했습니다.", 500);
   return NextResponse.json({ id });
 }
@@ -36,6 +44,7 @@ export async function DELETE(req: Request) {
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
   if (c.role !== "creator") return fail("크리에이터 계정이 필요합니다.", 403);
+  if (!recentSignIn(c.user)) return fail(REAUTH_MESSAGE, 401);
   const redacted = {
     seed_id: `user-${c.user.id}`,
     name: "삭제된 크리에이터",
@@ -66,6 +75,7 @@ export async function DELETE(req: Request) {
     .maybeSingle();
   if (error) return fail("프로필을 삭제하지 못했습니다.", 500);
   if (!data) return fail("등록된 프로필이 없습니다.", 404);
+  await snapshotAfterDeletion(storageAdmin());
   return NextResponse.json({
     ok: true,
     message:
