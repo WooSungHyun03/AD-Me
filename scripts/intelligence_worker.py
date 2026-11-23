@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """Outbound-only AD Me worker. Error codes are logged without provider bodies."""
 import argparse
+import http.client
 import json
+import math
 import os
 import re
+import socket
 import threading
 import time
 from urllib.error import HTTPError, URLError
@@ -18,6 +21,12 @@ DRAFT_RUNTIME_VERSION = "ollama-qwen3-local-v2"
 DRAFT_CANARY = "ADME-DRAFT-SYS-21e4"
 DRAFT_MAX_INPUT_TOKENS = 4096
 DRAFT_MAX_OUTPUT_TOKENS = 650
+MODEL_PORT = 11539
+MODEL_DEADLINE_SECONDS = 160
+MODEL_CIRCUIT_SECONDS = 60
+_model_lock = threading.Lock()
+_model_failures = 0
+_model_open_until = 0
 DRAFT_SCHEMA = {
     "type": "object",
     "additionalProperties": False,
@@ -47,6 +56,78 @@ def request(url, headers=None, payload=None, timeout=10):
                   data=json.dumps(payload).encode() if payload is not None else None)
     with urlopen(req, timeout=timeout) as response:
         return read_bounded_json(response)
+
+
+def model_request(path, payload, timeout=MODEL_DEADLINE_SECONDS):
+    """One fixed-loopback request; redirects, proxy env and automatic retry are absent.
+
+    Socket shutdown enforces a wall-clock deadline even on slow/dribbling headers/body.
+    The circuit is per worker process; shared-host worker count is a rollout gate.
+    """
+    global _model_failures, _model_open_until
+    if path not in ("/api/chat", "/api/embed") or not isinstance(payload, dict):
+        raise WorkerError("MODEL_INPUT_INVALID")
+    raw = json.dumps(payload, ensure_ascii=False).encode()
+    if len(raw) > 65536 or not isinstance(timeout, (int, float)) or isinstance(timeout, bool) or not 0 < timeout <= MODEL_DEADLINE_SECONDS:
+        raise WorkerError("MODEL_INPUT_INVALID")
+    if not _model_lock.acquire(blocking=False):
+        raise WorkerError("MODEL_BUSY")
+    connection = None
+    alarm = None
+    expired = threading.Event()
+    sock = None
+    try:
+        if time.monotonic() < _model_open_until:
+            raise WorkerError("MODEL_CIRCUIT_OPEN")
+        connection = http.client.HTTPConnection("127.0.0.1", MODEL_PORT, timeout=min(timeout, 5))
+
+        def expire():
+            expired.set()
+            active = sock or connection.sock
+            if active is not None:
+                try:
+                    active.shutdown(socket.SHUT_RDWR)
+                except OSError:
+                    pass
+            connection.close()
+
+        alarm = threading.Timer(timeout, expire)
+        alarm.daemon = True
+        alarm.start()
+        connection.request("POST", path, body=raw, headers={"Content-Type": "application/json"})
+        sock = connection.sock
+        sock.settimeout(timeout)
+        response = connection.getresponse()
+        if response.status != 200:
+            raise WorkerError("MODEL_HTTP_" + str(response.status))
+        if response.getheader("Content-Type", "").split(";", 1)[0].lower() != "application/json":
+            raise WorkerError("MODEL_INVALID_RESPONSE")
+        size = response.getheader("Content-Length")
+        if size is not None and (not size.isdecimal() or int(size) > 2097152):
+            raise WorkerError("UPSTREAM_RESPONSE_TOO_LARGE")
+        result = read_bounded_json(response)
+        if expired.is_set():
+            raise WorkerError("MODEL_TIMEOUT")
+        _model_failures = 0
+        return result
+    except (WorkerError, http.client.HTTPException, OSError, ValueError, RecursionError) as error:
+        if expired.is_set():
+            code = "MODEL_TIMEOUT"
+        elif isinstance(error, WorkerError):
+            code = str(error)
+        else:
+            code = "MODEL_UNAVAILABLE"
+        if code != "MODEL_CIRCUIT_OPEN":
+            _model_failures += 1
+            if _model_failures >= 3:
+                _model_open_until = time.monotonic() + MODEL_CIRCUIT_SECONDS
+        raise WorkerError(code) from None
+    finally:
+        if alarm is not None:
+            alarm.cancel()
+        if connection is not None:
+            connection.close()
+        _model_lock.release()
 
 
 def youtube(path, **params):
@@ -215,18 +296,21 @@ def draft_prompt(brief):
 
 def draft(brief):
     messages = draft_prompt(brief)
-    result = request(OLLAMA + "/api/chat", payload={
+    result = model_request("/api/chat", payload={
         "model": MODEL, "stream": False, "think": False, "format": DRAFT_SCHEMA,
         "options": {"temperature": 0.15, "num_ctx": DRAFT_MAX_INPUT_TOKENS, "num_predict": DRAFT_MAX_OUTPUT_TOKENS, "num_thread": 4},
         "messages": messages,
-    }, timeout=160)
+    }, timeout=MODEL_DEADLINE_SECONDS)
     try:
         if not isinstance(result, dict) or result.get("model") != MODEL or result.get("done") is not True or result.get("done_reason") != "stop":
             raise ValueError
         for field, maximum in (("prompt_eval_count", DRAFT_MAX_INPUT_TOKENS), ("eval_count", DRAFT_MAX_OUTPUT_TOKENS), ("total_duration", 180_000_000_000)):
             if type(result.get(field)) is not int or not 0 <= result[field] <= maximum:
                 raise ValueError
-        draft_data = json.loads(result["message"]["content"])
+        content = result["message"]["content"]
+        if not isinstance(content, str) or len(content) > 16000:
+            raise ValueError
+        draft_data = json.loads(content)
         if not isinstance(draft_data, dict) or set(draft_data) != {"concept", "outline", "proposal"}:
             raise ValueError
         if any(not isinstance(draft_data.get(k), str) or not 0 < len(draft_data[k].strip()) <= limit
@@ -246,7 +330,7 @@ def draft(brief):
                 "promptVersion": DRAFT_PROMPT_VERSION, "runtimeVersion": DRAFT_RUNTIME_VERSION,
                 "requiresReview": True,
                 "usage": {"inputTokens": result["prompt_eval_count"], "outputTokens": result["eval_count"], "durationNs": result["total_duration"]}}
-    except (KeyError, TypeError, ValueError):
+    except (KeyError, TypeError, ValueError, RecursionError):
         raise WorkerError("MODEL_INVALID_OUTPUT") from None
 
 
@@ -363,24 +447,57 @@ def smoke():
     timings = []
     for _ in range(3):
         start = time.monotonic()
-        result = draft("국내 20대 고객을 위한 무향 선크림 인스타그램 릴스. 입증되지 않은 효능은 언급하지 말고 사용 장면을 기획해주세요.")
+        result = draft("국내 성인 고객을 위한 가상 무향 제품 YouTube 영상. 입증되지 않은 효능은 언급하지 말고 사용 장면을 기획해주세요.")
         timings.append(round((time.monotonic() - start) * 1000))
-    embedding = request(OLLAMA + "/api/embed", payload={
+    embedding = model_request("/api/embed", payload={
         "model": EMBED_MODEL, "input": "한국어 마케팅 검색 검증", "options": {"num_thread": 4}
     }, timeout=120)["embeddings"][0]
-    if not embedding or not all(isinstance(value, (int, float)) for value in embedding):
+    if not embedding or not all(type(value) in (int, float) and math.isfinite(value) for value in embedding):
         raise WorkerError("EMBEDDING_INVALID")
     print(json.dumps({"model": result["model"], "korean_json": True, "samples": len(timings),
-                      "mean_ms": round(sum(timings) / len(timings)), "p95_ms": max(timings),
+                      "mean_ms": round(sum(timings) / len(timings)), "max_ms": max(timings),
                       "embedding_dimensions": len(embedding)}))
+
+
+def benchmark(samples=30):
+    """Explicit bounded local-only run; outputs counts/timings, never customer text/drafts."""
+    if type(samples) is not int or not 30 <= samples <= 100:
+        raise WorkerError("BENCHMARK_INPUT_INVALID")
+    fixtures = [
+        "가상 무향 세정 제품의 YouTube 사용 장면. 검증되지 않은 피부 효능은 제외해주세요.",
+        "가상 재사용 물병을 성인 통근자가 사용하는 YouTube 기획. 성능 수치를 만들지 마세요.",
+        "가상 도서 정리 도구를 책상에서 소개하는 YouTube 기획. 브랜드 계약을 가정하지 마세요.",
+        "가상 조명 제품의 개봉 과정을 소개하는 YouTube 기획. 광고 표기와 촬영 권리를 확인하세요.",
+        "가상 운동 기록 수첩의 작성 장면 YouTube 기획. 체중·치료 효과를 추론하지 마세요.",
+    ]
+    rows = []
+    for index in range(samples):
+        started = time.monotonic()
+        code = None
+        try:
+            draft(fixtures[index % len(fixtures)])
+        except WorkerError as error:
+            code = str(error)
+        rows.append({"ms": round((time.monotonic()-started)*1000), "error": code})
+    times = sorted(row["ms"] for row in rows if row["error"] is None)
+    def quantile(percent):
+        return times[math.ceil(len(times)*percent)-1] if times else None
+    print(json.dumps({"scope":"explicit synthetic-input local-model benchmark; no queue/cloud writes",
+                      "model":MODEL,"promptVersion":DRAFT_PROMPT_VERSION,"runtimeVersion":DRAFT_RUNTIME_VERSION,
+                      "samples":samples,"successes":len(times),"failureRate":(samples-len(times))/samples,
+                      "successfulLatencyMethod":"nearest-rank; failed/circuit/busy cases counted separately",
+                      "p50_ms":quantile(.5),"p95_ms":quantile(.95),"cases":rows}))
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--smoke", action="store_true")
     parser.add_argument("--once", action="store_true")
+    parser.add_argument("--benchmark", type=int, metavar="SAMPLES")
     args = parser.parse_args()
-    if args.smoke:
+    if args.benchmark is not None:
+        benchmark(args.benchmark)
+    elif args.smoke:
         smoke()
     else:
         while True:

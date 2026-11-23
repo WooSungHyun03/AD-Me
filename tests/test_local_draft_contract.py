@@ -20,7 +20,7 @@ class DraftContract(unittest.TestCase):
         raw = json.loads(payload['message']['content'])
         raw['proposal'] += ' qa@example.test 010-1234-5678 https://example.test'
         payload['message']['content'] = json.dumps(raw)
-        with patch.object(worker, 'request', return_value=payload) as call:
+        with patch.object(worker, 'model_request', return_value=payload) as call:
             result = worker.draft('가상 제품 소개 qa@example.test 010-1234-5678 https://example.test')
         self.assertEqual(result['promptVersion'], 'marketing-draft-v2')
         self.assertEqual(result['runtimeVersion'], 'ollama-qwen3-local-v2')
@@ -40,7 +40,7 @@ class DraftContract(unittest.TestCase):
         self.assertEqual(messages[1]['content'].count('</brief_json>'),1)
         self.assertIn('\\u003c',messages[1]['content'])
         for value in [None, '', '가'*1601, 123]:
-            with patch.object(worker,'request')as call:
+            with patch.object(worker,'model_request')as call:
                 with self.assertRaisesRegex(worker.WorkerError,'MODEL_INPUT_INVALID'): worker.draft(value)
                 call.assert_not_called()
 
@@ -50,12 +50,12 @@ class DraftContract(unittest.TestCase):
                {'total_duration':float('nan')},{'prompt_eval_count':None}]
         for extra in bad:
             payload = response();payload.update(extra)
-            with patch.object(worker,'request',return_value=payload):
+            with patch.object(worker,'model_request',return_value=payload):
                 with self.assertRaisesRegex(worker.WorkerError,'MODEL_INVALID_OUTPUT'):worker.draft('명시적 가상 테스트 입력입니다')
         for content in ['bad json', '[]', json.dumps({'concept':'가상','outline':['안내'],'proposal':worker.DRAFT_CANARY}),
                         json.dumps({'concept':'가상','outline':['안내'],'proposal':'안내','private':'leak'})]:
             payload=response();payload['message']['content']=content
-            with patch.object(worker,'request',return_value=payload):
+            with patch.object(worker,'model_request',return_value=payload):
                 with self.assertRaisesRegex(worker.WorkerError,'MODEL_INVALID_OUTPUT'):worker.draft('명시적 가상 테스트 입력입니다')
 
     def test_lost_lease_before_or_after_inference_discards_result(self):

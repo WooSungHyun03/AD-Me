@@ -27,7 +27,7 @@ try {
  insert into adme_ops.jobs(id,kind,owner_id,input,status,lease,lease_until,attempts)values('${job}','marketing_draft','${actor}','가상 provenance fixture입니다','running','${lease}',now()+interval '6 minutes',1);`);
   const source = `import sys,json;sys.path.insert(0,'scripts');import intelligence_worker as w;from unittest.mock import patch
 payload={'model':w.MODEL,'done':True,'done_reason':'stop','prompt_eval_count':120,'eval_count':90,'total_duration':1000000000,'message':{'content':json.dumps({'concept':'가상 검증 초안','outline':['명시적 합성 입력'],'proposal':'발송하지 않은 가상 제안'})}}
-with patch.object(w,'request',return_value=payload): print(json.dumps(w.draft('명시적 합성 입력입니다'),ensure_ascii=False))`;
+with patch.object(w,'model_request',return_value=payload): print(json.dumps(w.draft('명시적 합성 입력입니다'),ensure_ascii=False))`;
   const output = JSON.parse(
     execFileSync("python", ["-X", "utf8", "-c", source], { encoding: "utf8" }),
   );
