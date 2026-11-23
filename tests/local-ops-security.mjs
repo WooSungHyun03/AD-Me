@@ -152,18 +152,42 @@ try {
       );
     },
   );
-  await check("current summary definers require provisioned recent-MFA admin or trusted service and public schema is not writable", async () => {
-    for (const c of [localClient(), client("brand"), client("creator"), client("admin", { aal: "aal1", amr: [] })]) {
-      for (const name of ["ops_stats", "ops_metrics"]) assert.ok((await c.rpc(name)).error, `${name} unauthorized`);
-    }
-    for (const name of ["ops_stats", "ops_metrics"]) {
-      assert.equal((await admin.rpc(name)).error, null, `${name} current admin`);
-      assert.equal((await localClient(localRuntime().SERVICE_ROLE_KEY).rpc(name)).error, null, `${name} trusted service`);
-    }
-    for (const role of ["anon", "authenticated"]) assert.equal(sql(`select has_schema_privilege('${role}','public','create');`), "f");
-    sql(`update public.administrator_grants set revoked_at=now() where user_id='${accounts.admin.id}';`);
-    for (const name of ["ops_stats", "ops_metrics"]) assert.ok((await admin.rpc(name)).error, `${name} revoked admin`);
-  });
+  await check(
+    "current summary definers require provisioned recent-MFA admin or trusted service and public schema is not writable",
+    async () => {
+      for (const c of [
+        localClient(),
+        client("brand"),
+        client("creator"),
+        client("admin", { aal: "aal1", amr: [] }),
+      ]) {
+        for (const name of ["ops_stats", "ops_metrics"])
+          assert.ok((await c.rpc(name)).error, `${name} unauthorized`);
+      }
+      for (const name of ["ops_stats", "ops_metrics"]) {
+        assert.equal(
+          (await admin.rpc(name)).error,
+          null,
+          `${name} current admin`,
+        );
+        assert.equal(
+          (await localClient(localRuntime().SERVICE_ROLE_KEY).rpc(name)).error,
+          null,
+          `${name} trusted service`,
+        );
+      }
+      for (const role of ["anon", "authenticated"])
+        assert.equal(
+          sql(`select has_schema_privilege('${role}','public','create');`),
+          "f",
+        );
+      sql(
+        `update public.administrator_grants set revoked_at=now() where user_id='${accounts.admin.id}';`,
+      );
+      for (const name of ["ops_stats", "ops_metrics"])
+        assert.ok((await admin.rpc(name)).error, `${name} revoked admin`);
+    },
+  );
 } finally {
   sql(
     `delete from adme_ops.staff where user_id='${accounts.other.id}'; update public.administrator_grants set revoked_at=null where user_id='${accounts.admin.id}';`,

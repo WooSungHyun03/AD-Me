@@ -76,7 +76,9 @@ const adHash = () =>
     "select coalesce(md5(string_agg(id||data::text,',' order by id)),'empty') from public.ad_collaborations;",
   );
 const before = adHash();
-const fictionalProfile = JSON.parse(readFileSync("fixtures/creators.demo.json", "utf8"))[0];
+const fictionalProfile = JSON.parse(
+  readFileSync("fixtures/creators.demo.json", "utf8"),
+)[0];
 let first, second, issue;
 let version = 1;
 const retry = randomUUID();

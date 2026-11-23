@@ -1,0 +1,52 @@
+{
+  "tested_product_commit": "d608aed9ac539a49f2fde03bc6852f388c99075d",
+  "base_main": "506cabb8a4e7090cad544d50cdb988584d5350ae",
+  "scope": "local synthetic/provider-free and actual isolated Auth/Postgres/PostgREST/Storage; no cloud/provider acceptance",
+  "tickets": [
+    "D019",
+    "D021",
+    "D033",
+    "D044",
+    "D016",
+    "D029",
+    "D075",
+    "D037",
+    "D048"
+  ],
+  "checks": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": {
+      "result": "PASS",
+      "tests": 478,
+      "files": 81
+    },
+    "python": {
+      "result": "PASS",
+      "tests": 22
+    },
+    "build": "PASS free/keyless + final TEST source",
+    "migrations_static": {
+      "result": "PASS",
+      "sources": 109
+    },
+    "keyless_e2e": {
+      "result": "PASS",
+      "scenarios": 8
+    },
+    "db_e2e": {
+      "result": "PASS after documented fixes",
+      "distinct_scenarios": 20,
+      "final_exact_source_suite": 8
+    },
+    "packet_105_to_109": "PASS atomic rollback/source-functions/data-flags/repeat rejection",
+    "deployment_hold": "PASS main/A disabled"
+  },
+  "not_run": [
+    "whole historical default Playwright suite",
+    "fresh 0→109 migration and restore drill",
+    "real YouTube/Toss/model/provider/hosted acceptance"
+  ],
+  "packet": "deliverables/dev-a-sequential-20261123-v2",
+  "next": "D042 brief/attachment version implementation; preserve unapproved USER/B gates"
+}

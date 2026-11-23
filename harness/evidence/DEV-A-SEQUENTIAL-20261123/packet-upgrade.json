@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "baseline": 105,
+  "target": 109,
+  "exactSourcePreflight": true,
+  "injectedFailureAtomicRollback": true,
+  "repeatedApplyRejected": true,
+  "legacyRowHashesAndControlFlagsPreserved": true,
+  "scope": "secondary marked local DB; no hosted configuration, migration application or deployment"
+}
