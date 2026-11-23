@@ -59,6 +59,14 @@ const config: NextConfig = {
         ],
       },
       {
+        source: "/auth/:path*",
+        headers: [
+          { key: "Referrer-Policy", value: "no-referrer" },
+          { key: "Cache-Control", value: "private, no-store, max-age=0" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        ],
+      },
+      {
         // API responses are data, never pages: no caching of personal data by shared caches.
         source: "/api/(.*)",
         headers: [{ key: "Cache-Control", value: "no-store" }],

@@ -1,9 +1,11 @@
 import { CancelOrder } from "@/components/cancel-order";
+import { LiveMessages, ChatSafety } from "@/components/live-chat";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { currentUser, supabase } from "@/lib/supabase";
+import { featuredYoutube } from "@/lib/featured-youtube";
 import { logout } from "@/app/actions";
-import { DealControls, MessageForm } from "@/components/deal-controls";
+import { DealControls, MessageForm, ReadButton } from "@/components/deal-controls";
 import { NotificationBadge } from "@/components/notifications";
 import { loadNotifications } from "@/lib/notifications";
 import { canTransition } from "@/lib/schemas";
@@ -42,6 +44,7 @@ export default async function Dashboard({
     { data: saved },
     { data: creatorProfile },
     { data: impressions },
+    { data: savedChannels, error: savedChannelsError },
   ] = await Promise.all([
     db.from("profiles").select("*").eq("id", user.id).single(),
     db
@@ -81,6 +84,10 @@ export default async function Dashboard({
       .select("day,n,entitlements!inner(sku,starts_at,expires_at,revoked_at)")
       .order("day", { ascending: false })
       .limit(14),
+    db
+      .from("saved_youtube_channels")
+      .select("channel_id")
+      .eq("owner_id", user.id),
   ]);
   const [{ data: blocks }, { data: restrictions }] = await Promise.all([
     db.rpc("my_blocks"),
@@ -101,10 +108,31 @@ export default async function Dashboard({
     creatorProfile,
   });
   const done = steps.filter((s) => s.done).length;
-  const { data: messages } = await db
-    .from("messages")
-    .select("*")
-    .order("created_at", { ascending: true });
+  const [{ data: messages }, { data: reads }] = await Promise.all([
+    db.from("messages").select("*").order("created_at", { ascending: true }),
+    db
+      .from("proposal_reads")
+      .select("proposal_id,last_read_at")
+      .eq("user_id", user.id),
+  ]);
+  const publicChannels = savedChannels?.length
+    ? await featuredYoutube("", null, 50)
+    : null;
+  const directory = new Map(
+    publicChannels?.items.map((channel) => [channel.channel_id, channel.title]),
+  );
+  const lastRead = new Map(
+    reads?.map((row) => [row.proposal_id, Date.parse(row.last_read_at)]),
+  );
+  const unread = new Map<string, number>();
+  for (const row of messages ?? []) {
+    if (
+      row.sender_id !== user.id &&
+      Date.parse(row.created_at) > (lastRead.get(row.proposal_id) ?? 0)
+    ) {
+      unread.set(row.proposal_id, (unread.get(row.proposal_id) ?? 0) + 1);
+    }
+  }
   const { data: events } = await db
     .from("proposal_events")
     .select("id,proposal_id,actor_id,to_status,created_at")
@@ -120,6 +148,7 @@ export default async function Dashboard({
   const shown = inStage(proposals ?? [], stage);
   return (
     <section className="wrap">
+      <LiveMessages />
       <div className="section-heading">
         <div>
           <span className="eyebrow">Your workspace / {profile?.role}</span>
@@ -134,6 +163,11 @@ export default async function Dashboard({
           <Link className="button outline small" href="/settings">
             프로필 설정
           </Link>
+          {profile?.role === "brand" && (
+            <Link className="button outline small" href="/brand/products">
+              광고 상품
+            </Link>
+          )}
           {profile?.role === "admin" && (
             <Link className="button outline small" href="/admin">
               운영 관리
@@ -279,6 +313,7 @@ export default async function Dashboard({
             {(unreadBy.get(p.id) ?? 0) > 0 && (
               <span className="badge">새 알림 {unreadBy.get(p.id)}</span>
             )}
+            <ReadButton proposalId={p.id} unread={unread.get(p.id) ?? 0} />
             <h3 style={{ marginTop: 18 }}>
               {p.kind === "application" ? "캠페인 지원" : "브랜드 제안"}
             </h3>
@@ -286,6 +321,8 @@ export default async function Dashboard({
             <Link href={`/campaigns/${p.campaign_id}`} className="muted">
               캠페인 보기 ↗
             </Link>
+            {" · "}
+            <Link href={`/creators/${p.creator_id}`}>크리에이터 프로필 ↗</Link>
             <div style={{ marginTop: 22 }}>
               <DealControls
                 id={p.id}
@@ -323,7 +360,7 @@ export default async function Dashboard({
                   </li>
                 ))}
             </ol>
-            <details style={{ marginTop: 24 }}>
+            <details data-live-chat style={{ marginTop: 24 }}>
               <summary>
                 메시지·결과물 (
                 {messages?.filter((m) => m.proposal_id === p.id).length ?? 0})
@@ -358,6 +395,7 @@ export default async function Dashboard({
                     }
                   />
                 )}
+              <ChatSafety id={p.id} />
             </details>
             {blocked.has(
               p.brand_id === user.id ? p.creator_user_id : p.brand_id,
@@ -385,19 +423,33 @@ export default async function Dashboard({
         후보 그룹 관리 →
       </Link>
       <div className="inline">
-        {saved?.length ? (
-          saved.map((s) => (
+        {savedChannelsError || publicChannels?.unavailable ? (
+          <p role="alert">저장한 YouTube 채널을 불러오지 못했습니다.</p>
+        ) : null}
+        {savedChannels?.map(({ channel_id }) =>
+          directory.has(channel_id) ? (
             <Link
               className="button outline"
-              key={s.creator_id}
-              href={`/creators/${s.creator_id}`}
+              key={channel_id}
+              href={`/creators/youtube/${channel_id}`}
             >
-              {s.creator_id} ↗
+              {directory.get(channel_id)} ↗
             </Link>
-          ))
-        ) : (
-          <p>탐색에서 관심 있는 후보를 저장해보세요.</p>
+          ) : null,
         )}
+        {saved?.length
+          ? saved.map((s) => (
+              <Link
+                className="button outline"
+                key={s.creator_id}
+                href={`/creators/${s.creator_id}`}
+              >
+                {s.creator_id} ↗
+              </Link>
+            ))
+          : !savedChannels?.some(({ channel_id }) =>
+              directory.has(channel_id),
+            ) && <p>탐색에서 관심 있는 후보를 저장해보세요.</p>}
       </div>
       <h2 style={{ marginTop: 45 }}>이용권·결제 내역</h2>
       {!!impressions?.length && (

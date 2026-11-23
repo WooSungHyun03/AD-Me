@@ -29,3 +29,9 @@ test-results/
 __pycache__/
 *.pyc
 backups/
+
+.playwright-cli/
+
+supabase/.temp/
+
+.external-setup.local.env

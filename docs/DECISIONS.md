@@ -18,3 +18,10 @@
 - ADR-013: Creator profile deletion clears its public profile and unpublishes while retaining collaboration/payment references. Auth account and transaction record deletion are separate operations, not silently cascaded.
 - ADR-014: Do not disable email confirmation to work around default SMTP. Full external signup delivery remains BLOCKED until configured SMTP/approved OAuth.
 - ADR-015: Provider payment confirmation runs in Supabase Edge Function, using its built-in server-only service role for the restricted finalization RPC. Vercel never needs a service-role key; its confirmation route authenticates the user and forwards the authenticated request. Toss secret only belongs in Edge Function secrets.
+
+## 2026-11-19 — 실제 서비스 v2 범위·사용자 외부 작업
+
+- 사용자의 최신 요청에 따라 배포 사이트·외부 콘솔·실제 배포·API 키 발급/등록/교체를 USER 전담 U 티켓으로 분리한다. 이전 자율 배포·키 조회 권한보다 우선한다.
+- 사업자등록을 하지 않는 조건의 무료 실제 데이터 베타를 목표로 한다. TEST 결제만 격리 검증하며 실제 유료 상품·수수료·정산은 보류한다. 무료 서비스도 개인정보·데이터 권리 의무는 검토한다.
+- 실제 인플루언서는 허용된 공식 API/웹 수집 및 본인 등록으로 확보한다. 소유권·출처·갱신·삭제 전파를 구현하고 비동의 프로필에 협업 의사를 부여하지 않는다.
+- 기존 코드·40개 Harness 작업·검증 기록을 보존하고 v2 88개 개발 티켓을 두 사람에게 각 219SP로 배분한다. 직군별 분리가 아니다. 116개 원 요구 매핑과 사용자 작업 20개·보류 6개를 기록한다.

@@ -26,7 +26,7 @@ test("health: anonymous and non-admin get status only; admin gets details", asyn
   await login(page, accounts.admin);
   const d = await (await page.request.get("/api/health")).json();
   expect(d.status).toBe("ok");
-  expect(d.stats.migration).toMatch(/^\d{12}$/);
+  expect(d.stats.migration).toMatch(/^(\d{12}|\d{14})$/);
   expect(Object.values(d.configured).every((v) => typeof v === "boolean")).toBe(
     true,
   );

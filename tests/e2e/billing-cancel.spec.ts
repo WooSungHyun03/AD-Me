@@ -84,7 +84,7 @@ test("TEST cancel is offered on paid orders and fails safely without provider ke
 
     await row.getByLabel("취소 사유").fill("테스트 취소");
     await row.getByRole("button", { name: "TEST 취소" }).click();
-    await expect(row.getByRole("alert")).toContainText("Edge Function", { timeout: 30_000 });
+    await expect(row.getByRole("alert")).toContainText(/Edge Function|시크릿 키/, { timeout: 30_000 });
     expect(sql(`select status from orders where id = '${order}'`)).toBe("paid");
     expect(
       sql(

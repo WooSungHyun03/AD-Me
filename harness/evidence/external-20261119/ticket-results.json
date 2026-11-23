@@ -1,0 +1,156 @@
+{
+  "checked_at_kst": "2026-11-19T15:05:44+09:00",
+  "scope": "20 external tickets directly attempted; not all completed",
+  "operator": {
+    "name": "우성현",
+    "support_email": "2242798@donga.ac.kr",
+    "provided_by_user": true
+  },
+  "production_url": "https://ad-me-topaz.vercel.app",
+  "deployment_id": "dpl_FqrtgkPAXTM7EXs1eRNCHKCjieEf",
+  "preview_id": "dpl_2pFfuPbkPZxRvJS5H7SGShybcQ6M",
+  "application_baseline": "4437eb1 plus local privacy contact maintenance; full new real-service backlog unimplemented",
+  "release_decision": "NO_GO_FOR_REAL_BETA",
+  "tickets": [
+    {
+      "id": "U001",
+      "title": "서비스 운영 범위·정책·운영자 확정",
+      "status": "PARTIAL_VERIFIED",
+      "performed": "운영자 우성현·지원 이메일을 사용자 확인 후 개인정보 안내에 실제 배포.",
+      "remaining": "보존기간·위탁/국외이전 고지·정책 확정·실제 권리 요청 처리 절차 검증 필요."
+    },
+    {
+      "id": "U002",
+      "title": "GitHub 조직·저장소·앱 권한 설정",
+      "status": "PARTIAL_VERIFIED",
+      "performed": "GitHub 관리자 접근 확인. main에 checks CI·리뷰1·대화 해결·강제 푸시/삭제 금지 적용.",
+      "remaining": "Vercel GitHub 앱 저장소 접근 승인 실패. 개발자 초대 대상·계정 2FA 확인 미완료. 관리자 bypass는 유지."
+    },
+    {
+      "id": "U003",
+      "title": "Supabase 환경·계정·리전·한도 설정",
+      "status": "PARTIAL_VERIFIED",
+      "performed": "AD Me ref ivtdfioypmzknlhinstg·서울·ACTIVE_HEALTHY 확인. public 13테이블 RLS 활성·비공개 portfolios bucket 확인.",
+      "remaining": "개발/TEST/실서비스 환경 분리·계정 MFA·무료 한도/복구 요구 확인 미완료."
+    },
+    {
+      "id": "U004",
+      "title": "Supabase 외부 환경·DB 변경 적용",
+      "status": "PARTIAL_VERIFIED",
+      "performed": "원격 migrations adme_core/operations/json_contracts 및 payment-confirm ACTIVE 확인. 불필요한 재적용 안 함.",
+      "remaining": "새 실제 데이터·삭제·무료모드 기능의 DB 변경은 개발 선행 티켓 미구현. 새 schema 적용 완료 아님."
+    },
+    {
+      "id": "U005",
+      "title": "Vercel 프로젝트·Git 연결·배포 실행",
+      "status": "PARTIAL_VERIFIED",
+      "performed": "Vercel 실제 preset Next.js·Node22·npm ci/build로 변경. 프리뷰와 연락처 유지보수 production 배포 READY·공개 URL 확인.",
+      "remaining": "Git 연결 승인 미완료. 현재 Hobby의 실서비스 용도 적합성 판단과 무료 실제 베타 출시 검증 필요."
+    },
+    {
+      "id": "U006",
+      "title": "환경변수·시크릿 등록과 교체",
+      "status": "PARTIAL_VERIFIED",
+      "performed": "Vercel Supabase URL/ANON 환경명 확인. Supabase Edge secret 목록에서 TOSS_SECRET_KEY 부재 확인. 키 값은 노출하지 않음.",
+      "remaining": "Toss/YouTube/SMTP 등 공급자 키가 확보되지 않음. 예정 변수는 코드 구현 전 임의 등록하지 않음."
+    },
+    {
+      "id": "U007",
+      "title": "SMTP 계정·키·발신 도메인 설정",
+      "status": "BLOCKED_PROVIDER_ACCESS",
+      "performed": "기존 인증 메일 발송 제한 확인 이력. 로그인 브라우저 DOM/스크린샷 제어 오류 재현.",
+      "remaining": "SMTP 공급자·발신자/도메인·자격증명 필요. 이메일 확인을 끄거나 가짜 SMTP를 등록하지 않음."
+    },
+    {
+      "id": "U008",
+      "title": "Auth 외부 콘솔 설정",
+      "status": "PARTIAL_VERIFIED",
+      "performed": "Auth site_url localhost→https://ad-me-topaz.vercel.app 수정. 동일 origin 루트/대시보드 redirect 등록. diff update=0 재확인, 나머지 원격 설정 보존.",
+      "remaining": "신규 callback/recovery 코드·메일 템플릿·관리자 AAL2 적용·MFA 실제 등록 검증 미완료."
+    },
+    {
+      "id": "U009",
+      "title": "YouTube 프로젝트·API 키 발급/등록",
+      "status": "BLOCKED_PROVIDER_ACCESS",
+      "performed": "Google API 키/수집 연결이 준비된 것으로 확인되지 않음.",
+      "remaining": "Google Cloud 프로젝트/권한·YouTube API 키 제한 설정 및 D019 실제 어댑터 필요."
+    },
+    {
+      "id": "U010",
+      "title": "YouTube 이용 정책·파생 지표 승인",
+      "status": "BLOCKED_USER_DECISION",
+      "performed": "YouTube 원본/파생 지표 정책 검토 자료는 준비됨.",
+      "remaining": "정책 개정 수락·필요 심사는 사용자 본인의 법적/계정 동의가 필요. 미확인을 승인으로 표시하지 않음."
+    },
+    {
+      "id": "U011",
+      "title": "웹 수집 대상의 허용 근거 확보",
+      "status": "BLOCKED_SOURCE_PERMISSION",
+      "performed": "현재 승인된 웹 수집 대상/허가 문서가 없음.",
+      "remaining": "정확한 domain/path/field·처리 근거·권리 허가 필요. 무허가 크롤링 미실행."
+    },
+    {
+      "id": "U012",
+      "title": "Instagram 앱·OAuth·심사·키",
+      "status": "BLOCKED_IMPLEMENTATION_AND_ACCESS",
+      "performed": "Instagram은 P2 조건부 범위로 유지.",
+      "remaining": "D022 OAuth·삭제/철회·정책 URL 및 Meta 앱 접근/심사 필요. 사업 요건을 충족할 수 있는지 별도 확인."
+    },
+    {
+      "id": "U013",
+      "title": "TikTok 앱·OAuth·심사·키",
+      "status": "BLOCKED_IMPLEMENTATION_AND_ACCESS",
+      "performed": "TikTok은 P2 조건부 범위로 유지.",
+      "remaining": "D023 OAuth·시연·심사 자료 및 TikTok 계정/승인 필요. Research API 우회 미실행."
+    },
+    {
+      "id": "U014",
+      "title": "실제 크리에이터 시범 참여·운영 동의",
+      "status": "BLOCKED_PARTICIPATION",
+      "performed": "현재 공개 크리에이터 48명은 DEMO. 실제 참여자가 확보되었다고 표시하지 않음.",
+      "remaining": "실제 참가자·프로필 소유/자료 권리·협업 수신 동의 및 claim 기능 필요. 무단 연락 미발송."
+    },
+    {
+      "id": "U015",
+      "title": "Toss TEST 계정·호환 키·등록",
+      "status": "BLOCKED_PROVIDER_ACCESS",
+      "performed": "기존 TEST 승인 function ACTIVE 및 서버 권한 회귀 통과. paid 주문 0개, 실제 Toss TEST 거래 없음.",
+      "remaining": "Toss TEST 상점 키 접근/등록·제품 호환 확인·본인 인증 필요. 브라우저 제어 오류로 키 조회 경로 차단."
+    },
+    {
+      "id": "U016",
+      "title": "선택적 LLM 계정·키·비용 상한",
+      "status": "OPTIONAL_NOT_ENABLED",
+      "performed": "기존 deterministic AI 초안·추천은 키 없이 동작; 공개 E2E로 기본 흐름 확인. 외부 LLM 전송 없음.",
+      "remaining": "선택적 LLM 활성화는 공급자/비용/처리 조건 결정 및 D048 어댑터 구현 후 진행."
+    },
+    {
+      "id": "U017",
+      "title": "도메인·DNS·TLS·소유권",
+      "status": "VERIFIED_EXISTING",
+      "performed": "기존 무료 HTTPS alias https://ad-me-topaz.vercel.app 사용 유지. 실제 HTTPS 요청·브라우저 표시 확인.",
+      "remaining": "새 유료 도메인 구매 안 함. 발신 도메인 필요 여부는 SMTP 공급자 결정 시 별도 확인."
+    },
+    {
+      "id": "U018",
+      "title": "관측·알림·백업 외부 계정 설정",
+      "status": "BLOCKED_RECOVERY_AND_ALERT_SETUP",
+      "performed": "Supabase backups=null·PITR=false 확인. 현재 서비스 정상/권한 검사·배포 로그 확인.",
+      "remaining": "정기 알림 수신 경로·백업 보관처/실행·격리 복원 증빙 없음. 정상 응답을 복구 완료로 간주하지 않음."
+    },
+    {
+      "id": "U019",
+      "title": "실제 테스트 참여·브라우저 승인",
+      "status": "PARTIAL_VERIFIED",
+      "performed": "기존 공개 사이트 desktop/mobile 실제 E2E 6/6 및 직접 DB 권한/부정이용 회귀 PASS. 새 연락처 production 실제 브라우저 확인.",
+      "remaining": "외부 메일 신규 가입·SNS OAuth·Toss TEST 본인 인증은 미수행. 기존 테스트는 DEMO 기반임."
+    },
+    {
+      "id": "U020",
+      "title": "공개 베타 출시·사고 연락·운영 책임",
+      "status": "NO_GO",
+      "performed": "출시 판단은 NO-GO. 기존 대학 시연 서비스 유지보수 배포와 신규 실제 서비스 출시를 구분.",
+      "remaining": "실제 데이터·삭제/동의·외부 가입·무료모드 격리·백업/복원·호스팅 적합성 등 P0/외부 게이트 미충족."
+    }
+  ]
+}

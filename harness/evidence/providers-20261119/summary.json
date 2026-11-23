@@ -1,0 +1,80 @@
+{
+  "checked_at": "2026-11-19T06:52:43.993952+00:00",
+  "production_url": "https://be-celeb.org",
+  "production_deployment": "dpl_9uQy4CiWiW9FV1E9ABqiu788cyfL",
+  "unit_tests_passed": 35,
+  "dns_guard_tests_passed": 5,
+  "local_e2e_passed": 10,
+  "production_e2e_passed": 10,
+  "smtp_tls_login": true,
+  "resend_domain_verified": true,
+  "confirmation_email_delivered": true,
+  "recovery_email_delivered": true,
+  "operator_email_confirmed": true,
+  "operator_password_reset_user_confirmed": true,
+  "toss_provider": {
+    "test_secret_only": true,
+    "provider_status": "DONE",
+    "amount": 49000,
+    "order_matches": true,
+    "payment_key_present": true
+  },
+  "entitlement_days": 30,
+  "entitlements_after_two_rpc_replays": 1,
+  "youtube_probe_ok": true,
+  "youtube_imported_creators": 0,
+  "free_real_beta_release": "NO_GO",
+  "isolated_restore": {
+    "isolated_network": "none",
+    "postgres": "17.11",
+    "public_table_counts": {
+      "profiles": 4,
+      "proposal_reads": 0,
+      "reports": 5,
+      "saved_creators": 1,
+      "entitlements": 0,
+      "orders": 22,
+      "messages": 21,
+      "campaigns": 46,
+      "creators": 49,
+      "products": 4,
+      "ad_collaborations": 24,
+      "audit_log": 85,
+      "proposals": 38
+    },
+    "public_rls_tables": 13,
+    "foreign_keys_checked": 22,
+    "orphan_rows": 0,
+    "auth_users": 5,
+    "storage_objects": 0,
+    "portability_normalization": "removed pg_attver metadata lines only; deferred auth signup trigger until public functions restored",
+    "public_auth_snapshots_atomic": false,
+    "offsite_backup": false,
+    "scheduled_backup": false
+  },
+  "deployed_source_commit": "36327d70f7f9fb44f6f863c0ef36f7043bdf965c",
+  "source_ci_runs_passed": [
+    44475494118,
+    44475486322
+  ],
+  "final_browser_smoke": [
+    {
+      "name": "desktop",
+      "status": 200,
+      "no_horizontal_overflow": true
+    },
+    {
+      "name": "mobile",
+      "status": 200,
+      "no_horizontal_overflow": true
+    }
+  ],
+  "toss_provider_replay": {
+    "provider_idempotent_replay_http": 200,
+    "provider_status": "DONE",
+    "same_order": true,
+    "same_payment": true,
+    "same_amount": true
+  },
+  "operator_password_reset_evidence": "2026-11-19 사용자 직접 복구 링크에서 새 비밀번호 설정 후 재로그인 성공 보고"
+}

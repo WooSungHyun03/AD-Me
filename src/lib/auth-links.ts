@@ -1,3 +1,4 @@
+import { z } from "zod";
 // Auth email links must never be built from the request Host header (host-header poisoning of reset mails).
 export function appUrl(env: Record<string, string | undefined> = process.env) {
   const raw =
@@ -8,7 +9,6 @@ export function appUrl(env: Record<string, string | undefined> = process.env) {
   return new URL(raw).origin;
 }
 const allowedNext = [
-  "/auth/reset",
   "/settings",
   "/dashboard",
   "/campaigns/new",
@@ -23,8 +23,6 @@ export const safeNext = (next: string | null | undefined) =>
   allowedNext.includes(next ?? "") || REQUEST_NEXT.test(next ?? "")
     ? next!
     : "/dashboard";
-export const RECOVERY_COOKIE = "adme_recovery";
-export const RECOVERY_TTL_SECONDS = 600;
 // Sensitive actions (email change, profile deletion) need a fresh sign-in, not just a refreshed token.
 // last_sign_in_at moves on password/OTP sign-in only, never on silent token refresh.
 export const REAUTH_SECONDS = 600;
@@ -36,3 +34,45 @@ export const recentSignIn = (
   now - Date.parse(user!.last_sign_in_at!) < REAUTH_SECONDS * 1000;
 export const REAUTH_MESSAGE =
   "보안을 위해 다시 로그인한 뒤 10분 안에 진행해주세요.";
+export const emailProofSchema = z.object({
+  token_hash: z.string().regex(/^[A-Za-z0-9_-]{20,512}$/),
+  type: z.enum(["email", "recovery", "email_change"]),
+});
+
+export const resetPasswordSchema = emailProofSchema
+  .extend({
+    type: z.literal("recovery"),
+    password: z.string().min(10).max(128),
+    confirm_password: z.string().min(10).max(128),
+  })
+  .refine((value) => value.password === value.confirm_password, {
+    path: ["confirm_password"],
+    message: "비밀번호가 일치하지 않습니다.",
+  });
+
+export function authSiteOrigin(value = process.env.NEXT_PUBLIC_APP_URL) {
+  const origin = new URL(value || "https://be-celeb.org");
+  const local =
+    origin.hostname === "localhost" || origin.hostname === "127.0.0.1";
+  if (
+    origin.username ||
+    origin.password ||
+    origin.pathname !== "/" ||
+    origin.search ||
+    origin.hash ||
+    (origin.protocol !== "https:" &&
+      !(
+        process.env.NODE_ENV !== "production" &&
+        local &&
+        origin.protocol === "http:"
+      ))
+  ) {
+    throw new Error("인증 서비스 주소 설정을 확인해주세요.");
+  }
+  return origin.origin;
+}
+
+// Email links can never supply an arbitrary redirect destination.
+export function authNextPath(value: string | null) {
+  return value === "/dashboard" ? value : "/dashboard";
+}

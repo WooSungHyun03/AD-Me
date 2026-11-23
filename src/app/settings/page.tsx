@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { currentUser, supabase } from "@/lib/supabase";
 import { AccountForm, PreferencesForm } from "@/components/account-form";
@@ -8,7 +9,6 @@ import { ProfileForm } from "@/components/profile-form";
 import { PrivacyExport } from "@/components/privacy-panel";
 import { PortfolioFiles } from "@/components/portfolio-files";
 import { UnblockButton } from "@/components/safety";
-import Link from "next/link";
 const actionText: Record<string, string> = {
   created: "내보내기 요청",
   downloaded: "내려받기 완료",
@@ -71,6 +71,9 @@ export default async function Settings() {
       )}
       {profile?.role === "creator" ? (
         <>
+          <p>
+            <Link href="/settings/youtube">YouTube 채널 연결</Link>
+          </p>
           <ProfileForm
             initial={
               creator

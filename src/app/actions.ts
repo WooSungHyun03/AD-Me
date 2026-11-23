@@ -1,15 +1,14 @@
 "use server";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { configured, supabase } from "@/lib/supabase";
 import {
   REAUTH_MESSAGE,
-  RECOVERY_COOKIE,
-  appUrl,
+  authSiteOrigin,
   recentSignIn,
   safeNext,
 } from "@/lib/auth-links";
+
 export async function authAction(_: unknown, form: FormData) {
   if (!configured())
     return {
@@ -35,7 +34,10 @@ export async function authAction(_: unknown, form: FormData) {
       ? await db.auth.signUp({
           email: d.email,
           password: d.password,
-          options: { data: { role: d.role, name: d.name } },
+          options: {
+            data: { role: d.role, name: d.name },
+            emailRedirectTo: `${authSiteOrigin()}/auth/callback`,
+          },
         })
       : await db.auth.signInWithPassword({
           email: d.email,
@@ -53,7 +55,7 @@ export async function authAction(_: unknown, form: FormData) {
   )
     return {
       error:
-        "인증 메일 발송 서비스 설정이 필요합니다. 현재 시연 계정 로그인만 검증되었습니다. 운영자가 SMTP 연결을 준비 중입니다.",
+        "인증 메일을 발송하지 못했습니다. 잠시 후 다시 시도하거나 지원 이메일로 문의해주세요.",
     };
   if (result.error)
     return {
@@ -75,55 +77,6 @@ export async function logout() {
 }
 
 type FormState = { error?: string; message?: string } | null;
-const RESET_SENT =
-  "입력한 주소로 가입된 계정이 있으면 재설정 링크를 보냈습니다. 링크는 한 번만, 짧은 시간 동안 사용할 수 있습니다.";
-export async function requestPasswordReset(
-  _: FormState,
-  form: FormData,
-): Promise<FormState> {
-  const email = z.email().safeParse(form.get("email"));
-  if (!email.success) return { error: "이메일 주소를 확인해주세요." };
-  if (!configured()) return { error: "계정 서비스 연결 준비 중입니다." };
-  const db = await supabase();
-  // Same answer whether or not the account exists (no account enumeration).
-  await db.auth
-    .resetPasswordForEmail(email.data, {
-      redirectTo: `${appUrl()}/auth/confirm?next=/auth/reset`,
-    })
-    .catch(() => null);
-  return { message: RESET_SENT };
-}
-export async function updatePassword(
-  _: FormState,
-  form: FormData,
-): Promise<FormState> {
-  const p = z
-    .object({ password: z.string().min(10).max(72), confirm: z.string() })
-    .refine((v) => v.password === v.confirm)
-    .safeParse(Object.fromEntries(form));
-  if (!p.success)
-    return { error: "10~72자 비밀번호를 같은 값으로 두 번 입력해주세요." };
-  if (!configured()) return { error: "계정 서비스 연결 준비 중입니다." };
-  const db = await supabase();
-  const {
-    data: { user },
-  } = await db.auth.getUser();
-  const jar = await cookies();
-  // Only the account whose recovery link was just verified, within the TTL.
-  if (!user || jar.get(RECOVERY_COOKIE)?.value !== user.id)
-    return {
-      error: "재설정 링크가 만료되었거나 다른 계정입니다. 다시 요청해주세요.",
-    };
-  const { error } = await db.auth.updateUser({ password: p.data.password });
-  if (error)
-    return {
-      error:
-        "새 비밀번호를 적용하지 못했습니다. 이전과 다른 값을 사용해주세요.",
-    };
-  jar.delete(RECOVERY_COOKIE);
-  await db.auth.signOut({ scope: "others" });
-  redirect("/dashboard");
-}
 export async function changeEmail(
   _: FormState,
   form: FormData,
@@ -141,7 +94,7 @@ export async function changeEmail(
     return { error: "현재 이메일과 같습니다." };
   const { error } = await db.auth.updateUser(
     { email: email.data },
-    { emailRedirectTo: `${appUrl()}/auth/confirm?next=/settings` },
+    { emailRedirectTo: `${authSiteOrigin()}/auth/confirm` },
   );
   if (error)
     return {

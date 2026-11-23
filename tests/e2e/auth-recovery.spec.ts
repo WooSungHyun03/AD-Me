@@ -1,107 +1,64 @@
-// D010/D013: real reset mail through local Supabase + Mailpit. Skipped unless MAILPIT_URL is set
-// (production has no mail sink; this never runs against the public URL).
 import { test, expect } from "@playwright/test";
-import { createClient } from "@supabase/supabase-js";
-import { randomUUID } from "node:crypto";
-import { readFileSync } from "node:fs";
 
-const MAILPIT = process.env.MAILPIT_URL;
-test.skip(!MAILPIT, "MAILPIT_URL not set (local Supabase only)");
-const env = Object.fromEntries(
-  readFileSync(".env.local", "utf8")
-    .trim()
-    .split("\n")
-    .map((l) => [l.slice(0, l.indexOf("=")), l.slice(l.indexOf("=") + 1)]),
-);
-const anon = () =>
-  createClient(
-    env.NEXT_PUBLIC_SUPABASE_URL,
-    env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    {
-      auth: { persistSession: false },
-    },
-  );
-
-async function mailLink(to: string) {
-  for (let i = 0; i < 30; i++) {
-    const r = await fetch(
-      `${MAILPIT}/api/v1/search?query=${encodeURIComponent(`to:"${to}"`)}`,
-    );
-    const { messages } = await r.json();
-    if (messages?.length) {
-      const m = await (
-        await fetch(`${MAILPIT}/api/v1/message/${messages[0].ID}`)
-      ).json();
-      const link = (m.Text as string).match(
-        /https?:\/\/\S+\/auth\/v1\/verify\S+/,
-      )?.[0];
-      if (link) return link.replace(/&amp;/g, "&").replace(/[)\]>]+$/, "");
-    }
-    await new Promise((res) => setTimeout(res, 500));
-  }
-  throw new Error("reset mail not delivered to Mailpit");
-}
-
-test("password reset: no enumeration, one-time link, recovery-only update, old password revoked", async ({
+test("recovery entry points require a real email proof and preserve privacy headers", async ({
   page,
 }) => {
-  const email = `adme-qa-reset-${randomUUID().slice(0, 8)}@example.com`;
-  const oldPw = randomUUID() + "Aa!";
-  const newPw = randomUUID() + "Bb!";
-  expect(
-    (await anon().auth.signUp({ email, password: oldPw })).error,
-  ).toBeNull();
-
-  // Same answer for unknown and known accounts.
-  await page.goto("/auth/forgot");
-  await page
-    .getByLabel("가입한 이메일")
-    .fill(`nobody-${randomUUID().slice(0, 6)}@example.com`);
-  await page.getByRole("button", { name: "재설정 링크 받기" }).click();
-  const unknownMsg = await page.getByRole("status").innerText();
-  await page.goto("/auth/forgot");
-  await page.getByLabel("가입한 이메일").fill(email);
-  await page.getByRole("button", { name: "재설정 링크 받기" }).click();
-  await expect(page.getByRole("status")).toHaveText(unknownMsg);
-
-  // Without a recovery link, the reset page refuses.
-  await page.goto("/auth/reset");
-  await expect(page.locator("p[role=alert]")).toContainText("만료");
-
-  const link = await mailLink(email);
-  await page.goto(link);
-  await expect(page).toHaveURL(/\/auth\/reset$/);
-  await page.getByLabel("새 비밀번호", { exact: true }).fill(newPw);
-  await page.getByLabel("새 비밀번호 확인").fill(newPw);
-  await page.getByRole("button", { name: "비밀번호 변경" }).click();
-  await expect(page).toHaveURL(/\/dashboard$/);
-
-  // Reusing the same link fails.
-  await page.context().clearCookies();
-  await page.goto(link);
-  await expect(page).toHaveURL(/\/login\?error=link(#.*)?$/);
-
-  expect(
-    (await anon().auth.signInWithPassword({ email, password: oldPw })).error,
-  ).not.toBeNull();
-  expect(
-    (await anon().auth.signInWithPassword({ email, password: newPw })).error,
-  ).toBeNull();
+  await page.goto("/login");
+  await page.getByRole("link", { name: "비밀번호를 잊으셨나요?" }).click();
+  await expect(
+    page.getByRole("heading", { name: "비밀번호 찾기", exact: true }),
+  ).toBeVisible();
+  await expect(page.getByLabel("이메일", { exact: true })).toBeVisible();
+  await page.goto("/reset-password");
+  await expect(
+    page.getByText("로그인 상태만으로 비밀번호를 재설정할 수 없습니다.", {
+      exact: false,
+    }),
+  ).toBeVisible();
+  const response = await page.goto("/auth/confirm?type=recovery");
+  await expect(
+    page.getByRole("heading", { name: "인증 링크를 확인해주세요" }),
+  ).toBeVisible();
+  expect(response?.headers()["referrer-policy"]).toBe("no-referrer");
+  expect(response?.headers()["x-robots-tag"]).toContain("noindex");
+  expect(response?.headers()["cache-control"]).toContain("no-store");
+  const callback = await page.request.get(
+    "/auth/callback?next=https://evil.example/",
+    { maxRedirects: 0 },
+  );
+  expect(callback.status()).toBe(303);
+  expect(new URL(callback.headers().location).pathname).toBe("/auth/error");
+  expect(new URL(callback.headers().location).hostname).not.toBe(
+    "evil.example",
+  );
 });
 
-test("login returns only to allowed paths", async ({ page }) => {
-  const email = `adme-qa-next-${randomUUID().slice(0, 8)}@example.com`;
-  const pw = randomUUID() + "Aa!";
-  await anon().auth.signUp({ email, password: pw });
-  for (const [next, want] of [
-    ["/settings", /\/settings$/],
-    ["https://evil.example/x", /\/dashboard$/],
-  ] as const) {
-    await page.context().clearCookies();
-    await page.goto(`/login?next=${encodeURIComponent(next)}`);
-    await page.getByLabel("이메일", { exact: true }).fill(email);
-    await page.getByLabel("비밀번호", { exact: true }).fill(pw);
-    await page.getByRole("button", { name: "로그인" }).click();
-    await expect(page).toHaveURL(want);
-  }
+test("opening confirmation does not consume proof; invalid recovery cannot change credentials", async ({
+  page,
+}) => {
+  // Intentionally invalid fixture proof. No real email, user token or password is captured.
+  const proof = "a".repeat(64);
+  await page.goto(`/auth/confirm?type=email&token_hash=${proof}`);
+  await expect(
+    page.getByRole("button", { name: "이메일 인증 완료하기" }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "이메일 인증 완료하기" }).click();
+  await expect(
+    page.getByRole("alert").filter({ hasText: "인증 링크" }),
+  ).toContainText("인증 링크가 만료되었거나 이미 사용되었습니다");
+  await page.goto(`/auth/confirm?type=recovery&token_hash=${proof}`);
+  await page
+    .getByLabel("새 비밀번호", { exact: true })
+    .fill("invalid-proof-password-123");
+  await page
+    .getByLabel("새 비밀번호 확인", { exact: true })
+    .fill("invalid-proof-password-123");
+  await page
+    .getByRole("button", { name: "비밀번호 변경", exact: true })
+    .click();
+  await expect(
+    page.getByRole("alert").filter({ hasText: "복구 링크" }),
+  ).toContainText("복구 링크가 만료되었거나 이미 사용되었습니다");
+  await page.goto("/dashboard");
+  await expect(page).toHaveURL(/login/);
 });

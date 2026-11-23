@@ -1,0 +1,2191 @@
+{
+  "version": 2,
+  "date": "2026-11-19",
+  "baseline_commit": "4437eb1",
+  "scope": "사업자 미등록을 전제로 한 무료 실제 데이터 베타; 외부 콘솔·키·배포는 USER 전담",
+  "estimation": "상대 SP, 완료된 기존 구현은 재개발하지 않고 남은 보강·검증만 산정. 1SP 약 0.5 집중 인일의 초기 가정. 외부 심사 대기 제외.",
+  "tickets": [
+    {
+      "id": "D001",
+      "title": "무료 실서비스·TEST 시연 모드 분리",
+      "area": "서비스 기반",
+      "owner": "DEV-B",
+      "points": 3,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "실서비스는 무료 기능만 노출하고 TEST 상품·시연 데이터는 별도 환경으로 격리한다.",
+      "verification": "환경별 라우트·상품·데이터 노출 테스트",
+      "depends_on": []
+    },
+    {
+      "id": "D002",
+      "title": "운영 정책·요금·기능 설명 일치",
+      "area": "서비스 기반",
+      "owner": "DEV-A",
+      "points": 2,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "현재 제공 기능만 안내하고 AI 크레딧 수량·가격 등 문서와 코드의 불일치를 제거한다.",
+      "verification": "화면·상품 설정·문서 대조",
+      "depends_on": [
+        "D001"
+      ]
+    },
+    {
+      "id": "D003",
+      "title": "환경 설정 스키마·누락 진단",
+      "area": "서비스 기반",
+      "owner": "DEV-A",
+      "points": 3,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "환경값을 Zod로 검증하고 비밀값 없이 누락된 설정명과 비활성 기능을 표시한다.",
+      "verification": "누락·잘못된 값·라이브 결제 키 거부 테스트",
+      "depends_on": []
+    },
+    {
+      "id": "D004",
+      "title": "서버 API 오류·검증 계약 통일",
+      "area": "서비스 기반",
+      "owner": "DEV-A",
+      "points": 3,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "주요 API에 오류 코드·요청 ID·Zod 검증과 안전한 오류 응답을 적용한다.",
+      "verification": "잘못된 입력·DB 실패·로그 민감값 검사",
+      "depends_on": []
+    },
+    {
+      "id": "D005",
+      "title": "데모와 실제 데이터 저장·조회 분리",
+      "area": "서비스 기반",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "is_demo 필터를 서버에 강제하고 실서비스 API·검색·SEO·통계에서 가상 데이터를 제외한다.",
+      "verification": "직접 API 호출과 검색 결과의 시연 데이터 누출 검사",
+      "depends_on": [
+        "D001"
+      ]
+    },
+    {
+      "id": "D006",
+      "title": "핵심 활성화·제품 이벤트 정의",
+      "area": "서비스 기반",
+      "owner": "DEV-B",
+      "points": 3,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "가입→탐색→후보 저장→제안→수락 퍼널을 개인정보 최소화 이벤트로 기록한다.",
+      "verification": "중복 이벤트·동의·관리자 집계 검증",
+      "depends_on": []
+    },
+    {
+      "id": "D007",
+      "title": "라이선스·의존성·출처 목록",
+      "area": "서비스 기반",
+      "owner": "DEV-A",
+      "points": 2,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "패키지·이미지·로고·외부 데이터의 사용 권한과 재배포 조건을 기록한다.",
+      "verification": "lockfile·자산·라이선스 대조",
+      "depends_on": []
+    },
+    {
+      "id": "D008",
+      "title": "기능 플래그·단계별 공개",
+      "area": "서비스 기반",
+      "owner": "DEV-A",
+      "points": 3,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "수집·LLM·메일·결제 기능을 서버 설정으로 안전하게 켜고 끈다.",
+      "verification": "꺼진 기능 직접 API 접근·오류 상태 테스트",
+      "depends_on": [
+        "D003"
+      ]
+    },
+    {
+      "id": "D009",
+      "title": "외부 사용자 이메일 가입 완주",
+      "area": "계정·가입",
+      "owner": "DEV-A",
+      "points": 3,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "실환경 검증",
+      "acceptance": "이메일 인증·재발송·만료 링크·중복 가입·콜백 리다이렉트를 처리한다.",
+      "verification": "SMTP 설정 후 신규 외부 이메일로 가입 E2E",
+      "depends_on": [
+        "U007",
+        "U008"
+      ]
+    },
+    {
+      "id": "D010",
+      "title": "비밀번호 재설정·이메일 변경",
+      "area": "계정·가입",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "재설정·변경 확인·링크 만료·열린 리다이렉트 방지를 구현한다.",
+      "verification": "메일 링크 및 기존·변경 계정 로그인 테스트",
+      "depends_on": [
+        "D009"
+      ]
+    },
+    {
+      "id": "D011",
+      "title": "브랜드·크리에이터 온보딩",
+      "area": "계정·가입",
+      "owner": "DEV-B",
+      "points": 3,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "역할별 필수 항목·진행 상태·재진입을 제공하고 역할 자가 승격을 막는다.",
+      "verification": "가입 중단·재로그인·직접 역할 변조 테스트",
+      "depends_on": [
+        "D009"
+      ]
+    },
+    {
+      "id": "D012",
+      "title": "브랜드 프로필·담당자 정보",
+      "area": "계정·가입",
+      "owner": "DEV-A",
+      "points": 3,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "브랜드명·업종·소개·로고·담당자 공개 범위를 관리하며 사업자 인증을 가입 필수로 요구하지 않는다.",
+      "verification": "CRUD·공개 DTO·다른 계정 수정 차단",
+      "depends_on": [
+        "D011"
+      ]
+    },
+    {
+      "id": "D013",
+      "title": "세션 만료·재인증·로그아웃",
+      "area": "계정·가입",
+      "owner": "DEV-B",
+      "points": 3,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "만료 후 재로그인 경로·탭 간 상태·민감 작업 재인증을 처리한다.",
+      "verification": "만료·새로고침·복수 탭·로그아웃 E2E",
+      "depends_on": [
+        "D009"
+      ]
+    },
+    {
+      "id": "D014",
+      "title": "계정 탈퇴·개인정보 삭제 실행",
+      "area": "계정·가입",
+      "owner": "DEV-A",
+      "points": 8,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "프로필 숨김과 계정 삭제를 구분하고 Auth·Storage·파생 데이터·보존 예외·재수집 차단을 처리한다.",
+      "verification": "삭제 후 접근 거부·삭제 작업 재시도·보존 최소화 검사",
+      "depends_on": [
+        "D018",
+        "D073",
+        "D079"
+      ]
+    },
+    {
+      "id": "D015",
+      "title": "계정 설정·관심 분야·알림 동의",
+      "area": "계정·가입",
+      "owner": "DEV-B",
+      "points": 3,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "서비스 알림·선택적 마케팅·관심 분야를 분리하여 변경 기록을 저장한다.",
+      "verification": "동의 철회·기본값·메일 발송 대상 테스트",
+      "depends_on": [
+        "D011"
+      ]
+    },
+    {
+      "id": "D016",
+      "title": "관리자 MFA·초대 기반 권한",
+      "area": "계정·가입",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "관리자는 별도 프로비저닝·MFA·재인증을 요구하고 UI 숨김에 의존하지 않는다.",
+      "verification": "일반 계정 관리자 API 거부·MFA 없는 세션 차단",
+      "depends_on": [
+        "U008"
+      ]
+    },
+    {
+      "id": "D017",
+      "title": "플랫폼별 수집 허용 목록·데이터 계약",
+      "area": "실제 데이터 수집",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "필드·목적·근거·약관 버전·보존기간·갱신주기·재배포 범위를 공급원별로 정의한다.",
+      "verification": "승인 없는 공급원 실행 거부·정책 검토표",
+      "depends_on": [
+        "U001"
+      ]
+    },
+    {
+      "id": "D018",
+      "title": "실제 인플루언서 통합 스키마",
+      "area": "실제 데이터 수집",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "SNS 고유 ID·핸들·시계열 지표·수집시각·출처·동의·청구 상태를 필드 수준으로 저장한다.",
+      "verification": "중복·핸들 변경·결측·마이그레이션 테스트",
+      "depends_on": [
+        "D017"
+      ]
+    },
+    {
+      "id": "D019",
+      "title": "YouTube 공식 API 수집 어댑터",
+      "area": "실제 데이터 수집",
+      "owner": "DEV-B",
+      "points": 8,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "허용된 채널 seed로 공개 프로필·영상·제공 지표를 수집하고 비공개 지표를 추정값으로 채우지 않는다.",
+      "verification": "계약 테스트·쿼터 실패·사용자 키 연결 후 실제 채널 검증",
+      "depends_on": [
+        "D018",
+        "U009",
+        "U010"
+      ]
+    },
+    {
+      "id": "D020",
+      "title": "허용된 공개 웹 크롤러",
+      "area": "실제 데이터 수집",
+      "owner": "DEV-A",
+      "points": 8,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "조건부",
+      "acceptance": "허용 목록 도메인에서 약관·권리·robots 검토 후 최소 업무 정보를 수집한다. 로그인·CAPTCHA 우회는 하지 않는다.",
+      "verification": "허용되지 않은 도메인 차단·robots·속도 제한·HTML fixture·실제 허용 샘플 검사",
+      "depends_on": [
+        "D017",
+        "D018",
+        "U011"
+      ]
+    },
+    {
+      "id": "D021",
+      "title": "수집 작업 큐·갱신·삭제·쿼터",
+      "area": "실제 데이터 수집",
+      "owner": "DEV-A",
+      "points": 8,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "체크포인트·지수 백오프·재시도·캐시 만료·일일 한도·삭제 tombstone으로 중복·재수집을 막는다.",
+      "verification": "429·작업 중단 복구·삭제 재유입·정책별 TTL 테스트",
+      "depends_on": [
+        "D018",
+        "D019"
+      ]
+    },
+    {
+      "id": "D022",
+      "title": "Instagram 공식 연결 어댑터",
+      "area": "실제 데이터 수집",
+      "owner": "DEV-A",
+      "points": 8,
+      "priority": "P2",
+      "status": "OPEN",
+      "work_type": "조건부",
+      "acceptance": "승인된 API 기능과 계정 종류만 지원하고 OAuth 토큰 암호화·갱신·철회를 구현한다.",
+      "verification": "권한 축소·철회·실제 승인 계정 동기화 검증",
+      "depends_on": [
+        "D018",
+        "U012"
+      ]
+    },
+    {
+      "id": "D023",
+      "title": "TikTok 공식 연결 어댑터",
+      "area": "실제 데이터 수집",
+      "owner": "DEV-B",
+      "points": 8,
+      "priority": "P2",
+      "status": "OPEN",
+      "work_type": "조건부",
+      "acceptance": "승인된 Display API의 동의 계정 정보·콘텐츠만 연결하며 Research API를 상업 탐색 우회로 사용하지 않는다.",
+      "verification": "scope 오류·철회·실제 승인 계정 검증",
+      "depends_on": [
+        "D018",
+        "U013"
+      ]
+    },
+    {
+      "id": "D024",
+      "title": "실제 데이터 파일럿 품질 게이트",
+      "area": "실제 데이터 수집",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "실환경 검증",
+      "acceptance": "허용된 실제 프로필 50~100개를 목표로 중복·출처·갱신·결측·삭제 대응을 표본 검수한다. 확보 수량은 결과로 기록한다.",
+      "verification": "실제 수량·공급원·오류율 증빙, 미확보 수량을 성공 처리하지 않음",
+      "depends_on": [
+        "D005",
+        "D019",
+        "D021",
+        "U014"
+      ]
+    },
+    {
+      "id": "D025",
+      "title": "미청구 프로필과 본인 프로필 청구",
+      "area": "크리에이터·광고 이력",
+      "owner": "DEV-B",
+      "points": 8,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "수집 프로필은 미인증·협업 의사 미확인으로 표시하고 소유 증명 후에만 수정·제안 수신을 허용한다.",
+      "verification": "타인 계정 청구·중복 청구·증명 만료 테스트",
+      "depends_on": [
+        "D018",
+        "D011",
+        "U014"
+      ]
+    },
+    {
+      "id": "D026",
+      "title": "크리에이터 프로필 편집 확장",
+      "area": "크리에이터·광고 이력",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "분야·분위기·형식·플랫폼 다중 선택, 견적 범위·가용성·견적 미확인을 구분한다.",
+      "verification": "CRUD·미입력·권한·모바일 폼 테스트",
+      "depends_on": [
+        "D018"
+      ]
+    },
+    {
+      "id": "D027",
+      "title": "안전한 이미지·포트폴리오 업로드",
+      "area": "크리에이터·광고 이력",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "파일 크기·실제 MIME·경로·접근권한·삭제를 검증하고 권리 있는 파일만 업로드한다.",
+      "verification": "위장 파일·다른 소유자 다운로드·고아 파일 정리 테스트",
+      "depends_on": [
+        "D075"
+      ]
+    },
+    {
+      "id": "D028",
+      "title": "SNS 링크·공식 임베드·공유",
+      "area": "크리에이터·광고 이력",
+      "owner": "DEV-A",
+      "points": 3,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "허용된 HTTPS 링크·임베드·공개 프로필 공유를 제공하고 무단 이미지 복제를 피한다.",
+      "verification": "악성 URL·비공개 공유·임베드 실패 처리",
+      "depends_on": [
+        "D026"
+      ]
+    },
+    {
+      "id": "D029",
+      "title": "실제 광고 이력 제출·출처 검증",
+      "area": "크리에이터·광고 이력",
+      "owner": "DEV-A",
+      "points": 8,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "브랜드·기간·형식·경제적 이해관계 표시·증거 URL·제출자·검토 상태를 저장한다. 단순 브랜드 언급을 광고로 확정하지 않는다.",
+      "verification": "허위·중복·정정·권한·검토 전후 공개 테스트",
+      "depends_on": [
+        "D018",
+        "D057"
+      ]
+    },
+    {
+      "id": "D030",
+      "title": "광고 이력 타임라인·경력 필터",
+      "area": "크리에이터·광고 이력",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "실제 검증 이력 기반 브랜드·카테고리·기간 필터와 브랜드별 경쟁사 표식을 제공한다.",
+      "verification": "근거 없는 이력 제외·사용자 정의 경쟁사 교차 접근 차단",
+      "depends_on": [
+        "D029"
+      ]
+    },
+    {
+      "id": "D031",
+      "title": "실제 성과 그래프·지표 정의",
+      "area": "크리에이터·광고 이력",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "확인 가능한 시계열과 집계 산식·기간·출처를 표시하고 타깃 인구통계는 미제공 상태로 남긴다.",
+      "verification": "결측·수집 지연·표본 부족·공식 지표와 파생 지표 구분",
+      "depends_on": [
+        "D021"
+      ]
+    },
+    {
+      "id": "D032",
+      "title": "유사 프로필·신고·정정 진입",
+      "area": "크리에이터·광고 이력",
+      "owner": "DEV-B",
+      "points": 3,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "근거 있는 태그 유사 후보와 프로필별 정정·삭제 요청 경로를 제공한다.",
+      "verification": "가상 프로필 섞임·비공개 후보·신고 연결 테스트",
+      "depends_on": [
+        "D033",
+        "D058"
+      ]
+    },
+    {
+      "id": "D033",
+      "title": "서버 검색·페이지네이션·인덱스",
+      "area": "검색·CRM",
+      "owner": "DEV-B",
+      "points": 8,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "전체 프로필 브라우저 전송을 없애고 공개 DTO·정렬·페이지 크기 제한·검색 인덱스를 적용한다.",
+      "verification": "페이지 중복·비공개 누출·합의된 데이터량의 쿼리 성능 검사",
+      "depends_on": [
+        "D018",
+        "D005"
+      ]
+    },
+    {
+      "id": "D034",
+      "title": "다중 필터·URL 상태·빈 결과",
+      "area": "검색·CRM",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "플랫폼·분야·태그·가격·가용성·팔로워 필터를 조합하고 URL 복원·초기화·0과 결측을 구분한다.",
+      "verification": "필터 조합·새로고침·모바일·경계값 테스트",
+      "depends_on": [
+        "D033"
+      ]
+    },
+    {
+      "id": "D035",
+      "title": "지표 가용성 기반 필터",
+      "area": "검색·CRM",
+      "owner": "DEV-A",
+      "points": 3,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "참여율·연령·성별 필터는 적법하게 확보된 데이터가 있는 공급원만 제공한다.",
+      "verification": "데이터 없는 필터 미노출·출처·산식 확인",
+      "depends_on": [
+        "D031"
+      ]
+    },
+    {
+      "id": "D036",
+      "title": "후보 그룹·캠페인별 shortlist",
+      "area": "검색·CRM",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "기존 즐겨찾기를 이름 있는 그룹·캠페인 후보로 확장하고 중복을 방지한다.",
+      "verification": "그룹 CRUD·캠페인 소유권·재로그인 유지",
+      "depends_on": [
+        "D043"
+      ]
+    },
+    {
+      "id": "D037",
+      "title": "저장 검색·신규 후보 알림",
+      "area": "검색·CRM",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "검색 조건 버전을 저장하고 동의한 사용자에게 신규 후보 요약을 제공한다.",
+      "verification": "조건 변경·중복 알림·해지·삭제 테스트",
+      "depends_on": [
+        "D034",
+        "D052"
+      ]
+    },
+    {
+      "id": "D038",
+      "title": "CSV 가져오기·내보내기 보강",
+      "area": "검색·CRM",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "템플릿·크기 제한·미리보기·행별 오류·중복·출처 필수값과 수식 주입 방지를 제공한다.",
+      "verification": "악성 CSV·한글 인코딩·부분 오류·다른 팀 자료 접근 차단",
+      "depends_on": [
+        "D018"
+      ]
+    },
+    {
+      "id": "D039",
+      "title": "자연어 검색→확인 가능한 필터",
+      "area": "검색·CRM",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "파서 기본값과 선택적 LLM을 제공하고 변환 조건을 사용자가 확인·수정한다.",
+      "verification": "환각 조건·지원하지 않는 필터·키 없는 fallback",
+      "depends_on": [
+        "D034",
+        "D048"
+      ]
+    },
+    {
+      "id": "D040",
+      "title": "개인 CRM 메모·후보 비교 리포트",
+      "area": "검색·CRM",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "공개 메시지와 비공개 메모를 분리하고 2~3인 비교·출처·공유 범위를 저장한다.",
+      "verification": "상대방 메모 접근 차단·비공개 공유·CSV 비교 결과",
+      "depends_on": [
+        "D036"
+      ]
+    },
+    {
+      "id": "D041",
+      "title": "캠페인 기간·예산·산출물 계약",
+      "area": "캠페인·추천",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "모집·제작·게시 기간, 현금/제품 제공, 단가 범위, 콘텐츠 수량·사용권·독점 조건을 구조화한다.",
+      "verification": "날짜 순서·음수·예산 단위·필수 조건 검증",
+      "depends_on": [
+        "D012"
+      ]
+    },
+    {
+      "id": "D042",
+      "title": "캠페인 복제·brief·첨부 버전",
+      "area": "캠페인·추천",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "복제 시 참여자·메시지 등 개인정보를 복사하지 않고 brief 파일 버전을 관리한다.",
+      "verification": "복제 소유권·파일 권한·이전 버전 복구",
+      "depends_on": [
+        "D027",
+        "D041"
+      ]
+    },
+    {
+      "id": "D043",
+      "title": "캠페인 상태·모집 탐색·지원자",
+      "area": "캠페인·추천",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "모집 종료·중복 지원·마감 후 지원·선정 인원·비공개 전환 규칙을 서버에서 강제한다.",
+      "verification": "마감 경계·동시 선정·다른 브랜드 접근 테스트",
+      "depends_on": [
+        "D041"
+      ]
+    },
+    {
+      "id": "D044",
+      "title": "추천 하드 조건·결측·점수 계약",
+      "area": "캠페인·추천",
+      "owner": "DEV-B",
+      "points": 8,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "현재 소프트 점수인 예산·분야의 하드/선호 조건을 명시하고 초기 가중치·결측 재정규화·데이터 충실도를 일관되게 계산한다.",
+      "verification": "고정 데이터셋 점수·경계값·입력 순서 독립성·결측 테스트",
+      "depends_on": [
+        "D018",
+        "D041"
+      ]
+    },
+    {
+      "id": "D045",
+      "title": "추천 이유·출처·스냅샷·재계산",
+      "area": "캠페인·추천",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "점수 버전·입력·태그·예산 적합·미확인 항목을 저장하고 광고 슬롯과 순위를 분리한다.",
+      "verification": "동일 입력 재현·갱신 표시·HOT 유무 순위 동일",
+      "depends_on": [
+        "D044"
+      ]
+    },
+    {
+      "id": "D046",
+      "title": "추천 피드백·평가 데이터셋",
+      "area": "캠페인·추천",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "적합/부적합 사유·수락 결과를 저장하고 데이터 희소성·특정 규모 편향을 검토한다.",
+      "verification": "평가 기준·회귀 비교·개인정보 최소화·오프라인 평가",
+      "depends_on": [
+        "D045"
+      ]
+    },
+    {
+      "id": "D047",
+      "title": "추천 실험·가중치·임베딩",
+      "area": "캠페인·추천",
+      "owner": "DEV-A",
+      "points": 8,
+      "priority": "P2",
+      "status": "OPEN",
+      "work_type": "조건부",
+      "acceptance": "기준 모델과 실험 모델을 분리하고 허용된 콘텐츠로만 임베딩하며 YouTube 파생 지표 정책 적용 여부를 검토한다.",
+      "verification": "기준 대비 평가·출처 권한·비용 상한·삭제 전파",
+      "depends_on": [
+        "D046",
+        "U010"
+      ]
+    },
+    {
+      "id": "D048",
+      "title": "콘셉트·제안문·요약 AI 어댑터",
+      "area": "캠페인·추천",
+      "owner": "DEV-B",
+      "points": 8,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "기존 템플릿 fallback에 선택적 LLM·프롬프트 버전·사실 출처·승인 후 전송·비용 한도를 추가한다.",
+      "verification": "키 없음·프롬프트 주입·개인정보 유출·타임아웃·사용량 테스트",
+      "depends_on": [
+        "D003",
+        "D008"
+      ]
+    },
+    {
+      "id": "D049",
+      "title": "제안·지원·상태 머신 회귀",
+      "area": "협업·메시지",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "실환경 검증",
+      "acceptance": "제안/지원/수락/거절/취소/수정요청/완료와 중복·경합·참여자 권한을 검증한다.",
+      "verification": "두 역할 E2E·동시 요청·DB 이력 원자성",
+      "depends_on": [
+        "D043"
+      ]
+    },
+    {
+      "id": "D050",
+      "title": "협업 조건 변경·합의 이력",
+      "area": "협업·메시지",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "예산·산출물·일정 수정안을 버전으로 남기고 양측 확인 전 확정으로 표시하지 않는다.",
+      "verification": "이전 합의 보존·동시 수정·권한 테스트",
+      "depends_on": [
+        "D049"
+      ]
+    },
+    {
+      "id": "D051",
+      "title": "메시지 페이지·첨부·스팸 방지",
+      "area": "협업·메시지",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "페이지네이션·중복 전송 방지·속도 제한·신고·참여자 접근과 안전한 첨부를 제공한다.",
+      "verification": "XSS·다른 방 접근·재시도 중복·대량 발송 테스트",
+      "depends_on": [
+        "D049",
+        "D027",
+        "D076"
+      ]
+    },
+    {
+      "id": "D052",
+      "title": "미읽음·인앱 알림·실시간 갱신",
+      "area": "협업·메시지",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "단순 읽음 버튼을 넘어 이벤트·미읽음 수·읽음 커서·알림함을 구현한다.",
+      "verification": "복수 탭·중복 이벤트·다른 계정 구독·재로그인 테스트",
+      "depends_on": [
+        "D049"
+      ]
+    },
+    {
+      "id": "D053",
+      "title": "이메일 알림 outbox·수신 설정",
+      "area": "협업·메시지",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "인증 메일과 서비스/마케팅 메일을 구분하고 발송 재시도·동의·수신거부를 관리한다.",
+      "verification": "중복 발송·실패·해지·설정 후 실제 배달 확인",
+      "depends_on": [
+        "D052",
+        "U007"
+      ]
+    },
+    {
+      "id": "D054",
+      "title": "결과물 버전·수정 요청·승인",
+      "area": "협업·메시지",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "링크 제출을 버전·검토 의견·승인 근거·광고 표시 체크로 확장한다.",
+      "verification": "수정 중복·확정 버전 불변·참여자별 승인 권한",
+      "depends_on": [
+        "D049",
+        "D029"
+      ]
+    },
+    {
+      "id": "D055",
+      "title": "일정·마일스톤·지연 알림",
+      "area": "협업·메시지",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "캠페인·협업별 마감·타임존·캘린더·리마인더를 제공한다.",
+      "verification": "시간 경계·일정 변경·중복 알림 테스트",
+      "depends_on": [
+        "D041",
+        "D052"
+      ]
+    },
+    {
+      "id": "D056",
+      "title": "양측 대시보드·성과 내보내기",
+      "area": "협업·메시지",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "활성 제안·진행·대기 검토·완료를 실데이터로 집계하고 결과 CSV를 제공한다.",
+      "verification": "목록-집계 일치·다른 사용자 통계·수식 주입 테스트",
+      "depends_on": [
+        "D049",
+        "D054"
+      ]
+    },
+    {
+      "id": "D057",
+      "title": "근거 기반 이슈·검토 워크플로",
+      "area": "안전성·운영자",
+      "owner": "DEV-A",
+      "points": 8,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "출처·확인/미확인·당사자 입장·담당자·검토일을 관리하고 무근거 의혹을 위험 점수화하지 않는다.",
+      "verification": "검토 전 공개 제한·정정 버전·권한·감사 로그",
+      "depends_on": [
+        "D073"
+      ]
+    },
+    {
+      "id": "D058",
+      "title": "신고·정정·삭제·이의신청 큐",
+      "area": "안전성·운영자",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "접수번호·처리 기한·임시 조치·답변·재심·처리 로그와 요청자 확인을 제공한다.",
+      "verification": "익명 남용·상태 전이·삭제 후 재수집 차단",
+      "depends_on": [
+        "D057"
+      ]
+    },
+    {
+      "id": "D059",
+      "title": "정지·비공개 운영 잠금",
+      "area": "안전성·운영자",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "관리자 비공개 조치를 소유자가 재공개로 우회하지 못하게 별도 moderation 상태로 강제한다.",
+      "verification": "직접 PostgREST·프로필 API 재공개 우회 테스트",
+      "depends_on": [
+        "D016"
+      ]
+    },
+    {
+      "id": "D060",
+      "title": "운영 통합 검색·감사·지원",
+      "area": "안전성·운영자",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "회원·캠페인·수집 작업·신고·TEST 주문을 제한된 관리자 DTO로 찾고 변경 사유를 남긴다.",
+      "verification": "감사 위변조 방지·민감값 비노출·관리자 최소권한",
+      "depends_on": [
+        "D075",
+        "D059"
+      ]
+    },
+    {
+      "id": "D061",
+      "title": "안전성 체크리스트·선정 승인",
+      "area": "안전성·운영자",
+      "owner": "DEV-B",
+      "points": 3,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "브랜드별 체크 항목·검토 메모·수동 승인 게이트를 비공개로 보관한다.",
+      "verification": "공개 프로필 누출·승인 전 선정·권한 테스트",
+      "depends_on": [
+        "D049"
+      ]
+    },
+    {
+      "id": "D062",
+      "title": "사용자 차단·사칭·악용 대응",
+      "area": "안전성·운영자",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "차단 관계·신고 누적·스팸·사칭 검토 및 연락 제한을 적용한다.",
+      "verification": "차단 후 메시지·다계정 속도 제한·부당 자동제재 방지",
+      "depends_on": [
+        "D059",
+        "D076"
+      ]
+    },
+    {
+      "id": "D063",
+      "title": "통계·도움말·문의 운영",
+      "area": "안전성·운영자",
+      "owner": "DEV-B",
+      "points": 3,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "실제 이용량·오류·신고 처리량과 사용법·데이터 한계·문의 접점을 제공한다.",
+      "verification": "가상 통계 제외·PII 없는 집계·문의 접수 확인",
+      "depends_on": [
+        "D006",
+        "D058"
+      ]
+    },
+    {
+      "id": "D064",
+      "title": "콘텐츠·계정 운영 runbook",
+      "area": "안전성·운영자",
+      "owner": "DEV-A",
+      "points": 3,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "사칭·개인정보 노출·명예 훼손 우려·침해·계정 탈취 상황별 담당·조치·증빙 절차를 문서화한다.",
+      "verification": "가상 사고 모의훈련·처리 기록 검토",
+      "depends_on": [
+        "U001"
+      ]
+    },
+    {
+      "id": "D065",
+      "title": "무료·TEST 요금제 분리 정비",
+      "area": "TEST 상품·팀 기능",
+      "owner": "DEV-A",
+      "points": 3,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "무료 실서비스에서 결제 약속을 제거하고 TEST 전용 Pro/Agency/HOT/크레딧 설명과 가격을 일치시킨다.",
+      "verification": "실서비스 구매 경로 미노출·TEST 고지·라이브 키 거부",
+      "depends_on": [
+        "D001",
+        "D002"
+      ]
+    },
+    {
+      "id": "D066",
+      "title": "Toss SDK v2 실제 TEST 완주",
+      "area": "TEST 상품·팀 기능",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "실환경 검증",
+      "acceptance": "SDK·키 종류·승인 API 조합을 공식 호환 기준으로 점검하고 성공·실패·사용자 취소를 실제 확인한다.",
+      "verification": "사용자 TEST 키 등록 후 공급자 거래 증빙; mock 성공은 불인정",
+      "depends_on": [
+        "D065",
+        "U015",
+        "U006",
+        "U019"
+      ]
+    },
+    {
+      "id": "D067",
+      "title": "주문 승인·복구·중복·금액 방어",
+      "area": "TEST 상품·팀 기능",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "실환경 검증",
+      "acceptance": "기존 서버 금액·소유권·원자적 권한 부여를 회귀하고 승인 중단 복구·위조 콜백을 검증한다.",
+      "verification": "DB 회귀 및 실제 TEST 승인 후 재요청·금액 변조 테스트",
+      "depends_on": [
+        "D066"
+      ]
+    },
+    {
+      "id": "D068",
+      "title": "TEST 취소·취소 후 권한 회수",
+      "area": "TEST 상품·팀 기능",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P2",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "공급자가 허용한 TEST 취소·거래 상태 동기화·오류 복구·감사 이력을 처리한다.",
+      "verification": "실제 TEST 취소·중복 취소·사용한 크레딧 처리 규칙",
+      "depends_on": [
+        "D067"
+      ]
+    },
+    {
+      "id": "D069",
+      "title": "TEST 이용권 만료·usage·크레딧",
+      "area": "TEST 상품·팀 기능",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "서버 usage ledger와 만료·중복 차감 방지·관리자 수동 발급 사유를 구현한다. 실서비스 무료 권한과 분리한다.",
+      "verification": "동시 사용·만료 경계·부정 발급·취소 회수 테스트",
+      "depends_on": [
+        "D067"
+      ]
+    },
+    {
+      "id": "D070",
+      "title": "HOT 독립 슬롯·광고 고지",
+      "area": "TEST 상품·팀 기능",
+      "owner": "DEV-B",
+      "points": 3,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "실환경 검증",
+      "acceptance": "TEST 프로모션만 별도 슬롯에서 기간·소유권·노출 이력을 표시한다. 실서비스 유료 HOT은 비활성이다.",
+      "verification": "만료·일반 추천 순위 불변·광고 표시 테스트",
+      "depends_on": [
+        "D069"
+      ]
+    },
+    {
+      "id": "D071",
+      "title": "무료 Agency 팀·초대·테넌트",
+      "area": "TEST 상품·팀 기능",
+      "owner": "DEV-A",
+      "points": 8,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "팀 관리자/구성원·초대 만료·탈퇴·브랜드 전환·팀 자료 범위를 구현하고 유료 청구는 제외한다.",
+      "verification": "테넌트 간 RLS·초대 탈취·마지막 관리자 탈퇴 테스트",
+      "depends_on": [
+        "D075",
+        "D011"
+      ]
+    },
+    {
+      "id": "D072",
+      "title": "수수료 가정 계산·결제 이력",
+      "area": "TEST 상품·팀 기능",
+      "owner": "DEV-B",
+      "points": 3,
+      "priority": "P2",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "선택적 시뮬레이터를 가정으로 명시하고 TEST 거래 이력만 제공한다. 실제 수납·정산 기능은 연결하지 않는다.",
+      "verification": "가정 표시·입력 경계·다른 주문 열람 차단",
+      "depends_on": [
+        "D065"
+      ]
+    },
+    {
+      "id": "D073",
+      "title": "개인정보·이용약관·동의 버전",
+      "area": "개인정보·보안",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "수집 출처·목적·법적 근거 검토·보존·처리위탁·국외이전 해당 여부·권리 행사·운영자 연락처를 정책과 구현에 맞춘다.",
+      "verification": "사용자 정책 확정 후 동의 버전·철회·필수/선택 분리 검증",
+      "depends_on": [
+        "U001"
+      ]
+    },
+    {
+      "id": "D074",
+      "title": "개인정보 열람·수정·반출",
+      "area": "개인정보·보안",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "본인 확인 후 자기 자료만 내보내고 처리 요청과 수집 프로필 삭제 경로를 제공한다.",
+      "verification": "다른 사람 반출 차단·내보내기 만료·민감 정보 검사",
+      "depends_on": [
+        "D073"
+      ]
+    },
+    {
+      "id": "D075",
+      "title": "RLS·RPC·Storage 전수 권한 감사",
+      "area": "개인정보·보안",
+      "owner": "DEV-A",
+      "points": 8,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "직접 DB API·SECURITY DEFINER·검색 경로·공개 DTO·테넌트 경계를 검사하고 최소권한을 적용한다.",
+      "verification": "익명/브랜드/크리에이터/관리자 권한 행렬 통합 테스트",
+      "depends_on": [
+        "D018"
+      ]
+    },
+    {
+      "id": "D076",
+      "title": "속도 제한·봇·리소스 남용",
+      "area": "개인정보·보안",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "가입·로그인·검색·메시지·신고·수집·LLM에 서버 측 한도와 비용 상한을 적용한다.",
+      "verification": "동시 요청·IP/계정 한도·복구·정상 사용자 흐름",
+      "depends_on": [
+        "D004"
+      ]
+    },
+    {
+      "id": "D077",
+      "title": "웹 보안·외부 URL·파일 경계",
+      "area": "개인정보·보안",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "CSP·CSRF·보안 헤더·XSS·SSRF·외부 URL 검사·의존성 취약점을 검토한다.",
+      "verification": "보안 스캐너·악성 URL/입력·리다이렉트·파일 회귀",
+      "depends_on": [
+        "D076"
+      ]
+    },
+    {
+      "id": "D078",
+      "title": "비밀값·로그·키 교체 대응",
+      "area": "개인정보·보안",
+      "owner": "DEV-B",
+      "points": 3,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "클라이언트 번들·저장소 이력·오류 로그 비밀값 검사를 자동화하고 사용자 키 교체 후 검증 절차를 제공한다.",
+      "verification": "시크릿 스캔·마스킹·실패 로그·환경 분리 검사",
+      "depends_on": [
+        "D003"
+      ]
+    },
+    {
+      "id": "D079",
+      "title": "데이터 보존·삭제·복구 정책 실행",
+      "area": "개인정보·보안",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "프로필·메시지·로그·파일·백업의 보존 규칙과 삭제 작업을 적용하고 복구 시 삭제 요청을 재적용한다.",
+      "verification": "삭제 재시도·백업 복구 후 tombstone 재적용 검사",
+      "depends_on": [
+        "D018",
+        "D073"
+      ]
+    },
+    {
+      "id": "D080",
+      "title": "접근성·청소년·민감 데이터 경계",
+      "area": "개인정보·보안",
+      "owner": "DEV-A",
+      "points": 3,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "초기 성인 서비스 범위·정책을 확정하고 주민번호·민감 추정·얼굴 인식·사적 연락처 수집을 배제한다.",
+      "verification": "연령 안내·수집 필드·입력·반출 자료 점검",
+      "depends_on": [
+        "U001"
+      ]
+    },
+    {
+      "id": "D081",
+      "title": "실데이터 메인·로고·신뢰 표시",
+      "area": "UX·출시 품질·운영",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "제공 로고·차콜/오프화이트/라임을 유지하고 실제 확보 수·출처·무료 베타 한계에 맞춰 메인을 정비한다.",
+      "verification": "모바일·데스크톱 스크린샷 및 과장 수치 점검",
+      "depends_on": [
+        "D024",
+        "D002"
+      ]
+    },
+    {
+      "id": "D082",
+      "title": "전 화면 반응형·접근성·상태",
+      "area": "UX·출시 품질·운영",
+      "owner": "DEV-A",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "키보드·포커스·스크린리더·대비·폼 오류·로딩·빈 상태·복구 UX를 전 흐름에 적용한다.",
+      "verification": "axe·모바일 뷰포트·키보드 수동 점검",
+      "depends_on": [
+        "D081"
+      ]
+    },
+    {
+      "id": "D083",
+      "title": "SEO·공유·인덱싱 공개 경계",
+      "area": "UX·출시 품질·운영",
+      "owner": "DEV-B",
+      "points": 3,
+      "priority": "P1",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "canonical·sitemap·robots·OG·구조화 데이터를 정비하고 사적/미검토 자료를 noindex와 인증으로 보호한다.",
+      "verification": "비공개 URL 접근 차단·메타·사이트맵 검증",
+      "depends_on": [
+        "D005",
+        "D025"
+      ]
+    },
+    {
+      "id": "D084",
+      "title": "회귀 테스트·실제 수집 계약 테스트",
+      "area": "UX·출시 품질·운영",
+      "owner": "DEV-A",
+      "points": 8,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "기존 6개 E2E를 가입·삭제·수집·정정·권한·모바일·결측·동시성까지 확장한다. 외부 연동은 실제/계약 테스트를 구분한다.",
+      "verification": "lint/typecheck/unit/integration/build/E2E 통과와 실패 증거 기록",
+      "depends_on": [
+        "D049",
+        "D075"
+      ]
+    },
+    {
+      "id": "D085",
+      "title": "CI·배포 산출물·마이그레이션 안전",
+      "area": "UX·출시 품질·운영",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "보강",
+      "acceptance": "CI 검사·마이그레이션 순서·롤백/forward fix·환경 설정 목록·사용자 배포 체크리스트를 준비한다.",
+      "verification": "격리 DB 마이그레이션·롤백 모의·CI 실행; 외부 적용은 사용자",
+      "depends_on": [
+        "D003",
+        "D075"
+      ]
+    },
+    {
+      "id": "D086",
+      "title": "관측·오류 추적·상태·비용 알림",
+      "area": "UX·출시 품질·운영",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "PII 없는 요청 추적·오류 알림·health·가용성·API 한도·무료 리소스 한도를 관측한다.",
+      "verification": "모의 장애·알림 전달·로그 마스킹·외부 설정 후 확인",
+      "depends_on": [
+        "D078",
+        "U018"
+      ]
+    },
+    {
+      "id": "D087",
+      "title": "백업·복원·성능·용량",
+      "area": "UX·출시 품질·운영",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "신규",
+      "acceptance": "무료 플랜의 백업 한계를 확인하고 최소 백업·복원 절차·대표 부하·검색/수집 용량 기준을 검증한다.",
+      "verification": "격리 환경 복구 모의·성능 보고·자동 백업 비용 미발생 확인",
+      "depends_on": [
+        "D079",
+        "U003",
+        "U018"
+      ]
+    },
+    {
+      "id": "D088",
+      "title": "사용자 배포 후 출시 승인 검증",
+      "area": "UX·출시 품질·운영",
+      "owner": "DEV-B",
+      "points": 5,
+      "priority": "P0",
+      "status": "OPEN",
+      "work_type": "실환경 검증",
+      "acceptance": "사용자가 배포한 URL에서 가입→추천→비교→광고 이력→제안→수락→대시보드와 보안·모바일을 확인한다.",
+      "verification": "공개 URL E2E·실제 데이터 출처·운영 체크리스트 증빙; 배포 실행은 사용자",
+      "depends_on": [
+        "D024",
+        "D081",
+        "D082",
+        "D084",
+        "D085",
+        "D086",
+        "D087",
+        "U004",
+        "U005",
+        "U006",
+        "U019"
+      ]
+    }
+  ],
+  "user_tickets": [
+    {
+      "id": "U001",
+      "title": "서비스 운영 범위·정책·운영자 확정",
+      "owner": "USER",
+      "priority": "P0",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "무료 성인 베타·수집 목적·권리 행사 연락처·처리 기한·정책 문구를 확정한다. 필요하면 전문 검토를 받는다.",
+      "points": null
+    },
+    {
+      "id": "U002",
+      "title": "GitHub 조직·저장소·앱 권한 설정",
+      "owner": "USER",
+      "priority": "P0",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "저장소 권한·보호 규칙·Vercel GitHub 앱 연결 및 외부 워크플로 승인을 수행한다.",
+      "points": null
+    },
+    {
+      "id": "U003",
+      "title": "Supabase 환경·계정·리전·한도 설정",
+      "owner": "USER",
+      "priority": "P0",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "개발/실서비스 환경·소유권·무료 한도·보존/백업 가능 범위를 확인한다. 기존 프로젝트의 준비 상태도 기록한다.",
+      "points": null
+    },
+    {
+      "id": "U004",
+      "title": "Supabase 외부 환경·DB 변경 적용",
+      "owner": "USER",
+      "priority": "P0",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "개발자가 제공한 검토된 마이그레이션·RLS·Storage·Edge Function 변경을 외부 서비스에 적용한다. 적용 로그만 공유한다.",
+      "points": null
+    },
+    {
+      "id": "U005",
+      "title": "Vercel 프로젝트·Git 연결·배포 실행",
+      "owner": "USER",
+      "priority": "P0",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "배포 사이트의 프로젝트 설정·프로덕션/프리뷰·Git 연결·배포/재배포·승격/롤백을 직접 수행한다.",
+      "points": null
+    },
+    {
+      "id": "U006",
+      "title": "환경변수·시크릿 등록과 교체",
+      "owner": "USER",
+      "priority": "P0",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "개발자 제공 변수명 목록에 따라 Supabase/Vercel/CI에 키를 직접 등록한다. 값은 채팅·티켓에 올리지 않는다.",
+      "points": null
+    },
+    {
+      "id": "U007",
+      "title": "SMTP 계정·키·발신 도메인 설정",
+      "owner": "USER",
+      "priority": "P0",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "메일 공급자 가입·키 발급/등록·발신자 인증·SPF/DKIM/DMARC·Supabase SMTP 연결을 직접 수행한다.",
+      "points": null
+    },
+    {
+      "id": "U008",
+      "title": "Auth 외부 콘솔 설정",
+      "owner": "USER",
+      "priority": "P0",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "사이트 URL·허용 콜백·메일 템플릿·세션/MFA/비밀번호 보호 설정을 환경별로 적용한다.",
+      "points": null
+    },
+    {
+      "id": "U009",
+      "title": "YouTube 프로젝트·API 키 발급/등록",
+      "owner": "USER",
+      "priority": "P0",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "Google 프로젝트·API 활성화·키 제한·무료 쿼터 확인·서버 키 등록을 수행한다.",
+      "points": null
+    },
+    {
+      "id": "U010",
+      "title": "YouTube 이용 정책·파생 지표 승인",
+      "owner": "USER",
+      "priority": "P0",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "유스케이스·보관/갱신·파생 지표 요건을 확인하고 필요한 정책 개정 수락·심사·쿼터 신청을 수행한다.",
+      "points": null
+    },
+    {
+      "id": "U011",
+      "title": "웹 수집 대상의 허용 근거 확보",
+      "owner": "USER",
+      "priority": "P1",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "대상 도메인 약관·라이선스·필요한 허가와 개인 정보 처리 근거를 확인하고 허용 목록을 승인한다.",
+      "points": null
+    },
+    {
+      "id": "U012",
+      "title": "Instagram 앱·OAuth·심사·키",
+      "owner": "USER",
+      "priority": "P2",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "Meta 앱·계정 유형·승인 scope·개인정보 URL·철회 콜백·심사·키 발급/등록을 직접 진행한다.",
+      "points": null
+    },
+    {
+      "id": "U013",
+      "title": "TikTok 앱·OAuth·심사·키",
+      "owner": "USER",
+      "priority": "P2",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "TikTok 앱·Display API scope·심사·콜백·키 발급/등록을 직접 진행한다.",
+      "points": null
+    },
+    {
+      "id": "U014",
+      "title": "실제 크리에이터 시범 참여·운영 동의",
+      "owner": "USER",
+      "priority": "P0",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "파일럿 참여자·권리 증명·협업 수신 동의·소유권 분쟁 연락 창구를 확보한다. 무단 제안 메일 대량 발송은 하지 않는다.",
+      "points": null
+    },
+    {
+      "id": "U015",
+      "title": "Toss TEST 계정·호환 키·등록",
+      "owner": "USER",
+      "priority": "P1",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "사용 가능한 TEST 상점/문서 체험 키 범위와 SDK v2 호환성을 확인하고 클라이언트·서버 TEST 키를 직접 등록한다. 라이브 키는 제외한다.",
+      "points": null
+    },
+    {
+      "id": "U016",
+      "title": "선택적 LLM 계정·키·비용 상한",
+      "owner": "USER",
+      "priority": "P1",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "키·처리 조건·국외이전 해당 여부·예산 한도를 직접 설정한다. 미설정 시 fallback으로 운영한다.",
+      "points": null
+    },
+    {
+      "id": "U017",
+      "title": "도메인·DNS·TLS·소유권",
+      "owner": "USER",
+      "priority": "P1",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "필요 시 도메인 소유권·DNS·서비스 주소를 설정한다. 도메인 구매는 선택 사항이며 무료 URL로 시작할 수 있다.",
+      "points": null
+    },
+    {
+      "id": "U018",
+      "title": "관측·알림·백업 외부 계정 설정",
+      "owner": "USER",
+      "priority": "P0",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "무료 플랜 한도·수신 채널·외부 토큰·백업 위치·접근 권한을 설정한다. 유료 전환은 별도 판단한다.",
+      "points": null
+    },
+    {
+      "id": "U019",
+      "title": "실제 테스트 참여·브라우저 승인",
+      "owner": "USER",
+      "priority": "P0",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "OAuth·이메일 링크·2FA·TEST 결제 인증 등 사용자만 가능한 화면을 수행하고 테스트 결과를 확인한다.",
+      "points": null
+    },
+    {
+      "id": "U020",
+      "title": "공개 베타 출시·사고 연락·운영 책임",
+      "owner": "USER",
+      "priority": "P0",
+      "status": "USER_ACTION_REQUIRED",
+      "acceptance": "정책/실제 데이터/보안/복구 증빙을 확인한 뒤 사용자 본인이 출시를 결정하고 지속 운영 담당·지원 시간을 정한다.",
+      "points": null,
+      "depends_on": [
+        "D088"
+      ]
+    }
+  ],
+  "deferred": [
+    {
+      "id": "X001",
+      "title": "실제 유료 Pro·Agency·HOT·AI 크레딧 판매",
+      "reason": "사업자/판매자 요건·세무·PG 계약·소비자 대응을 재검토하기 전에는 출시하지 않는다.",
+      "owner": "DEFERRED",
+      "status": "DEFERRED",
+      "points": null
+    },
+    {
+      "id": "X002",
+      "title": "자동결제·실제 취소/환불·정산·에스크로·수수료 수납",
+      "reason": "실제 금전 처리와 관련 계약·운영 책임이 필요하므로 현재 무료 베타에서 제외한다.",
+      "owner": "DEFERRED",
+      "status": "DEFERRED",
+      "points": null
+    },
+    {
+      "id": "X003",
+      "title": "공식 전자서명·계약 대행·세무 자동화",
+      "reason": "일반적인 협업 조건 기록과 구분한다. 사업 및 제공자 계약 재검토 후 별도 산정한다.",
+      "owner": "DEFERRED",
+      "status": "DEFERRED",
+      "points": null
+    },
+    {
+      "id": "X004",
+      "title": "전 SNS 전수 실시간 크롤링·비공개 인구통계·가짜 팔로워 확정 판정",
+      "reason": "접근 가능한 공개 데이터만으로 보장할 수 없다. 승인·라이선스 없는 우회 수집은 구현 대상에서 제외한다.",
+      "owner": "DEFERRED",
+      "status": "DEFERRED",
+      "points": null
+    },
+    {
+      "id": "X005",
+      "title": "전환·쿠폰·Affiliate 실측·Shopify/Slack/Notion CRM 연동",
+      "reason": "추적 동의·브랜드 측 설치·공급자 승인·실제 요구가 확보된 후 별도 확장 티켓으로 산정한다.",
+      "owner": "DEFERRED",
+      "status": "DEFERRED",
+      "points": null
+    },
+    {
+      "id": "X006",
+      "title": "생체 인식·민감 속성 추정·개인 연락처 수집·대량 무단 영업",
+      "reason": "현재 제품 범위에서 제외한다. 안전성 점수나 타깃 데이터로 우회 구현하지 않는다.",
+      "owner": "DEFERRED",
+      "status": "DEFERRED",
+      "points": null
+    }
+  ],
+  "original_prd_coverage": {
+    "F001": [
+      "D009",
+      "D011"
+    ],
+    "F002": [
+      "D010",
+      "D013"
+    ],
+    "F003": [
+      "D016",
+      "D075"
+    ],
+    "F004": [
+      "D012",
+      "D027"
+    ],
+    "F005": [
+      "D025",
+      "D026",
+      "D014"
+    ],
+    "F006": [
+      "D014",
+      "D074"
+    ],
+    "F007": [
+      "D013",
+      "D082"
+    ],
+    "F008": [
+      "D011"
+    ],
+    "F009": [
+      "D071"
+    ],
+    "F010": [
+      "D015"
+    ],
+    "F011": [
+      "D033",
+      "D034"
+    ],
+    "F012": [
+      "D034"
+    ],
+    "F013": [
+      "D034"
+    ],
+    "F014": [
+      "D026",
+      "D034"
+    ],
+    "F015": [
+      "D034"
+    ],
+    "F016": [
+      "D033",
+      "D034"
+    ],
+    "F017": [
+      "D036"
+    ],
+    "F018": [
+      "D035"
+    ],
+    "F019": [
+      "D039"
+    ],
+    "F020": [
+      "D032"
+    ],
+    "F021": [
+      "D037"
+    ],
+    "F022": [
+      "D038"
+    ],
+    "F023": [
+      "D019",
+      "D022",
+      "D023",
+      "X004"
+    ],
+    "F024": [
+      "D021",
+      "D022",
+      "D023"
+    ],
+    "F025": [
+      "D026",
+      "D028"
+    ],
+    "F026": [
+      "D026"
+    ],
+    "F027": [
+      "D027"
+    ],
+    "F028": [
+      "D029"
+    ],
+    "F029": [
+      "D017",
+      "D018",
+      "D005"
+    ],
+    "F030": [
+      "D025",
+      "D049"
+    ],
+    "F031": [
+      "D028",
+      "D058"
+    ],
+    "F032": [
+      "D031"
+    ],
+    "F033": [
+      "D030"
+    ],
+    "F034": [
+      "D030"
+    ],
+    "F035": [
+      "D032"
+    ],
+    "F036": [
+      "D057"
+    ],
+    "F037": [
+      "D058"
+    ],
+    "F038": [
+      "D057"
+    ],
+    "F039": [
+      "D005",
+      "D057"
+    ],
+    "F040": [
+      "D057",
+      "D059",
+      "D060"
+    ],
+    "F041": [
+      "D061"
+    ],
+    "F042": [
+      "D061"
+    ],
+    "F043": [
+      "D041",
+      "D042"
+    ],
+    "F044": [
+      "D027",
+      "D041"
+    ],
+    "F045": [
+      "D041"
+    ],
+    "F046": [
+      "D041"
+    ],
+    "F047": [
+      "D043"
+    ],
+    "F048": [
+      "D043",
+      "D056"
+    ],
+    "F049": [
+      "D043",
+      "D049"
+    ],
+    "F050": [
+      "D043",
+      "D049"
+    ],
+    "F051": [
+      "D036"
+    ],
+    "F052": [
+      "D042",
+      "D048"
+    ],
+    "F053": [
+      "D055"
+    ],
+    "F054": [
+      "D042"
+    ],
+    "F055": [
+      "D043"
+    ],
+    "F056": [
+      "D056"
+    ],
+    "F057": [
+      "D044"
+    ],
+    "F058": [
+      "D044"
+    ],
+    "F059": [
+      "D044"
+    ],
+    "F060": [
+      "D045"
+    ],
+    "F061": [
+      "D045"
+    ],
+    "F062": [
+      "D040"
+    ],
+    "F063": [
+      "D048"
+    ],
+    "F064": [
+      "D039",
+      "D048"
+    ],
+    "F065": [
+      "D048"
+    ],
+    "F066": [
+      "D047"
+    ],
+    "F067": [
+      "D047"
+    ],
+    "F068": [
+      "D046"
+    ],
+    "F069": [
+      "D056",
+      "D038"
+    ],
+    "F070": [
+      "D049"
+    ],
+    "F071": [
+      "D049"
+    ],
+    "F072": [
+      "D049"
+    ],
+    "F073": [
+      "D056"
+    ],
+    "F074": [
+      "D040",
+      "D051"
+    ],
+    "F075": [
+      "D054"
+    ],
+    "F076": [
+      "D052"
+    ],
+    "F077": [
+      "D048"
+    ],
+    "F078": [
+      "D050"
+    ],
+    "F079": [
+      "D054"
+    ],
+    "F080": [
+      "D038",
+      "D048"
+    ],
+    "F081": [
+      "D055"
+    ],
+    "F082": [
+      "D072"
+    ],
+    "F083": [
+      "D065",
+      "X001"
+    ],
+    "F084": [
+      "D065"
+    ],
+    "F085": [
+      "D067"
+    ],
+    "F086": [
+      "D066"
+    ],
+    "F087": [
+      "D066",
+      "D067"
+    ],
+    "F088": [
+      "D067"
+    ],
+    "F089": [
+      "D069"
+    ],
+    "F090": [
+      "D072"
+    ],
+    "F091": [
+      "D003",
+      "D066"
+    ],
+    "F092": [
+      "D068",
+      "X002"
+    ],
+    "F093": [
+      "D069"
+    ],
+    "F094": [
+      "D069"
+    ],
+    "F095": [
+      "D070"
+    ],
+    "F096": [
+      "X002"
+    ],
+    "F097": [
+      "X002"
+    ],
+    "F098": [
+      "D060"
+    ],
+    "F099": [
+      "D058",
+      "D059"
+    ],
+    "F100": [
+      "D005",
+      "D024"
+    ],
+    "F101": [
+      "D082"
+    ],
+    "F102": [
+      "D082"
+    ],
+    "F103": [
+      "D081",
+      "D083"
+    ],
+    "F104": [
+      "D004",
+      "D077"
+    ],
+    "F105": [
+      "D075",
+      "D084"
+    ],
+    "F106": [
+      "D085",
+      "U004",
+      "U005"
+    ],
+    "F107": [
+      "D006",
+      "D063"
+    ],
+    "F108": [
+      "D038",
+      "D056"
+    ],
+    "F109": [
+      "D060"
+    ],
+    "F110": [
+      "D032",
+      "D046"
+    ],
+    "F111": [
+      "D053"
+    ],
+    "F112": [
+      "X005"
+    ],
+    "F113": [
+      "D022",
+      "D023"
+    ],
+    "F114": [
+      "D071",
+      "X001"
+    ],
+    "F115": [
+      "X005"
+    ],
+    "F116": [
+      "X003",
+      "X002"
+    ]
+  },
+  "legacy_task_crosswalk": {
+    "T001": [
+      "D001",
+      "D003",
+      "D085"
+    ],
+    "T002": [
+      "D081",
+      "D082"
+    ],
+    "T003": [
+      "D018",
+      "D075",
+      "D085"
+    ],
+    "T004": [
+      "D009",
+      "D011",
+      "D013",
+      "D015"
+    ],
+    "T005": [
+      "D005",
+      "D024"
+    ],
+    "T006": [
+      "D033",
+      "D034",
+      "D036"
+    ],
+    "T007": [
+      "D027",
+      "D028",
+      "D029",
+      "D030"
+    ],
+    "T008": [
+      "D025",
+      "D026",
+      "D014"
+    ],
+    "T009": [
+      "D057",
+      "D058"
+    ],
+    "T010": [
+      "D041",
+      "D042",
+      "D043"
+    ],
+    "T011": [
+      "D044",
+      "D084"
+    ],
+    "T012": [
+      "D045"
+    ],
+    "T013": [
+      "D036",
+      "D040"
+    ],
+    "T014": [
+      "D043",
+      "D049"
+    ],
+    "T015": [
+      "D049",
+      "D050"
+    ],
+    "T016": [
+      "D051",
+      "D052",
+      "D054",
+      "D056"
+    ],
+    "T017": [
+      "D065",
+      "D067"
+    ],
+    "T018": [
+      "D066",
+      "U015"
+    ],
+    "T019": [
+      "D067",
+      "D069"
+    ],
+    "T020": [
+      "D069",
+      "D070",
+      "D072"
+    ],
+    "T021": [
+      "D057",
+      "D058",
+      "D059",
+      "D060"
+    ],
+    "T022": [
+      "D082"
+    ],
+    "T023": [
+      "D075",
+      "D077",
+      "D084"
+    ],
+    "T024": [
+      "D084"
+    ],
+    "T025": [
+      "D085",
+      "D088"
+    ],
+    "T026": [
+      "D039",
+      "D048"
+    ],
+    "T027": [
+      "D048"
+    ],
+    "T028": [
+      "D038"
+    ],
+    "T029": [
+      "D054"
+    ],
+    "T030": [
+      "D068"
+    ],
+    "T031": [
+      "D070"
+    ],
+    "T032": [
+      "D031",
+      "D056"
+    ],
+    "T033": [
+      "D071"
+    ],
+    "T034": [
+      "D019",
+      "D021",
+      "U009",
+      "U010"
+    ],
+    "T035": [
+      "D022",
+      "D023",
+      "U012",
+      "U013"
+    ],
+    "T036": [
+      "D047"
+    ],
+    "T037": [
+      "X002"
+    ],
+    "T038": [
+      "X002",
+      "X003",
+      "X005"
+    ],
+    "T039": [
+      "D085",
+      "U002",
+      "U003",
+      "U004",
+      "U005",
+      "U006"
+    ],
+    "T040": [
+      "D088",
+      "D066",
+      "D067"
+    ]
+  },
+  "allocation_points": {
+    "DEV-A": 219,
+    "DEV-B": 219
+  }
+}

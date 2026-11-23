@@ -25,7 +25,7 @@ describe("D079 tombstone ledger", () => {
   });
   it("documented periods match the SQL job", () => {
     const sql = readFileSync(
-      "supabase/migrations/202611190015_retention_tombstones.sql",
+      "supabase/migrations/20261123100015_retention_tombstones.sql",
       "utf8",
     );
     const keep = RETENTION_RULES.map((r) => r.keep).join(" ");

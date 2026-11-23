@@ -9,7 +9,7 @@ import {
 
 describe("product event contract", () => {
   const sql = readFileSync(
-    "supabase/migrations/202611190017_product_events.sql",
+    "supabase/migrations/20261123100017_product_events.sql",
     "utf8",
   );
   it("matches the database check constraint and retention", () => {

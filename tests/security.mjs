@@ -72,9 +72,12 @@ assert.ok(
     })
   ).error,
 );
-const { data: orders } = await brand.from("orders").select("id,amount,status");
+const { data: orders } = await brand.from("orders").select("id,sku,amount,status");
+const { data: prices } = await brand.from("products").select("sku,amount");
+const price = Object.fromEntries(prices.map((p) => [p.sku, p.amount]));
 assert.ok(orders.length);
-assert.ok(orders.every((o) => o.amount === 49000 && o.status === "pending"));
+// Server-priced (client amount ignored, e.g. marketplace job_post amount:1) and never paid.
+assert.ok(orders.every((o) => o.amount === price[o.sku] && o.status === "pending"));
 assert.equal((await brand.from("entitlements").select("*")).data.length, 0);
 assert.equal(
   (await other.from("orders").select("*").eq("owner_id", a.brand.id)).data

@@ -1,0 +1,74 @@
+{
+  "status": "ok",
+  "reason": "configured_correctly",
+  "message": "be-celeb.org has a valid configuration and is verified for project ad-me.",
+  "domain": "be-celeb.org",
+  "domainStatus": "configured-correctly",
+  "configurationStatus": "configured-correctly",
+  "ok": true,
+  "issues": [],
+  "misconfigured": false,
+  "configuredBy": "A",
+  "serviceType": "external",
+  "ipStatus": "no-change",
+  "dnssecEnabled": null,
+  "acceptedChallenges": [
+    "http-01"
+  ],
+  "current": {
+    "nameservers": [
+      "ligia.ns.cloudflare.com",
+      "buck.ns.cloudflare.com"
+    ],
+    "cnames": [],
+    "aValues": [
+      "64.29.17.65",
+      "216.198.79.65"
+    ]
+  },
+  "recommended": {
+    "ipv4": [
+      {
+        "rank": 1,
+        "value": [
+          "216.198.79.1",
+          "64.29.17.1"
+        ]
+      },
+      {
+        "rank": 2,
+        "value": [
+          "76.76.21.21"
+        ]
+      }
+    ],
+    "cname": [
+      {
+        "rank": 1,
+        "value": "d6a0bbb9fdc24959.vercel-dns-017.com."
+      },
+      {
+        "rank": 2,
+        "value": "cname.vercel-dns.com."
+      }
+    ],
+    "records": [
+      {
+        "type": "CNAME",
+        "name": "@",
+        "value": "d6a0bbb9fdc24959.vercel-dns-017.com.",
+        "disableProxy": true
+      }
+    ],
+    "nameservers": []
+  },
+  "conflicts": [],
+  "domainOwnership": "current-scope",
+  "project": {
+    "idOrName": "ad-me",
+    "attached": true,
+    "verified": true,
+    "verification": [],
+    "verificationError": null
+  }
+}

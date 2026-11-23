@@ -1,10 +1,16 @@
 # AD Me — Agent operating contract (always read first)
 
+## 2026-11-22 YouTube-only execution
+New marketplace work follows the YouTube-only requirements in docs/youtube-harness and the A/B/C queue under harness/youtube. Keep the earlier queues as historical evidence. The user authorized ordinary origin/main pushes and existing deployment infrastructure. Do not change protection settings or enable paid/live external resources. Preserve legacy campaign and account records while building the YouTube marketplace.
+
+## Current session authorization — 2026-11-19
+The latest user explicitly requested direct execution of all 20 external tickets. This supersedes the earlier USER-only technical-execution restriction for this work: the agent may perform reversible GitHub/Supabase/Vercel configuration, approved TEST integration and deployment using authorized existing accounts. Identity verification, personal consent/legal acceptance, paid upgrades, third-party outreach and final unverified launch claims remain excluded. Never mark an entire U ticket complete from a partial configuration change. Retain earlier handoff instructions as historical policy and record exact evidence and blockers.
+
 ## Priorities
 1. Correctness/security > actual end-to-end workflow > coherent visual design > breadth > fanciness.
-2. P0 tasks define 14-day baseline. P1 stretch; P2 backlog. Never mark a mock as full implementation.
+2. Current P0/P1/P2 scope and workload are in docs/REAL_SERVICE_TICKETS.md and harness/service_backlog_v2.json. The old 14-day estimate is historical. Never mark a mock as full implementation.
 3. One task at a time unless independently parallel and no shared migration conflict.
-4. Deployment is explicitly authorized for this university TEST-only project: implement, test, deploy to Vercel + Supabase and verify the reachable URL. Never perform real payment, create paid subscriptions, or expose secrets. If account connection/consent is required, request only that action; continue independent tasks.
+4. Current user policy (2026-11-19) supersedes prior autonomous-deployment permission: the USER alone performs deployment-site/account configuration, external console changes, actual cloud deployment/rollback, and API key issuance/registration/rotation. Agents prepare code, migrations, configuration-name lists, tests and instructions; never retrieve/register keys or deploy on the user’s behalf. Read-only verification remains allowed. Free actual-data beta is the release scope; TEST billing stays isolated. Never accept real money or expose secrets.
 5. Never touch real payment keys. Only Toss test keys, never real money and never charge anything unrequested.
 6. Do not scrape platforms contrary to their terms or remove security gates. OSS license obligations apply even for non-commercial/open source.
 
@@ -25,16 +31,16 @@
 - Demo dataset fictional (48 creators, 8 campaigns) and visibly labeled; no real brand accusations.
 
 ## Before each task
-- Read `harness/tasks.json`, `harness/session_log.md`, relevant docs.
-- `python3 harness/loop.py next` to select; `start <ID>`; document intended tests.
+- Read `harness/service_backlog_v2.json`, `docs/REAL_SERVICE_TICKETS.md`, historical `harness/tasks.json` and `harness/session_log.md`. New real-service work follows the v2 backlog; preserve old completion evidence.
+- For current D/U work, follow docs/handoff/SHARED_EXECUTION_CONTRACT.md and update harness/handoff/runtime-status.json with evidence. harness/loop.py only supports historical T IDs; never use it to complete a D/U ticket.
 - Make code and tests together. Refuse to 'complete' with unresolved build errors.
 - Run relevant automated tests; inspect page in browser where available (mobile + desktop).
-- Log evidence, then `complete <ID> --evidence "..."` (this records a claim, not automatic proof). If blocked, use `block` with reason.
+- Log evidence before marking any ticket done. For historical T IDs only, loop.py complete/block remains available; current D/U state and external blockers belong in the handoff runtime ledger.
 
 ## Deployment gates
-- Agent performs GitHub repository setup/push, Supabase project setup/migrations/RLS, Vercel deployment and post-deploy smoke tests when tools and credentials are available.
-- The user is not expected to run terminal commands manually; the agent executes them.
-- Cloud service OAuth, missing provider credentials and paid upgrades require user participation/approval. Never claim deployed without checking an actual URL.
+- USER performs external GitHub/Vercel/Supabase configuration and hosted changes/deployments. Agents prepare reviewed artifacts and validate the resulting URLs. Do not push changes that trigger deployment without the user coordinating that deployment.
+- Agents execute local development/test commands. USER-only external actions have separate U tickets; provide clear console instructions, never assign manual source editing or package installation to the user.
+- Cloud OAuth, provider credentials and external configuration are USER work. Never claim deployed without checking an actual URL. Paid operation is deferred under the current no-business-registration scope.
 - Toss test checkout ONLY; production URL may be public but payments are TEST, demo records labeled.
 
 ## Exit gates

@@ -1,11 +1,11 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { similarCreators } from "@/lib/catalog";
 import { publicCreators } from "@/lib/data";
-import { currentUser } from "@/lib/supabase";
+import { configured, currentUser, supabase } from "@/lib/supabase";
+import { youtubeChannelId } from "@/lib/featured-youtube";
 import { ClaimButton } from "@/components/claim";
 import { AddToList } from "@/components/lists";
-import { supabase } from "@/lib/supabase";
 import ads from "../../../../fixtures/ads.demo.json";
 import { cache } from "react";
 import type { Metadata } from "next";
@@ -40,6 +40,13 @@ export default async function Detail({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  if (configured()) {
+    const { data } = await (
+      await supabase()
+    ).rpc("creator_youtube_channel", { p_creator_id: id });
+    if (youtubeChannelId.safeParse(data).success)
+      redirect("/creators/youtube/" + data);
+  }
   const c = await load(id);
   if (!c) notFound();
   const creators = await publicCreators();
@@ -192,19 +199,7 @@ export default async function Detail({
             )}
           </div>
           <h3>과거 광고 이력</h3>
-          {ads
-            .filter((a) => a.creator_seed_id === id)
-            .map((a) => (
-              <div className="notice" key={a.seed_id}>
-                <strong>{a.brand_label}</strong> · {a.date}
-                <br />
-                {a.format} / {a.category}
-                <br />
-                {a.notice}
-                <br />
-                검증: 가상 예시 · 원본 출처 없음
-              </div>
-            ))}
+          <p>공개 출처로 확인된 광고 이력이 없습니다.</p>
           <h3 style={{ marginTop: 32 }}>브랜드 안전성 검토</h3>
           <p>
             검증된 공개 검토 자료가 없습니다. 자료 부족은 안전성을 보증하지

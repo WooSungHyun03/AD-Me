@@ -1,0 +1,223 @@
+[
+  {
+    "host": "be-celeb.org",
+    "type": "NS",
+    "status": 0,
+    "answers": [
+      {
+        "name": "be-celeb.org.",
+        "type": 2,
+        "TTL": 21375,
+        "data": "ligia.ns.cloudflare.com."
+      },
+      {
+        "name": "be-celeb.org.",
+        "type": 2,
+        "TTL": 21375,
+        "data": "buck.ns.cloudflare.com."
+      }
+    ]
+  },
+  {
+    "host": "be-celeb.org",
+    "type": "A",
+    "status": 0,
+    "answers": [
+      {
+        "name": "be-celeb.org.",
+        "type": 1,
+        "TTL": 243,
+        "data": "64.29.17.1"
+      },
+      {
+        "name": "be-celeb.org.",
+        "type": 1,
+        "TTL": 243,
+        "data": "216.198.79.1"
+      }
+    ]
+  },
+  {
+    "host": "be-celeb.org",
+    "type": "AAAA",
+    "status": 0,
+    "answers": []
+  },
+  {
+    "host": "be-celeb.org",
+    "type": "CNAME",
+    "status": 0,
+    "answers": []
+  },
+  {
+    "host": "be-celeb.org",
+    "type": "MX",
+    "status": 0,
+    "answers": [
+      {
+        "name": "be-celeb.org.",
+        "type": 15,
+        "TTL": 76,
+        "data": "57 route1.mx.cloudflare.net."
+      },
+      {
+        "name": "be-celeb.org.",
+        "type": 15,
+        "TTL": 76,
+        "data": "42 route2.mx.cloudflare.net."
+      },
+      {
+        "name": "be-celeb.org.",
+        "type": 15,
+        "TTL": 76,
+        "data": "65 route3.mx.cloudflare.net."
+      }
+    ]
+  },
+  {
+    "host": "be-celeb.org",
+    "type": "TXT",
+    "status": 0,
+    "answers": [
+      {
+        "name": "be-celeb.org.",
+        "type": 16,
+        "TTL": 300,
+        "data": "v=spf1 include:_spf.mx.cloudflare.net ~all"
+      }
+    ]
+  },
+  {
+    "host": "be-celeb.org",
+    "type": "CAA",
+    "status": 0,
+    "answers": []
+  },
+  {
+    "host": "www.be-celeb.org",
+    "type": "NS",
+    "status": 0,
+    "answers": [
+      {
+        "name": "www.be-celeb.org.",
+        "type": 5,
+        "TTL": 316,
+        "data": "8533f02441d85400.vercel-dns-017.com."
+      }
+    ]
+  },
+  {
+    "host": "www.be-celeb.org",
+    "type": "A",
+    "status": 0,
+    "answers": [
+      {
+        "name": "www.be-celeb.org.",
+        "type": 5,
+        "TTL": 600,
+        "data": "8533f02441d85400.vercel-dns-017.com."
+      },
+      {
+        "name": "8533f02441d85400.vercel-dns-017.com.",
+        "type": 1,
+        "TTL": 300,
+        "data": "216.198.79.1"
+      },
+      {
+        "name": "8533f02441d85400.vercel-dns-017.com.",
+        "type": 1,
+        "TTL": 300,
+        "data": "64.29.17.1"
+      }
+    ]
+  },
+  {
+    "host": "www.be-celeb.org",
+    "type": "AAAA",
+    "status": 0,
+    "answers": [
+      {
+        "name": "www.be-celeb.org.",
+        "type": 5,
+        "TTL": 316,
+        "data": "8533f02441d85400.vercel-dns-017.com."
+      }
+    ]
+  },
+  {
+    "host": "www.be-celeb.org",
+    "type": "CNAME",
+    "status": 0,
+    "answers": [
+      {
+        "name": "www.be-celeb.org.",
+        "type": 5,
+        "TTL": 316,
+        "data": "8533f02441d85400.vercel-dns-017.com."
+      }
+    ]
+  },
+  {
+    "host": "www.be-celeb.org",
+    "type": "MX",
+    "status": 0,
+    "answers": [
+      {
+        "name": "www.be-celeb.org.",
+        "type": 5,
+        "TTL": 316,
+        "data": "8533f02441d85400.vercel-dns-017.com."
+      }
+    ]
+  },
+  {
+    "host": "www.be-celeb.org",
+    "type": "TXT",
+    "status": 0,
+    "answers": [
+      {
+        "name": "www.be-celeb.org.",
+        "type": 5,
+        "TTL": 317,
+        "data": "8533f02441d85400.vercel-dns-017.com."
+      }
+    ]
+  },
+  {
+    "host": "www.be-celeb.org",
+    "type": "CAA",
+    "status": 0,
+    "answers": [
+      {
+        "name": "www.be-celeb.org.",
+        "type": 5,
+        "TTL": 599,
+        "data": "8533f02441d85400.vercel-dns-017.com."
+      },
+      {
+        "name": "8533f02441d85400.vercel-dns-017.com.",
+        "type": 257,
+        "TTL": 3600,
+        "data": "0 issue \"globalsign.com\""
+      },
+      {
+        "name": "8533f02441d85400.vercel-dns-017.com.",
+        "type": 257,
+        "TTL": 3600,
+        "data": "0 issue \"sectigo.com\""
+      },
+      {
+        "name": "8533f02441d85400.vercel-dns-017.com.",
+        "type": 257,
+        "TTL": 3600,
+        "data": "0 issue \"letsencrypt.org\""
+      },
+      {
+        "name": "8533f02441d85400.vercel-dns-017.com.",
+        "type": 257,
+        "TTL": 3600,
+        "data": "0 issue \"pki.goog\""
+      }
+    ]
+  }
+]

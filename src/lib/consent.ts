@@ -1,4 +1,4 @@
-// D015: notice texts and versions (DB mirror: marketing_notice_version() in migration 202611190018).
+// D015: notice texts and versions (DB mirror: marketing_notice_version() in migration 20261123100018).
 export const MARKETING_VERSION = "marketing-2026-11";
 export const PURPOSES = {
   service_email:

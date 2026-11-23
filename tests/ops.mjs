@@ -35,7 +35,7 @@ assert.match(
 );
 const { data, error } = await (await as(a.admin)).rpc("ops_stats");
 assert.equal(error, null);
-assert.ok(data.db_bytes > 0 && /^\d{12}$/.test(data.migration));
+assert.ok(data.db_bytes > 0 && /^(\d{12}|\d{14})$/.test(data.migration));
 assert.ok(!JSON.stringify(data).includes("@"), "no emails in stats");
 const svc = createClient(
   env.NEXT_PUBLIC_SUPABASE_URL,

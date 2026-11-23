@@ -48,7 +48,9 @@ export const products = [
 // (test_gck_/test_gsk_) belong to widgets() and fail with INVALID_API_KEY, so they are refused up front.
 export function assertTestClient(key: string | undefined) {
   if (!key || !/^test_ck_/.test(key))
-    throw new Error("Toss TEST 클라이언트 키 연결이 필요합니다.");
+    throw new Error(
+      "Toss TEST 클라이언트 키(API 개별 연동 test_ck_) 연결이 필요합니다.",
+    );
   return key;
 }
 export function assertTestSecret(key: string | undefined) {

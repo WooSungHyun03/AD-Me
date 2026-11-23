@@ -82,7 +82,7 @@ describe("matching feedback evaluation (D046)", () => {
   });
   it("reason codes mirror the database check", async () => {
     const sql = (await import("node:fs")).readFileSync(
-      "supabase/migrations/202611190020_matching_feedback.sql",
+      "supabase/migrations/20261123100020_matching_feedback.sql",
       "utf8",
     );
     for (const v of ["fit", "unfit"] as const)

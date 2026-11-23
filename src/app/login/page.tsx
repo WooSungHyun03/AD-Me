@@ -19,7 +19,7 @@ export default async function Login({
       {reauth && <p role="status">보안을 위해 비밀번호를 다시 확인해주세요.</p>}
       <AuthForm mode="login" next={next} />
       <p style={{ marginTop: 24, fontSize: 13 }}>
-        <Link href="/auth/forgot">비밀번호를 잊으셨나요?</Link> · 처음이신가요?{" "}
+        <Link href="/forgot-password">비밀번호를 잊으셨나요?</Link> · 처음이신가요?{" "}
         <Link href="/signup">회원가입</Link>
       </p>
     </div>

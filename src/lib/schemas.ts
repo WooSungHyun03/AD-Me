@@ -31,7 +31,7 @@ export const campaignSchema = z.object({
     .partial()
     .optional(),
 });
-// DB rule codes (202611190007_campaign_recruiting.sql) → user messages.
+// DB rule codes (20261123100007_campaign_recruiting.sql) → user messages.
 export const recruitingErrors: Record<string, string> = {
   deadline_passed: "모집 마감일은 현재 시각 이후여야 합니다.",
   invalid_transition: "현재 상태에서 바꿀 수 없는 공개 상태입니다.",

@@ -1,0 +1,121 @@
+{
+  "checked_at_kst": "2026-11-19T15:19:14+09:00",
+  "primary_url": "https://be-celeb.org",
+  "https_certificate_validation": "system trust verified; TLS errors not bypassed",
+  "page_results": [
+    {
+      "path": "/",
+      "status": 200,
+      "final_url": "https://be-celeb.org/",
+      "adme_present": true
+    },
+    {
+      "path": "/login",
+      "status": 200,
+      "final_url": "https://be-celeb.org/login",
+      "adme_present": true
+    },
+    {
+      "path": "/signup",
+      "status": 200,
+      "final_url": "https://be-celeb.org/signup",
+      "adme_present": true
+    },
+    {
+      "path": "/creators",
+      "status": 200,
+      "final_url": "https://be-celeb.org/creators",
+      "adme_present": true
+    },
+    {
+      "path": "/campaigns",
+      "status": 200,
+      "final_url": "https://be-celeb.org/campaigns",
+      "adme_present": true
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "final_url": "https://be-celeb.org/privacy",
+      "adme_present": true,
+      "operator_contact_present": true
+    },
+    {
+      "path": "/pricing",
+      "status": 200,
+      "final_url": "https://be-celeb.org/pricing",
+      "adme_present": true
+    }
+  ],
+  "www_redirect": {
+    "status": 308,
+    "location": "https://be-celeb.org/creators?platform=youtube"
+  },
+  "dns_records_unchanged": false,
+  "existing_service_before": "HTTP404, no matching project assignment found in intended Vercel team",
+  "mail_records_preserved": true,
+  "cloudflare_dns_mutations_performed_by_agent": false,
+  "observed_address_changes": [
+    {
+      "host": "be-celeb.org",
+      "type": "A",
+      "before": [
+        [
+          1,
+          "216.198.79.65"
+        ],
+        [
+          1,
+          "64.29.17.65"
+        ]
+      ],
+      "after": [
+        [
+          1,
+          "216.198.79.1"
+        ],
+        [
+          1,
+          "64.29.17.1"
+        ]
+      ]
+    },
+    {
+      "host": "www.be-celeb.org",
+      "type": "A",
+      "before": [
+        [
+          1,
+          "216.198.79.65"
+        ],
+        [
+          1,
+          "64.29.17.65"
+        ],
+        [
+          5,
+          "8533f02441d85400.vercel-dns-017.com."
+        ]
+      ],
+      "after": [
+        [
+          1,
+          "216.198.79.1"
+        ],
+        [
+          1,
+          "64.29.17.1"
+        ],
+        [
+          5,
+          "8533f02441d85400.vercel-dns-017.com."
+        ]
+      ]
+    }
+  ],
+  "dns_observation_note": "A responses differed between checks; no Cloudflare DNS write was performed. Both domains independently verified configured-correctly by Vercel. Nameservers, apex MX/SPF and www CNAME preserved.",
+  "vercel_verified_domains": [
+    "be-celeb.org",
+    "www.be-celeb.org"
+  ]
+}

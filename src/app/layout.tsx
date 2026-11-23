@@ -50,7 +50,7 @@ export default function RootLayout({
           </Link>
           <nav aria-label="메인 메뉴">
             <Link href="/creators">크리에이터 탐색</Link>
-            <Link href="/campaigns">캠페인</Link>
+            <Link href="/jobs">광고 공고</Link>
             <Link href="/tools">AI 스튜디오</Link>
             <Link href="/pricing">요금제</Link>
           </nav>

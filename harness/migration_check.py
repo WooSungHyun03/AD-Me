@@ -19,7 +19,7 @@ import sys
 root = pathlib.Path(__file__).resolve().parents[1]
 MIG = root / "supabase/migrations"
 MANIFEST = root / "docs/handoff/RELEASE_MANIFEST.md"
-NAME = re.compile(r"^(\d{12})_[a-z0-9_]+\.sql$")
+NAME = re.compile(r"^(\d{12}|\d{14})_[a-z0-9_]+\.sql$")
 DESTRUCTIVE = re.compile(
     r"^\s*(drop\s+table|truncate|alter\s+table\s+[\w.]+\s+(drop\s+column|alter\s+column\s+\w+\s+type|rename))",
     re.I | re.M,
@@ -31,7 +31,7 @@ def manifest_rows():
     if not MANIFEST.exists():
         return rows
     for line in MANIFEST.read_text().splitlines():
-        m = re.match(r"^\|\s*`?(\d{12})`?\s*\|([^|]*)\|([^|]*)\|", line)
+        m = re.match(r"^\|\s*`?(\d{12}|\d{14})`?\s*\|([^|]*)\|([^|]*)\|", line)
         if m:
             rows.setdefault(m.group(1), []).append(m.group(2).strip().lower())
     return rows
@@ -49,7 +49,7 @@ def static_check(files=None, manifest=None):
     for f in files:
         m = NAME.match(f)
         if not m:
-            errors.append(f"{f}: name must be <12-digit version>_<snake>.sql")
+            errors.append(f"{f}: name must be <12- or 14-digit version>_<snake>.sql")
             continue
         versions.append(m.group(1))
     if versions != sorted(versions) or len(set(versions)) != len(versions):
@@ -60,9 +60,10 @@ def static_check(files=None, manifest=None):
             continue
         v = m.group(1)
         sql = strip_comments((MIG / f).read_text() if (MIG / f).exists() else "")
-        for t in re.findall(r"create\s+table\s+(?:if\s+not\s+exists\s+)?(?:public\.)?(\w+)", sql, re.I):
-            if not re.search(rf"alter\s+table\s+(?:public\.)?{t}\s+enable\s+row\s+level\s+security", sql, re.I):
-                errors.append(f"{f}: table {t} has no RLS")
+        for schema, t in re.findall(r"create\s+table\s+(?:if\s+not\s+exists\s+)?(?:(\w+)\.)?(\w+)", sql, re.I):
+            q = rf"{schema}\." if schema and schema.lower() != "public" else r"(?:public\.)?"
+            if not re.search(rf"alter\s+table\s+(?:if\s+exists\s+)?{q}{t}\s+enable\s+row\s+level\s+security", sql, re.I):
+                errors.append(f"{f}: table {schema + '.' if schema else ''}{t} has no RLS")
         for fn in re.finditer(r"create\s+(?:or\s+replace\s+)?function\s+([\w.]+)\s*\((.*?)\$\$", sql, re.I | re.S):
             if re.search(r"security\s+definer", fn.group(2), re.I) and not re.search(r"set\s+search_path", fn.group(2), re.I):
                 errors.append(f"{f}: SECURITY DEFINER {fn.group(1)} must pin search_path")
@@ -112,7 +113,7 @@ def rollback_sim():
     assert schema_hash() == before, "failed migration left partial changes"
     psql(body)  # forward apply (the CLI also runs each file in one transaction)
     v = NAME.match(last.name).group(1)
-    psql(f"insert into supabase_migrations.schema_migrations(version, name) values ('{v}', '{last.stem[13:]}')")
+    psql(f"insert into supabase_migrations.schema_migrations(version, name) values ('{v}', '{last.stem.split('_', 1)[1]}')")
     after = schema_hash()
     assert after != before, "migration had no effect"
     print(f"PASS rollback-sim: {last.name} atomic (rollback = identical schema {before[:8]}, injected failure = no partial change), applied → {after[:8]}")

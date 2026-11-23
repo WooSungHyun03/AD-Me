@@ -1,54 +1,16 @@
-# AD Me — Agent-operated deployment runbook
+# AD Me 배포 — 사용자 전용 외부 적용
 
-**User authorization:** The user now explicitly requests ChatGPT Desktop to carry out implementation, cloud deployment and public URL verification directly. Old no-deploy instructions are superseded. This is a TEST-only university project; no revenue or live payment.
+현재 규칙: 사용자만 배포 사이트 설정·외부 콘솔 변경·실제 배포/롤백·키 발급/등록을 수행한다. 개발자는 로컬 구현/테스트와 적용 자료를 준비한다.
 
-## Stack
-- Vercel: Next.js App Router and server functions.
-- Supabase: PostgreSQL, Auth, Storage, RLS, migrations.
-- GitHub: public repository after secret/privacy checks (ask only for OAuth/connect if required).
-- Toss Payments: test client and secret keys ONLY; 30-day pass via one-time TEST payment. Real recurring billing requires separate approval/API.
+- [전체 사용자 작업](backlog/USER_ACTIONS.md)
+- [U004 DB/함수 적용](user-tickets/U004.md)
+- [U005 Vercel 배포](user-tickets/U005.md)
+- [U006 환경변수](user-tickets/U006.md)
+- [U008 인증 설정](user-tickets/U008.md)
+- [환경 계약](handoff/ENVIRONMENT_CONTRACT.md)
+- [릴리스 패킷 양식](handoff/RELEASE_PACKET_TEMPLATE.md)
+- [U020 출시 판단](user-tickets/U020.md)
 
-## Agent execution (not a manual user tutorial)
-1. Inspect current git, status, build scripts, tests, and connected accounts/tools; keep all changes reproducible.
-2. Install dependencies and run lint, typecheck, unit/integration, build, Playwright; repair real issues.
-3. Check `.gitignore` and secret scanner; never commit `.env.local`, tokens, service-role key, test passwords or private data.
-4. Create/connect GitHub repository and push verified code. If external account/OAuth consent necessary, ask for that exact action once.
-5. Create/connect Supabase project. Configure schema migrations, RLS, auth callback origins, storage policies, DB seed (demo clearly labeled).
-6. Create/connect Vercel project. Register only approved public env and private server-side secrets via official secret/env UI/API. Never print secrets in chat or command logs.
-7. Deploy actual site to Vercel, verify build logs, open the URL in a real browser.
-8. Execute deployed-site smoke tests: anonymous, brand, creator, admin denied path, matching, proposals, payments UI. Confirm read/write persists across refresh. Review desktop/mobile screenshots.
-9. Test Toss SDK with real **test keys** if available, check backend confirmation, idempotency and entitlement. Without keys or provider permission, report actual provider checkout UNVERIFIED/BLOCKED, not success.
-10. Iterate fixes and redeploy. Record final URL, commit, deployment ID, test evidence and rollback instructions.
+기존 배포/rollback 기록은 [과거 실행 기록](handoff/DEPLOYMENT_HISTORY_20261119.md)으로 보존했다. 해당 문서의 과거 자율 배포 권한은 더 이상 유효하지 않다. 새 기능에 대한 배포나 검증을 수행한 것으로 보지 않는다.
 
-## Stop conditions
-- Never switch to live payment, charge actual cards, sign up for paid infra, publish third-party confidential/personal data, or bypass account permissions.
-- When a new account login/2FA/API key approval is required, stop only that integration, request user action, continue independent work.
-- Never invent a successful URL or make a sample UI a substitute for database-backed workflows.
-
-## Env inventory (actual names follow installed SDK versions)
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY` or newer publishable key as required
-- `SUPABASE_SERVICE_ROLE_KEY` when strictly necessary, server only
-- `NEXT_PUBLIC_TOSS_CLIENT_KEY` (TEST only)
-- `TOSS_SECRET_KEY` (TEST only, server only)
-- `NEXT_PUBLIC_APP_URL`
-- Optional LLM API keys, server only
-
-## Hosting notes
-- For a noncommercial demonstration, review eligibility of Vercel Hobby and Supabase limits.
-- Public repository does not waive OSS license duties, photography rights, API terms, or privacy obligations.
-- All external payment outcomes need provider verification; deployment health and payment integration test are separate exit gates.
-
-## Actual deployment state / rollback
-
-- Public alias: https://ad-me-topaz.vercel.app
-- Team: sunghyuns-projects-da008879 / team_DZjzOMGaSURMH3q0KktVzcUJ
-- Project: ad-me / prj_BzLpbB8hBOXmjzbg9iJI2kp3Zu7C
-- Correct framework: Next.js, explicitly declared in vercel.json. Node 22.x, functions icn1.
-- Database: ivtdfioypmzknlhinstg / ap-northeast-2, forward migrations 001–003. The first 48/8 seed is synthetic and re-runnable.
-- Service-role key is absent from Vercel; payment finalization occurs inside the protected Supabase Edge Function.
-- Reproducible release uses the existing CLI authentication and explicit team scope; the agent runs local gates, pushes GitHub, deploys, then checks the public alias and actual browser flows.
-- Rollback: the agent selects a previously verified production deployment through `vercel rollback <deployment-url> --scope sunghyuns-projects-da008879`, then reruns public URL checks. Never point the alias to the first Other-framework deployment, which was 404.
-- Migration order, phases (expand/backfill/switch/contract), env list and the user deploy checklist: `docs/handoff/RELEASE_MANIFEST.md` (D085). Hosted DB currently has 001–003 only; 0004–0015 pending user-approved `supabase db push`.
-- DB rollback is not automatic. Current migrations are additive; take a database backup and review forward-compatible queries before destructive schema work. Do not delete test payment/order history as a rollback strategy.
-- GitHub automatic Vercel linking is still blocked by provider access; direct CLI deployments are working. Do not claim push-to-deploy integration until repository access approval is verified.
+마이그레이션 순서·단계·환경변수·사용자 배포 체크리스트: [`handoff/RELEASE_MANIFEST.md`](handoff/RELEASE_MANIFEST.md) (D085).

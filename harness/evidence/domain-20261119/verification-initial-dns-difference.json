@@ -1,0 +1,57 @@
+{
+  "checked_at_kst": "2026-11-19T15:18:17+09:00",
+  "primary_url": "https://be-celeb.org",
+  "https_certificate_validation": "system trust verified; TLS errors not bypassed",
+  "page_results": [
+    {
+      "path": "/",
+      "status": 200,
+      "final_url": "https://be-celeb.org/",
+      "adme_present": true
+    },
+    {
+      "path": "/login",
+      "status": 200,
+      "final_url": "https://be-celeb.org/login",
+      "adme_present": true
+    },
+    {
+      "path": "/signup",
+      "status": 200,
+      "final_url": "https://be-celeb.org/signup",
+      "adme_present": true
+    },
+    {
+      "path": "/creators",
+      "status": 200,
+      "final_url": "https://be-celeb.org/creators",
+      "adme_present": true
+    },
+    {
+      "path": "/campaigns",
+      "status": 200,
+      "final_url": "https://be-celeb.org/campaigns",
+      "adme_present": true
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "final_url": "https://be-celeb.org/privacy",
+      "adme_present": true,
+      "operator_contact_present": true
+    },
+    {
+      "path": "/pricing",
+      "status": 200,
+      "final_url": "https://be-celeb.org/pricing",
+      "adme_present": true
+    }
+  ],
+  "www_redirect": {
+    "status": 308,
+    "location": "https://be-celeb.org/creators?platform=youtube"
+  },
+  "dns_records_unchanged": false,
+  "existing_service_before": "HTTP404, no matching project assignment found in intended Vercel team",
+  "mail_records_preserved": true
+}

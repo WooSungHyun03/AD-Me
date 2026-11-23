@@ -51,7 +51,7 @@ describe("notification email (D053)", () => {
   });
   it("has copy for every template the database can enqueue", () => {
     const kinds = readFileSync(
-      "supabase/migrations/202611190010_notifications.sql",
+      "supabase/migrations/20261123100010_notifications.sql",
       "utf8",
     ).match(/kind in \(([^)]*)\)/)![1];
     for (const k of kinds.match(/[a-z]+/g)!)

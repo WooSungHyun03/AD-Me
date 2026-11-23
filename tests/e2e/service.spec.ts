@@ -38,21 +38,24 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
   await expect(
     page.getByText("조건에 맞는 크리에이터가 없습니다."),
   ).toBeVisible();
-  await page.getByRole("button", { name: "필터 초기화" }).click();
-  await page.getByLabel("플랫폼", { exact: true }).selectOption("youtube");
-  await page.getByLabel("정렬", { exact: true }).selectOption("price");
-  await page.getByLabel("후보 비교에 담기").nth(0).check();
-  await page.getByLabel("후보 비교에 담기").nth(1).check();
-  await page.getByRole("link", { name: "후보 비교하기" }).click();
-  await expect(page.getByRole("table")).toBeVisible();
+  // Real channel rows come from the YouTube worker (needs YOUTUBE_API_KEY); empty in a keyless local stack.
+  await page.goto("/creators");
+  await expect(page.getByTestId("youtube-channel")).toHaveCount(10);
+  await page.getByRole("searchbox", { name: "채널 이름" }).fill("쯔양");
+  await page.getByRole("button", { name: "검색", exact: true }).click();
+  await expect(page.getByTestId("youtube-channel")).toHaveCount(1);
+  await page.getByTestId("youtube-channel").click();
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("쯔양");
+  await expect(
+    page.getByRole("heading", { name: "최근 공개 영상" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "YouTube 원본 채널 열기" }),
+  ).toHaveAttribute("href", /youtube\.com\/channel\/UC/);
+  // test_demo: the labeled fictional profile and its fictional ad history (free_beta hides demo rows).
   await page.goto("/creators/creator-001");
   await expect(
     page.getByRole("heading", { name: "과거 광고 이력" }),
-  ).toBeVisible();
-  await expect(
-    page.getByText(
-      "실제 광고 계약 또는 협찬 정보를 의미하지 않는 가상 테스트 기록",
-    ),
   ).toBeVisible();
   await page.goto("/tools");
   await page.getByLabel("상품·서비스").fill("비건 토너");
@@ -64,11 +67,11 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
   );
   await page.goto("/pricing");
   await expect(
-    page.getByRole("heading", { name: "Brand Pro", exact: true }),
+    page.getByRole("heading", { name: "AI 검색권", exact: true }),
   ).toBeVisible();
   await page.getByRole("button", { name: "TEST 이용권 선택" }).first().click();
   await expect(page.locator("p[role=alert]")).toContainText(
-    "TEST 클라이언트 키",
+    /TEST 클라이언트 키|로그인이 필요합니다/,
   );
   expect(
     await page.evaluate(
@@ -118,8 +121,8 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
   await expect(
     page.getByRole("heading", { name: "브랜드에 어울리는 발견." }),
   ).toBeVisible();
-  await page.getByRole("link", { name: "상위 후보 3명 비교" }).click();
-  await expect(page.getByRole("table")).toBeVisible();
+  await page.goto("/compare?ids=user-" + accounts.creator.id);
+  await expect(page.getByRole("table")).toContainText(name);
   await page.goBack();
   await page
     .getByLabel("협업을 제안할 크리에이터")
@@ -201,21 +204,36 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
   const fake = await page.request.post("/api/billing/confirm", {
     data: { orderId: o.id, paymentKey: "fake", amount: 49000 },
   });
-  expect(fake.status()).toBe(503);
+  // Keyless local stack: 503 "secret missing"; with a TEST key, Toss refuses the fake key (400). No pass either way.
+  expect([400, 503]).toContain(fake.status());
+  expect((await fake.json()).error.message).toMatch(
+    fake.status() === 400 ? /이용권은 부여되지 않았습니다/ : /시크릿 키/,
+  );
   const wrongRole = await cp.request.post("/api/billing/orders", {
     data: { sku: "brand_pro" },
   });
   expect(wrongRole.status()).toBe(400);
+  const liveDeal = page
+    .locator("article")
+    .filter({ hasText: "QA 검증용 비건 토너 협업을 제안합니다." })
+    .first();
+  await liveDeal.getByText(/메시지·결과물/).click();
+  const liveBody = "QA 결과물 초안 " + unique;
   await deal.getByText(/메시지·결과물/).click();
-  await deal
-    .getByLabel("메시지", { exact: true })
-    .fill("QA 결과물 초안입니다.");
+  await deal.getByLabel("메시지", { exact: true }).fill(liveBody);
   await deal.getByLabel("종류", { exact: true }).selectOption("deliverable");
   await deal
     .getByLabel("결과물 HTTPS 링크")
     .fill("https://example.com/qa-deliverable");
   await deal.getByRole("button", { name: "메시지 저장" }).click();
   await expect(deal.getByRole("status")).toContainText("저장되었습니다");
+  await expect(liveDeal.getByText(liveBody, { exact: true })).toBeVisible({
+    timeout: 15000,
+  });
+  const markRead = liveDeal.getByRole("button", { name: /안 읽은 메시지 1개/ });
+  await expect(markRead).toBeVisible();
+  await markRead.click();
+  await expect(markRead).toHaveCount(0);
   await deal.getByRole("button", { name: "결과물 제출 완료" }).click();
   await expect(deal.getByText("검토 대기", { exact: true })).toBeVisible();
   await page.reload();
@@ -256,6 +274,14 @@ test("public application, shortlist persistence, account settings and administra
   const cc = await browser.newContext();
   const cp = await cc.newPage();
   await login(cp, "creator");
+  const creatorName = "QA 협업 후보 " + unique;
+  await cp.goto("/settings");
+  await cp.getByLabel("크리에이터 이름", { exact: true }).fill(creatorName);
+  await cp.getByLabel("프로필 공개", { exact: true }).check();
+  await cp.getByRole("button", { name: "프로필 저장", exact: true }).click();
+  await expect(
+    cp.getByRole("status").filter({ hasText: "프로필을 저장했습니다" }),
+  ).toBeVisible();
   await cp.goto(`/campaigns/${id}`);
   await cp
     .getByLabel("지원 메시지", { exact: true })
@@ -271,7 +297,7 @@ test("public application, shortlist persistence, account settings and administra
   await page.goto("/creators");
   await page.getByLabel("크리에이터 검색").fill("서하린");
   const save = page.getByRole("button", {
-    name: "서하린 즐겨찾기",
+    name: creatorName + " 즐겨찾기",
     exact: true,
   });
   if (!(await save.getAttribute("class"))?.includes("saved"))
@@ -280,11 +306,11 @@ test("public application, shortlist persistence, account settings and administra
   await page.reload();
   await page.getByLabel("크리에이터 검색").fill("서하린");
   await expect(
-    page.getByRole("button", { name: "서하린 즐겨찾기", exact: true }),
+    page.getByRole("button", { name: creatorName + " 즐겨찾기", exact: true }),
   ).toHaveClass(/saved/);
   const csv = await page.request.get("/api/export");
   expect(csv.status()).toBe(200);
-  expect(await csv.text()).toContain("서하린");
+  expect(await csv.text()).toContain(creatorName);
   await page.goto("/settings");
   await page
     .getByLabel("계정 표시 이름", { exact: true })

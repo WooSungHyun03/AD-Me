@@ -23,7 +23,7 @@ const p = (id: string, status: string, o = {}) => ({
 describe("collaboration pipeline (D056)", () => {
   it("every database status belongs to exactly one stage", () => {
     const sql = readFileSync(
-      "supabase/migrations/202611190009_proposal_events.sql",
+      "supabase/migrations/20261123100009_proposal_events.sql",
       "utf8",
     );
     const statuses = sql.match(/status in \(([^)]*)\)/)![1].match(/[a-z_]+/g)!;

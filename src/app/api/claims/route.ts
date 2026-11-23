@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
-// RPC error codes (supabase/migrations/202611190004_claims.sql) → user messages.
+// RPC error codes (supabase/migrations/20261123100004_claims.sql) → user messages.
 const messages: Record<string, [string, number]> = {
   forbidden: ["크리에이터 계정만 청구할 수 있습니다.", 403],
   already_has_profile: [

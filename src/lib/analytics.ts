@@ -1,4 +1,4 @@
-// D006 product-event contract. The database (migration 202611190017) is the only writer; this file is the
+// D006 product-event contract. The database (migration 20261123100017) is the only writer; this file is the
 // shared definition for docs, the admin funnel and tests. Nothing here is sent from the browser.
 export const FUNNEL = [
   "signup",

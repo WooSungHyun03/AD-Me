@@ -1,3 +1,19 @@
+## AD Me 기본 주소
+
+**https://be-celeb.org** · www는 기본 주소로 이동합니다. [도메인 연결·검증 기록](docs/DOMAIN_CONNECTION.md). 도메인 연결 완료와 실제 데이터 서비스 전체 출시 완료는 구분합니다.
+
+## 외부 작업 실제 수행 결과 (최신)
+
+[20개 외부 작업 실제 실행 상태](docs/EXTERNAL_EXECUTION_STATUS.md). 최신 사용자 요청으로 기술 외부 작업 직접 수행 권한이 부여되어 GitHub 보호 규칙·Vercel 프로젝트 설정·Supabase Auth URL을 수정하고 운영자 연락처를 실제 배포했다. 신규 실제 데이터 서비스의 출시 조건은 미충족이며 전체 20개 완료가 아니다. 이전 사용자 전용 실행 지침보다 최신 세션 권한·실행 기록을 우선한다.
+
+## 구현 담당자 전달 문서
+
+[전달 패키지 안내](docs/handoff/README.md) · [개발자 A 상세 티켓](docs/handoff/DEV-A_VIBECODING_TICKETS.md) · [개발자 B 상세 티켓](docs/handoff/DEV-B_VIBECODING_TICKETS.md) · [사용자 외부 작업 20개](docs/backlog/USER_ACTIONS.md). 각 문서에 시작 프롬프트·수정 위치·완료 기준·검증·인계/실패 대응을 명시했다. 문서 작성은 실제 외부 설정이나 신규 기능 완료를 의미하지 않는다.
+
+## 실제 서비스 티켓과 작업 분담 (2026-11-19)
+
+전체 기능·수집 가능성·완료 기준·2인 배분: [실서비스 티켓](docs/REAL_SERVICE_TICKETS.md). 기계 판독 목록: [backlog v2](harness/service_backlog_v2.json). 개발 88개(각 219SP), 사용자 전용 외부 작업 20개, 보류 6개. 현재 운영 기준은 무료 실제 데이터 베타이며 TEST 결제는 격리한다. 배포 사이트 설정·외부 콘솔 변경·배포·API 키 발급/등록은 사용자 전담이다. 이 기준이 아래의 과거 자동 배포 안내보다 우선한다.
+
 # AD Me
 
 브랜드와 크리에이터의 탐색·설명 가능한 추천·협업을 연결하는 Next.js 서비스입니다. 대학 프로젝트이며 결제는 Toss Payments **TEST 전용**입니다.

@@ -117,7 +117,7 @@ describe("workflow permissions", () => {
 });
 describe("test-only billing", () => {
   it("refuses absent and live keys", () => {
-    for (const k of [undefined, "live_ck_x", "live_gck_x", "bad"])
+    for (const k of [undefined, "live_ck_x", "live_gck_x", "test_gck_x", "bad"])
       expect(() => assertTestClient(k)).toThrow();
     expect(assertTestClient("test_ck_example")).toContain("test_");
     expect(() => assertTestSecret("live_sk_x")).toThrow();
