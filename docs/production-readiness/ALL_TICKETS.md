@@ -309,8 +309,8 @@ DEV-A · P0 · S0 출시 차단 · PRIVACY · IN_PROGRESS · 8 SP · ACTIVE
 - **보안** — Auth 삭제만으로 기존 JWT가 즉시 무효라고 가정하지 말고 민감 접근 재검증 또는 정지 상태를 강제한다.
 - **검증** — 삭제 후 접근 거부·삭제 작업 재시도·보존 최소화 검사 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 프로필 숨김과 계정 삭제를 구분하고 Auth·Storage·파생 데이터·보존 예외·재수집 차단을 처리한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D014/VERIFY_NEXT_20261121.md · harness/evidence/DEV-A-P0-NEXT-20261121/verification.json · harness/evidence/D014/VERIFY_ALL_20261121.md · harness/evidence/D014/ (이번 검증 기록 위치)
+- **차단 요인** — U001 보존/처리 정책과 B D079 물리 삭제·복구 계약 대기. 로컬 접수·접근 차단과 별개로 영구파기/Auth 삭제 어댑터·주기 worker·receipt 분실 복구는 미구현이며 최종 정책·교차 검토 후 연결 필요.
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D014/VERIFY_NEXT_20261121.md · harness/evidence/DEV-A-P0-NEXT-20261121/verification.json · harness/evidence/D014/VERIFY_ALL_20261121.md · harness/evidence/D014/ (이번 검증 기록 위치) · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
 - **이전 기록** — IN_PROGRESS
 
 ## D015 · 계정 설정·관심 분야·알림 동의
@@ -999,8 +999,8 @@ DEV-A · P0 · S0 출시 차단 · MATCHING · TESTED · 5 SP · ACTIVE
 - **보안** — 유료 HOT 입력은 organic scoring 함수로 전달하지 않는다.
 - **검증** — 동일 입력 재현·갱신 표시·HOT 유무 순위 동일 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 점수 버전·입력·태그·예산 적합·미확인 항목을 저장하고 광고 슬롯과 순위를 분리한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D045/PLAN_20261120.md · harness/evidence/D045/README.md · harness/evidence/D045/verification.json · harness/evidence/D045/ (이번 검증 기록 위치)
+- **차단 요인** — 현재1.2 정책/결측/보류·운영 가상 제외와 불변1.0 호환 로컬 검증 완료. USER 정확112→113 기준 적용·배포와 실제 URL/교차 검토는 미완료.
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D045/PLAN_20261120.md · harness/evidence/D045/README.md · harness/evidence/D045/verification.json · harness/evidence/D045/ (이번 검증 기록 위치) · harness/evidence/D045/POLICY_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D046 · 추천 피드백·평가 데이터셋
@@ -1065,8 +1065,8 @@ DEV-A · P1 · S1 주요 부족 · AI · IN_PROGRESS · 8 SP · ACTIVE
 - **보안** — 초안은 자동 전송하지 않는다. 키 미설정/실패 시 템플릿 fallback과 생성 방식을 표시한다.
 - **검증** — 키 없음·프롬프트 주입·개인정보 유출·타임아웃·사용량 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 기존 내부 템플릿·Local AI API 어댑터에 입력·출처·프롬프트 버전·결과 검증·사용량 계약이 적용되고 AI 스튜디오 사용자 경로는 계속 리디렉션된다.
-- **차단 요인** — 현재 configuredProvider=null이며127.0.0.1:11539 listener/ollama 명령 미확인. 승인 실행기/모델 연결, queue prompt/version/usage 및 PR-00330표본 실제 격리 복구 필요.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/implementation-progress.md · harness/evidence/D048/ (이번 검증 기록 위치) · harness/evidence/D048/DEADLINE_20261123.md
+- **차단 요인** — 고정 loopback CPU Qwen 실제 합성 입력 추론/로컬 private queue bridge 검증. 공통 configuredProvider=null 수동 템플릿은 유지. 운영 worker 접속/예약·소비자 연결, B D086 TTL/전역동시성·실환경 수용 별도.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/implementation-progress.md · harness/evidence/D048/ (이번 검증 기록 위치) · harness/evidence/D048/DEADLINE_20261123.md · harness/evidence/D048/QUEUE_PROVENANCE_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
 - **검증 범위** — 공통 호환 어댑터11건: 취소 무시 provider 절대 응답 제한/늦은 결과 폐기·한도 실패/안전 usage·schema·PII·명시 template. 실제 모델/worker 통합과 별도.
 - **이전 기록** — PARTIAL_VERIFIED
 
@@ -1220,8 +1220,8 @@ DEV-A · P1 · S1 주요 부족 · MARKETPLACE · IN_PROGRESS · 5 SP · ACTIVE
 - **보안** — 외부 calendar 연동 없이 내부 달력과 기한 필터부터 완주한다.
 - **검증** — 시간 경계·일정 변경·중복 알림 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 캠페인·협업별 마감·타임존·캘린더·리마인더를 제공한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D055/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D055/ (이번 검증 기록 위치)
+- **차단 요인** — 기존 private calendar/일정 계약과 B D052 milestone/지연 event cursor·outbox·opt-in·중복·해지·삭제 통합 필요. 운영 알림 전달은 미검증.
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D055/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D055/ (이번 검증 기록 위치) · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
 - **이전 기록** — IN_PROGRESS
 
 ## D056 · 양측 대시보드·성과 내보내기
@@ -1660,8 +1660,8 @@ DEV-A · P0 · S0 출시 차단 · SECURITY · IN_PROGRESS · 8 SP · ACTIVE
 - **보안** — 모든 advisor 경고를 무조건 수정됐다고 선언하지 말고 의도/남은 위험/테스트를 각각 남긴다.
 - **검증** — 익명/브랜드/크리에이터/관리자 권한 행렬 통합 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 직접 DB API·SECURITY DEFINER·검색 경로·공개 DTO·테넌트 경계를 검사하고 최소권한을 적용한다.
-- **차단 요인** — 실제 파일 브라우저/역할 회귀, B D036/D038 named-list/import 공개DTO 통합 및 D049 전체 경로, 운영 DB/앱 적용과 실환경 전수 검증 필요.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D075/README.md · harness/evidence/D075/PLAN_20261120.md · harness/evidence/D075/creator-read-security-20261120.json · harness/evidence/D075/ (이번 검증 기록 위치) · harness/evidence/D075/BOUNDARY_20261123.md · harness/evidence/D075/permissions-109-20261123.json
+- **차단 요인** — 기본 즐겨찾기/CSV/서비스 슬롯과 실제 로컬 Storage·역할 회귀 완료. B D036/D038 named-list/import 공개DTO 계약 및 B D049 전체 경로, 운영 DB/앱 적용과 실환경 권한 전수 검증 필요.
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D075/README.md · harness/evidence/D075/PLAN_20261120.md · harness/evidence/D075/creator-read-security-20261120.json · harness/evidence/D075/ (이번 검증 기록 위치) · harness/evidence/D075/BOUNDARY_20261123.md · harness/evidence/D075/permissions-109-20261123.json · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
 - **검증 범위** — 109-source 로컬98 RLS테이블/371함수/4비공개버킷 메타데이터와 core7·brand7·creator-read8·정규화storage9 그룹 통과. 기본 저장·서비스HOT 통합 결함 전진 수정. 함수 전수 행위/운영은 미완료.
 - **이전 기록** — LOCAL_VERIFIED
 
@@ -1860,8 +1860,8 @@ DEV-A · P0 · S0 출시 차단 · QA · IN_PROGRESS · 8 SP · ACTIVE
 - **보안** — 인증된 trace/비밀번호는 공유하지 않는다. 실패를 skip으로 바꿔 전체 통과라 하지 않는다.
 - **검증** — lint/typecheck/unit/integration/build/E2E 통과와 실패 증거 기록 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 기존 6개 E2E를 가입·삭제·수집·정정·권한·모바일·결측·동시성까지 확장한다. 외부 연동은 실제/계약 테스트를 구분한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D084/README.md · harness/evidence/DEV-A-P0-CONTINUE/verification.json · harness/evidence/DEV-A-MAIN-20261120/verification.json · harness/evidence/D084/ (이번 검증 기록 위치)
+- **차단 요인** — 로컬 fresh0→113,494unit/42Python/영향 desktop-mobile14 PASS. GitHub 기존 checks 성공이나 DB 통합 CI 취소; B D049/D075 전체 흐름·실제 provider/메일/Toss TEST·복구 및 운영 적용 미완료.
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D084/README.md · harness/evidence/DEV-A-P0-CONTINUE/verification.json · harness/evidence/DEV-A-MAIN-20261120/verification.json · harness/evidence/D084/ (이번 검증 기록 위치) · harness/evidence/D084/FRESH_113_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
 - **이전 기록** — IN_PROGRESS
 
 ## D085 · CI·배포 산출물·마이그레이션 안전
@@ -2395,7 +2395,7 @@ USER · P0 · S0 출시 조건 · COMPLIANCE · BLOCKED · 외부 SP · ACTIVE
 
 ## PR-001 · 브랜드 상품 설명을 추천 입력으로 변환
 
-DEV-A · P0 · S0 출시 차단 · AI · TODO · 8 SP · ACTIVE
+DEV-A · P0 · S0 출시 차단 · AI · IN_PROGRESS · 8 SP · ACTIVE
 
 - **현재 문제** — 현재 홈은 선택한 주제·예산으로 후보를 고르지만 상품과 타깃 원문을 모델이 분석해 승인 가능한 조건으로 바꾸지는 않는다.
 - **재현·관찰** — 운영 홈에서 주제·예산을 고정하고 상품/타깃만 바꿔 결과와 추천 근거를 비교한다. 로컬 draft()와 실제 추천 입력 계약이 연결되지 않은 것을 확인한다.
@@ -2411,12 +2411,12 @@ DEV-A · P0 · S0 출시 차단 · AI · TODO · 8 SP · ACTIVE
 - **보안** — 민감한 사람 특성 추론과 원본 원고 유출을 차단한다. raw output을 UI에 곧바로 표시하지 않는다.
 - **검증** — 한국어 상품 5개에서 근거가 있는 구조만 생성, 입력 확인 전 지출/공개 없음, 타 계정 상품 차단, 관련 없는 후보와 가짜 채널 0, 모델 중단 때 수동 추천 유지.
 - **완료 조건** — 한국어 상품 5개에서 근거가 있는 구조만 생성, 입력 확인 전 지출/공개 없음, 타 계정 상품 차단, 관련 없는 후보와 가짜 채널 0, 모델 중단 때 수동 추천 유지.
-- **차단 요인** — 문서화한 prompt version 및 실제 격리 모델 경로 필요.
-- **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-001/ (신규 검증 기록 위치)
+- **차단 요인** — 독립 model/Zod 추출 계약과 실제 합성 입력 시험. 소유 상품·버전 바인딩, operation queue/idempotency, 확인/거부 UI→필터 및 운영 D048 계약 통합 미완료.
+- **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-001/ (신규 검증 기록 위치) · harness/evidence/PR-001/PROMPT_FIX_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
 
 ## PR-002 · 허용된 콘텐츠 태그의 저장·검토·공개 파이프라인
 
-DEV-A · P0 · S0 출시 차단 · AI · TODO · 8 SP · ACTIVE
+DEV-A · P0 · S0 출시 차단 · AI · IN_PROGRESS · 8 SP · ACTIVE
 
 - **현재 문제** — 실제 모델은 합성 자료에서 태그를 만들었으나 작업 큐·자료 권리·관리자 승인·공개 채널 연결은 없다.
 - **재현·관찰** — content_tags.py로 creator_provided 샘플에서 태그가 나오고 youtube_raw 입력이 거부되는지 확인한다. 운영에 검토 승인/저장된 태그 계약이 없는지 비교한다.
@@ -2432,12 +2432,12 @@ DEV-A · P0 · S0 출시 차단 · AI · TODO · 8 SP · ACTIVE
 - **보안** — 출처·권리 확인 없는 분석을 차단하며 공개 증거에 개인 원문을 복제하지 않는다.
 - **검증** — 실제 모델로 허용된 자료 실행, 2차 작업 중복 없음, 원본 YouTube와 비승인 자료 차단, 승인 뒤만 태그 공개, 철회와 데이터 삭제 시 미표시.
 - **완료 조건** — 실제 모델로 허용된 자료 실행, 2차 작업 중복 없음, 원본 YouTube와 비승인 자료 차단, 승인 뒤만 태그 공개, 철회와 데이터 삭제 시 미표시.
-- **차단 요인** — U010 추가 승인 전 기존 API 파생 범위는 제외 가능. 최초 creator-provided 자료는 독립 검증한다.
-- **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-002/ (신규 검증 기록 위치)
+- **차단 요인** — 제한 vocabulary/출처·근거/버전/검토 대기 계약과 실제 합성 입력 시험. B D017 실제 승인 소스·동의, durable 큐/검토/공개 projection/철회·삭제 미구현; raw YouTube 분석은 U010 전 제외.
+- **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-002/ (신규 검증 기록 위치) · harness/evidence/PR-002/SCHEMA_FIX_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
 
 ## PR-003 · Local AI 워커의 모델 장애 격리와 복구 예산
 
-DEV-A · P1 · S1 주요 부족 · AI · TODO · 5 SP · ACTIVE
+DEV-A · P1 · S1 주요 부족 · AI · IN_PROGRESS · 5 SP · ACTIVE
 
 - **현재 문제** — 호스트에서 Qwen과 임베딩 모델이 실제 동작했으나 운영 p95·시간 제한·부하·재시작 복구가 입증되지 않았다.
 - **재현·관찰** — Ollama loopback에서 짧은 한국어 JSON·임베딩과 동시 2건을 재측정한다. 운영 출력과 별도로 격리 환경의 재기동·서킷 차단을 확인한다.
@@ -2453,8 +2453,8 @@ DEV-A · P1 · S1 주요 부족 · AI · TODO · 5 SP · ACTIVE
 - **보안** — 호스트 포트 공개 금지, 고객 입력 대신 합성 자료로 부하 측정, 권한·결제 로직에 LLM 사용 금지.
 - **검증** — 30건 이상에서 p50/p95·실패율 보고, 대기상태가 복구·한도 초과에 수렴, 재실행 중복 없음, 일반 조회·채팅·ORDERS 영향 없음.
 - **완료 조건** — 30건 이상에서 p50/p95·실패율 보고, 대기상태가 복구·한도 초과에 수렴, 재실행 중복 없음, 일반 조회·채팅·ORDERS 영향 없음.
-- **차단 요인** — 공유 GPU 작업의 운영 중 종료는 금지. 재기동 시험은 격리 환경에서 실행.
-- **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-003/ (신규 검증 기록 위치)
+- **차단 요인** — 고정 loopback/160초/동시1/transport circuit 및 실제 CPU 측정·격리 재시작 증거 참조. B D086 host worker 수·TTL/dead-letter/readiness, 실제 embedding/라이선스와 일반 조회·채팅 통합 부하 수용 미완료.
+- **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-003/ (신규 검증 기록 위치) · harness/evidence/PR-003/TRANSPORT_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
 
 ## PR-004 · 라이브 판매 전원장·대사·환불 출시 게이트
 

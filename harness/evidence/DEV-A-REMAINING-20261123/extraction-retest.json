@@ -1,0 +1,111 @@
+{
+  "scope": "actual local CPU model on fictional text/reference only; no account/source approval or public writes",
+  "productPromptVersion": "product-conditions-v2",
+  "tagPromptVersion": "content-tags-v3",
+  "products": [
+    {
+      "result": "PASS",
+      "schemaValid": true,
+      "expectedExplicitConditionsFound": true,
+      "suggestions": 2,
+      "omitted": 0,
+      "sourceVersion": "6f69b8a2c29c2ed4d134885015f1973c4410e546bf835eecced979b4d71f7b1b",
+      "usage": {
+        "inputTokens": 448,
+        "outputTokens": 68,
+        "durationNs": 7338565754
+      },
+      "index": 1,
+      "ms": 7351
+    },
+    {
+      "result": "PASS",
+      "schemaValid": true,
+      "expectedExplicitConditionsFound": true,
+      "suggestions": 2,
+      "omitted": 1,
+      "sourceVersion": "0563e94bf25d298f0860576a05b02ea73bf9e30ef7ce54208959e24fc985261f",
+      "usage": {
+        "inputTokens": 445,
+        "outputTokens": 91,
+        "durationNs": 3561836521
+      },
+      "index": 2,
+      "ms": 3566
+    },
+    {
+      "result": "PASS",
+      "schemaValid": true,
+      "expectedExplicitConditionsFound": true,
+      "suggestions": 2,
+      "omitted": 0,
+      "sourceVersion": "626019173dcc4e295f41d2339c963157aedac086f3c8db1a0d3a5f5c1062b2b6",
+      "usage": {
+        "inputTokens": 448,
+        "outputTokens": 68,
+        "durationNs": 2802015782
+      },
+      "index": 3,
+      "ms": 2824
+    },
+    {
+      "result": "PASS",
+      "schemaValid": true,
+      "expectedExplicitConditionsFound": true,
+      "suggestions": 2,
+      "omitted": 0,
+      "sourceVersion": "31113b4d8e56bbb780fe44573cbc229e05c67c6db9b24a02b1dfe4b2ae5cf025",
+      "usage": {
+        "inputTokens": 447,
+        "outputTokens": 66,
+        "durationNs": 2710035201
+      },
+      "index": 4,
+      "ms": 2714
+    },
+    {
+      "result": "PASS",
+      "schemaValid": true,
+      "expectedExplicitConditionsFound": true,
+      "suggestions": 2,
+      "omitted": 0,
+      "sourceVersion": "468f7636b1a04d0cf8758400d89d68308badcd2abd63b9f665940f1cf702dbdc",
+      "usage": {
+        "inputTokens": 447,
+        "outputTokens": 66,
+        "durationNs": 2862258558
+      },
+      "index": 5,
+      "ms": 2866
+    }
+  ],
+  "tags": [
+    {
+      "sourceAssertion": "creator_provided",
+      "result": "PASS",
+      "tags": 1,
+      "review": "pending",
+      "usage": {
+        "inputTokens": 358,
+        "outputTokens": 75,
+        "durationNs": 8002326355
+      },
+      "sourceVersion": "f9bd130ca6f9d9acbbcc2bd7ca8864ce0682a253f3a3d484c605d1dbaa9ea058",
+      "ms": 8006
+    },
+    {
+      "sourceAssertion": "licensed",
+      "result": "PASS",
+      "tags": 1,
+      "review": "pending",
+      "usage": {
+        "inputTokens": 358,
+        "outputTokens": 75,
+        "durationNs": 2523749313
+      },
+      "sourceVersion": "71bb34d0b5359f4f010c0c2576c312ffa932fd3aa18a31fe40658444da6c0aca",
+      "ms": 2527
+    }
+  ],
+  "result": "PASS"
+}

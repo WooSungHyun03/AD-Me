@@ -136,10 +136,11 @@
         "harness/evidence/D014/VERIFY_NEXT_20261121.md",
         "harness/evidence/DEV-A-P0-NEXT-20261121/verification.json",
         "harness/evidence/D014/VERIFY_ALL_20261121.md",
-        "harness/evidence/DEV-A-P0-ALL-20261121/verification.json"
+        "harness/evidence/DEV-A-P0-ALL-20261121/verification.json",
+        "harness/evidence/DEV-A-REMAINING-20261123/README.md"
       ],
-      "blocker": "실제 재인증/TOTP·DB receipt/lease·DataAPI/Storage stale-JWT 제한·Auth ban 확인·hash검증 private copy→원래경로제거/재시도·소유수집lease취소 구현. intake 기본OFF. 영구파기/Auth삭제 어댑터·D079 shared 보존/backup replay·주기 worker/receipt분실복구는 미구현이며 U001 정책 확정/USER 적용·DEV-B review 필요.",
-      "last_checked_at": "2026-11-21T10:56:22.341913+00:00"
+      "blocker": "U001 보존/처리 정책과 B D079 물리 삭제·복구 계약 대기. 로컬 접수·접근 차단과 별개로 영구파기/Auth 삭제 어댑터·주기 worker·receipt 분실 복구는 미구현이며 최종 정책·교차 검토 후 연결 필요.",
+      "last_checked_at": "2026-11-23T13:53:32.835691+00:00"
     },
     "D015": {
       "owner": "DEV-B",
@@ -434,10 +435,12 @@
         "harness/evidence/D045/PLAN_20261120.md",
         "harness/evidence/D045/README.md",
         "harness/evidence/D045/verification.json",
-        "docs/handoff/DEV-A_RECOMMENDATIONS_20261120.md"
+        "docs/handoff/DEV-A_RECOMMENDATIONS_20261120.md",
+        "harness/evidence/D045/POLICY_20261123.md",
+        "harness/evidence/DEV-A-REMAINING-20261123/README.md"
       ],
-      "blocker": "Existing v1 snapshot local acceptance passed. D044 steward/normalized model and D033 search integration, USER exact31→34 SQL/source deployment/actual URL checks remain; not DONE. Catalogue cap1000 explicit; legacy public user-UUID IDs and retention/account deletion remain separate release work.",
-      "last_checked_at": "2026-11-20T14:51:00.191610+00:00"
+      "blocker": "현재1.2 정책/결측/보류·운영 가상 제외와 불변1.0 호환 로컬 검증 완료. USER 정확112→113 기준 적용·배포와 실제 URL/교차 검토는 미완료.",
+      "last_checked_at": "2026-11-23T13:53:32.835691+00:00"
     },
     "D046": {
       "owner": "DEV-B",
@@ -462,9 +465,12 @@
       "evidence": [
         "docs/implementation-progress.md",
         "harness/evidence/D048/DEADLINE_20261123.md",
-        "harness/evidence/DEV-A-SEQUENTIAL-20261123/verification.json"
+        "harness/evidence/DEV-A-SEQUENTIAL-20261123/verification.json",
+        "harness/evidence/D048/QUEUE_PROVENANCE_20261123.md",
+        "harness/evidence/DEV-A-REMAINING-20261123/README.md"
       ],
-      "blocker": "공통 어댑터11 합성 테스트 및 실제 시간 경계 보강. 현재 호환 provider는null, 승인된 로컬 모델/queue 통합과 실제 복구/부하 검증 미완료."
+      "blocker": "고정 loopback CPU Qwen 실제 합성 입력 추론/로컬 private queue bridge 검증. 공통 configuredProvider=null 수동 템플릿은 유지. 운영 worker 접속/예약·소비자 연결, B D086 TTL/전역동시성·실환경 수용 별도.",
+      "last_checked_at": "2026-11-23T13:53:32.835691+00:00"
     },
     "D049": {
       "owner": "DEV-B",
@@ -529,10 +535,11 @@
         "harness/evidence/D055/INDEPENDENT_20261122.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json",
-        "harness/evidence/DEV-A-SEQUENTIAL-20261123/verification.json"
+        "harness/evidence/DEV-A-SEQUENTIAL-20261123/verification.json",
+        "harness/evidence/DEV-A-REMAINING-20261123/README.md"
       ],
-      "blocker": "독립 부분 구현/로컬 계약 검증. 전체 미완료 선행·API/저장소/실제 공급자·교차 검토 범위는 DEV-A-INDEPENDENT-20261122/README.md 표 참조. 외부 성공/전체 완료 아님.",
-      "last_checked_at": "2026-11-22T11:51:39.993461+00:00"
+      "blocker": "기존 private calendar/일정 계약과 B D052 milestone/지연 event cursor·outbox·opt-in·중복·해지·삭제 통합 필요. 운영 알림 전달은 미검증.",
+      "last_checked_at": "2026-11-23T13:53:32.835691+00:00"
     },
     "D056": {
       "owner": "DEV-B",
@@ -705,10 +712,11 @@
         "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json",
         "harness/evidence/D075/BOUNDARY_20261123.md",
         "harness/evidence/D075/permissions-109-20261123.json",
-        "harness/evidence/DEV-A-SEQUENTIAL-20261123/verification.json"
+        "harness/evidence/DEV-A-SEQUENTIAL-20261123/verification.json",
+        "harness/evidence/DEV-A-REMAINING-20261123/README.md"
       ],
-      "blocker": "현재109-source 권한 감사 및 저장/HOT 호환성 수정. B 명명 목록/import·D049, 실제 파일 브라우저·운영 적용/전수 행위 검증은 별도.",
-      "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
+      "blocker": "기본 즐겨찾기/CSV/서비스 슬롯과 실제 로컬 Storage·역할 회귀 완료. B D036/D038 named-list/import 공개DTO 계약 및 B D049 전체 경로, 운영 DB/앱 적용과 실환경 권한 전수 검증 필요.",
+      "last_checked_at": "2026-11-23T13:53:32.835691+00:00"
     },
     "D076": {
       "owner": "DEV-A",
@@ -804,10 +812,12 @@
         "harness/evidence/D084/VERIFY_ALL_20261121.md",
         "harness/evidence/DEV-A-P0-ALL-20261121/verification.json",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
-        "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json"
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json",
+        "harness/evidence/D084/FRESH_113_20261123.md",
+        "harness/evidence/DEV-A-REMAINING-20261123/README.md"
       ],
-      "blocker": "unit248/38, actual DB→TS7/격리3, security20파일127그룹, 전체browser64+마지막권한4, free6/keyless10, actual Linux build/notice HTTP 및57→60 upgrade/rollback PASS. 영구삭제/D079·실제 공급자/외부SMTP/대상URL·USER적용/DEV-B 통합 gate 미완료.",
-      "last_checked_at": "2026-11-21T10:56:22.341913+00:00"
+      "blocker": "로컬 fresh0→113,494unit/42Python/영향 desktop-mobile14 PASS. GitHub 기존 checks 성공이나 DB 통합 CI 취소; B D049/D075 전체 흐름·실제 provider/메일/Toss TEST·복구 및 운영 적용 미완료.",
+      "last_checked_at": "2026-11-23T13:53:32.835691+00:00"
     },
     "D085": {
       "owner": "DEV-B",

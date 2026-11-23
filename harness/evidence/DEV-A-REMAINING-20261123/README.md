@@ -1,0 +1,31 @@
+# DEV-A remaining-ticket sequential execution ·2026-11-23
+
+Continued the existing codex/dev-a-p0-continue branch, integrating main506cabb and preserving its legacy data/feature contracts. Ordinary main pushes are authorized; Vercel main/A deployment hold remains. No cloud console, hosted SQL/deployment, API-key registration, paid resource or actual customer source was used. Fifteen distinct tickets received implementation, contract hardening or targeted revalidation across the sequential receipts; this is not fifteen whole-ticket completions. The active A ledger still has37 non-VERIFIED tickets:21 TESTED for local scope,12 IN_PROGRESS,3 BLOCKED and1 IMPLEMENTED, with0 untouched TODO. Full acceptance remains separate.
+
+| Ticket | Concrete progress | Ticket commits |
+|---|---|---|
+| D019 | Bounded official-response/ownership attribution contract, strict claim token binding | ec856b4,b612de0 |
+| D021 | Worker max5 public videos matches reviewed DB cache; stable tie order/checkpoint recovery | a9b63b6 |
+| D033 | Server filtering/keyset directory pagination, safe public DTO/URL reset | 0047822 |
+| D044 | Hard/soft/unknown policy, missing factors and actual repeated-form-reset fix | 5420e16,2877467 |
+| D016 | Current admin role/MFA/expiry/revoke boundaries revalidated | 13ff2f0 |
+| D029 | Current ad-history/version/consent boundaries and self-contained fixture revalidated | 8af8f75 |
+| D075 | Main saved-list compatibility and service-slot public-reference/publication/TEST boundaries | b7a3004 |
+| D037 | Saved conditions/CAS/delete/current browser, notification integration still pending | 43fa14e |
+| D048 | Adapter wall deadline/usage; versioned queue prompt, pre/post lease checks; actual CPU-model private roundtrip | d608aed,5bed96f,83a9f7f |
+| D042 | Immutable private brief files/versions, account budget, rights/policy snapshot and owner UI/API; collectionOFF | ac7df24,8cd3985 |
+| D045 | Additive1.2 stored policy/held/missing/demo scope; immutable1.0/legacy RPC/replay compatibility | d8ebc19 |
+| PR-003 | Fixed-loopback bounded model transport/circuit/concurrency, actual30-sample measurement and isolated restart harness | aa6535b,c5c99ed,83a9f7f,47856bf |
+| PR-002 | Strict permitted-text/vocabulary/evidence/pending-review contract; actual-model grammar failure then v3 correction | 06bd090,bcb38f9 |
+| PR-001 | Shared-vocabulary model/Zod evidence-bound proposal contract; actual empty-result failure then functional v2 correction | e41a5d9,9d053eb |
+| D084 | Fresh0→113 installation and current affected regression, full CI limitation recorded | 97f3c49 |
+
+Shared final source47856bf: lint/typecheck,494 unit tests/83files,42 Python and production build PASS. Final14 local desktop/mobile Auth/DB/Storage cases PASS; earlier scoped receipts preserve unaffected evidence at their own tested sources. No entire historical default E2E/restore drill claim. New/current D045 actual SQL/PostgREST6groups + frozen1.0 suite12groups, explicit SQL/JS local contracts3 tests including165 current/144 known-data historical cases PASS. Fresh secondary no-seed0→113 CLI installation PASS with0 creators/campaigns, collectionOFF and private/anonymous grants checked; primary QA data retained. Reviewed112→113 packet separately proved injected failure atomic rollback, unchanged legacy/scorer/control flags, exact source receipt and replay refusal. Git/workspace/ZIP bytes/manifest source SHA match. Prior105→109 v2 and109→112 artifacts remain immutable.
+
+Actual-model evidence is explicit and limited. An isolated labeled CPU4/memory6GiB/no-GPU container using recorded image/model digests produced a real private draft roundtrip through local heartbeat/finish/get and stale/duplicate/foreign denials. A synthetic running lease/local RPC bridge is not an actual production claim reservation. Thirty separate fictional-input draft inferences passed: p50=15,856ms,p95=19,006ms,0/30 failures on this host, nearest-rank successful latency. The owned disposable container alone was terminated during an inference; waiting request ended MODEL_UNAVAILABLE, restart became ready and actual inference recovered. ORDERS/messages/campaign counts unchanged; this is not a live chat/load or GPU-cancellation guarantee. Container is stopped with restart=no; cache retained. No embeddinggemma execution, cloud provider or real influencer data claim.
+
+First actual extraction attempts are retained in first-actual-model-run.json:5 schema-valid EMPTY proposals (functional failure for positive inputs) and2 rejected tag outputs. Its product PASS labels refer only to structural validity, not feature acceptance. product-conditions-v2 adds explicit Korean vocabulary/examples; content-tags-v3 couples kind/value grammar and source indices. extraction-retest.json then passed5 real-model positive cases requiring the expected topic AND product-review condition, and2 nonempty evidence-valid tag cases. All inputs/rights references were fictional; a rights assertion is not actual consent or B D017 approval. Proposed conditions remain unbound/requiresConfirmation/applied=false; tags remain pending. Owner/version/queue/review/public/withdrawal integration is still unfinished and not silently counted complete.
+
+The local model runtime was prepared within authorized local development, without a new account/key/paid resource. See docs/operations/local-qa-model-inventory.md for exact digests and official license sources. Current common compatibility provider remains null and its four deterministic templates stay explicitly labeled. Real local text inference does not imply all internal consumers, embeddings, platform permissions or hosted deployment are ready.
+
+GitHub pre-batch main run45178762288/d92c593: checks SUCCESS, migrations CANCELLED during tests/ci-db.sh. The configured job limit is30minutes; exact cancellation cause is not independently proven. Do not report that run or this targeted local suite as full CI success. [REMAINING_GATES.md](REMAINING_GATES.md) separates USER/B prerequisites and unfinished dependent implementation; U001 remains unconfirmed, brief collectionOFF, actual mail/YouTube/Toss and whole-flow/retention/CI acceptance remain open. No ticket was promoted to whole DONE/VERIFIED.

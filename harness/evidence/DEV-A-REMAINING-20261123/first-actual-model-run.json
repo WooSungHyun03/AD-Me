@@ -1,0 +1,276 @@
+{
+  "scope": "actual disposable CPU Ollama/Qwen inference; fictional inputs and rights references; no hosted actions",
+  "container": "adme-model-qa-20261123",
+  "image": "sha256:ccc42bcd3d5fcf7ab0d532b300382154e1a4da56fc666bdb313b78ebdd912754",
+  "runtime": {
+    "version": "0.40.17"
+  },
+  "model": {
+    "name": "qwen3:1.7b-q4_K_M",
+    "digest": "8f68893c685c3ddff2aa3fffce2aa60a30bb2da65ca488b61fff134a4d1730e7",
+    "size": 1359293444,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen3",
+      "families": [
+        "qwen3"
+      ],
+      "parameter_size": "2.0B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 40960,
+      "embedding_length": 2048,
+      "runner": "ggml"
+    }
+  },
+  "limits": {
+    "cpu": 4,
+    "memoryBytes": 6442450944,
+    "gpu": false,
+    "parallel": 1,
+    "host": "127.0.0.1:11539"
+  },
+  "products": [
+    {
+      "result": "PASS",
+      "suggestions": 0,
+      "omitted": 0,
+      "sourceVersion": "6f69b8a2c29c2ed4d134885015f1973c4410e546bf835eecced979b4d71f7b1b",
+      "usage": {
+        "inputTokens": 160,
+        "outputTokens": 9,
+        "durationNs": 2094323170
+      },
+      "applied": false,
+      "index": 1,
+      "ms": 2117
+    },
+    {
+      "result": "PASS",
+      "suggestions": 0,
+      "omitted": 0,
+      "sourceVersion": "0563e94bf25d298f0860576a05b02ea73bf9e30ef7ce54208959e24fc985261f",
+      "usage": {
+        "inputTokens": 157,
+        "outputTokens": 9,
+        "durationNs": 782820851
+      },
+      "applied": false,
+      "index": 2,
+      "ms": 787
+    },
+    {
+      "result": "PASS",
+      "suggestions": 0,
+      "omitted": 0,
+      "sourceVersion": "626019173dcc4e295f41d2339c963157aedac086f3c8db1a0d3a5f5c1062b2b6",
+      "usage": {
+        "inputTokens": 160,
+        "outputTokens": 9,
+        "durationNs": 879355223
+      },
+      "applied": false,
+      "index": 3,
+      "ms": 894
+    },
+    {
+      "result": "PASS",
+      "suggestions": 0,
+      "omitted": 0,
+      "sourceVersion": "31113b4d8e56bbb780fe44573cbc229e05c67c6db9b24a02b1dfe4b2ae5cf025",
+      "usage": {
+        "inputTokens": 159,
+        "outputTokens": 9,
+        "durationNs": 774670576
+      },
+      "applied": false,
+      "index": 4,
+      "ms": 778
+    },
+    {
+      "result": "PASS",
+      "suggestions": 0,
+      "omitted": 0,
+      "sourceVersion": "468f7636b1a04d0cf8758400d89d68308badcd2abd63b9f665940f1cf702dbdc",
+      "usage": {
+        "inputTokens": 159,
+        "outputTokens": 9,
+        "durationNs": 802047033
+      },
+      "applied": false,
+      "index": 5,
+      "ms": 805
+    }
+  ],
+  "tags": [
+    {
+      "sourceAssertion": "creator_provided",
+      "result": "FAIL",
+      "error": "TAG_MODEL_INVALID_OUTPUT",
+      "ms": 8399
+    },
+    {
+      "sourceAssertion": "licensed",
+      "result": "FAIL",
+      "error": "TAG_MODEL_INVALID_OUTPUT",
+      "ms": 5180
+    }
+  ],
+  "databaseBefore": "{\"orders\": 16, \"messages\": 14, \"campaigns\": 36}",
+  "benchmarkProgress": {
+    "samples": 30,
+    "last": {
+      "ms": 16602,
+      "error": null
+    }
+  },
+  "benchmark": {
+    "scope": "explicit synthetic-input local-model benchmark; no queue/cloud writes",
+    "model": "qwen3:1.7b-q4_K_M",
+    "promptVersion": "marketing-draft-v2",
+    "runtimeVersion": "ollama-qwen3-local-v2",
+    "samples": 30,
+    "successes": 30,
+    "failureRate": 0.0,
+    "successfulLatencyMethod": "nearest-rank; failed/circuit/busy cases counted separately",
+    "p50_ms": 15856,
+    "p95_ms": 19006,
+    "cases": [
+      {
+        "ms": 18250,
+        "error": null
+      },
+      {
+        "ms": 16630,
+        "error": null
+      },
+      {
+        "ms": 16332,
+        "error": null
+      },
+      {
+        "ms": 15856,
+        "error": null
+      },
+      {
+        "ms": 17159,
+        "error": null
+      },
+      {
+        "ms": 10070,
+        "error": null
+      },
+      {
+        "ms": 13493,
+        "error": null
+      },
+      {
+        "ms": 16737,
+        "error": null
+      },
+      {
+        "ms": 11239,
+        "error": null
+      },
+      {
+        "ms": 17658,
+        "error": null
+      },
+      {
+        "ms": 10000,
+        "error": null
+      },
+      {
+        "ms": 13130,
+        "error": null
+      },
+      {
+        "ms": 21512,
+        "error": null
+      },
+      {
+        "ms": 15502,
+        "error": null
+      },
+      {
+        "ms": 18697,
+        "error": null
+      },
+      {
+        "ms": 10172,
+        "error": null
+      },
+      {
+        "ms": 17591,
+        "error": null
+      },
+      {
+        "ms": 13924,
+        "error": null
+      },
+      {
+        "ms": 13100,
+        "error": null
+      },
+      {
+        "ms": 19006,
+        "error": null
+      },
+      {
+        "ms": 15144,
+        "error": null
+      },
+      {
+        "ms": 16617,
+        "error": null
+      },
+      {
+        "ms": 14305,
+        "error": null
+      },
+      {
+        "ms": 12574,
+        "error": null
+      },
+      {
+        "ms": 18504,
+        "error": null
+      },
+      {
+        "ms": 11357,
+        "error": null
+      },
+      {
+        "ms": 16430,
+        "error": null
+      },
+      {
+        "ms": 17400,
+        "error": null
+      },
+      {
+        "ms": 15121,
+        "error": null
+      },
+      {
+        "ms": 16602,
+        "error": null
+      }
+    ]
+  },
+  "restart": {
+    "outcome": "MODEL_UNAVAILABLE",
+    "wasInFlight": true,
+    "terminated": true,
+    "isolatedContainerOnly": true,
+    "runtimeReady": true,
+    "recovered": true,
+    "recoveredUsage": {
+      "inputTokens": 226,
+      "outputTokens": 333,
+      "durationNs": 24283160090
+    }
+  },
+  "databaseAfter": "{\"orders\": 16, \"messages\": 14, \"campaigns\": 36}",
+  "databaseCountsUnchanged": true
+}

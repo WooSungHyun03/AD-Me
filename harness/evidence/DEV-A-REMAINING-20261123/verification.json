@@ -1,0 +1,79 @@
+{
+  "tested_source_commit": "47856bfe4c4c790d74ded05bff64d1646eb42155",
+  "first_actual_model_source_commit": "83a9f7f2d6061c3fcedda1911e08d441e0e7c53f",
+  "scope": "local source/SQL/Auth/PostgREST/Storage and actual isolated CPU model on fictional input; no actual influencer/provider/cloud acceptance",
+  "checks": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": {
+      "result": "PASS",
+      "tests": 494,
+      "files": 83
+    },
+    "python": {
+      "result": "PASS",
+      "tests": 42
+    },
+    "production_build": "PASS",
+    "affected_e2e": {
+      "result": "PASS",
+      "desktop_mobile_scenarios": 14
+    },
+    "migration_static": {
+      "result": "PASS",
+      "sources": 113
+    },
+    "fresh_install": {
+      "result": "PASS",
+      "baseline": 0,
+      "target": 113,
+      "seed": false,
+      "emptyCatalog": true,
+      "briefCollectionOff": true
+    },
+    "recommendation_sql_js": {
+      "result": "PASS",
+      "tests": 3,
+      "currentCases": 165,
+      "historicalKnownDataCases": 144
+    },
+    "recommendation_db": {
+      "result": "PASS",
+      "newGroups": 6,
+      "legacyGroups": 12
+    },
+    "reviewed_packet": "112→113 PASS atomic failure rollback/data/scorer/flags/source/replay and Git/workspace/ZIP SHA",
+    "secret_and_bundle": "PASS"
+  },
+  "actual_model": {
+    "draft_benchmark": {
+      "result": "PASS",
+      "samples": 30,
+      "failures": 0,
+      "p50_ms": 15856,
+      "p95_ms": 19006,
+      "method": "nearest-rank successful latency",
+      "cpu": 4,
+      "gpu": false
+    },
+    "isolated_restart": "PASS waiting request failed then actual recovery",
+    "private_queue_bridge": "PASS actual model, synthetic running lease, actual local heartbeat/finish/get; not claim reservation",
+    "first_extraction": "functional FAIL: five empty proposals and two rejected tag responses retained",
+    "fixed_extraction": {
+      "result": "PASS",
+      "productCases": 5,
+      "tagCases": 2,
+      "productPrompt": "product-conditions-v2",
+      "tagPrompt": "content-tags-v3"
+    },
+    "embedding": "NOT RUN",
+    "runtime_end": "stopped/restart=no; caches retained"
+  },
+  "full_ci": {
+    "pre_batch_run": 45178762288,
+    "checks": "success",
+    "migrations": "cancelled; not a full pass"
+  },
+  "ticket_status": "no whole DONE/VERIFIED promotion; PR001/002/003 now IN_PROGRESS; A37 non-VERIFIED includes21 locally TESTED",
+  "deployment": "main/A Git hold retained; no hosted application or deployment"
+}

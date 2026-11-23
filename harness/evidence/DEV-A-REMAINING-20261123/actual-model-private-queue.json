@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "actualLocalModel": true,
+  "fictionalInput": true,
+  "syntheticRunningLease": true,
+  "localRpcBridge": true,
+  "promptVersion": "marketing-draft-v2",
+  "runtimeVersion": "ollama-qwen3-local-v2",
+  "model": "qwen3:1.7b-q4_K_M",
+  "usage": {
+    "inputTokens": 237,
+    "outputTokens": 492,
+    "durationNs": 23724867544
+  },
+  "scope": "isolated CPU model plus local heartbeat/finish/get; no actual claim reservation or cloud operation"
+}
