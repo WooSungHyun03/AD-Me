@@ -1,0 +1,69 @@
+{
+  "domain": "https://be-celeb.org/",
+  "main_code_commit": "d662a3dc19f8262684845adcfbac45594bcd34e5",
+  "release_commit": "11af311f50e3ff8280ce530879031d636af908ca",
+  "vercel_deployment": "dpl_G3S8oSBWEEadE4dShsgjKHjKa854",
+  "browser": {
+    "unique_paths": 60,
+    "path_role_combinations": 62,
+    "viewport_observations": 190,
+    "horizontal_overflow": 0,
+    "js_page_errors": 0,
+    "axe_checks": 22,
+    "axe_violations": 0,
+    "http_404_observations": 10,
+    "transient_navigation_observations": 1,
+    "followup": {
+      "brand_explore_http_200": 8,
+      "creator_ad_history_http_404": 2,
+      "axe_checks": 2,
+      "axe_violations": 0
+    }
+  },
+  "test_results": {
+    "main_unit": 420,
+    "release_unit": 167,
+    "production_e2e": 20,
+    "isolated_checkout_e2e": 2,
+    "isolated_worker_api_e2e": 2
+  },
+  "posting_cta": {
+    "initial_contrast": 1.0,
+    "production_contrast": 16.27,
+    "target_min_height_px": 48,
+    "verified_widths": [
+      360,
+      390,
+      1440,
+      1920
+    ]
+  },
+  "lighthouse_lab": {
+    "before_home": {
+      "performance": 0.94,
+      "accessibility": 1,
+      "lcp_ms": 3025,
+      "cls": 0.0022
+    },
+    "home": {
+      "performance": 1,
+      "accessibility": 1,
+      "lcp_ms": 922,
+      "cls": 0
+    },
+    "pricing": {
+      "performance": 1,
+      "accessibility": 1,
+      "lcp_ms": 926,
+      "cls": 0
+    },
+    "creators": {
+      "performance": 1,
+      "accessibility": 1,
+      "lcp_ms": 917,
+      "cls": 0.0028
+    }
+  },
+  "field_inp_measured": false,
+  "verified_toss_approval": false
+}

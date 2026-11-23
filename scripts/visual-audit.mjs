@@ -25,6 +25,7 @@ const sizes = [viewports[1], viewports[6]];
 const focusedRoutes = new Set([
   "/",
   "/creators",
+  "/explore",
   "/jobs",
   "/pricing",
   "/login",
@@ -34,7 +35,7 @@ const focusedRoutes = new Set([
   "/campaigns/new",
 ]);
 const privateRoute =
-  /^\/(admin|billing|account|settings|dashboard|lists|saved-searches|notifications|reports|brand|privacy\/requests)(\/|$)|\/(new|edit)$/;
+  /^\/(admin|billing|account|settings|dashboard|lists|saved-searches|notifications|reports|brand|explore|privacy\/requests)(\/|$)|\/(new|edit)$/;
 const imageRoute = /^\/creators\/youtube\/UC/;
 function slug(path) {
   return path.replace(/^\//, "").replaceAll("/", "--") || "home";
@@ -127,7 +128,7 @@ try {
   const tasks = paths.map((path) => {
     const preferredRole = path.startsWith("/admin")
       ? "admin"
-      : path === "/settings/youtube"
+      : ["/settings/youtube", "/ad-history/new"].includes(path)
         ? "creator"
         : "brand";
     const role =
@@ -317,8 +318,12 @@ try {
     }
     result.routes.push({ path, role, snapshots, errors: [...new Set(errors)] });
   }
-  for (let i = 0; i < tasks.length; i += 4)
-    await Promise.all(tasks.slice(i, i + 4).map(inspect));
+  const requested = process.env.VISUAL_PATHS?.split(",").filter(Boolean);
+  const queue = requested?.length
+    ? tasks.filter(({ path }) => requested.includes(path))
+    : tasks;
+  for (let i = 0; i < queue.length; i += 4)
+    await Promise.all(queue.slice(i, i + 4).map(inspect));
 } finally {
   await writeFile(output + "/routes.json", JSON.stringify(result, null, 2));
   await browser.close();

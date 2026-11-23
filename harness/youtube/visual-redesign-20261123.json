@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "audit": "docs/design/visual-audit.md",
+  "tasks": [
+    {
+      "id": "V01",
+      "page": "/pricing",
+      "component": "PricingPlans and Checkout",
+      "priority": "P0",
+      "problem": "White-on-white advertising post CTA",
+      "expected": "Readable action for each mode",
+      "files": [
+        "src/components/pricing-plans.tsx",
+        "src/components/checkout.tsx",
+        "tests/e2e/premium-visual.spec.ts"
+      ],
+      "test_plan": "Measure contrast, size, hit test, click across mobile and desktop in production and TEST fixture",
+      "screenshot": "output/playwright/premium/diff/pricing-390.png",
+      "status": "VERIFIED",
+      "commit_sha": "d662a3dc19f8262684845adcfbac45594bcd34e5"
+    },
+    {
+      "id": "V02",
+      "page": "/tools and /tools/local",
+      "component": "Navigation and redirects",
+      "priority": "P1",
+      "problem": "Retired studio appeared in the user workflow",
+      "expected": "Redirect to discovery or the campaign form",
+      "files": [
+        "next.config.ts",
+        "src/app/layout.tsx",
+        "tests/e2e/ai-studio.spec.ts"
+      ],
+      "test_plan": "Follow old routes in both browser widths",
+      "screenshot": "output/playwright/premium/final/anonymous--home--390.png",
+      "status": "VERIFIED",
+      "commit_sha": "d662a3dc19f8262684845adcfbac45594bcd34e5"
+    },
+    {
+      "id": "V03",
+      "page": "/",
+      "component": "Home and product recommendation",
+      "priority": "P1",
+      "problem": "Form dominated the first screen before real channel data",
+      "expected": "Live preview and reachable recommendation form",
+      "files": [
+        "src/app/page.tsx",
+        "src/app/marketplace-theme.css"
+      ],
+      "test_plan": "Browser screenshots, home recommendation, eight viewport widths and Lighthouse",
+      "screenshot": "output/playwright/premium/diff/home-1440.png",
+      "status": "VERIFIED",
+      "commit_sha": "d662a3dc19f8262684845adcfbac45594bcd34e5"
+    },
+    {
+      "id": "V04",
+      "page": "/creators and /creators/youtube/[id]",
+      "component": "Discovery filter and channel report",
+      "priority": "P1",
+      "problem": "Limited public search and weak detailed navigation",
+      "expected": "Official topic filters, sorting and readable profile metrics",
+      "files": [
+        "src/app/creators/page.tsx",
+        "src/components/discovery-ui.tsx"
+      ],
+      "test_plan": "Check real result changes and open the actual channel details",
+      "screenshot": "output/playwright/premium/diff/creators-1440.png",
+      "status": "VERIFIED",
+      "commit_sha": "d662a3dc19f8262684845adcfbac45594bcd34e5"
+    },
+    {
+      "id": "V05",
+      "page": "/jobs, /dashboard and /admin",
+      "component": "Shared UI hierarchy",
+      "priority": "P1",
+      "problem": "Dense workspace and weak empty state",
+      "expected": "Consistent headers, summary and next actions",
+      "files": [
+        "src/app/jobs/page.tsx",
+        "src/app/dashboard/page.tsx",
+        "src/app/marketplace-theme.css"
+      ],
+      "test_plan": "Browser checks with brand, creator and admin sessions",
+      "screenshot": "output/playwright/premium/final/brand--dashboard--390.png",
+      "status": "VERIFIED",
+      "commit_sha": "d662a3dc19f8262684845adcfbac45594bcd34e5"
+    },
+    {
+      "id": "V06",
+      "page": "Hosted schema-dependent routes",
+      "component": "Advanced authoring and operational consoles",
+      "priority": "P1",
+      "problem": "Some main routes are unavailable on the production-compatible database and app",
+      "expected": "Separate hosted migration rehearsal and matching release",
+      "files": [
+        "docs/design/visual-audit.md"
+      ],
+      "test_plan": "Retest only after deployed schema compatibility is verified",
+      "screenshot": "",
+      "status": "FIX_REQUIRED",
+      "commit_sha": "d662a3dc19f8262684845adcfbac45594bcd34e5"
+    }
+  ],
+  "main_implementation_commit": "d662a3dc19f8262684845adcfbac45594bcd34e5",
+  "production_commit": "11af311f50e3ff8280ce530879031d636af908ca",
+  "production_deployment": "dpl_G3S8oSBWEEadE4dShsgjKHjKa854"
+}

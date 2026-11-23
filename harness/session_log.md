@@ -563,3 +563,9 @@ Preserved codex/dev-a-p0-continue and ticket commits; merged YouTube main5d3bc6c
 - 격리 Supabase에서 105개를 새로 적용했다. 과거 범용 E2E 2건 통과·4건 실패 원인은 필수 산출물 사용권 누락과 미인증 수락 가정이다. 보강 후 공고·주문 API, 대화, YouTube 기본값과 미인증 수락 409에 대한 격리 E2E 6건이 통과했다.
 - 신규 캠페인 플랫폼 기본값 수정은 호환 소스 6fb374f2c0fdb3d896c0e4ea3078bdf20ee0718b와 운영 Vercel dpl_HpKpLetDybQVECCFdpFfUyCgTYbE로 배포했다.
 - 최종 운영 재실행은 13건 통과 및 1건 실패였다. 동일 QA 계정에 적용되는 시간당 Local AI 초안 생성 한도 3건을 초과해 모바일 네 번째 요청이 429로 거부됐다. 1차 운영 실행에서는 데스크톱·모바일 추론이 모두 통과했다. 최종 새 캠페인 YouTube 기본값은 두 화면 폭에서 통과했다.
+
+## 2026-11-23 — 프리미엄 디자인 및 브라우저 감사
+
+- 피처링과 레뷰 두 사이트를 실제 Chromium에서 검토했다. AD Me 홈·탐색·상세·요금제, 공고 빈 화면, 역할별 공통 UI를 개편하고 스튜디오 경로를 제거했다.
+- 광고 공고 게시권 버튼이 흰색 글자와 흰색 배경으로 보이던 문제를 수정했다. 운영 16.27:1, 48px과 격리 TEST 버튼 동작을 확인했다.
+- 최종 프로덕션은 호환 소스 11af311f50e3ff8280ce530879031d636af908ca, Vercel dpl_G3S8oSBWEEadE4dShsgjKHjKa854다. 최종 운영 E2E 20건, 격리 TEST 결제 접근과 AI 워커 API 각 2건, 단위 420건, axe-core 22회와 Lighthouse 결과를 docs/design/visual-audit.md에 남겼다.
