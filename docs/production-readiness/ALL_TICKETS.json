@@ -1805,19 +1805,21 @@
       "acceptance": "검색 조건 버전을 저장하고 동의한 사용자에게 신규 후보 요약을 제공한다.",
       "points": 5,
       "owner": "DEV-A",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "D052와 후보 신규성 cursor/outbox·opt-in·중복/해지/삭제 통합 필요. 이메일은 D053 이후, 운영 적용 별도.",
       "evidence": [
         "docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/D037/INDEPENDENT_20261122.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json",
-        "harness/evidence/D037/ (이번 검증 기록 위치)"
+        "harness/evidence/D037/ (이번 검증 기록 위치)",
+        "harness/evidence/D037/REVALIDATE_20261123.md"
       ],
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "IN_PROGRESS",
-      "reopened": false
+      "reopened": false,
+      "verified_scope": "109-source 실제 로컬 Auth/PostgREST/SQL7그룹: 본인 저장/재실행·CAS·해지/삭제·한도. 새 후보 알림은 미구현/미검증."
     },
     {
       "id": "D038",

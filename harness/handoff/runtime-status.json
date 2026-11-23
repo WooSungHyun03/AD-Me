@@ -351,9 +351,10 @@
       "evidence": [
         "harness/evidence/D037/INDEPENDENT_20261122.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
-        "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json"
+        "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json",
+        "harness/evidence/D037/REVALIDATE_20261123.md"
       ],
-      "blocker": "독립 부분 구현/로컬 계약 검증. 전체 미완료 선행·API/저장소/실제 공급자·교차 검토 범위는 DEV-A-INDEPENDENT-20261122/README.md 표 참조. 외부 성공/전체 완료 아님.",
+      "blocker": "저장 조건 실제 로컬7그룹 통과. D052 신규 후보 알림/동의·중복/해지·삭제 및 D053 이메일은 미완료.",
       "last_checked_at": "2026-11-22T11:51:39.993446+00:00"
     },
     "D038": {

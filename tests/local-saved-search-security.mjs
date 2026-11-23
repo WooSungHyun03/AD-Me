@@ -17,7 +17,7 @@ for (const [client, account] of [
 const filters = {
   query: "가상 QA",
   categories: [],
-  platforms: ["instagram"],
+  platforms: ["youtube"],
   tags: [],
   minPrice: "",
   maxPrice: "",

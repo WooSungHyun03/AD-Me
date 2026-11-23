@@ -606,3 +606,5 @@ USER requested all feasible tickets in order, keeping direct main push and ticke
 - D075: 로컬98 RLS/371함수/4비공개버킷, core7·brand7·creator-read8·normalized storage9 통과. main 저장 테이블 교체 뒤 stale RPC와 서비스 HOT의 원시ID/검토·동의·TEST 경계 결함을108/109 전진 수정. 전수 함수/운영 검증 아님; B 명명목록/import/D049 계약 검토 별도.
 
 - D019 추가: 별도 소유 증명 worker 분기의 ID/도전값/응답 귀속·정확 토큰 검증. Python11 통과, 실제 소유 증명/공급자 호출 아님.
+
+- D037: 현109 DB 본인 저장 조건·CAS 경합/재실행·삭제·한도7그룹 통과. D052 후보 알림과 동의/중복/해지 통합 미완료를 분리, IN_PROGRESS 유지.
