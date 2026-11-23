@@ -2,6 +2,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { totp } from "../support/local-qa.mjs";
 import { finishLocalFixtureJob } from "../support/local-fixture-worker.mjs";
+import { finishLocalWorkerJob, isolatedYoutube } from "./support/youtube";
 const localFixture = process.env.ADME_LOCAL_QA === "1";
 
 const accounts = JSON.parse(
@@ -74,7 +75,7 @@ test("operations console checks sessions and permissions on desktop and mobile",
 });
 
 test(
-  localFixture
+  localFixture || isolatedYoutube
     ? "brand draft completes through isolated fixture lease/finish RPCs (no provider)"
     : "brand submits a private Korean draft to the real worker",
   async ({ page }) => {
@@ -83,7 +84,7 @@ test(
     await page
       .getByLabel("광고 브리프")
       .fill(
-        "무향 선크림을 소개하는 인스타그램 릴스. 효능을 단정하지 말고 손에 바르는 장면을 포함해주세요.",
+        "무향 선크림을 소개하는 YouTube 영상. 효능을 단정하지 말고 손에 바르는 장면을 포함해주세요.",
       );
     const queued = page.waitForResponse(
       (r) =>
@@ -93,6 +94,7 @@ test(
     await page.getByRole("button", { name: "초안 생성" }).click();
     expect((await queued).status()).toBe(202);
     if (localFixture) await finishLocalFixtureJob("marketing_draft");
+    else if (isolatedYoutube) finishLocalWorkerJob("marketing_draft");
     await expect(
       page.getByRole("heading", { name: "협업 제안 초안" }),
     ).toBeVisible({ timeout: 75000 });
@@ -131,6 +133,7 @@ test("unverified YouTube candidates remain private and creators can unlink a cla
     page.getByRole("status").filter({ hasText: "확인 작업을 등록했습니다" }),
   ).toBeVisible();
   if (localFixture) await finishLocalFixtureJob("youtube_claim");
+  else if (isolatedYoutube) finishLocalWorkerJob("youtube_claim");
   await expect
     .poll(
       async () => {
