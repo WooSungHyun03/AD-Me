@@ -26,6 +26,8 @@ export function RecommendationBrief() {
     <div className="brief-workbench">
       <form
         action={action}
+        // Preserve confirmed inputs when the Server Action requests a form reset.
+        onReset={(event) => event.preventDefault()}
         className="brief-form"
         aria-label="유튜버 추천 조건"
       >
@@ -114,7 +116,11 @@ export function RecommendationBrief() {
             <option value="hold">확인 필요로 표시</option>
           </select>
         </label>
-        <button type="submit" className="button primary brief-wide" disabled={pending}>
+        <button
+          type="submit"
+          className="button primary brief-wide"
+          disabled={pending}
+        >
           <Search size={18} aria-hidden="true" />{" "}
           {pending ? "후보 확인 중…" : "조건에 맞는 유튜버 찾기"}
         </button>
