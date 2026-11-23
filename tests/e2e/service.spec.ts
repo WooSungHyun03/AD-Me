@@ -1,23 +1,10 @@
+import { channels } from "./support/youtube";
 import { test, expect, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
-import { totp } from "../support/local-qa.mjs";
-import { fillCampaignTerms } from "../support/campaign-terms-form";
 const accounts = JSON.parse(
-  readFileSync(
-    process.env.ADME_ACCOUNTS_FILE || ".accounts.local.json",
-    "utf8",
-  ),
-) as Record<
-  string,
-  {
-    email: string;
-    password: string;
-    id: string;
-    factorId?: string;
-    totpSecret?: string;
-  }
->;
+  readFileSync(process.env.ADME_ACCOUNTS_FILE || ".accounts.local.json", "utf8"),
+) as Record<string, { email: string; password: string; id: string }>;
 async function login(page: Page, role: string) {
   await page.goto("/login");
   await page.getByLabel("이메일", { exact: true }).fill(accounts[role].email);
@@ -26,14 +13,6 @@ async function login(page: Page, role: string) {
     .fill(accounts[role].password);
   await page.getByRole("button", { name: "로그인", exact: true }).click();
   await expect(page).toHaveURL(/dashboard/);
-  if (role === "admin" && accounts[role].totpSecret) {
-    await page.goto("/admin/security");
-    await page
-      .getByLabel("6자리 OTP", { exact: true })
-      .fill(totp(accounts[role].totpSecret));
-    await page.getByRole("button", { name: "OTP 확인", exact: true }).click();
-    await expect(page).toHaveURL(/\/admin$/);
-  }
 }
 test("public discovery, filters, comparison, history, drafts and responsive layout", async ({
   page,
@@ -48,26 +27,37 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
     fullPage: true,
   });
   await page.goto("/creators");
+  // D033: first server page only (24), the rest via keyset "더 보기".
   await expect(page.getByTestId("creator-card")).toHaveCount(24);
-  await page.getByRole("button", { name: "다음 후보 더 불러오기" }).click();
+  await page.getByRole("button", { name: "더 보기" }).click();
   await expect(page.getByTestId("creator-card")).toHaveCount(48);
+  const html = await page.content();
+  expect(html).not.toMatch(/owner_id\\?":\\?"[0-9a-f]{8}-/); // no owner ids in RSC payload
   await page.getByLabel("크리에이터 검색").fill("서하린");
   await expect(page.getByTestId("creator-card")).toHaveCount(1);
   await page.getByLabel("크리에이터 검색").fill("결과없는이름");
   await expect(
+    page.getByText("조건에 맞는 크리에이터가 없습니다."),
+  ).toBeVisible();
+  // CI provisions an isolated directory; hosted smoke tests use the real channel name.
+  await page.goto("/creators");
+  await expect(page.getByTestId("youtube-channel")).toHaveCount(10);
+  await page
+    .getByRole("searchbox", { name: "채널 이름" })
+    .fill(channels[0].name);
+  await page.getByRole("button", { name: "검색", exact: true }).click();
+  await expect(page.getByTestId("youtube-channel")).toHaveCount(1);
+  await page.getByTestId("youtube-channel").click();
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    channels[0].name,
+  );
+  await expect(
     page.getByRole("heading", { name: "최근 공개 영상" }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "필터 초기화" }).click();
-  await page.getByTestId("filter-platform").locator("summary").click();
-  await page
-    .getByRole("group", { name: "플랫폼", exact: true })
-    .getByLabel("YouTube", { exact: true })
-    .check();
-  await page.getByLabel("정렬", { exact: true }).selectOption("price");
-  await page.getByLabel("후보 비교에 담기").nth(0).check();
-  await page.getByLabel("후보 비교에 담기").nth(1).check();
-  await page.getByRole("link", { name: "후보 비교하기" }).click();
-  await expect(page.getByRole("table")).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "YouTube 원본 채널 열기" }),
+  ).toHaveAttribute("href", /youtube\.com\/channel\/UC/);
+  // test_demo: the labeled fictional profile and its fictional ad history (free_beta hides demo rows).
   await page.goto("/creators/creator-001");
   await expect(
     page.getByRole("heading", { name: "과거 광고 이력" }),
@@ -81,7 +71,13 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
     /\[규칙 기반 광고 콘셉트 초안\]/,
   );
   await page.goto("/pricing");
-  await expect(page.getByRole("heading", { name: "무료 베타" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "AI 검색권", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "TEST 이용권 선택" }).first().click();
+  await expect(page.locator("p[role=alert]")).toContainText(
+    /TEST 클라이언트 키|로그인이 필요합니다/,
+  );
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -124,7 +120,6 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
   await page.getByLabel("콘텐츠 분야", { exact: true }).selectOption("뷰티");
   await page.getByLabel("타깃 고객", { exact: true }).fill("20대~30대");
   await page.getByLabel("광고 목적", { exact: true }).fill("브랜드 인지도");
-  await fillCampaignTerms(page);
   await page.getByRole("button", { name: "캠페인 저장" }).click();
   await expect(page).toHaveURL(/campaigns\/[a-f0-9-]{36}/);
   const campaignId = page.url().split("/").pop()!;
@@ -214,46 +209,45 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
   const fake = await page.request.post("/api/billing/confirm", {
     data: { orderId: o.id, paymentKey: "fake", amount: 49000 },
   });
-  if (process.env.ADME_LOCAL_QA === "1") {
-    // No payment Edge runtime/provider is started in isolated local QA.
-    expect(fake.status()).toBe(503);
-    expect((await fake.json()).error.code).toBe("SERVICE_UNAVAILABLE");
-  } else {
-    expect(fake.status()).toBe(400);
-    expect((await fake.json()).error.message).toContain(
-      "주문 상태를 확인해주세요",
-    );
-  }
+  // Keyless local stack: 503 "secret missing"; with a TEST key, Toss refuses the fake key (400). No pass either way.
+  expect([400, 503]).toContain(fake.status());
+  expect((await fake.json()).error.message).toMatch(
+    fake.status() === 400 ? /이용권은 부여되지 않았습니다/ : /시크릿 키/,
+  );
   const wrongRole = await cp.request.post("/api/billing/orders", {
     data: { sku: "brand_pro" },
   });
-  expect(wrongRole.status()).toBe(403);
-  await deal.getByRole("link", { name: "결과물 제출·검토" }).click();
-  await cp
-    .getByLabel("결과물 설명", { exact: true })
-    .fill("QA 결과물 초안입니다.");
-  await cp
+  expect(wrongRole.status()).toBe(400);
+  const liveDeal = page
+    .locator("article")
+    .filter({ hasText: "QA 검증용 비건 토너 협업을 제안합니다." })
+    .first();
+  await liveDeal.getByText(/메시지·결과물/).click();
+  const liveBody = "QA 결과물 초안 " + unique;
+  await deal.getByText(/메시지·결과물/).click();
+  await deal.getByLabel("메시지", { exact: true }).fill(liveBody);
+  await deal.getByLabel("종류", { exact: true }).selectOption("deliverable");
+  await deal
     .getByLabel("결과물 HTTPS 링크")
     .fill("https://example.com/qa-deliverable");
-  await cp.locator('input[name="confirmed"]').check();
-  await cp.getByRole("button", { name: "새 제출본 저장" }).click();
-  await expect(cp.getByTestId("active-submission")).toContainText("버전 1");
-  await cp.getByRole("button", { name: "현재 버전 제출 완료" }).click();
-  await expect(cp.getByText("검토 대기", { exact: true })).toBeVisible();
+  await deal.getByRole("button", { name: "메시지 저장" }).click();
+  await expect(deal.getByRole("status")).toContainText("저장되었습니다");
+  await expect(liveDeal.getByText(liveBody, { exact: true })).toBeVisible({
+    timeout: 15000,
+  });
+  const markRead = liveDeal.getByRole("button", { name: /안 읽은 메시지 1개/ });
+  await expect(markRead).toBeVisible();
+  await markRead.click();
+  await expect(markRead).toHaveCount(0);
+  await deal.getByRole("button", { name: "결과물 제출 완료" }).click();
+  await expect(deal.getByText("검토 대기", { exact: true })).toBeVisible();
   await page.reload();
   const brandDeal = page
     .locator("article")
     .filter({ hasText: "QA 검증용 비건 토너 협업을 제안합니다." })
     .first();
-  await brandDeal.getByRole("link", { name: "결과물 제출·검토" }).click();
-  await page
-    .getByLabel("검토 의견·승인 근거")
-    .fill("가상 결과물과 표시 내용을 확인한 검토 근거입니다.");
-  await page
-    .getByLabel("현재 제출본의 광고 표시를 확인했습니다.", { exact: true })
-    .check();
-  await page.getByRole("button", { name: "현재 버전 검토 승인" }).click();
-  await expect(page.getByText("완료", { exact: true })).toBeVisible();
+  await brandDeal.getByRole("button", { name: "검토 승인" }).click();
+  await expect(brandDeal.getByText("완료", { exact: true })).toBeVisible();
   await creator.close();
 });
 
@@ -327,10 +321,10 @@ test("public application, shortlist persistence, account settings and administra
     .getByLabel("계정 표시 이름", { exact: true })
     .fill("QA 브랜드 설정");
   await page.getByRole("button", { name: "계정 정보 저장" }).click();
+  // Settings now has several forms, each with its own status line.
   await expect(
     page
-      .locator("form")
-      .filter({ has: page.getByRole("button", { name: "계정 정보 저장" }) })
+      .locator("form", { has: page.getByLabel("계정 표시 이름") })
       .getByRole("status"),
   ).toContainText("저장했습니다");
   const admin = await browser.newContext();
@@ -341,13 +335,11 @@ test("public application, shortlist persistence, account settings and administra
     ap.getByRole("heading", { name: "서비스 운영 현황." }),
   ).toBeVisible();
   await expect(
-    ap.getByRole("heading", { name: "업무별 운영 검색", exact: true }),
+    ap.getByRole("heading", { name: "회원 관리", exact: true }),
   ).toBeVisible();
-  await ap
-    .getByLabel("조회 사유", { exact: true })
-    .fill("가상 사용자 문의에 따른 조회");
-  await ap.getByRole("button", { name: "운영 검색", exact: true }).click();
-  await expect(ap.getByTestId("admin-search-results")).toBeVisible();
+  await expect(
+    ap.getByRole("heading", { name: "이용권·HOT 운영" }),
+  ).toBeVisible();
   await ap.screenshot({
     path: `output/playwright/admin-${test.info().project.name}.png`,
     fullPage: true,

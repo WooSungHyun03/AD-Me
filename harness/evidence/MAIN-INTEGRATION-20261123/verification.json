@@ -1,0 +1,46 @@
+{
+  "base_dev_a": "962f3f1d6d8d0b3ca344eba10fcfc8c8d4c3a1c0",
+  "integrated_main": "8b5be1d8c531397c7c0cfef85ccac11cb96aa2e4",
+  "tested_product_tree": "f7028b5a7f6ddf74664c134b92ae13b7f75be137",
+  "tree_scope": "Product paths match this tree; follow-up evidence and corrected free-mode test expectation do not change product behavior.",
+  "unit": {
+    "files": 77,
+    "tests": 416,
+    "result": "PASS"
+  },
+  "lint": "PASS zero warnings",
+  "typecheck": "PASS next typegen + tsc",
+  "build": "PASS free-beta production builds including latest main image/SEO configuration",
+  "python": {
+    "tests": 16,
+    "result": "PASS"
+  },
+  "migrations": {
+    "incremental": "PASS68 to103, then archived-report forward fix104",
+    "fresh": "PASS104 against marked disposable reference DB",
+    "unchanged_original_sources": 100
+  },
+  "actual_local_security": {
+    "ingestion": 7,
+    "conversation": 8,
+    "release": 5,
+    "result": "PASS"
+  },
+  "browser": {
+    "affected": "12 scenarios:10 initial PASS plus2 after cache-header fix PASS",
+    "free": "6 scenarios:4 initial PASS plus2 after legacy HOT revocation expectation PASS",
+    "scope": "Actual local Auth/DB plus explicitly labeled fictional channel/response fixtures; no provider success claim"
+  },
+  "full_e2e": {
+    "result": "BLOCKED",
+    "scope": "Existing DEV-B full-suite fixture setup against fresh104 local schema; rolled back; no provider call",
+    "detail": [
+      "ERROR:  source policy pending",
+      "CONTEXT:  PL/pgSQL function adme_ops.cache_source_guard() line 5 at RAISE"
+    ]
+  },
+  "secret_scan": "PASS working tree; history/bundle/CI results recorded separately",
+  "deployment_hold": "Preserved main and A branch hold; no hosted settings, migration or deploy",
+  "ticket_status_changes": false,
+  "release_readiness": "NOT CLAIMED: full E2E fixture integration and DEV-B ownership review remain"
+}

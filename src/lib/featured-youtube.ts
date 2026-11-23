@@ -1,14 +1,9 @@
 import { z } from "zod";
+import { youtubeImageHosts } from "./youtube-images";
 import { configured, supabase } from "./supabase";
 
 export const youtubeChannelId = z.string().regex(/^UC[A-Za-z0-9_-]{22}$/);
-const imageHosts = new Set([
-  "yt3.ggpht.com",
-  "yt3.googleusercontent.com",
-  "lh3.googleusercontent.com",
-  "i.ytimg.com",
-  "img.youtube.com",
-]);
+const imageHosts = new Set(youtubeImageHosts);
 const image = z
   .string()
   .nullable()

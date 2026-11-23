@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-23T04:11:24.895Z",
+  "scope": "isolated actual PostgreSQL/PostgREST with fictional users only; no hosted/provider writes",
+  "results": [
+    {
+      "name": "anon/foreign cannot read, send, block, report or inspect private safety tables",
+      "result": "PASS"
+    },
+    {
+      "name": "12 concurrent retries create exactly one message and charge quota only once; key reuse conflicts",
+      "result": "PASS"
+    },
+    {
+      "name": "stable cursor covers equal-microsecond timestamps without duplicates and omits retry keys",
+      "result": "PASS"
+    },
+    {
+      "name": "blocking retains history and denies both RPC and old direct inserts; only actor unblocks own choice",
+      "result": "PASS"
+    },
+    {
+      "name": "reports are private, participant-only, non-self, deduplicated and DB-limited to five per hour",
+      "result": "PASS"
+    },
+    {
+      "name": "direct and RPC writes preserve role/status/HTTPS/moderation gates and old valid INSERT compatibility",
+      "result": "PASS"
+    },
+    {
+      "name": "25 new concurrent sends admit exactly20; full-quota retry returns previous id",
+      "result": "PASS"
+    },
+    {
+      "name": "public RPC wrappers are invoker and volatile; direct GET cannot bypass read quota",
+      "result": "PASS"
+    }
+  ]
+}

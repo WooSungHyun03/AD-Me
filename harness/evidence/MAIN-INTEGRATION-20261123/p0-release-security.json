@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-23T04:12:57.073Z",
+  "results": [
+    {
+      "name": "home counts current public registration separately from DEMO and never exposes private profile data",
+      "result": "PASS"
+    },
+    {
+      "name": "default-off database blocks direct TEST orders/finalization/products/HOT and clients cannot enable it",
+      "result": "PASS"
+    },
+    {
+      "name": "owner TEST opt-in preserves exact catalog prices, role refusal, one entitlement on duplicate DB confirmation",
+      "result": "PASS"
+    },
+    {
+      "name": "filtered catalogue rejects forged inputs/bad cursor/GET bypass and preserves null versus zero followers",
+      "result": "PASS"
+    },
+    {
+      "name": "actual keyset search covers more than1000 equal-name rows without duplicates and binds cursor to filters",
+      "result": "PASS"
+    }
+  ],
+  "scope": "Actual local PostgreSQL/PostgREST, fictional users and local DB-only TEST confirmation; no Toss/provider/hosted validation"
+}

@@ -31,5 +31,7 @@ test("free actual-DB source excludes DEMO counts and denies billing in app and d
     ).toBe(404);
   expect((await db.from("products").select("sku")).data).toEqual([]);
   expect((await db.rpc("test_billing_available")).data).toBe(false);
-  expect((await db.rpc("active_hot_creators")).data).toEqual([]);
+  const legacyHot = await db.rpc("active_hot_creators");
+  expect(legacyHot.error?.code).toBe("42501");
+  expect(legacyHot.data).toBeNull();
 });

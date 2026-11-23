@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { youtubeImageHosts } from "./src/lib/youtube-images";
 import { PRIVATE_PREFIXES } from "./src/lib/seo";
 const isDev = process.env.NODE_ENV === "development";
 const supabase = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -12,7 +13,7 @@ export const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline' ${toss}${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  `img-src 'self' data: blob: ${youtubeImageHosts.map((host) => "https://" + host).join(" ")}`,
   "font-src 'self'",
   // Supabase REST/Auth/Storage + Realtime websocket, Toss API.
   `connect-src 'self' ${supabase} ${supabase.replace(/^http/, "ws")} ${toss}`,

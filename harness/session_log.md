@@ -534,3 +534,8 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 - 2026-11-23 D023 BLOCKED(U013 앱 승인·D018 미완): 공식 문서 기반 연동 설계 문서, 정책 게이트된 tiktok.ts(최소 scope·research 거부·토큰 수명·웹훅 서명·철회 이벤트) + 단위 테스트 5. 전체 회귀 E2E 82/82·vitest 142. 증거 harness/evidence/D023.
 
 - 2026-11-23 origin/main(DEV-A YouTube 마켓) 병합: 충돌 21파일 해소(원격 화면 기준 + DEV-B 기능), DEV-B 마이그레이션 `202611231000NN`으로 재번호, `20261123100028`에서 proposals_insert/messages_insert 양측 조건 통합, 중복 비밀번호 복구 경로 제거, 로컬 seed에 가상 크리에이터 유지(호스팅 미적용). 검증: db reset 39개 적용, DB 테스트 26종+복원 훈련 PASS, vitest 163, lint 0 오류, build, secret scan PASS. E2E 84/98: 실패 14건(7종×2)은 YouTube worker·YOUTUBE_API_KEY·로컬 AI가 필요한 원격 테스트로 키 없는 로컬에서 BLOCKED.
+
+
+## 2026-11-23 latest main integration / existing PR2
+
+Preserved codex/dev-a-p0-continue and ticket commits; merged YouTube main5d3bc6c, DEV-B main14980c8 and follow-up8b5be1d. Initial44 shared-path conflicts and later5 conflicts resolved. Unit416/77files, lint/typecheck/build, Python16, actual local security7+8+5, fresh104SQL and affected desktop/mobile regressions passed. Full DEV-B E2E fixture setup remains blocked by source-policy validation; no guard disabled and no full-suite/provider/hosted claim. Core auth/consent/public DTO/admin boundaries retain DEV-A behavior; DEV-B shared-screen acceptance requires review. Evidence: harness/evidence/MAIN-INTEGRATION-20261123/verification.json. All D/U statuses preserved; latest request is PR update, no main push or deployment.

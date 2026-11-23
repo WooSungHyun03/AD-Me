@@ -1,16 +1,13 @@
 import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 
-const channels = [
-  { id: "UCfpaSruWW3S4dibonKXENjA", name: /쯔양/ },
-  { id: "UCT-_4GqC-yLY1xtTHhwY0hA", name: /PONY Syndrome/ },
-  { id: "UC9kmlDcqksaOnCkC_qzGacA", name: /RISABAE/ },
-];
+import { channels, routeYoutubeImages } from "./support/youtube";
 
 for (const channel of channels) {
   test(`official YouTube data and media render for ${channel.id}`, async ({
     page,
   }) => {
+    await routeYoutubeImages(page);
     await page.goto("/creators");
     const directory = page
       .getByTestId("youtube-channel")
@@ -20,7 +17,7 @@ for (const channel of channels) {
       .locator(".youtube-image--avatar img")
       .getAttribute("src");
     await directory.click();
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(
       channel.name,
     );
     const avatar = page.locator(".youtube-image--avatar img");
@@ -92,7 +89,9 @@ test("a signed-in user can save and remove a YouTube channel", async ({
   await page.reload();
   await expect(saved).toBeVisible();
   await page.goto("/dashboard");
-  const favorite = page.getByRole("link", { name: /쯔양/ });
+  const favorite = page.getByRole("link", {
+    name: new RegExp(channels[0].name),
+  });
   await expect(favorite).toHaveAttribute("href", detail);
   await favorite.click();
   await saved.click();

@@ -55,6 +55,8 @@ Phases: expand (additions only, old app unaffected), backfill (transforms existi
 | `20261123100026` | expand+switch | `promotion_impressions` (per day × entitlement, owner/admin read), service-only `serve_promotion_slots(record)` (≤3 TEST HOT slots, minimal DTO, counts impressions); client execute on `active_hot_creators()` revoked | Old app: the HOT strip on /creators disappears (TEST-only feature). Deploy the app right after |
 | `20261123100027` | expand | TEST payment cancellation: `payment_cancellations` (owner/admin read, one live per order, idempotency key), service-only `begin_test_cancel()` (owner + paid + no used/in-flight credits) and `finish_test_cancel()` (order cancelled, entitlement revoked, ledger + audit) | None (new table/functions) |
 | `20261123100028` | switch | Merge fix: `proposals_insert` keeps DEV-B rules **and** DEV-A `marketplace_locked`; `messages_insert` keeps DEV-B block/state rules **and** DEV-A `chat_allowed` | Compatible (only adds conditions both apps already expect) |
+| `20261123100029` | switch | Preserve the archived creator reference on appeals of historical reports | Compatible. Live creator reports use the existing flow. |
+
 
 Order: apply DB migrations (single CLI run, each file in its own transaction) → deploy the app **immediately** → verify the URL (D088). Because of 0008 and 0011 the old app will partly fail for a few minutes in between. This is a TEST service, so a short maintenance window is acceptable.
 
@@ -83,7 +85,7 @@ Rollback policy:
 ## User deployment checklist (in order)
 1. [ ] Back up the hosted DB first (dashboard backup or the D087 procedure). Store it locally.
 2. [ ] Check local gates PASS: `npm run lint && npm run typecheck && npm test && npm run build`, `python3 harness/secret_scan.py --all`, `python3 harness/migration_check.py`.
-3. [ ] Supabase CLI `supabase link` → `supabase db push` (`20261123100004`–`20261123100027`; check `supabase migration list` first). On failure that file is rolled back. Don't apply the rest; ask for a forward fix.
+3. [ ] Supabase CLI `supabase link` → `supabase db push` (`20261123100004`–`20261123100029`; check `supabase migration list` first). On failure that file is rolled back. Don't apply the rest; ask for a forward fix.
 4. [ ] Add `SUPABASE_SERVICE_ROLE_KEY` (server only) to Vercel env and check the remaining variables.
 5. [ ] Deploy production on Vercel (straight after step 3).
 6. [ ] Hand the agent the deployment URL, commit and environment, and have it run D088 verification (public URL E2E, headers, permission denials, mobile).

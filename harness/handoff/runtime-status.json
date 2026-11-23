@@ -1013,5 +1013,16 @@
     ],
     "deployment_hold": "Vercel Git main and DEV-A branch disabled in repository configuration; console state not asserted; no deployment/DB application",
     "ticket_status_changes": false
+  },
+  "integration_review_20261123": {
+    "branch": "codex/dev-a-p0-continue",
+    "main_baseline": "8b5be1d8c531397c7c0cfef85ccac11cb96aa2e4",
+    "state": "PR_UPDATE_VALIDATED_WITH_FULL_E2E_BLOCKER",
+    "evidence": [
+      "harness/evidence/MAIN-INTEGRATION-20261123/verification.json"
+    ],
+    "full_e2e_blocker": "DEV-B fixture setup on fresh104 schema: source policy pending; local targeted regressions pass, full suite not verified",
+    "deployment_hold": "Preserved; no cloud application/deploy",
+    "ticket_status_changes": false
   }
 }
