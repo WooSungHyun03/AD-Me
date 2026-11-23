@@ -1,3 +1,4 @@
+import { YoutubeOpsSummary } from "@/components/youtube-ops-summary";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { featuredYoutube } from "@/lib/featured-youtube";
@@ -123,6 +124,7 @@ export default async function Intelligence() {
       {ops.channels && (
         <section id="youtube" className="ops-section">
           <h2>YouTube 수집</h2>
+          <YoutubeOpsSummary channels={ops.channels} jobs={ops.jobs} />
           <p>
             후보 채널의 검토 상태는 내부에서 관리합니다. 채널 소유권과 AD Me
             가입 여부는 별도입니다.

@@ -168,3 +168,4 @@ These rows complete the source inventory; they do not assert any hosted applicat
 | `202611230076` | switch | DEV-A: `202611230076_worker_integration.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
 | `202611230077` | switch | DEV-A: `202611230077_worker_budget_compatibility.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
 | `20261123110001` | switch | DEV-A: `20261123110001_youtube_public_boundary.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `20261123055918` | expand | Include official public channel topics in the existing directory DTO | Compatible with older and newer public visibility rules. |

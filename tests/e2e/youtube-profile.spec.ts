@@ -56,7 +56,7 @@ for (const channel of channels) {
       "채널 누적 조회수",
     );
     await expect(page.locator("#overview dl").first()).toContainText(/\d.+회/);
-    await expect(page.locator("#overview")).toContainText("승인 대기");
+    await expect(page.locator("#overview")).toContainText("통계 출처");
     const videos = page.locator("#videos > ul");
     await expect(videos.locator("li")).toHaveCount(isolatedYoutube ? 5 : 12);
     const firstVideo = videos.getByRole("link").first();
@@ -118,4 +118,27 @@ test("a signed-in user can save and remove a YouTube channel", async ({
   await expect(save).toBeVisible();
   await page.goto("/dashboard");
   await expect(favorite).toHaveCount(0);
+});
+
+test("the homepage brief filters the public directory by official topic", async ({
+  page,
+}) => {
+  test.skip(isolatedYoutube, "Requires the published directory topic metadata");
+  await page.goto("/");
+  await page.getByLabel("상품명·설명").fill("테스트 상품");
+  await page.getByLabel("타깃 고객").fill("운동을 즐기는 성인");
+  await page.getByLabel("광고 예산 (원)").fill("1000000");
+  const topic = page.getByLabel("콘텐츠 분야");
+  const submit = page.getByRole("button", {
+    name: "조건에 맞는 유튜버 찾기",
+  });
+  const result = page.locator(".brief-results");
+  const foodChannel = result.getByRole("link", { name: /쯔양/ });
+  await topic.selectOption("음식");
+  await submit.click();
+  await expect(foodChannel).toBeVisible();
+  await topic.selectOption("테크·게임");
+  await submit.click();
+  await expect(result).toContainText("테크·게임 · 최대");
+  await expect(foodChannel).toHaveCount(0);
 });

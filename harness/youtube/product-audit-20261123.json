@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "audit": "docs/audit/2026-11-23-full-audit.md",
+  "production_deployment": "dpl_7EpFVnF9PFHu5oKGvpTVnSX4fq5Y",
+  "tasks": [
+    {
+      "id": "AD-A01",
+      "priority": "P0",
+      "status": "BLOCKED",
+      "dependencies": [],
+      "code": [
+        "supabase/migrations"
+      ],
+      "problem": "원장·스키마 차이",
+      "acceptance": "복원 검증 뒤 운영 원장 일치",
+      "test_method": "스키마 호환·복원 검증",
+      "test_result": "최신 전체 105개 중 운영 41개",
+      "release_commit": null,
+      "production_verified": null
+    },
+    {
+      "id": "AD-A02",
+      "priority": "P1",
+      "status": "VERIFIED",
+      "dependencies": [
+        "AD-A01"
+      ],
+      "code": [
+        "src/app/recommend-creators.ts",
+        "src/components/recommendation-brief.tsx"
+      ],
+      "problem": "채널명 중심 홈",
+      "acceptance": "공식 주제와 등록 프로필 조건 적용",
+      "test_method": "실제 음식 및 테크 결과 대조",
+      "test_result": "모바일 및 데스크톱에서 결과 구분",
+      "release_commit": "f84bd810a19ec4cc21e90fad630556030e358ddf",
+      "production_verified": true
+    },
+    {
+      "id": "AD-A03",
+      "priority": "P1",
+      "status": "VERIFIED",
+      "dependencies": [],
+      "code": [
+        "src/app/marketplace-theme.css",
+        "src/app/page.tsx"
+      ],
+      "problem": "혼용된 시각 언어",
+      "acceptance": "공통 차콜·라임과 원본 로고 적용",
+      "test_method": "홈·상세 다중 해상도 시각 및 가로 넘침 점검",
+      "test_result": "운영 360·390·768·1280·1440px 확인",
+      "release_commit": "f84bd810a19ec4cc21e90fad630556030e358ddf",
+      "production_verified": true
+    },
+    {
+      "id": "AD-A04",
+      "priority": "P1",
+      "status": "VERIFIED",
+      "dependencies": [
+        "AD-A02"
+      ],
+      "code": [
+        "src/app/creators/youtube/[id]/page.tsx",
+        "src/lib/video-insights.ts",
+        "tests/video-insights.test.ts"
+      ],
+      "problem": "원본 영상 기간 선택 불가",
+      "acceptance": "기간과 표본 수 및 출처 표시",
+      "test_method": "Playwright 영상 선택과 수치 원본 링크 대조",
+      "test_result": "운영 채널 3개 미디어, 5개 화면 폭 최근 10개 확인",
+      "release_commit": "f84bd810a19ec4cc21e90fad630556030e358ddf",
+      "production_verified": true
+    },
+    {
+      "id": "AD-A05",
+      "priority": "P0",
+      "status": "BLOCKED",
+      "dependencies": [
+        "AD-A04"
+      ],
+      "code": [
+        "src/lib/video-insights.ts"
+      ],
+      "problem": "승인된 파생 지표 입력 및 스냅샷 미연결",
+      "acceptance": "승인된 실제 데이터 월간 평균·증가량 제공",
+      "test_method": "원본 데이터 차단과 승인 샘플 합성 테스트",
+      "test_result": "단위 테스트 통과, 운영 샘플 미연결",
+      "release_commit": null,
+      "production_verified": false
+    },
+    {
+      "id": "AD-A06",
+      "priority": "P1",
+      "status": "TESTED",
+      "dependencies": [],
+      "code": [
+        "scripts/content_tags.py"
+      ],
+      "problem": "근거와 검토가 가능한 태그 생성 경로 부재",
+      "acceptance": "로컬 생성·승인 큐·프로필 공개 연계",
+      "test_method": "합성 샘플 실제 추론, 원본 출처 거부, 배포 워커 처리",
+      "test_result": "로컬 추론·원본 차단 확인, 태그 큐·검토·프로필 반영 미구현",
+      "release_commit": null,
+      "production_verified": false
+    },
+    {
+      "id": "AD-A07",
+      "priority": "P1",
+      "status": "TODO",
+      "dependencies": [
+        "AD-A02"
+      ],
+      "code": [
+        "src/app/creators/page.tsx"
+      ],
+      "problem": "공개 디렉터리 전체 목록·페이지네이션 범위 제한",
+      "acceptance": "등록·공개 유형별 고급 필터와 서버 페이지네이션 검증",
+      "test_method": "공개 데이터 계약 및 실제 목록 경계 테스트",
+      "test_result": "추천 화면에서 현재 목록 사용 확인",
+      "release_commit": null,
+      "production_verified": false
+    },
+    {
+      "id": "AD-A08",
+      "priority": "P0",
+      "status": "BLOCKED",
+      "dependencies": [
+        "AD-A01"
+      ],
+      "code": [
+        "tests/e2e/marketplace.spec.ts",
+        "tests/e2e/service.spec.ts"
+      ],
+      "problem": "게시·지원·채팅·결제 종단 미검증",
+      "acceptance": "QA 계정의 TEST 거래 및 실시간 상태 검증",
+      "test_method": "QA 게시권 승인부터 지원·채팅·HOT 검증",
+      "test_result": "역할별 진입 확인, 이번 TEST 결제 미진행",
+      "release_commit": null,
+      "production_verified": false
+    },
+    {
+      "id": "AD-A09",
+      "priority": "P1",
+      "status": "VERIFIED",
+      "dependencies": [],
+      "code": [
+        "src/app/admin/intelligence/page.tsx",
+        "src/components/youtube-ops-summary.tsx"
+      ],
+      "problem": "최근 동기화 운영 지표 분산",
+      "acceptance": "수집 및 실패 상태 관리자 표시",
+      "test_method": "관리자 접근 및 비관리자 거부, 작업 원장 확인",
+      "test_result": "운영 04:00 KST 완료 및 공개 10개 최근 36시간, 관리자 화면 확인",
+      "release_commit": "f84bd810a19ec4cc21e90fad630556030e358ddf",
+      "production_verified": true
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "tags": [
+    {
+      "kind": "주제",
+      "value": "홈카페",
+      "evidenceIndex": 1
+    },
+    {
+      "kind": "주제",
+      "value": "드립 커피",
+      "evidenceIndex": 1
+    },
+    {
+      "kind": "주제",
+      "value": "튜토리얼",
+      "evidenceIndex": 1
+    },
+    {
+      "kind": "주제",
+      "value": "도구",
+      "evidenceIndex": 2
+    },
+    {
+      "kind": "주제",
+      "value": "언박싱",
+      "evidenceIndex": 2
+    },
+    {
+      "kind": "주제",
+      "value": "사용법",
+      "evidenceIndex": 2
+    }
+  ],
+  "model": "qwen3:1.7b-q4_K_M",
+  "generatedAt": "2026-11-23T06:05:32.393808+00:00",
+  "review": "pending",
+  "source": "creator_provided",
+  "fixture": "synthetic creator-provided Korean coffee excerpts",
+  "raw_youtube_rejected": true
+}

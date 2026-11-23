@@ -33,7 +33,7 @@ const metadata = z.object({
   description: z.string().nullable().optional(),
   createdAt: timestamp.nullable().optional(),
   language: z.string().nullable().optional(),
-  topics: z.array(z.string()).optional(),
+  topics: z.array(z.string()).nullish(),
   views: statistic,
   videoCount: statistic,
 });

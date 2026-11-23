@@ -1,4 +1,4 @@
-import { ChannelSearch } from "@/components/discovery-ui";
+import { RecommendationBrief } from "@/components/recommendation-brief";
 import { featuredYoutube } from "@/lib/featured-youtube";
 import { YoutubeChannelCards } from "@/components/featured-youtube";
 import Link from "next/link";
@@ -42,30 +42,24 @@ export default async function Home() {
   const { items } = await featuredYoutube("", null, 3);
   return (
     <>
-      <section className="discovery-hero">
-        <div className="wrap discovery-hero-inner">
-          <h1>
-            우리 브랜드다운
-            <br />
-            YouTube 크리에이터를 찾아보세요.
-          </h1>
-          <p>
-            채널을 검색하고 공개 구독자 수와 최근 영상을 확인하세요. 등록된
-            크리에이터에게는 AD Me에서 협업을 제안할 수 있습니다.
-          </p>
-          <ChannelSearch />
-          {items.length > 0 && (
-            <div className="discovery-chips" aria-label="인기 채널 바로 찾기">
-              {items.map((channel) => (
-                <Link
-                  key={channel.channel_id}
-                  href={`/creators?q=${encodeURIComponent(channel.title)}`}
-                >
-                  {channel.title}
-                </Link>
-              ))}
-            </div>
-          )}
+      <section className="product-hero">
+        <div className="wrap product-hero-grid">
+          <div className="product-hero-copy">
+            <h1>
+              우리 브랜드다운
+              <br />
+              유튜버를 찾는 첫 단계.
+            </h1>
+            <p>광고할 상품, 타깃, 예산을 입력해 협업 후보를 찾아보세요.</p>
+            <p>
+              등록 프로필의 견적과 협업 상태, 공개 YouTube 채널의 콘텐츠 분야를
+              확인할 수 있습니다.
+            </p>
+            <Link className="product-hero-link" href="/creators">
+              채널명으로 탐색 <ArrowUpRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+          <RecommendationBrief />
         </div>
       </section>
       {items.length > 0 && (

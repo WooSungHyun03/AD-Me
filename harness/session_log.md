@@ -552,3 +552,10 @@ Preserved codex/dev-a-p0-continue and ticket commits; merged YouTube main5d3bc6c
 - 개발 88개, 사용자 작업 20개의 원장 상태와 증빙 위치는 docs/handoff/COMPLETION_AUDIT_20261123.md에 기록했다. 최신 main은 104개 마이그레이션, 운영 DB는 40개다. 기존 운영 스키마를 대상으로 현재 UI만 별도 검증·빌드했으며 신규 기능 마이그레이션과 운영 동의·권한 설정은 건드리지 않았다.
 - main lint·타입·Vitest 416건·빌드, 운영 호환 소스의 lint·타입·Vitest 163건·빌드가 통과했다. 로컬 운영 호환 빌드를 데스크톱과 모바일에서 열어 쯔양 검색, 필터 영역, 모바일 가로 넘침과 브라우저 콘솔을 확인했다.
 - 디자인 운영 후보는 f624fd8 및 Vercel dpl_EyFZmpa8BAFoThq1Uw1kwiCP3guj다.
+
+## 2026-11-23 — 운영 전수 감사 및 제품 재구성 1차
+
+- 개편 전 운영 화면 및 역할별 로그인 경로를 Chrome으로 확인했다. 차콜·라임 공통 UI, 홈 상품 브리프 추천, 공개 영상 기간·개수 필터, 관리자 YouTube 동기화 위젯을 구현했다.
+- 실제 공개 채널 10개의 공식 원본 주제를 홈 추천에 사용하는 추가 마이그레이션 1개를 운영에서 확인했다. 04:00 KST 수집 완료 및 36시간 이내 갱신 상태를 확인했다. 시작 시 운영 40개에서 41개로 늘었고, 현재 main 마이그레이션과 차이는 64개다.
+- lint, 타입, main 단위 420건, 운영 호환 단위 167건 및 빌드가 통과했다. 운영 호환 로컬 Playwright 10건, 실제 운영 Playwright 14건과 5개 너비의 브라우저 검증을 완료했다. Local AI 한국어 광고 초안은 실제 운영 워커에서 생성됐고, 합성 원고 태그 6개는 별도로 로컬에서 추론했다.
+- 운영 배포는 호환 소스 f84bd810a19ec4cc21e90fad630556030e358ddf와 Vercel dpl_7EpFVnF9PFHu5oKGvpTVnSX4fq5Y다. 상세 감사·검증과 차단 사항은 docs/audit/2026-11-23-full-audit.md 및 harness/youtube/product-audit-20261123.json에 기록했다. 이번에는 승인 데이터 지표 연결, 태그 운영 승인 큐, TEST 거래 전 과정, 전체 스키마 전환을 완료하지 못했다.

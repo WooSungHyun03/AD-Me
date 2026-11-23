@@ -1,3 +1,4 @@
+import { parseVideoWindow, selectVideoWindow } from "@/lib/video-insights";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -123,10 +124,16 @@ function VideoList({ videos }: { videos: FeaturedChannel["videos"] }) {
 
 export default async function YoutubeChannel({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ videos?: string | string[] }>;
 }) {
-  const { id } = await params;
+  const [{ id }, { videos: requestedWindow }] = await Promise.all([
+    params,
+    searchParams,
+  ]);
+  const window = parseVideoWindow(requestedWindow);
   if (!youtubeChannelId.safeParse(id).success) notFound();
   const [{ items, unavailable }, user] = await Promise.all([
     loadYoutubeChannel(id),
@@ -166,6 +173,17 @@ export default async function YoutubeChannel({
     ...new Set((metadata?.topics ?? []).map(topicLabel).filter(Boolean)),
   ];
   const lastVideo = videos[0];
+  const visibleVideos = window
+    ? selectVideoWindow(videos, window, Date.parse(channel.fetched_at))
+    : videos;
+  const windows = [
+    ["", "전체"],
+    ["7", "최근 7일"],
+    ["30", "최근 30일"],
+    ["90", "최근 90일"],
+    ["latest-10", "최근 10개"],
+    ["latest-20", "최근 20개"],
+  ] as const;
   const stale = isYoutubeDataStale(channel.fetched_at);
 
   return (
@@ -276,14 +294,10 @@ export default async function YoutubeChannel({
             <dd>{dateLabel(lastVideo?.publishedAt)}</dd>
           </div>
           <div>
-            <dt>최근 평균 조회수</dt>
-            <dd>승인 대기</dd>
+            <dt>통계 출처</dt>
+            <dd>YouTube</dd>
           </div>
         </dl>
-        <p className="youtube-note">
-          평균 조회수는 YouTube 승인 후 최근 7·30·90일과 10·20·30개 영상
-          기준으로 제공됩니다.
-        </p>
         <div className="youtube-overview-details">
           <div>
             <h3>채널 소개</h3>
@@ -331,26 +345,61 @@ export default async function YoutubeChannel({
         ) : (
           <p>채널 소개에 공개된 해시태그가 없습니다.</p>
         )}
-        <h3>AI 콘텐츠 태그</h3>
-        <p>YouTube API 자료를 사용하는 AI 태그는 승인 대기 중입니다.</p>
+        <h3>크리에이터 등록 태그</h3>
+        {owner?.vibes?.length ? (
+          <ul className="tags youtube-topic-list">
+            {owner.vibes.map((tag: string) => (
+              <li className="badge" key={tag}>
+                {tag}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>채널 소유자가 공개한 태그가 없습니다.</p>
+        )}
       </section>
       <section className="youtube-section" id="videos">
         <div className="youtube-section-head">
           <h2>최근 공개 영상</h2>
           {!!videos.length && <p>수집 {videos.length}개 · 최근 게시순</p>}
         </div>
-        {videos.length ? (
-          <VideoList videos={videos.slice(0, recentLimit)} />
+        <nav className="video-window-nav" aria-label="공개 영상 기간">
+          {windows.map(([value, label]) => (
+            <Link
+              key={label}
+              href={
+                value
+                  ? `?videos=${value}#videos`
+                  : `/creators/youtube/${id}#videos`
+              }
+              aria-current={
+                value === (window ? requestedWindow : "") ? "true" : undefined
+              }
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
+        <p className="video-window-note">
+          수집한 {videos.length}개 중 {visibleVideos.length}개 표시 · 채널 갱신
+          시각 기준 · 영상 형식 구분 정보 없음
+        </p>
+        <p className="video-window-note">
+          조회수와 좋아요는 공개 영상의 원본 수치입니다. 평균 조회수와 기간
+          증가량은 분석 가능한 출처가 연결된 경우에 제공됩니다.
+        </p>
+        {visibleVideos.length ? (
+          <VideoList videos={visibleVideos.slice(0, recentLimit)} />
         ) : (
-          <p>공개 영상 정보가 없습니다.</p>
+          <p>선택한 범위의 공개 영상 정보가 없습니다.</p>
         )}
-        {videos.length > recentLimit && (
+        {visibleVideos.length > recentLimit && (
           <details className="youtube-more">
             <summary>
-              영상 {videos.length - recentLimit}개 더 보기{" "}
+              영상 {visibleVideos.length - recentLimit}개 더 보기{" "}
               <ChevronDown size={17} />
             </summary>
-            <VideoList videos={videos.slice(recentLimit)} />
+            <VideoList videos={visibleVideos.slice(recentLimit)} />
           </details>
         )}
       </section>
