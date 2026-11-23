@@ -62,6 +62,7 @@ export function finishLocalWorkerJob(
       input: `select id from adme_ops.jobs where kind=:'job_kind' and status='queued'
       order by created_at desc limit 1 \\gset
       update adme_ops.jobs set status='running', lease=gen_random_uuid(), lease_until=now()+interval '2 minutes'
+        , source_policy=(select version from adme_ops.source_runtime_policies where enabled)
       where id=:'id' returning lease \\gset
       select adme_ops.ops_worker_finish(repeat('0',64),:'id',:'lease',:'job_output'::jsonb,null,1);`,
       encoding: "utf8",

@@ -1,7 +1,11 @@
 import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 
-import { channels, routeYoutubeImages } from "./support/youtube";
+import {
+  channels,
+  isolatedYoutube,
+  routeYoutubeImages,
+} from "./support/youtube";
 
 for (const channel of channels) {
   test(`official YouTube data and media render for ${channel.id}`, async ({
@@ -54,7 +58,7 @@ for (const channel of channels) {
     await expect(page.locator("#overview dl").first()).toContainText(/\d.+회/);
     await expect(page.locator("#overview")).toContainText("승인 대기");
     const videos = page.locator("#videos > ul");
-    await expect(videos.locator("li")).toHaveCount(12);
+    await expect(videos.locator("li")).toHaveCount(isolatedYoutube ? 5 : 12);
     const firstVideo = videos.getByRole("link").first();
     await firstVideo.scrollIntoViewIfNeeded();
     await expect(firstVideo).toHaveAttribute(
@@ -68,8 +72,12 @@ for (const channel of channels) {
       )
       .toBeGreaterThan(0);
     const more = page.locator("#videos details");
-    await more.locator("summary").click();
-    await expect(more.getByRole("link")).toHaveCount(18);
+    if (isolatedYoutube) {
+      await expect(more).toHaveCount(0);
+    } else {
+      await more.locator("summary").click();
+      await expect(more.getByRole("link")).toHaveCount(18);
+    }
     await expect(page.locator("#collaboration")).toContainText(
       "공개된 업무 연락처가 없습니다.",
     );
