@@ -30,7 +30,7 @@ class TagContract(unittest.TestCase):
             result=tags.generate_content_tags('creator_provided','FICTIONAL approval ref',['요리 소개입니다'])
         self.assertEqual(result['tags'],candidates[:1])
         self.assertEqual(result['review'],'pending');self.assertTrue(result['requiresReview'])
-        self.assertEqual(result['promptVersion'],'content-tags-v2');self.assertEqual(len(result['sourceVersion']),64)
+        self.assertEqual(result['promptVersion'],'content-tags-v3');self.assertEqual(len(result['sourceVersion']),64)
         self.assertEqual(result['usage']['outputTokens'],30)
     def test_private_text_is_redacted_and_source_changes_invalidate_fingerprint(self):
         with patch.object(tags,'model_request',return_value=reply([]))as model:
