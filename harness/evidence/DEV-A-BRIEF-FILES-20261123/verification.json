@@ -1,0 +1,38 @@
+{
+  "tested_product_commit": "ac7df2416915b3e653fdc370dd05d329b1b1af54",
+  "scope": "actual isolated Auth/SQL/PostgREST/Storage; fictional actors/files/policies and mocked transport failures, no provider/cloud acceptance",
+  "checks": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": {
+      "result": "PASS",
+      "tests": 487,
+      "files": 82
+    },
+    "python": {
+      "result": "PASS",
+      "tests": 22
+    },
+    "production_build": "PASS",
+    "affected_e2e": {
+      "result": "PASS",
+      "desktop_mobile_scenarios": 4
+    },
+    "direct_db_storage": {
+      "result": "PASS",
+      "groups": 9
+    },
+    "migration_static": {
+      "result": "PASS",
+      "sources": 112
+    },
+    "packet_109_to_112": "PASS rollback, namespace/bucket, unchanged data/flags, default-OFF and replay rejection",
+    "packet_files_zip": "PASS exact bytes",
+    "first_batch_ci": {
+      "run": 45172221279,
+      "checks": "success",
+      "migrations": "cancelled; not a full pass"
+    }
+  },
+  "activation_gate": "U001 and B D079 physical cleanup/retention/export/link behavior; controls remain OFF"
+}

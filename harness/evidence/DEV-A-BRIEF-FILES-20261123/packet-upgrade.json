@@ -1,0 +1,11 @@
+{
+  "result": "PASS",
+  "baseline": 109,
+  "target": 112,
+  "injectedFailureRollback": true,
+  "namespaceAndBucketRolledBack": true,
+  "collectionRemainsOff": true,
+  "legacyRowsAndFlagsPreserved": true,
+  "repeatedApplyRejected": true,
+  "scope": "marked secondary local Postgres; no hosted application/deployment or policy approval"
+}
