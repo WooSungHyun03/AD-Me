@@ -23,5 +23,7 @@ export default defineConfig({
         url: "http://localhost:3000",
         reuseExistingServer: true,
         timeout: 120000,
+        // Existing E2E exercises the labeled TEST demo; free_beta is covered by unit tests.
+        env: { SERVICE_MODE: process.env.SERVICE_MODE ?? "test_demo" },
       },
 });

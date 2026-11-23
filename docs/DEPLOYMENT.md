@@ -12,3 +12,5 @@
 - [U020 출시 판단](user-tickets/U020.md)
 
 기존 배포/rollback 기록은 [과거 실행 기록](handoff/DEPLOYMENT_HISTORY_20261119.md)으로 보존했다. 해당 문서의 과거 자율 배포 권한은 더 이상 유효하지 않다. 새 기능에 대한 배포나 검증을 수행한 것으로 보지 않는다.
+
+마이그레이션 순서·단계·환경변수·사용자 배포 체크리스트: [`handoff/RELEASE_MANIFEST.md`](handoff/RELEASE_MANIFEST.md) (D085).

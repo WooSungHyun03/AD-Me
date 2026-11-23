@@ -1,20 +1,29 @@
 import Link from "next/link";
 import { campaigns } from "@/lib/catalog";
 import { configured, supabase } from "@/lib/supabase";
+import { isDemoMode } from "@/lib/mode";
 export default async function Campaigns() {
+  const demo = isDemoMode();
   let records: {
     id: string;
     brief: (typeof campaigns)[number];
     is_demo?: boolean;
-  }[] = campaigns
+    recruit_until?: string | null;
+    capacity?: number | null;
+  }[] = (demo ? campaigns : [])
     .filter((c) => c.status === "published")
     .map((c) => ({ id: c.seed_id, brief: c, is_demo: true }));
   if (configured()) {
     const db = await supabase();
-    const { data } = await db
+    let q = db
       .from("campaigns")
-      .select("id,brief,is_demo")
-      .eq("status", "published");
+      .select("id,brief,is_demo,recruit_until,capacity")
+      .eq("status", "published")
+      // Past-deadline campaigns leave the public list; the DB refuses their applications regardless.
+      .or(`recruit_until.is.null,recruit_until.gt.${new Date().toISOString()}`)
+      .order("recruit_until", { ascending: true, nullsFirst: false });
+    if (!demo) q = q.eq("is_demo", false);
+    const { data } = await q;
     if (data) records = data;
   }
   return (
@@ -40,6 +49,12 @@ export default async function Campaigns() {
             <p style={{ margin: 0 }}>
               {c.brief.category} · {c.brief.format} ·{" "}
               {c.brief.vibes.join(" / ")}
+            </p>
+            <p style={{ margin: "6px 0 0", fontSize: 12 }}>
+              {c.recruit_until
+                ? `마감 ${new Date(c.recruit_until).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}`
+                : "상시 모집"}
+              {c.capacity ? ` · 선정 ${c.capacity}명` : ""}
             </p>
           </div>
           <div>

@@ -12,7 +12,7 @@ export default async function Edit({
   const db = await supabase();
   const { data } = await db
     .from("campaigns")
-    .select("id,brief,status")
+    .select("id,brief,status,recruit_until,capacity")
     .eq("id", id)
     .eq("owner_id", user.id)
     .single();
@@ -22,7 +22,15 @@ export default async function Edit({
       <span className="eyebrow">Refine your brief</span>
       <h1 className="page-title">다음 협업을 더 구체적으로.</h1>
       <p>공개 상태와 브리프를 변경할 수 있습니다. 제안 이력은 유지됩니다.</p>
-      <CampaignForm id={id} initial={{ ...data.brief, status: data.status }} />
+      <CampaignForm
+        id={id}
+        initial={{
+          ...data.brief,
+          status: data.status,
+          recruit_until: data.recruit_until,
+          capacity: data.capacity,
+        }}
+      />
     </section>
   );
 }

@@ -1,0 +1,31 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`D044 hard gates, missing data and score contract > fixed dataset snapshot and input-order independence 1`] = `
+[
+  [
+    "creator-001",
+    100,
+    80,
+  ],
+  [
+    "creator-031",
+    85,
+    80,
+  ],
+  [
+    "creator-046",
+    69,
+    80,
+  ],
+  [
+    "creator-029",
+    68,
+    80,
+  ],
+  [
+    "creator-009",
+    65,
+    80,
+  ],
+]
+`;

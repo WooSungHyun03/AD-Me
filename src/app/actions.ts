@@ -2,7 +2,13 @@
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { configured, supabase } from "@/lib/supabase";
-import { authSiteOrigin } from "@/lib/auth-links";
+import {
+  REAUTH_MESSAGE,
+  authSiteOrigin,
+  recentSignIn,
+  safeNext,
+} from "@/lib/auth-links";
+
 export async function authAction(_: unknown, form: FormData) {
   if (!configured())
     return {
@@ -16,6 +22,7 @@ export async function authAction(_: unknown, form: FormData) {
       role: z.enum(["brand", "creator"]),
       name: z.string().min(2).max(80),
       mode: z.enum(["login", "signup"]),
+      next: z.string().max(100).optional(),
     })
     .safeParse(Object.fromEntries(form));
   if (!parsed.success)
@@ -61,10 +68,40 @@ export async function authAction(_: unknown, form: FormData) {
     return {
       message: "가입 확인 이메일을 보냈습니다. 이메일 인증 후 로그인해주세요.",
     };
-  redirect("/dashboard");
+  redirect(safeNext(d.next));
 }
 export async function logout() {
   const db = await supabase();
   await db.auth.signOut();
   redirect("/");
+}
+
+type FormState = { error?: string; message?: string } | null;
+export async function changeEmail(
+  _: FormState,
+  form: FormData,
+): Promise<FormState> {
+  const email = z.email().max(254).safeParse(form.get("email"));
+  if (!email.success) return { error: "새 이메일 주소를 확인해주세요." };
+  if (!configured()) return { error: "계정 서비스 연결 준비 중입니다." };
+  const db = await supabase();
+  const {
+    data: { user },
+  } = await db.auth.getUser();
+  if (!user) return { error: "다시 로그인해주세요." };
+  if (!recentSignIn(user)) return { error: REAUTH_MESSAGE };
+  if (email.data.toLowerCase() === user.email?.toLowerCase())
+    return { error: "현재 이메일과 같습니다." };
+  const { error } = await db.auth.updateUser(
+    { email: email.data },
+    { emailRedirectTo: `${authSiteOrigin()}/auth/confirm` },
+  );
+  if (error)
+    return {
+      error: "이메일 변경을 요청하지 못했습니다. 잠시 후 다시 시도해주세요.",
+    };
+  return {
+    message:
+      "확인 메일을 보냈습니다. 메일의 링크로 확인을 마치기 전까지는 기존 이메일로 로그인합니다.",
+  };
 }

@@ -15,6 +15,7 @@ export function DealControls({
   const labels: Record<string, string> = {
     accepted: "수락",
     rejected: "거절",
+    cancelled: "요청 취소",
     submitted: "결과물 제출 완료",
     completed: "검토 승인",
     revision_requested: "수정 요청",
@@ -26,7 +27,9 @@ export function DealControls({
           <Button
             key={action}
             disabled={pending}
-            variant={action === "rejected" ? "outline" : "default"}
+            variant={
+              ["rejected", "cancelled"].includes(action) ? "outline" : "default"
+            }
             onClick={async () => {
               setPending(true);
               try {

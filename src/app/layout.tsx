@@ -2,11 +2,24 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import "./globals.css";
-export const metadata: Metadata = {
-  title: { default: "AD Me — 브랜드의 다음 파트너", template: "%s | AD Me" },
-  description: "분위기로 발견하고, 근거로 결정하는 크리에이터 협업 플랫폼.",
-  icons: { icon: "/brand/ad-me-symbol.png" },
-};
+import { isDemoMode } from "@/lib/mode";
+import { siteUrl } from "@/lib/seo";
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    metadataBase: new URL(siteUrl()),
+    title: { default: "AD Me — 브랜드의 다음 파트너", template: "%s | AD Me" },
+    description: "분위기로 발견하고, 근거로 결정하는 크리에이터 협업 플랫폼.",
+    icons: { icon: "/brand/ad-me-symbol.png" },
+    openGraph: {
+      siteName: "AD Me",
+      locale: "ko_KR",
+      type: "website",
+      images: [{ url: "/brand/ad-me-logo.png", alt: "AD Me" }],
+    },
+    // D083: the TEST demo environment is never indexed.
+    ...(isDemoMode() && { robots: { index: false, follow: false } }),
+  };
+}
 export default function RootLayout({
   children,
 }: {
@@ -58,6 +71,7 @@ export default function RootLayout({
           </div>
           <div>
             <Link href="/about">서비스·데이터 안내</Link>
+            <Link href="/help">도움말·문의</Link>
             <Link href="/privacy">개인정보 처리방침</Link>
             <Link href="/login">로그인</Link>
             <span>© 2026 AD Me · 대학 프로젝트 · TEST 결제 전용</span>

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
+import { recruitingError } from "@/lib/schemas";
 export async function POST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
@@ -29,6 +30,10 @@ export async function POST(req: Request) {
     url: p.data.url,
   });
   if (error)
-    return fail("메시지를 저장할 권한이 없거나 저장에 실패했습니다.", 403);
+    return fail(
+      recruitingError(error.message) ??
+        "메시지를 저장할 권한이 없거나 저장에 실패했습니다.",
+      error.message.includes("rate_limited") ? 429 : 403,
+    );
   return NextResponse.json({ ok: true });
 }

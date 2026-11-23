@@ -1,18 +1,14 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Heart, ArrowUpRight } from "lucide-react";
-import {
-  categories,
-  vibes,
-  creators as fixtures,
-  type Creator,
-} from "@/lib/catalog";
+import { categories, vibes } from "@/lib/catalog";
+import type { SearchPage } from "@/lib/search";
 export function Catalog({
-  items = fixtures,
+  initial,
   initialSaved = [],
 }: {
-  items?: Creator[];
+  initial: SearchPage;
   initialSaved?: string[];
 }) {
   const [query, setQuery] = useState(""),
@@ -27,27 +23,56 @@ export function Catalog({
     [saved, setSaved] = useState<string[]>(initialSaved),
     [selected, setSelected] = useState<string[]>([]),
     [error, setError] = useState("");
-  let list = items.filter(
-    (c) =>
-      (!query ||
-        `${c.name} ${c.handle} ${c.vibes.join(" ")} ${c.bio}`
-          .toLowerCase()
-          .includes(query.toLowerCase())) &&
-      (!category || c.categories.includes(category)) &&
-      (!platform || c.platforms.includes(platform)) &&
-      (!tag || c.vibes.includes(tag)) &&
-      (!budget || c.price_min_krw <= Number(budget)) &&
-      (!available || c.is_available) &&
-      (!minFollowers || c.followers >= Number(minFollowers)) &&
-      (!maxFollowers || c.followers <= Number(maxFollowers)),
-  );
-  list = [...list].sort((a, b) =>
-    sort === "followers"
-      ? b.followers - a.followers
-      : sort === "price"
-        ? a.price_min_krw - b.price_min_krw
-        : a.name.localeCompare(b.name),
-  );
+  const [page, setPage] = useState(initial),
+    [loading, setLoading] = useState(false);
+  const list = page.items;
+  const params = new URLSearchParams(
+    Object.entries({
+      q: query,
+      category,
+      platform,
+      tag,
+      budget,
+      min_followers: minFollowers,
+      max_followers: maxFollowers,
+      available: available ? "1" : "",
+      sort,
+    }).filter(([, v]) => v),
+  ).toString();
+  const first = useRef(true);
+  async function load(cursor?: string) {
+    setLoading(true);
+    setError("");
+    try {
+      const qs = cursor
+        ? `${params}&cursor=${encodeURIComponent(cursor)}`
+        : params;
+      const res = await fetch(`/api/creators?${qs}`);
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error?.message);
+      setPage((p) =>
+        cursor ? { ...d, items: [...p.items, ...d.items], total: p.total } : d,
+      );
+    } catch (e) {
+      setError(
+        e instanceof Error && e.message
+          ? e.message
+          : "목록을 불러오지 못했습니다.",
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+  useEffect(() => {
+    // initial page came from the server with default filters
+    if (first.current) {
+      first.current = false;
+      return;
+    }
+    const t = setTimeout(() => load(), 250);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params]);
   async function save(id: string) {
     setError("");
     const res = await fetch("/api/saved", {
@@ -97,7 +122,8 @@ export function Catalog({
       </div>
       {error && (
         <div role="alert" className="notice">
-          {error} <Link href="/login">로그인 →</Link>
+          {error}{" "}
+          {error.includes("로그인") && <Link href="/login">로그인 →</Link>}
         </div>
       )}
       <div className="catalog-layout">
@@ -179,8 +205,14 @@ export function Catalog({
         </aside>
         <div>
           <p style={{ fontSize: 13 }}>
-            <strong style={{ color: "#111312" }}>{list.length}명</strong>의
-            크리에이터
+            <strong style={{ color: "#111312" }}>
+              {page.total === null
+                ? `${list.length}명+`
+                : page.total > 1000
+                  ? "1000명+"
+                  : `${page.total}명`}
+            </strong>
+            의 크리에이터 {loading && "· 불러오는 중…"}
           </p>
           <div className="creator-grid">
             {list.map((c, i) => (
@@ -236,7 +268,9 @@ export function Catalog({
                       : "팔로워 미확보"}
                   </span>
                   <strong>
-                    {(c.price_min_krw / 10000).toLocaleString()}만원~
+                    {c.price_min_krw === null
+                      ? "견적 미확인"
+                      : `${(c.price_min_krw / 10000).toLocaleString()}만원~`}
                   </strong>
                 </div>
                 <label
@@ -266,7 +300,17 @@ export function Catalog({
               </article>
             ))}
           </div>
-          {!list.length && (
+          {page.nextCursor && (
+            <button
+              className="button outline"
+              style={{ marginTop: 24 }}
+              disabled={loading}
+              onClick={() => load(page.nextCursor!)}
+            >
+              더 보기
+            </button>
+          )}
+          {!list.length && !loading && (
             <div className="empty">
               조건에 맞는 크리에이터가 없습니다. 필터를 조정해주세요.
             </div>

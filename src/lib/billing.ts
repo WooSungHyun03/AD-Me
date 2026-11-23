@@ -44,6 +44,8 @@ export const products = [
     ],
   },
 ];
+// D066: checkout uses SDK v2 payment() = "API 개별 연동", whose keys are the test_ck_/test_sk_ set. Widget keys
+// (test_gck_/test_gsk_) belong to widgets() and fail with INVALID_API_KEY, so they are refused up front.
 export function assertTestClient(key: string | undefined) {
   if (!key || !/^test_ck_/.test(key))
     throw new Error(
@@ -52,7 +54,7 @@ export function assertTestClient(key: string | undefined) {
   return key;
 }
 export function assertTestSecret(key: string | undefined) {
-  if (!key || !/^test_(sk|gsk)_/.test(key))
+  if (!key || !/^test_sk_/.test(key))
     throw new Error("Toss TEST 시크릿 키 연결이 필요합니다.");
   return key;
 }
@@ -83,3 +85,24 @@ export function validateConfirmation(
   if (!["pending", "paid"].includes(order.status))
     throw new Error("승인할 수 없는 주문입니다.");
 }
+// D068: Edge Function / DB cancel codes → user messages. Unknown codes fall back to a generic message.
+export const cancelErrors: Record<string, string> = {
+  invalid_request: "취소 사유(2~200자)를 확인해주세요.",
+  secret_missing: "Toss TEST 시크릿 키가 연결되지 않아 취소할 수 없습니다.",
+  not_found: "취소할 수 있는 주문을 찾을 수 없습니다.",
+  already_cancelled: "이미 취소된 주문입니다.",
+  not_cancellable: "결제 완료된 TEST 주문만 취소할 수 있습니다.",
+  cancel_in_progress: "이미 취소를 처리하는 중입니다.",
+  credits_in_use: "크레딧 사용이 진행 중입니다. 잠시 후 다시 시도해주세요.",
+  credits_used: "크레딧을 사용한 이용권은 취소할 수 없습니다.",
+  idempotency_conflict: "요청이 중복되었습니다. 새로고침 후 다시 시도해주세요.",
+  provider_refused: "Toss TEST 취소가 거절되었습니다. 이용권은 유지됩니다.",
+  provider_retry:
+    "취소 결과를 확인하지 못했습니다. 같은 요청으로 다시 시도해주세요.",
+  provider_mismatch: "취소 결과가 주문과 일치하지 않습니다.",
+  function_unavailable:
+    "TEST 결제 취소 서버(Edge Function)가 연결되지 않았습니다. 주문은 그대로 유지됩니다.",
+};
+export const cancelMessage = (code: unknown) =>
+  (typeof code === "string" && cancelErrors[code]) ||
+  "TEST 취소를 처리하지 못했습니다.";

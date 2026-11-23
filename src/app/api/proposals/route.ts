@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { context, fail, safeOrigin } from "@/lib/api";
-import { proposalSchema, canTransition } from "@/lib/schemas";
+import { proposalSchema, canTransition, recruitingError } from "@/lib/schemas";
 export async function POST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
@@ -44,7 +44,12 @@ export async function POST(req: Request) {
     })
     .select("id")
     .single();
-  if (error) return fail("이미 지원·제안했거나 저장하지 못했습니다.");
+  if (error)
+    return fail(
+      recruitingError(error.message) ??
+        "이미 지원·제안했거나, 모집이 마감·정원 충족되어 저장하지 못했습니다.",
+      409,
+    );
   return NextResponse.json(data, { status: 201 });
 }
 export async function PATCH(req: Request) {
@@ -70,7 +75,8 @@ export async function PATCH(req: Request) {
   });
   if (error)
     return fail(
-      "상태 변경이 충돌했습니다. 새로고침 후 다시 시도해주세요.",
+      recruitingError(error.message) ??
+        "상태 변경이 충돌했습니다. 새로고침 후 다시 시도해주세요.",
       409,
     );
   return NextResponse.json({ ok: true, data });

@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PromotionSlot } from "@/components/promotion-slot";
 import { featuredYoutube } from "@/lib/featured-youtube";
 import { YoutubeChannelCards } from "@/components/featured-youtube";
+export const metadata = {
+  alternates: { canonical: "/" },
+};
 export default async function Home() {
   const { items } = await featuredYoutube("", null, 3);
   return (
@@ -45,6 +49,7 @@ export default async function Home() {
             YouTube 채널 탐색 <ArrowUpRight size={17} />
           </Link>
         </div>
+        <PromotionSlot />
       </section>
       {items.length > 0 && (
         <section className="wrap section-line">

@@ -14,7 +14,17 @@ type CampaignInput = {
   goal: string;
   format: string;
   status: string;
+  recruit_until?: string | null;
+  capacity?: number | null;
+  policy?: { category?: string; budget?: string; unknown?: string };
 };
+// datetime-local works in the viewer's local time; the server gets an absolute ISO instant.
+const toLocalInput = (iso?: string | null) =>
+  iso
+    ? new Date(new Date(iso).getTime() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .slice(0, 16)
+    : "";
 export function CampaignForm({
   id,
   initial,
@@ -33,7 +43,25 @@ export function CampaignForm({
     e.preventDefault();
     setPending(true);
     setError("");
-    const d = Object.fromEntries(new FormData(e.currentTarget));
+    const {
+      recruit_until,
+      capacity,
+      policy_category,
+      policy_budget,
+      policy_unknown,
+      ...d
+    } = Object.fromEntries(new FormData(e.currentTarget));
+    const recruiting = {
+      recruit_until: recruit_until
+        ? new Date(String(recruit_until)).toISOString()
+        : null,
+      capacity: capacity ? Number(capacity) : null,
+      policy: {
+        category: policy_category,
+        budget: policy_budget,
+        unknown: policy_unknown,
+      },
+    };
     try {
       const res = await fetch("/api/campaigns", {
         method: id ? "PATCH" : "POST",
@@ -44,6 +72,7 @@ export function CampaignForm({
                 id,
                 brief: {
                   ...d,
+                  ...recruiting,
                   vibes: tags,
                   platforms,
                   budget_krw: Number(d.budget_krw),
@@ -51,6 +80,7 @@ export function CampaignForm({
               }
             : {
                 ...d,
+                ...recruiting,
                 vibes: tags,
                 platforms,
                 budget_krw: Number(d.budget_krw),
@@ -171,6 +201,55 @@ export function CampaignForm({
             <option value="published">공개 모집</option>
             <option value="closed">모집 마감</option>
           </select>
+        </label>
+        <label className="field">
+          분야 조건
+          <select
+            name="policy_category"
+            defaultValue={initial?.policy?.category ?? "soft"}
+          >
+            <option value="soft">선호 (점수에 반영)</option>
+            <option value="hard">필수 (불일치 제외)</option>
+          </select>
+        </label>
+        <label className="field">
+          예산 조건
+          <select
+            name="policy_budget"
+            defaultValue={initial?.policy?.budget ?? "soft"}
+          >
+            <option value="soft">선호 (점수에 반영)</option>
+            <option value="hard">필수 (최소 견적 초과 제외)</option>
+          </select>
+        </label>
+        <label className="field">
+          필수 조건 정보가 없는 크리에이터
+          <select
+            name="policy_unknown"
+            defaultValue={initial?.policy?.unknown ?? "hold"}
+          >
+            <option value="hold">보류로 표시 (뒤에 정렬)</option>
+            <option value="exclude">추천에서 제외</option>
+          </select>
+        </label>
+        <label className="field">
+          모집 마감 일시 (선택)
+          <input
+            type="datetime-local"
+            name="recruit_until"
+            defaultValue={toLocalInput(initial?.recruit_until)}
+          />
+        </label>
+        <label className="field">
+          선정 인원 (선택, 1~100)
+          <input
+            type="number"
+            name="capacity"
+            min={1}
+            max={100}
+            defaultValue={initial?.capacity ?? ""}
+            placeholder="제한 없음"
+          />
         </label>
       </div>
       <h3 style={{ marginTop: 30, fontSize: 15 }}>

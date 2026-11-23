@@ -31,7 +31,13 @@ const products = [
   },
 ];
 import { Checkout } from "@/components/checkout";
+import { FeeSimulator } from "@/components/fee-simulator";
+export const metadata = {
+  title: "요금제",
+  alternates: { canonical: "/pricing" },
+};
 export default function Pricing() {
+  const plans = products;
   return (
     <section className="wrap">
       <span className="eyebrow">A plan for your next chapter</span>
@@ -43,7 +49,7 @@ export default function Pricing() {
         검색·게시·지원권은 성공한 작업에 사용합니다.
       </div>
       <div className="plans">
-        {products.map((p) => (
+        {plans.map((p) => (
           <article
             key={p.sku}
             className={`plan ${p.sku === "job_post" ? "featured" : ""}`}
@@ -72,6 +78,7 @@ export default function Pricing() {
       <p>
         <Link href="/dashboard">워크스페이스에서 구매 및 유효 기간 확인</Link>
       </p>
+      <FeeSimulator />
     </section>
   );
 }

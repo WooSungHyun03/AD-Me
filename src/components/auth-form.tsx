@@ -2,11 +2,18 @@
 import { useActionState } from "react";
 import { authAction } from "@/app/actions";
 import { Button } from "./ui/button";
-export function AuthForm({ mode }: { mode: "login" | "signup" }) {
+export function AuthForm({
+  mode,
+  next,
+}: {
+  mode: "login" | "signup";
+  next?: string;
+}) {
   const [state, action, pending] = useActionState(authAction, null);
   return (
     <form action={action}>
       <input type="hidden" name="mode" value={mode} />
+      {next && <input type="hidden" name="next" value={next} />}
       {mode === "login" ? (
         <input type="hidden" name="name" value="로그인" />
       ) : (
