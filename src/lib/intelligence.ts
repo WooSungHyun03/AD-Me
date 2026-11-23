@@ -55,9 +55,36 @@ export const opsCommand = z.discriminatedUnion("action", [
   }),
 ]);
 export const draftInput = z.string().trim().min(10).max(1600);
-export const draftResult = z.object({
-  concept: z.string().min(1).max(600),
-  outline: z.array(z.string().min(1).max(320)).min(1).max(6),
-  proposal: z.string().min(1).max(900),
-  model: z.string().max(100),
-});
+export const draftResult = z
+  .object({
+    concept: z.string().min(1).max(600),
+    outline: z.array(z.string().min(1).max(320)).min(1).max(6),
+    proposal: z.string().min(1).max(900),
+    model: z.string().max(100),
+    promptVersion: z.literal("marketing-draft-v2").optional(),
+    runtimeVersion: z.literal("ollama-qwen3-local-v2").optional(),
+    requiresReview: z.literal(true).optional(),
+    usage: z
+      .strictObject({
+        inputTokens: z.number().int().min(0).max(4096),
+        outputTokens: z.number().int().min(0).max(650),
+        durationNs: z.number().int().min(0).max(180_000_000_000),
+      })
+      .optional(),
+  })
+  .superRefine((r, ctx) => {
+    const metadata = [
+      r.promptVersion,
+      r.runtimeVersion,
+      r.requiresReview,
+      r.usage,
+    ];
+    if (
+      metadata.some((v) => v !== undefined) &&
+      (metadata.some((v) => v === undefined) || r.model !== "qwen3:1.7b-q4_K_M")
+    )
+      ctx.addIssue({
+        code: "custom",
+        message: "Invalid versioned local draft",
+      });
+  });
