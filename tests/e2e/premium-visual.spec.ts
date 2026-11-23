@@ -74,8 +74,21 @@ test("job posting pass and all primary pricing actions have visible, readable ta
     await draft.click();
     await expect(page).toHaveURL(/\/jobs\/new|\/login/);
   } else {
-    await posting.getByRole("button", { name: "TEST 이용권 선택" }).click();
+    await posting.getByRole("button", { name: "이용권 구매하기" }).click();
     await expect(posting.getByRole("alert")).toContainText("로그인");
+    await page.route("**/api/billing/orders", (route) =>
+      route.fulfill({
+        status: 503,
+        json: { error: { message: "provider-internal diagnostic" } },
+      }),
+    );
+    await posting.getByRole("button", { name: "이용권 구매하기" }).click();
+    await expect(posting.getByRole("alert")).toContainText(
+      "현재 결제를 이용할 수 없습니다",
+    );
+    await expect(posting.getByRole("alert")).not.toContainText(
+      "provider-internal",
+    );
   }
 });
 

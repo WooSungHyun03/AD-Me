@@ -5,7 +5,7 @@ export async function TestCheckout({ sku }: { sku: TestProduct["sku"] }) {
   const catalog = await getTestProducts(),
     product = catalog?.products.find((p) => p.sku === sku);
   if (!catalog || !product)
-    return <p role="status">현재 환경에서 TEST 결제를 제공하지 않습니다.</p>;
+    return <p role="status">현재 이용권을 구매할 수 없습니다.</p>;
   return (
     <Checkout
       sku={product.sku}

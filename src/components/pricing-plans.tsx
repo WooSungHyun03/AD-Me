@@ -99,8 +99,8 @@ export function PricingPlans({ test }: { test: TestCatalog }) {
         <h2 id="pricing-catalog-title">검색·게시·지원 이용권</h2>
         <p className="pricing-mode">
           {test?.products.length
-            ? "Toss Payments TEST 전용입니다. 실제 청구와 자동 갱신은 없습니다."
-            : "무료 베타에서는 이용권을 구매할 수 없습니다. 표시된 금액은 실제 청구가 없는 TEST 상품 기준입니다."}
+            ? "이곳에서는 결제를 체험할 수 있습니다. 실제 청구와 자동 갱신은 없습니다."
+            : "무료 베타에서는 이용권을 구매할 수 없습니다. 표시된 금액은 결제 체험 기준입니다."}
         </p>
         {(["brand", "creator"] as const).map((role) => (
           <section className="pricing-group" key={role}>
@@ -155,7 +155,7 @@ export function PricingPlans({ test }: { test: TestCatalog }) {
         ))}
         {test && extra.length > 0 && (
           <section className="pricing-group">
-            <h3>추가 TEST 이용권</h3>
+            <h3>추가 이용권</h3>
             <div className="pricing-grid">
               {extra.map((product) => (
                 <article className="pricing-product" key={product.sku}>

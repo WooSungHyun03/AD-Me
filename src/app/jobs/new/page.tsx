@@ -21,7 +21,7 @@ export default async function NewJob() {
     <section className="wrap">
       <Link href="/jobs">공고 목록</Link>
       <h1 className="page-title">YouTube 공고 작성</h1>
-      <p>초안 저장은 무료입니다. 공개할 때 TEST 게시권 1장이 필요합니다.</p>
+      <p>초안 저장은 무료입니다. 공개할 때 게시권 1장이 필요합니다.</p>
       {error ? (
         <p role="alert">상품 목록을 불러오지 못했습니다.</p>
       ) : data.length ? (

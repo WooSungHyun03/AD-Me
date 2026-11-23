@@ -44,7 +44,7 @@ export default async function JobPage({
       {row.owned && row.status === "draft" && (
         <section className="ops-section">
           <h2>공고 게시</h2>
-          <p>공개 모집 기간은 30일입니다. TEST 게시권 1장을 사용합니다.</p>
+          <p>공개 모집 기간은 30일입니다. 게시권 1장을 사용합니다.</p>
           <Checkout sku="job_post" />
           <JobForm kind="publish" id={row.id} />
         </section>
@@ -67,7 +67,7 @@ export default async function JobPage({
           <h2>공고 지원</h2>
           <p>
             소유권이 인증된 YouTube 채널과 공개 협업 프로필이 필요합니다. 제출에
-            TEST 지원권 1장을 사용합니다.
+            지원권 1장을 사용합니다.
           </p>
           <Link href="/settings/youtube">채널 인증 상태 확인</Link>
           <JobForm kind="apply" id={row.id} />

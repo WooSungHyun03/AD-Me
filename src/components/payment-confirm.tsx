@@ -12,15 +12,15 @@ export function PaymentConfirm({
   amount: number;
 }) {
   const [state, setState] = useState(""),
-    [pending, setPending] = useState(false);
+    [pending, setPending] = useState(false),
+    [confirmed, setConfirmed] = useState(false);
   return (
     <div>
       <p>
-        서버에서 주문 소유권·금액과 Toss 승인 결과를 검증해야 이용권이
-        활성화됩니다.
+        결제 결과를 확인하면 체험 이용권이 활성화됩니다. 실제 청구는 없습니다.
       </p>
       <Button
-        disabled={pending || state === "TEST 결제가 승인되었습니다."}
+        disabled={pending || confirmed}
         onClick={async () => {
           setPending(true);
           try {
@@ -29,6 +29,7 @@ export function PaymentConfirm({
               paymentKey,
               amount,
             });
+            setConfirmed(result.state === "confirmed");
             setState(result.message);
           } catch {
             setState("네트워크 오류입니다. 다시 시도해주세요.");
@@ -37,7 +38,7 @@ export function PaymentConfirm({
           }
         }}
       >
-        {pending ? "확인 중…" : "TEST 결제 승인 확인"}
+        {pending ? "확인 중…" : "결제 결과 확인"}
       </Button>
       <p role="status" style={{ marginTop: 20 }}>
         {state}

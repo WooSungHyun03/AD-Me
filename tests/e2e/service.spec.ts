@@ -71,9 +71,9 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
   await expect(
     page.getByRole("heading", { name: "AI 검색권", exact: true }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "TEST 이용권 선택" }).first().click();
+  await page.getByRole("button", { name: "이용권 구매하기" }).first().click();
   await expect(page.locator("p[role=alert]")).toContainText(
-    /TEST 클라이언트 키|로그인이 필요합니다/,
+    /현재 결제를 이용할 수 없습니다|로그인한 뒤|결제창을 열지 못했습니다/,
   );
   expect(
     await page.evaluate(

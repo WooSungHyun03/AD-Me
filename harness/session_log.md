@@ -569,3 +569,10 @@ Preserved codex/dev-a-p0-continue and ticket commits; merged YouTube main5d3bc6c
 - 피처링과 레뷰 두 사이트를 실제 Chromium에서 검토했다. AD Me 홈·탐색·상세·요금제, 공고 빈 화면, 역할별 공통 UI를 개편하고 스튜디오 경로를 제거했다.
 - 광고 공고 게시권 버튼이 흰색 글자와 흰색 배경으로 보이던 문제를 수정했다. 운영 16.27:1, 48px과 격리 TEST 버튼 동작을 확인했다.
 - 최종 프로덕션은 호환 소스 11af311f50e3ff8280ce530879031d636af908ca, Vercel dpl_G3S8oSBWEEadE4dShsgjKHjKa854다. 최종 운영 E2E 20건, 격리 TEST 결제 접근과 AI 워커 API 각 2건, 단위 420건, axe-core 22회와 Lighthouse 결과를 docs/design/visual-audit.md에 남겼다.
+
+## 2026-11-23 — 실서비스 출시 감사와 2인 개발 인계
+
+- 최신 main과 운영 Vercel을 대조했다. 운영 원장 41행과 저장소 SQL 105개, 최신 RPC 차이를 확인하고 출시 판정 NO-GO를 유지했다.
+- 브라우저 운영 60개 고유 경로, API 16개 읽기 관측, 운영 Playwright 14건 및 격리 Playwright 8건을 확인했다. 격리 보안 직접 REST는 미인증 fixture와 정상 앱 RPC를 구분하도록 수정한 후 14건을 통과했다.
+- Local Ollama에서 한국어 구조화 응답, 768차원 임베딩, 근거 기반 합성 태그를 실행했다. 실제 콘텐츠 태그 운영 저장·심사와 장애 복구는 별도 티켓이다.
+- 기존 108개 ID를 보존한 114개 원장과 DEV-A/B 독립 실행 문서를 만들었다. 감사 문서, CSV/JSON/Markdown, 외부 조건, 릴리스 게이트와 증빙은 docs/production-readiness에 있다. 구매 문구·SDK 오류 노출은 main 검증 변경이며 운영 재배포는 하지 않았다.

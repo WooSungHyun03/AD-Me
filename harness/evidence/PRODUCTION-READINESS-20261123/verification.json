@@ -1,0 +1,2545 @@
+{
+  "as_of": "2026-11-23 Asia/Seoul",
+  "baseline_main": "ecb0fa859f679fc7beec8839c18f2d43669e9a97",
+  "production": {
+    "url": "https://be-celeb.org/",
+    "deployment": "dpl_G3S8oSBWEEadE4dShsgjKHjKa854",
+    "release_source": "11af311f50e3ff8280ce530879031d636af908ca"
+  },
+  "db": {
+    "hosted_ledger_rows": 41,
+    "repository_sql_files": 105,
+    "public_tables": 47,
+    "public_tables_without_rls": 0,
+    "public_policies": 56,
+    "fresh_public_36h": 10,
+    "daily_completed_kst": "2026-11-23T04:00:00+09:00",
+    "required_rpcs_missing_sample": [
+      "creator_home_summary",
+      "ops_enrollment_role",
+      "filtered_creator_catalog",
+      "delivery_transition"
+    ],
+    "destructive_change": false
+  },
+  "browser": {
+    "templates": 48,
+    "unique_live_paths": 60,
+    "role_path_scenarios": 62,
+    "observations": 196,
+    "axe_checks": 24,
+    "axe_violations": 0,
+    "javascript_errors": 0,
+    "horizontal_overflow": 0,
+    "unverified_dynamic_templates": [
+      "/campaigns/[id]/copy",
+      "/campaigns/[id]/edit",
+      "/campaigns/[id]/recommendations",
+      "/collaborations/[id]/deliverables"
+    ],
+    "routes": [
+      {
+        "role": "creator",
+        "path": "/ad-history/new",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 404,
+            "path": "/ad-history/new",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 404,
+            "path": "/ad-history/new",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/about",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/about",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/about",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "admin",
+        "path": "/admin",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/admin",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/admin",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "admin",
+        "path": "/admin/intelligence",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 360,
+            "status": 200,
+            "path": "/admin/intelligence",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/admin/intelligence",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 430,
+            "status": 200,
+            "path": "/admin/intelligence",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 768,
+            "status": 200,
+            "path": "/admin/intelligence",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1024,
+            "status": 200,
+            "path": "/admin/intelligence",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1280,
+            "status": 200,
+            "path": "/admin/intelligence",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/admin/intelligence",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 1920,
+            "status": 200,
+            "path": "/admin/intelligence",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/auth/error",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/auth/error",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/auth/error",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "admin",
+        "path": "/admin/reviews",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 404,
+            "path": "/admin/reviews",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 404,
+            "path": "/admin/reviews",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "admin",
+        "path": "/admin/security",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 404,
+            "path": "/admin/security",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 404,
+            "path": "/admin/security",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/auth/confirm",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/auth/confirm",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/auth/confirm",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "brand",
+        "path": "/billing/fail",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/billing/fail",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/billing/fail",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "brand",
+        "path": "/billing/success",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/billing/success",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/billing/success",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "brand",
+        "path": "/brand/products",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/brand/products",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/brand/products",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "brand",
+        "path": "/campaigns/new",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 360,
+            "status": 200,
+            "path": "/campaigns/new",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/campaigns/new",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 430,
+            "status": 200,
+            "path": "/campaigns/new",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 768,
+            "status": 200,
+            "path": "/campaigns/new",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1024,
+            "status": 200,
+            "path": "/campaigns/new",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1280,
+            "status": 200,
+            "path": "/campaigns/new",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/campaigns/new",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 1920,
+            "status": 200,
+            "path": "/campaigns/new",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/compare",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/compare",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/compare",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/creators/youtube",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/creators/youtube",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/creators/youtube",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/campaigns",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/campaigns",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/campaigns",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/creators",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 360,
+            "status": 200,
+            "path": "/creators",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/creators",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 430,
+            "status": 200,
+            "path": "/creators",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 768,
+            "status": 200,
+            "path": "/creators",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1024,
+            "status": 200,
+            "path": "/creators",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1280,
+            "status": 200,
+            "path": "/creators",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/creators",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 1920,
+            "status": 200,
+            "path": "/creators",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/forgot-password",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/forgot-password",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/forgot-password",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/help",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/help",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/help",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "brand",
+        "path": "/explore",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 360,
+            "status": 200,
+            "path": "/explore",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/explore",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 430,
+            "status": 200,
+            "path": "/explore",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 768,
+            "status": 200,
+            "path": "/explore",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1024,
+            "status": 200,
+            "path": "/explore",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1280,
+            "status": 200,
+            "path": "/explore",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/explore",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 1920,
+            "status": 200,
+            "path": "/explore",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "brand",
+        "path": "/dashboard",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 360,
+            "status": 200,
+            "path": "/dashboard",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/dashboard",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 430,
+            "status": 200,
+            "path": "/dashboard",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 768,
+            "status": 200,
+            "path": "/dashboard",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1024,
+            "status": 200,
+            "path": "/dashboard",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1280,
+            "status": 200,
+            "path": "/dashboard",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/dashboard",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 1920,
+            "status": 200,
+            "path": "/dashboard",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/licenses",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/licenses",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/licenses",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "brand",
+        "path": "/jobs/new",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/jobs/new",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/jobs/new",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "brand",
+        "path": "/lists",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/lists",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/lists",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/jobs",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 360,
+            "status": 200,
+            "path": "/jobs",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/jobs",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 430,
+            "status": 200,
+            "path": "/jobs",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 768,
+            "status": 200,
+            "path": "/jobs",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1024,
+            "status": 200,
+            "path": "/jobs",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1280,
+            "status": 200,
+            "path": "/jobs",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/jobs",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 1920,
+            "status": 200,
+            "path": "/jobs",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/matches",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/campaigns",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/campaigns",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "brand",
+        "path": "/notifications",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/notifications",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/notifications",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/login",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 360,
+            "status": 200,
+            "path": "/login",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/login",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 430,
+            "status": 200,
+            "path": "/login",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 768,
+            "status": 200,
+            "path": "/login",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1024,
+            "status": 200,
+            "path": "/login",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1280,
+            "status": 200,
+            "path": "/login",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/login",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 1920,
+            "status": 200,
+            "path": "/login",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 360,
+            "status": 200,
+            "path": "/",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 430,
+            "status": 200,
+            "path": "/",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 768,
+            "status": 200,
+            "path": "/",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1024,
+            "status": 200,
+            "path": "/",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1280,
+            "status": 200,
+            "path": "/",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 1920,
+            "status": 200,
+            "path": "/",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/privacy",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/privacy",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/privacy",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "brand",
+        "path": "/reports/new",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/reports/new",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/reports/new",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "brand",
+        "path": "/reports",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/reports",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/reports",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/pricing",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 360,
+            "status": 200,
+            "path": "/pricing",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/pricing",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 430,
+            "status": 200,
+            "path": "/pricing",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 768,
+            "status": 200,
+            "path": "/pricing",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1024,
+            "status": 200,
+            "path": "/pricing",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1280,
+            "status": 200,
+            "path": "/pricing",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/pricing",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 1920,
+            "status": 200,
+            "path": "/pricing",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "brand",
+        "path": "/saved-searches",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 404,
+            "path": "/saved-searches",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 404,
+            "path": "/saved-searches",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/reset-password",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/reset-password",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/reset-password",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "creator",
+        "path": "/settings/youtube",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/settings/youtube",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/settings/youtube",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "brand",
+        "path": "/settings",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/settings",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/settings",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/signup/resend",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 404,
+            "path": "/signup/resend",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 404,
+            "path": "/signup/resend",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/unsubscribe",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/unsubscribe",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/unsubscribe",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/terms",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/about",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/about",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/signup",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 360,
+            "status": 200,
+            "path": "/signup",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/signup",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 430,
+            "status": 200,
+            "path": "/signup",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 768,
+            "status": 200,
+            "path": "/signup",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1024,
+            "status": 200,
+            "path": "/signup",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1280,
+            "status": 200,
+            "path": "/signup",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/signup",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 1920,
+            "status": 200,
+            "path": "/signup",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/creators/youtube/UCT-_4GqC-yLY1xtTHhwY0hA",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/creators/youtube/UCT-_4GqC-yLY1xtTHhwY0hA",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/creators/youtube/UCT-_4GqC-yLY1xtTHhwY0hA",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/creators/youtube/UCg-p3lQIqmhh7gHpyaOmOiQ",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/creators/youtube/UCg-p3lQIqmhh7gHpyaOmOiQ",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/creators/youtube/UCg-p3lQIqmhh7gHpyaOmOiQ",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/creators/youtube/UCoLQZ4ZClFqVPCvvjuiUSRA",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/creators/youtube/UCoLQZ4ZClFqVPCvvjuiUSRA",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/creators/youtube/UCoLQZ4ZClFqVPCvvjuiUSRA",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/creators/youtube/UCfpaSruWW3S4dibonKXENjA",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 360,
+            "status": 200,
+            "path": "/creators/youtube/UCfpaSruWW3S4dibonKXENjA",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/creators/youtube/UCfpaSruWW3S4dibonKXENjA",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 430,
+            "status": 200,
+            "path": "/creators/youtube/UCfpaSruWW3S4dibonKXENjA",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 768,
+            "status": 200,
+            "path": "/creators/youtube/UCfpaSruWW3S4dibonKXENjA",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1024,
+            "status": 200,
+            "path": "/creators/youtube/UCfpaSruWW3S4dibonKXENjA",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1280,
+            "status": 200,
+            "path": "/creators/youtube/UCfpaSruWW3S4dibonKXENjA",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/creators/youtube/UCfpaSruWW3S4dibonKXENjA",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 1920,
+            "status": 200,
+            "path": "/creators/youtube/UCfpaSruWW3S4dibonKXENjA",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/creators/youtube/UCUj6rrhMTR9pipbAWBAMvUQ",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/creators/youtube/UCUj6rrhMTR9pipbAWBAMvUQ",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/creators/youtube/UCUj6rrhMTR9pipbAWBAMvUQ",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/creators/youtube/UC1B6SalAoiJD7eHfMUA9QrA",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/creators/youtube/UC1B6SalAoiJD7eHfMUA9QrA",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/creators/youtube/UC1B6SalAoiJD7eHfMUA9QrA",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/creators/youtube/UCwx6n_4OcLgzAGdty0RWCoA",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/creators/youtube/UCwx6n_4OcLgzAGdty0RWCoA",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/creators/youtube/UCwx6n_4OcLgzAGdty0RWCoA",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/creators/youtube/UCk6bX-MZXdte_7kG8TbMkqg",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/creators/youtube/UCk6bX-MZXdte_7kG8TbMkqg",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/creators/youtube/UCk6bX-MZXdte_7kG8TbMkqg",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/tools",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/creators",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/creators",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/tools/local",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/campaigns/new",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/campaigns/new",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/creators/youtube/UChQ-VMvdGrYZxviQVMTJOHg",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/creators/youtube/UChQ-VMvdGrYZxviQVMTJOHg",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/creators/youtube/UChQ-VMvdGrYZxviQVMTJOHg",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "anonymous",
+        "path": "/creators/youtube/UC9kmlDcqksaOnCkC_qzGacA",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/creators/youtube/UC9kmlDcqksaOnCkC_qzGacA",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/creators/youtube/UC9kmlDcqksaOnCkC_qzGacA",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "creator",
+        "path": "/settings",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/settings",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/settings",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "brand",
+        "path": "/campaigns/[id]",
+        "resolved_instances": 8,
+        "observations": [
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/campaigns/[id]",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/campaigns/[id]",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/campaigns/[id]",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/campaigns/[id]",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/campaigns/[id]",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/campaigns/[id]",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/campaigns/[id]",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/campaigns/[id]",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/campaigns/[id]",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/campaigns/[id]",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/campaigns/[id]",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/campaigns/[id]",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/campaigns/[id]",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/campaigns/[id]",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/campaigns/[id]",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/campaigns/[id]",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      },
+      {
+        "role": "creator",
+        "path": "/dashboard",
+        "resolved_instances": 1,
+        "observations": [
+          {
+            "width": 360,
+            "status": 200,
+            "path": "/dashboard",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 390,
+            "status": 200,
+            "path": "/dashboard",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 430,
+            "status": 200,
+            "path": "/dashboard",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 768,
+            "status": 200,
+            "path": "/dashboard",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1024,
+            "status": 200,
+            "path": "/dashboard",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1280,
+            "status": 200,
+            "path": "/dashboard",
+            "axe_checked": false,
+            "axe_violations": 0
+          },
+          {
+            "width": 1440,
+            "status": 200,
+            "path": "/dashboard",
+            "axe_checked": true,
+            "axe_violations": 0
+          },
+          {
+            "width": 1920,
+            "status": 200,
+            "path": "/dashboard",
+            "axe_checked": false,
+            "axe_violations": 0
+          }
+        ]
+      }
+    ],
+    "extra_verified_states": {
+      "public_empty": true,
+      "offline_reconnect": true,
+      "cookie_loss_redirect": true
+    }
+  },
+  "http_probes": [
+    {
+      "path": "/api/health",
+      "method": "GET",
+      "status": 200,
+      "code": null,
+      "health": "ok"
+    },
+    {
+      "path": "/api/creators",
+      "method": "GET",
+      "status": 200,
+      "code": null
+    },
+    {
+      "path": "/api/account",
+      "method": "GET",
+      "status": 405,
+      "code": null
+    },
+    {
+      "path": "/api/account/deletion/status",
+      "method": "GET",
+      "status": 404,
+      "code": null
+    },
+    {
+      "path": "/api/admin/intelligence",
+      "method": "GET",
+      "status": 405,
+      "code": null
+    },
+    {
+      "path": "/api/notifications",
+      "method": "GET",
+      "status": 401,
+      "code": null
+    },
+    {
+      "path": "/api/messages",
+      "method": "GET",
+      "status": 405,
+      "code": null
+    },
+    {
+      "path": "/api/lists",
+      "method": "GET",
+      "status": 405,
+      "code": null
+    },
+    {
+      "path": "/api/billing/orders",
+      "method": "GET",
+      "status": 405,
+      "code": null
+    },
+    {
+      "path": "/api/intelligence",
+      "method": "GET",
+      "status": 401,
+      "code": null
+    },
+    {
+      "path": "/api/observability",
+      "method": "GET",
+      "status": 404,
+      "code": null
+    },
+    {
+      "path": "/api/privacy/exports",
+      "method": "GET",
+      "status": 405,
+      "code": null
+    },
+    {
+      "path": "/api/export",
+      "method": "GET",
+      "status": 401,
+      "code": null
+    },
+    {
+      "path": "/api/compare",
+      "method": "GET",
+      "status": 404,
+      "code": null
+    },
+    {
+      "path": "/api/safety",
+      "method": "GET",
+      "status": 405,
+      "code": null
+    },
+    {
+      "path": "/api/reviews/public",
+      "method": "GET",
+      "status": 404,
+      "code": null
+    }
+  ],
+  "api_source_inventory": [
+    {
+      "path": "/api/account/deletion/process",
+      "code": "src/app/api/account/deletion/process/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/account/deletion",
+      "code": "src/app/api/account/deletion/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/account/deletion/status",
+      "code": "src/app/api/account/deletion/status/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": 404
+    },
+    {
+      "path": "/api/account",
+      "code": "src/app/api/account/route.ts",
+      "declared_methods": [
+        "PATCH"
+      ],
+      "hosted_probe": 405
+    },
+    {
+      "path": "/api/ad-history/competitors",
+      "code": "src/app/api/ad-history/competitors/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/ad-history",
+      "code": "src/app/api/ad-history/route.ts",
+      "declared_methods": [
+        "POST",
+        "GET"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/ad-history/search",
+      "code": "src/app/api/ad-history/search/route.ts",
+      "declared_methods": [
+        "GET"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/admin/email-outbox",
+      "code": "src/app/api/admin/email-outbox/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/admin/entitlements",
+      "code": "src/app/api/admin/entitlements/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/admin/inquiries",
+      "code": "src/app/api/admin/inquiries/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/admin/intelligence",
+      "code": "src/app/api/admin/intelligence/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": 405
+    },
+    {
+      "path": "/api/admin/mfa",
+      "code": "src/app/api/admin/mfa/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/admin/moderate",
+      "code": "src/app/api/admin/moderate/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/admin/restrict",
+      "code": "src/app/api/admin/restrict/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/admin/retention",
+      "code": "src/app/api/admin/retention/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/admin/reviews",
+      "code": "src/app/api/admin/reviews/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/admin",
+      "code": "src/app/api/admin/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/admin/search",
+      "code": "src/app/api/admin/search/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/admin/uploads",
+      "code": "src/app/api/admin/uploads/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/ai/draft",
+      "code": "src/app/api/ai/draft/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/billing/cancel",
+      "code": "src/app/api/billing/cancel/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/billing/confirm",
+      "code": "src/app/api/billing/confirm/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/billing/orders",
+      "code": "src/app/api/billing/orders/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": 405
+    },
+    {
+      "path": "/api/brands/[id]/contact",
+      "code": "src/app/api/brands/[id]/contact/route.ts",
+      "declared_methods": [
+        "GET"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/brands/[id]/logo",
+      "code": "src/app/api/brands/[id]/logo/route.ts",
+      "declared_methods": [
+        "GET"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/brands/[id]",
+      "code": "src/app/api/brands/[id]/route.ts",
+      "declared_methods": [
+        "GET"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/campaigns/[id]/calendar",
+      "code": "src/app/api/campaigns/[id]/calendar/route.ts",
+      "declared_methods": [
+        "GET"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/campaigns",
+      "code": "src/app/api/campaigns/route.ts",
+      "declared_methods": [
+        "POST",
+        "PATCH",
+        "DELETE"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/chat",
+      "code": "src/app/api/chat/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/claims",
+      "code": "src/app/api/claims/route.ts",
+      "declared_methods": [
+        "POST",
+        "PATCH"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/compare",
+      "code": "src/app/api/compare/route.ts",
+      "declared_methods": [
+        "POST",
+        "PATCH",
+        "GET"
+      ],
+      "hosted_probe": 404
+    },
+    {
+      "path": "/api/consent",
+      "code": "src/app/api/consent/route.ts",
+      "declared_methods": [
+        "GET",
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/creators",
+      "code": "src/app/api/creators/route.ts",
+      "declared_methods": [
+        "GET"
+      ],
+      "hosted_probe": 200
+    },
+    {
+      "path": "/api/creators/search",
+      "code": "src/app/api/creators/search/route.ts",
+      "declared_methods": [
+        "GET"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/deliverables",
+      "code": "src/app/api/deliverables/route.ts",
+      "declared_methods": [
+        "GET",
+        "POST",
+        "PATCH"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/email/unsubscribe",
+      "code": "src/app/api/email/unsubscribe/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/export",
+      "code": "src/app/api/export/route.ts",
+      "declared_methods": [
+        "GET"
+      ],
+      "hosted_probe": 401
+    },
+    {
+      "path": "/api/health",
+      "code": "src/app/api/health/route.ts",
+      "declared_methods": [
+        "GET"
+      ],
+      "hosted_probe": 200
+    },
+    {
+      "path": "/api/images/[id]",
+      "code": "src/app/api/images/[id]/route.ts",
+      "declared_methods": [
+        "GET"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/images/room",
+      "code": "src/app/api/images/room/route.ts",
+      "declared_methods": [
+        "GET"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/images",
+      "code": "src/app/api/images/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/import",
+      "code": "src/app/api/import/route.ts",
+      "declared_methods": [
+        "POST",
+        "GET"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/inquiries",
+      "code": "src/app/api/inquiries/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/intelligence",
+      "code": "src/app/api/intelligence/route.ts",
+      "declared_methods": [
+        "POST",
+        "GET"
+      ],
+      "hosted_probe": 401
+    },
+    {
+      "path": "/api/lists/items",
+      "code": "src/app/api/lists/items/route.ts",
+      "declared_methods": [
+        "POST",
+        "DELETE"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/lists",
+      "code": "src/app/api/lists/route.ts",
+      "declared_methods": [
+        "POST",
+        "PATCH",
+        "DELETE"
+      ],
+      "hosted_probe": 405
+    },
+    {
+      "path": "/api/matching-feedback",
+      "code": "src/app/api/matching-feedback/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/messages/block",
+      "code": "src/app/api/messages/block/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/messages/report",
+      "code": "src/app/api/messages/report/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/messages",
+      "code": "src/app/api/messages/route.ts",
+      "declared_methods": [
+        "GET",
+        "POST"
+      ],
+      "hosted_probe": 405
+    },
+    {
+      "path": "/api/notes/checklist",
+      "code": "src/app/api/notes/checklist/route.ts",
+      "declared_methods": [
+        "POST",
+        "DELETE"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/notes/review",
+      "code": "src/app/api/notes/review/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/notes",
+      "code": "src/app/api/notes/route.ts",
+      "declared_methods": [
+        "PUT"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/notifications",
+      "code": "src/app/api/notifications/route.ts",
+      "declared_methods": [
+        "GET"
+      ],
+      "hosted_probe": 401
+    },
+    {
+      "path": "/api/privacy/download",
+      "code": "src/app/api/privacy/download/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/privacy/exports",
+      "code": "src/app/api/privacy/exports/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": 405
+    },
+    {
+      "path": "/api/profile",
+      "code": "src/app/api/profile/route.ts",
+      "declared_methods": [
+        "POST",
+        "DELETE"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/promotions",
+      "code": "src/app/api/promotions/route.ts",
+      "declared_methods": [
+        "GET"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/proposals",
+      "code": "src/app/api/proposals/route.ts",
+      "declared_methods": [
+        "POST",
+        "PATCH"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/read",
+      "code": "src/app/api/read/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/recommendations",
+      "code": "src/app/api/recommendations/route.ts",
+      "declared_methods": [
+        "POST",
+        "GET"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/reports",
+      "code": "src/app/api/reports/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/reviews/public",
+      "code": "src/app/api/reviews/public/route.ts",
+      "declared_methods": [
+        "GET"
+      ],
+      "hosted_probe": 404
+    },
+    {
+      "path": "/api/reviews",
+      "code": "src/app/api/reviews/route.ts",
+      "declared_methods": [
+        "GET",
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/safety",
+      "code": "src/app/api/safety/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": 405
+    },
+    {
+      "path": "/api/saved",
+      "code": "src/app/api/saved/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/saved-searches",
+      "code": "src/app/api/saved-searches/route.ts",
+      "declared_methods": [
+        "GET",
+        "POST",
+        "DELETE"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/uploads/[id]",
+      "code": "src/app/api/uploads/[id]/route.ts",
+      "declared_methods": [
+        "POST",
+        "DELETE"
+      ],
+      "hosted_probe": null
+    },
+    {
+      "path": "/api/uploads",
+      "code": "src/app/api/uploads/route.ts",
+      "declared_methods": [
+        "POST"
+      ],
+      "hosted_probe": null
+    }
+  ],
+  "isolated_security_successes": [
+    "role-only AAL1 administrator cannot read private reports or invoke moderation",
+    "anonymous and regular accounts cannot provision or self-grant administration",
+    "stale, future, string-AMR and token-refresh-only JWTs fail through direct REST RPC",
+    "fresh MFA grants cannot update operator locks directly via REST",
+    "audited locks hide creators even after owner republish and deny delete/recreate",
+    "revoked grant blocks an otherwise fresh JWT immediately",
+    "operator history is append-only and denied to ordinary accounts",
+    "public brand fields exclude contacts and owner ID, including direct REST",
+    "foreign account cannot edit another brand; creator cannot use brand RPC",
+    "invalid private contact rolls back account name and public brand atomically",
+    "an unverified creator cannot receive a direct REST proposal",
+    "contact sharing requires accepted participation and revocation is immediate",
+    "campaign lock survives republish, blocks deletion and new proposals through REST",
+    "expired administrator approval denies even a fresh AAL2 JWT"
+  ],
+  "tests": {
+    "main_vitest": 420,
+    "prod_playwright": 14,
+    "isolated_playwright": 8,
+    "prod_dependency_audit": 0,
+    "isolated_checkout_redaction_e2e": 2,
+    "isolated_confirmation_retry_e2e": 2
+  },
+  "local_ai": {
+    "model": "qwen3:1.7b-q4_K_M",
+    "structured_korean": true,
+    "serial_ms": [
+      2362,
+      747,
+      794
+    ],
+    "mean_ms": 1301,
+    "two_concurrent_ms": [
+      741,
+      1334
+    ],
+    "embedding_model": "embeddinggemma",
+    "dimensions": [
+      768
+    ],
+    "sample_tags": 6,
+    "tags_review": "pending",
+    "output_fields": [
+      "concept",
+      "model",
+      "outline",
+      "proposal"
+    ]
+  },
+  "local_ai_host": {
+    "os": "Ubuntu 24.04.3 LTS",
+    "kernel": "Linux 7.0.0-43-generic",
+    "cpu": "Intel i7-13700, 24 logical",
+    "ram_gib": 62,
+    "gpu": "RTX 4080",
+    "vram_mib": 16376,
+    "driver": "580.173.02",
+    "cuda_driver_capability": "13.0",
+    "ollama": "0.32.1",
+    "docker": "28.5.1",
+    "worker": "active/enabled",
+    "loopback": "127.0.0.1:11539"
+  }
+}

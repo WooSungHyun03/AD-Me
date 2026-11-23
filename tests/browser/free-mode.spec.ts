@@ -7,7 +7,7 @@ test("free mode serves the free plan and denies direct TEST billing", async ({
   await expect(page.getByRole("heading", { name: "무료 베타" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "TEST 상품" })).toHaveCount(0);
   await expect(
-    page.getByRole("button", { name: "TEST 이용권 선택" }),
+    page.getByRole("button", { name: "이용권 구매하기" }),
   ).toHaveCount(0);
   expect(
     await page.evaluate(

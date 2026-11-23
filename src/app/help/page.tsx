@@ -48,7 +48,10 @@ export default async function Help() {
           추천 결과는 등록 정보와 공개 YouTube 자료를 바탕으로 제공합니다. 협업
           전에 채널과 조건을 직접 확인해 주세요.
         </li>
-        <li>결제는 Toss TEST 모드이며 실제 과금되지 않습니다.</li>
+        <li>
+          무료 베타에서는 결제를 받지 않습니다. 체험 환경에서도 실제로 청구되지
+          않습니다.
+        </li>
       </ul>
       <p>
         자세한 기준은 <Link href="/about">서비스·데이터 안내</Link>와{" "}

@@ -8,7 +8,7 @@ import { campaignSchema } from "@/lib/schemas";
 
 function message(error: { message: string; code: string }) {
   if (error.message === "MARKETPLACE_CREDIT_REQUIRED")
-    return "사용 가능한 TEST 이용권이 없습니다.";
+    return "사용 가능한 이용권이 없습니다.";
   if (error.code === "42501")
     return "이 작업의 권한 또는 YouTube 소유권 인증을 확인해주세요.";
   return "지금은 요청을 완료할 수 없습니다. 공고 상태 및 입력 내용을 확인해주세요.";

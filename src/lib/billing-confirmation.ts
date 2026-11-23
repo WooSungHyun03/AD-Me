@@ -28,7 +28,10 @@ export async function confirmTestPayment(
     });
     const body: unknown = await res.json().catch(() => null);
     if (res.ok && confirmationResult.safeParse(body).success)
-      return { state: "confirmed", message: "TEST 결제가 승인되었습니다." };
+      return {
+        state: "confirmed",
+        message: "체험 결제가 확인되었습니다. 실제로 청구되지 않았습니다.",
+      };
     if (res.ok || res.status === 429 || res.status >= 500)
       return {
         state: "retry",
@@ -38,7 +41,7 @@ export async function confirmTestPayment(
     return {
       state: "rejected",
       message:
-        "주문 소유권·금액·승인 상태를 확인하지 못했습니다. 원래 주문을 확인해주세요.",
+        "결제 승인 정보를 확인하지 못했습니다. 원래 주문을 확인해 주세요.",
     };
   } catch {
     return {

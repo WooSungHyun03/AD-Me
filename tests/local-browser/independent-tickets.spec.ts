@@ -270,17 +270,17 @@ test("independent D067: fixture HTTP200 is not paid; retry keeps same order then
     `/billing/success?orderId=${randomUUID()}&paymentKey=fictional-test-only&amount=4900`,
   );
   await page
-    .getByRole("button", { name: "TEST 결제 승인 확인", exact: true })
+    .getByRole("button", { name: "결제 결과 확인", exact: true })
     .click();
   await expect(page.getByRole("status")).toContainText("같은 주문");
   expect(await page.getByRole("status").textContent()).not.toContain(
     "승인되었습니다",
   );
   await page
-    .getByRole("button", { name: "TEST 결제 승인 확인", exact: true })
+    .getByRole("button", { name: "결제 결과 확인", exact: true })
     .click();
   await expect(page.getByRole("status")).toContainText(
-    "TEST 결제가 승인되었습니다.",
+    "체험 결제가 확인되었습니다. 실제로 청구되지 않았습니다.",
   );
   expect(requests[0]).toEqual(requests[1]);
   await a11y(page);

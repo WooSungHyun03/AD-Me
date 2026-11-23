@@ -42,7 +42,7 @@ test("brand product and private YouTube draft use the persisted TEST catalogue",
   await expect(
     page
       .getByRole("status")
-      .filter({ hasText: "사용 가능한 TEST 이용권이 없습니다." }),
+      .filter({ hasText: "사용 가능한 이용권이 없습니다." }),
   ).toBeVisible();
   const [first, second] = await Promise.all([
     page.request.post("/api/billing/orders", {

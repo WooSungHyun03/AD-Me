@@ -182,7 +182,7 @@ try {
         category: "교육",
         vibes: ["자연스러움"],
         format: "숏폼",
-        platforms: ["instagram"],
+        platforms: ["youtube"],
         budget_krw: 100000,
         target_audience: "QA",
         goal: "테스트",
@@ -201,11 +201,30 @@ try {
     kind: "proposal",
     brief: "QA isolated collaboration contract",
   };
-  const created = await clients.brand
-    .from("proposals")
-    .insert(proposal)
-    .select("id")
-    .single();
+  await check(
+    "an unverified creator cannot receive a direct REST proposal",
+    async () => {
+      assert.equal(
+        (await clients.brand.from("proposals").insert(proposal)).error?.code,
+        "42501",
+      );
+    },
+  );
+  // The remaining checks cover contact consent and moderation after verification.
+  // Set up that precondition only in the marked local database.
+  sql(
+    `update public.creators set claim_status='verified' where id='${creatorId}' and owner_id='${ids.creator}';`,
+  );
+  const proposalInput = {
+    p_campaign: campaignId,
+    p_creator: creatorId,
+    p_kind: proposal.kind,
+    p_brief: proposal.brief,
+  };
+  const created = await clients.brand.rpc(
+    "create_creator_proposal",
+    proposalInput,
+  );
   assert.equal(created.error, null);
   await check(
     "contact sharing requires accepted participation and revocation is immediate",
@@ -218,7 +237,7 @@ try {
       assert.equal(
         (
           await clients.creator.rpc("transition_proposal", {
-            p_id: created.data.id,
+            p_id: created.data,
             p_action: "accepted",
           })
         ).error,
@@ -291,11 +310,15 @@ try {
       );
       // Remove old fixture proposal to ensure the next rejection is RLS, not duplicate unique key.
       sql(
-        `delete from public.audit_log where entity_id='${created.data.id}'; delete from public.proposals where id='${created.data.id}';`,
+        `delete from public.audit_log where entity_id='${created.data}'; delete from public.proposals where id='${created.data}';`,
       );
       assert.equal(
         (await clients.brand.from("proposals").insert(proposal)).error?.code,
         "42501",
+      );
+      assert.ok(
+        (await clients.brand.rpc("create_creator_proposal", proposalInput))
+          .error,
       );
       assert.equal(
         (
