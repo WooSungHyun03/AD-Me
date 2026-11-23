@@ -604,3 +604,5 @@ USER requested all feasible tickets in order, keeping direct main push and ticke
 - D016: 현재107 DB MFA/초대/만료·회수/자기승격/비공개 권한6그룹 통과. main의 집계용 definer2개는 명시 역할·MFA/회수 테스트로 검증하고 나머지 invoker 요구 유지. 외부 U008 미완료.
 
 - D075: 로컬98 RLS/371함수/4비공개버킷, core7·brand7·creator-read8·normalized storage9 통과. main 저장 테이블 교체 뒤 stale RPC와 서비스 HOT의 원시ID/검토·동의·TEST 경계 결함을108/109 전진 수정. 전수 함수/운영 검증 아님; B 명명목록/import/D049 계약 검토 별도.
+
+- D019 추가: 별도 소유 증명 worker 분기의 ID/도전값/응답 귀속·정확 토큰 검증. Python11 통과, 실제 소유 증명/공급자 호출 아님.

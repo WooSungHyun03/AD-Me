@@ -926,7 +926,8 @@
         "docs/production-readiness/MASTER_AUDIT.md",
         "docs/implementation-progress.md",
         "harness/evidence/D019/ (이번 검증 기록 위치)",
-        "harness/evidence/D019/ADAPTER_20261123.md"
+        "harness/evidence/D019/ADAPTER_20261123.md",
+        "harness/evidence/D019/OWNERSHIP_20261123.md"
       ],
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",

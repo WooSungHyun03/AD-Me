@@ -297,7 +297,7 @@ DEV-A · P0 · S0 출시 차단 · YOUTUBE · IN_PROGRESS · 8 SP · ACTIVE
 - **검증** — 계약 테스트·쿼터 실패·사용자 키 연결 후 실제 채널 검증 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 허용된 채널 seed로 공개 프로필·영상·제공 지표를 수집하고 비공개 지표를 추정값으로 채우지 않는다.
 - **차단 요인** — 일반 공식 원본 API에는 U009의 키·권한이 필요하다. 파생·추가 용도의 U010은 D031/PR-002에서 적용한다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/implementation-progress.md · harness/evidence/D019/ (이번 검증 기록 위치) · harness/evidence/D019/ADAPTER_20261123.md
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/implementation-progress.md · harness/evidence/D019/ (이번 검증 기록 위치) · harness/evidence/D019/ADAPTER_20261123.md · harness/evidence/D019/OWNERSHIP_20261123.md
 - **검증 범위** — 실제 공급자 호출 없는 TS20/Python8 계약: 응답·요청 상한, 공개/타 채널 귀속, 숨김/안전 정수, quota·rate·404·전송 실패. 정책·현재 키/소유권/운영 검증은 미완료.
 - **이전 기록** — PARTIAL_VERIFIED
 

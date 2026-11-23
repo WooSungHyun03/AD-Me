@@ -9,6 +9,23 @@ worker=importlib.util.module_from_spec(spec);spec.loader.exec_module(worker)
 A='UC'+'a'*22;B='UC'+'b'*22
 
 class Recovery(unittest.TestCase):
+ def test_claim_proof_is_bound_to_the_requested_immutable_channel(self):
+  challenge='a'*32
+  job={'kind':'youtube_claim','input':'00000000-0000-4000-8000-000000000019:'+A+':'+challenge}
+  with patch.object(worker,'youtube',return_value={'items':[{'id':B,'snippet':{'description':'ADME-'+challenge}}]}):
+   with self.assertRaisesRegex(worker.WorkerError,'UPSTREAM_INVALID_RESPONSE'):worker.process(job)
+  for description,verified in [('ADME-'+challenge,True),('prefixADME-'+challenge,False),('ADME-'+challenge+'suffix',False),('no proof',False)]:
+   with patch.object(worker,'youtube',return_value={'items':[{'id':A,'snippet':{'description':description}}]}):
+    self.assertEqual(worker.process(job),{'verified':verified})
+ def test_claim_input_and_shape_fail_before_network_or_verification(self):
+  for value in [None,'bad',A+':short','00000000-0000-4000-8000-000000000019:'+A+':short']:
+   with patch.object(worker,'youtube')as api:
+    with self.assertRaisesRegex(worker.WorkerError,'CHANNEL_INPUT_INVALID'):worker.process({'kind':'youtube_claim','input':value})
+    api.assert_not_called()
+  job={'kind':'youtube_claim','input':'00000000-0000-4000-8000-000000000019:'+A+':'+'a'*32}
+  for data in [{'items':[{'id':A,'snippet':{'description':42}}]},{'items':[{'id':A,'snippet':{}},{'id':A,'snippet':{}}]}]:
+   with patch.object(worker,'youtube',return_value=data):
+    with self.assertRaisesRegex(worker.WorkerError,'UPSTREAM_INVALID_RESPONSE'):worker.process(job)
  def test_public_video_output_fits_reviewed_five_video_cache_contract(self):
   ids=['fixture%04d'%i for i in range(50)]
   replies=[{'items':[{'id':A,'snippet':{'title':'SYNTHETIC cache contract'},'contentDetails':{'relatedPlaylists':{'uploads':'fictional'}}}]},

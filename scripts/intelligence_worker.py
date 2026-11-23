@@ -260,11 +260,20 @@ def process(job):
         case "marketing_draft":
             return draft(job["input"])
         case "youtube_claim":
-            _, channel_id, challenge = job["input"].split(":")
+            parts = job["input"].split(":") if isinstance(job.get("input"), str) else []
+            if len(parts) != 3 or not re.fullmatch(r"[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}", parts[0]) or not re.fullmatch(r"UC[A-Za-z0-9_-]{22}", parts[1]) or not re.fullmatch(r"[a-f0-9]{32}", parts[2]):
+                raise WorkerError("CHANNEL_INPUT_INVALID")
+            _, channel_id, challenge = parts
             data = youtube("channels", part="snippet", id=channel_id, fields="items(id,snippet/description)")
-            if not data.get("items"):
+            items = bounded_items(data, 1)
+            if not items:
                 raise WorkerError("CHANNEL_UNAVAILABLE")
-            description = data["items"][0]["snippet"].get("description", "")
+            item = items[0]
+            if item.get("id") != channel_id or not isinstance(item.get("snippet"), dict):
+                raise WorkerError("UPSTREAM_INVALID_RESPONSE")
+            description = item["snippet"].get("description", "")
+            if not isinstance(description, str) or len(description) > 10000:
+                raise WorkerError("UPSTREAM_INVALID_RESPONSE")
             proof = "ADME-" + challenge
             if not re.search(r"(?<![A-Za-z0-9_-])" + re.escape(proof) + r"(?![A-Za-z0-9_-])", description):
                 return {"verified": False}

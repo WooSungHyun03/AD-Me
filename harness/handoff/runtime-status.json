@@ -185,7 +185,8 @@
       "status": "PARTIAL_VERIFIED",
       "evidence": [
         "docs/implementation-progress.md",
-        "harness/evidence/D019/ADAPTER_20261123.md"
+        "harness/evidence/D019/ADAPTER_20261123.md",
+        "harness/evidence/D019/OWNERSHIP_20261123.md"
       ],
       "blocker": "어댑터/실제 worker 귀속·응답·숫자 계약 보강 및 TS20/Python8 통과. U009/D017의 현재 승인/공급자·소유권/철회 실제 검증은 미완료."
     },
