@@ -625,7 +625,7 @@ DEV-A · P0 · S0 출시 차단 · YOUTUBE · TESTED · 3 SP · ACTIVE
 
 ## D029 · 실제 광고 이력 제출·출처 검증
 
-DEV-A · P0 · S0 출시 차단 · YOUTUBE · TODO · 8 SP · ACTIVE
+DEV-A · P0 · S0 출시 차단 · YOUTUBE · TESTED · 8 SP · ACTIVE
 
 - **현재 문제** — 운영 /ad-history/new는 크리에이터 계정에서 404다. 근거 있는 광고 이력 제출·검토 화면을 최신 스키마와 함께 승격해야 한다.
 - **재현·관찰** — 크리에이터 QA를 로그인하고 /ad-history/new 404를 확인. 격리에서 등록·근거 검증·정정 이후 공개 필드만 표시되는지 확인한다.
@@ -642,7 +642,8 @@ DEV-A · P0 · S0 출시 차단 · YOUTUBE · TODO · 8 SP · ACTIVE
 - **검증** — 허위·중복·정정·권한·검토 전후 공개 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 브랜드·기간·형식·경제적 이해관계 표시·증거 URL·제출자·검토 상태를 저장한다. 단순 브랜드 언급을 광고로 확정하지 않는다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D029/PLAN_20261120.md · harness/evidence/D029/README.md · harness/evidence/D029/ad-history-security-v29-20261120.json · harness/evidence/D029/ (이번 검증 기록 위치)
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D029/PLAN_20261120.md · harness/evidence/D029/README.md · harness/evidence/D029/ad-history-security-v29-20261120.json · harness/evidence/D029/ (이번 검증 기록 위치) · harness/evidence/D029/REVALIDATE_20261123.md
+- **검증 범위** — 현재107 격리 DB 실제 SQL/PostgREST8그룹 통과. 독립 가상 프로필 fixture로 변경; 기존 seed 부재 및 QA 관리자 초대 만료 실패를 수정 후 검증. 운영/출처 검토와 구분.
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D030 · 광고 이력 타임라인·경력 필터

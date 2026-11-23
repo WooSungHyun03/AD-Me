@@ -1419,12 +1419,14 @@
         "harness/evidence/D029/PLAN_20261120.md",
         "harness/evidence/D029/README.md",
         "harness/evidence/D029/ad-history-security-v29-20261120.json",
-        "harness/evidence/D029/ (이번 검증 기록 위치)"
+        "harness/evidence/D029/ (이번 검증 기록 위치)",
+        "harness/evidence/D029/REVALIDATE_20261123.md"
       ],
-      "status": "TODO",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": true
+      "reopened": true,
+      "verified_scope": "현재107 격리 DB 실제 SQL/PostgREST8그룹 통과. 독립 가상 프로필 fixture로 변경; 기존 seed 부재 및 QA 관리자 초대 만료 실패를 수정 후 검증. 운영/출처 검토와 구분."
     },
     {
       "id": "D030",

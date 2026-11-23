@@ -598,3 +598,5 @@ USER requested all feasible tickets in order, keeping direct main push and ticke
 - D044: 현재 추천에 hard/soft 분야·예산과 결측 제외/보류 연결. JS scorer1.2는 보류를 확정 적격과 구분, 빈 태그/형식 재정규화·숫자 검증·중복 태그 제거. 합성39건 통과. 구 SQL snapshot-v1은 보존하며 운영/통합 게이트 별도. 다음 D029/D016/D075 최신 소스 격리 검증으로 진행.
 
 - D021: 워커30개/DB5개 실제 계약 불일치를 워커5개 제한+동률 id 정렬로 수정. Python9 및 격리 DB 복구7그룹, 실제 Python 합성50개→5개 체크포인트 저장 통과. 실제 API/cron 검증 아님.
+
+- D029: 현재107 로컬 DB 제출/중복/정정/검토/출처·정책 분리/공개·철회8그룹 통과. 기존 seed 의존 fixture 수정, 만료된 QA 관리자 초대 로컬 갱신. 제품 권한 완화·운영 변경 없음.

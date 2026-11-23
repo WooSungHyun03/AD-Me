@@ -275,9 +275,10 @@
         "harness/evidence/D029/README.md",
         "harness/evidence/D029/ad-history-security-v29-20261120.json",
         "harness/evidence/DEV-A-EVIDENCE-20261120/verification.json",
-        "docs/handoff/DEV-A_EVIDENCE_20261120.md"
+        "docs/handoff/DEV-A_EVIDENCE_20261120.md",
+        "harness/evidence/D029/REVALIDATE_20261123.md"
       ],
-      "blocker": "문서 수용 기준의 local source/API/DB·권한·version·공개 경계·desktop/mobile 흐름 검증. 실제 U001/D073 정책 승인, USER 적용/실제 URL·실제 출처 운영 검토·DEV-B 교차 리뷰 전 DONE 아님. 장기 history pagination/규모 및 정규화·동의/보존 연결은 별도 미완료.",
+      "blocker": "현107 격리 DB8그룹 재검증 통과; USER 정책/운영 적용·실제 광고 근거 검토는 미완료.",
       "last_checked_at": "2026-11-20T13:32:52.161982+00:00"
     },
     "D030": {

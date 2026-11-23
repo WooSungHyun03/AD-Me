@@ -76,6 +76,7 @@ const adHash = () =>
     "select coalesce(md5(string_agg(id||data::text,',' order by id)),'empty') from public.ad_collaborations;",
   );
 const before = adHash();
+const fictionalProfile = JSON.parse(readFileSync("fixtures/creators.demo.json", "utf8"))[0];
 let first, second, issue;
 let version = 1;
 const retry = randomUUID();
@@ -89,7 +90,7 @@ try {
       `insert into auth.users(id,raw_user_meta_data) values('${id}','{"role":"${role}","name":"가상 광고 근거 QA"}');`,
     );
   sql(
-    `insert into public.creators(id,owner_id,published,profile) select '${creatorId}','${uid}',true,profile from public.creators where id='creator-001';update adme_review.policy set ad_enabled=false where singleton;`,
+    `insert into public.creators(id,owner_id,published,profile) values('${creatorId}','${uid}',true,'${JSON.stringify(fictionalProfile).replaceAll("'", "''")}');update adme_review.policy set ad_enabled=false where singleton;`,
   );
   await check(
     "owner-only submission, explicit attestation, typed dates and private-key allowlist are enforced",
