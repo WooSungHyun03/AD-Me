@@ -67,6 +67,13 @@
       "consumer": "src/lib/config.ts"
     },
     {
+      "name": "SERVICE_MODE",
+      "status": "IMPLEMENTED",
+      "classification": "SERVER_CONFIG",
+      "location": "Legacy Vercel server / local alias only; prefer ADME_SERVICE_MODE; not an Edge replacement",
+      "consumer": "src/lib/config.ts"
+    },
+    {
       "name": "ADME_FEATURE_INGESTION",
       "status": "IMPLEMENTED",
       "classification": "SERVER_CONFIG",

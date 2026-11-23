@@ -43,8 +43,9 @@ describe("server configuration", () => {
   ])(
     "uses one fail-closed mode in app, legacy helpers and CLI: %j",
     (input, expected) => {
-      vi.stubEnv("ADME_SERVICE_MODE", input.ADME_SERVICE_MODE ?? "");
-      vi.stubEnv("SERVICE_MODE", input.SERVICE_MODE ?? "");
+      const modes: Record<string, string | undefined> = input;
+      vi.stubEnv("ADME_SERVICE_MODE", modes.ADME_SERVICE_MODE ?? "");
+      vi.stubEnv("SERVICE_MODE", modes.SERVICE_MODE ?? "");
       vi.stubEnv("ADME_FEATURE_TEST_BILLING", "on");
       const config = getConfig();
       expect(config.serviceMode).toBe(expected);
@@ -58,6 +59,7 @@ describe("server configuration", () => {
         ["scripts/check-config.mjs"],
         {
           encoding: "utf8",
+          stdio: ["ignore", "pipe", "pipe"],
           env: {
             ...process.env,
             NEXT_PUBLIC_SUPABASE_URL: "",
