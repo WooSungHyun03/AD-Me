@@ -294,6 +294,15 @@ def draft_prompt(brief):
     ]
 
 
+def model_usage(result):
+    if not isinstance(result, dict) or result.get("model") != MODEL or result.get("done") is not True or result.get("done_reason") != "stop":
+        raise WorkerError("MODEL_INVALID_OUTPUT")
+    for field, maximum in (("prompt_eval_count", DRAFT_MAX_INPUT_TOKENS), ("eval_count", DRAFT_MAX_OUTPUT_TOKENS), ("total_duration", 180_000_000_000)):
+        if type(result.get(field)) is not int or not 0 <= result[field] <= maximum:
+            raise WorkerError("MODEL_INVALID_OUTPUT")
+    return {"inputTokens": result["prompt_eval_count"], "outputTokens": result["eval_count"], "durationNs": result["total_duration"]}
+
+
 def draft(brief):
     messages = draft_prompt(brief)
     result = model_request("/api/chat", payload={
@@ -302,11 +311,7 @@ def draft(brief):
         "messages": messages,
     }, timeout=MODEL_DEADLINE_SECONDS)
     try:
-        if not isinstance(result, dict) or result.get("model") != MODEL or result.get("done") is not True or result.get("done_reason") != "stop":
-            raise ValueError
-        for field, maximum in (("prompt_eval_count", DRAFT_MAX_INPUT_TOKENS), ("eval_count", DRAFT_MAX_OUTPUT_TOKENS), ("total_duration", 180_000_000_000)):
-            if type(result.get(field)) is not int or not 0 <= result[field] <= maximum:
-                raise ValueError
+        usage = model_usage(result)
         content = result["message"]["content"]
         if not isinstance(content, str) or len(content) > 16000:
             raise ValueError
@@ -329,7 +334,7 @@ def draft(brief):
                 "proposal": redact_model_text(draft_data["proposal"]), "model": MODEL,
                 "promptVersion": DRAFT_PROMPT_VERSION, "runtimeVersion": DRAFT_RUNTIME_VERSION,
                 "requiresReview": True,
-                "usage": {"inputTokens": result["prompt_eval_count"], "outputTokens": result["eval_count"], "durationNs": result["total_duration"]}}
+                "usage": usage}
     except (KeyError, TypeError, ValueError, RecursionError):
         raise WorkerError("MODEL_INVALID_OUTPUT") from None
 
