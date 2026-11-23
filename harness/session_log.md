@@ -581,3 +581,5 @@ Preserved codex/dev-a-p0-continue and ticket commits; merged YouTube main5d3bc6c
 ## 2026-11-23 DEV-A resumed from latest main d79235d
 
 Scope: D003 configuration consumers and D004 API boundary; no DB/UI redesign/provider work. Preserve shared exports and existing API errors; main ordinary push requested by USER. D003 unified app/legacy/CLI/admin health mode resolution; optional keys no longer falsely required when disabled. Affected29 tests PASS. Canonical production-readiness status remains TESTED; external acceptance not inferred. Evidence: harness/evidence/D003/CONFIG_20261123.md.
+
+- D004: 실제 바이트 제한·위조 Content-Type/Length·분할 요청·파일/CSV 경계·immutable 응답·동적 문맥을 보강. API/역할 stubs50건 PASS이며 DB/provider 검증으로 보고하지 않는다. tests/browser/api-boundary.spec.ts에 실제 HTTP desktop/mobile 회귀 추가; 최종 배치에서 실행한다. 증거 harness/evidence/D004/API_20261123.md.

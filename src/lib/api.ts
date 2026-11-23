@@ -19,6 +19,42 @@ const codes = {
   503: "SERVICE_UNAVAILABLE",
 } as const;
 type ErrorStatus = keyof typeof codes;
+// Fits the existing 100KB CSV even after JSON escaping; file uploads keep their own limits.
+export const MAX_API_JSON_BYTES = 1024 * 1024;
+
+async function boundedBody(request: Request, maxBytes = MAX_API_JSON_BYTES) {
+  const announced = request.headers.get("content-length");
+  if (announced && /^\d+$/.test(announced) && Number(announced) > maxBytes)
+    fail("요청 본문이 너무 큽니다.", 413);
+  if (!request.body) return new Uint8Array(0);
+  const reader = request.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+  try {
+    while (true) {
+      const part = await reader.read();
+      if (part.done) break;
+      size += part.value.byteLength;
+      if (size > maxBytes) {
+        void reader.cancel().catch(() => {});
+        fail("요청 본문이 너무 큽니다.", 413);
+      }
+      chunks.push(part.value);
+    }
+  } catch (error) {
+    if (error instanceof ApiFailure) throw error;
+    fail("요청 본문을 읽을 수 없습니다.", 400);
+  } finally {
+    reader.releaseLock();
+  }
+  const bytes = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return bytes;
+}
 
 class ApiFailure extends Error {
   constructor(
@@ -46,9 +82,24 @@ export function fail(
 export function compatibleApiRoute<Args extends unknown[]>(
   operation: string,
   handler: (request: Request, ...args: Args) => Promise<Response> | Response,
+  options: { maxBodyBytes?: number } = {},
 ) {
+  const limit = options.maxBodyBytes ?? MAX_API_JSON_BYTES;
+  if (
+    !Number.isSafeInteger(limit) ||
+    limit < 1 ||
+    limit > 8 * MAX_API_JSON_BYTES
+  )
+    throw Error("Invalid API body limit");
   return (request: Request, ...args: Args) =>
-    apiRoute(operation, (req) => handler(req, ...args))(request);
+    apiRoute(operation, async (req) => {
+      // Bound every body: trusting a JSON media type would allow a forged type to bypass the limit.
+      if (req.body) {
+        const bytes = await boundedBody(req, limit);
+        req = new Request(req, { body: bytes.buffer });
+      }
+      return handler(req, ...args);
+    })(request);
 }
 
 export function apiRoute(
@@ -68,8 +119,14 @@ export function apiRoute(
       )
         fail("허용되지 않은 요청입니다.", 403);
       const response = await handler(request, requestId);
-      response.headers.set("X-Request-Id", requestId);
-      return response;
+      const headers = new Headers(response.headers);
+      headers.set("X-Request-Id", requestId);
+      // Fetch/redirect responses can have immutable headers.
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers,
+      });
     } catch (error) {
       const status = error instanceof ApiFailure ? error.status : 500;
       const code = codes[status];
@@ -110,7 +167,13 @@ export async function parseBody<Schema extends z.ZodType>(
   schema: Schema,
   message: string,
 ): Promise<z.output<Schema>> {
-  const input: unknown = await request.json().catch(() => fail(message));
+  let input: unknown;
+  const bytes = await boundedBody(request);
+  try {
+    input = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
+  } catch {
+    fail(message);
+  }
   return parseInput(schema, input, message);
 }
 

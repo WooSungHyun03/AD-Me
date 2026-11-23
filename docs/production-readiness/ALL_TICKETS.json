@@ -188,12 +188,14 @@
         "harness/evidence/D004/README.md",
         "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
         "harness/evidence/DEV-A-MAIN-20261120/verification.json",
-        "harness/evidence/D004/ (이번 검증 기록 위치)"
+        "harness/evidence/D004/ (이번 검증 기록 위치)",
+        "harness/evidence/D004/API_20261123.md"
       ],
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "verified_scope": "2026-11-23 로컬: UTF-8 실제 바이트·거짓 길이·분할 입력·미디어 위장 제한, immutable 응답·동적 문맥 보존·안전한 오류50건. DB/provider 역할 전체 및 운영 미검증."
     },
     {
       "id": "D005",

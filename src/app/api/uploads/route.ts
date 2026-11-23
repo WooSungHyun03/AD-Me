@@ -12,7 +12,7 @@ import {
   uploadErrors,
 } from "@/lib/uploads";
 // Server-verified upload: size, extension and magic bytes are checked before anything reaches storage.
- async function handlePOST(req: Request) {
+async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -60,4 +60,8 @@ import {
   );
 }
 
-export const POST=compatibleApiRoute("src/app/api/uploads/route.ts.POST",handlePOST);
+export const POST = compatibleApiRoute(
+  "src/app/api/uploads/route.ts.POST",
+  handlePOST,
+  { maxBodyBytes: MAX_BYTES + 64 * 1024 },
+);

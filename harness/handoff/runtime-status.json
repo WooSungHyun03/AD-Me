@@ -36,9 +36,10 @@
       "evidence": [
         "harness/evidence/D004/README.md",
         "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
-        "harness/evidence/DEV-A-MAIN-20261120/verification.json"
+        "harness/evidence/DEV-A-MAIN-20261120/verification.json",
+        "harness/evidence/D004/API_20261123.md"
       ],
-      "blocker": "main 신규 API도 오류 v1·검증·안전한 DB 매핑으로 통합. 실제 대상 URL/DEV-B 교차 리뷰 전 DONE 아님.",
+      "blocker": "API 본문 크기·오류·immutable 응답·legacy 호환50건 로컬 통과. 실제 DB 전체 역할 회귀·USER 대상 환경 적용 전 DONE 아님.",
       "last_checked_at": "2026-11-20T02:36:28.405549+00:00"
     },
     "D005": {
