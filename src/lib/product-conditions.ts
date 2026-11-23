@@ -14,7 +14,7 @@ const evidence = {
 export const productConditionProposal = z.strictObject({
   sourceVersion: z.string().regex(/^[a-f0-9]{64}$/),
   sourceContract: z.literal("unbound-product-text-v1"),
-  promptVersion: z.literal("product-conditions-v1"),
+  promptVersion: z.literal("product-conditions-v2"),
   runtimeVersion: z.literal("ollama-qwen3-local-v2"),
   model: z.literal("qwen3:1.7b-q4_K_M"),
   usage: z.strictObject({

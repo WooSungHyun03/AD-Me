@@ -10,7 +10,7 @@ const source = {
 const proposal = {
   sourceVersion: hash,
   sourceContract: "unbound-product-text-v1",
-  promptVersion: "product-conditions-v1",
+  promptVersion: "product-conditions-v2",
   runtimeVersion: "ollama-qwen3-local-v2",
   model: "qwen3:1.7b-q4_K_M",
   usage: { inputTokens: 100, outputTokens: 50, durationNs: 100 },
