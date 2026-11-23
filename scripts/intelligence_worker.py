@@ -464,7 +464,7 @@ def smoke():
                       "embedding_dimensions": len(embedding)}))
 
 
-def benchmark(samples=30):
+def benchmark(samples=30, progress=None):
     """Explicit bounded local-only run; outputs counts/timings, never customer text/drafts."""
     if type(samples) is not int or not 30 <= samples <= 100:
         raise WorkerError("BENCHMARK_INPUT_INVALID")
@@ -484,6 +484,8 @@ def benchmark(samples=30):
         except WorkerError as error:
             code = str(error)
         rows.append({"ms": round((time.monotonic()-started)*1000), "error": code})
+        if progress is not None:
+            progress(len(rows), rows[-1])
     times = sorted(row["ms"] for row in rows if row["error"] is None)
     def quantile(percent):
         return times[math.ceil(len(times)*percent)-1] if times else None
