@@ -9,10 +9,12 @@ import { CampaignTermsSummary } from "@/components/campaign-terms-summary";
 import type { CampaignTerms } from "@/lib/campaign-brief";
 export default async function Campaign({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ creator?: string | string[] }>;
 }) {
-  const { id } = await params;
+  const [{ id }, { creator }] = await Promise.all([params, searchParams]);
   let brief:
     | (Brief & {
         title: string;
@@ -123,15 +125,20 @@ export default async function Campaign({
               </Link>
             </p>
           )}
-          <Link
-            className="button outline small"
-            href={`/compare?ids=${results
-              .slice(0, 3)
-              .map((r) => r.creatorId)
-              .join(",")}`}
-          >
-            상위 후보 3명 비교 ↗
-          </Link>
+          {results.length >= 2 && (
+            <Link
+              className="button outline small"
+              href={`/compare?ids=${results
+                .slice(0, 3)
+                .map((r) => r.creatorId)
+                .join(",")}`}
+            >
+              상위 후보 비교 ↗
+            </Link>
+          )}
+          {results.length === 0 && (
+            <p className="empty">캠페인에 추천할 등록 프로필이 없습니다.</p>
+          )}
           {results.map((r, i) => (
             <div key={r.creatorId} className="result">
               <span className="muted">{String(i + 1).padStart(2, "0")}</span>
@@ -173,7 +180,9 @@ export default async function Campaign({
               </div>
             </div>
           ))}
-          <h2 style={{ marginTop: 40 }}>협업의 첫 문장.</h2>
+          <h2 id="proposal" style={{ marginTop: 40 }}>
+            협업의 첫 문장.
+          </h2>
           {isDemo ? (
             <div className="notice">
               가상 캠페인입니다. 실제 제안·지원은 로그인 후 본인 캠페인과 실제
@@ -183,6 +192,12 @@ export default async function Campaign({
             <ProposalForm
               campaignId={id}
               creators={people}
+              selectedCreatorId={
+                ownerId === user?.id &&
+                people.some((person) => person.id === creator)
+                  ? String(creator)
+                  : undefined
+              }
               kind={ownerId === user?.id ? "proposal" : "application"}
             />
           )}

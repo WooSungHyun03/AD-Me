@@ -8,7 +8,18 @@ describe("TEST product display contract", () => {
       new URL("../supabase/migrations/202611190001_core.sql", import.meta.url),
       "utf8",
     );
-    const seed = sql.match(/insert into products values([^;]+);/)?.[1] ?? "";
+    const marketplace = readFileSync(
+      new URL(
+        "../supabase/migrations/20261122115249_youtube_marketplace.sql",
+        import.meta.url,
+      ),
+      "utf8",
+    );
+    const seed =
+      (sql.match(/insert into products values([^;]+);/)?.[1] ?? "") +
+      (marketplace.match(
+        /insert into public.products[^;]+values([^;]+);/,
+      )?.[1] ?? "");
     const entries = [
       ...seed.matchAll(/\('([^']+)','([^']+)',(\d+),'([^']+)',(\d+),(\d+)\)/g),
     ].map(([, sku, name, amount, role, days, credits]) =>

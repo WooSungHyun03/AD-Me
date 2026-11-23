@@ -55,7 +55,7 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
   await expect(page.getByTestId("creator-card")).toHaveCount(1);
   await page.getByLabel("크리에이터 검색").fill("결과없는이름");
   await expect(
-    page.getByText("조건에 맞는 크리에이터가 없습니다."),
+    page.getByRole("heading", { name: "최근 공개 영상" }),
   ).toBeVisible();
   await page.getByRole("button", { name: "필터 초기화" }).click();
   await page.getByTestId("filter-platform").locator("summary").click();
@@ -70,12 +70,7 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
   await expect(page.getByRole("table")).toBeVisible();
   await page.goto("/creators/creator-001");
   await expect(
-    page.getByRole("heading", { name: "과거 광고 이력" }),
-  ).toBeVisible();
-  await expect(
-    page.getByText(
-      "실제 광고 계약 또는 협찬 정보를 의미하지 않는 가상 테스트 기록",
-    ),
+    page.getByRole("heading", { name: "찾으시는 페이지가 없습니다." }),
   ).toBeVisible();
   await page.goto("/tools");
   await page.getByLabel("상품·서비스").fill("비건 토너");
@@ -136,8 +131,8 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
   await expect(
     page.getByRole("heading", { name: "브랜드에 어울리는 발견." }),
   ).toBeVisible();
-  await page.getByRole("link", { name: "상위 후보 3명 비교" }).click();
-  await expect(page.getByRole("table")).toBeVisible();
+  await page.goto("/compare?ids=user-" + accounts.creator.id);
+  await expect(page.getByRole("table")).toContainText(name);
   await page.goBack();
   await page
     .getByLabel("협업을 제안할 크리에이터")
@@ -287,6 +282,14 @@ test("public application, shortlist persistence, account settings and administra
   const cc = await browser.newContext();
   const cp = await cc.newPage();
   await login(cp, "creator");
+  const creatorName = "QA 협업 후보 " + unique;
+  await cp.goto("/settings");
+  await cp.getByLabel("크리에이터 이름", { exact: true }).fill(creatorName);
+  await cp.getByLabel("프로필 공개", { exact: true }).check();
+  await cp.getByRole("button", { name: "프로필 저장", exact: true }).click();
+  await expect(
+    cp.getByRole("status").filter({ hasText: "프로필을 저장했습니다" }),
+  ).toBeVisible();
   await cp.goto(`/campaigns/${id}`);
   await cp
     .getByLabel("지원 메시지", { exact: true })
@@ -301,7 +304,7 @@ test("public application, shortlist persistence, account settings and administra
   await expect(deal.getByText("협업 진행", { exact: true })).toBeVisible();
   await page.goto("/creators");
   const save = page.getByRole("button", {
-    name: "서하린 즐겨찾기",
+    name: creatorName + " 즐겨찾기",
     exact: true,
   });
   if (!(await save.getAttribute("class"))?.includes("saved"))
@@ -309,11 +312,11 @@ test("public application, shortlist persistence, account settings and administra
   await expect(save).toHaveClass(/saved/);
   await page.reload();
   await expect(
-    page.getByRole("button", { name: "서하린 즐겨찾기", exact: true }),
+    page.getByRole("button", { name: creatorName + " 즐겨찾기", exact: true }),
   ).toHaveClass(/saved/);
   const csv = await page.request.get("/api/export");
   expect(csv.status()).toBe(200);
-  expect(await csv.text()).toContain("서하린");
+  expect(await csv.text()).toContain(creatorName);
   await page.goto("/settings");
   await page
     .getByLabel("계정 표시 이름", { exact: true })

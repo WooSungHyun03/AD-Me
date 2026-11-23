@@ -1,0 +1,1228 @@
+{
+  "schema_version": 2,
+  "name": "AD Me YouTube-only 2026-11-22",
+  "warning": "Task status is not proof of implementation; inspect actual repository",
+  "tasks": [
+    {
+      "id": "A01",
+      "phase": "audit",
+      "priority": "P0",
+      "title": "기존 AD Me 저장소/환경/Git remote 실제 감사",
+      "dependencies": [],
+      "acceptance": [
+        "실제 저장소 위치 및 동작 기능 표",
+        "환경/브랜치/마이그레이션 변경 없이 점검",
+        "main SHA와 provider blockers 기록"
+      ],
+      "status": "done",
+      "evidence": "2026-11-22 검증 결과 및 실행 범위는 harness/youtube/session_log.md와 docs/youtube-harness에 기록",
+      "blocker": null,
+      "started_at": "2026-11-22T11:59:08+00:00",
+      "completed_at": "2026-11-22T11:59:08+00:00"
+    },
+    {
+      "id": "A02",
+      "phase": "audit",
+      "priority": "P0",
+      "title": "요구사항 충돌 제거·작업 계획 정리",
+      "dependencies": [
+        "A01"
+      ],
+      "acceptance": [
+        "YouTube-only 외 플랫폼 UI 비활성",
+        "기존 구현 보존 이행 계획",
+        "docs/DECISIONS_POLICY와 현행 YouTube 규칙 대조"
+      ],
+      "status": "done",
+      "evidence": "2026-11-22 검증 결과 및 실행 범위는 harness/youtube/session_log.md와 docs/youtube-harness에 기록",
+      "blocker": null,
+      "started_at": "2026-11-22T11:59:08+00:00",
+      "completed_at": "2026-11-22T11:59:08+00:00"
+    },
+    {
+      "id": "A03",
+      "phase": "infra",
+      "priority": "P0",
+      "title": "Next.js 엄격 TS 품질·테스트 실행 기반",
+      "dependencies": [
+        "A01"
+      ],
+      "acceptance": [
+        "lint/typecheck/test/build/Playwright 스크립트 작동",
+        "CI 브랜치/main 대상",
+        "기존 앱 로컬 실행 검증"
+      ],
+      "status": "done",
+      "evidence": "2026-11-22 검증 결과 및 실행 범위는 harness/youtube/session_log.md와 docs/youtube-harness에 기록",
+      "blocker": null,
+      "started_at": "2026-11-22T11:59:08+00:00",
+      "completed_at": "2026-11-22T11:59:08+00:00"
+    },
+    {
+      "id": "A04",
+      "phase": "design",
+      "priority": "P0",
+      "title": "원본 AD Me 로고·글로벌 디자인 시스템",
+      "dependencies": [
+        "A03"
+      ],
+      "acceptance": [
+        "제공 로고 보존·실제 헤더 사용",
+        "390/1440 레이아웃 확인",
+        "접근성 contrast/focus 검사"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A05",
+      "phase": "security",
+      "priority": "P0",
+      "title": "Supabase 인증 브랜드/크리에이터 역할 재검증",
+      "dependencies": [
+        "A03"
+      ],
+      "acceptance": [
+        "브랜드·유튜버 로그인",
+        "임의 role 변경 불가",
+        "리다이렉트·로그아웃 정상"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A06",
+      "phase": "db",
+      "priority": "P0",
+      "title": "Supabase 정규화 스키마 및 마이그레이션",
+      "dependencies": [
+        "A05"
+      ],
+      "acceptance": [
+        "실제 SQL migrations 및 타입",
+        "중복 데이터/고유 제약",
+        "기존 데이터 손실 없이 migrate/rollback plan"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A07",
+      "phase": "security",
+      "priority": "P0",
+      "title": "RLS·서버 검증·스토리지/Realtime 접근 정책",
+      "dependencies": [
+        "A06"
+      ],
+      "acceptance": [
+        "전 테이블 RLS/정책 점검",
+        "크로스 테넌트 공격 테스트",
+        "service secret/client 분리"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A08",
+      "phase": "youtube",
+      "priority": "P0",
+      "title": "YouTube 정책 기능 플래그 및 출처 보존",
+      "dependencies": [
+        "A06"
+      ],
+      "acceptance": [
+        "API derived approval default off",
+        "원문/AI추정/본인등록 출처 분리",
+        "공개 API에서 금지 값 비노출 테스트"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A09",
+      "phase": "youtube",
+      "priority": "P0",
+      "title": "실제 YouTube 공개 채널 레지스트리",
+      "dependencies": [
+        "A06",
+        "A08"
+      ],
+      "acceptance": [
+        "channelId unique",
+        "미가입 채널과 verified creator 구분",
+        "신규/수정/삭제 채널 마이그레이션"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A10",
+      "phase": "youtube",
+      "priority": "P0",
+      "title": "공식 YouTube API 클라이언트·쿼터 관리",
+      "dependencies": [
+        "A09"
+      ],
+      "acceptance": [
+        "search/channels/videos/playlistItems typed clients",
+        "quota budgets/bucket + 429/403 처리",
+        "API 키 없으면 BLOCKED/provider vs mock 구분"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A11",
+      "phase": "youtube",
+      "priority": "P0",
+      "title": "관리자 설정 기반 신규 YouTube 채널 탐색",
+      "dependencies": [
+        "A10"
+      ],
+      "acceptance": [
+        "카테고리 키워드 관리",
+        "실제 channelId dedupe와 provenance",
+        "신규 발견이 회원가입으로 표현되지 않음"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A12",
+      "phase": "youtube",
+      "priority": "P0",
+      "title": "기존 채널·영상 증분 갱신",
+      "dependencies": [
+        "A10"
+      ],
+      "acceptance": [
+        "channels + uploads playlist + videos refresh",
+        "변경/삭제/비공개 반영",
+        "동일 채널 반복 동기화 idempotent"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A13",
+      "phase": "queue",
+      "priority": "P0",
+      "title": "Supabase 작업 큐 lease/retry/dead-letter",
+      "dependencies": [
+        "A06"
+      ],
+      "acceptance": [
+        "SKIP LOCKED 또는 안전 큐",
+        "중복 enqueue 방지",
+        "lease 만료 재처리 테스트"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A14",
+      "phase": "queue",
+      "priority": "P0",
+      "title": "매일 04:00 KST 자동 채널 탐색 및 갱신",
+      "dependencies": [
+        "A11",
+        "A12",
+        "A13"
+      ],
+      "acceptance": [
+        "Cron 시간대 처리/실제 job 생성",
+        "워커 중단 복구 및 할당량 초과 대기",
+        "관리자 수동 run/stop"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A15",
+      "phase": "creator",
+      "priority": "P0",
+      "title": "YouTube OAuth 소유권 인증/claim",
+      "dependencies": [
+        "A09",
+        "A05"
+      ],
+      "acceptance": [
+        "API ID가 아닌 실제 Google/YouTube 소유증명",
+        "기존 claim 충돌 처리",
+        "미인증 계정 지원/스폰서 불가"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A16",
+      "phase": "creator",
+      "priority": "P0",
+      "title": "크리에이터 본인 제공 연락처·동의·비공개 기본값",
+      "dependencies": [
+        "A15",
+        "A07"
+      ],
+      "acceptance": [
+        "email/phone 선택 공개 범위",
+        "미동의/미인증 연락처 노출 차단",
+        "개인정보 정정/삭제 테스트"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A17",
+      "phase": "creator",
+      "priority": "P0",
+      "title": "유튜버 상세 프로필·최근 영상·통계 최신성",
+      "dependencies": [
+        "A09",
+        "A16"
+      ],
+      "acceptance": [
+        "YouTube-only profile pages",
+        "실제 원문/API as-of+누락 표시",
+        "업무 연락처 동의 범위 적용"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A18",
+      "phase": "youtube",
+      "priority": "P0",
+      "title": "최근 기간/영상수 평균조회수 도메인 계산/정책 게이트",
+      "dependencies": [
+        "A12",
+        "A08"
+      ],
+      "acceptance": [
+        "30/90일 또는 10/20개 개념과 표본 명시",
+        "승인 미충족 시 실제 API 파생 필터 비활성",
+        "샘플 0/숨김/Shorts 혼합 fixture tests"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A19",
+      "phase": "ai",
+      "priority": "P0",
+      "title": "서버 GPU·CPU 환경 감사 및 로컬 모델 러너 구성",
+      "dependencies": [
+        "A01"
+      ],
+      "acceptance": [
+        "실제 장비 nvidia-smi/자원 점검",
+        "Ollama 등 설치·health",
+        "동작하는 한국어 JSON 생성 증거 또는 BLOCKED"
+      ],
+      "status": "done",
+      "evidence": "RTX 4080 16376 MiB, Ollama/worker active. 실측 기록 harness/youtube/session_log.md",
+      "blocker": null,
+      "started_at": "2026-11-22T11:59:08+00:00",
+      "completed_at": "2026-11-22T11:59:08+00:00"
+    },
+    {
+      "id": "A20",
+      "phase": "ai",
+      "priority": "P0",
+      "title": "Local LLM/Embedding 작업 워커 구현",
+      "dependencies": [
+        "A19",
+        "A13"
+      ],
+      "acceptance": [
+        "AI jobs pull/lease/retry",
+        "타임아웃/Zod 스키마/리소스 제한",
+        "worker 재시작 복구 테스트"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A21",
+      "phase": "ai",
+      "priority": "P0",
+      "title": "채널 영상 메타데이터 AI 해시태그 제안",
+      "dependencies": [
+        "A12",
+        "A20",
+        "A08"
+      ],
+      "acceptance": [
+        "권한/정책 있는 데이터만 분석",
+        "tag evidence/model version 저장",
+        "검토 전 public 결과 비노출"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A22",
+      "phase": "ai",
+      "priority": "P0",
+      "title": "AI 추천 검색 문장 파서·검증",
+      "dependencies": [
+        "A20"
+      ],
+      "acceptance": [
+        "한국어 브랜드 질의 구조화",
+        "LLM 실패 시 사용자 필터 입력 유지",
+        "권한 없는 데이터 읽기 차단"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A23",
+      "phase": "search",
+      "priority": "P0",
+      "title": "구독자/평균조회수/기간/태그/협업 검색 필터",
+      "dependencies": [
+        "A17",
+        "A18",
+        "A07"
+      ],
+      "acceptance": [
+        "브랜드 조건 검색 UI/backend 동일",
+        "승인없는 derived 조회·필터 불가능",
+        "정렬/페이지네이션/NULL 처리"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A24",
+      "phase": "search",
+      "priority": "P0",
+      "title": "설명가능 유기적 적합도 순위·근거",
+      "dependencies": [
+        "A23",
+        "A22"
+      ],
+      "acceptance": [
+        "hard filter→organic scoring",
+        "추천 결과 source/coverage",
+        "유료 결제로 organic score 영향 없음"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A25",
+      "phase": "billing",
+      "priority": "P0",
+      "title": "4개 유료 상품·가격 버전·주문 스키마",
+      "dependencies": [
+        "A06",
+        "A07"
+      ],
+      "acceptance": [
+        "SEARCH_RUN/JOB_POST/JOB_APPLICATION/SPONSORED_30D 정의",
+        "가격은 서버 authoritative",
+        "관리자 가격 변경 기존 주문 불변"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A26",
+      "phase": "billing",
+      "priority": "P0",
+      "title": "Toss SDK v2 TEST 주문·서버 승인",
+      "dependencies": [
+        "A25"
+      ],
+      "acceptance": [
+        "TEST checkout + confirm call",
+        "금액/소유권 검증·비밀키 보호",
+        "실 API 성공 없으면 blocked"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A27",
+      "phase": "billing",
+      "priority": "P0",
+      "title": "원자적 크레딧/혜택 발급 및 사용 ledger",
+      "dependencies": [
+        "A26"
+      ],
+      "acceptance": [
+        "중복승인/동시차감 방어",
+        "환불/오류 재처리 ledger",
+        "경쟁 condition 테스트"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A28",
+      "phase": "brand",
+      "priority": "P0",
+      "title": "광고 상품 및 캠페인 등록/수정/관리",
+      "dependencies": [
+        "A05",
+        "A06",
+        "A04"
+      ],
+      "acceptance": [
+        "제품/타겟/예산/기간/포맷 입력",
+        "draft 저장/수정/권한",
+        "브랜드 대시보드 연결"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A29",
+      "phase": "search",
+      "priority": "P0",
+      "title": "유료 AI 검색 실행·기존 결과 재열람",
+      "dependencies": [
+        "A24",
+        "A27",
+        "A28"
+      ],
+      "acceptance": [
+        "검색 실행 전 명확한 요금",
+        "성공 스냅샷 후 정확히 1회 차감",
+        "재열람/중복클릭 무료 및 에러 무차감"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A30",
+      "phase": "search",
+      "priority": "P0",
+      "title": "후보 상세·비교·즐겨찾기/제안",
+      "dependencies": [
+        "A29"
+      ],
+      "acceptance": [
+        "실제 후보 2~4명 비교",
+        "출처/최근값/미인증 라벨",
+        "후보 저장 및 role guard"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A31",
+      "phase": "jobs",
+      "priority": "P0",
+      "title": "기업 광고 공고 초안·내용·피드",
+      "dependencies": [
+        "A28"
+      ],
+      "acceptance": [
+        "광고 예산/제작물/마감 입력",
+        "게시 전 preview",
+        "공개 피드 published만 노출"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A32",
+      "phase": "jobs",
+      "priority": "P0",
+      "title": "기업 유료 공고 발행권·게시",
+      "dependencies": [
+        "A31",
+        "A27"
+      ],
+      "acceptance": [
+        "발행 완료에 한 번만 차감",
+        "게시 실패/중복 요청 무차감",
+        "마감/중단/공개 상태"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A33",
+      "phase": "jobs",
+      "priority": "P0",
+      "title": "인플루언서 유료 지원권·지원서 제출",
+      "dependencies": [
+        "A32",
+        "A16",
+        "A27"
+      ],
+      "acceptance": [
+        "인증유튜버만 지원",
+        "한 공고 한 지원/한 차감",
+        "공고 마감 동시성/실패 무차감"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A34",
+      "phase": "jobs",
+      "priority": "P0",
+      "title": "지원자 선발 상태/회사 관리 화면",
+      "dependencies": [
+        "A33"
+      ],
+      "acceptance": [
+        "지원자 목록·비공개 메모",
+        "검토/선발/거절 상태 이력",
+        "타 브랜드 접근 차단"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A35",
+      "phase": "chat",
+      "priority": "P0",
+      "title": "채팅 방/멤버/RLS/신고/차단 DB",
+      "dependencies": [
+        "A07",
+        "A34"
+      ],
+      "acceptance": [
+        "양측 관계별 대화방",
+        "제3자 읽기/쓰기 차단",
+        "신고/차단 상태 테스트"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A36",
+      "phase": "chat",
+      "priority": "P0",
+      "title": "Supabase Realtime 양측 채팅 UI",
+      "dependencies": [
+        "A35",
+        "A04"
+      ],
+      "acceptance": [
+        "두 계정 라이브 전송/재연결",
+        "읽음/안읽음·메시지 저장",
+        "부적절 접근/차단 UX"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A37",
+      "phase": "promotion",
+      "priority": "P0",
+      "title": "30일 HOT 스폰서 권한·만료 및 표시",
+      "dependencies": [
+        "A17",
+        "A27",
+        "A24"
+      ],
+      "acceptance": [
+        "소유 인증 채널에만 활성",
+        "스폰서 별도 영역/라벨",
+        "organic 점수 불변과 만료 테스트"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A38",
+      "phase": "admin",
+      "priority": "P0",
+      "title": "관리자 RBAC·감사 추적·접근 차단",
+      "dependencies": [
+        "A07"
+      ],
+      "acceptance": [
+        "super/data/billing/mod role 분리",
+        "관리자 공개가입 불가",
+        "서버 권한·감사 이벤트 테스트"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A39",
+      "phase": "admin",
+      "priority": "P0",
+      "title": "관리자 전체 현황 대시보드",
+      "dependencies": [
+        "A38",
+        "A17",
+        "A31"
+      ],
+      "acceptance": [
+        "실DB KPI: accounts/claimed/sync/jobs/payments",
+        "실패/대기 상태 필터",
+        "주/월 데이터 부재 처리"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A40",
+      "phase": "admin",
+      "priority": "P0",
+      "title": "관리자 계정/채널/claim/태그 검토",
+      "dependencies": [
+        "A38",
+        "A15",
+        "A21"
+      ],
+      "acceptance": [
+        "인증/수정/신고·권한별 조치",
+        "대량 삭제 확인·감사",
+        "AI 추정 태그 검토 UI"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A41",
+      "phase": "admin",
+      "priority": "P0",
+      "title": "관리자 YouTube sync/AI 워커 관제",
+      "dependencies": [
+        "A38",
+        "A14",
+        "A20"
+      ],
+      "acceptance": [
+        "크론/실패/재시도/쿼터 모니터링",
+        "워크 health/모델 버전",
+        "기능 플래그/원격 실행 접근 통제"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A42",
+      "phase": "admin",
+      "priority": "P0",
+      "title": "관리자 캠페인·채팅 신고·결제·HOT 관리",
+      "dependencies": [
+        "A38",
+        "A32",
+        "A33",
+        "A35",
+        "A37"
+      ],
+      "acceptance": [
+        "공고/지원/제재/권한 별 업무",
+        "Toss 결제 TEST/ledger 및 조정 감사",
+        "스폰서 상태 및 만료 관리"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A43",
+      "phase": "quality",
+      "priority": "P0",
+      "title": "서비스 정책·도움말·신고·데이터 삭제 요청",
+      "dependencies": [
+        "A04",
+        "A16"
+      ],
+      "acceptance": [
+        "TEST 상품 요금/환불 공지",
+        "YouTube 출처/약관/개인정보",
+        "정정 삭제 폼과 담당자 알림"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A44",
+      "phase": "quality",
+      "priority": "P0",
+      "title": "보안/결제/검색/채팅 통합 및 회귀 테스트",
+      "dependencies": [
+        "A29",
+        "A32",
+        "A33",
+        "A36",
+        "A37",
+        "A42"
+      ],
+      "acceptance": [
+        "Vitest+DB RLS integration",
+        "E2E: 2 roles / payment/mock distinct",
+        "No-regression screenshots 390/1440"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A45",
+      "phase": "deploy",
+      "priority": "P0",
+      "title": "GitHub main 커밋·푸시 검증",
+      "dependencies": [
+        "A44"
+      ],
+      "acceptance": [
+        "git status clean/secret scan",
+        "origin/main SHA 실제 일치",
+        "보호 브랜치라면 BLOCKED 이유 명시"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "A46",
+      "phase": "deploy",
+      "priority": "P0",
+      "title": "Supabase/Vercel/worker 운영 구성 및 배포 검증",
+      "dependencies": [
+        "A44",
+        "A45"
+      ],
+      "acceptance": [
+        "DB migrate+worker restart+cron active",
+        "실제 public URL smoke test",
+        "provider gates 미충족 시 정확하게 BLOCKED"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "B01",
+      "phase": "search",
+      "priority": "P1",
+      "title": "저장 검색조건/다중 비교 컬렉션",
+      "dependencies": [
+        "A29"
+      ],
+      "acceptance": [
+        "saved filter presets",
+        "share within brand team only"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "B02",
+      "phase": "profile",
+      "priority": "P1",
+      "title": "크리에이터 포트폴리오 고급 미디어/제작 견적",
+      "dependencies": [
+        "A17"
+      ],
+      "acceptance": [
+        "content samples owners only",
+        "asset rights and limits"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "B03",
+      "phase": "youtube",
+      "priority": "P1",
+      "title": "정책 승인 시 장기/중앙값·포맷별 분석 통계",
+      "dependencies": [
+        "A18"
+      ],
+      "acceptance": [
+        "document permissions",
+        "clear sample count and timeframe"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "B04",
+      "phase": "ai",
+      "priority": "P1",
+      "title": "AI 광고 제안서·콘텐츠 브리프 초안",
+      "dependencies": [
+        "A20",
+        "A28"
+      ],
+      "acceptance": [
+        "draft only, no auto-send",
+        "source-grounded output"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "B05",
+      "phase": "ai",
+      "priority": "P1",
+      "title": "AI 후보 비교 자연어 보고서",
+      "dependencies": [
+        "A30"
+      ],
+      "acceptance": [
+        "reason by real features",
+        "approved-only sources"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "B06",
+      "phase": "chat",
+      "priority": "P1",
+      "title": "첨부 파일·알림·상태·검색",
+      "dependencies": [
+        "A36"
+      ],
+      "acceptance": [
+        "secure storage and RLS",
+        "notifications user preference"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "B07",
+      "phase": "admin",
+      "priority": "P1",
+      "title": "관리자 고급 검색/CSV/일괄 조치",
+      "dependencies": [
+        "A42"
+      ],
+      "acceptance": [
+        "role-based export redaction",
+        "batch confirm/audit"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "B08",
+      "phase": "admin",
+      "priority": "P1",
+      "title": "운영 분석·계약 단계·전환 퍼널",
+      "dependencies": [
+        "A39"
+      ],
+      "acceptance": [
+        "instrument events source",
+        "no invented ROI"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "B09",
+      "phase": "billing",
+      "priority": "P1",
+      "title": "쿠폰·체험권·번들 정책",
+      "dependencies": [
+        "A27"
+      ],
+      "acceptance": [
+        "balance audits",
+        "cannot create cash transferable funds"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "B10",
+      "phase": "billing",
+      "priority": "P1",
+      "title": "Toss TEST 취소·환불·분쟁",
+      "dependencies": [
+        "A42"
+      ],
+      "acceptance": [
+        "provider sandbox request checked",
+        "ledger reversal and audit"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "B11",
+      "phase": "quality",
+      "priority": "P1",
+      "title": "E2E 시나리오 화면녹화/접근성 CI",
+      "dependencies": [
+        "A44"
+      ],
+      "acceptance": [
+        "visual snapshots",
+        "accessibility scan"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "B12",
+      "phase": "ai",
+      "priority": "P1",
+      "title": "AI 워커 품질 eval 데이터셋 및 메트릭",
+      "dependencies": [
+        "A21"
+      ],
+      "acceptance": [
+        "human-labeled fixtures",
+        "false positives analysis"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "C01",
+      "phase": "billing",
+      "priority": "P2",
+      "title": "Toss 빌링 계약 이후 자동갱신",
+      "dependencies": [
+        "B10"
+      ],
+      "acceptance": [
+        "merchant authorization confirmed",
+        "secure billingKey lifecycle/cancel"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "C02",
+      "phase": "analytics",
+      "priority": "P2",
+      "title": "광고 성과·전환 추적(직접 수집 동의 데이터)",
+      "dependencies": [
+        "B08"
+      ],
+      "acceptance": [
+        "actual attribution proof",
+        "no fabricated ROI"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "C03",
+      "phase": "youtube",
+      "priority": "P2",
+      "title": "승인된 YouTube 고급분석 및 추가 지표 보관",
+      "dependencies": [
+        "B03"
+      ],
+      "acceptance": [
+        "accepted amendment recorded",
+        "retention limits tested"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "C04",
+      "phase": "platform",
+      "priority": "P2",
+      "title": "MCN·여러 브랜드 팀 워크스페이스",
+      "dependencies": [
+        "B07"
+      ],
+      "acceptance": [
+        "team RBAC",
+        "billing isolation"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "C05",
+      "phase": "platform",
+      "priority": "P2",
+      "title": "협업 결과물·계약·분쟁 관리",
+      "dependencies": [
+        "B06"
+      ],
+      "acceptance": [
+        "versioned deliverables",
+        "moderator dispute trail"
+      ],
+      "status": "pending",
+      "evidence": null,
+      "blocker": null,
+      "started_at": null,
+      "completed_at": null
+    }
+  ]
+}

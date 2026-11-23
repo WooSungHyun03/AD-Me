@@ -12,11 +12,15 @@ test("conversation loads one room lazily, pages history, retries lost acknowledg
   const room = randomUUID(),
     campaign = randomUUID(),
     marker = `가상 대화 ${randomUUID().slice(0, 8)}`;
+  const creatorId = sql(
+    `select id from public.creators where owner_id='${accounts.creator.id}' limit 1;`,
+  );
+  expect(creatorId).not.toBe("");
   const xss = '<img src=x onerror="window.__messageXss=1">';
   try {
     sql(`insert into public.campaigns(id,owner_id,brief) select '${campaign}','${accounts.brand.id}',brief from public.campaigns limit 1;
       insert into public.proposals(id,campaign_id,creator_id,brand_id,creator_user_id,kind,brief,status)
-      values('${room}','${campaign}','creator-001','${accounts.brand.id}','${accounts.creator.id}','proposal','${marker}','accepted');
+      values('${room}','${campaign}','${creatorId}','${accounts.brand.id}','${accounts.creator.id}','proposal','${marker}','accepted');
       insert into public.messages(proposal_id,sender_id,body,kind,created_at) select '${room}','${accounts.creator.id}','FICTIONAL history '||n,'message','2000-01-01T00:00:00.123456Z' from generate_series(1,25) n;
       insert into public.messages(proposal_id,sender_id,body,kind) values('${room}','${accounts.creator.id}','${xss}','message');`);
     await page.goto("/login");
@@ -108,9 +112,10 @@ test("conversation loads one room lazily, pages history, retries lost acknowledg
       .click();
     await expect(roomPanel.getByLabel("메시지", { exact: true })).toBeVisible();
     await report.getByText("메시지 신고", { exact: true }).click(); // Close private report before capture.
+    await roomPanel.scrollIntoViewIfNeeded();
     await page.screenshot({
       path: `output/playwright/conversation-${info.project.name}.png`,
-      fullPage: true,
+      fullPage: false,
     });
     expect(
       await page.evaluate(

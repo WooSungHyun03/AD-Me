@@ -1,3 +1,5 @@
+import { configured, supabase } from "@/lib/supabase";
+import { youtubeChannelId } from "@/lib/featured-youtube";
 import { PublicAdHistory } from "@/components/public-ad-history";
 import { NormalizedPublic } from "@/components/normalized-public";
 import { MetricHistory } from "@/components/metric-history";
@@ -19,6 +21,13 @@ export default async function Detail({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  if (configured()) {
+    const { data } = await (
+      await supabase()
+    ).rpc("creator_youtube_channel", { p_creator_id: id });
+    if (youtubeChannelId.safeParse(data).success)
+      redirect("/creators/youtube/" + data);
+  }
   const c = await publicCreator(id);
   if (!c) notFound();
   if (c.seed_id !== id) redirect(`/creators/${encodeURIComponent(c.seed_id)}`);

@@ -1,3 +1,5 @@
+import { featuredYoutube } from "@/lib/featured-youtube";
+import { YoutubeChannelCards } from "@/components/featured-youtube";
 import Link from "next/link";
 import { Suspense } from "react";
 import { getConfig } from "@/lib/config";
@@ -34,6 +36,7 @@ export default async function Creators({
     }
   }
   const items = remote ? (initialPage?.items ?? []) : await publicCreators();
+  const featured = await featuredYoutube(filters.query.slice(0, 80));
   let hot: {
     creator_id: string;
     profile: { name: string };
@@ -58,48 +61,69 @@ export default async function Creators({
   }
   return (
     <section className="wrap">
-      <span className="eyebrow">Discover creators</span>
-      <h1 className="page-title">숫자 너머, 브랜드의 취향까지.</h1>
-      <p>당신의 다음 캠페인에 어울리는 파트너를 발견하세요.</p>
+      <h1 className="page-title">YouTube 크리에이터 탐색</h1>
+      <p>유명 채널의 구독자 수와 최근 공개 영상을 확인하세요.</p>
+      <form action="/creators" method="get" className="form ops-form">
+        <label>
+          채널 이름
+          <input
+            type="search"
+            name="q"
+            maxLength={80}
+            defaultValue={filters.query}
+          />
+        </label>
+        <button className="button outline">검색</button>
+      </form>
       <p>
-        <Link href="/creators/youtube">확인된 YouTube 채널 검색</Link>
+        YouTube Data API 제공 정보입니다. 이 공개 채널의 AD Me 가입과 협업 가능
+        여부는 확인되지 않았습니다.
       </p>
-      <div className="notice">
-        DEMO 표식은 가상 데이터, 본인 등록 표식은 크리에이터가 직접 입력한
-        정보입니다.
-      </div>
-      {hot.length > 0 && (
-        <section className="panel" style={{ marginBottom: 24 }}>
-          <span className="badge lime">TEST 광고 · HOT</span>
-          <h3 style={{ marginTop: 15 }}>지금 주목할 크리에이터</h3>
-          <p>
-            활성 TEST 이용권의 별도 노출입니다. 아래 일반 추천 순위와
-            무관합니다.
-          </p>
-          <div className="inline">
-            {hot.map((h) => (
-              <Link
-                className="button outline"
-                href={`/creators/${h.creator_id}`}
-                key={h.creator_id}
-              >
-                {h.profile.name} ↗
-              </Link>
-            ))}
-          </div>
-        </section>
+      {featured.unavailable ? (
+        <p role="alert">공개 채널을 불러오지 못했습니다.</p>
+      ) : featured.items.length ? (
+        <YoutubeChannelCards channels={featured.items} />
+      ) : (
+        <p className="empty">검색 조건과 일치하는 공개 채널이 없습니다.</p>
       )}
-      <Suspense
-        fallback={<p role="status">크리에이터 검색을 준비하고 있습니다.</p>}
-      >
-        <Catalog
-          items={items}
-          initialSaved={initialSaved}
-          remote={remote}
-          initialPage={initialPage}
-          initialFilters={filters}
-        />
-      </Suspense>
+      <section className="ops-section">
+        <h2>AD Me 등록 프로필</h2>
+        <p>
+          <Link href="/creators/youtube">소유권 확인 채널 검색</Link>
+        </p>
+        {hot.length > 0 && (
+          <section className="panel" style={{ marginBottom: 24 }}>
+            <span className="badge lime">스폰서 · HOT</span>
+            <h3 style={{ marginTop: 15 }}>지금 주목할 크리에이터</h3>
+            <p>
+              활성 TEST 이용권의 별도 노출입니다. 아래 일반 추천 순위와
+              무관합니다.
+            </p>
+            <div className="inline">
+              {hot.map((h) => (
+                <Link
+                  className="button outline"
+                  href={`/creators/${h.creator_id}`}
+                  key={h.creator_id}
+                >
+                  {h.profile.name} ↗
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+        {
+          <Suspense fallback={<p role="status">검색을 준비하고 있습니다.</p>}>
+            <Catalog
+              items={items}
+              initialSaved={initialSaved}
+              remote={remote}
+              initialPage={initialPage}
+              initialFilters={filters}
+            />
+          </Suspense>
+        }
+      </section>
     </section>
   );
 }

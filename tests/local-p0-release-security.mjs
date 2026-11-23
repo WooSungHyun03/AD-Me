@@ -108,7 +108,29 @@ try {
       const products = await anon
         .from("products")
         .select("sku,amount,credits,days");
-      assert.equal(products.data.length, 4);
+      assert.equal(products.data.length, 7);
+      for (const sku of ["search_run", "job_post"]) {
+        const attempts = await Promise.all(
+          Array.from({ length: 6 }, () =>
+            brand.rpc("create_test_order", { p_sku: sku }),
+          ),
+        );
+        assert.ok(attempts.every((r) => !r.error));
+        assert.equal(new Set(attempts.map((r) => r.data.id)).size, 1);
+        assert.equal(
+          attempts[0].data.amount,
+          products.data.find((p) => p.sku === sku).amount,
+        );
+        assert.equal(
+          (await creator.rpc("create_test_order", { p_sku: sku })).error?.code,
+          "42501",
+        );
+      }
+      assert.equal(
+        (await creator.rpc("create_test_order", { p_sku: "job_application" }))
+          .error?.code,
+        "42501",
+      );
       assert.deepEqual(
         products.data.find((x) => x.sku === "ai_credits"),
         { sku: "ai_credits", amount: 4900, credits: 20, days: 30 },

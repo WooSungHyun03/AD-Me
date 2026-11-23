@@ -12,6 +12,9 @@ export const testSkus = [
   "agency",
   "creator_hot",
   "ai_credits",
+  "search_run",
+  "job_post",
+  "job_application",
 ] as const;
 export const testSkuSchema = z.enum(testSkus);
 export const testProductSchema = z.object({
@@ -31,6 +34,10 @@ export const testProductDescriptions = {
   creator_hot:
     "별도 광고 영역에 표시됩니다. 일반 추천 순위에는 영향을 주지 않습니다.",
   ai_credits: "TEST 크레딧 적립을 확인합니다. 고급 AI 분석은 준비 중입니다.",
+  search_run: "후보가 있는 새 YouTube 조건 검색의 TEST 검색권입니다.",
+  job_post: "YouTube 광고 공고를 게시할 때 사용하는 TEST 게시권입니다.",
+  job_application:
+    "소유권을 확인한 YouTube 채널로 지원할 때 사용하는 TEST 지원권입니다.",
 } satisfies Record<TestProduct["sku"], string>;
 
 export function testProductTerms(product: TestProduct) {

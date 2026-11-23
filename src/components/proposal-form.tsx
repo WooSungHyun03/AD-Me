@@ -4,10 +4,12 @@ import { Button } from "./ui/button";
 export function ProposalForm({
   campaignId,
   creators,
+  selectedCreatorId,
   kind = "proposal",
 }: {
   campaignId: string;
   creators: { id: string; name: string }[];
+  selectedCreatorId?: string;
   kind?: "proposal" | "application";
 }) {
   const [message, setMessage] = useState(""),
@@ -52,6 +54,7 @@ export function ProposalForm({
               : "지원할 내 프로필"
           }
           name="creatorId"
+          defaultValue={selectedCreatorId}
           required
         >
           {creators.map((c) => (

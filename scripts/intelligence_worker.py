@@ -60,47 +60,103 @@ def youtube(path, **params):
         raise WorkerError("YOUTUBE_HTTP_" + str(exc.code)) from None
 
 
+IMAGE_HOSTS = {"yt3.ggpht.com", "yt3.googleusercontent.com", "lh3.googleusercontent.com",
+               "i.ytimg.com", "img.youtube.com"}
+
+
+def image_url(value):
+    if value:
+        url = urlparse(value)
+        if url.scheme == "https" and url.netloc in IMAGE_HOSTS:
+            return value
+    return None
+
+
+def thumbnail(snippet, sizes):
+    thumbnails = snippet.get("thumbnails", {})
+    return next((url for size in sizes if
+                 (url := image_url(thumbnails.get(size, {}).get("url")))), None)
+
+
+def optional_count(statistics, name):
+    value = statistics.get(name)
+    return int(value) if value is not None else None
+
+
+def public_description(description):
+    # The directory does not collect contact details or publish ownership challenges.
+    lines = description.splitlines()
+    return "\n".join(line for line in lines if not re.search(
+        r"@|ADME-[A-Za-z0-9_-]+|\b(?:\+?\d[() .-]*){7,}\b", line
+    )).strip()[:1000] or None
+
+
 def channels(ids):
     if not ids:
         return []
     if len(ids) > 25 or any(not re.fullmatch(r"UC[A-Za-z0-9_-]{22}", value) for value in ids):
         raise WorkerError("CHANNEL_INPUT_INVALID")
-    data = youtube("channels", part="snippet,statistics,contentDetails", id=",".join(ids),
-                   fields="items(id,snippet/title,statistics(subscriberCount,hiddenSubscriberCount),contentDetails/relatedPlaylists/uploads)")
+    data = youtube("channels", part="snippet,statistics,contentDetails,brandingSettings,topicDetails",
+                   id=",".join(ids),
+                   fields="items(id,snippet(title,description,customUrl,publishedAt,defaultLanguage,thumbnails),"
+                          "statistics(subscriberCount,hiddenSubscriberCount,viewCount,videoCount),"
+                          "brandingSettings(image/bannerExternalUrl,channel/defaultLanguage),"
+                          "topicDetails/topicCategories,contentDetails/relatedPlaylists/uploads)")
     items = data.get("items", [])
     returned_ids = [item.get("id") for item in items]
     if len(items) > len(ids) or len(set(returned_ids)) != len(returned_ids) or any(value not in ids for value in returned_ids):
         raise WorkerError("UPSTREAM_INVALID_RESPONSE")
     rows = []
     for item in items:
+        snippet = item["snippet"]
         info = item.get("statistics", {})
-        subscribers = info.get("subscriberCount")
+        branding = item.get("brandingSettings", {})
+        custom_url = snippet.get("customUrl", "")
         playlist = item.get("contentDetails", {}).get("relatedPlaylists", {}).get("uploads")
         video_ids = []
         if playlist:
             try:
-                videos = youtube("playlistItems", part="contentDetails", playlistId=playlist, maxResults=5,
+                videos = youtube("playlistItems", part="contentDetails", playlistId=playlist, maxResults=50,
                                  fields="items/contentDetails/videoId")
                 video_ids = [entry["contentDetails"]["videoId"] for entry in videos.get("items", [])]
             except WorkerError as error:
                 if str(error) != "YOUTUBE_HTTP_404":
                     raise
         rows.append({
-            "id": item["id"], "title": item["snippet"]["title"],
-            "subscribers": int(subscribers) if subscribers is not None and not info.get("hiddenSubscriberCount") else None,
+            "id": item["id"], "title": snippet["title"],
+            "subscribers": optional_count(info, "subscriberCount") if not info.get("hiddenSubscriberCount") else None,
+            "metadata": {
+                "avatar": thumbnail(snippet, ("high", "medium", "default")),
+                "banner": image_url(branding.get("image", {}).get("bannerExternalUrl")),
+                "handle": custom_url if custom_url.startswith("@") else None,
+                "description": public_description(snippet.get("description", "")),
+                "createdAt": snippet.get("publishedAt"),
+                "language": snippet.get("defaultLanguage") or branding.get("channel", {}).get("defaultLanguage"),
+                "topics": item.get("topicDetails", {}).get("topicCategories", [])[:8],
+                "views": optional_count(info, "viewCount"),
+                "videoCount": optional_count(info, "videoCount"),
+            },
             "video_ids": video_ids,
         })
     ids_to_fetch = list(dict.fromkeys(video for row in rows for video in row["video_ids"]))
     public_videos = {}
     for i in range(0, len(ids_to_fetch), 50):
-        data = youtube("videos", part="snippet,status", id=",".join(ids_to_fetch[i:i + 50]),
-                       fields="items(id,snippet(title,publishedAt),status/privacyStatus)")
+        data = youtube("videos", part="snippet,status,statistics", id=",".join(ids_to_fetch[i:i + 50]),
+                       fields="items(id,snippet(title,publishedAt,thumbnails),status/privacyStatus,statistics(viewCount,likeCount))")
         for item in data.get("items", []):
             if item.get("status", {}).get("privacyStatus") == "public":
-                public_videos[item["id"]] = {"id": item["id"], "title": item["snippet"]["title"],
-                                            "publishedAt": item["snippet"]["publishedAt"]}
+                info = item.get("statistics", {})
+                snippet = item["snippet"]
+                public_videos[item["id"]] = {
+                    "id": item["id"], "title": snippet["title"],
+                    "publishedAt": snippet["publishedAt"],
+                    "views": optional_count(info, "viewCount"),
+                    "likes": optional_count(info, "likeCount"),
+                    "thumbnail": thumbnail(snippet, ("medium", "high", "default")),
+                }
     for row in rows:
-        row["videos"] = [public_videos[video] for video in row.pop("video_ids") if video in public_videos]
+        videos = {video: public_videos[video] for video in row.pop("video_ids") if video in public_videos}
+        row["videos"] = sorted(videos.values(), key=lambda video: video["publishedAt"], reverse=True)[:30]
     return rows
 
 
@@ -151,11 +207,11 @@ def process(job):
             if job["kind"] == "youtube_channel":
                 candidates = [job["input"]]
             else:
-                if not job.get("keyword"):
+                if not job.get("keyword") and not job.get("refresh"):
                     raise WorkerError("DISCOVERY_DISABLED")
                 data = youtube("search", part="snippet", type="channel", maxResults=5,
                                regionCode="KR", relevanceLanguage="ko", q=job["keyword"],
-                               fields="items/id/channelId")
+                               fields="items/id/channelId") if job.get("keyword") else {"items": []}
                 discovered = [entry["id"]["channelId"] for entry in data.get("items", [])]
                 candidates = list(dict.fromkeys([*job.get("refresh", []), *discovered]))[:25]
             checkpoint = rpc("ops_worker_checkpoint", p_id=job["id"], p_lease=job["lease"],
@@ -194,12 +250,12 @@ def process(job):
                 raise WorkerError("CHANNEL_UNAVAILABLE")
             return rows
         case "youtube_daily":
-            if not job.get("keyword"):
-                raise WorkerError("DISCOVERY_DISABLED")
-            data = youtube("search", part="snippet", type="channel", maxResults=5,
-                           regionCode="KR", relevanceLanguage="ko", q=job["keyword"],
-                           fields="items/id/channelId")
-            discovered = [entry["id"]["channelId"] for entry in data.get("items", [])]
+            discovered = []
+            if job.get("keyword"):
+                data = youtube("search", part="snippet", type="channel", maxResults=5,
+                               regionCode="KR", relevanceLanguage="ko", q=job["keyword"],
+                               fields="items/id/channelId")
+                discovered = [entry["id"]["channelId"] for entry in data.get("items", [])]
             return channels(list(dict.fromkeys([*job.get("refresh", []), *discovered])))
         case _:
             raise WorkerError("UNKNOWN_JOB")

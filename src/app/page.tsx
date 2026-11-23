@@ -1,3 +1,5 @@
+import { featuredYoutube } from "@/lib/featured-youtube";
+import { YoutubeChannelCards } from "@/components/featured-youtube";
 import Link from "next/link";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -36,6 +38,7 @@ export default async function Home() {
       featured: samples.slice(0, 3),
     });
   }
+  const { items } = await featuredYoutube("", null, 3);
   return (
     <>
       <section className="wrap hero">
@@ -66,85 +69,32 @@ export default async function Home() {
             </Link>
           </div>
         </div>
-        <div className="hero-art" aria-label="가상 크리에이터 일러스트">
-          <div className="art-note">
-            <b>분위기로 발견하고,</b>근거로 결정하세요.
-          </div>
-          <div className="poster">
-            <div className="portrait" />
-            <strong>
-              자연스럽게,
-              <br />
-              나답게.
-            </strong>
-            <small>BEAUTY · LIFESTYLE / DEMO</small>
-          </div>
-          <div className="poster">
-            <div className="portrait" />
-            <strong>
-              새로운 시선,
-              <br />
-              다음의 취향.
-            </strong>
-            <small>FASHION · CREATIVE / DEMO</small>
-          </div>
-        </div>
-      </section>
-      <section className="wrap section-line">
-        <div className="section-heading">
-          <div>
-            <div className="eyebrow">Discover your next fit</div>
-            <h2 style={{ margin: "15px 0 0" }}>
-              브랜드의 결을 닮은 크리에이터
-            </h2>
-          </div>
-          <Link href="/creators" className="inline">
-            전체 탐색 <ArrowUpRight size={18} />
+        <div className="panel youtube-hero">
+          <h2>공개 YouTube 채널을 한눈에</h2>
+          <p>
+            채널 구독자 수와 최근 공개 영상을 확인하고 다음 광고의 후보를
+            살펴보세요.
+          </p>
+          <Link className="button outline" href="/creators">
+            YouTube 채널 탐색 <ArrowUpRight size={17} />
           </Link>
         </div>
-        <div className="creator-grid">
-          {summary?.featured.map((c, i) => (
-            <Link
-              key={c.seed_id}
-              href={`/creators/${c.seed_id}`}
-              className="creator"
-            >
-              <div
-                className="creator-visual"
-                style={{ background: ["#dde3cc", "#e6ddcd", "#d6dad8"][i] }}
-              >
-                <span className="badge">
-                  {c.is_demo
-                    ? "가상 프로필 · DEMO"
-                    : "본인 등록 · 외부 검증 미확인"}
-                </span>
-                {c.name.slice(1)}
-              </div>
-              <div className="creator-top">
-                <h3>{c.name}</h3>
-                <ArrowUpRight size={19} />
-              </div>
-              <p>
-                {c.categories.join(" · ")} / {c.platforms.join(" · ")}
-              </p>
-              <div className="tags">
-                {c.vibes.map((t) => (
-                  <span key={t} className="badge">
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </Link>
-          ))}
-        </div>
-        {(!summary || summary.total === 0) && (
-          <p className="notice" role="status">
-            {summary
-              ? "현재 공개된 프로필이 없습니다. 등록된 프로필이 공개되면 여기에 표시됩니다."
-              : "공개 프로필 현황을 불러오지 못했습니다. 잠시 후 다시 확인해주세요."}
-          </p>
-        )}
       </section>
+      {items.length > 0 && (
+        <section className="wrap section-line">
+          <div className="section-heading">
+            <h2>주목할 YouTube 채널</h2>
+            <Link href="/creators" className="inline">
+              전체 탐색 <ArrowUpRight size={18} />
+            </Link>
+          </div>
+          <p>
+            출처는 YouTube Data API입니다. 공개 채널의 AD Me 가입과 협업 가능
+            여부는 확인되지 않았습니다.
+          </p>
+          <YoutubeChannelCards channels={items} />
+        </section>
+      )}
       <section className="band">
         <div className="wrap">
           <div className="eyebrow" style={{ color: "#d7ff45" }}>

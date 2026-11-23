@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { featuredYoutube } from "@/lib/featured-youtube";
 import { context } from "@/lib/api";
 import { Command } from "./commands";
 export const dynamic = "force-dynamic";
@@ -68,6 +69,21 @@ export default async function Intelligence() {
       </section>
     );
   const ops = data as Overview;
+  const publicIds = new Set(
+    ops.channels
+      ? (await featuredYoutube("", null, 50)).items.map(
+          (channel) => channel.channel_id,
+        )
+      : [],
+  );
+  const reports = ["super", "support"].includes(ops.role)
+    ? await c.db.rpc("chat_report_queue")
+    : null;
+  const reportRows = (reports?.data ?? []) as {
+    proposal_id: string;
+    reason: string;
+    created_at: string;
+  }[];
 
   return (
     <section className="wrap">
@@ -82,7 +98,28 @@ export default async function Intelligence() {
         {ops.campaigns && <a href="#campaigns">캠페인</a>}
         {ops.orders && <a href="#orders">TEST 결제</a>}
         {ops.role === "super" && <Link href="/admin">기존 운영 화면</Link>}
+        {reports && <a href="#chat-reports">채팅 신고</a>}
       </nav>
+      {reports && (
+        <section id="chat-reports" className="ops-section">
+          <h2>채팅 신고</h2>
+          {reports.error ? (
+            <p role="alert">채팅 신고를 불러오지 못했습니다.</p>
+          ) : reportRows.length ? (
+            reportRows.map((report) => (
+              <article
+                className="ops-row"
+                key={report.proposal_id + report.created_at}
+              >
+                <strong>{report.proposal_id}</strong>
+                <p>{report.reason}</p>
+              </article>
+            ))
+          ) : (
+            <p>접수한 채팅 신고가 없습니다.</p>
+          )}
+        </section>
+      )}
       {ops.channels && (
         <section id="youtube" className="ops-section">
           <h2>YouTube 수집</h2>
@@ -125,6 +162,15 @@ export default async function Intelligence() {
                 >
                   {channel.channel_id} · 원본 채널
                 </a>
+                {publicIds.has(channel.channel_id) && (
+                  <>
+                    {" "}
+                    ·{" "}
+                    <Link href={`/creators/youtube/${channel.channel_id}`}>
+                      공개 상세 프로필
+                    </Link>
+                  </>
+                )}
               </p>
               <p>
                 구독자{" "}

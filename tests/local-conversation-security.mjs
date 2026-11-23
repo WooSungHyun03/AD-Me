@@ -196,6 +196,40 @@ try {
         p_blocked: false,
       });
       assert.equal((await page(creator)).data.blocked, false);
+      assert.equal(
+        (
+          await brand.rpc("chat_control", {
+            p_id: room,
+            p_action: "block",
+            p_reason: "",
+          })
+        ).error,
+        null,
+      );
+      assert.equal((await page(creator)).data.blocked, true);
+      assert.equal((await send(creator)).error?.code, "42501");
+      assert.equal(
+        (
+          await creator.rpc("chat_control", {
+            p_id: room,
+            p_action: "unblock",
+            p_reason: "",
+          })
+        ).error,
+        null,
+      );
+      assert.equal((await page(creator)).data.blocked, true);
+      assert.equal(
+        (
+          await brand.rpc("chat_control", {
+            p_id: room,
+            p_action: "unblock",
+            p_reason: "",
+          })
+        ).error,
+        null,
+      );
+      assert.equal((await page(creator)).data.blocked, false);
     },
   );
   await check(
@@ -328,7 +362,19 @@ try {
         sql(
           "select count(*) from pg_proc where pronamespace='public'::regnamespace and proname like 'conversation_%' and not prosecdef and provolatile='v';",
         ),
-        "4",
+        "3",
+      );
+      assert.equal(
+        sql(
+          "select prosecdef and proconfig @> array['search_path=\"\"'] from pg_proc where oid='public.conversation_block(uuid,boolean)'::regprocedure;",
+        ),
+        "t",
+      );
+      assert.equal(
+        sql(
+          "select has_function_privilege('authenticated','adme_messaging.block_room(uuid,boolean)','execute');",
+        ),
+        "f",
       );
     },
   );

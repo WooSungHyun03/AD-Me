@@ -26,9 +26,11 @@ type CampaignInput = {
 export function CampaignForm({
   id,
   initial,
+  creatorId,
 }: {
   id?: string;
   initial?: CampaignInput;
+  creatorId?: string;
 }) {
   const [tags, setTags] = useState<string[]>(initial?.vibes ?? ["자연스러움"]),
     [platforms, setPlatforms] = useState(initial?.platforms ?? ["instagram"]),
@@ -67,7 +69,11 @@ export function CampaignForm({
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error?.message || "저장 실패");
-      router.push(`/campaigns/${data.id}`);
+      router.push(
+        creatorId
+          ? `/campaigns/${data.id}?creator=${encodeURIComponent(creatorId)}#proposal`
+          : `/campaigns/${data.id}`,
+      );
     } catch (e) {
       setError(
         e instanceof ZodError

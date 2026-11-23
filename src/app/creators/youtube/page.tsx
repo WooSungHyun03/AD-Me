@@ -23,6 +23,9 @@ export default async function YoutubeCreators({
     <section className="wrap">
       <Link href="/creators">크리에이터 탐색으로 돌아가기</Link>
       <h1 className="page-title">확인된 YouTube 채널</h1>
+      <Link className="button outline" href="/explore">
+        고급 조건 검색
+      </Link>
       <p>
         소유권을 확인하고 공개에 동의한 AD Me 크리에이터를 검색합니다. 구독자
         수는 YouTube API에서 제공한 값입니다.
@@ -51,7 +54,7 @@ export default async function YoutubeCreators({
                 · 조회 {profile.fetched_at.slice(0, 10)}
               </p>
               <p>
-                <Link href={"/creators/" + profile.creator_id}>
+                <Link href={"/creators/youtube/" + profile.channel_id}>
                   AD Me 프로필
                 </Link>{" "}
                 ·{" "}

@@ -63,11 +63,13 @@ function ConversationBody({
   viewerId,
   deliverable,
   writable,
+  refreshVersion,
 }: {
   proposalId: string;
   viewerId: string;
   deliverable: boolean;
   writable: boolean;
+  refreshVersion?: string;
 }) {
   const [items, setItems] = useState<ConversationMessage[]>([]);
   const [cursor, setCursor] = useState<string | null>(null);
@@ -156,7 +158,7 @@ function ConversationBody({
         if (!controller.signal.aborted) setLoading(false);
       });
     return () => controller.abort();
-  }, [fetchPage, applyPage]);
+  }, [fetchPage, applyPage, refreshVersion]);
   return (
     <div style={{ marginTop: 16 }}>
       <div className="inline">
@@ -273,12 +275,14 @@ function ConversationBody({
 export function Conversation(props: {
   proposalId: string;
   viewerId: string;
+  refreshVersion?: string;
   deliverable: boolean;
   writable: boolean;
 }) {
   const [open, setOpen] = useState(false);
   return (
     <details
+      data-live-chat
       style={{ marginTop: 24 }}
       onToggle={(e) => setOpen(e.currentTarget.open)}
     >

@@ -51,7 +51,21 @@ const row = (id) => ({
   id,
   title: "가상 수집 계약 QA",
   subscribers: null,
-  videos: [],
+  videos: [
+    {
+      id: "fictional01",
+      title: "가상 원본 영상",
+      publishedAt: "2026-11-01T00:00:00Z",
+      views: 0,
+      likes: null,
+      thumbnail: "https://example.test/fictional.jpg",
+    },
+  ],
+  metadata: {
+    handle: "@fictional-qa",
+    views: 0,
+    private_canary: "MUST_NOT_PERSIST",
+  },
 });
 const checkpoint = (j, candidates, batch) =>
   worker.rpc("ops_worker_checkpoint", {
@@ -114,6 +128,15 @@ try {
       const saved = await checkpoint(j, [channels[0]], [row(channels[0])]);
       assert.equal(saved.error, null);
       assert.deepEqual(saved.data.completed, [channels[0]]);
+      const stored = JSON.parse(
+        sql(
+          `select jsonb_build_object('metadata',metadata,'videos',videos) from adme_ops.channels where channel_id='${channels[0]}';`,
+        ),
+      );
+      assert.equal(stored.metadata.handle, "@fictional-qa");
+      assert.equal(stored.metadata.private_canary, undefined);
+      assert.equal(stored.videos[0].views, 0);
+      assert.equal(stored.videos[0].likes, null);
       assert.equal(
         sql(
           `select count(*) from adme_ops.channels where channel_id='${channels[0]}';`,
@@ -214,6 +237,22 @@ try {
       assert.equal(pub.error, null);
       assert.ok(pub.data.some((x) => x.channel_id === channels[1]));
       assert.ok(!JSON.stringify(pub.data).includes(owner));
+      const featured = await worker.rpc("featured_youtube", {
+        p_query: "",
+        p_id: channels[1],
+        p_limit: 1,
+      });
+      assert.equal(featured.error, null);
+      assert.equal(featured.data.length, 1);
+      assert.ok(!JSON.stringify(featured.data).includes(owner));
+      assert.equal(
+        (
+          await worker.rpc("creator_youtube_channel", {
+            p_creator_id: featured.data[0].creator_id,
+          })
+        ).data,
+        channels[1],
+      );
       sql(
         `update adme_ops.channels set expires_at=now()-interval '1 second' where channel_id='${channels[1]}';`,
       );
@@ -222,6 +261,16 @@ try {
           (x) => x.channel_id === channels[1],
         ),
         false,
+      );
+      assert.deepEqual(
+        (
+          await worker.rpc("featured_youtube", {
+            p_query: "",
+            p_id: channels[1],
+            p_limit: 1,
+          })
+        ).data,
+        [],
       );
     },
   );

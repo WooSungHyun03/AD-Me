@@ -68,7 +68,7 @@ test("structured campaign terms persist KST/UTC, product/mixed/unknown and edit 
     await expect(page).toHaveURL(new RegExp(`/campaigns/${id}$`));
     await expect(
       page.getByText("가상 크리에이터 · DEMO", { exact: true }),
-    ).toHaveCount(6);
+    ).toHaveCount(0); // main removes ownerless sample profiles; never fabricate six recommendations.
     await expect(
       page.getByRole("region", { name: "기록된 협업 조건" }),
     ).toContainText("제품 제공: 가상 샘플 제품 · 2개");

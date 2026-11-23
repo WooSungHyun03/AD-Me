@@ -9,6 +9,13 @@ worker=importlib.util.module_from_spec(spec);spec.loader.exec_module(worker)
 A='UC'+'a'*22;B='UC'+'b'*22
 
 class Recovery(unittest.TestCase):
+ def test_refresh_only_does_not_spend_search_quota(self):
+  job={'id':'fixture','lease':'fixture-lease','kind':'youtube_daily','input':'fictional','policyVersion':'fixture','refresh':[A]}
+  def rpc(name,**kwargs):
+   if name=='ops_worker_heartbeat':return True
+   return {'version':1,'candidates':[A],'completed':[A] if kwargs.get('p_result') else []}
+  with patch.object(worker,'rpc',side_effect=rpc),patch.object(worker,'channels',return_value=[{'id':A}]) as channels,patch.object(worker,'youtube') as api:
+   self.assertEqual(worker.process(job),[]);channels.assert_called_once_with([A]);api.assert_not_called()
  def test_wrong_channel_response_rejected_before_followup_requests(self):
   with patch.object(worker,'youtube',return_value={'items':[{'id':B,'snippet':{'title':'fictional'}}]}) as api:
    with self.assertRaisesRegex(worker.WorkerError,'UPSTREAM_INVALID_RESPONSE'):worker.channels([A])

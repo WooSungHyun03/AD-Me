@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { context } from "@/lib/api";
+import { ContactForm } from "./contact-form";
 import { ClaimForm } from "./claim-form";
 import { getConfig } from "@/lib/config";
 export const dynamic = "force-dynamic";
@@ -23,7 +24,13 @@ export default async function YoutubeSettings() {
         <h1>크리에이터 계정이 필요합니다.</h1>
       </section>
     );
-  const { data, error } = await c.db.rpc("ops_own_channels");
+  const [{ data, error }, contacts] = await Promise.all([
+    c.db.rpc("ops_own_channels"),
+    c.db
+      .from("youtube_channel_contacts")
+      .select("channel_id,business_email,business_phone,consent"),
+  ]);
+  const byChannel = new Map(contacts.data?.map((row) => [row.channel_id, row]));
   const claims = (data ?? []) as Claim[];
   const enabled = getConfig().features.ingestion === "enabled";
   return (
@@ -59,6 +66,16 @@ export default async function YoutubeSettings() {
                       ? "운영 승인"
                       : "운영 승인 대기"}
                   </p>
+                  {contacts.error ? (
+                    <p role="alert">연락처 설정을 불러오지 못했습니다.</p>
+                  ) : (
+                    <ContactForm
+                      id={claim.channel_id}
+                      email={byChannel.get(claim.channel_id)?.business_email}
+                      phone={byChannel.get(claim.channel_id)?.business_phone}
+                      consent={byChannel.get(claim.channel_id)?.consent}
+                    />
+                  )}
                   {claim.consent ? (
                     <ClaimForm
                       action="hide"
