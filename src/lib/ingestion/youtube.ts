@@ -7,16 +7,20 @@ import {
 // Low-cost endpoints only (1 quota unit each): channels.list, playlistItems.list, videos.list.
 // search.list (100 units) is deliberately not used; input is an allowlisted channel-ID seed.
 const API = "https://www.googleapis.com/youtube/v3";
-export type YouTubeErrorKind =
-  "quota" | "rate" | "auth" | "bad_request" | "upstream";
-export class YouTubeError extends Error {
-  constructor(
-    public kind: YouTubeErrorKind,
-    message: string,
-  ) {
-    super(message);
-  }
-}
+export { YouTubeError, type YouTubeErrorKind } from "./youtube-contract";
+import {
+  YouTubeError,
+  CHANNEL_ID,
+  channelSchema,
+  playlistSchema,
+  videoSchema,
+  attributedRows,
+  youtubeRows,
+  youtubeCount as num,
+  readYouTubeJson,
+  invalidYouTubeResponse,
+} from "./youtube-contract";
+import { z } from "zod";
 type Fetch = typeof fetch;
 type Opts = {
   apiKey?: string;
@@ -24,24 +28,6 @@ type Opts = {
   policyTable?: Record<string, SourcePolicy>;
   maxVideos?: number;
 };
-const num = (v: unknown) =>
-  typeof v === "string" && /^\d+$/.test(v) ? Number(v) : null;
-const CHANNEL_ID = /^UC[\w-]{22}$/;
-// Only the response fields this adapter reads (YouTube Data API v3 resource shapes).
-type Stats = Record<string, string | boolean | undefined>;
-type ApiChannel = {
-  id: string;
-  snippet?: Record<string, string | undefined>;
-  statistics?: Stats;
-  contentDetails?: { relatedPlaylists?: { uploads?: string } };
-};
-type ApiVideo = {
-  id: string;
-  snippet?: Record<string, string | undefined>;
-  statistics?: Stats;
-};
-type ApiList<T> = { items?: T[] };
-
 async function call(
   path: string,
   params: Record<string, string>,
@@ -52,25 +38,53 @@ async function call(
   Object.entries({ ...params, key }).forEach(([k, v]) =>
     url.searchParams.set(k, v),
   );
-  const res = await f(url, {
-    signal: AbortSignal.timeout(10000),
-    cache: "no-store",
-  });
-  const body = await res.json().catch(() => ({}));
-  if (res.ok) return body;
-  const reason: string = body?.error?.errors?.[0]?.reason ?? "";
-  if (["quotaExceeded", "dailyLimitExceeded"].includes(reason))
-    throw new YouTubeError("quota", "YouTube API 일일 할당량 초과");
-  if (
-    res.status === 429 ||
-    ["rateLimitExceeded", "userRateLimitExceeded"].includes(reason)
-  )
-    throw new YouTubeError("rate", "YouTube API 속도 제한");
-  if (res.status === 401 || res.status === 403)
-    throw new YouTubeError("auth", "YouTube API 키 권한 오류");
-  if (res.status === 400)
-    throw new YouTubeError("bad_request", "잘못된 YouTube API 요청");
-  throw new YouTubeError("upstream", `YouTube API 오류 ${res.status}`);
+  try {
+    const res = await f(url, {
+      signal: AbortSignal.timeout(10000),
+      cache: "no-store",
+      redirect: "error",
+    });
+    // These statuses do not need a provider body (which may be HTML or contain credentials).
+    if ([400, 401, 404, 429].includes(res.status) || res.status >= 500) {
+      void res.body?.cancel().catch(() => {});
+      if (res.status === 429)
+        throw new YouTubeError("rate", "YouTube API 속도 제한");
+      if (res.status === 401)
+        throw new YouTubeError("auth", "YouTube API 키 권한 오류");
+      if (res.status === 404)
+        throw new YouTubeError("not_found", "YouTube 자료를 찾을 수 없습니다.");
+      if (res.status === 400)
+        throw new YouTubeError("bad_request", "잘못된 YouTube API 요청");
+      throw invalidYouTubeResponse();
+    }
+    const body = await readYouTubeJson(res);
+    if (res.ok) return body;
+    const parsed = z
+      .object({
+        error: z.object({ errors: z.array(z.object({ reason: z.string() })) }),
+      })
+      .safeParse(body);
+    const reason = parsed.success
+      ? (parsed.data.error.errors[0]?.reason ?? "")
+      : "";
+    if (["quotaExceeded", "dailyLimitExceeded"].includes(reason))
+      throw new YouTubeError("quota", "YouTube API 일일 할당량 초과");
+    if (
+      res.status === 429 ||
+      ["rateLimitExceeded", "userRateLimitExceeded"].includes(reason)
+    )
+      throw new YouTubeError("rate", "YouTube API 속도 제한");
+    if (res.status === 401 || res.status === 403)
+      throw new YouTubeError("auth", "YouTube API 키 권한 오류");
+    if (res.status === 404)
+      throw new YouTubeError("not_found", "YouTube 자료를 찾을 수 없습니다.");
+    if (res.status === 400)
+      throw new YouTubeError("bad_request", "잘못된 YouTube API 요청");
+    throw invalidYouTubeResponse();
+  } catch (error) {
+    if (error instanceof YouTubeError) throw error;
+    throw invalidYouTubeResponse();
+  }
 }
 
 export type ChannelResult =
@@ -95,16 +109,24 @@ export async function fetchChannels(
     new Date(),
     opts.policyTable ?? policies,
   );
+  const max = opts.maxVideos ?? 5;
+  if (
+    !Array.isArray(seed) ||
+    seed.length > 25 ||
+    seed.some((id) => typeof id !== "string" || !CHANNEL_ID.test(id)) ||
+    !Number.isInteger(max) ||
+    max < 0 ||
+    max > 50
+  )
+    throw new YouTubeError(
+      "bad_request",
+      "채널 입력 또는 영상 한도를 확인해주세요.",
+    );
+  const ids = [...new Set(seed)];
+  if (!ids.length) return [];
   const key = opts.apiKey ?? process.env.YOUTUBE_API_KEY;
   if (!key) throw new YouTubeError("auth", "YOUTUBE_API_KEY 미설정");
   const f = opts.fetchImpl ?? fetch;
-  const ids = [...new Set(seed)];
-  const bad = ids.filter((id) => !CHANNEL_ID.test(id));
-  if (bad.length)
-    throw new YouTubeError(
-      "bad_request",
-      `허용되지 않은 채널 ID 형식: ${bad.join(",")}`,
-    );
   const out: ChannelResult[] = [];
   for (let i = 0; i < ids.length; i += 50) {
     const batch = ids.slice(i, i + 50);
@@ -117,9 +139,15 @@ export async function fetchChannels(
       },
       key,
       f,
-    );
+    ).catch((error) => {
+      if (error instanceof YouTubeError && error.kind === "not_found")
+        return { items: [] };
+      throw error;
+    });
     const byId = new Map(
-      ((data as ApiList<ApiChannel>).items ?? []).map((c) => [c.id, c]),
+      attributedRows(youtubeRows(data, channelSchema, batch.length), batch).map(
+        (c) => [c.id, c],
+      ),
     );
     for (const id of batch) {
       const c = byId.get(id);
@@ -142,9 +170,10 @@ export async function fetchChannels(
         view_count: num(c.statistics?.viewCount),
       });
       const uploads = c.contentDetails?.relatedPlaylists?.uploads;
-      const videos = uploads
-        ? await recentVideos(uploads, key, f, policy, opts.maxVideos ?? 10)
-        : [];
+      const videos =
+        uploads && max > 0
+          ? await recentVideos(id, uploads, key, f, policy, max)
+          : [];
       out.push({
         channel_id: id,
         status: "ok",
@@ -160,6 +189,7 @@ export async function fetchChannels(
 }
 
 async function recentVideos(
+  owner: string,
   playlist: string,
   key: string,
   f: Fetch,
@@ -176,31 +206,40 @@ async function recentVideos(
     key,
     f,
   ).catch((e) => {
-    if (e instanceof YouTubeError && e.kind === "bad_request")
+    if (e instanceof YouTubeError && e.kind === "not_found")
       return { items: [] };
     throw e;
   });
-  const ids = (
-    (list as ApiList<{ contentDetails?: { videoId?: string } }>).items ?? []
-  )
-    .map((x) => x.contentDetails?.videoId)
-    .filter((x): x is string => Boolean(x));
+  const ids = [
+    ...new Set(
+      youtubeRows(list, playlistSchema, max).map(
+        (x) => x.contentDetails.videoId,
+      ),
+    ),
+  ];
   if (!ids.length) return [];
   const v = await call(
     "videos",
-    { part: "snippet,statistics", id: ids.join(",") },
+    { part: "snippet,status,statistics", id: ids.join(",") },
     key,
     f,
-  );
-  return ((v as ApiList<ApiVideo>).items ?? []).map((x) =>
-    pickAllowed(policy, {
-      video_id: x.id,
-      video_title: x.snippet?.title ?? null,
-      video_published_at: x.snippet?.publishedAt ?? null,
-      video_view_count: num(x.statistics?.viewCount),
-      // likeCount/commentCount are absent when hidden or disabled → null, not 0.
-      video_like_count: num(x.statistics?.likeCount),
-      video_comment_count: num(x.statistics?.commentCount),
-    }),
-  );
+  ).catch((error) => {
+    if (error instanceof YouTubeError && error.kind === "not_found")
+      return { items: [] };
+    throw error;
+  });
+  return attributedRows(youtubeRows(v, videoSchema, ids.length), ids)
+    .filter((x) => x.status?.privacyStatus === "public")
+    .map((x) => {
+      if (x.snippet.channelId !== owner) throw invalidYouTubeResponse();
+      return pickAllowed(policy, {
+        video_id: x.id,
+        video_title: x.snippet?.title ?? null,
+        video_published_at: x.snippet?.publishedAt ?? null,
+        video_view_count: num(x.statistics?.viewCount),
+        // likeCount/commentCount are absent when hidden or disabled → null, not 0.
+        video_like_count: num(x.statistics?.likeCount),
+        video_comment_count: num(x.statistics?.commentCount),
+      });
+    });
 }

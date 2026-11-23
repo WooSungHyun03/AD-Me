@@ -27,6 +27,145 @@ function fakeFetch() {
 }
 
 describe("D019 YouTube adapter contract", () => {
+  it("rejects a malformed hidden-subscriber flag instead of treating it as public", async () => {
+    const f = vi.fn(async () =>
+      ok({
+        items: fixture.channels.items.map((c) => ({
+          ...c,
+          statistics: { ...c.statistics, hiddenSubscriberCount: "true" },
+        })),
+      }),
+    );
+    await expect(
+      fetchChannels([VISIBLE, HIDDEN], {
+        apiKey: "fictional",
+        fetchImpl: f,
+        policyTable: approved,
+      }),
+    ).rejects.toMatchObject({ kind: "upstream" });
+    expect(f).toHaveBeenCalledTimes(1);
+  });
+  const run = (f: typeof fetch, extra: Record<string, unknown> = {}) =>
+    fetchChannels([VISIBLE, HIDDEN], {
+      apiKey: "fictional-key",
+      fetchImpl: f,
+      policyTable: approved,
+      ...extra,
+    });
+  it.each([-1, 1.5, 51, NaN, Infinity])(
+    "rejects invalid video limit %s before fetch",
+    async (maxVideos) => {
+      const f = fakeFetch();
+      await expect(run(f, { maxVideos })).rejects.toMatchObject({
+        kind: "bad_request",
+      });
+      expect(f).not.toHaveBeenCalled();
+    },
+  );
+  it("bounds seeds and supports empty/metadata-only reads without follow-up spend", async () => {
+    const f = fakeFetch();
+    await expect(
+      fetchChannels(Array(26).fill(VISIBLE), {
+        apiKey: "fictional",
+        fetchImpl: f,
+        policyTable: approved,
+      }),
+    ).rejects.toMatchObject({ kind: "bad_request" });
+    expect(
+      await fetchChannels([], {
+        apiKey: "",
+        fetchImpl: f,
+        policyTable: approved,
+      }),
+    ).toEqual([]);
+    expect(f).not.toHaveBeenCalled();
+    const result = await run(f, { maxVideos: 0 });
+    expect(f).toHaveBeenCalledTimes(1);
+    expect(
+      result.every((r) => r.status === "not_found" || r.videos.length === 0),
+    ).toBe(true);
+  });
+  it.each(["foreign", "duplicate", "malformed"])(
+    "rejects %s channel attribution before follow-up calls",
+    async (mode) => {
+      const data = structuredClone(fixture.channels);
+      if (mode === "foreign") data.items[0].id = GONE;
+      if (mode === "duplicate") data.items[1].id = VISIBLE;
+      const f = vi.fn(async () =>
+        ok(mode === "malformed" ? { items: null } : data),
+      );
+      await expect(run(f)).rejects.toMatchObject({ kind: "upstream" });
+      expect(f).toHaveBeenCalledTimes(1);
+    },
+  );
+  it.each(["foreign", "duplicate", "owner"])(
+    "rejects %s video attribution",
+    async (mode) => {
+      const data = structuredClone(fixture.videos);
+      if (mode === "foreign") data.items[0].id = "foreign0001";
+      if (mode === "duplicate") data.items[1].id = data.items[0].id;
+      if (mode === "owner") data.items[0].snippet.channelId = HIDDEN;
+      const f = vi.fn(async (u: URL | RequestInfo) =>
+        new URL(String(u)).pathname.endsWith("/videos")
+          ? ok(data)
+          : ok(
+              (fixture as Record<string, unknown>)[
+                new URL(String(u)).pathname.split("/").pop()!
+              ],
+            ),
+      );
+      await expect(run(f)).rejects.toMatchObject({ kind: "upstream" });
+    },
+  );
+  it("excludes private/unlisted or unknown visibility videos and preserves zero versus unsafe counts", async () => {
+    const data = structuredClone(fixture.videos);
+    data.items[0].status.privacyStatus = "private";
+    data.items[1].statistics.viewCount = "0";
+    const f = vi.fn(async (u: URL | RequestInfo) =>
+      new URL(String(u)).pathname.endsWith("/videos")
+        ? ok(data)
+        : ok(
+            (fixture as Record<string, unknown>)[
+              new URL(String(u)).pathname.split("/").pop()!
+            ],
+          ),
+    );
+    const result = await run(f);
+    expect(result[0].status === "ok" && result[0].videos).toMatchObject([
+      { video_id: "fictional02", video_view_count: 0, video_like_count: null },
+    ]);
+    data.items[1].statistics.viewCount = "9007199254740992";
+    const next = await run(f);
+    expect(
+      next[0].status === "ok" && next[0].videos[0].video_view_count,
+    ).toBeNull();
+  });
+  it("distinguishes missing resources from malformed responses and never returns credential-bearing exceptions", async () => {
+    const missing = await run(
+      vi.fn(async () => new Response("private", { status: 404 })),
+    );
+    expect(missing.every((r) => r.status === "not_found")).toBe(true);
+    for (const f of [
+      vi.fn(async () => {
+        throw Error("PRIVATE_KEY_CANARY");
+      }),
+      vi.fn(async () => new Response("PRIVATE_KEY_CANARY", { status: 200 })),
+      vi.fn(async () => new Response("PRIVATE_KEY_CANARY", { status: 429 })),
+    ]) {
+      const e = await run(f).catch((x) => x);
+      expect(e).toBeInstanceOf(YouTubeError);
+      expect(e.message).not.toContain("PRIVATE_KEY_CANARY");
+    }
+  });
+  it("bounds actual response bytes even with a false declared size and forbids redirects", async () => {
+    const f = vi.fn(async (_url: URL | RequestInfo, init?: RequestInit) => {
+      expect(init?.redirect).toBe("error");
+      return new Response("x".repeat(2 * 1024 * 1024 + 1), {
+        headers: { "content-length": "1" },
+      });
+    });
+    await expect(run(f)).rejects.toMatchObject({ kind: "upstream" });
+  });
   it("is blocked by policy before any fetch while the source is pending", async () => {
     const f = fakeFetch();
     await expect(

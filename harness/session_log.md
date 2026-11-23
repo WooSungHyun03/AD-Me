@@ -585,3 +585,10 @@ Scope: D003 configuration consumers and D004 API boundary; no DB/UI redesign/pro
 - D004: 실제 바이트 제한·위조 Content-Type/Length·분할 요청·파일/CSV 경계·immutable 응답·동적 문맥을 보강. API/역할 stubs50건 PASS이며 DB/provider 검증으로 보고하지 않는다. tests/browser/api-boundary.spec.ts에 실제 HTTP desktop/mobile 회귀 추가; 최종 배치에서 실행한다. 증거 harness/evidence/D004/API_20261123.md.
 
 - Final D003/D004 batch: unit442/78files, lint, typecheck, production build, Python16 PASS. Desktop/mobile10 HTTP scenarios passed as6 + affected4 after test method/locator corrections. Missing browser binary handled with existing Chrome; stale generated dev types archived, no source restoration. Config-only USER packet and actual-vs-synthetic scope: harness/evidence/DEV-A-CONTRACTS-20261123/verification.json. Main ordinary push authorized, no cloud config/deploy/keys/DB application.
+
+
+## 2026-11-23 sequential actionable DEV-A queue
+
+USER requested all feasible tickets in order, keeping direct main push and ticket commits. First ready IN_PROGRESS P0 is D019: src/lib/ingestion/youtube.ts, scripts/intelligence_worker.py and provider-free contract tests. No SQL, policy approval, hosted/provider call or key action. Validate bounded inputs/responses, immutable channel/video attribution, hidden/unsafe numeric fields, public-only videos, error/timeout and quota classification. D033 server directory pagination and D044 matching contract follow after this adapter commit. U001/D017/U009/D085 gates remain explicit; existing TESTED receipts are not whole-ticket acceptance.
+
+- D019: TypeScript 응답/입력 한도·실제 귀속·공개 영상/안전 통계·오류 분류, 실제 Python worker의 동일 귀속/숫자 경계 보강. TS20/Python8 및 typecheck PASS; 키·공급자/운영 호출 없음. 정책/U009 게이트와 IN_PROGRESS 유지. D033으로 진행.

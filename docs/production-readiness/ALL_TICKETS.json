@@ -923,12 +923,14 @@
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
         "docs/implementation-progress.md",
-        "harness/evidence/D019/ (이번 검증 기록 위치)"
+        "harness/evidence/D019/ (이번 검증 기록 위치)",
+        "harness/evidence/D019/ADAPTER_20261123.md"
       ],
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "PARTIAL_VERIFIED",
-      "reopened": true
+      "reopened": true,
+      "verified_scope": "실제 공급자 호출 없는 TS20/Python8 계약: 응답·요청 상한, 공개/타 채널 귀속, 숨김/안전 정수, quota·rate·404·전송 실패. 정책·현재 키/소유권/운영 검증은 미완료."
     },
     {
       "id": "D020",

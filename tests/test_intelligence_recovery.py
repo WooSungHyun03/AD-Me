@@ -9,6 +9,21 @@ worker=importlib.util.module_from_spec(spec);spec.loader.exec_module(worker)
 A='UC'+'a'*22;B='UC'+'b'*22
 
 class Recovery(unittest.TestCase):
+ def test_invalid_counts_are_missing_and_never_coerced_to_fake_numbers(self):
+  for value in [None,True,False,-1,1.5,'-1','1.5','9007199254740992','not-count']:
+   self.assertIsNone(worker.optional_count({'n':value},'n'))
+  self.assertEqual(worker.optional_count({'n':'0'},'n'),0)
+  self.assertEqual(worker.optional_count({'n':'345'},'n'),345)
+ def test_foreign_video_cannot_be_joined_to_requested_channel(self):
+  replies=[{'items':[{'id':A,'snippet':{'title':'fictional'},'contentDetails':{'relatedPlaylists':{'uploads':'fictional'}}}]},{'items':[{'contentDetails':{'videoId':'fictional01'}}]},{'items':[{'id':'fictional01','snippet':{'title':'fictional','publishedAt':'2026-01-01T00:00:00Z','channelId':B},'status':{'privacyStatus':'public'}}]}]
+  with patch.object(worker,'youtube',side_effect=replies)as api:
+   with self.assertRaisesRegex(worker.WorkerError,'UPSTREAM_INVALID_RESPONSE'):worker.channels([A])
+   self.assertEqual(api.call_count,3)
+ def test_invalid_playlist_id_stops_before_video_fetch(self):
+  replies=[{'items':[{'id':A,'snippet':{'title':'fictional'},'contentDetails':{'relatedPlaylists':{'uploads':'fictional'}}}]},{'items':[{'contentDetails':{'videoId':'bad'}}]}]
+  with patch.object(worker,'youtube',side_effect=replies)as api:
+   with self.assertRaisesRegex(worker.WorkerError,'UPSTREAM_INVALID_RESPONSE'):worker.channels([A])
+   self.assertEqual(api.call_count,2)
  def test_refresh_only_does_not_spend_search_quota(self):
   job={'id':'fixture','lease':'fixture-lease','kind':'youtube_daily','input':'fictional','policyVersion':'fixture','refresh':[A]}
   def rpc(name,**kwargs):

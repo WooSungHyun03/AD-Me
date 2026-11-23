@@ -18,42 +18,72 @@
           "videoCount": "2"
         },
         "contentDetails": {
-          "relatedPlaylists": { "uploads": "UUaaaaaaaaaaaaaaaaaaaaaa" }
+          "relatedPlaylists": {
+            "uploads": "UUaaaaaaaaaaaaaaaaaaaaaa"
+          }
         }
       },
       {
         "id": "UCbbbbbbbbbbbbbbbbbbbbbb",
-        "snippet": { "title": "Synthetic Hidden" },
+        "snippet": {
+          "title": "Synthetic Hidden"
+        },
         "statistics": {
           "viewCount": "90",
           "hiddenSubscriberCount": true,
           "videoCount": "0"
         },
-        "contentDetails": { "relatedPlaylists": {} }
+        "contentDetails": {
+          "relatedPlaylists": {}
+        }
       }
     ]
   },
   "playlistItems": {
     "items": [
-      { "contentDetails": { "videoId": "vid1" } },
-      { "contentDetails": { "videoId": "vid2" } }
+      {
+        "contentDetails": {
+          "videoId": "fictional01"
+        }
+      },
+      {
+        "contentDetails": {
+          "videoId": "fictional02"
+        }
+      }
     ]
   },
   "videos": {
     "items": [
       {
-        "id": "vid1",
-        "snippet": { "title": "V1", "publishedAt": "2026-01-01T00:00:00Z" },
+        "id": "fictional01",
+        "snippet": {
+          "title": "V1",
+          "publishedAt": "2026-01-01T00:00:00Z",
+          "channelId": "UCaaaaaaaaaaaaaaaaaaaaaa"
+        },
         "statistics": {
           "viewCount": "100",
           "likeCount": "7",
           "commentCount": "2"
+        },
+        "status": {
+          "privacyStatus": "public"
         }
       },
       {
-        "id": "vid2",
-        "snippet": { "title": "V2", "publishedAt": "2026-02-01T00:00:00Z" },
-        "statistics": { "viewCount": "50" }
+        "id": "fictional02",
+        "snippet": {
+          "title": "V2",
+          "publishedAt": "2026-02-01T00:00:00Z",
+          "channelId": "UCaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "statistics": {
+          "viewCount": "50"
+        },
+        "status": {
+          "privacyStatus": "public"
+        }
       }
     ]
   }

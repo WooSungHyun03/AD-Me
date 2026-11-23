@@ -183,9 +183,10 @@
       "owner": "DEV-B",
       "status": "PARTIAL_VERIFIED",
       "evidence": [
-        "docs/implementation-progress.md"
+        "docs/implementation-progress.md",
+        "harness/evidence/D019/ADAPTER_20261123.md"
       ],
-      "blocker": "공식 API 운영 호출 및 채널/영상 저장 확인. 수집 메타데이터 필드 및 장기 증분 범위 추가 검증 필요."
+      "blocker": "어댑터/실제 worker 귀속·응답·숫자 계약 보강 및 TS20/Python8 통과. U009/D017의 현재 승인/공급자·소유권/철회 실제 검증은 미완료."
     },
     "D020": {
       "owner": "DEV-A",

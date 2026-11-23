@@ -80,7 +80,19 @@ def thumbnail(snippet, sizes):
 
 def optional_count(statistics, name):
     value = statistics.get(name)
-    return int(value) if value is not None else None
+    if isinstance(value, bool) or not isinstance(value, (str, int)):
+        return None
+    if not re.fullmatch(r"[0-9]{1,20}", str(value)):
+        return None
+    count = int(value)
+    return count if count <= 9007199254740991 else None
+
+
+def bounded_items(data, maximum):
+    items = data.get("items", []) if isinstance(data, dict) else None
+    if not isinstance(items, list) or len(items) > maximum or any(not isinstance(item, dict) for item in items):
+        raise WorkerError("UPSTREAM_INVALID_RESPONSE")
+    return items
 
 
 def public_description(description):
@@ -102,7 +114,7 @@ def channels(ids):
                           "statistics(subscriberCount,hiddenSubscriberCount,viewCount,videoCount),"
                           "brandingSettings(image/bannerExternalUrl,channel/defaultLanguage),"
                           "topicDetails/topicCategories,contentDetails/relatedPlaylists/uploads)")
-    items = data.get("items", [])
+    items = bounded_items(data, len(ids))
     returned_ids = [item.get("id") for item in items]
     if len(items) > len(ids) or len(set(returned_ids)) != len(returned_ids) or any(value not in ids for value in returned_ids):
         raise WorkerError("UPSTREAM_INVALID_RESPONSE")
@@ -118,7 +130,10 @@ def channels(ids):
             try:
                 videos = youtube("playlistItems", part="contentDetails", playlistId=playlist, maxResults=50,
                                  fields="items/contentDetails/videoId")
-                video_ids = [entry["contentDetails"]["videoId"] for entry in videos.get("items", [])]
+                video_ids = [entry.get("contentDetails", {}).get("videoId") for entry in bounded_items(videos, 50)]
+                if any(not isinstance(video, str) or not re.fullmatch(r"[A-Za-z0-9_-]{11}", video) for video in video_ids):
+                    raise WorkerError("UPSTREAM_INVALID_RESPONSE")
+                video_ids = list(dict.fromkeys(video_ids))
             except WorkerError as error:
                 if str(error) != "YOUTUBE_HTTP_404":
                     raise
@@ -139,14 +154,22 @@ def channels(ids):
             "video_ids": video_ids,
         })
     ids_to_fetch = list(dict.fromkeys(video for row in rows for video in row["video_ids"]))
+    owners = {video: {row["id"] for row in rows if video in row["video_ids"]} for video in ids_to_fetch}
     public_videos = {}
     for i in range(0, len(ids_to_fetch), 50):
-        data = youtube("videos", part="snippet,status,statistics", id=",".join(ids_to_fetch[i:i + 50]),
-                       fields="items(id,snippet(title,publishedAt,thumbnails),status/privacyStatus,statistics(viewCount,likeCount))")
-        for item in data.get("items", []):
+        batch = ids_to_fetch[i:i + 50]
+        data = youtube("videos", part="snippet,status,statistics", id=",".join(batch),
+                       fields="items(id,snippet(title,publishedAt,channelId,thumbnails),status/privacyStatus,statistics(viewCount,likeCount))")
+        video_items = bounded_items(data, len(batch))
+        returned = [item.get("id") for item in video_items]
+        if len(set(returned)) != len(returned) or any(video not in batch for video in returned):
+            raise WorkerError("UPSTREAM_INVALID_RESPONSE")
+        for item in video_items:
             if item.get("status", {}).get("privacyStatus") == "public":
                 info = item.get("statistics", {})
                 snippet = item["snippet"]
+                if owners[item["id"]] != {snippet.get("channelId")}:
+                    raise WorkerError("UPSTREAM_INVALID_RESPONSE")
                 public_videos[item["id"]] = {
                     "id": item["id"], "title": snippet["title"],
                     "publishedAt": snippet["publishedAt"],
