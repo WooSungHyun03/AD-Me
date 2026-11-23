@@ -1,4 +1,5 @@
 // D043 direct DB checks on the isolated local Supabase: deadline, capacity race, transitions, other-brand access.
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
@@ -36,7 +37,7 @@ async function newCreator(tag) {
   const { data, error } = await db.auth.signUp({
     email: `adme-qa-d043-${tag}-${randomUUID().slice(0, 8)}@example.com`,
     password: randomUUID() + "Aa!",
-    options: { data: { role: "creator", name: "D043" } },
+    options: { data: { ...qaSignupConsent, role: "creator", name: "D043" } },
   });
   assert.equal(error, null);
   const uid = data.user.id,

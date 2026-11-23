@@ -1,5 +1,6 @@
 // D063 direct REST: metrics are admin-only counts that exclude reserved-domain test accounts and demo data;
 // error counts carry no PII; inquiries are written server-side only, rate limited, readable by owner/admin.
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
@@ -112,7 +113,7 @@ const real = (
     email: realEmail,
     password: "Ops-Real-2026!",
     email_confirm: true,
-    user_metadata: { role: "brand", name: "실계정 검증" },
+    user_metadata: { ...qaSignupConsent, role: "brand", name: "실계정 검증" },
   })
 ).data.user;
 const fake = (
@@ -120,7 +121,7 @@ const fake = (
     email: `ops-fake-${stamp}@example.com`,
     password: "Ops-Fake-2026!",
     email_confirm: true,
-    user_metadata: { role: "brand", name: "테스트" },
+    user_metadata: { ...qaSignupConsent, role: "brand", name: "테스트" },
   })
 ).data.user;
 const brief = sql(

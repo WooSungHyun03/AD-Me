@@ -1,5 +1,6 @@
 // D006 direct REST + DB: pseudonymous funnel events — writes only via triggers/RPC, dedupe, opt-out erase,
 // account-deletion erase, admin-only aggregate, no raw identifiers stored.
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
@@ -189,7 +190,7 @@ const svc = createClient(
   env.SUPABASE_SERVICE_ROLE_KEY,
   opts,
 );
-const tmp = await svc.auth.admin.createUser({
+const tmp = await svc.auth.admin.createUser({ user_metadata: { ...qaSignupConsent },
   email: `qa-events-${Date.now()}@example.test`,
   password: crypto.randomUUID(),
   email_confirm: true,

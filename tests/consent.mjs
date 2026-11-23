@@ -1,5 +1,6 @@
 // D015 direct REST + DB: defaults, server-recorded version/time, change log, direct writes denied,
 // marketing audience = current consenters only, withdrawal cancels queued mail, service email follows its own switch.
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
@@ -42,7 +43,7 @@ const mk = async () => {
     email: `qa-consent-${crypto.randomUUID().slice(0, 8)}@example.test`,
     password: crypto.randomUUID(),
   };
-  const u = await svc.auth.admin.createUser({ ...cred, email_confirm: true });
+  const u = await svc.auth.admin.createUser({ user_metadata: { ...qaSignupConsent }, ...cred, email_confirm: true });
   assert.equal(u.error, null);
   const db = createClient(
     env.NEXT_PUBLIC_SUPABASE_URL,

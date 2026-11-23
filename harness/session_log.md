@@ -539,3 +539,9 @@ Append entries: date/time, task ID, source changes, command outputs, screenshots
 ## 2026-11-23 latest main integration / existing PR2
 
 Preserved codex/dev-a-p0-continue and ticket commits; merged YouTube main5d3bc6c, DEV-B main14980c8 and follow-up8b5be1d. Initial44 shared-path conflicts and later5 conflicts resolved. Unit416/77files, lint/typecheck/build, Python16, actual local security7+8+5, fresh104SQL and affected desktop/mobile regressions passed. Full DEV-B E2E fixture setup remains blocked by source-policy validation; no guard disabled and no full-suite/provider/hosted claim. Core auth/consent/public DTO/admin boundaries retain DEV-A behavior; DEV-B shared-screen acceptance requires review. Evidence: harness/evidence/MAIN-INTEGRATION-20261123/verification.json. All D/U statuses preserved; latest request is PR update, no main push or deployment.
+
+## 2026-11-23 — Be-Celeb 디자인 미리보기 및 가입 검증 복구
+
+- 최신 디자인 커밋의 독립 HTML을 로컬 HTTP에서 실행해 한글 인코딩 오류로 JSX의 정규식이 깨지고 화면이 초기화되지 않는 문제를 재현했다. HTML5 문서와 UTF-8 선언을 추가했다. Playwright 데스크톱 광고 모집 이동과 모바일 홈 렌더링에서 JavaScript 오류 0건을 확인했다.
+- GitHub Actions의 선행 실패는 DEV-A 병합 후 격리 가입 준비였다. PostgreSQL이 현재 약관과 성인 베타 동의가 누락된 테스트 가입을 차단했다. 격리 스택에서만 테스트 정책을 활성화하고 기존 합성 가입에 해당 메타데이터를 제공했다. 격리 스택에서 브랜드·크리에이터·관리자 생성에 성공했다.
+- lint, TypeScript, Vitest 416건, Next.js 빌드가 통과했다. 운영 사이트는 검증 시 정상 응답했으며 최신 디자인 파일은 docs/prototype의 독립 미리보기다.

@@ -1,6 +1,7 @@
 // D079 direct DB checks on the isolated local Supabase: tombstones are written by every deletion path, hold no
 // content, survive a (simulated) backup restore through the off-DB ledger and are re-applied idempotently;
 // the retention job removes only expired rows and records its runs; users cannot reach any of it.
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
@@ -64,7 +65,7 @@ const signup = async (role) => {
   const r = await db.auth.signUp({
     email: `adme-qa-d079-${randomUUID().slice(0, 8)}@example.com`,
     password: randomUUID() + "Aa!",
-    options: { data: { role, name: "D079" } },
+    options: { data: { ...qaSignupConsent, role, name: "D079" } },
   });
   assert.equal(r.error, null);
   return { db, uid: r.data.user.id };

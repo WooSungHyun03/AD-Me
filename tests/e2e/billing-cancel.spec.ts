@@ -1,6 +1,7 @@
 // D068: the dashboard offers TEST cancel only on paid orders, the API refuses bad input / anonymous callers and
 // never accepts a paymentKey. Locally there is no Toss TEST secret / edge runtime, so the cancel attempt must fail
 // visibly and leave the order paid (provider cancel itself is BLOCKED and covered by tests/test-cancel.mjs on the DB side).
+import { qaSignupConsent } from "../support/consent-fixture.mjs";
 import { test, expect } from "@playwright/test";
 import { createClient } from "@supabase/supabase-js";
 import { execFileSync } from "node:child_process";
@@ -39,7 +40,7 @@ test("TEST cancel is offered on paid orders and fails safely without provider ke
   );
   const email = `cancel-e2e-${Date.now()}-${randomUUID().slice(0, 6)}@example.com`,
     password = `Pw-${randomUUID()}`;
-  const { data } = await svc.auth.admin.createUser({
+  const { data } = await svc.auth.admin.createUser({ user_metadata: { ...qaSignupConsent },
     email,
     password,
     email_confirm: true,

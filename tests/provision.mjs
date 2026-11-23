@@ -1,3 +1,4 @@
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { randomUUID } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
@@ -10,6 +11,8 @@ const env = Object.fromEntries(
       return [l.slice(0, i), l.slice(i + 1)];
     }),
 );
+if (!/^http:\/\/(127\.0\.0\.1|localhost):[0-9]+$/.test(env.NEXT_PUBLIC_SUPABASE_URL ?? ""))
+  throw new Error("QA account provisioning requires a loopback Supabase URL");
 const db = createClient(
   env.NEXT_PUBLIC_SUPABASE_URL,
   env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
@@ -23,6 +26,7 @@ for (const role of ["brand", "creator", "other"]) {
     password,
     options: {
       data: {
+        ...qaSignupConsent,
         role: role === "creator" ? "creator" : "brand",
         name: `검증 ${role}`,
       },

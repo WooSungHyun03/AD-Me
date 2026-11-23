@@ -1,6 +1,7 @@
 // D062 UI: creator blocks a brand from the collaboration card (two-step, no dialog); the brand can no longer
 // message; unblock from settings. Admin applies a temporary restriction from the report queue; the restricted
 // creator sees the notice and appeals; admin sees the appeal and lifts it.
+import { qaSignupConsent } from "../support/consent-fixture.mjs";
 import { test, expect, type Page } from "@playwright/test";
 import { createClient } from "@supabase/supabase-js";
 import { randomUUID } from "node:crypto";
@@ -41,6 +42,7 @@ async function fresh(role: "brand" | "creator") {
       password,
       options: {
         data: {
+          ...qaSignupConsent,
           role,
           name: role === "brand" ? "D062 브랜드" : "D062 크리에이터",
         },

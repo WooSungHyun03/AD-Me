@@ -1,4 +1,5 @@
 // D025 direct-DB checks against an ISOLATED local Supabase only (needs service key for fixtures).
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
@@ -19,7 +20,7 @@ async function as(creds) {
 async function newCreator() {
   const db = createClient(url, e.NEXT_PUBLIC_SUPABASE_ANON_KEY, opts);
   const creds = { email: `adme-qa-claim-${randomUUID().slice(0, 8)}@example.com`, password: randomUUID() + "Aa!" };
-  const { data, error } = await db.auth.signUp({ ...creds, options: { data: { role: "creator", name: "청구 검증" } } });
+  const { data, error } = await db.auth.signUp({ ...creds, options: { data: { ...qaSignupConsent, role: "creator", name: "청구 검증" } } });
   assert.equal(error, null);
   return { db, id: data.user.id };
 }

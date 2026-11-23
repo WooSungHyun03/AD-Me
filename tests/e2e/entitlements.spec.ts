@@ -1,4 +1,5 @@
 // D069: admin grants a TEST entitlement with a mandatory reason; the member sees it; revoke recovers it.
+import { qaSignupConsent } from "../support/consent-fixture.mjs";
 import { test, expect, type Page } from "@playwright/test";
 import { createClient } from "@supabase/supabase-js";
 import { execFileSync } from "node:child_process";
@@ -51,7 +52,7 @@ test("admin manual grant needs a reason; member sees it; revoke removes it", asy
     await svc.auth.admin.createUser({
       ...acc,
       email_confirm: true,
-      user_metadata: { role: "brand", name: `이용권 ${tag}` },
+      user_metadata: { ...qaSignupConsent, role: "brand", name: `이용권 ${tag}` },
     })
   ).data.user!.id;
   sql(

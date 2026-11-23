@@ -1,5 +1,6 @@
 // D074 UI: a creator in a collaboration downloads their own data from settings; the brand's message, the brand's
 // account id and secret fields are absent; the access log shows the export; anonymous calls are refused.
+import { qaSignupConsent } from "../support/consent-fixture.mjs";
 import { test, expect } from "@playwright/test";
 import { createClient } from "@supabase/supabase-js";
 import { randomUUID } from "node:crypto";
@@ -37,7 +38,7 @@ test("own-data export excludes the counterparty and is logged", async ({
     await cdb.auth.signUp({
       email,
       password,
-      options: { data: { role: "creator", name: "D074 크리에이터" } },
+      options: { data: { ...qaSignupConsent, role: "creator", name: "D074 크리에이터" } },
     })
   ).data.user!.id;
   const cid = `user-${cuid}`;

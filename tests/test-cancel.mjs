@@ -1,5 +1,6 @@
 // D068 direct REST: TEST cancellation state machine (DB side). Provider calls are NOT exercised here — paid orders
 // are simulated with finalize_test_order and a fake key (no Toss keys locally; provider cancel stays BLOCKED).
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
@@ -54,7 +55,7 @@ const svc = createClient(
 );
 const email = `cancel-${Date.now()}@example.com`,
   password = `Pw-${randomUUID()}`;
-const { data: made, error: me } = await svc.auth.admin.createUser({
+const { data: made, error: me } = await svc.auth.admin.createUser({ user_metadata: { ...qaSignupConsent },
   email,
   password,
   email_confirm: true,

@@ -1,5 +1,6 @@
 // D069 direct REST: concurrent use never goes negative or double-charges, expiry uses the DB clock and cannot be
 // undone, admin grants need a reason and the admin role, revoke recovers credits and closes reservations.
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
@@ -59,7 +60,7 @@ const uid = (
   await svc.auth.admin.createUser({
     ...acc,
     email_confirm: true,
-    user_metadata: { role: "brand", name: "원장 검증" },
+    user_metadata: { ...qaSignupConsent, role: "brand", name: "원장 검증" },
   })
 ).data.user.id;
 sql(`update profiles set role = 'brand' where id = '${uid}'`);

@@ -1,6 +1,7 @@
 // D062 direct DB checks on the isolated local Supabase: blocks apply to proposals, messages, acceptance and
 // notifications through one helper; spam/multi-account limits; temporary admin-only restriction with appeal;
 // accumulated reports never sanction automatically.
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
@@ -52,7 +53,7 @@ const user = async (role) => {
   const r = await db.auth.signUp({
     email: `adme-qa-d062-${randomUUID().slice(0, 8)}@example.com`,
     password: randomUUID() + "Aa!",
-    options: { data: { role, name: `D062 ${role}` } },
+    options: { data: { ...qaSignupConsent, role, name: `D062 ${role}` } },
   });
   assert.equal(r.error, null);
   const id = r.data.user.id;

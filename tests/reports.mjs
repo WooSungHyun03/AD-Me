@@ -1,5 +1,6 @@
 // D058 direct DB checks on the isolated local Supabase: request queue (ticket, deadline, interim action,
 // answer, appeal, log), requester-only visibility, abuse limits, and no re-collection after deletion.
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
@@ -58,7 +59,7 @@ const signup = async (role = "brand") => {
   const r = await db.auth.signUp({
     email: `adme-qa-d058-${randomUUID().slice(0, 8)}@example.com`,
     password: randomUUID() + "Aa!",
-    options: { data: { role, name: "D058" } },
+    options: { data: { ...qaSignupConsent, role, name: "D058" } },
   });
   assert.equal(r.error, null);
   return { db, uid: r.data.user.id };

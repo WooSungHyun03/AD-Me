@@ -1,5 +1,6 @@
 // Local isolated Supabase only: add a disposable QA admin to .accounts.local.json. The admin role is granted by the
 // database owner (psql), never through the API.
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync, writeFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
@@ -22,7 +23,7 @@ const email = `adme-qa-admin-${randomUUID().slice(0, 8)}@example.com`,
 const { data, error } = await db.auth.signUp({
   email,
   password,
-  options: { data: { role: "brand", name: "QA 관리자" } },
+  options: { data: { ...qaSignupConsent, role: "brand", name: "QA 관리자" } },
 });
 if (error) throw error;
 execFileSync("docker", [

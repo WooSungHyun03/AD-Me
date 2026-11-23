@@ -1,5 +1,6 @@
 // D061: brand-private checklist + memo + manual approval gate before selecting an applicant.
 // A fresh brand per run so its checklist never gates other specs.
+import { qaSignupConsent } from "../support/consent-fixture.mjs";
 import { test, expect, type Page } from "@playwright/test";
 import { createClient } from "@supabase/supabase-js";
 import { execFileSync } from "node:child_process";
@@ -55,7 +56,7 @@ test("selection review: checklist + approval required before accepting; memo sta
   const { data: u } = await svc.auth.admin.createUser({
     ...acc,
     email_confirm: true,
-    user_metadata: { role: "brand", name: "선정 검토 브랜드" },
+    user_metadata: { ...qaSignupConsent, role: "brand", name: "선정 검토 브랜드" },
   });
   const uid = u.user!.id;
   sql(`update profiles set role = 'brand' where id = '${uid}'`);

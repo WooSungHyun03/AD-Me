@@ -1,5 +1,6 @@
 // D052 direct DB checks on the isolated local Supabase: one notification per source event, exact unread,
 // monotonic cursor, no cross-account reads or writes, realtime delivers only own rows.
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
@@ -39,7 +40,7 @@ const cdb = client();
 const su = await cdb.auth.signUp({
   email: `adme-qa-d052-${randomUUID().slice(0, 8)}@example.com`,
   password: randomUUID() + "Aa!",
-  options: { data: { role: "creator", name: "D052" } },
+  options: { data: { ...qaSignupConsent, role: "creator", name: "D052" } },
 });
 assert.equal(su.error, null);
 const cuid = su.data.user.id,

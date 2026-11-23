@@ -1,5 +1,6 @@
 // D058 UI: requester files a private correction, admin answers from the queue, requester sees only their own
 // status/answer/log and appeals; another account cannot see the request.
+import { qaSignupConsent } from "../support/consent-fixture.mjs";
 import { test, expect, type Page } from "@playwright/test";
 import { createClient } from "@supabase/supabase-js";
 import { randomUUID } from "node:crypto";
@@ -39,7 +40,7 @@ test("private request → admin answer → requester status and appeal", async (
   ).auth.signUp({
     email,
     password,
-    options: { data: { role: "brand", name: "요청자" } },
+    options: { data: { ...qaSignupConsent, role: "brand", name: "요청자" } },
   });
   await page.goto("/reports/new?creator=creator-010");
   await expect(page).toHaveURL(/login\?next=%2Freports|login\?next=\/reports/);

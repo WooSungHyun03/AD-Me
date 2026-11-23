@@ -1,4 +1,5 @@
 // D026: multi-select taxonomy, unknown quote/availability persist as "미확인" (not 0원/가능). Local Supabase only.
+import { qaSignupConsent } from "../support/consent-fixture.mjs";
 import { test, expect } from "@playwright/test";
 import { createClient } from "@supabase/supabase-js";
 import { randomUUID } from "node:crypto";
@@ -29,7 +30,7 @@ test("creator saves multi-tag profile with unknown quote and availability", asyn
   const { data } = await anon.auth.signUp({
     email,
     password,
-    options: { data: { role: "creator", name: "D026 UI" } },
+    options: { data: { ...qaSignupConsent, role: "creator", name: "D026 UI" } },
   });
   await page.goto("/login");
   await page.getByLabel("이메일", { exact: true }).fill(email);

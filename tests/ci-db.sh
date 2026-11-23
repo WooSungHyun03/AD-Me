@@ -12,6 +12,7 @@ fi
 grep -Eq '^NEXT_PUBLIC_SUPABASE_URL=http://(127\.0\.0\.1|localhost):' .env.local || { echo "refusing: local Supabase only"; exit 1; }
 npx supabase@2 db reset
 python3 harness/migration_check.py
+node tests/support/prepare-ci-consent.mjs
 node tests/provision.mjs > /dev/null
 node tests/provision-admin.mjs
 docker exec -i supabase_db_AD-Me psql -U postgres -v ON_ERROR_STOP=1 < tests/setup-isolated-youtube.sql

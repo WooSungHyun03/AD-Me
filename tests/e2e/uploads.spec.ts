@@ -1,5 +1,6 @@
 // D027 UI: a creator uploads a portfolio file from settings; a disguised file is refused; the owner downloads
 // through a short signed URL; other accounts and anonymous calls get nothing; delete removes access.
+import { qaSignupConsent } from "../support/consent-fixture.mjs";
 import { test, expect, type Page } from "@playwright/test";
 import { createClient } from "@supabase/supabase-js";
 import { randomUUID } from "node:crypto";
@@ -43,7 +44,7 @@ test("private portfolio upload, download, isolation and delete", async ({
   ).auth.signUp({
     email,
     password,
-    options: { data: { role: "creator", name: "D027 크리에이터" } },
+    options: { data: { ...qaSignupConsent, role: "creator", name: "D027 크리에이터" } },
   });
   await login(page, email, password);
   await page.goto("/settings");

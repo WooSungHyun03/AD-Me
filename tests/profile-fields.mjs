@@ -1,4 +1,5 @@
 // D026 direct-DB checks. Local Supabase only (creates a fresh creator account).
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
@@ -30,7 +31,7 @@ const me = createClient(
 const { data: su, error: se } = await me.auth.signUp({
   email: `adme-qa-d026-${randomUUID().slice(0, 8)}@example.com`,
   password: randomUUID() + "Aa!",
-  options: { data: { role: "creator", name: "D026" } },
+  options: { data: { ...qaSignupConsent, role: "creator", name: "D026" } },
 });
 assert.equal(se, null);
 const uid = su.user.id,

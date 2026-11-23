@@ -1,5 +1,6 @@
 // D027 direct storage/DB checks on the isolated local Supabase: browsers cannot write storage (either bucket),
 // only the owner can sign a live file, signed URLs expire, references are server-written, sweep removes orphans.
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
@@ -33,7 +34,7 @@ const fresh = async () => {
   const r = await db.auth.signUp({
     email: `adme-qa-d027-${randomUUID().slice(0, 8)}@example.com`,
     password: randomUUID() + "Aa!",
-    options: { data: { role: "creator", name: "D027" } },
+    options: { data: { ...qaSignupConsent, role: "creator", name: "D027" } },
   });
   assert.equal(r.error, null);
   return { db, id: r.data.user.id };

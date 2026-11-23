@@ -1,5 +1,6 @@
 // D074 direct DB checks on the isolated local Supabase: export tickets are own-only, one-time, expiring,
 // re-auth gated and rate limited; hashes and logs cannot be read or forged by other accounts.
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
@@ -39,7 +40,7 @@ const fresh = async (tag) => {
   const r = await db.auth.signUp({
     email: `adme-qa-d074${tag}-${randomUUID().slice(0, 8)}@example.com`,
     password: randomUUID() + "Aa!",
-    options: { data: { role: "brand", name: "D074" } },
+    options: { data: { ...qaSignupConsent, role: "brand", name: "D074" } },
   });
   assert.equal(r.error, null);
   return { db, id: r.data.user.id };

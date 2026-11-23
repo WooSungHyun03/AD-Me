@@ -1,4 +1,5 @@
 // D025 UI flow on an ISOLATED local Supabase only (needs local service key to create a collected-profile fixture).
+import { qaSignupConsent } from "../support/consent-fixture.mjs";
 import { test, expect, type Page } from "@playwright/test";
 import { createClient } from "@supabase/supabase-js";
 import { randomUUID } from "node:crypto";
@@ -65,7 +66,7 @@ test("collected profile: unverified label, claim code once, admin approves only 
   ).auth.signUp({
     email,
     password,
-    options: { data: { role: "creator", name: "청구 UI" } },
+    options: { data: { ...qaSignupConsent, role: "creator", name: "청구 UI" } },
   });
   try {
     await page.goto(`/creators/${id}`);

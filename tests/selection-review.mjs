@@ -1,5 +1,6 @@
 // D061 direct REST: checklist/review are brand-private; approval needs every current item; with a checklist,
 // accepting an application without approval is refused by the DB on any path; nothing leaks to the profile.
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
@@ -57,7 +58,7 @@ const { data: u2 } = await svc.auth.admin.createUser({
   email: email2,
   password: "Review-Brand-2026!",
   email_confirm: true,
-  user_metadata: { role: "brand", name: "검토 브랜드2" },
+  user_metadata: { ...qaSignupConsent, role: "brand", name: "검토 브랜드2" },
 });
 sql(`update profiles set role = 'brand' where id = '${u2.user.id}'`);
 const brand2 = await as({ email: email2, password: "Review-Brand-2026!" });

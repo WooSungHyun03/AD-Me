@@ -1,5 +1,6 @@
 // D049 direct DB regression on the isolated local Supabase: every proposal/application transition,
 // duplicates, concurrent accept/reject, participant permissions, history atomicity, hidden creators.
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
@@ -38,7 +39,7 @@ async function newCreator(tag) {
   const { data, error } = await db.auth.signUp({
     email: `adme-qa-d049-${tag}-${randomUUID().slice(0, 8)}@example.com`,
     password: randomUUID() + "Aa!",
-    options: { data: { role: "creator", name: "D049" } },
+    options: { data: { ...qaSignupConsent, role: "creator", name: "D049" } },
   });
   assert.equal(error, null);
   const uid = data.user.id,
