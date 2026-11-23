@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Megaphone, Search, Sparkles, Ticket } from "lucide-react";
 import Image from "next/image";
 import "./globals.css";
+import "./marketplace-theme.css";
 import { isDemoMode } from "@/lib/mode";
 import { siteUrl } from "@/lib/seo";
 export async function generateMetadata(): Promise<Metadata> {
@@ -31,7 +33,7 @@ export default function RootLayout({
         <a className="skip" href="#main">
           본문으로 이동
         </a>
-        <header>
+        <header className="marketplace-nav">
           <Link href="/" aria-label="AD Me 홈" className="brand-lockup">
             <Image
               src="/brand/ad-me-symbol.png"
@@ -49,13 +51,21 @@ export default function RootLayout({
             />
           </Link>
           <nav aria-label="메인 메뉴">
-            <Link href="/creators">크리에이터 탐색</Link>
-            <Link href="/jobs">광고 공고</Link>
-            <Link href="/tools">AI 스튜디오</Link>
-            <Link href="/pricing">요금제</Link>
+            <Link href="/creators">
+              <Search size={16} aria-hidden="true" /> 크리에이터 탐색
+            </Link>
+            <Link href="/jobs">
+              <Megaphone size={16} aria-hidden="true" /> 광고 공고
+            </Link>
+            <Link href="/tools">
+              <Sparkles size={16} aria-hidden="true" /> AI 스튜디오
+            </Link>
+            <Link href="/pricing">
+              <Ticket size={16} aria-hidden="true" /> 요금제
+            </Link>
           </nav>
           <Link className="button outline small" href="/dashboard">
-            내 워크스페이스 <span>↗</span>
+            내 워크스페이스 <span aria-hidden="true">↗</span>
           </Link>
         </header>
         <main id="main" tabIndex={-1}>

@@ -545,3 +545,10 @@ Preserved codex/dev-a-p0-continue and ticket commits; merged YouTube main5d3bc6c
 - 최신 디자인 커밋의 독립 HTML을 로컬 HTTP에서 실행해 한글 인코딩 오류로 JSX의 정규식이 깨지고 화면이 초기화되지 않는 문제를 재현했다. HTML5 문서와 UTF-8 선언을 추가했다. Playwright 데스크톱 광고 모집 이동과 모바일 홈 렌더링에서 JavaScript 오류 0건을 확인했다.
 - GitHub Actions의 선행 실패는 DEV-A 병합 후 격리 가입 준비였다. PostgreSQL이 현재 약관과 성인 베타 동의가 누락된 테스트 가입을 차단했다. 격리 스택에서만 테스트 정책을 활성화하고 기존 합성 가입에 해당 메타데이터를 제공했다. 격리 스택에서 브랜드·크리에이터·관리자 생성에 성공했다.
 - lint, TypeScript, Vitest 416건, Next.js 빌드가 통과했다. 운영 사이트는 검증 시 정상 응답했으며 최신 디자인 파일은 docs/prototype의 독립 미리보기다.
+
+## 2026-11-23 — Be-Celeb 디자인 적용 및 티켓 검토
+
+- 팀원 HTML 시안의 블루 계열 탐색 화면과 검색창, 결과 카드, 공고 레이아웃을 Next.js 앱에 연결했다. 기존 AD Me 로고를 사용하며 실제 YouTube 구독자 수와 갱신일, 채널 이름 검색·구독자 구간 필터를 제공한다. 워크스페이스와 공고는 기존 앱 경로를 사용한다.
+- 개발 88개, 사용자 작업 20개의 원장 상태와 증빙 위치는 docs/handoff/COMPLETION_AUDIT_20261123.md에 기록했다. 최신 main은 104개 마이그레이션, 운영 DB는 40개다. 기존 운영 스키마를 대상으로 현재 UI만 별도 검증·빌드했으며 신규 기능 마이그레이션과 운영 동의·권한 설정은 건드리지 않았다.
+- main lint·타입·Vitest 416건·빌드, 운영 호환 소스의 lint·타입·Vitest 163건·빌드가 통과했다. 로컬 운영 호환 빌드를 데스크톱과 모바일에서 열어 쯔양 검색, 필터 영역, 모바일 가로 넘침과 브라우저 콘솔을 확인했다.
+- 디자인 운영 후보는 f624fd8 및 Vercel dpl_EyFZmpa8BAFoThq1Uw1kwiCP3guj다.

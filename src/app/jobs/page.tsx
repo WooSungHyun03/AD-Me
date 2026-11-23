@@ -8,8 +8,8 @@ export default async function Jobs() {
     : null;
   const rows = jobsSchema.safeParse(response?.data);
   return (
-    <section className="wrap">
-      <div className="section-heading">
+    <section className="wrap marketplace-board">
+      <div className="section-heading marketplace-board-heading">
         <div>
           <h1 className="page-title">YouTube 광고 공고</h1>
           <p>브랜드가 모집 중인 YouTube 협업을 살펴보세요.</p>
@@ -24,7 +24,11 @@ export default async function Jobs() {
         <p className="empty">표시할 광고 공고가 없습니다.</p>
       ) : (
         rows.data.map((row) => (
-          <Link className="result" key={row.id} href={"/jobs/" + row.id}>
+          <Link
+            className="result marketplace-board-row"
+            key={row.id}
+            href={"/jobs/" + row.id}
+          >
             <span>↗</span>
             <div>
               <h3>{row.brief.title}</h3>

@@ -1,7 +1,8 @@
+import { ChannelSearch } from "@/components/discovery-ui";
 import { featuredYoutube } from "@/lib/featured-youtube";
 import { YoutubeChannelCards } from "@/components/featured-youtube";
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { creators } from "@/lib/catalog";
 import { configured, supabase } from "@/lib/supabase";
@@ -41,47 +42,34 @@ export default async function Home() {
   const { items } = await featuredYoutube("", null, 3);
   return (
     <>
-      <section className="wrap hero">
-        <div>
-          <span className="eyebrow">
-            Creator intelligence, human connection
-          </span>
+      <section className="discovery-hero">
+        <div className="wrap discovery-hero-inner">
           <h1>
             우리 브랜드다운
             <br />
-            크리에이터를
-            <br />
-            만나는 방법.
+            YouTube 크리에이터를 찾아보세요.
           </h1>
           <p>
-            숫자 너머의 분위기까지.
-            <br />
-            발견부터 검토, 제안까지 하나의 흐름으로 연결하세요.
+            채널을 검색하고 공개 구독자 수와 최근 영상을 확인하세요. 등록된
+            크리에이터에게는 AD Me에서 협업을 제안할 수 있습니다.
           </p>
-          <div className="inline" style={{ marginTop: 32 }}>
-            <Button asChild>
-              <Link href="/creators">
-                크리에이터 찾기 <ArrowUpRight size={18} />
-              </Link>
-            </Button>
-            <Link className="button ghost" href="/campaigns/new">
-              캠페인 시작하기 <ArrowRight size={17} />
-            </Link>
-          </div>
-        </div>
-        <div className="panel youtube-hero">
-          <h2>공개 YouTube 채널을 한눈에</h2>
-          <p>
-            채널 구독자 수와 최근 공개 영상을 확인하고 다음 광고의 후보를
-            살펴보세요.
-          </p>
-          <Link className="button outline" href="/creators">
-            YouTube 채널 탐색 <ArrowUpRight size={17} />
-          </Link>
+          <ChannelSearch />
+          {items.length > 0 && (
+            <div className="discovery-chips" aria-label="인기 채널 바로 찾기">
+              {items.map((channel) => (
+                <Link
+                  key={channel.channel_id}
+                  href={`/creators?q=${encodeURIComponent(channel.title)}`}
+                >
+                  {channel.title}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </section>
       {items.length > 0 && (
-        <section className="wrap section-line">
+        <section className="wrap section-line discovery-results">
           <div className="section-heading">
             <h2>주목할 YouTube 채널</h2>
             <Link href="/creators" className="inline">
@@ -95,46 +83,22 @@ export default async function Home() {
           <YoutubeChannelCards channels={items} />
         </section>
       )}
-      <section className="band">
-        <div className="wrap">
-          <div className="eyebrow" style={{ color: "#d7ff45" }}>
-            From discovery to collaboration
-          </div>
-          <h2 style={{ marginTop: 20 }}>
-            흩어져 있던 협업의 과정,
-            <br />
-            이제 한곳에서.
-          </h2>
-          <div className="steps">
-            <div>
-              <span>01 / DISCOVER</span>
-              <h3>감각에 맞는 발견</h3>
-              <p>
-                분야, 플랫폼, 분위기, 예산.
-                <br />
-                원하는 조건으로 후보를 좁혀보세요.
-              </p>
-            </div>
-            <div>
-              <span>02 / UNDERSTAND</span>
-              <h3>설명할 수 있는 추천</h3>
-              <p>
-                일치하는 태그부터 부족한 데이터까지.
-                <br />
-                점수의 이유를 투명하게 확인하세요.
-              </p>
-            </div>
-            <div>
-              <span>03 / CONNECT</span>
-              <h3>대화로 이어지는 매칭</h3>
-              <p>
-                제안, 수락, 결과물 검토.
-                <br />
-                함께 일하는 모든 순간을 연결합니다.
-              </p>
-            </div>
-          </div>
-        </div>
+      <section className="wrap discovery-workflows" aria-label="협업 시작">
+        <Link href="/jobs">
+          <strong>광고 공고</strong>
+          <span>모집 중인 YouTube 협업 보기</span>
+          <ArrowUpRight size={18} aria-hidden="true" />
+        </Link>
+        <Link href="/tools">
+          <strong>AI 스튜디오</strong>
+          <span>상품에 맞는 캠페인 초안 만들기</span>
+          <ArrowUpRight size={18} aria-hidden="true" />
+        </Link>
+        <Link href="/dashboard">
+          <strong>협업 워크스페이스</strong>
+          <span>제안, 메시지, 결과물 관리</span>
+          <ArrowUpRight size={18} aria-hidden="true" />
+        </Link>
       </section>
       <section className="wrap">
         <div className="section-heading">

@@ -1,3 +1,8 @@
+import {
+  ChannelSearch,
+  PublicChannelFilters,
+  filterPublicChannels,
+} from "@/components/discovery-ui";
 import { featuredYoutube } from "@/lib/featured-youtube";
 import { YoutubeChannelCards } from "@/components/featured-youtube";
 import Link from "next/link";
@@ -21,6 +26,7 @@ export default async function Creators({
   for (const [key, value] of Object.entries(await searchParams))
     for (const v of Array.isArray(value) ? value : value ? [value] : [])
       query.append(key, v);
+  const params = query;
   const filters = parseCreatorFilters(query),
     remote = configured();
   let initialPage: FilteredCatalog | undefined;
@@ -59,34 +65,38 @@ export default async function Creators({
       /* Saving errors remain recoverable in the catalogue. */
     }
   }
+  const channels = filterPublicChannels(
+    featured.items,
+    params.get("subscribers") ?? undefined,
+  );
   return (
-    <section className="wrap">
-      <h1 className="page-title">YouTube 크리에이터 탐색</h1>
-      <p>유명 채널의 구독자 수와 최근 공개 영상을 확인하세요.</p>
-      <form action="/creators" method="get" className="form ops-form">
-        <label>
-          채널 이름
-          <input
-            type="search"
-            name="q"
-            maxLength={80}
-            defaultValue={filters.query}
-          />
-        </label>
-        <button className="button outline">검색</button>
-      </form>
-      <p>
-        YouTube Data API 제공 정보입니다. 이 공개 채널의 AD Me 가입과 협업 가능
-        여부는 확인되지 않았습니다.
-      </p>
-      {featured.unavailable ? (
-        <p role="alert">공개 채널을 불러오지 못했습니다.</p>
-      ) : featured.items.length ? (
-        <YoutubeChannelCards channels={featured.items} />
-      ) : (
-        <p className="empty">검색 조건과 일치하는 공개 채널이 없습니다.</p>
-      )}
-      <section className="ops-section">
+    <>
+      <section className="discovery-hero discovery-hero--compact">
+        <div className="wrap discovery-hero-inner">
+          <h1>YouTube 크리에이터 탐색</h1>
+          <p>공식 YouTube 데이터로 채널과 최근 공개 영상을 확인하세요.</p>
+          <ChannelSearch query={params.get("q") ?? ""} params={params} />
+        </div>
+      </section>
+      <section className="wrap discovery-results">
+        <div className="section-heading">
+          <h2>공개 YouTube 채널</h2>
+          <Link className="discovery-text-link" href="#registered-creators">
+            등록 프로필 보기
+          </Link>
+        </div>
+        <PublicChannelFilters params={params} count={channels.length} />
+        {featured.unavailable ? (
+          <p className="notice" role="alert">
+            공개 채널을 불러오지 못했습니다.
+          </p>
+        ) : channels.length ? (
+          <YoutubeChannelCards channels={channels} />
+        ) : (
+          <p className="empty">검색 조건과 일치하는 공개 채널이 없습니다.</p>
+        )}
+      </section>
+      <section id="registered-creators" className="wrap discovery-registered">
         <h2>AD Me 등록 프로필</h2>
         <p>
           <Link href="/creators/youtube">소유권 확인 채널 검색</Link>
@@ -124,6 +134,6 @@ export default async function Creators({
           </Suspense>
         }
       </section>
-    </section>
+    </>
   );
 }
