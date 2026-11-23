@@ -1,0 +1,60 @@
+{
+  "base_main": "d79235d",
+  "tested_product_commit": "03e465c",
+  "final_browser_test_commit": "2c473333d10cd21529a2d5b28cf2391ef3256de6",
+  "product_binding": "src and .env.example unchanged after03e465c; follow-ups type test data, register the existing alias and correct browser selectors/method.",
+  "tickets": [
+    "D003",
+    "D004"
+  ],
+  "status": "TESTED; actual configuration/provider/whole-DB acceptance pending",
+  "unit": {
+    "files": 78,
+    "tests": 442,
+    "result": "PASS"
+  },
+  "affected": {
+    "D003": 29,
+    "D004": 50,
+    "result": "PASS"
+  },
+  "lint": "PASS zero warnings",
+  "typecheck": "PASS next typegen and tsc after test-row typing and stale generated route cache archival",
+  "build": "PASS free-beta production build via scripts/serve-keyless-qa.mjs; later browser runs reuse that exact build",
+  "python": {
+    "tests": 16,
+    "result": "PASS"
+  },
+  "browser": {
+    "result": "PASS composite",
+    "scenarios": 10,
+    "initial": {
+      "pass": 6,
+      "fail": 4
+    },
+    "affected_rerun": {
+      "pass": 4
+    },
+    "viewports": [
+      "1440x900 desktop Chrome",
+      "390x844 mobile Chrome emulation"
+    ],
+    "scope": "Real loopback HTTP and Next server with no DB/provider credentials, synthetic login and request bodies only",
+    "logs": [
+      "output/contracts-browser5-20261123.local.log",
+      "output/contracts-browser6-20261123.local.log"
+    ],
+    "not_claimed": "single10-green run or authenticated full two-role/DB/provider E2E"
+  },
+  "initial_failures": [
+    "stale Next dev types referenced removed tools routes; cache archived, no source restored",
+    "CLI test-row TypeScript inference corrected",
+    "default Playwright headless binary absent; installed Chrome used without downloading",
+    "first temporary prebuilt config cwd corrected",
+    "browser test GET corrected to the existing POST download route; alert narrowed to form error rather than Next route announcer"
+  ],
+  "known_out_of_scope": "Keyless /creators fails closed without actual data; no fictional substitute; D033 full search remains pending.",
+  "migration_change": false,
+  "configuration_packet": "deliverables/dev-a-contracts-20261123/README.md",
+  "cloud_config_deploy_keys_provider_calls": false
+}
