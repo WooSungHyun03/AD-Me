@@ -111,7 +111,7 @@ def model_request(path, payload, timeout=MODEL_DEADLINE_SECONDS):
         _model_failures = 0
         return result
     except (WorkerError, http.client.HTTPException, OSError, ValueError, RecursionError) as error:
-        if expired.is_set():
+        if expired.is_set() or isinstance(error, TimeoutError):
             code = "MODEL_TIMEOUT"
         elif isinstance(error, WorkerError):
             code = str(error)
