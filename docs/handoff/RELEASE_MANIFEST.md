@@ -173,3 +173,6 @@ These rows complete the source inventory; they do not assert any hosted applicat
 | `20261123113123` | switch | DEV-A D033: `20261123113123_youtube_directory_cursor_integer.sql` | Forward fix for integer microsecond cursor encoding; must apply together with directory pagination. |
 | `20261123114341` | switch | DEV-A D075: `20261123114341_saved_catalog_list_compatibility.sql` | Repair safe default-favorites/CSV gateways after main retires saved_creators; no raw creator read grant. |
 | `20261123114636` | switch | DEV-A D075: `20261123114636_promotion_public_reference_boundary.sql` | Preserve B service-only slots with A opaque-reference/publication/source and DB TEST gates. |
+| `20261123121526` | expand | DEV-A D042: `20261123121526_campaign_brief_file_versions.sql` | Immutable owner-only files/versions and active pointer. Collection defaults OFF; U001/B D079 activation gates retained. |
+| `20261123122650` | expand | DEV-A D042: `20261123122650_brief_upload_attestation_snapshot.sql` | Preserve upload rights attestation and policy reference without inventing consent for existing110 rows. |
+| `20261123123531` | switch | DEV-A D042: `20261123123531_brief_account_budget.sql` | Serialize owner writes and cap brief files across the whole account, preserving immutability and default-OFF collection. |

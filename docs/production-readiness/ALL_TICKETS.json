@@ -2037,11 +2037,19 @@
         "src/components/campaign-form.tsx"
       ],
       "new_files": [
-        "기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정"
+        "src/lib/campaign-brief-files.ts",
+        "src/components/campaign-brief-files.tsx",
+        "src/app/campaigns/[id]/brief/page.tsx",
+        "src/app/api/campaigns/[id]/brief",
+        "supabase/migrations/20261123121526_campaign_brief_file_versions.sql",
+        "supabase/migrations/20261123122650_brief_upload_attestation_snapshot.sql",
+        "supabase/migrations/20261123123531_brief_account_budget.sql"
       ],
       "depends_on": [
         "D027",
-        "D041"
+        "D041",
+        "U001",
+        "D079"
       ],
       "impact": "/jobs · /campaigns · /dashboard · /collaborations/[id]/deliverables",
       "security": "메시지·지원자·개인 메모·기존 파일 공개권한을 새 캠페인에 그대로 복제하지 않는다.",
@@ -2049,19 +2057,22 @@
       "acceptance": "복제 시 참여자·메시지 등 개인정보를 복사하지 않고 brief 파일 버전을 관리한다.",
       "points": 5,
       "owner": "DEV-A",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "새 수집 기본OFF. U001 최종 정책/보존과 B D079 새 버킷·고아/만료/계정 삭제 물리 정리·export 및60초 기존 서명 링크 검토 전 활성화 금지. USER DB/앱 적용과 운영 회귀 별도.",
       "evidence": [
         "docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/D042/INDEPENDENT_20261122.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json",
-        "harness/evidence/D042/ (이번 검증 기록 위치)"
+        "harness/evidence/D042/ (이번 검증 기록 위치)",
+        "harness/evidence/D042/VERSIONS_PLAN_20261123.md",
+        "harness/evidence/D042/FILES_20261123.md"
       ],
-      "status": "IN_PROGRESS",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "IN_PROGRESS",
-      "reopened": false
+      "reopened": false,
+      "verified_scope": "112-source 본인 전용 불변 첨부/active pointer/재시도·CAS·복원·복제 분리. API9+복제5, 실제 로컬DB/Storage9그룹, desktop/mobile4 시나리오 통과. 실제 정책/저작권·물리 정리/운영 별도."
     },
     {
       "id": "D043",

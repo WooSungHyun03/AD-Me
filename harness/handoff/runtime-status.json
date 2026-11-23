@@ -404,9 +404,11 @@
         "harness/evidence/D042/INDEPENDENT_20261122.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json",
-        "harness/evidence/DEV-A-SEQUENTIAL-20261123/verification.json"
+        "harness/evidence/DEV-A-SEQUENTIAL-20261123/verification.json",
+        "harness/evidence/D042/VERSIONS_PLAN_20261123.md",
+        "harness/evidence/D042/FILES_20261123.md"
       ],
-      "blocker": "독립 부분 구현/로컬 계약 검증. 전체 미완료 선행·API/저장소/실제 공급자·교차 검토 범위는 DEV-A-INDEPENDENT-20261122/README.md 표 참조. 외부 성공/전체 완료 아님.",
+      "blocker": "불변 파일/버전/active pointer 구현; API9+copy5, 실제DB/Storage9그룹·desktop/mobile4 통과. 새 수집OFF, U001/B D079의 만료/고아/삭제·export/서명 링크 검토·운영 적용 미완료.",
       "last_checked_at": "2026-11-22T11:51:39.993454+00:00"
     },
     "D043": {

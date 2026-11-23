@@ -915,7 +915,7 @@ DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TESTED · 5 SP · ACTIVE
 
 ## D042 · 캠페인 복제·brief·첨부 버전
 
-DEV-A · P1 · S1 주요 부족 · MARKETPLACE · IN_PROGRESS · 5 SP · ACTIVE
+DEV-A · P1 · S1 주요 부족 · MARKETPLACE · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 IN_PROGRESS이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 복제 시 참여자·메시지 등 개인정보를 복사하지 않고 brief 파일 버전을 관리한다.
 - **재현·관찰** — /api/campaigns에서 먼저 복제 소유권·파일 권한·이전 버전 복구을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/app/api/campaigns/route.ts, src/components/campaign-form.tsx.
@@ -925,14 +925,15 @@ DEV-A · P1 · S1 주요 부족 · MARKETPLACE · IN_PROGRESS · 5 SP · ACTIVE
 - **기대 동작** — 복제 시 참여자·메시지 등 개인정보를 복사하지 않고 brief 파일 버전을 관리한다.
 - **구현** — 캠페인 복제는 brief 필드만 whitelist 복사한다. brief 파일은 immutable version+active pointer로 관리한다.
 - **변경 파일** — src/app/api/campaigns/route.ts · src/components/campaign-form.tsx
-- **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
-- **선행 티켓** — D027 · D041
+- **신규 파일** — src/lib/campaign-brief-files.ts · src/components/campaign-brief-files.tsx · src/app/campaigns/[id]/brief/page.tsx · src/app/api/campaigns/[id]/brief · supabase/migrations/20261123121526_campaign_brief_file_versions.sql · supabase/migrations/20261123122650_brief_upload_attestation_snapshot.sql · supabase/migrations/20261123123531_brief_account_budget.sql
+- **선행 티켓** — D027 · D041 · U001 · D079
 - **영향** — /jobs · /campaigns · /dashboard · /collaborations/[id]/deliverables
 - **보안** — 메시지·지원자·개인 메모·기존 파일 공개권한을 새 캠페인에 그대로 복제하지 않는다.
 - **검증** — 복제 소유권·파일 권한·이전 버전 복구 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 복제 시 참여자·메시지 등 개인정보를 복사하지 않고 brief 파일 버전을 관리한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D042/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D042/ (이번 검증 기록 위치)
+- **차단 요인** — 새 수집 기본OFF. U001 최종 정책/보존과 B D079 새 버킷·고아/만료/계정 삭제 물리 정리·export 및60초 기존 서명 링크 검토 전 활성화 금지. USER DB/앱 적용과 운영 회귀 별도.
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D042/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D042/ (이번 검증 기록 위치) · harness/evidence/D042/VERSIONS_PLAN_20261123.md · harness/evidence/D042/FILES_20261123.md
+- **검증 범위** — 112-source 본인 전용 불변 첨부/active pointer/재시도·CAS·복원·복제 분리. API9+복제5, 실제 로컬DB/Storage9그룹, desktop/mobile4 시나리오 통과. 실제 정책/저작권·물리 정리/운영 별도.
 - **이전 기록** — IN_PROGRESS
 
 ## D043 · 캠페인 상태·모집 탐색·지원자

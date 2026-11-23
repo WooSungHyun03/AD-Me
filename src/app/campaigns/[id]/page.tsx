@@ -81,6 +81,12 @@ export default async function Campaign({
               >
                 새 초안으로 복제
               </Link>
+              <Link
+                className="button outline small"
+                href={`/campaigns/${id}/brief`}
+              >
+                브리프 첨부·이력
+              </Link>
             </div>
           )}
           <h3>캠페인 목표</h3>
