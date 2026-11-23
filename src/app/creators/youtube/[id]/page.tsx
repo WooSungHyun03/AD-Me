@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, BadgeCheck, ChevronDown } from "lucide-react";
 import { publicCreator } from "@/lib/data";
 import { PublicAdHistory } from "@/components/public-ad-history";
+import { cache } from "react";
 import { YoutubeImage } from "@/components/youtube-image";
 import { SaveYoutubeChannel } from "@/components/save-youtube-channel";
 import {
@@ -13,7 +15,32 @@ import {
   youtubeMetric,
   type FeaturedChannel,
 } from "@/lib/featured-youtube";
+import { isDemoMode } from "@/lib/mode";
 import { currentUser, supabase } from "@/lib/supabase";
+
+const loadYoutubeChannel = cache((id: string) => featuredYoutube("", id, 1));
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const noindex = {
+    robots: { index: false, follow: false },
+  } satisfies Metadata;
+  if (!youtubeChannelId.safeParse(id).success) return noindex;
+  const { items } = await loadYoutubeChannel(id);
+  const channel = items[0];
+  if (!channel) return noindex;
+  const description = `${channel.title}의 YouTube 채널 정보와 최근 공개 영상 · AD Me`;
+  return {
+    title: channel.title,
+    description,
+    alternates: { canonical: `/creators/youtube/${id}` },
+    ...(channel.creator_id && !isDemoMode() ? {} : noindex),
+  };
+}
 
 const date = new Intl.DateTimeFormat("ko-KR", {
   dateStyle: "medium",
@@ -102,7 +129,7 @@ export default async function YoutubeChannel({
   const { id } = await params;
   if (!youtubeChannelId.safeParse(id).success) notFound();
   const [{ items, unavailable }, user] = await Promise.all([
-    featuredYoutube("", id, 1),
+    loadYoutubeChannel(id),
     currentUser(),
   ]);
   if (unavailable) {

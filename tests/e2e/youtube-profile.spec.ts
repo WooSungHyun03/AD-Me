@@ -20,6 +20,18 @@ for (const channel of channels) {
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
       channel.name,
     );
+    if (
+      await page.getByText("AD Me 소유권 미확인", { exact: true }).isVisible()
+    ) {
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+        "content",
+        /noindex/,
+      );
+    }
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      "href",
+      new RegExp(`/creators/youtube/${channel.id}$`),
+    );
     const avatar = page.locator(".youtube-image--avatar img");
     await expect(avatar).toHaveAttribute("src", directoryImage!);
     await expect
