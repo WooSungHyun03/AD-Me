@@ -1028,12 +1028,14 @@
         "docs/implementation-progress.md",
         "harness/evidence/D021/VERIFY_NEXT_20261121.md",
         "harness/evidence/DEV-A-P0-NEXT-20261121/verification.json",
-        "harness/evidence/D021/ (이번 검증 기록 위치)"
+        "harness/evidence/D021/ (이번 검증 기록 위치)",
+        "harness/evidence/D021/CACHE_20261123.md"
       ],
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "verified_scope": "현 Python 워커 출력50→5 영상과 실제 격리107 DB 체크포인트 저장/복구7그룹, Python9건 통과. 운영 공급자·cron과 구분."
     },
     {
       "id": "D022",

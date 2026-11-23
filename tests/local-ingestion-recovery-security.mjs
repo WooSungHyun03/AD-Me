@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { randomUUID, randomBytes } from "node:crypto";
+import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import {
   localRuntime,
@@ -125,7 +126,15 @@ try {
       assert.equal(claimed.length, 1);
       let j = claimed[0];
       assert.equal(j.policyVersion, "local-source-policy-1");
-      const saved = await checkpoint(j, [channels[0]], [row(channels[0])]);
+      const workerRows = JSON.parse(
+        execFileSync(
+          "python",
+          ["tests/support/youtube-worker-fixture.py", channels[0]],
+          { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] },
+        ),
+      );
+      assert.equal(workerRows[0].videos.length, 5);
+      const saved = await checkpoint(j, [channels[0]], workerRows);
       assert.equal(saved.error, null);
       assert.deepEqual(saved.data.completed, [channels[0]]);
       const stored = JSON.parse(
@@ -137,6 +146,7 @@ try {
       assert.equal(stored.metadata.private_canary, undefined);
       assert.equal(stored.videos[0].views, 0);
       assert.equal(stored.videos[0].likes, null);
+      assert.equal(stored.videos.length, 5);
       assert.equal(
         sql(
           `select count(*) from adme_ops.channels where channel_id='${channels[0]}';`,

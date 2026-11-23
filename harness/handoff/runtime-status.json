@@ -205,9 +205,10 @@
       "evidence": [
         "docs/implementation-progress.md",
         "harness/evidence/D021/VERIFY_NEXT_20261121.md",
-        "harness/evidence/DEV-A-P0-NEXT-20261121/verification.json"
+        "harness/evidence/DEV-A-P0-NEXT-20261121/verification.json",
+        "harness/evidence/D021/CACHE_20261123.md"
       ],
-      "blocker": "실제 로컬 큐 checkpoint/중단·429/동시 claim·TTL/내부 budget·별도 search cap/tombstone7그룹 및 worker 새 계약4개 통과. D019 정규화 writer·D017 실제 승인·USER cron/공급자 quota·DEV-B 리뷰는 별도 미완료.",
+      "blocker": "워커30/DB5 불일치 수정; 실제 Python 합성 출력과 격리 DB 복구7그룹 통과. 공급자/운영 배포·정책은 미완료.",
       "last_checked_at": "2026-11-21T06:12:43.809026+00:00"
     },
     "D022": {

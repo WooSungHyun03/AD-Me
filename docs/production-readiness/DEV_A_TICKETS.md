@@ -319,7 +319,8 @@ DEV-A · P0 · S0 출시 차단 · YOUTUBE · TESTED · 8 SP · ACTIVE
 - **검증** — 429·작업 중단 복구·삭제 재유입·정책별 TTL 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 체크포인트·지수 백오프·재시도·캐시 만료·일일 한도·삭제 tombstone으로 중복·재수집을 막는다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/implementation-progress.md · harness/evidence/D021/VERIFY_NEXT_20261121.md · harness/evidence/DEV-A-P0-NEXT-20261121/verification.json · harness/evidence/D021/ (이번 검증 기록 위치)
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/implementation-progress.md · harness/evidence/D021/VERIFY_NEXT_20261121.md · harness/evidence/DEV-A-P0-NEXT-20261121/verification.json · harness/evidence/D021/ (이번 검증 기록 위치) · harness/evidence/D021/CACHE_20261123.md
+- **검증 범위** — 현 Python 워커 출력50→5 영상과 실제 격리107 DB 체크포인트 저장/복구7그룹, Python9건 통과. 운영 공급자·cron과 구분.
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D028 · SNS 링크·공식 임베드·공유

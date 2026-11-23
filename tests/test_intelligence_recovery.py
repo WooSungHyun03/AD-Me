@@ -9,6 +9,14 @@ worker=importlib.util.module_from_spec(spec);spec.loader.exec_module(worker)
 A='UC'+'a'*22;B='UC'+'b'*22
 
 class Recovery(unittest.TestCase):
+ def test_public_video_output_fits_reviewed_five_video_cache_contract(self):
+  ids=['fixture%04d'%i for i in range(50)]
+  replies=[{'items':[{'id':A,'snippet':{'title':'SYNTHETIC cache contract'},'contentDetails':{'relatedPlaylists':{'uploads':'fictional'}}}]},
+   {'items':[{'contentDetails':{'videoId':video}}for video in ids]},
+   {'items':[{'id':video,'snippet':{'title':'SYNTHETIC video','publishedAt':'2026-01-01T00:00:00Z','channelId':A},'status':{'privacyStatus':'public'}}for video in ids]}]
+  with patch.object(worker,'youtube',side_effect=replies)as api:
+   result=worker.channels([A]);self.assertEqual(len(result[0]['videos']),5);self.assertEqual(api.call_count,3)
+   self.assertEqual([v['id']for v in result[0]['videos']],sorted(ids,reverse=True)[:5])
  def test_invalid_counts_are_missing_and_never_coerced_to_fake_numbers(self):
   for value in [None,True,False,-1,1.5,'-1','1.5','9007199254740992','not-count']:
    self.assertIsNone(worker.optional_count({'n':value},'n'))

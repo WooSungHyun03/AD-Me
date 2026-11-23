@@ -179,7 +179,9 @@ def channels(ids):
                 }
     for row in rows:
         videos = {video: public_videos[video] for video in row.pop("video_ids") if video in public_videos}
-        row["videos"] = sorted(videos.values(), key=lambda video: video["publishedAt"], reverse=True)[:30]
+        # The reviewed cache_source_guard stores at most five public videos.
+        # Increasing this requires a separately reviewed policy/SQL change.
+        row["videos"] = sorted(videos.values(), key=lambda video: (video["publishedAt"], video["id"]), reverse=True)[:5]
     return rows
 
 
