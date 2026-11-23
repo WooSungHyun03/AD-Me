@@ -33,7 +33,9 @@ export function CampaignForm({
   creatorId?: string;
 }) {
   const [tags, setTags] = useState<string[]>(initial?.vibes ?? ["자연스러움"]),
-    [platforms, setPlatforms] = useState(initial?.platforms ?? ["instagram"]),
+    [platforms, setPlatforms] = useState(
+      (id && initial?.platforms) || ["youtube"],
+    ),
     [error, setError] = useState(""),
     [pending, setPending] = useState(false);
   const router = useRouter();
@@ -232,20 +234,26 @@ export function CampaignForm({
       </div>
       <h3 style={{ marginTop: 30, fontSize: 15 }}>광고 플랫폼</h3>
       <div className="inline">
-        {creatorPlatforms.map((p) => (
-          <label key={p} className="inline">
-            <input
-              type="checkbox"
-              checked={platforms.includes(p)}
-              onChange={() =>
-                setPlatforms((s) =>
-                  s.includes(p) ? s.filter((x) => x !== p) : [...s, p],
-                )
-              }
-            />
-            {p}
-          </label>
-        ))}
+        {creatorPlatforms
+          .filter(
+            (platform) =>
+              platform === "youtube" ||
+              (id && initial?.platforms.includes(platform)),
+          )
+          .map((p) => (
+            <label key={p} className="inline">
+              <input
+                type="checkbox"
+                checked={platforms.includes(p)}
+                onChange={() =>
+                  setPlatforms((s) =>
+                    s.includes(p) ? s.filter((x) => x !== p) : [...s, p],
+                  )
+                }
+              />
+              {p}
+            </label>
+          ))}
       </div>
       {error && (
         <p role="alert" className="error" style={{ marginTop: 22 }}>

@@ -1,0 +1,36 @@
+{
+  "production_deployment": "dpl_HpKpLetDybQVECCFdpFfUyCgTYbE",
+  "production_browser": [
+    {
+      "width": 1440,
+      "newCampaignYoutubeOnly": true,
+      "recentVideos": 10,
+      "brandLogin": true
+    },
+    {
+      "width": 390,
+      "newCampaignYoutubeOnly": true,
+      "recentVideos": 10,
+      "brandLogin": true
+    }
+  ],
+  "isolated_migrations": 105,
+  "isolated_initial": {
+    "passed": 2,
+    "failed": 4,
+    "causes": [
+      "required usage rights missing from legacy fixture",
+      "unverified creator rejected by the collaboration guard"
+    ]
+  },
+  "isolated_targeted": {
+    "passed": 6,
+    "failed": 0,
+    "covers": [
+      "private job draft and TEST order deduplication",
+      "conversation history and lost acknowledgement retry",
+      "new campaign default and unverified application response"
+    ]
+  },
+  "live_toss_checkout": false
+}

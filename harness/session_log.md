@@ -559,3 +559,6 @@ Preserved codex/dev-a-p0-continue and ticket commits; merged YouTube main5d3bc6c
 - 실제 공개 채널 10개의 공식 원본 주제를 홈 추천에 사용하는 추가 마이그레이션 1개를 운영에서 확인했다. 04:00 KST 수집 완료 및 36시간 이내 갱신 상태를 확인했다. 시작 시 운영 40개에서 41개로 늘었고, 현재 main 마이그레이션과 차이는 64개다.
 - lint, 타입, main 단위 420건, 운영 호환 단위 167건 및 빌드가 통과했다. 운영 호환 로컬 Playwright 10건, 실제 운영 Playwright 14건과 5개 너비의 브라우저 검증을 완료했다. Local AI 한국어 광고 초안은 실제 운영 워커에서 생성됐고, 합성 원고 태그 6개는 별도로 로컬에서 추론했다.
 - 운영 배포는 호환 소스 f84bd810a19ec4cc21e90fad630556030e358ddf와 Vercel dpl_7EpFVnF9PFHu5oKGvpTVnSX4fq5Y다. 상세 감사·검증과 차단 사항은 docs/audit/2026-11-23-full-audit.md 및 harness/youtube/product-audit-20261123.json에 기록했다. 이번에는 승인 데이터 지표 연결, 태그 운영 승인 큐, TEST 거래 전 과정, 전체 스키마 전환을 완료하지 못했다.
+
+- 격리 Supabase에서 105개를 새로 적용했다. 과거 범용 E2E 2건 통과·4건 실패 원인은 필수 산출물 사용권 누락과 미인증 수락 가정이다. 보강 후 공고·주문 API, 대화, YouTube 기본값과 미인증 수락 409에 대한 격리 E2E 6건이 통과했다.
+- 신규 캠페인 플랫폼 기본값 수정은 호환 소스 6fb374f2c0fdb3d896c0e4ea3078bdf20ee0718b와 운영 Vercel dpl_HpKpLetDybQVECCFdpFfUyCgTYbE로 배포했다.

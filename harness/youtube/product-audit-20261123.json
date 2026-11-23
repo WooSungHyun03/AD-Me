@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "audit": "docs/audit/2026-11-23-full-audit.md",
-  "production_deployment": "dpl_7EpFVnF9PFHu5oKGvpTVnSX4fq5Y",
+  "production_deployment": "dpl_HpKpLetDybQVECCFdpFfUyCgTYbE",
   "tasks": [
     {
       "id": "AD-A01",
@@ -22,9 +22,7 @@
       "id": "AD-A02",
       "priority": "P1",
       "status": "VERIFIED",
-      "dependencies": [
-        "AD-A01"
-      ],
+      "dependencies": [],
       "code": [
         "src/app/recommend-creators.ts",
         "src/components/recommendation-brief.tsx"
@@ -152,6 +150,23 @@
       "test_method": "관리자 접근 및 비관리자 거부, 작업 원장 확인",
       "test_result": "운영 04:00 KST 완료 및 공개 10개 최근 36시간, 관리자 화면 확인",
       "release_commit": "f84bd810a19ec4cc21e90fad630556030e358ddf",
+      "production_verified": true
+    },
+    {
+      "id": "AD-A10",
+      "priority": "P1",
+      "status": "VERIFIED",
+      "dependencies": [],
+      "code": [
+        "src/components/campaign-form.tsx",
+        "src/app/api/proposals/route.ts",
+        "tests/local-browser/youtube-campaign.spec.ts"
+      ],
+      "problem": "새 캠페인 기본 플랫폼이 Instagram이며 미인증 수락이 503으로 표시됨",
+      "acceptance": "신규 UI의 YouTube 기본 선택과 미인증 수락에 409 및 원인 표시",
+      "test_method": "브랜드 QA 운영 새 캠페인과 격리 DB 지원 후 거절 응답 재검증",
+      "test_result": "운영 데스크톱·모바일에서 신규 YouTube 기본값, 격리 데스크톱·모바일에서 409 확인",
+      "release_commit": "6fb374f2c0fdb3d896c0e4ea3078bdf20ee0718b",
       "production_verified": true
     }
   ]

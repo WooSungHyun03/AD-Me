@@ -8,7 +8,7 @@ import {
   parseInput,
   requireContext,
 } from "@/lib/api";
-import { proposalSchema, canTransition } from "@/lib/schemas";
+import { proposalSchema, canTransition, recruitingError } from "@/lib/schemas";
 import {
   deliveryTransitionSchema,
   deliveryTransitionResultSchema,
@@ -117,6 +117,10 @@ export const PATCH = apiRoute("proposals.patch", async (req) => {
     fail("접근할 수 없습니다.", 403);
   if (error?.code === "P0001" && error.message === "invalid transition")
     fail("상태 변경이 충돌했습니다. 새로고침 후 다시 시도해주세요.", 409);
+  if (error?.code === "P0001") {
+    const message = recruitingError(error.message);
+    if (message) fail(message, 409);
+  }
   if (error) failDatabase(error, "협업 상태를 변경하지 못했습니다.");
   return NextResponse.json({ ok: true, data });
 });
