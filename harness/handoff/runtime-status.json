@@ -153,9 +153,10 @@
       "evidence": [
         "harness/evidence/D016/README.md",
         "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
-        "harness/evidence/DEV-A-MAIN-20261120/verification.json"
+        "harness/evidence/DEV-A-MAIN-20261120/verification.json",
+        "harness/evidence/D016/REVALIDATE_20261123.md"
       ],
-      "blocker": "main 운영 역할까지 승인 만료·철회·최근OTP 강제. 실제 로컬 Auth 및 직접REST 검증. U008 외부 승인·MFA·DEV-B 리뷰 대기.",
+      "blocker": "현107 DB6그룹 통과, 새 집계 definer 명시 검증. U008 실환경/MFA 설정·운영 schema/application 적용은 미완료.",
       "last_checked_at": "2026-11-20T02:36:28.405549+00:00"
     },
     "D017": {

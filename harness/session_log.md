@@ -600,3 +600,5 @@ USER requested all feasible tickets in order, keeping direct main push and ticke
 - D021: 워커30개/DB5개 실제 계약 불일치를 워커5개 제한+동률 id 정렬로 수정. Python9 및 격리 DB 복구7그룹, 실제 Python 합성50개→5개 체크포인트 저장 통과. 실제 API/cron 검증 아님.
 
 - D029: 현재107 로컬 DB 제출/중복/정정/검토/출처·정책 분리/공개·철회8그룹 통과. 기존 seed 의존 fixture 수정, 만료된 QA 관리자 초대 로컬 갱신. 제품 권한 완화·운영 변경 없음.
+
+- D016: 현재107 DB MFA/초대/만료·회수/자기승격/비공개 권한6그룹 통과. main의 집계용 definer2개는 명시 역할·MFA/회수 테스트로 검증하고 나머지 invoker 요구 유지. 외부 U008 미완료.

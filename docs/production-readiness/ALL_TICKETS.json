@@ -776,12 +776,14 @@
         "harness/evidence/D016/README.md",
         "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
         "harness/evidence/DEV-A-MAIN-20261120/verification.json",
-        "harness/evidence/D016/ (이번 검증 기록 위치)"
+        "harness/evidence/D016/ (이번 검증 기록 위치)",
+        "harness/evidence/D016/REVALIDATE_20261123.md"
       ],
-      "status": "TODO",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": true
+      "reopened": true,
+      "verified_scope": "현재107 격리 DB 직접 권한6그룹: MFA/초대/회수/자기승격/집계 definer와 public CREATE 경계. 합성 JWT이며 외부 U008/실제 운영 OTP 미검증."
     },
     {
       "id": "D017",

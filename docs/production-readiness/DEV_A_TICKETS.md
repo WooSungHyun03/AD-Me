@@ -235,7 +235,7 @@ DEV-A · P0 · S0 출시 차단 · PRIVACY · IN_PROGRESS · 8 SP · ACTIVE
 
 ## D016 · 관리자 MFA·초대 기반 권한
 
-DEV-A · P0 · S0 출시 차단 · AUTH · TODO · 5 SP · ACTIVE
+DEV-A · P0 · S0 출시 차단 · AUTH · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 운영 /admin/intelligence는 열리지만 /admin/security와 /admin/reviews가 404이고 ops_enrollment_role RPC가 없다.
 - **재현·관찰** — QA 관리자와 일반 브랜드로 대조한다. 격리 실환경에서 MFA 등록·재확인·회수·감사 기록을 확인한다.
@@ -252,7 +252,8 @@ DEV-A · P0 · S0 출시 차단 · AUTH · TODO · 5 SP · ACTIVE
 - **검증** — 일반 계정 관리자 API 거부·MFA 없는 세션 차단 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 관리자는 별도 프로비저닝·MFA·재인증을 요구하고 UI 숨김에 의존하지 않는다.
 - **차단 요인** — 외부 선행 U008의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D016/README.md · harness/evidence/DEV-A-P0-CONTINUE/verification.json · harness/evidence/DEV-A-MAIN-20261120/verification.json · harness/evidence/D016/ (이번 검증 기록 위치)
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D016/README.md · harness/evidence/DEV-A-P0-CONTINUE/verification.json · harness/evidence/DEV-A-MAIN-20261120/verification.json · harness/evidence/D016/ (이번 검증 기록 위치) · harness/evidence/D016/REVALIDATE_20261123.md
+- **검증 범위** — 현재107 격리 DB 직접 권한6그룹: MFA/초대/회수/자기승격/집계 definer와 public CREATE 경계. 합성 JWT이며 외부 U008/실제 운영 OTP 미검증.
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D018 · 실제 인플루언서 통합 스키마
