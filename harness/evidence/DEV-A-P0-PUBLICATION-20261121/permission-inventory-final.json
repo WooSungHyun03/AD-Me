@@ -1,0 +1,3006 @@
+{
+  "at": "2026-11-21T06:44:13.421Z",
+  "result": "PASS",
+  "tables": [
+    {
+      "rls": true,
+      "table": "boundary",
+      "schema": "adme_consent",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "events",
+      "schema": "adme_consent",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "policies",
+      "schema": "adme_consent",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "publication_boundary",
+      "schema": "adme_consent",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "publication_requests",
+      "schema": "adme_consent",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "identities",
+      "schema": "adme_creator",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "metric_observations",
+      "schema": "adme_creator",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "public_refs",
+      "schema": "adme_creator",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "publication_policies",
+      "schema": "adme_creator",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "read_boundary",
+      "schema": "adme_creator",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "records",
+      "schema": "adme_creator",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "reference_boundary",
+      "schema": "adme_creator",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "attestations",
+      "schema": "adme_delivery",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "boundary",
+      "schema": "adme_delivery",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "events",
+      "schema": "adme_delivery",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "rooms",
+      "schema": "adme_delivery",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "submissions",
+      "schema": "adme_delivery",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "blocks",
+      "schema": "adme_messaging",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "reports",
+      "schema": "adme_messaging",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "channel_claims",
+      "schema": "adme_ops",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "channels",
+      "schema": "adme_ops",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "jobs",
+      "schema": "adme_ops",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "rate_windows",
+      "schema": "adme_ops",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "resource_controls",
+      "schema": "adme_ops",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "settings",
+      "schema": "adme_ops",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "source_runtime_policies",
+      "schema": "adme_ops",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "source_tombstones",
+      "schema": "adme_ops",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "staff",
+      "schema": "adme_ops",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "snapshots",
+      "schema": "adme_recommendation",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "billing_boundary",
+      "schema": "adme_release",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "cases",
+      "schema": "adme_review",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "decisions",
+      "schema": "adme_review",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "policy",
+      "schema": "adme_review",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "responses",
+      "schema": "adme_review",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "revisions",
+      "schema": "adme_review",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "brand_logos",
+      "schema": "adme_upload",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "files",
+      "schema": "adme_upload",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "ad_collaborations",
+      "schema": "public",
+      "anon_select": true,
+      "service_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "administrator_grants",
+      "schema": "public",
+      "anon_select": false,
+      "service_select": false,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "audit_log",
+      "schema": "public",
+      "anon_select": true,
+      "service_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "brand_contacts",
+      "schema": "public",
+      "anon_select": false,
+      "service_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "brand_profiles",
+      "schema": "public",
+      "anon_select": false,
+      "service_select": true,
+      "authenticated_select": false
+    },
+    {
+      "rls": true,
+      "table": "campaigns",
+      "schema": "public",
+      "anon_select": true,
+      "service_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "creators",
+      "schema": "public",
+      "anon_select": false,
+      "service_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "entitlements",
+      "schema": "public",
+      "anon_select": true,
+      "service_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "messages",
+      "schema": "public",
+      "anon_select": true,
+      "service_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "moderation_events",
+      "schema": "public",
+      "anon_select": false,
+      "service_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "orders",
+      "schema": "public",
+      "anon_select": true,
+      "service_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "products",
+      "schema": "public",
+      "anon_select": true,
+      "service_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "profiles",
+      "schema": "public",
+      "anon_select": true,
+      "service_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "proposal_reads",
+      "schema": "public",
+      "anon_select": true,
+      "service_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "proposals",
+      "schema": "public",
+      "anon_select": true,
+      "service_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "reports",
+      "schema": "public",
+      "anon_select": true,
+      "service_select": true,
+      "authenticated_select": true
+    },
+    {
+      "rls": true,
+      "table": "saved_creators",
+      "schema": "public",
+      "anon_select": true,
+      "service_select": true,
+      "authenticated_select": true
+    }
+  ],
+  "functions": [
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_consent",
+      "definer": false,
+      "signature": "adme_consent.activate_boundary(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_consent",
+      "definer": false,
+      "signature": "adme_consent.activate_publication(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_consent",
+      "definer": false,
+      "signature": "adme_consent.approve(text,text,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_consent",
+      "definer": false,
+      "signature": "adme_consent.boundary_guard()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_consent",
+      "definer": true,
+      "signature": "adme_consent.current_policy()",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_consent",
+      "definer": true,
+      "signature": "adme_consent.history()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_consent",
+      "definer": false,
+      "signature": "adme_consent.immutable_event()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_consent",
+      "definer": false,
+      "signature": "adme_consent.policy_guard()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_consent",
+      "definer": true,
+      "signature": "adme_consent.publication_context(text,uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_consent",
+      "definer": true,
+      "signature": "adme_consent.publication_guard()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_consent",
+      "definer": true,
+      "signature": "adme_consent.record_optional(text,text,boolean,uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_consent",
+      "definer": true,
+      "signature": "adme_consent.save_publication(text,jsonb,text,text,uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_consent",
+      "definer": true,
+      "signature": "adme_consent.signup_record()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": false,
+      "signature": "adme_creator.activate_public_refs(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": false,
+      "signature": "adme_creator.activate_read_boundary(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.brand_text_guard()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": false,
+      "signature": "adme_creator.catalog_dto_legacy_ref(creators)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.catalog_dto(creators)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.catalog_page_rows(text,integer)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.catalog_page(text,integer)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.create_proposal_legacy_ref(uuid,text,text,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.create_proposal(uuid,text,text,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.filtered_page(jsonb,text,integer,boolean)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": false,
+      "signature": "adme_creator.guard_identity()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": false,
+      "signature": "adme_creator.guard_read_boundary()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.home_summary(boolean)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.hot_catalog_legacy_ref()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.hot_catalog()",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.my_snapshot()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.normalized_public(text)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.proposal_allowed_legacy_ref(uuid,text,uuid,uuid,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.proposal_allowed(uuid,text,uuid,uuid,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.proposal_choices(uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": false,
+      "signature": "adme_creator.public_https(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.public_one(text)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.public_reference(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": false,
+      "signature": "adme_creator.public_social(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.public_text_guard()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.read_boundary_enabled()",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": false,
+      "signature": "adme_creator.reference_guard()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.resolve_reference(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": false,
+      "signature": "adme_creator.safe_metric_name(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": false,
+      "signature": "adme_creator.safe_public_text(text)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.saved_catalog()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.sync_legacy()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.sync_public_ref()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": true,
+      "signature": "adme_creator.toggle_saved(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_creator",
+      "definer": false,
+      "signature": "adme_creator.valid_metric_policy(jsonb)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_delivery",
+      "definer": false,
+      "signature": "adme_delivery.activate(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_delivery",
+      "definer": true,
+      "signature": "adme_delivery.attest(uuid,uuid,integer,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_delivery",
+      "definer": false,
+      "signature": "adme_delivery.boundary_guard()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_delivery",
+      "definer": true,
+      "signature": "adme_delivery.capture()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_delivery",
+      "definer": true,
+      "signature": "adme_delivery.create_submission(uuid,integer,uuid,text,text,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_delivery",
+      "definer": true,
+      "signature": "adme_delivery.dto(uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_delivery",
+      "definer": true,
+      "signature": "adme_delivery.enabled()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_delivery",
+      "definer": true,
+      "signature": "adme_delivery.guard_status()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_delivery",
+      "definer": false,
+      "signature": "adme_delivery.immutable()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_delivery",
+      "definer": true,
+      "signature": "adme_delivery.legacy_transition(uuid,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_delivery",
+      "definer": true,
+      "signature": "adme_delivery.page(uuid,integer,integer)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_delivery",
+      "definer": true,
+      "signature": "adme_delivery.transition(uuid,uuid,integer,uuid,text,text,boolean)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_delivery",
+      "definer": true,
+      "signature": "adme_delivery.writable(proposals)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_messaging",
+      "definer": true,
+      "signature": "adme_messaging.block_room(uuid,boolean)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_messaging",
+      "definer": true,
+      "signature": "adme_messaging.guard_message()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_messaging",
+      "definer": true,
+      "signature": "adme_messaging.page(uuid,timestamp with time zone,uuid,integer)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_messaging",
+      "definer": true,
+      "signature": "adme_messaging.report_message(uuid,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_messaging",
+      "definer": true,
+      "signature": "adme_messaging.send(uuid,uuid,text,text,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.auth_budget(text,text,text)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.cache_source_guard()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": false,
+      "signature": "adme_ops.capture_ownership()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.channel_fresh(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": false,
+      "signature": "adme_ops.daily_tick()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.enrollment_role()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.forget_channel(text,uuid,text)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.guard_discovery_enable()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.guard_staff_approval()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.identity_tombstone_guard()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.job_enabled(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.limit_job_enqueue()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.limit_private_writes()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.ops_admin_command(text,text,text)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.ops_channel_owner(text,text)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.ops_current_role()",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.ops_dashboard()",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.ops_draft_create(text)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.ops_draft_get(uuid)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.ops_enrollment_role()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.ops_own_channels()",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.ops_public_channels(text)",
+      "anon_execute": true,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.ops_request_quota(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.ops_worker_claim_before49(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.ops_worker_claim(text)",
+      "anon_execute": true,
+      "service_execute": true,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.ops_worker_finish_before49(text,uuid,uuid,jsonb,text,integer)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.ops_worker_finish(text,uuid,uuid,jsonb,text,integer)",
+      "anon_execute": true,
+      "service_execute": true,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.pause_discovery()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.provision_staff(uuid,text,text,timestamp with time zone)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.require_quota(text,text,integer,integer,integer)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.reserve_source_search(integer)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": false,
+      "signature": "adme_ops.resource_hash(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.source_deleted(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": false,
+      "signature": "adme_ops.staff_role()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.take_quota(text,text,integer,integer,integer)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": false,
+      "signature": "adme_ops.verify_worker(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.worker_checkpoint(text,uuid,uuid,jsonb,jsonb)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.worker_heartbeat(text,uuid,uuid)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_ops",
+      "definer": true,
+      "signature": "adme_ops.youtube_daily_limit()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_recommendation",
+      "definer": true,
+      "signature": "adme_recommendation.context_unmetered(uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_recommendation",
+      "definer": true,
+      "signature": "adme_recommendation.context(uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_recommendation",
+      "definer": true,
+      "signature": "adme_recommendation.create_snapshot(uuid,uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_recommendation",
+      "definer": false,
+      "signature": "adme_recommendation.immutable()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_recommendation",
+      "definer": true,
+      "signature": "adme_recommendation.page(uuid,uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_recommendation",
+      "definer": false,
+      "signature": "adme_recommendation.project(jsonb)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_recommendation",
+      "definer": false,
+      "signature": "adme_recommendation.score_v1(jsonb,jsonb)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_release",
+      "definer": true,
+      "signature": "adme_release.billing_enabled()",
+      "anon_execute": true,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=public"
+      ],
+      "schema": "adme_release",
+      "definer": true,
+      "signature": "adme_release.create_order_legacy(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_release",
+      "definer": true,
+      "signature": "adme_release.create_order(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=public"
+      ],
+      "schema": "adme_release",
+      "definer": true,
+      "signature": "adme_release.finalize_order_legacy(uuid,uuid,text,integer)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_release",
+      "definer": true,
+      "signature": "adme_release.finalize_order(uuid,uuid,text,integer)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_release",
+      "definer": false,
+      "signature": "adme_release.set_test_billing(boolean,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_review",
+      "definer": true,
+      "signature": "adme_review.ad_source_guard()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_review",
+      "definer": true,
+      "signature": "adme_review.decide(uuid,integer,text,text,text,text,boolean)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_review",
+      "definer": false,
+      "signature": "adme_review.immutable_record()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_review",
+      "definer": true,
+      "signature": "adme_review.inbox(timestamp with time zone,uuid,integer)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_review",
+      "definer": false,
+      "signature": "adme_review.public_payload(text,jsonb)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_review",
+      "definer": true,
+      "signature": "adme_review.public_records_legacy_ref(text,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_review",
+      "definer": true,
+      "signature": "adme_review.public_records(text,text)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_review",
+      "definer": true,
+      "signature": "adme_review.respond(uuid,integer,text,text,boolean)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_review",
+      "definer": true,
+      "signature": "adme_review.revise(uuid,integer,jsonb)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_review",
+      "definer": true,
+      "signature": "adme_review.submit_legacy_ref(text,text,uuid,jsonb)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_review",
+      "definer": true,
+      "signature": "adme_review.submit(text,text,uuid,jsonb)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_review",
+      "definer": true,
+      "signature": "adme_review.validate_ad_legacy_ref(text,jsonb)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_review",
+      "definer": true,
+      "signature": "adme_review.validate_ad(text,jsonb)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_review",
+      "definer": true,
+      "signature": "adme_review.validate_submission_legacy_ref(text,text,jsonb)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_review",
+      "definer": true,
+      "signature": "adme_review.validate_submission(text,text,jsonb)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_review",
+      "definer": true,
+      "signature": "adme_review.withdraw(uuid,integer)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_upload",
+      "definer": true,
+      "signature": "adme_upload.access_file(uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_upload",
+      "definer": true,
+      "signature": "adme_upload.attempt()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_upload",
+      "definer": true,
+      "signature": "adme_upload.brand_logo(uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_upload",
+      "definer": true,
+      "signature": "adme_upload.publish_message(uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_upload",
+      "definer": true,
+      "signature": "adme_upload.reserve(uuid,text,uuid,text,text,integer)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_upload",
+      "definer": true,
+      "signature": "adme_upload.room_allowed(uuid,boolean)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_upload",
+      "definer": true,
+      "signature": "adme_upload.room_files(uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_upload",
+      "definer": true,
+      "signature": "adme_upload.save_brand(text,text,text,text,boolean,text,text,text,uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_upload",
+      "definer": true,
+      "signature": "adme_upload.storage_read(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_upload",
+      "definer": true,
+      "signature": "adme_upload.storage_write(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "adme_upload",
+      "definer": true,
+      "signature": "adme_upload.verify_file(uuid,uuid,text,integer)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "active_hot_creators()",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "admin_mfa_recent()",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "auth_edge_budget(text,text,text)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "auth_shared_budget(text)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "brand_contact_for(uuid)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "brand_logo_available(uuid)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "conversation_block(uuid,boolean)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "conversation_page(uuid,timestamp with time zone,uuid,integer)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "conversation_report(uuid,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "conversation_send(uuid,uuid,text,text,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "create_creator_proposal(uuid,text,text,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "create_test_order(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "creator_catalog_page(text,integer)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "creator_filter_page(jsonb,text,integer,boolean)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "creator_home_summary(boolean)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "creator_normalized_public(text)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "creator_proposal_choices(uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "creator_public_one(text)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "current_consent_policy()",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "delivery_attest(uuid,uuid,integer,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "delivery_create(uuid,integer,uuid,text,text,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "delivery_page(uuid,integer,integer)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "delivery_transition(uuid,uuid,integer,uuid,text,text,boolean)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "finalize_test_order(uuid,uuid,text,integer)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "guard_moderation_lock()",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=public"
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "handle_new_user()",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "image_brand_logo(uuid)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "image_file_access(uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "image_message_publish(uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "image_room_files(uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "image_upload_attempt()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "image_upload_reserve(uuid,text,uuid,text,text,integer)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "image_upload_verify(uuid,uuid,text,integer)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "ingestion_forget_channel(text,uuid,text)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "is_admin_provisioned()",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "is_admin()",
+      "anon_execute": true,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "moderate_entity(text,text,boolean,text)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "moderate_entity(text,text,boolean)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "my_brand_account()",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "my_consent_history_v2()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "my_consent_history()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "my_creator_identity_snapshot()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=public"
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "my_role()",
+      "anon_execute": true,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "my_saved_creator_catalog()",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "ops_admin_command(text,text,text)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "ops_channel_owner(text,text)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "ops_current_role()",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "ops_dashboard()",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "ops_draft_create(text)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "ops_draft_get(uuid)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "ops_enrollment_role()",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "ops_own_channels()",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "ops_public_channels(text)",
+      "anon_execute": true,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "ops_request_quota(text)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "ops_worker_checkpoint(text,uuid,uuid,jsonb,jsonb)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "ops_worker_claim(text)",
+      "anon_execute": true,
+      "service_execute": true,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "ops_worker_finish(text,uuid,uuid,jsonb,text,integer)",
+      "anon_execute": true,
+      "service_execute": true,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "ops_worker_heartbeat(text,uuid,uuid)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "preserve_campaign_terms()",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "provision_administrator(uuid,text,timestamp with time zone)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "public_review_records(text,text)",
+      "anon_execute": true,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "recommendation_create(uuid,uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "recommendation_page(uuid,uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "record_publication_consent_v2(text,text,boolean,uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "record_publication_consent(text,text,boolean,uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "review_decide(uuid,integer,text,text,text,text,boolean)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "review_inbox(timestamp with time zone,uuid,integer)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=public"
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "review_report(uuid,text)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "review_respond(uuid,integer,text,text,boolean)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "review_revise(uuid,integer,jsonb)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "review_submit(text,text,uuid,jsonb)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "review_withdraw(uuid,integer)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "revoke_administrator(uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": false
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "save_brand_account_logo(text,text,text,text,boolean,text,text,text,uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": true,
+      "signature": "save_brand_account(text,text,text,text,boolean,text,text,text)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "save_publication(text,jsonb,text,text,uuid)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "test_billing_available()",
+      "anon_execute": true,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "toggle_saved_creator(text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "transition_proposal(uuid,text)",
+      "anon_execute": false,
+      "service_execute": false,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=public"
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "valid_campaign_dto(jsonb)",
+      "anon_execute": true,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=\"\""
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "valid_campaign_terms(jsonb)",
+      "anon_execute": false,
+      "service_execute": true,
+      "authenticated_execute": true
+    },
+    {
+      "config": [
+        "search_path=public"
+      ],
+      "schema": "public",
+      "definer": false,
+      "signature": "valid_creator_dto(jsonb)",
+      "anon_execute": true,
+      "service_execute": true,
+      "authenticated_execute": true
+    }
+  ],
+  "buckets": [
+    {
+      "id": "adme-private-images",
+      "mime": [
+        "image/png"
+      ],
+      "size": 4194304,
+      "public": false
+    },
+    {
+      "id": "portfolios",
+      "mime": [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "application/pdf"
+      ],
+      "size": 5242880,
+      "public": false
+    }
+  ],
+  "storagePolicies": [
+    {
+      "name": "portfolio_delete",
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "using": "((bucket_id = 'portfolios'::text) AND ((storage.foldername(name))[1] = (auth.uid())::text))",
+      "command": "DELETE"
+    },
+    {
+      "name": "portfolio_insert",
+      "check": "((bucket_id = 'portfolios'::text) AND ((storage.foldername(name))[1] = (auth.uid())::text))",
+      "roles": [
+        "public"
+      ],
+      "using": null,
+      "command": "INSERT"
+    },
+    {
+      "name": "portfolio_select",
+      "check": null,
+      "roles": [
+        "public"
+      ],
+      "using": "((bucket_id = 'portfolios'::text) AND ((storage.foldername(name))[1] = (auth.uid())::text))",
+      "command": "SELECT"
+    },
+    {
+      "name": "private_image_insert",
+      "check": "((bucket_id = 'adme-private-images'::text) AND adme_upload.storage_write(name))",
+      "roles": [
+        "authenticated"
+      ],
+      "using": null,
+      "command": "INSERT"
+    },
+    {
+      "name": "private_image_read",
+      "check": null,
+      "roles": [
+        "authenticated"
+      ],
+      "using": "((bucket_id = 'adme-private-images'::text) AND adme_upload.storage_read(name))",
+      "command": "SELECT"
+    }
+  ],
+  "scope": "Actual local metadata + targeted assertions; role behavior is verified separately by actual REST/Auth/Storage suites. Not a hosted audit."
+}

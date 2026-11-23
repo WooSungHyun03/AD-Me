@@ -1,3 +1,4 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
@@ -10,7 +11,7 @@ const schema = z.object({
   message: z.string().trim().min(10).max(2000),
   email: z.union([z.literal(""), z.email().max(254)]).optional(),
 });
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const p = schema.safeParse(await req.json().catch(() => null));
   if (!p.success) return fail("문의 유형과 10자 이상의 내용을 입력해주세요.");
@@ -35,3 +36,5 @@ export async function POST(req: Request) {
       : fail("문의를 저장하지 못했습니다.", 400);
   return NextResponse.json({ id: data }, { status: 201 });
 }
+
+export const POST=compatibleApiRoute("src/app/api/inquiries/route.ts.POST",handlePOST);

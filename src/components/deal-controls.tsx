@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 export function DealControls({
@@ -63,11 +63,16 @@ export function DealControls({
 export function MessageForm({
   proposalId,
   deliverable,
+  onSent,
 }: {
   proposalId: string;
   deliverable: boolean;
+  onSent?: () => void;
 }) {
   const [message, setMessage] = useState("");
+  const [pending, setPending] = useState(false);
+  const sending = useRef(false);
+  const retry = useRef<{ signature: string; key: string } | null>(null);
   const router = useRouter();
   return (
     <form
@@ -75,37 +80,51 @@ export function MessageForm({
       style={{ marginTop: 20 }}
       onSubmit={async (e) => {
         e.preventDefault();
+        if (sending.current) return;
         const f = new FormData(e.currentTarget);
         const form = e.currentTarget;
+        const payload = {
+          proposalId,
+          body: f.get("body"),
+          url: f.get("url") || undefined,
+          kind: f.get("kind"),
+        };
+        const signature = JSON.stringify(payload);
+        if (retry.current?.signature !== signature)
+          retry.current = { signature, key: crypto.randomUUID() };
+        sending.current = true;
+        setPending(true);
         try {
           const res = await fetch("/api/messages", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              proposalId,
-              body: f.get("body"),
-              url: f.get("url") || undefined,
-              kind: f.get("kind"),
-            }),
+            body: JSON.stringify({ ...payload, clientKey: retry.current.key }),
           });
           const d = await res.json();
           if (res.ok) {
             form.reset();
-            router.refresh();
+            retry.current = null;
+            if (onSent) onSent();
+            else router.refresh();
             setMessage("저장되었습니다.");
           } else setMessage(d.error?.message || "저장 실패");
         } catch {
-          setMessage("네트워크 오류입니다.");
+          setMessage(
+            "전송 결과를 확인하지 못했습니다. 같은 내용으로 다시 시도하면 중복 저장되지 않습니다.",
+          );
+        } finally {
+          sending.current = false;
+          setPending(false);
         }
       }}
     >
       <label className="field">
         메시지
-        <textarea name="body" required maxLength={3000} />
+        <textarea name="body" required maxLength={3000} disabled={pending} />
       </label>
       <label className="field">
         종류
-        <select aria-label="종류" name="kind">
+        <select aria-label="종류" name="kind" disabled={pending}>
           <option value="message">일반 메시지</option>
           {deliverable && <option value="deliverable">결과물 링크 제출</option>}
         </select>
@@ -113,10 +132,17 @@ export function MessageForm({
       {deliverable && (
         <label className="field">
           결과물 HTTPS 링크
-          <input name="url" type="url" placeholder="https://" />
+          <input
+            name="url"
+            type="url"
+            placeholder="https://"
+            disabled={pending}
+          />
         </label>
       )}
-      <Button variant="outline">메시지 저장</Button>
+      <Button variant="outline" disabled={pending}>
+        {pending ? "전송 중…" : "메시지 저장"}
+      </Button>
       <p role="status">{message}</p>
     </form>
   );

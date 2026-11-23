@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-20T08:45:44.177110+00:00",
+  "archive": "deliverables/AD-Me_DEV-A_FILTERS_20261120_review.zip",
+  "source_head": "06bb2c1d68d4214d1727ff9f4392149097832928",
+  "sha256": "54c9010f93128e2e8d4a410574c76fcf668a13c61cd610c945123f006f4193d9",
+  "bytes": 3173820,
+  "source_files": 371,
+  "crc": "PASS",
+  "all_source_blobs_match_git": true,
+  "sql_files_exactly_match_previously_verified_archive": 21,
+  "new_migrations": 0,
+  "secret_patterns": "NONE",
+  "private_runtime_files": "NONE",
+  "previous_archive_hashes_unchanged": [
+    "deliverables/AD-Me_DEV-A_MAIN_20261120_review.zip",
+    "deliverables/AD-Me_DEV-A_P0_20261119_review.zip",
+    "deliverables/AD-Me_DEV-A_SCHEMA_20261120_review.zip",
+    "deliverables/AD-Me_DEV-A_TERMS_20261120_review.zip"
+  ],
+  "external_applied": false
+}

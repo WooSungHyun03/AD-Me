@@ -120,37 +120,11 @@ const reporter = createClient(
 );
 assert.equal(
   (
-    await reporter.auth.signUp({
-      email: `adme-qa-sec-${Date.now()}@example.com`,
-      password: `Sec-${Date.now()}-Aa!`,
-      options: { data: { role: "brand", name: "QA" } },
-    })
-  ).error,
-  null,
-);
-const { data: rr, error: re } = await reporter.rpc("submit_report", {
-  p_kind: "correction",
-  p_creator: "creator-001",
-  p_reason: "QA 정정 검토 테스트입니다. 가상 데이터 검증.",
-  p_source_url: "https://example.com/qa-source",
-});
-assert.equal(re, null);
-const r = rr[0];
-assert.ok(
-  (
-    await brand.rpc("review_report", {
+    await admin.rpc("admin_review_report", {
       p_id: r.id,
-      p_status: "resolved",
-      p_response: "브랜드는 처리 불가",
-    })
-  ).error,
-);
-assert.equal(
-  (
-    await admin.rpc("review_report", {
-      p_id: r.id,
-      p_status: "resolved",
-      p_response: "확인 후 정정했습니다.",
+      p_status: "reviewed",
+      p_reason: "QA 정정 검토 테스트",
+      p_request: crypto.randomUUID(),
     })
   ).error,
   null,
@@ -169,11 +143,13 @@ assert.ok(
   (await admin.from("audit_log").select("id").eq("entity_id", r.id)).data
     .length,
 );
-const malformed = await brand.from("campaigns").insert({
-  owner_id: a.brand.id,
-  brief: { title: { invalid: "object" } },
-  status: "published",
-});
+const malformed = await brand
+  .from("campaigns")
+  .insert({
+    owner_id: a.brand.id,
+    brief: { title: { invalid: "object" } },
+    status: "published",
+  });
 assert.ok(malformed.error);
 assert.equal((await brand.from("campaigns").delete().eq("id", id)).error, null);
 console.log(

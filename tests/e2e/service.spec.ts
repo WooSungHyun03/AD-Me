@@ -3,7 +3,7 @@ import { test, expect, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 const accounts = JSON.parse(
-  readFileSync(".accounts.local.json", "utf8"),
+  readFileSync(process.env.ADME_ACCOUNTS_FILE || ".accounts.local.json", "utf8"),
 ) as Record<string, { email: string; password: string; id: string }>;
 async function login(page: Page, role: string) {
   await page.goto("/login");

@@ -1,0 +1,37 @@
+{
+  "source_head": "fd701851ceef1839e5b88ac2f234620747a049aa",
+  "baseline_head": "aab0be95766970ec8d6670214e1b4edc2edd1906",
+  "from_migrations": 57,
+  "to_migrations": 60,
+  "sources": [
+    {
+      "path": "supabase/migrations/202611210058_deletion_quarantine.sql",
+      "sha256_lf": "d87fb4234fce9c0a194303b30122c9cc99837d042cfeccfb09400be2435180f9"
+    },
+    {
+      "path": "supabase/migrations/202611210059_deletion_private_helpers.sql",
+      "sha256_lf": "89627736d9354a3b5fe5f779a9c79e7a6ce88547194ac5b63b0937a872473207"
+    },
+    {
+      "path": "supabase/migrations/202611210060_deletion_owned_jobs.sql",
+      "sha256_lf": "ed21ab4b0ca46c022b9c8420721664dcccc2db459f99cb1dcc5398c8699fc95f"
+    }
+  ],
+  "files": [
+    {
+      "path": "00_preflight.sql",
+      "sha256_lf": "622bd50a12aa7abc8deabc303077173f3ff325a0531843185482d62d7dcfb55c"
+    },
+    {
+      "path": "01_apply_current_57.sql",
+      "sha256_lf": "44fb1b245fd4d8fbc2fff6fd639d5014475de15cae12c317e5ba961332825613"
+    },
+    {
+      "path": "02_verify.sql",
+      "sha256_lf": "6efbef881755d2ad57a158c59e23c10810ab42f349b2928323aee820cde3229c"
+    }
+  ],
+  "intake_default_off": true,
+  "permanent_erasure": false,
+  "external_applied": false
+}

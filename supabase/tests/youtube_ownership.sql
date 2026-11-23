@@ -1,5 +1,6 @@
 \set ON_ERROR_STOP on
 begin;
+update adme_ops.resource_controls set ingestion_enabled=true,llm_enabled=true where singleton=true;
 insert into auth.users(id,raw_user_meta_data) values
  ('ad000000-0000-4000-8000-000000000101','{"role":"creator"}'),
  ('ad000000-0000-4000-8000-000000000102','{"role":"creator"}');
@@ -44,6 +45,12 @@ do $$ begin
   assert public.ops_public_channels('Fixture')->0->>'creator_id'='test-youtube-profile';
   assert public.ops_public_channels('unknown')='[]'::jsonb;
 end; $$;
+reset role;
+update public.creators set moderation_status='restricted' where id='test-youtube-profile';
+set local role anon;
+do $$ begin assert public.ops_public_channels('Fixture')='[]'::jsonb; end; $$;
+reset role;
+update public.creators set moderation_status='allowed' where id='test-youtube-profile';
 set local role authenticated;
 select public.ops_channel_owner('hide','UC_x5XG1OV2P6uZZ5FSM9Ttw');
 set local role anon;

@@ -44,3 +44,6 @@
 
 ## Harness 해석
 T004(자가가입 메일)와 T018(Toss 실제 키 연결)이 차단되어 하위 의존 태스크는 검증된 코드가 있어도 전체 완료로 올리지 않았다. `implementation_status`와 `verification` 필드 및 본 문서에 개별 검증 증거를 보존한다. 완료되지 않은 기존 acceptance를 삭제하거나 테스트를 건너뛰어 GREEN으로 만들지 않는다.
+# DEV-A 로컬 후속 — 2026-11-19 KST
+
+기존 미커밋 변경을 보존하며 브랜드/담당자 분리(D012), 관리자 별도 승인·TOTP(D016), 운영 잠금(D059), 로컬 DB/메일/MFA 회귀(D084)를 구현했다. 정확한 잠금 패키지·Node 22에서 단위 115개, 직접 REST 13개, 로컬 DB E2E 18개 및 무료 모드 E2E 4개를 검증했다. 외부 공급자·배포 검증 결과가 아니며 전체 P0 NO-GO를 유지한다. [현재 적용/검증 패킷](handoff/DEV-A_P0_CONTINUATION_PACKET.md), [실행 원장](../harness/evidence/DEV-A-P0-CONTINUE/verification.json).

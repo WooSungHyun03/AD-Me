@@ -1,37 +1,63 @@
-import Link from "next/link";
-import { Catalog } from "@/components/catalog";
-import { currentUser, supabase } from "@/lib/supabase";
-import { searchCreators, searchSchema } from "@/lib/search";
-import { PromotionSlot } from "@/components/promotion-slot";
 import { featuredYoutube } from "@/lib/featured-youtube";
 import { YoutubeChannelCards } from "@/components/featured-youtube";
-export const metadata = {
-  title: "크리에이터 탐색",
-  alternates: { canonical: "/creators" },
-};
+import Link from "next/link";
+import { Suspense } from "react";
+import { getConfig } from "@/lib/config";
+import { Catalog } from "@/components/catalog";
+import { configured, currentUser, supabase } from "@/lib/supabase";
+import { publicCreators } from "@/lib/data";
+import { readMySavedCreatorCatalog } from "@/lib/creator-catalog-read";
+import { parseCreatorFilters } from "@/lib/creator-filters";
+import {
+  readFilteredCatalog,
+  type FilteredCatalog,
+} from "@/lib/filtered-catalog";
 export default async function Creators({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string | string[] }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const { q } = await searchParams;
-  const query = typeof q === "string" ? q.trim().slice(0, 80) : "";
-  // Registered profiles: first page only; further pages come from /api/creators.
-  const [initial, featured] = await Promise.all([
-    searchCreators(searchSchema.parse({})),
-    featuredYoutube(query),
-  ]);
+  const query = new URLSearchParams();
+  for (const [key, value] of Object.entries(await searchParams))
+    for (const v of Array.isArray(value) ? value : value ? [value] : [])
+      query.append(key, v);
+  const filters = parseCreatorFilters(query),
+    remote = configured();
+  let initialPage: FilteredCatalog | undefined;
+  if (remote) {
+    try {
+      initialPage = await readFilteredCatalog(
+        await supabase(),
+        filters,
+        getConfig().serviceMode === "test_demo",
+      );
+    } catch {
+      /* Client retry preserves the page and filter inputs. */
+    }
+  }
+  const items = remote ? (initialPage?.items ?? []) : await publicCreators();
+  const featured = await featuredYoutube(filters.query.slice(0, 80));
+  let hot: {
+    creator_id: string;
+    profile: { name: string };
+    expires_at: string;
+  }[] = [];
+  if (getConfig().features.testBilling === "enabled") {
+    const db = await supabase();
+    const { data } = await db.rpc("active_hot_creators");
+    hot = data ?? [];
+  }
   let initialSaved: string[] = [];
   const user = await currentUser();
   if (user) {
     const db = await supabase();
-    await db.rpc("track_explore"); // D006: one pseudonymous event per day, no search terms
-    const { data } = await db
-      .from("saved_list_items")
-      .select("creator_id,saved_lists!inner(is_default)")
-      .eq("owner_id", user.id)
-      .eq("saved_lists.is_default", true);
-    initialSaved = data?.map((x) => x.creator_id) ?? [];
+    try {
+      initialSaved = (await readMySavedCreatorCatalog(db)).map(
+        (x) => x.creator_id,
+      );
+    } catch {
+      /* Saving errors remain recoverable in the catalogue. */
+    }
   }
   return (
     <section className="wrap">
@@ -40,7 +66,12 @@ export default async function Creators({
       <form action="/creators" method="get" className="form ops-form">
         <label>
           채널 이름
-          <input type="search" name="q" maxLength={80} defaultValue={query} />
+          <input
+            type="search"
+            name="q"
+            maxLength={80}
+            defaultValue={filters.query}
+          />
         </label>
         <button className="button outline">검색</button>
       </form>
@@ -60,12 +91,38 @@ export default async function Creators({
         <p>
           <Link href="/creators/youtube">소유권 확인 채널 검색</Link>
         </p>
-        <div className="notice">
-          DEMO 표식은 가상 데이터, 본인 등록 표식은 크리에이터가 직접 입력한
-          정보입니다. 유료 HOT 노출은 추천 점수에 영향을 주지 않습니다.
-        </div>
-        <PromotionSlot />
-        <Catalog initial={initial} initialSaved={initialSaved} />
+        {hot.length > 0 && (
+          <section className="panel" style={{ marginBottom: 24 }}>
+            <span className="badge lime">스폰서 · HOT</span>
+            <h3 style={{ marginTop: 15 }}>지금 주목할 크리에이터</h3>
+            <p>
+              활성 TEST 이용권의 별도 노출입니다. 아래 일반 추천 순위와
+              무관합니다.
+            </p>
+            <div className="inline">
+              {hot.map((h) => (
+                <Link
+                  className="button outline"
+                  href={`/creators/${h.creator_id}`}
+                  key={h.creator_id}
+                >
+                  {h.profile.name} ↗
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+        {
+          <Suspense fallback={<p role="status">검색을 준비하고 있습니다.</p>}>
+            <Catalog
+              items={items}
+              initialSaved={initialSaved}
+              remote={remote}
+              initialPage={initialPage}
+              initialFilters={filters}
+            />
+          </Suspense>
+        }
       </section>
     </section>
   );

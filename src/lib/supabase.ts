@@ -1,31 +1,26 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-export const configured = () =>
-  Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL &&
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  );
+import { getConfig } from "./config";
+
+export const configured = () => Boolean(getConfig().supabase);
 export async function supabase() {
-  if (!configured()) throw new Error("Supabase 연결이 준비되지 않았습니다.");
+  const config = getConfig().supabase;
+  if (!config) throw new Error("Supabase 연결이 준비되지 않았습니다.");
   const jar = await cookies();
-  return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll: () => jar.getAll(),
-        setAll(values) {
-          try {
-            values.forEach(({ name, value, options }) =>
-              jar.set(name, value, options),
-            );
-          } catch {
-            /* Middleware handles cookie refresh. */
-          }
-        },
+  return createServerClient(config.url, config.key, {
+    cookies: {
+      getAll: () => jar.getAll(),
+      setAll(values) {
+        try {
+          values.forEach(({ name, value, options }) =>
+            jar.set(name, value, options),
+          );
+        } catch {
+          /* Middleware handles cookie refresh. */
+        }
       },
     },
-  );
+  });
 }
 export async function currentUser() {
   if (!configured()) return null;
@@ -33,5 +28,7 @@ export async function currentUser() {
   const {
     data: { user },
   } = await db.auth.getUser();
-  return user;
+  if (!user) return null;
+  const active = await db.rpc("account_access");
+  return !active.error && active.data === true ? user : null;
 }

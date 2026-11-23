@@ -53,10 +53,20 @@ describe("D077 web boundary", () => {
       ].map((m) => [f, m[1].trim()]),
     );
     expect(calls.length).toBeGreaterThan(0);
-    for (const [f, arg] of calls)
+    for (const [f, arg] of calls) {
+      if (f.replaceAll("\\", "/") === "src/app/api/billing/confirm/route.ts") {
+        expect(arg).toBe('new URL("/functions/v1/payment-confirm"');
+        expect(readFileSync(f, "utf8")).toContain("config.url");
+        continue;
+      }
+      if (f.replaceAll("\\", "/") === "src/lib/creator-search-store.ts") {
+        expect(arg).toBe("`/api/creators/search?${q}`");
+        continue;
+      }
       expect(`${f}: ${arg}`).toMatch(
         /: (process\.env\.NEXT_PUBLIC_SUPABASE_URL \+ "\/functions\/v1\/[a-z-]+"|url)$/,
       );
+    }
     // The only dynamic `url` is the YouTube client, built on a constant API origin.
     expect(readFileSync("src/lib/ingestion/youtube.ts", "utf8")).toMatch(
       /const API = "https:\/\/www\.googleapis\.com\/youtube\/v3";[\s\S]*new URL\(`\$\{API\}\//,

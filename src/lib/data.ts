@@ -1,28 +1,39 @@
-import { connection } from "next/server";
-import { creators, type Creator } from "./catalog";
-import { isDemoMode } from "./mode";
+import "server-only";
+import { getConfig } from "./config";
+import { creators } from "./catalog";
 import { configured, supabase } from "./supabase";
-export async function publicCreators(): Promise<Creator[]> {
-  const demo = isDemoMode();
-  if (!configured()) {
-    // free_beta must never present the 48 fictional fixtures as a working service.
-    if (demo) return creators;
-    await connection(); // report at request time instead of failing the build
-    throw new Error("서비스 데이터베이스 연결이 준비되지 않았습니다.");
-  }
+import {
+  projectPublicCreator,
+  type PublicCatalogCreator,
+  publicCatalogCreatorSchema,
+} from "./creator-public-profile";
+import { readPublicCreatorCatalog } from "./creator-catalog-read";
+export async function publicCreators(): Promise<PublicCatalogCreator[]> {
+  if (!configured() && getConfig().serviceMode === "free_beta")
+    throw Error("실제 크리에이터 데이터 연결이 필요합니다.");
+  if (!configured())
+    return creators
+      .map((profile) =>
+        projectPublicCreator({
+          id: profile.seed_id,
+          published: profile.published,
+          profile,
+        }),
+      )
+      .filter((c) => c !== null);
   const db = await supabase();
-  let q = db
-    .from("creators")
-    .select("id,profile,published,owner_id,claim_status")
-    .eq("published", true);
-  if (!demo) q = q.eq("profile->>is_demo", "false");
-  const { data, error } = await q;
-  if (error) throw new Error("크리에이터 목록을 불러오지 못했습니다.");
-  return (data ?? []).map((c) => ({
-    ...c.profile,
-    seed_id: c.id,
-    published: c.published,
-    owner_id: c.owner_id,
-    claim_status: c.claim_status,
-  }));
+  return readPublicCreatorCatalog(db);
+}
+export async function publicCreator(
+  reference: string,
+): Promise<PublicCatalogCreator | null> {
+  if (!configured())
+    return (
+      (await publicCreators()).find((c) => c.seed_id === reference) ?? null
+    );
+  const db = await supabase(),
+    { data, error } = await db.rpc("creator_public_one", { p_ref: reference });
+  if (error) throw Error("프로필을 불러오지 못했습니다.");
+  if (data === null) return null;
+  return publicCatalogCreatorSchema.parse(data);
 }

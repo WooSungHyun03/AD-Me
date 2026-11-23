@@ -1,0 +1,24 @@
+{
+  "lockfile_sha256": "871ea475759042d14d465a988b9b9800b58939fe1ce082bcb72f987d5f165b64",
+  "lockfile_sha256_lf": "8dc48c682307e41c1b5e6505f26fd35a79e612551a2a51cd64f961b26c8f3d8d",
+  "prior_inventory_lockfile_sha256": "871ea475759042d14d465a988b9b9800b58939fe1ce082bcb72f987d5f165b64",
+  "sources": [
+    {
+      "path": "docs/licenses/THIRD_PARTY_NOTICES.md",
+      "sha256_lf": "e3be320a027df1bc5e2da5268445d01a6787a4b893dd53fdccb61c31364a9cae"
+    },
+    {
+      "path": "docs/licenses/20261121/ARTIFACT_NOTICES.md",
+      "sha256_lf": "9210c480d8f4272a7118a60c2f019ce37d0213edaa4f925f35f5c9e5941b7dc8"
+    }
+  ],
+  "shipped_path": "public/legal/third-party-notices.txt",
+  "sha256": "2ec261c46fdcd7223927163ae68515ed2c0261542d602631b40eb10ead9a9241",
+  "bytes": 1602660,
+  "existing_exact_installed": 393,
+  "existing_exact_archive": 42,
+  "unresolved_archive_notices": 71,
+  "source_notice_documents_unchanged": true,
+  "rights_approval": false,
+  "scope": "Ship known exact notices in public/ so Next hosting can serve them. Runtime trace / actual Linux build proof is separate. No missing notice inferred from SPDX alone. Lock/source comparison normalizes CRLF only."
+}

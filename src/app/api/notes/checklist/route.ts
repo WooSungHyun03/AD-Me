@@ -1,8 +1,9 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
 // D061: the brand's own review checklist (RLS: owner only, brand role, max 10 items).
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -22,7 +23,7 @@ export async function POST(req: Request) {
     );
   return NextResponse.json({ ok: true });
 }
-export async function DELETE(req: Request) {
+ async function handleDELETE(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -38,3 +39,6 @@ export async function DELETE(req: Request) {
   if (!data?.length) return fail("항목을 찾을 수 없습니다.", 404);
   return NextResponse.json({ ok: true });
 }
+
+export const POST=compatibleApiRoute("src/app/api/notes/checklist/route.ts.POST",handlePOST);
+export const DELETE=compatibleApiRoute("src/app/api/notes/checklist/route.ts.DELETE",handleDELETE);

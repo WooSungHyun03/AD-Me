@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { context } from "@/lib/api";
 import { ContactForm } from "./contact-form";
 import { ClaimForm } from "./claim-form";
+import { getConfig } from "@/lib/config";
+export const dynamic = "force-dynamic";
 
 type Claim = {
   channel_id: string;
@@ -30,6 +32,7 @@ export default async function YoutubeSettings() {
   ]);
   const byChannel = new Map(contacts.data?.map((row) => [row.channel_id, row]));
   const claims = (data ?? []) as Claim[];
+  const enabled = getConfig().features.ingestion === "enabled";
   return (
     <section className="wrap">
       <Link href="/settings">계정 설정으로 돌아가기</Link>
@@ -42,7 +45,14 @@ export default async function YoutubeSettings() {
         <p role="alert">채널 연결 정보를 불러오지 못했습니다.</p>
       ) : (
         <>
-          <ClaimForm action="create" label="채널 추가" />
+          {enabled ? (
+            <ClaimForm action="create" label="채널 추가" />
+          ) : (
+            <p>
+              현재 채널 연결과 확인 요청을 제공하지 않습니다. 기존 연결은 해제할
+              수 있습니다.
+            </p>
+          )}
           {claims.map((claim) => (
             <article key={claim.channel_id} className="ops-section">
               <h2>{claim.channel_id}</h2>
@@ -72,14 +82,14 @@ export default async function YoutubeSettings() {
                       channel={claim.channel_id}
                       label="검색 공개 동의 철회"
                     />
-                  ) : (
+                  ) : enabled ? (
                     <ClaimForm
                       action="publish"
                       channel={claim.channel_id}
                       label="채널 검색 공개에 동의"
                       confirmation="승인 후 AD Me 검색에 채널 제목, 링크, 구독자 수와 연결된 공개 프로필을 표시할까요?"
                     />
-                  )}
+                  ) : null}
                 </>
               ) : (
                 <>
@@ -99,11 +109,13 @@ export default async function YoutubeSettings() {
                           : "확인 대기 중입니다. 잠시 후 새로고침해주세요."}
                     </p>
                   )}
-                  <ClaimForm
-                    action="check"
-                    channel={claim.channel_id}
-                    label="소유권 확인 요청"
-                  />
+                  {enabled && (
+                    <ClaimForm
+                      action="check"
+                      channel={claim.channel_id}
+                      label="소유권 확인 요청"
+                    />
+                  )}
                 </>
               )}
               <ClaimForm

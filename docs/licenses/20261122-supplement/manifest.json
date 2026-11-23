@@ -1,0 +1,9 @@
+{
+  "lockfile_sha256_lf": "8dc48c682307e41c1b5e6505f26fd35a79e612551a2a51cd64f961b26c8f3d8d",
+  "shipped_path": "public/legal/third-party-supplement-20261122.txt",
+  "sha256": "210db707d6ac9185a48ea01eb105d2335db56c99d3ae669ed179a0abe3175006",
+  "bytes": 58218,
+  "inventory_sha256_lf": "454b2f93153d37309bf7abaf171fc0703e7872d6d10909030fb8b6d0729fb1ea",
+  "source_scope": "Exact npm archives and bundled carrier; no package installation/execution or third-party outreach",
+  "rights_approval": false
+}

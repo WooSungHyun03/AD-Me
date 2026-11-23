@@ -8,21 +8,21 @@
       "status": "IMPLEMENTED",
       "classification": "PUBLIC",
       "location": "Vercel",
-      "consumer": "src/lib/supabase.ts"
+      "consumer": "src/lib/config.ts"
     },
     {
       "name": "NEXT_PUBLIC_SUPABASE_ANON_KEY",
       "status": "IMPLEMENTED",
       "classification": "PUBLIC",
       "location": "Vercel",
-      "consumer": "src/lib/supabase.ts"
+      "consumer": "src/lib/config.ts"
     },
     {
       "name": "NEXT_PUBLIC_TOSS_CLIENT_KEY",
       "status": "IMPLEMENTED",
       "classification": "PUBLIC",
       "location": "Vercel TEST",
-      "consumer": "src/components/checkout.tsx"
+      "consumer": "src/lib/config.ts"
     },
     {
       "name": "TOSS_SECRET_KEY",
@@ -40,17 +40,17 @@
     },
     {
       "name": "SUPABASE_SERVICE_ROLE_KEY",
-      "status": "RUNTIME_PROVIDED",
+      "status": "USER_ACTION_REQUIRED",
       "classification": "SECRET",
-      "location": "Supabase runtime",
-      "consumer": "supabase/functions/payment-confirm/index.ts"
+      "location": "Supabase Edge runtime; Vercel server-only for verified images and keyed request budgets",
+      "consumer": "src/lib/server-admin.ts"
     },
     {
       "name": "NEXT_PUBLIC_APP_URL",
       "status": "IMPLEMENTED",
       "classification": "PUBLIC",
       "location": "Vercel Production",
-      "consumer": "src/lib/auth-links.ts"
+      "consumer": "src/lib/config.ts"
     },
     {
       "name": "BASE_URL",
@@ -61,38 +61,38 @@
     },
     {
       "name": "ADME_SERVICE_MODE",
-      "status": "PROPOSED",
+      "status": "IMPLEMENTED",
       "classification": "SERVER_CONFIG",
-      "location": "TBD by D003",
-      "consumer": null
+      "location": "Vercel server / local and isolated TEST Supabase Edge Function runtime",
+      "consumer": "src/lib/config.ts"
     },
     {
       "name": "ADME_FEATURE_INGESTION",
-      "status": "PROPOSED",
+      "status": "IMPLEMENTED",
       "classification": "SERVER_CONFIG",
-      "location": "TBD by D003",
-      "consumer": null
+      "location": "Vercel server / local",
+      "consumer": "src/lib/config.ts"
     },
     {
       "name": "ADME_FEATURE_LLM",
-      "status": "PROPOSED",
+      "status": "IMPLEMENTED",
       "classification": "SERVER_CONFIG",
-      "location": "TBD by D003",
-      "consumer": null
+      "location": "Vercel server / local",
+      "consumer": "src/lib/config.ts"
     },
     {
       "name": "ADME_FEATURE_TEST_BILLING",
-      "status": "PROPOSED",
+      "status": "IMPLEMENTED",
       "classification": "SERVER_CONFIG",
-      "location": "TBD by D003",
-      "consumer": null
+      "location": "Vercel server / local and isolated TEST Supabase Edge Function runtime",
+      "consumer": "src/lib/config.ts"
     },
     {
       "name": "YOUTUBE_API_KEY",
-      "status": "REGISTERED_NOT_CONSUMED",
+      "status": "IMPLEMENTED_WORKER_CONSUMER",
       "classification": "SECRET",
-      "location": "Vercel Production Secret; provider probe only",
-      "consumer": null
+      "location": "USER-managed outbound worker only; existing historical registration retained",
+      "consumer": "scripts/intelligence_worker.py"
     },
     {
       "name": "AI_PROVIDER_TOKEN",
@@ -142,7 +142,29 @@
       "classification": "SECRET",
       "location": "TBD by D003",
       "consumer": null
+    },
+    {
+      "name": "ADME_FEATURE_MAIL",
+      "status": "IMPLEMENTED",
+      "classification": "SERVER_CONFIG",
+      "location": "Vercel server / local",
+      "consumer": "src/lib/config.ts"
+    },
+    {
+      "name": "ADME_WORKER_TOKEN",
+      "status": "IMPLEMENTED",
+      "classification": "SECRET",
+      "location": "USER-managed outbound worker; DB stores hash only",
+      "consumer": "scripts/intelligence_worker.py",
+      "database_guard": "adme_ops.verify_worker(text)"
+    },
+    {
+      "name": "VERCEL",
+      "status": "RUNTIME_PROVIDED",
+      "classification": "PUBLIC",
+      "location": "Vercel built-in, never manually spoof in a proxy",
+      "consumer": "src/lib/request-budget.ts"
     }
   ],
-  "technical_execution": "USER_AUTHORIZED_AGENT"
+  "technical_execution": "USER"
 }

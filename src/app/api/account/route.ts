@@ -1,43 +1,46 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { context, fail, safeOrigin } from "@/lib/api";
-import { categories } from "@/lib/catalog";
-export async function PATCH(req: Request) {
-  if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
-  const c = await context();
-  if (!c) return fail("로그인이 필요합니다.", 401);
-  const p = z
-    .object({
-      name: z.string().trim().min(2).max(80),
-      analytics_opt_out: z.boolean().optional(),
-    })
-    .safeParse(await req.json().catch(() => null));
-  if (!p.success) return fail("이름은 2~80자여야 합니다.");
+import {
+  apiRoute,
+  fail,
+  failDatabase,
+  parseBody,
+  requireContext,
+} from "@/lib/api";
+import { brandAccountSchema } from "@/lib/brand-profile";
+import { publicationProofSchema } from "@/lib/consent";
+export const PATCH = apiRoute("account.patch", async (req) => {
+  const c = await requireContext();
+  const p = await parseBody(
+    req,
+    z
+      .object({
+        name: z.string().trim().min(2).max(80),
+        brand: brandAccountSchema.optional(),
+        publication: publicationProofSchema.optional(),
+      })
+      .strict(),
+    "이름은 2~80자여야 합니다.",
+  );
+  if (p.brand) {
+    if (c.role !== "brand")
+      fail("브랜드 계정만 브랜드 정보를 수정할 수 있습니다.", 403);
+    if (!p.publication)
+      fail("공개 선택의 정책 버전과 요청 정보를 확인해주세요.", 422);
+    const { data, error } = await c.db.rpc("save_publication", {
+      p_scope: "brand",
+      p_data: { name: p.name, ...p.brand },
+      p_version: p.publication.version,
+      p_hash: p.publication.documentHash,
+      p_key: p.publication.requestKey,
+    });
+    if (error) failDatabase(error, "브랜드 정보를 저장하지 못했습니다.");
+    return NextResponse.json(data);
+  }
   const { error } = await c.db
     .from("profiles")
-    .update(p.data)
+    .update({ name: p.name })
     .eq("id", c.user.id);
-  if (error) return fail("이름을 저장하지 못했습니다.");
+  if (error) failDatabase(error, "이름을 저장하지 못했습니다.");
   return NextResponse.json({ ok: true });
-}
-// D015: notification / marketing consent / interests. Version and time are recorded by the database.
-export async function PUT(req: Request) {
-  if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
-  const c = await context();
-  if (!c) return fail("로그인이 필요합니다.", 401);
-  const p = z
-    .object({
-      service_email: z.boolean(),
-      marketing_email: z.boolean(),
-      interests: z.array(z.enum(categories as [string, ...string[]])).max(5),
-    })
-    .safeParse(await req.json().catch(() => null));
-  if (!p.success) return fail("설정 값이 올바르지 않습니다.");
-  const { error } = await c.db.rpc("set_preferences", {
-    p_service: p.data.service_email,
-    p_marketing: p.data.marketing_email,
-    p_interests: [...new Set(p.data.interests)],
-  });
-  if (error) return fail("설정을 저장하지 못했습니다.");
-  return NextResponse.json({ ok: true });
-}
+});

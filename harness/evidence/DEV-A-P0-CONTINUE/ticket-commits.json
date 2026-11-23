@@ -1,0 +1,367 @@
+{
+  "recorded_at_kst": "2026-11-19T19:06:42.592352+09:00",
+  "branch": "codex/dev-a-p0-continue",
+  "original_root_head": "4437eb1",
+  "imported_base": "d1b2aa547714650af4cce8dcf2d7412dd803813d",
+  "restored_original_history": [
+    {
+      "commit": "d676e79e8d48b852dcdbeee87f78cd6d33cdf970",
+      "subject": "Prepare real-service handoffs and verify authorized external setup"
+    },
+    {
+      "commit": "bdd2c50326312c0adf979c9350f27ec13fc8ee3f",
+      "subject": "Exclude Supabase CLI temporary state from source and deploy uploads"
+    },
+    {
+      "commit": "2df93dcb7dc87a9ba03471ca5530f083aec38bb0",
+      "subject": "Connect be-celeb.org to AD Me and record domain verification"
+    },
+    {
+      "commit": "36327d70f7f9fb44f6f863c0ef36f7043bdf965c",
+      "subject": "Connect auth email and TEST providers with verified payment and restore evidence"
+    },
+    {
+      "commit": "c42ceec3d36684c5d8840bf886ee6ea756104e1a",
+      "subject": "Record final deployment and provider idempotency verification"
+    },
+    {
+      "commit": "d1b2aa547714650af4cce8dcf2d7412dd803813d",
+      "subject": "Record user-confirmed password recovery and sign-in"
+    }
+  ],
+  "preserved_backup_ref": "codex/pre-ticket-split-20261119",
+  "original_working_files_unchanged_before_map": 313,
+  "commit_count": 15,
+  "tickets": [
+    {
+      "ticket": "D003",
+      "commit": "68c8777c9a8f0a5ca75d2fe671368fc3783b04be",
+      "subject": "feat(D003): validate server configuration and safe diagnostics",
+      "typecheck": "PASS",
+      "paths": [
+        ".env.example",
+        ".gitignore",
+        ".vercelignore",
+        "docs/handoff/ENVIRONMENT_CONTRACT.md",
+        "eslint.config.mjs",
+        "harness/evidence/D003/README.md",
+        "harness/handoff/environment-manifest.json",
+        "harness/handoff/runtime-status.json",
+        "package.json",
+        "scripts/check-config.mjs",
+        "src/lib/config-schema.ts",
+        "src/lib/config.ts",
+        "src/lib/supabase.ts",
+        "src/proxy.ts",
+        "tests/config.test.ts",
+        "tsconfig.json",
+        "vitest.config.ts"
+      ],
+      "acceptance_status": "LOCAL_VERIFIED"
+    },
+    {
+      "ticket": "D002",
+      "commit": "bfd1866ece5489e6a272f709bdc4c45267a6f72d",
+      "subject": "refactor(D002): centralize service features and product descriptions",
+      "typecheck": "PASS",
+      "paths": [
+        "docs/PRD.md",
+        "harness/evidence/D002/README.md",
+        "harness/handoff/runtime-status.json",
+        "src/app/about/page.tsx",
+        "src/components/campaign-form.tsx",
+        "src/components/catalog.tsx",
+        "src/components/profile-form.tsx",
+        "src/lib/billing.ts",
+        "src/lib/catalog.ts",
+        "src/lib/schemas.ts",
+        "src/lib/service-catalog.ts",
+        "src/lib/test-products.ts"
+      ],
+      "acceptance_status": "IN_PROGRESS"
+    },
+    {
+      "ticket": "D004",
+      "commit": "3a8a183e01a53b1867a914ad35a275cd0d9c4a25",
+      "subject": "refactor(D004): unify API validation and sanitized errors",
+      "typecheck": "PASS",
+      "paths": [
+        "docs/API_CONTRACTS.md",
+        "harness/evidence/D004/README.md",
+        "harness/handoff/runtime-status.json",
+        "src/app/api/account/route.ts",
+        "src/app/api/admin/moderate/route.ts",
+        "src/app/api/admin/route.ts",
+        "src/app/api/billing/confirm/route.ts",
+        "src/app/api/billing/orders/route.ts",
+        "src/app/api/campaigns/route.ts",
+        "src/app/api/export/route.ts",
+        "src/app/api/messages/route.ts",
+        "src/app/api/profile/route.ts",
+        "src/app/api/proposals/route.ts",
+        "src/app/api/read/route.ts",
+        "src/app/api/reports/route.ts",
+        "src/app/api/saved/route.ts",
+        "src/lib/api.ts",
+        "tests/api-errors.test.ts"
+      ],
+      "acceptance_status": "LOCAL_VERIFIED"
+    },
+    {
+      "ticket": "D008",
+      "commit": "88469e6731f8776936e944548cc574f0d45bcd55",
+      "subject": "feat(D008): enforce disabled feature and TEST payment gates",
+      "typecheck": "PASS",
+      "paths": [
+        "harness/evidence/D008/README.md",
+        "harness/handoff/runtime-status.json",
+        "supabase/functions/payment-confirm/feature.ts",
+        "supabase/functions/payment-confirm/index.ts",
+        "tests/feature-gates.test.ts"
+      ],
+      "acceptance_status": "IN_PROGRESS"
+    },
+    {
+      "ticket": "D065",
+      "commit": "48e674da6faa81fa9ace33f1a4f23ea0b9f40d08",
+      "subject": "feat(D065): separate free beta and database TEST catalog",
+      "typecheck": "PASS",
+      "paths": [
+        "harness/evidence/D065/README.md",
+        "harness/handoff/runtime-status.json",
+        "src/app/billing/fail/page.tsx",
+        "src/app/billing/success/page.tsx",
+        "src/app/layout.tsx",
+        "src/app/pricing/page.tsx",
+        "src/components/checkout.tsx",
+        "src/lib/billing.ts",
+        "tests/billing-catalog.test.ts"
+      ],
+      "acceptance_status": "IN_PROGRESS"
+    },
+    {
+      "ticket": "D009",
+      "commit": "5a6dac25aea5d13f0fe0fd734e6a89f9e4603b82",
+      "subject": "feat(D009): complete safe email confirmation and resend flows",
+      "typecheck": "PASS",
+      "paths": [
+        "harness/evidence/D009/README.md",
+        "harness/handoff/runtime-status.json",
+        "src/app/actions.ts",
+        "src/app/auth/actions.ts",
+        "src/app/auth/callback/route.ts",
+        "src/app/auth/confirm/page.tsx",
+        "src/app/auth/error/page.tsx",
+        "src/app/forgot-password/page.tsx",
+        "src/app/signup/page.tsx",
+        "src/app/signup/resend/page.tsx",
+        "src/components/email-action-form.tsx",
+        "src/lib/auth-links.ts",
+        "tests/auth-actions.test.ts",
+        "tests/auth-links.test.ts",
+        "tests/e2e/auth-recovery.spec.ts"
+      ],
+      "acceptance_status": "BLOCKED_EXTERNAL"
+    },
+    {
+      "ticket": "D007",
+      "commit": "7196d26b2926477b34ebe6907311a1fe527e9377",
+      "subject": "docs(D007): inventory exact dependency notices and asset rights",
+      "typecheck": "PASS",
+      "paths": [
+        ".gitattributes",
+        "docs/DEPENDENCY_LICENSES.md",
+        "docs/licenses/README.md",
+        "docs/licenses/THIRD_PARTY_NOTICES.md",
+        "docs/licenses/dependencies.csv",
+        "docs/licenses/inventory-summary.json",
+        "harness/evidence/D007/README.md",
+        "harness/handoff/runtime-status.json",
+        "scripts/inventory-licenses.py"
+      ],
+      "acceptance_status": "IN_PROGRESS"
+    },
+    {
+      "ticket": "D028",
+      "commit": "2882507e823471361b44480fb49eef86212d76e0",
+      "subject": "feat(D028): normalize official social links and consented embeds",
+      "typecheck": "PASS",
+      "paths": [
+        "harness/evidence/D028/README.md",
+        "harness/handoff/runtime-status.json",
+        "src/app/creators/[id]/page.tsx",
+        "src/app/creators/page.tsx",
+        "src/components/public-profile-links.tsx",
+        "src/lib/schemas.ts",
+        "src/lib/social-links.ts",
+        "tests/social-links.test.ts"
+      ],
+      "acceptance_status": "IN_PROGRESS"
+    },
+    {
+      "ticket": "D018",
+      "commit": "4dbab188e3e1edf32456cafe11c1369939010a39",
+      "subject": "feat(D018): define creator identity and metric contracts",
+      "typecheck": "PASS",
+      "paths": [
+        "harness/evidence/D018/README.md",
+        "harness/handoff/runtime-status.json",
+        "src/lib/ingestion/creator-contract.ts",
+        "tests/creator-contract.test.ts"
+      ],
+      "acceptance_status": "IN_PROGRESS"
+    },
+    {
+      "ticket": "D016",
+      "commit": "d7077fe228df65b8b876539418e3622530440f0b",
+      "subject": "feat(D016): require provisioned administrators and recent TOTP",
+      "typecheck": "PASS",
+      "paths": [
+        "harness/evidence/D016/README.md",
+        "harness/handoff/runtime-status.json",
+        "next.config.ts",
+        "src/app/admin/page.tsx",
+        "src/app/admin/security/page.tsx",
+        "src/app/api/admin/mfa/route.ts",
+        "src/app/api/admin/moderate/route.ts",
+        "src/app/api/admin/route.ts",
+        "src/components/admin-mfa-form.tsx",
+        "src/lib/admin-security.ts",
+        "src/lib/admin.ts",
+        "supabase/migrations/202611190004_admin_security.sql",
+        "tests/admin-api.test.ts",
+        "tests/admin-security.test.ts"
+      ],
+      "acceptance_status": "LOCAL_VERIFIED"
+    },
+    {
+      "ticket": "D059",
+      "commit": "e4fca4bc75d75e7bed7feddf65b13097a1d65960",
+      "subject": "feat(D059): enforce audited moderation locks across REST and UI",
+      "typecheck": "PASS",
+      "paths": [
+        "harness/evidence/D059/README.md",
+        "harness/handoff/runtime-status.json",
+        "src/app/admin/page.tsx",
+        "src/app/api/admin/moderate/route.ts",
+        "src/app/api/proposals/route.ts",
+        "src/app/campaigns/[id]/page.tsx",
+        "src/app/campaigns/page.tsx",
+        "src/components/moderate.tsx",
+        "src/lib/data.ts",
+        "supabase/migrations/202611190005_moderation_locks.sql",
+        "tests/admin-api.test.ts"
+      ],
+      "acceptance_status": "LOCAL_VERIFIED"
+    },
+    {
+      "ticket": "D012",
+      "commit": "bb35fb57d536d597b1f3a748f9462a79ff188987",
+      "subject": "feat(D012): separate public brands from private contacts",
+      "typecheck": "PASS",
+      "paths": [
+        "docs/API_CONTRACTS.md",
+        "harness/evidence/D012/README.md",
+        "harness/handoff/runtime-status.json",
+        "src/app/api/account/route.ts",
+        "src/app/api/brands/[id]/contact/route.ts",
+        "src/app/api/brands/[id]/route.ts",
+        "src/app/settings/page.tsx",
+        "src/components/brand-account-form.tsx",
+        "src/lib/brand-profile.ts",
+        "supabase/migrations/202611190006_brand_profiles.sql",
+        "supabase/migrations/202611190007_brand_projection.sql",
+        "tests/brand-profile.test.ts"
+      ],
+      "acceptance_status": "IN_PROGRESS"
+    },
+    {
+      "ticket": "D041",
+      "commit": "c817d644bbadab94b6769373c550f24290a935ef",
+      "subject": "feat(D041): define versioned campaign terms validation",
+      "typecheck": "PASS",
+      "paths": [
+        "harness/evidence/D041/README.md",
+        "harness/handoff/runtime-status.json",
+        "src/lib/campaign-brief.ts",
+        "tests/campaign-brief.test.ts"
+      ],
+      "acceptance_status": "IN_PROGRESS"
+    },
+    {
+      "ticket": "D064",
+      "commit": "b6d48389f9bc10ba8ae544ed8325d3ca247d6d35",
+      "subject": "docs(D064): draft content and account incident runbooks",
+      "typecheck": "PASS",
+      "paths": [
+        "docs/operations/incident-response.md",
+        "harness/evidence/D064/README.md",
+        "harness/handoff/runtime-status.json"
+      ],
+      "acceptance_status": "BLOCKED_EXTERNAL"
+    },
+    {
+      "ticket": "D084",
+      "commit": "5c9afd0b65848c6eddb5fbc8af0a5db54adc54f2",
+      "subject": "test(D084): add isolated DB MFA mail and browser regressions",
+      "typecheck": "PASS",
+      "paths": [
+        "deliverables/AD-Me_DEV-A_P0_20261119_review.zip",
+        "deliverables/dev-a-p0-20261119/DELIVERY.json",
+        "deliverables/dev-a-p0-20261119/MANIFEST.json",
+        "deliverables/dev-a-p0-20261119/README_KO.md",
+        "deliverables/dev-a-p0-20261119/console-actions.html",
+        "deliverables/dev-a-p0-20261119/user-apply/00_preflight.sql",
+        "deliverables/dev-a-p0-20261119/user-apply/01_apply_all.sql",
+        "deliverables/dev-a-p0-20261119/user-apply/02_verify.sql",
+        "deliverables/dev-a-p0-20261119/user-apply/202611190004_admin_security.sql",
+        "deliverables/dev-a-p0-20261119/user-apply/202611190005_moderation_locks.sql",
+        "deliverables/dev-a-p0-20261119/user-apply/202611190006_brand_profiles.sql",
+        "deliverables/dev-a-p0-20261119/user-apply/202611190007_brand_projection.sql",
+        "docs/PROJECT_STATUS.md",
+        "docs/handoff/DEV-A_LOCAL_PACKET.md",
+        "docs/handoff/DEV-A_P0_CONTINUATION_PACKET.md",
+        "harness/evidence/D084/README.md",
+        "harness/evidence/DEV-A-LOCAL/verification.json",
+        "harness/evidence/DEV-A-P0-CONTINUE/PLAN.md",
+        "harness/evidence/DEV-A-P0-CONTINUE/console-packet.json",
+        "harness/evidence/DEV-A-P0-CONTINUE/local-brand-security.json",
+        "harness/evidence/DEV-A-P0-CONTINUE/local-security.json",
+        "harness/evidence/DEV-A-P0-CONTINUE/screenshots/admin-mfa-desktop.png",
+        "harness/evidence/DEV-A-P0-CONTINUE/screenshots/admin-mfa-mobile.png",
+        "harness/evidence/DEV-A-P0-CONTINUE/screenshots/brand-settings-desktop.png",
+        "harness/evidence/DEV-A-P0-CONTINUE/screenshots/brand-settings-mobile.png",
+        "harness/evidence/DEV-A-P0-CONTINUE/test-results.txt",
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+        "harness/handoff/runtime-status.json",
+        "harness/secret_scan.py",
+        "harness/session_log.md",
+        "package.json",
+        "playwright.keyless.config.ts",
+        "playwright.local.config.ts",
+        "scripts/local-tls-proxy.mjs",
+        "scripts/package-dev-a.py",
+        "scripts/prepare-local-qa.mjs",
+        "scripts/serve-keyless-qa.mjs",
+        "scripts/serve-local-qa.mjs",
+        "scripts/setup-local-qa.mjs",
+        "scripts/verify-console-helper.mjs",
+        "tests/browser/free-mode.spec.ts",
+        "tests/e2e/service.spec.ts",
+        "tests/local-brand-security.mjs",
+        "tests/local-browser/email-signup.spec.ts",
+        "tests/local-browser/p0.spec.ts",
+        "tests/local-security.mjs",
+        "tests/support/local-qa.mjs"
+      ],
+      "acceptance_status": "IN_PROGRESS"
+    }
+  ],
+  "validation": {
+    "every_commit_export_typecheck": "PASS 15/15",
+    "final_committed_tree_unit": "PASS 115/115",
+    "application_source_changed_during_split": false
+  },
+  "acceptance_note": "Commit creation does not mark any ticket DONE; provider/deployment/cross-review blockers remain unchanged. No push.",
+  "review_archive_note": "Existing source review ZIP and its checksum are preserved as the pre-commit snapshot; this mapping is the later Git history record."
+}

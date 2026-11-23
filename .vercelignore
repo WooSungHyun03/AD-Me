@@ -19,3 +19,5 @@ harness/evidence
 supabase/.temp
 
 .external-setup.local.env
+
+dev-a-local

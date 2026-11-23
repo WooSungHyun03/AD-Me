@@ -1,0 +1,204 @@
+{
+  "at": "2026-11-21T04:39:38.253195+00:00",
+  "base_commit": "a1e808067906d2ccf720402a701f753d9740419a",
+  "source_head": "105bbbb73db8c849197db2e9ef950f58dfc4a634",
+  "branch": "codex/dev-a-p0-continue",
+  "node": "22.23.5",
+  "shared_gates": {
+    "unit": "PASS",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "build": "PASS"
+  },
+  "unit": {
+    "files": 33,
+    "tests": 234
+  },
+  "db_to_ts": {
+    "command": "node node_modules/vitest/vitest.mjs run --config vitest.storage.config.ts",
+    "files": 4,
+    "tests": 4,
+    "scope": "Actual local SQL/PostgREST mapped into strict TS DTOs; includes five filter parity cases and historical145 matching comparisons."
+  },
+  "security": {
+    "at": "2026-11-21T04:27:24.413Z",
+    "results": [
+      {
+        "file": "local-security.mjs",
+        "exit": 0,
+        "pass_groups": 7
+      },
+      {
+        "file": "local-ad-history-security.mjs",
+        "exit": 0,
+        "pass_groups": 8
+      },
+      {
+        "file": "local-brand-security.mjs",
+        "exit": 0,
+        "pass_groups": 6
+      },
+      {
+        "file": "local-campaign-terms-security.mjs",
+        "exit": 0,
+        "pass_groups": 4
+      },
+      {
+        "file": "local-catalog-quota-security.mjs",
+        "exit": 0,
+        "pass_groups": 2
+      },
+      {
+        "file": "local-conversation-security.mjs",
+        "exit": 0,
+        "pass_groups": 8
+      },
+      {
+        "file": "local-creator-read-security.mjs",
+        "exit": 0,
+        "pass_groups": 8
+      },
+      {
+        "file": "local-creator-storage-security.mjs",
+        "exit": 0,
+        "pass_groups": 9
+      },
+      {
+        "file": "local-delivery-security.mjs",
+        "exit": 0,
+        "pass_groups": 10
+      },
+      {
+        "file": "local-draft-read-security.mjs",
+        "exit": 0,
+        "pass_groups": 3
+      },
+      {
+        "file": "local-ops-security.mjs",
+        "exit": 0,
+        "pass_groups": 5
+      },
+      {
+        "file": "local-p0-privacy-security.mjs",
+        "exit": 0,
+        "pass_groups": 5
+      },
+      {
+        "file": "local-p0-release-security.mjs",
+        "exit": 0,
+        "pass_groups": 5
+      },
+      {
+        "file": "local-rate-security.mjs",
+        "exit": 0,
+        "pass_groups": 8
+      },
+      {
+        "file": "local-recommendation-security.mjs",
+        "exit": 0,
+        "pass_groups": 11
+      },
+      {
+        "file": "local-review-security.mjs",
+        "exit": 0,
+        "pass_groups": 9
+      },
+      {
+        "file": "local-youtube-security.mjs",
+        "exit": 0,
+        "pass_groups": 2
+      }
+    ]
+  },
+  "browser": {
+    "engine": "Installed Chrome",
+    "viewports": [
+      "1440x900",
+      "390x844"
+    ],
+    "local_test_demo": {
+      "unique_project_scenarios": 48,
+      "initial_pass": 42,
+      "initial_fail": 6,
+      "correction_run_pass": 4,
+      "correction_run_fail": 2,
+      "final_conversation_pass": 2,
+      "after_catalog_hydration_change_affected_pass": 6,
+      "all_final_covered": true,
+      "commands": [
+        "npm run test:e2e:local",
+        "npm run test:e2e -- --config playwright.local.config.ts --grep 'public discovery|conversation loads|opt-in embed'",
+        "npm run test:e2e:local -- tests/local-browser/conversation.spec.ts",
+        "npm run test:e2e:local -- --grep 'P0 home|public RSC|public discovery'"
+      ],
+      "scope": "42 unchanged passes retained; corrected6 and invalidated catalogue6 rerun. This is combined final coverage, not a claimed single48-green run."
+    },
+    "free_actual_db": {
+      "command": "npm run test:e2e:free-local",
+      "passed": 6
+    },
+    "keyless_free": {
+      "command": "ADME_BROWSER_CHANNEL=chrome npm run test:e2e:keyless",
+      "unique_project_scenarios": 10,
+      "initial_missing_bundled_browser": "environment failure, zero product scenarios executed",
+      "chrome_run_pass": 9,
+      "chrome_run_fail": 1,
+      "final_affected_filters_pass": 6,
+      "all_final_covered": true,
+      "scope": "four unaffected free-mode passes retained plus final six filter cases; keyboard320/390/768/1440. No skip or arbitrary sleep."
+    },
+    "visual_inspection": [
+      "p0-search-desktop.png",
+      "p0-search-mobile-top.png",
+      "p0-brand-images-mobile.png",
+      "p0-brand-images-desktop-top.png"
+    ],
+    "visual_result": "No horizontal overflow, readable Korean labels, DEMO/provenance visible, logo on light background."
+  },
+  "permission_inventory": "harness/evidence/D075/permission-inventory-20261121.json",
+  "sql": {
+    "previous_migrations_immutable": 34,
+    "new_migrations": 12,
+    "local_history": 46,
+    "actual_packet_upgrade": "packet-upgrade.json",
+    "scope": "Actual nonempty34→46/atomic rollback/read-switch proof; USER external application not performed.",
+    "final_integrity": "packet-integrity.json"
+  },
+  "harness": {
+    "selftest": 5,
+    "backlog": "88 development /20 USER /6 deferred; acyclic; unchanged scope",
+    "secret_scan": "PASS; final scan repeated after all evidence",
+    "handoff": "PASS: A43/B45, references/runtime/environment consumers"
+  },
+  "actual_scope": {
+    "local_postgres": true,
+    "local_auth": true,
+    "local_storage": true,
+    "fictional_accounts_and_images": true,
+    "synthetic_role_tokens": true,
+    "local_db_only_test_confirmation": true,
+    "actual_toss_provider_success": false,
+    "actual_normalized_provider_success": false,
+    "external_configuration_or_key_operation": false,
+    "hosted_deployment": false,
+    "all_account_deletion_retention_workflows": false,
+    "all_license_and_asset_rights_verified": false,
+    "DONE_promotions": 0
+  },
+  "ticket_status": {
+    "D081": "LOCAL_VERIFIED",
+    "D008": "LOCAL_VERIFIED",
+    "D076": "LOCAL_VERIFIED",
+    "D051": "LOCAL_VERIFIED",
+    "D012": "LOCAL_VERIFIED",
+    "D034": "LOCAL_VERIFIED",
+    "D018": "LOCAL_VERIFIED",
+    "D075": "LOCAL_VERIFIED",
+    "D028": "LOCAL_VERIFIED",
+    "D007": "BLOCKED_EXTERNAL",
+    "D065": "LOCAL_VERIFIED",
+    "D002": "LOCAL_VERIFIED",
+    "D084": "IN_PROGRESS"
+  },
+  "failures_and_fixes": "README.md; private ignored logs retain exact failures. No test removed/skipped/security gate relaxed."
+}

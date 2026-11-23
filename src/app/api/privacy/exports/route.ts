@@ -1,8 +1,9 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { context, fail, safeOrigin } from "@/lib/api";
 import { REAUTH_MESSAGE, recentSignIn } from "@/lib/auth-links";
 // Creates a one-time export ticket (15 min). Re-authentication is checked here and again in the DB.
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -20,3 +21,5 @@ export async function POST(req: Request) {
     { status: 201, headers: { "Cache-Control": "no-store" } },
   );
 }
+
+export const POST=compatibleApiRoute("src/app/api/privacy/exports/route.ts.POST",handlePOST);

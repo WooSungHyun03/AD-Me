@@ -1,29 +1,24 @@
-import { NextResponse } from "next/server";
 import { z } from "zod";
-import { context, fail, safeOrigin } from "@/lib/api";
-
-export async function POST(request: Request) {
-  if (!safeOrigin(request)) return fail("허용되지 않은 요청입니다.", 403);
-  const c = await context();
-  if (!c) return fail("로그인이 필요합니다.", 401);
-  const body = z
-    .object({
+import { apiRoute, failDatabase, parseBody, requireContext } from "@/lib/api";
+export const POST = apiRoute("chat.control", async (request) => {
+  const c = await requireContext();
+  const body = await parseBody(
+    request,
+    z.strictObject({
       id: z.uuid(),
       action: z.enum(["block", "unblock", "report"]),
       reason: z.string().trim().max(500).optional(),
-    })
-    .safeParse(await request.json().catch(() => null));
-  if (!body.success) return fail("요청 내용을 확인해주세요.");
-  const { id, action, reason } = body.data;
+    }),
+    "요청 내용을 확인해주세요.",
+  );
   const { error } = await c.db.rpc("chat_control", {
-    p_id: id,
-    p_action: action,
-    p_reason: reason ?? "",
+    p_id: body.id,
+    p_action: body.action,
+    p_reason: body.reason ?? "",
   });
-  if (error)
-    return fail(
-      "대화 권한과 신고 내용을 확인해주세요.",
-      error.code === "42501" ? 403 : 400,
-    );
-  return NextResponse.json({ ok: true });
-}
+  if (error) failDatabase(error, "대화 권한과 신고 내용을 확인해주세요.");
+  return Response.json(
+    { ok: true },
+    { headers: { "Cache-Control": "private, no-store" } },
+  );
+});

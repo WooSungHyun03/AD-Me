@@ -1,0 +1,194 @@
+{
+  "at": "2026-11-21T06:12:43.809026+00:00",
+  "base_commit": "7b8fcdc1e61a86b90a2ec1df59d6195f36dc0855",
+  "branch": "codex/dev-a-p0-continue",
+  "source_binding": "commits.json source_head; final batch source, shared54 before last settings-only refresh; affected4 plus keyless10 after refresh",
+  "node": "22.23.5",
+  "shared_gates": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": "244/36 PASS",
+    "build": "PASS: actual TEST/free/keyless Next production builds"
+  },
+  "python_contracts": {
+    "command": "python -X utf8 -m unittest discover -s tests -p 'test_*.py'",
+    "tests": 9,
+    "new_worker_tests": 4,
+    "result": "PASS; provider network replaced"
+  },
+  "db_to_ts": {
+    "command": "node node_modules/vitest/vitest.mjs run --config vitest.storage.config.ts",
+    "files": 4,
+    "tests": 4,
+    "result": "PASS actual local SQL/PostgREST"
+  },
+  "security": {
+    "command": "node tests/local-security.mjs and all18 tests/local-*-security.mjs, serialized",
+    "files": 19,
+    "groups": 121,
+    "result": "PASS",
+    "results": [
+      {
+        "exit": 0,
+        "test": "local-security",
+        "pass_groups": 7
+      },
+      {
+        "exit": 0,
+        "test": "local-ad-history-security",
+        "pass_groups": 8
+      },
+      {
+        "exit": 0,
+        "test": "local-brand-security",
+        "pass_groups": 6
+      },
+      {
+        "exit": 0,
+        "test": "local-campaign-terms-security",
+        "pass_groups": 4
+      },
+      {
+        "exit": 0,
+        "test": "local-catalog-quota-security",
+        "pass_groups": 2
+      },
+      {
+        "exit": 0,
+        "test": "local-consent-security",
+        "pass_groups": 4
+      },
+      {
+        "exit": 0,
+        "test": "local-conversation-security",
+        "pass_groups": 8
+      },
+      {
+        "exit": 0,
+        "test": "local-creator-read-security",
+        "pass_groups": 8
+      },
+      {
+        "exit": 0,
+        "test": "local-creator-storage-security",
+        "pass_groups": 9
+      },
+      {
+        "exit": 0,
+        "test": "local-delivery-security",
+        "pass_groups": 10
+      },
+      {
+        "exit": 0,
+        "test": "local-draft-read-security",
+        "pass_groups": 3
+      },
+      {
+        "exit": 0,
+        "test": "local-ingestion-recovery-security",
+        "pass_groups": 7
+      },
+      {
+        "exit": 0,
+        "test": "local-ops-security",
+        "pass_groups": 5
+      },
+      {
+        "exit": 0,
+        "test": "local-p0-privacy-security",
+        "pass_groups": 5
+      },
+      {
+        "exit": 0,
+        "test": "local-p0-release-security",
+        "pass_groups": 5
+      },
+      {
+        "exit": 0,
+        "test": "local-rate-security",
+        "pass_groups": 8
+      },
+      {
+        "exit": 0,
+        "test": "local-recommendation-security",
+        "pass_groups": 11
+      },
+      {
+        "exit": 0,
+        "test": "local-review-security",
+        "pass_groups": 9
+      },
+      {
+        "exit": 0,
+        "test": "local-youtube-security",
+        "pass_groups": 2
+      }
+    ]
+  },
+  "browser": {
+    "actual_local_infrastructure": "GoTrue, Mailpit, Postgres, PostgREST, Storage; fictional records and TEST values",
+    "full": {
+      "command": "node node_modules/@playwright/test/cli.js test --config playwright.local.config.ts",
+      "tests": 54,
+      "result": "PASS",
+      "source": "47-53 DB;54 later preserves raw strict behavior. Unit key projector fixed afterward; final full identity semantic unchanged."
+    },
+    "after_final_settings_refresh": {
+      "tests": 4,
+      "result": "PASS own consent lost ACK/retry plus brand/creator/MFA role settings; desktop/mobile",
+      "checks": "withdrawal checkboxes cleared; saving unrelated profile data cannot republish; axe0 detected violations"
+    },
+    "free": {
+      "command": "node node_modules/@playwright/test/cli.js test --config playwright.free-local.config.ts",
+      "tests": 6,
+      "result": "PASS",
+      "source": "before settings-only refresh; free campaign/billing routes unaffected"
+    },
+    "keyless": {
+      "command": "ADME_BROWSER_CHANNEL=chrome node node_modules/@playwright/test/cli.js test --config playwright.keyless.config.ts",
+      "tests": 10,
+      "result": "PASS after final product changes"
+    },
+    "manual": "Viewed signup-mobile and settings-desktop PNGs; corrected stale publication checkbox from first capture. Automated keyboard and layout assertions; not WCAG certification or full screen-reader audit."
+  },
+  "permissions": {
+    "tables": 52,
+    "functions": 220,
+    "private_buckets": 2,
+    "result": "PASS",
+    "evidence": "permission-inventory.json"
+  },
+  "packet": {
+    "result": "PASS",
+    "evidence": "packet-upgrade.json",
+    "scope": "Actual generated46→54 SQL in independent marked loopback DB; seven legacy entity groups preserved; negative preflights/atomic rollback/reapply/one-way activation. Actual auth DB role via local TCP; GoTrue separately tested."
+  },
+  "harness": {
+    "selftest": 5,
+    "backlog": "88/20/6 PASS",
+    "historical_tasks": 40
+  },
+  "external": {
+    "provider_calls": 0,
+    "hosted_writes": false,
+    "deploy": false,
+    "keys_issued_or_registered": false,
+    "payments": false,
+    "legal_approval": false
+  },
+  "remaining_p0": [
+    "D007",
+    "D009",
+    "D014",
+    "D073",
+    "D084"
+  ],
+  "limitations": [
+    "D014 has adapter contracts only: no public deletion endpoint or production adapter/durable queue.",
+    "D019 normalized writer and actual D017 approved provider policy remain separate.",
+    "Local fictional policy approval is not U001 legal/retention/processor approval.",
+    "Runbook drill is developer technical tabletop; USER/operator participation and final policy remain gates.",
+    "No entire ticket DONE or service launch claim.",
+    "D073 existing profile/brand publication save paths still use owner_consent/published: atomic grant/withdrawal linkage to version ledger and direct REST regressions remain. Signup three purposes and settings global withdrawal only are integrated."
+  ]
+}

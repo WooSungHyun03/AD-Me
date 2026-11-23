@@ -1,0 +1,214 @@
+{
+  "at": "2026-11-21T06:48:26.619609+00:00",
+  "base_commit": "0a2be26f2c1571c68d51378e2d84908bec8eef3b",
+  "branch": "codex/dev-a-p0-continue",
+  "source_binding": "commits.json source_head: product source tested as a batch, later artifact commit changes documentation only",
+  "node": "22.23.5",
+  "shared_gates": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": "PASS246/37",
+    "build": "PASS TEST/free/keyless production builds"
+  },
+  "unit": {
+    "command": "node node_modules/vitest/vitest.mjs run",
+    "files": 37,
+    "tests": 246,
+    "result": "PASS"
+  },
+  "python": {
+    "command": "python -X utf8 -m unittest discover -s tests -p 'test_*.py'",
+    "tests": 9,
+    "result": "PASS provider-free worker contracts"
+  },
+  "db_to_ts": {
+    "command": "node node_modules/vitest/vitest.mjs run --config vitest.storage.config.ts",
+    "tests": 4,
+    "result": "PASS actual local SQL/PostgREST→strict TS"
+  },
+  "security": {
+    "command": "node tests/local-security.mjs and all19 tests/local-*-security.mjs; serialized against same QA DB",
+    "files": 20,
+    "pass_groups": 127,
+    "result": "PASS final057",
+    "results": [
+      {
+        "test": "local-security",
+        "exit": 0,
+        "pass_groups": 7
+      },
+      {
+        "test": "local-ad-history-security",
+        "exit": 0,
+        "pass_groups": 8
+      },
+      {
+        "test": "local-brand-security",
+        "exit": 0,
+        "pass_groups": 6
+      },
+      {
+        "test": "local-campaign-terms-security",
+        "exit": 0,
+        "pass_groups": 4
+      },
+      {
+        "test": "local-catalog-quota-security",
+        "exit": 0,
+        "pass_groups": 2
+      },
+      {
+        "test": "local-consent-security",
+        "exit": 0,
+        "pass_groups": 4
+      },
+      {
+        "test": "local-conversation-security",
+        "exit": 0,
+        "pass_groups": 8
+      },
+      {
+        "test": "local-creator-read-security",
+        "exit": 0,
+        "pass_groups": 8
+      },
+      {
+        "test": "local-creator-storage-security",
+        "exit": 0,
+        "pass_groups": 9
+      },
+      {
+        "test": "local-delivery-security",
+        "exit": 0,
+        "pass_groups": 10
+      },
+      {
+        "test": "local-draft-read-security",
+        "exit": 0,
+        "pass_groups": 3
+      },
+      {
+        "test": "local-ingestion-recovery-security",
+        "exit": 0,
+        "pass_groups": 7
+      },
+      {
+        "test": "local-ops-security",
+        "exit": 0,
+        "pass_groups": 5
+      },
+      {
+        "test": "local-p0-privacy-security",
+        "exit": 0,
+        "pass_groups": 5
+      },
+      {
+        "test": "local-p0-release-security",
+        "exit": 0,
+        "pass_groups": 5
+      },
+      {
+        "test": "local-publication-security",
+        "exit": 0,
+        "pass_groups": 6
+      },
+      {
+        "test": "local-rate-security",
+        "exit": 0,
+        "pass_groups": 8
+      },
+      {
+        "test": "local-recommendation-security",
+        "exit": 0,
+        "pass_groups": 11
+      },
+      {
+        "test": "local-review-security",
+        "exit": 0,
+        "pass_groups": 9
+      },
+      {
+        "test": "local-youtube-security",
+        "exit": 0,
+        "pass_groups": 2
+      }
+    ],
+    "new_publication_groups": 6
+  },
+  "browser": {
+    "full": {
+      "command": "node node_modules/@playwright/test/cli.js test --config playwright.local.config.ts",
+      "tests": 58,
+      "result": "PASS",
+      "source": "055/056 before final057 global-receipt v2 enhancement"
+    },
+    "final_affected": {
+      "command": "same config --grep 'publication save survives|P0 own consent|P0 authenticated brand|opt-in embed'",
+      "tests": 10,
+      "result": "PASS final product source including057/v2"
+    },
+    "capture_readiness": {
+      "command": "same config --grep 'publication save survives'",
+      "tests": 4,
+      "result": "PASS after extra fresh-document/loaded-h1 capture assertions; no product changes",
+      "scenario": "Scoped/global lost ACK then newer publication: old receipt cannot change current state; UI reload shows actual checked publication"
+    },
+    "free": {
+      "command": "node node_modules/@playwright/test/cli.js test --config playwright.free-local.config.ts",
+      "tests": 6,
+      "result": "PASS final product source"
+    },
+    "keyless": {
+      "command": "ADME_BROWSER_CHANNEL=chrome node node_modules/@playwright/test/cli.js test --config playwright.keyless.config.ts",
+      "tests": 10,
+      "result": "PASS final product source"
+    },
+    "manual": "Viewed final brand-desktop and creator-mobile captures: policy notice/underlined links/checkboxes/current public state/layout readable; initial loading capture replaced after explicit fresh-document and semantic-ready assertions.",
+    "infrastructure": "Actual marked loopback GoTrue/Postgres/PostgREST/Storage; fictional local accounts/profiles/policy approval and TEST values. No external provider verification."
+  },
+  "permissions": {
+    "result": "PASS",
+    "tables": 54,
+    "functions": 227,
+    "private_buckets": 2,
+    "final_evidence": "permission-inventory-final.json",
+    "previous_snapshot": "permission-inventory.json retained before057"
+  },
+  "packet": {
+    "result": "PASS",
+    "evidence": "packet-upgrade.json",
+    "from_migrations": 54,
+    "to_migrations": 57,
+    "scope": "Actual generated SQL in independent marked local DB; existing nonempty profiles/brands/contacts/creators/event fields preserved; unknown/changed baseline and mid-bundle failure rejected/rolled back; no fabricated old consent; staged legacy compatibility; one-way owner-only strict activation; duplicate rejected"
+  },
+  "harness": {
+    "selftest": 5,
+    "backlog": "88/20/6 PASS",
+    "historical_tasks": 40
+  },
+  "external": {
+    "hosted_configuration_or_deployment": false,
+    "keys_issued_or_registered": false,
+    "provider_api_verification": false,
+    "legal_approval": false,
+    "real_payment": false,
+    "outreach": false
+  },
+  "ticket_status": {
+    "D073": "BLOCKED_EXTERNAL",
+    "D084": "IN_PROGRESS"
+  },
+  "remaining_p0": [
+    "D007",
+    "D009",
+    "D014",
+    "D073",
+    "D084"
+  ],
+  "limitations": [
+    "Policy snapshot remains draft until U001 retention/basis/processor/overseas/rights process approval; no fictional QA approval transferred.",
+    "D014 actual deletion adapter/API and D079 retention/backup replay remain unimplemented. New receipt/event Auth cascade is not whole-account erasure proof.",
+    "Different new request keys follow server processing order; no client-click-order CAS guarantee.",
+    "LOCAL_VERIFIED is local evidence, not review/USER deployment/actual provider readiness. No ticket promoted DONE."
+  ]
+}

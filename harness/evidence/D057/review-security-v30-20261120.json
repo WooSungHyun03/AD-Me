@@ -1,0 +1,42 @@
+{
+  "at": "2026-11-20T13:27:22.325Z",
+  "scope": "actual loopback PostgreSQL/PostgREST, synthetic JWTs and fictional evidence; policy enabled only as explicit local fixture and restored",
+  "results": [
+    {
+      "name": "anonymous/private table grants/unknown payload/unsafe source are denied",
+      "result": "PASS"
+    },
+    {
+      "name": "eight concurrent retry submissions create one private case, revision and quota charge",
+      "result": "PASS"
+    },
+    {
+      "name": "concurrent correction has one winner; owner response creates a new version and stale review fails",
+      "result": "PASS"
+    },
+    {
+      "name": "ordinary/stale MFA/self review and unapproved publication are denied without changing pending state",
+      "result": "PASS"
+    },
+    {
+      "name": "approved policy publishes only curated current facts; original allegations/internal notes/private position stay private",
+      "result": "PASS"
+    },
+    {
+      "name": "policy disable/version change and creator publication/moderation hide previously approved records",
+      "result": "PASS"
+    },
+    {
+      "name": "changed owner position hides approval immediately and must be reviewed at its new version",
+      "result": "PASS"
+    },
+    {
+      "name": "revision/decision history is immutable; withdrawal hides current record and preserves audit without altering scores",
+      "result": "PASS"
+    },
+    {
+      "name": "submission quota and stable private inbox cursor are enforced in actual REST",
+      "result": "PASS"
+    }
+  ]
+}

@@ -1,10 +1,15 @@
-import { finishLocalWorkerJob } from "./support/youtube";
 import { expect, test, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
+import { totp } from "../support/local-qa.mjs";
+import { finishLocalFixtureJob } from "../support/local-fixture-worker.mjs";
+const localFixture = process.env.ADME_LOCAL_QA === "1";
 
 const accounts = JSON.parse(
-  readFileSync(".accounts.local.json", "utf8"),
-) as Record<string, { email: string; password: string }>;
+  readFileSync(
+    process.env.ADME_ACCOUNTS_FILE ?? ".accounts.local.json",
+    "utf8",
+  ),
+) as Record<string, { email: string; password: string; totpSecret?: string }>;
 
 async function login(page: Page, account: "admin" | "brand" | "creator") {
   await page.goto("/login");
@@ -37,6 +42,17 @@ test("operations console checks sessions and permissions on desktop and mobile",
     const admin = await isolated.newPage();
     await login(admin, "admin");
     await admin.goto("/admin/intelligence");
+    if (localFixture) {
+      await expect(admin).toHaveURL(/admin\/security/);
+      await admin
+        .getByLabel("6자리 OTP")
+        .fill(totp(accounts.admin.totpSecret!));
+      await admin
+        .getByRole("button", { name: "OTP 확인", exact: true })
+        .click();
+      await expect(admin).toHaveURL(/admin$/);
+      await admin.goto("/admin/intelligence");
+    }
     await expect(
       admin.getByRole("heading", { name: "운영 콘솔", exact: true }),
     ).toBeVisible();
@@ -57,29 +73,32 @@ test("operations console checks sessions and permissions on desktop and mobile",
   }
 });
 
-test("brand submits a private Korean draft to the real worker", async ({
-  page,
-}) => {
-  await login(page, "brand");
-  await page.goto("/tools/local");
-  await page
-    .getByLabel("광고 브리프")
-    .fill(
-      "무향 선크림을 소개하는 YouTube 영상. 효능을 단정하지 말고 손에 바르는 장면을 포함해주세요.",
+test(
+  localFixture
+    ? "brand draft completes through isolated fixture lease/finish RPCs (no provider)"
+    : "brand submits a private Korean draft to the real worker",
+  async ({ page }) => {
+    await login(page, "brand");
+    await page.goto("/tools/local");
+    await page
+      .getByLabel("광고 브리프")
+      .fill(
+        "무향 선크림을 소개하는 인스타그램 릴스. 효능을 단정하지 말고 손에 바르는 장면을 포함해주세요.",
+      );
+    const queued = page.waitForResponse(
+      (r) =>
+        r.url().endsWith("/api/intelligence") &&
+        r.request().method() === "POST",
     );
-  const request = page.waitForResponse(
-    (response) =>
-      response.url().endsWith("/api/intelligence") &&
-      response.request().method() === "POST",
-  );
-  await page.getByRole("button", { name: "초안 생성" }).click();
-  expect((await request).ok()).toBe(true);
-  finishLocalWorkerJob("marketing_draft");
-  await expect(
-    page.getByRole("heading", { name: "협업 제안 초안" }),
-  ).toBeVisible({ timeout: 75000 });
-  await expect(page.locator("article").first()).toContainText(/[가-힣]/);
-});
+    await page.getByRole("button", { name: "초안 생성" }).click();
+    expect((await queued).status()).toBe(202);
+    if (localFixture) await finishLocalFixtureJob("marketing_draft");
+    await expect(
+      page.getByRole("heading", { name: "협업 제안 초안" }),
+    ).toBeVisible({ timeout: 75000 });
+    await expect(page.locator("article").first()).toContainText(/[가-힣]/);
+  },
+);
 
 test("unverified YouTube candidates remain private and creators can unlink a claim", async ({
   page,
@@ -111,7 +130,7 @@ test("unverified YouTube candidates remain private and creators can unlink a cla
   await expect(
     page.getByRole("status").filter({ hasText: "확인 작업을 등록했습니다" }),
   ).toBeVisible();
-  finishLocalWorkerJob("youtube_claim");
+  if (localFixture) await finishLocalFixtureJob("youtube_claim");
   await expect
     .poll(
       async () => {

@@ -1,0 +1,46 @@
+{
+  "at": "2026-11-20T14:01:28.531Z",
+  "scope": "actual isolated SQL/PostgREST, fictional users/results/declarations only; no provider/legal verification or hosted writes",
+  "results": [
+    {
+      "name": "anon/foreign room access, forged roles, private tables and unmetered DTO execution are denied",
+      "result": "PASS"
+    },
+    {
+      "name": "12 concurrent same-key uploads create one snapshot, declaration and quota reservation",
+      "result": "PASS"
+    },
+    {
+      "name": "versioned submit and duplicate revision requests preserve one review event; revised version cannot be resubmitted unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "new snapshot replaces active version and stale first-version approval cannot finalize it",
+      "result": "PASS"
+    },
+    {
+      "name": "approval requires grounds and explicit advertising check, concurrent retries finalize exactly once",
+      "result": "PASS"
+    },
+    {
+      "name": "finalized snapshots/declarations/events are immutable and new uploads cannot change a completed room",
+      "result": "PASS"
+    },
+    {
+      "name": "legacy raw deliveries are captured but cannot submit/approve unchecked; explicit declaration adopts the room",
+      "result": "PASS"
+    },
+    {
+      "name": "blocked/moderated conversations deny new version mutations while retaining participant history",
+      "result": "PASS"
+    },
+    {
+      "name": "bounded version cursor has no gaps/duplicates even for equal submission timestamps",
+      "result": "PASS"
+    },
+    {
+      "name": "boundary cannot reopen and activation is owner-only with first-release evidence preserved",
+      "result": "PASS"
+    }
+  ]
+}

@@ -27,8 +27,10 @@ test("recovery entry points require a real email proof and preserve privacy head
     { maxRedirects: 0 },
   );
   expect(callback.status()).toBe(303);
-  expect(new URL(callback.headers().location).pathname).toBe("/auth/error");
-  expect(new URL(callback.headers().location).hostname).not.toBe(
+  expect(new URL(callback.headers().location, page.url()).pathname).toBe(
+    "/auth/error",
+  );
+  expect(new URL(callback.headers().location, page.url()).hostname).not.toBe(
     "evil.example",
   );
 });

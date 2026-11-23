@@ -3,13 +3,40 @@
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { configured, supabase } from "@/lib/supabase";
+import { getConfig } from "@/lib/config";
+import { reserveRequestBudget } from "@/lib/request-budget";
 import {
-  authSiteOrigin,
   emailProofSchema,
+  isPrivateSignupResult,
   resetPasswordSchema,
+  signupEmailAcknowledgement,
 } from "@/lib/auth-links";
 
 export type EmailActionState = { error?: string; message?: string };
+
+export async function resendSignupEmail(
+  _: EmailActionState,
+  form: FormData,
+): Promise<EmailActionState> {
+  const email = z.email().max(254).safeParse(form.get("email"));
+  if (!email.success) return { error: "올바른 이메일 주소를 입력해주세요." };
+  const { appOrigin, features } = getConfig();
+  if (features.mail !== "enabled")
+    return { error: "가입 메일 서비스 연결을 준비 중입니다." };
+  const budget = await reserveRequestBudget("resend", email.data);
+  if (budget) return { error: budget };
+  const db = await supabase();
+  const { error } = await db.auth.resend({
+    type: "signup",
+    email: email.data,
+    options: { emailRedirectTo: `${appOrigin}/auth/confirm` },
+  });
+  if (error && !isPrivateSignupResult(error.code))
+    return {
+      error: "재발송 요청을 완료하지 못했습니다. 잠시 후 다시 시도해주세요.",
+    };
+  return { message: signupEmailAcknowledgement };
+}
 
 export async function requestRecovery(
   _: EmailActionState,
@@ -17,10 +44,14 @@ export async function requestRecovery(
 ): Promise<EmailActionState> {
   const email = z.email().safeParse(form.get("email"));
   if (!email.success) return { error: "올바른 이메일 주소를 입력해주세요." };
-  if (!configured()) return { error: "계정 서비스 연결을 준비 중입니다." };
+  const { appOrigin, features } = getConfig();
+  if (features.mail !== "enabled")
+    return { error: "계정 서비스 연결을 준비 중입니다." };
   const db = await supabase();
+  const budget = await reserveRequestBudget("recovery", email.data);
+  if (budget) return { error: budget };
   const { error } = await db.auth.resetPasswordForEmail(email.data, {
-    redirectTo: `${authSiteOrigin()}/auth/confirm`,
+    redirectTo: `${appOrigin}/auth/confirm`,
   });
   if (error)
     return {

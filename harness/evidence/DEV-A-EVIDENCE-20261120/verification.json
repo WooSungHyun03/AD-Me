@@ -1,0 +1,116 @@
+{
+  "at": "2026-11-20T13:32:52.161982+00:00",
+  "baseline": "0a20b215217671c33d784a801cbbbfd61fa4a327",
+  "branch": "codex/dev-a-p0-continue",
+  "upstream_main": "65063c8412d95458e0da61b90f53d2da72decda3",
+  "implementation_commits": {
+    "D057": [
+      "14dc12d",
+      "0a65d7c",
+      "8ad223b"
+    ],
+    "D029": [
+      "fed59dd"
+    ]
+  },
+  "acceptance_map": {
+    "D057": {
+      "source_and_fact_status": "Typed source/evidence kind and separate claim/confirmed/correction classifications; unverified publication denied in DB/API.",
+      "position": "Owner-only append-only replies, every change creates a version/hides publication; newest private position returns no earlier public statement.",
+      "reviewer_and_date": "DB-authenticated recent-MFA reviewer_id/reviewed_at plus immutable decisions and public.audit_log; self-submission review denied.",
+      "public_and_private_boundaries": "All5 private tables RLS/no client SELECT, participant inbox, explicit default-OFF policy, current approved version+moderation, curated public DTO excludes original claim/note/UID/private reply.",
+      "correction_and_audit": "Concurrent expected-version correction one winner; stale review denied; immutable revisions/responses/decisions; metered idempotent withdrawal.",
+      "no_automatic_risk_scoring": "No score field, ranking writes or catalog/matching source changes; original creator fixture hash unchanged."
+    },
+    "D029": {
+      "required_fields": "Brand/category/format/period/economic interest/disclosure/source kind+URL/attestation in private revision; actor/demo/reviewer/time DB-chosen.",
+      "false_or_weak_evidence": "Brand mention/self declaration/unknown interest cannot be confirmed as ad_evidence even privately; exact URL duplicate and correction collision rejected.",
+      "permissions": "Only target creator owner may submit ads; forged/foreign/brand/anon denied, admin recent-MFA and no self-submission approval.",
+      "review_and_correction": "Private pending by default; current version and explicit advertising policy gate; correction hides old public row; older approval fails409.",
+      "public_data": "Allowlist excludes actor IDs/private attestation/note; DEMO follows target origin; links/text only, no logos/content copying or scraping.",
+      "source_verification_scope": "Local workflow with fictional evidence only; actual content review/provider/identity/policy verification not claimed."
+    }
+  },
+  "gates": {
+    "node": "22.23.5",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": {
+      "passed": 210,
+      "files": 27,
+      "new_review_contracts": 7,
+      "new_ad_contracts": 6
+    },
+    "direct_DB_REST": {
+      "groups": 17,
+      "review": 9,
+      "advertising": 8,
+      "timing": "review latest30 migrations (consent+withdrawal cases); advertising latest29 (private weak classification guard); SQL package final30"
+    },
+    "production_build": "PASS via sequential actual local Auth/DB Playwright; current final source build also required in CI",
+    "browser": {
+      "passed_scenarios": 6,
+      "new_review": 2,
+      "new_advertising": 2,
+      "existing_two_role_golden": 2,
+      "migrations": 28,
+      "command": "npm run test:e2e:local -- --grep 'evidence review preserves|owner ad history|two-role real DB golden'",
+      "timing": "initial4 pass and2 locator failures; corrected exact accessible combobox and affected2 rerun PASS. Later023/024 add DB/parser negative constraints with approved UI contract unchanged.",
+      "after_all_followups": "unit210/lint/typecheck plus latest DB9/8 and actual upgrade23/24→30; no claim all historical E2E was rerun"
+    },
+    "visual_inspection": [
+      "output/playwright/review-admin-mobile.png",
+      "output/playwright/review-public-mobile.png",
+      "output/playwright/ad-history-public-mobile.png"
+    ],
+    "user_sql": {
+      "passed": 2,
+      "from": [
+        23,
+        24
+      ],
+      "to": 30,
+      "nonempty_legacy_rows_hash_preserved": true,
+      "legacy_authenticated_writes_preserved": true,
+      "policy_both_default_off": true,
+      "unknown_and_repeat_rejected": true
+    },
+    "new_migrations": 6,
+    "old_migrations_unchanged": 24
+  },
+  "resolved_findings": [
+    {
+      "finding": "Initial public projection could include original allegation text.",
+      "resolution": "020 allowlist returns source/kind only; curated summary is separate; direct private-canary and real browser HTML assertions pass."
+    },
+    {
+      "finding": "Reply could change while an old review remained valid.",
+      "resolution": "020 every reply creates a version and hides publication; stale UI409 proven in desktop/mobile actual Auth."
+    },
+    {
+      "finding": "Repeated withdrawals could add unbounded audit rows.",
+      "resolution": "022 same-version withdrawn state is a no-op; only first mutation charged and audited; direct repeat proof passes."
+    },
+    {
+      "finding": "Weak ad evidence could be marked confirmed privately.",
+      "resolution": "023 rejects ad_evidence for weak evidence regardless publication flag; API public parser repeats strong-evidence check; actual private/public negatives pass."
+    },
+    {
+      "finding": "Latest private reply could leave an older public-consent reply as the displayed current position.",
+      "resolution": "024 selects newest reply before consent; public→private reply/new review regression returns response null."
+    },
+    {
+      "finding": "Ad browser test exact getByLabel included option label text.",
+      "resolution": "Use exact accessible combobox name; same desired selection/assertions. No gate/test skip/force/retry weakening."
+    }
+  ],
+  "external_scope": "Only fictional users/sources/ads in exact loopback DB/Auth/Chrome. Policy enabled explicitly as fixture and restored. No hosted configuration/deployment, real content/provider/SMTP/Toss/legal approval.",
+  "remaining": [
+    "USER actual issue/ad policy versions and approvals, application/actual URL, DEV-B cross-review",
+    "D073 consent-version and D014/D079 retention/deletion integration",
+    "D018/D026 actual source normalization and platform identity verification",
+    "D030 full search/large history pagination and long private history paging/scale",
+    "D075 full audit and other unimplemented service workflows; overall release remains blocked"
+  ],
+  "done_promoted": false
+}

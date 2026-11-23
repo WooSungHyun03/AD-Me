@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-20T09:48:59.996Z",
+  "mode": "terms_18",
+  "from_migrations": 18,
+  "to_migrations": 23,
+  "result": "PASS",
+  "unchanged_profile_hash": true,
+  "staging_retains_old_source_read": true,
+  "staging_is_not_security_completion": true,
+  "safe_rpc_excludes_private_canary": true,
+  "activation_closes_raw_anon_read": true,
+  "activation_is_owner_only_and_one_way": true,
+  "repeated_activation_evidence_preserved": true,
+  "duplicate_rejected": true,
+  "custom_hardening_and_unknown_history_rejected": false,
+  "scope": "generated SQL in exact local disposable DB; no hosted execution"
+}

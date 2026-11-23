@@ -1,9 +1,15 @@
 import { PaymentConfirm } from "@/components/payment-confirm";
+import { notFound } from "next/navigation";
+import { getConfig } from "@/lib/config";
+
+export const dynamic = "force-dynamic";
+
 export default async function Success({
   searchParams,
 }: {
   searchParams: Promise<Record<string, string>>;
 }) {
+  if (getConfig().features.testBilling !== "enabled") notFound();
   const p = await searchParams;
   return (
     <section className="wrap prose">

@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-21T10:41:21.921Z",
+  "result": "PASS",
+  "from_migrations": 57,
+  "to_migrations": 60,
+  "unknown_history_modified_access_helper_or_custom_hook_rejected": true,
+  "mid_bundle_failure_atomic_rollback_including_role_setting": true,
+  "nonempty_original_creator_brand_profile_consent_preserved": true,
+  "intake_defaults_off_and_request_rejected": true,
+  "no_permanent_erasure_operation": true,
+  "quarantine_bucket_private": true,
+  "private_rows_and_arbitrary_actor_probes_denied": true,
+  "duplicate_apply_rejected": true,
+  "scope": "Actual generated57→60 SQL in independent marked loopback DB; fictional preexisting records. No hosted configuration/deployment/legal approval."
+}

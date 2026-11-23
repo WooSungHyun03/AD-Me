@@ -1,0 +1,150 @@
+{
+  "at": "2026-11-21T16:24:53.915Z",
+  "result": "INVENTORY_VERIFIED_WITH_NOTICE_GAPS",
+  "target": "win32",
+  "node": "v22.23.5",
+  "trace_files": 82,
+  "traced_packages": 12,
+  "unresolved_runtime_packages": [
+    {
+      "path": "node_modules/@next/env",
+      "version": "16.4.6",
+      "review": "EXACT_ARCHIVE_NOTICE_MISSING",
+      "license": "MIT",
+      "supplemental_material": {
+        "review": "DECLARATION_ONLY_NOTICE_UNRESOLVED",
+        "declared_license": "MIT",
+        "carrier": "node_modules/@next/env",
+        "exact_archive_verified": true,
+        "materials": [],
+        "notice_complete": false
+      }
+    },
+    {
+      "path": "node_modules/client-only",
+      "version": "0.0.1",
+      "review": "EXACT_ARCHIVE_NOTICE_MISSING",
+      "license": "MIT",
+      "supplemental_material": {
+        "review": "DECLARATION_ONLY_NOTICE_UNRESOLVED",
+        "declared_license": "MIT",
+        "carrier": "node_modules/client-only",
+        "exact_archive_verified": true,
+        "materials": [],
+        "notice_complete": false
+      }
+    }
+  ],
+  "package_versions_match_lock": true,
+  "known_notice_file_sha256": "2ec261c46fdcd7223927163ae68515ed2c0261542d602631b40eb10ead9a9241",
+  "supplemental_material_sha256": "210db707d6ac9185a48ea01eb105d2335db56c99d3ae669ed179a0abe3175006",
+  "supplemental_material_bytes": 58218,
+  "runtime_with_exact_archive_disclosure": 0,
+  "supplemental_material_does_not_close_notice_or_source_obligations": true,
+  "notice_bytes": 1602660,
+  "source_documents_unchanged": true,
+  "http_notice_and_korean_page_verified": true,
+  "outside_workspace_trace_paths": 0,
+  "rights_approval": false,
+  "packages": [
+    {
+      "path": "node_modules/@img/colour",
+      "version": "1.1.0",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "MIT",
+      "supplemental_material": null
+    },
+    {
+      "path": "node_modules/@img/sharp-win32-x64",
+      "version": "0.35.5",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "Apache-2.0 AND LGPL-3.0-or-later",
+      "supplemental_material": null
+    },
+    {
+      "path": "node_modules/@next/env",
+      "version": "16.4.6",
+      "review": "EXACT_ARCHIVE_NOTICE_MISSING",
+      "license": "MIT",
+      "supplemental_material": {
+        "review": "DECLARATION_ONLY_NOTICE_UNRESOLVED",
+        "declared_license": "MIT",
+        "carrier": "node_modules/@next/env",
+        "exact_archive_verified": true,
+        "materials": [],
+        "notice_complete": false
+      }
+    },
+    {
+      "path": "node_modules/@swc/helpers",
+      "version": "0.5.23",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "Apache-2.0",
+      "supplemental_material": null
+    },
+    {
+      "path": "node_modules/client-only",
+      "version": "0.0.1",
+      "review": "EXACT_ARCHIVE_NOTICE_MISSING",
+      "license": "MIT",
+      "supplemental_material": {
+        "review": "DECLARATION_ONLY_NOTICE_UNRESOLVED",
+        "declared_license": "MIT",
+        "carrier": "node_modules/client-only",
+        "exact_archive_verified": true,
+        "materials": [],
+        "notice_complete": false
+      }
+    },
+    {
+      "path": "node_modules/detect-libc",
+      "version": "2.1.2",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "Apache-2.0",
+      "supplemental_material": null
+    },
+    {
+      "path": "node_modules/next",
+      "version": "16.4.6",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "MIT",
+      "supplemental_material": null
+    },
+    {
+      "path": "node_modules/react",
+      "version": "19.3.1",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "MIT",
+      "supplemental_material": null
+    },
+    {
+      "path": "node_modules/react-dom",
+      "version": "19.3.1",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "MIT",
+      "supplemental_material": null
+    },
+    {
+      "path": "node_modules/semver",
+      "version": "7.8.6",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "ISC",
+      "supplemental_material": null
+    },
+    {
+      "path": "node_modules/sharp",
+      "version": "0.35.5",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "Apache-2.0",
+      "supplemental_material": null
+    },
+    {
+      "path": "node_modules/styled-jsx",
+      "version": "5.1.6",
+      "review": "EXACT_INSTALLED_NOTICES",
+      "license": "MIT",
+      "supplemental_material": null
+    }
+  ],
+  "scope": "Actual target production trace and shipped known notices; unresolved notices and supplied logo/content rights remain release blockers. Not a blanket licensing approval."
+}

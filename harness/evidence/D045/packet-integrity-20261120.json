@@ -1,0 +1,47 @@
+{
+  "at": "2026-11-20T14:52:01.669354+00:00",
+  "result": "PASS",
+  "source_head": "47632b5529a944aa65d07b9c031acac7d07c23a3",
+  "source_migrations": [
+    {
+      "path": "supabase/migrations/202611200026_recommendation_snapshots.sql",
+      "sha256_lf": "bebd251c8f0b0d632a0a87230db20d683b77aa40697319278b0d6ad8a7653e99"
+    },
+    {
+      "path": "supabase/migrations/202611200027_recommendation_campaign_delete.sql",
+      "sha256_lf": "2c48c1d0dab0ee5acdd3927b199ff4d23a1ddd40a96748dbef13c77f7dacfd79"
+    },
+    {
+      "path": "supabase/migrations/202611200028_recommendation_read_budget.sql",
+      "sha256_lf": "b60203eb7c75ac90c413e1dda3d9d188770b4f698b8533e8ecde36473d82798a"
+    }
+  ],
+  "sql_files": [
+    {
+      "path": "00_preflight_current_31.sql",
+      "sha256_lf": "0a796e5e1e643d7e1872703c543749cb45f11ee7c5c7f8b8604fcce57c701799",
+      "bytes_lf": 1059
+    },
+    {
+      "path": "01_apply_current_31.sql",
+      "sha256_lf": "5188d07694782eddab3994d70774c33ce9cc0d99d4f2a1006c10171527d9bba4",
+      "bytes_lf": 29177
+    },
+    {
+      "path": "02_verify.sql",
+      "sha256_lf": "584f5344e245d9778edff7080cf4f69a08a89aad8fbeb6f89dc2bbdea3017943",
+      "bytes_lf": 759
+    }
+  ],
+  "preserved_previous_migrations": 31,
+  "preserved_previous_delivered_sql": 103,
+  "preserved_archives": [
+    "deliverables/AD-Me_DEV-A_FILTERS_20261120_review.zip",
+    "deliverables/AD-Me_DEV-A_MAIN_20261120_review.zip",
+    "deliverables/AD-Me_DEV-A_P0_20261119_review.zip",
+    "deliverables/AD-Me_DEV-A_READ_BOUNDARY_20261120_review.zip",
+    "deliverables/AD-Me_DEV-A_SCHEMA_20261120_review.zip",
+    "deliverables/AD-Me_DEV-A_TERMS_20261120_review.zip"
+  ],
+  "scope": "Static Git/LF integrity only; actual31→34 SQL and rollback proof is recommendation-upgrade-20261120.json; not hosted execution."
+}

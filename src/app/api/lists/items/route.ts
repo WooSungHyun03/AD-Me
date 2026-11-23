@@ -1,3 +1,4 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
@@ -13,7 +14,7 @@ async function parse(req: Request) {
   if (!p.success) return { err: fail("잘못된 요청입니다.") };
   return { c, d: p.data };
 }
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   const { c, d, err } = await parse(req);
   if (!c) return err;
   const { error } = await c.db
@@ -28,7 +29,7 @@ export async function POST(req: Request) {
   if (error) return fail("그룹에 추가하지 못했습니다.", 403);
   return NextResponse.json({ ok: true }, { status: 201 });
 }
-export async function DELETE(req: Request) {
+ async function handleDELETE(req: Request) {
   const { c, d, err } = await parse(req);
   if (!c) return err;
   const { data, error } = await c.db
@@ -39,3 +40,6 @@ export async function DELETE(req: Request) {
   if (error || !data.length) return fail("삭제할 항목이 없습니다.", 404);
   return NextResponse.json({ ok: true });
 }
+
+export const POST=compatibleApiRoute("src/app/api/lists/items/route.ts.POST",handlePOST);
+export const DELETE=compatibleApiRoute("src/app/api/lists/items/route.ts.DELETE",handleDELETE);

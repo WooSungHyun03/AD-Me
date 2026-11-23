@@ -1,0 +1,147 @@
+{
+  "date_kst": "2026-11-19",
+  "baseline_head": "4437eb1",
+  "branch": "codex/dev-a-p0-continue",
+  "source_state": "Accumulated uncommitted root checkout; prior dirty files and independent dev-a-local checkout preserved",
+  "release_status": "NO_GO",
+  "toolchain": {
+    "node_for_checks": "22.23.5",
+    "next": "16.4.6",
+    "vitest": "5.1.1",
+    "dependencies": "npm ci succeeded from unchanged package-lock.json; initial installer Node 24, validation commands Node 22"
+  },
+  "verified": [
+    {
+      "command": "npm run lint",
+      "result": "PASS"
+    },
+    {
+      "command": "npm run typecheck",
+      "result": "PASS"
+    },
+    {
+      "command": "npm test",
+      "result": "115 tests / 13 files PASS"
+    },
+    {
+      "command": "npm run check:config",
+      "result": "PASS: missing names and disabled states only, no values"
+    },
+    {
+      "command": "npm run setup:qa:local",
+      "result": "PASS: seven migrations freshly applied in disposable local Supabase; fictional accounts and local TOTP"
+    },
+    {
+      "command": "npm run test:security:local",
+      "result": "13 actual local PostgREST/SQL authorization checks PASS",
+      "evidence": [
+        "local-security.json",
+        "local-brand-security.json"
+      ]
+    },
+    {
+      "command": "npm run test:e2e:local",
+      "result": "18/18 PASS (1.8m), production build/server, desktop/mobile",
+      "scope": "Real isolated DB/Auth/TOTP/Mailpit with fictional identities. No external SMTP/provider payment/ingestion claim."
+    },
+    {
+      "command": "node node_modules/next/dist/bin/next build (inside local QA runner)",
+      "result": "PASS; server starts only after exit 0"
+    },
+    {
+      "command": "python -X utf8 harness/selftest.py",
+      "result": "5/5 PASS"
+    },
+    {
+      "command": "python -X utf8 harness/validate_service_backlog.py",
+      "result": "PASS: 88 development, 20 user, 6 deferred; original mapping/owners preserved"
+    },
+    {
+      "command": "python -X utf8 harness/validate_handoff.py",
+      "result": "PASS after runtime/evidence update; DEV-B/U unchanged"
+    },
+    {
+      "command": "python -X utf8 harness/fixtures_check.py",
+      "result": "PASS: 48 creators / 8 campaigns / 24 ads / 4 reviews fictional"
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS; ordinary CRLF conversion warnings only"
+    },
+    {
+      "command": "npm run build",
+      "result": "PASS, final explicit Node 22 production build, exit 0"
+    },
+    {
+      "command": "npm run test:e2e:keyless",
+      "result": "4/4 PASS (1.1m), final production build/server, desktop/mobile; direct free-mode TEST endpoints 404"
+    },
+    {
+      "command": "Generated USER SQL preflight/apply/history/verify + offline console helper",
+      "result": "PASS in second disposable Supabase DB; 4 history records, 4 new RLS tables, provisioning execute denied to anon/authenticated/service_role; generated approval/revoke and SQL escaping verified",
+      "evidence": "console-packet.json"
+    },
+    {
+      "command": "python -X utf8 harness/secret_scan.py",
+      "result": "PASS 313 tracked/untracked non-ignored files; final repeat after packaging"
+    }
+  ],
+  "closing_checks": {
+    "free_mode_production_e2e": "PASS 4/4",
+    "final_build": "PASS",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": "PASS 115/115",
+    "artifact_scan": "PASS: tracked/untracked non-ignored secret scan; archive builder verifies manifest, excludes local credentials/TLS and tests ZIP integrity"
+  },
+  "browser_review": {
+    "screens": [
+      "/settings",
+      "/admin/security"
+    ],
+    "viewports": [
+      "1440x900",
+      "390x844, device scale 3"
+    ],
+    "result": "Four actual screenshots inspected: labels, logo, inputs/notices visible without overlap/overflow; no OTP seed or real user data",
+    "files": [
+      "screenshots/brand-settings-desktop.png",
+      "screenshots/brand-settings-mobile.png",
+      "screenshots/admin-mfa-desktop.png",
+      "screenshots/admin-mfa-mobile.png"
+    ]
+  },
+  "prior_attempts": [
+    "Audit deletion initially expected an error; RLS returned zero affected rows. Corrected to assert unchanged records; rerun PASS.",
+    "Development-server hot reload reset campaign input. Switched DB E2E to production build.",
+    "HTTP loopback endpoints failed production HTTPS checks. Added local TLS proxies and trusted local CA, keeping production validation unchanged.",
+    "Scoped status/alert assertions and explicit select/textarea labels fixed ambiguity with brand defaults and Next route announcer. Full rerun 18/18 PASS.",
+    "Keyless dev server encountered route timeouts during local concurrency. Production rerun recorded separately. No tests skipped/deleted."
+  ],
+  "test_boundaries": {
+    "jwt_cases": "Time-variant AMR REST cases use synthetic locally signed JWTs; real local Auth TOTP enrollment/challenge separately verified in browser",
+    "mail": "Local Auth delivery into Mailpit only, not external SMTP",
+    "billing": "Edge/provider absent; amount tampering 409 and confirmation unavailability 503, zero provider approvals",
+    "ingestion": "No real influencer imported",
+    "external_changes": false,
+    "push_or_deployment": false,
+    "auth_traces_published": false
+  },
+  "remaining": [
+    "D011 onboarding and D027 logo upload for D012",
+    "U008 operator identity/approval and actual external TOTP for D016",
+    "DEV-B schema/API cross-review",
+    "113 missing target notices and deployment/Edge inventory",
+    "D001/D005 environment/demo segregation and other unimplemented P0 acceptance criteria"
+  ],
+  "recorded_at": "2026-11-19T09:35:40.219919+00:00",
+  "default_remote_qa": "Not run against hosted environment. No .env.local or root .accounts.local.json; same legacy suite plus new cases run through isolated local config. No remote writes/deployment authorized.",
+  "log_sha256": {
+    "build-final.log": "7974bf9c133bc53e7bf1e942a0c9ca42bbe16d3a22c900818b818f077e4bcf70",
+    "lint-final.log": "06cb08e795b232c22eaf8d2e2a4ab16969436d50b398a9afb071c8503cca1940",
+    "typecheck-final.log": "7665ff8c80d941757ca6b5cb15ebb2d8e78c382b8450663180438b05ef596a4e",
+    "unit-final.log": "09d31f8a6a52ac7137d714486757d5e36c5aca1ad60732f22435a127953ca40c",
+    "e2e-final.log": "2f98b351457761e78e8cf22ee256e10e61a4a441739e7d7b47df5b36cebe9f08",
+    "keyless-production-final.log": "008dd8b87d2dbcc67fa13a23f9a2075602f0b95aa8950347708893d109d20af2"
+  }
+}

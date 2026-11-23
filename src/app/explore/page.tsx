@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { context } from "@/lib/api";
-import { Checkout } from "@/components/checkout";
+import { TestCheckout as Checkout } from "@/components/test-checkout";
 import { SearchForm } from "@/app/jobs/forms";
 export default async function Explore() {
   const c = await context();

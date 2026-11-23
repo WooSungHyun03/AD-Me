@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-20T09:53:23.586245+00:00",
+  "result": "PASS",
+  "source_head": "5cb77a894138b4b46c0a3cdbe1d332cbc51c1cad",
+  "archive": "deliverables/AD-Me_DEV-A_READ_BOUNDARY_20261120_review.zip",
+  "sha256": "fa86f1397ad26c5561800e2938100f885127869aaa13a8b7fe02a2267a7b2418",
+  "bytes": 2725961,
+  "source_files": 394,
+  "crc_and_all_git_blobs": true,
+  "generated_sql_matches_committed_migrations": true,
+  "private_material_checks": true,
+  "previous_archives_unchanged": [
+    {
+      "archive": "deliverables/AD-Me_DEV-A_FILTERS_20261120_review.zip",
+      "sha256": "54c9010f93128e2e8d4a410574c76fcf668a13c61cd610c945123f006f4193d9"
+    },
+    {
+      "archive": "deliverables/AD-Me_DEV-A_MAIN_20261120_review.zip",
+      "sha256": "2763a3c7b28d00c3619599e99bbfb486a3cec1e825474747d2a0a7a2629794b5"
+    },
+    {
+      "archive": "deliverables/AD-Me_DEV-A_P0_20261119_review.zip",
+      "sha256": "87b224fae291ae4c0b42f95a28808ad0f8105e4122904161b4ee0963c0f48616"
+    },
+    {
+      "archive": "deliverables/AD-Me_DEV-A_SCHEMA_20261120_review.zip",
+      "sha256": "6f88d205f05462376349df26427ca51957a1805e4ee842c981593245e0f34d97"
+    },
+    {
+      "archive": "deliverables/AD-Me_DEV-A_TERMS_20261120_review.zip",
+      "sha256": "a0c85b52acb5f93743430ee0dcc2c5dc03e2f0e9e7d683b4922ea138664b0312"
+    }
+  ],
+  "external_applied": false
+}

@@ -134,7 +134,7 @@ def scan_tree(base, findings, label):
     for p in base.rglob("*"):
         if not p.is_file():
             continue
-        rel = str(p.relative_to(root))
+        rel = p.relative_to(root).as_posix()
         if p.suffix == ".zip":  # Playwright traces: scan every entry (network logs, storage state)
             try:
                 with zipfile.ZipFile(p) as z:
@@ -153,8 +153,8 @@ def scan_artifacts(findings):
     parts = [scan_tree(d, findings, d) for d in ("playwright-report", "test-results", "harness/evidence")]
     # Authenticated traces or browser storage state must never be part of the published evidence.
     for p in (root / "harness/evidence").rglob("*"):
-        if p.is_file() and (p.suffix in (".zip", ".har") or "storage" in p.name.lower()):
-            findings.append((str(p.relative_to(root)), "trace/storage state in evidence"))
+        if p.is_file() and (p.suffix in (".zip", ".har") or re.search(r"storage[-_]?state", p.name, re.I)):
+            findings.append((p.relative_to(root).as_posix(), "trace/storage state in evidence"))
     return ", ".join(parts)
 
 

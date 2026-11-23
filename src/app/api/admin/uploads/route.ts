@@ -1,9 +1,10 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { reportError } from "@/lib/observability";
 import { context, fail, safeOrigin } from "@/lib/api";
 import { storageAdmin, sweepUploads } from "@/lib/uploads";
 // Admin-triggered cleanup of deleted and orphaned files.
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -17,3 +18,5 @@ export async function POST(req: Request) {
     return fail("정리 작업에 실패했습니다.", 500);
   }
 }
+
+export const POST=compatibleApiRoute("src/app/api/admin/uploads/route.ts.POST",handlePOST);

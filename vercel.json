@@ -3,5 +3,11 @@
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "installCommand": "npm ci",
-  "regions": ["icn1"]
+  "regions": ["icn1"],
+  "git": {
+    "deploymentEnabled": {
+      "main": false,
+      "codex/dev-a-p0-continue": false
+    }
+  }
 }

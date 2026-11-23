@@ -1,8 +1,9 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
 // D063: admin answers or closes an inquiry (the DB re-checks the admin role).
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -24,3 +25,5 @@ export async function POST(req: Request) {
         );
   return NextResponse.json({ ok: true });
 }
+
+export const POST=compatibleApiRoute("src/app/api/admin/inquiries/route.ts.POST",handlePOST);

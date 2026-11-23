@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-21T06:42:08.876Z",
+  "result": "PASS",
+  "from_migrations": 54,
+  "to_migrations": 57,
+  "unknown_or_modified_baseline_rejected": true,
+  "mid_bundle_failure_atomic_rollback": true,
+  "nonempty_profiles_brands_contacts_creators_old_event_fields_preserved": true,
+  "old_events_default_global_without_fabricating_new_acceptance": true,
+  "prior_policy_and_test_billing_preserved": true,
+  "staged_legacy_write_without_synthetic_new_consent": true,
+  "strict_activation_owner_only_one_way_first_stamp_preserved": true,
+  "strict_legacy_publication_denied_but_privacy_restriction_available": true,
+  "duplicate_apply_rejected": true,
+  "scope": "Actual generated SQL and local authenticator role/JWT fixture in independent marked loopback DB. No hosted policy approval/deployment."
+}

@@ -1,9 +1,15 @@
-import Link from "next/link";
-export const metadata = {
-  title: "서비스·데이터 안내",
-  alternates: { canonical: "/about" },
-};
-export default function About() {
+import { testProductTerms } from "@/lib/billing";
+import { getTestProducts } from "@/lib/test-products";
+import {
+  creatorPlatforms,
+  matchingFactors,
+  platformLabels,
+} from "@/lib/service-catalog";
+
+export const dynamic = "force-dynamic";
+
+export default async function About() {
+  const test = await getTestProducts();
   return (
     <section className="wrap prose">
       <h1 className="page-title">AD Me 서비스·데이터 안내</h1>
@@ -17,12 +23,22 @@ export default function About() {
         가져옵니다. AD Me 등록과 협업 가능 여부는 별도입니다. DEMO로 표시된
         캠페인은 시연 자료입니다.
       </p>
+      <h2>SNS 플랫폼</h2>
+      <p>
+        {creatorPlatforms
+          .map((platform) => platformLabels[platform])
+          .join(", ")}
+        을 등록·검색 조건으로 선택할 수 있습니다. 외부 계정 연동과 지표 자동
+        수집은 준비 중입니다.
+      </p>
       <h2>추천 점수</h2>
       <p>
-        분위기 28%, 분야 25%, 타깃 20%, 예산 15%, 형식 12%를 기본 가중치로
-        사용합니다. 미확보 데이터는 제외하고 가중치를 재정규화하며 데이터
-        충족률을 함께 표시합니다. 협업 불가·비공개 프로필은 추천에서 제외합니다.
-        HOT 유료 노출은 추천 점수를 바꾸지 않습니다.
+        {Object.values(matchingFactors)
+          .map(({ factor, weight }) => `${factor} ${weight}%`)
+          .join(", ")}
+        를 기본 가중치로 사용합니다. 미확보 데이터는 제외하고 가중치를
+        재정규화하며 데이터 충족률을 함께 표시합니다. 협업 불가·비공개 프로필은
+        추천에서 제외합니다.
       </p>
       <h2>브랜드 안전성</h2>
       <p>
@@ -30,18 +46,22 @@ export default function About() {
         검토를 원칙으로 하며 미확인 논란을 자동 생성하지 않습니다. 정정·신고는
         각 프로필에서 접수합니다.
       </p>
-      <h2>TEST 결제</h2>
-      <p>
-        Toss Payments TEST 키만 사용합니다. 실제 과금이나 자동 갱신은 없습니다.
-        이용권은 승인 후 30일간 유효합니다. 팀 초대·고급 AI 분석 등 준비 중인
-        기능은 별도 표시합니다.
-      </p>
-      <h2>도움말·문의</h2>
-      <p>
-        이용 방법, 데이터 한계, 문의 접수는{" "}
-        <Link href="/help">도움말·문의</Link>
-        에서 확인하세요.
-      </p>
+      {test && test.products.length > 0 && (
+        <>
+          <h2>TEST 상품 안내</h2>
+          <p>
+            이 환경의 TEST 상품은 실제 청구 없이 이용권과 크레딧 승인 흐름을
+            검증합니다.
+          </p>
+          <ul>
+            {test.products.map((product) => (
+              <li key={product.sku}>
+                {product.name} · {testProductTerms(product)}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </section>
   );
 }

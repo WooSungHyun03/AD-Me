@@ -1,8 +1,15 @@
 "use client";
+import { creatorPlatforms } from "@/lib/service-catalog";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { categories, vibes } from "@/lib/catalog";
 import { Button } from "./ui/button";
+import { ZodError } from "zod";
+import {
+  campaignTermsFromForm,
+  type CampaignTerms,
+} from "@/lib/campaign-brief";
+import { CampaignTermsFields } from "./campaign-terms-fields";
 type CampaignInput = {
   title: string;
   product: string;
@@ -14,17 +21,8 @@ type CampaignInput = {
   goal: string;
   format: string;
   status: string;
-  recruit_until?: string | null;
-  capacity?: number | null;
-  policy?: { category?: string; budget?: string; unknown?: string };
+  terms?: CampaignTerms;
 };
-// datetime-local works in the viewer's local time; the server gets an absolute ISO instant.
-const toLocalInput = (iso?: string | null) =>
-  iso
-    ? new Date(new Date(iso).getTime() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .slice(0, 16)
-    : "";
 export function CampaignForm({
   id,
   initial,
@@ -39,53 +37,35 @@ export function CampaignForm({
     [error, setError] = useState(""),
     [pending, setPending] = useState(false);
   const router = useRouter();
+  const [structured, setStructured] = useState(!id || Boolean(initial?.terms));
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setPending(true);
     setError("");
-    const {
-      recruit_until,
-      capacity,
-      policy_category,
-      policy_budget,
-      policy_unknown,
-      ...d
-    } = Object.fromEntries(new FormData(e.currentTarget));
-    const recruiting = {
-      recruit_until: recruit_until
-        ? new Date(String(recruit_until)).toISOString()
-        : null,
-      capacity: capacity ? Number(capacity) : null,
-      policy: {
-        category: policy_category,
-        budget: policy_budget,
-        unknown: policy_unknown,
-      },
-    };
+    const form = new FormData(e.currentTarget);
+    const d = Object.fromEntries(form);
     try {
+      const brief = {
+        ...Object.fromEntries(
+          [
+            "title",
+            "product",
+            "category",
+            "target_audience",
+            "goal",
+            "format",
+            "status",
+          ].map((key) => [key, d[key]]),
+        ),
+        vibes: tags,
+        platforms,
+        budget_krw: Number(d.budget_krw),
+        ...(structured ? { terms: campaignTermsFromForm(form) } : {}),
+      };
       const res = await fetch("/api/campaigns", {
         method: id ? "PATCH" : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(
-          id
-            ? {
-                id,
-                brief: {
-                  ...d,
-                  ...recruiting,
-                  vibes: tags,
-                  platforms,
-                  budget_krw: Number(d.budget_krw),
-                },
-              }
-            : {
-                ...d,
-                ...recruiting,
-                vibes: tags,
-                platforms,
-                budget_krw: Number(d.budget_krw),
-              },
-        ),
+        body: JSON.stringify(id ? { id, brief } : brief),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error?.message || "저장 실패");
@@ -95,7 +75,13 @@ export function CampaignForm({
           : `/campaigns/${data.id}`,
       );
     } catch (e) {
-      setError(e instanceof Error ? e.message : "네트워크 오류입니다.");
+      setError(
+        e instanceof ZodError
+          ? "일정 순서·제공 조건·산출물 항목을 확인해주세요."
+          : e instanceof Error
+            ? e.message
+            : "네트워크 오류입니다.",
+      );
     } finally {
       setPending(false);
     }
@@ -202,56 +188,24 @@ export function CampaignForm({
             <option value="closed">모집 마감</option>
           </select>
         </label>
-        <label className="field">
-          분야 조건
-          <select
-            name="policy_category"
-            defaultValue={initial?.policy?.category ?? "soft"}
-          >
-            <option value="soft">선호 (점수에 반영)</option>
-            <option value="hard">필수 (불일치 제외)</option>
-          </select>
-        </label>
-        <label className="field">
-          예산 조건
-          <select
-            name="policy_budget"
-            defaultValue={initial?.policy?.budget ?? "soft"}
-          >
-            <option value="soft">선호 (점수에 반영)</option>
-            <option value="hard">필수 (최소 견적 초과 제외)</option>
-          </select>
-        </label>
-        <label className="field">
-          필수 조건 정보가 없는 크리에이터
-          <select
-            name="policy_unknown"
-            defaultValue={initial?.policy?.unknown ?? "hold"}
-          >
-            <option value="hold">보류로 표시 (뒤에 정렬)</option>
-            <option value="exclude">추천에서 제외</option>
-          </select>
-        </label>
-        <label className="field">
-          모집 마감 일시 (선택)
-          <input
-            type="datetime-local"
-            name="recruit_until"
-            defaultValue={toLocalInput(initial?.recruit_until)}
-          />
-        </label>
-        <label className="field">
-          선정 인원 (선택, 1~100)
-          <input
-            type="number"
-            name="capacity"
-            min={1}
-            max={100}
-            defaultValue={initial?.capacity ?? ""}
-            placeholder="제한 없음"
-          />
-        </label>
       </div>
+      {id && !initial?.terms && (
+        <div className="notice" style={{ marginTop: 24 }}>
+          <p>
+            이전 버전 캠페인입니다. 기존 정보를 유지하면서 상세 협업 조건을
+            추가할 수 있습니다.
+          </p>
+          <label>
+            <input
+              type="checkbox"
+              checked={structured}
+              onChange={(e) => setStructured(e.target.checked)}
+            />{" "}
+            일정·제공 조건·산출물 추가
+          </label>
+        </div>
+      )}
+      {structured && <CampaignTermsFields initial={initial?.terms} />}
       <h3 style={{ marginTop: 30, fontSize: 15 }}>
         선호하는 이미지·분위기 (최대 8개)
       </h3>
@@ -278,7 +232,7 @@ export function CampaignForm({
       </div>
       <h3 style={{ marginTop: 30, fontSize: 15 }}>광고 플랫폼</h3>
       <div className="inline">
-        {["instagram", "youtube", "tiktok"].map((p) => (
+        {creatorPlatforms.map((p) => (
           <label key={p} className="inline">
             <input
               type="checkbox"

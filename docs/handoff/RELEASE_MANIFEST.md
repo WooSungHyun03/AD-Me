@@ -96,3 +96,75 @@ Rollback policy:
 - `.github/workflows/ci.yml`: **validation only** (no deployment workflow; deployment needs user approval).
   - `checks` job: secret scan, harness self-tests, migration static check, lint/typecheck/unit/build.
   - `migrations` job: applies every migration from scratch on a disposable local Supabase and runs the DB permission tests.
+
+
+## DEV-A additive migration inventory — integrated 2026-11-23
+
+These rows complete the source inventory; they do not assert any hosted application. Prior environment claims above are historical. Latest local integration has 103 migrations. Source compatibility and USER deployment gates remain required.
+
+| Version | Phase | Change | Old-app impact / rollback |
+|---|---|---|---|
+| `202611190004` | switch | DEV-A: `202611190004_admin_security.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611190005` | switch | DEV-A: `202611190005_moderation_locks.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611190006` | expand | DEV-A: `202611190006_brand_profiles.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611190007` | expand | DEV-A: `202611190007_brand_projection.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200006` | switch | DEV-A: `202611200006_ops_mfa.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200007` | switch | DEV-A: `202611200007_rate_limits.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200008` | switch | DEV-A: `202611200008_youtube_moderation.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200010` | expand | DEV-A: `202611200010_message_policy.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200011` | switch | DEV-A: `202611200011_draft_read_limits.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200012` | expand | DEV-A: `202611200012_campaign_terms.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200013` | expand | DEV-A: `202611200013_creator_identity.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200014` | switch | DEV-A: `202611200014_creator_read_boundary.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200015` | switch | DEV-A: `202611200015_creator_catalog_quota.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200016` | expand | DEV-A: `202611200016_creator_boundary_activation.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200017` | switch | DEV-A: `202611200017_proposal_visibility.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200018` | expand | DEV-A: `202611200018_conversations.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200019` | expand | DEV-A: `202611200019_review_workflow.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200020` | switch | DEV-A: `202611200020_review_public_boundary.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200021` | switch | DEV-A: `202611200021_ad_history.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200022` | switch | DEV-A: `202611200022_review_withdraw_quota.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200023` | switch | DEV-A: `202611200023_ad_evidence_gate.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200024` | switch | DEV-A: `202611200024_latest_response_consent.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200025` | switch | DEV-A: `202611200025_deliverable_versions.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200026` | expand | DEV-A: `202611200026_recommendation_snapshots.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200027` | switch | DEV-A: `202611200027_recommendation_campaign_delete.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611200028` | expand | DEV-A: `202611200028_recommendation_read_budget.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210035` | expand | DEV-A: `202611210035_home_catalog.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210036` | switch | DEV-A: `202611210036_test_billing_boundary.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210037` | expand | DEV-A: `202611210037_filtered_catalog.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210038` | expand | DEV-A: `202611210038_auth_request_budget.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210039` | expand | DEV-A: `202611210039_private_images.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210040` | expand | DEV-A: `202611210040_brand_logo_projection.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210041` | switch | DEV-A: `202611210041_public_creator_references.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210042` | expand | DEV-A: `202611210042_normalized_public_read.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210043` | expand | DEV-A: `202611210043_image_transport_limit.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210044` | expand | DEV-A: `202611210044_service_budget_usage.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210045` | switch | DEV-A: `202611210045_reference_precedence.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210046` | expand | DEV-A: `202611210046_filter_reference_epoch.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210047` | expand | DEV-A: `202611210047_consent_versions.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210048` | expand | DEV-A: `202611210048_sensitive_boundaries.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210049` | switch | DEV-A: `202611210049_ingestion_recovery.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210050` | expand | DEV-A: `202611210050_source_budget_public_refs.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210051` | expand | DEV-A: `202611210051_brand_public_text.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210052` | expand | DEV-A: `202611210052_checkpoint_quota_reservation.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210053` | expand | DEV-A: `202611210053_withdraw_channel_consent.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210054` | expand | DEV-A: `202611210054_consent_rollout_boundary.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210055` | expand | DEV-A: `202611210055_publication_transactions.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210056` | expand | DEV-A: `202611210056_publication_guard_record.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210057` | expand | DEV-A: `202611210057_global_withdrawal_receipts.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210058` | expand | DEV-A: `202611210058_deletion_quarantine.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210059` | expand | DEV-A: `202611210059_deletion_private_helpers.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611210060` | expand | DEV-A: `202611210060_deletion_owned_jobs.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611220061` | expand | DEV-A: `202611220061_ad_timeline.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611220062` | expand | DEV-A: `202611220062_metric_history.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611220063` | expand | DEV-A: `202611220063_ad_cursor_reference.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611220064` | expand | DEV-A: `202611220064_metric_filters.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611220065` | switch | DEV-A: `202611220065_admin_support.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611220066` | expand | DEV-A: `202611220066_metric_metadata_guard.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611220067` | expand | DEV-A: `202611220067_history_permission.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611220068` | expand | DEV-A: `202611220068_saved_searches.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611230075` | switch | DEV-A: `202611230075_main_integration_guards.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611230076` | switch | DEV-A: `202611230076_worker_integration.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `202611230077` | switch | DEV-A: `202611230077_worker_budget_compatibility.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |
+| `20261123110001` | switch | DEV-A: `20261123110001_youtube_public_boundary.sql` | Exact integrated local DB tested; hosted state unverified; forward fix only |

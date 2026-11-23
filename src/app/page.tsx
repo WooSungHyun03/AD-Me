@@ -1,13 +1,43 @@
+import { featuredYoutube } from "@/lib/featured-youtube";
+import { YoutubeChannelCards } from "@/components/featured-youtube";
 import Link from "next/link";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PromotionSlot } from "@/components/promotion-slot";
-import { featuredYoutube } from "@/lib/featured-youtube";
-import { YoutubeChannelCards } from "@/components/featured-youtube";
-export const metadata = {
-  alternates: { canonical: "/" },
-};
+import { creators } from "@/lib/catalog";
+import { configured, supabase } from "@/lib/supabase";
+import { getConfig } from "@/lib/config";
+import { projectPublicCreator } from "@/lib/creator-public-profile";
+import { homeCatalogSchema } from "@/lib/home-catalog";
+export const dynamic = "force-dynamic";
 export default async function Home() {
+  const demoMode = getConfig().serviceMode === "test_demo";
+  let summary: ReturnType<typeof homeCatalogSchema.parse> | null = null;
+  if (configured()) {
+    const db = await supabase(),
+      { data, error } = await db.rpc("creator_home_summary", {
+        p_demo: demoMode,
+      });
+    const parsed = homeCatalogSchema.safeParse(data);
+    if (!error && parsed.success) summary = parsed.data;
+  } else if (demoMode) {
+    const samples = creators
+      .map((c) =>
+        projectPublicCreator({
+          id: c.seed_id,
+          published: c.published,
+          profile: c,
+        }),
+      )
+      .filter((c) => c !== null);
+    summary = homeCatalogSchema.parse({
+      version: 1,
+      total: samples.length,
+      demo: samples.length,
+      registered: 0,
+      asOf: new Date().toISOString(),
+      featured: samples.slice(0, 3),
+    });
+  }
   const { items } = await featuredYoutube("", null, 3);
   return (
     <>
@@ -49,7 +79,6 @@ export default async function Home() {
             YouTube 채널 탐색 <ArrowUpRight size={17} />
           </Link>
         </div>
-        <PromotionSlot />
       </section>
       {items.length > 0 && (
         <section className="wrap section-line">
@@ -120,6 +149,21 @@ export default async function Home() {
             </Link>
           </Button>
         </div>
+        <p style={{ fontSize: 12 }}>
+          {summary
+            ? `현재 공개 프로필 ${summary.total}명 · 본인 등록 ${summary.registered}명${summary.demo ? ` · 가상 시연 ${summary.demo}명` : ""}. 본인 등록은 플랫폼 소유·지표 검증 완료를 뜻하지 않습니다.`
+            : "현재 공개 현황은 확인 중입니다. 확보 인원이나 성과를 추정해 표시하지 않습니다."}
+          {summary && (
+            <>
+              <br />
+              집계 시각{" "}
+              {new Date(summary.asOf).toLocaleString("ko-KR", {
+                timeZone: "Asia/Seoul",
+              })}{" "}
+              (KST) · 무료 베타 · 공개 범위에 따라 변경됩니다.
+            </>
+          )}
+        </p>
       </section>
     </>
   );

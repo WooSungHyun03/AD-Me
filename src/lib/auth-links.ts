@@ -50,6 +50,17 @@ export const resetPasswordSchema = emailProofSchema
     message: "비밀번호가 일치하지 않습니다.",
   });
 
+export const signupEmailAcknowledgement =
+  "이 주소에서 이메일 인증이 필요하면 안내 메일을 보냅니다. 받은편지함과 스팸함을 확인해주세요.";
+
+export function isPrivateSignupResult(code: string | undefined) {
+  return (
+    code === "user_already_exists" ||
+    code === "email_exists" ||
+    code === "user_not_found"
+  );
+}
+
 export function authSiteOrigin(value = process.env.NEXT_PUBLIC_APP_URL) {
   const origin = new URL(value || "https://be-celeb.org");
   const local =
@@ -73,6 +84,3 @@ export function authSiteOrigin(value = process.env.NEXT_PUBLIC_APP_URL) {
 }
 
 // Email links can never supply an arbitrary redirect destination.
-export function authNextPath(value: string | null) {
-  return value === "/dashboard" ? value : "/dashboard";
-}

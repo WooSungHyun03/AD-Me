@@ -1,0 +1,1593 @@
+{
+  "reviewed_at": "2026-11-20T08:27:15.234660+00:00",
+  "baseline": "c450619348ef15fc3372c72622c6c9eda55f8bb9",
+  "branch": "codex/dev-a-p0-continue",
+  "attachment_name": "김태권 이번주.md",
+  "attachment_sha256": "bec49fe65596188a9f9dce624808f2d095d571178f06dd4a942bc6ff442daede",
+  "attachment_equals_repo": true,
+  "shared_contract_source": "docs/handoff/SHARED_EXECUTION_CONTRACT.md",
+  "shared_contract_absent_from_attachment_folder": true,
+  "review_kind": "document/ledger/commit/path audit plus targeted code inspection; not exhaustive behavior/provider/legal approval",
+  "counts_before_this_work": {
+    "IN_PROGRESS": 11,
+    "LOCAL_VERIFIED": 5,
+    "BLOCKED_EXTERNAL": 2,
+    "OPEN": 24,
+    "PARTIAL_VERIFIED": 1
+  },
+  "tickets": [
+    {
+      "id": "D002",
+      "title": "운영 정책·요금·기능 설명 일치",
+      "priority": "P0",
+      "acceptance": "현재 제공 기능만 안내하고 AI 크레딧 수량·가격 등 문서와 코드의 불일치를 제거한다.",
+      "document_instruction": "가격·수량·지원 플랫폼·지표 정의를 단일 상품/기능 설정에서 파생한다. 기존 AI 크레딧 문서와 코드 차이를 실제 값으로 비교 후 정리한다.",
+      "negative_boundary": "화면·FAQ·서버 주문 금액의 스냅샷이 동일해야 한다.",
+      "depends_on": [
+        "D001"
+      ],
+      "recorded_status": "IN_PROGRESS",
+      "evidence": [
+        {
+          "path": "harness/evidence/D002/README.md",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "bfd1866ece5489e6a272f709bdc4c45267a6f72d",
+          "subject": "refactor(D002): centralize service features and product descriptions"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "src/lib/billing.ts",
+          "exists": true
+        },
+        {
+          "declared": "docs/PRD.md",
+          "exists": true
+        },
+        {
+          "declared": "src/app/about/page.tsx",
+          "exists": true
+        }
+      ],
+      "remaining": "D001의 DB·모드 격리와 TEST 카탈로그의 실제 화면/주문 대조가 남음."
+    },
+    {
+      "id": "D003",
+      "title": "환경 설정 스키마·누락 진단",
+      "priority": "P0",
+      "acceptance": "환경값을 Zod로 검증하고 비밀값 없이 누락된 설정명과 비활성 기능을 표시한다.",
+      "document_instruction": "server-only 설정을 별도 모듈에서 검증한다. 아직 구현되지 않은 공급자 설정은 required로 만들지 않는다. 공개 URL은 환경별 origin이다.",
+      "negative_boundary": "누락 설정 진단에는 값·접두사를 포함한 키 일부·연결 토큰을 출력하지 않는다.",
+      "depends_on": [],
+      "recorded_status": "LOCAL_VERIFIED",
+      "evidence": [
+        {
+          "path": "harness/evidence/D003/README.md",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "036c83d9c65bec1843bb47f2959fe7d0360d6b96",
+          "subject": "fix(D003): keep handoff environment consumers verifiable on Windows"
+        },
+        {
+          "sha": "68c8777c9a8f0a5ca75d2fe671368fc3783b04be",
+          "subject": "feat(D003): validate server configuration and safe diagnostics"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "src/lib/supabase.ts",
+          "exists": true
+        },
+        {
+          "declared": ".env.example",
+          "exists": true
+        },
+        {
+          "declared": "src/lib/config.ts [신규]",
+          "exists": true
+        }
+      ],
+      "remaining": "정확한 잠금 의존성·Node 22·설정 계약·빌드·로컬 E2E 검증. DEV-B 리뷰 및 대상 환경 적용 검증 전 DONE 아님."
+    },
+    {
+      "id": "D004",
+      "title": "서버 API 오류·검증 계약 통일",
+      "priority": "P0",
+      "acceptance": "주요 API에 오류 코드·요청 ID·Zod 검증과 안전한 오류 응답을 적용한다.",
+      "document_instruction": "기존 error.message 호환을 유지하며 code/requestId를 추가한다. 입력 실패·인증 실패·권한 실패·경합·한도·외부 장애를 구분한다.",
+      "negative_boundary": "알려지지 않은 예외의 stack/SQL/토큰은 응답에 포함하지 않는다.",
+      "depends_on": [],
+      "recorded_status": "LOCAL_VERIFIED",
+      "evidence": [
+        {
+          "path": "harness/evidence/D004/README.md",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-MAIN-20261120/verification.json",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "3a8a183e01a53b1867a914ad35a275cd0d9c4a25",
+          "subject": "refactor(D004): unify API validation and sanitized errors"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "src/lib/api.ts",
+          "exists": true
+        },
+        {
+          "declared": "src/app/api/**/route.ts",
+          "exists": false
+        }
+      ],
+      "remaining": "main 신규 API도 오류 v1·검증·안전한 DB 매핑으로 통합. 실제 대상 URL/DEV-B 교차 리뷰 전 DONE 아님."
+    },
+    {
+      "id": "D007",
+      "title": "라이선스·의존성·출처 목록",
+      "priority": "P0",
+      "acceptance": "패키지·이미지·로고·외부 데이터의 사용 권한과 재배포 조건을 기록한다.",
+      "document_instruction": "직접·간접 패키지 및 자산을 출처/라이선스/수정/재배포 의무로 목록화한다. 알 수 없는 이미지 권리는 확보됨으로 표시하지 않는다.",
+      "negative_boundary": "라이선스 파일 없는 외부 자산은 출시 차단 또는 교체 대상으로 남긴다.",
+      "depends_on": [],
+      "recorded_status": "IN_PROGRESS",
+      "evidence": [
+        {
+          "path": "harness/evidence/D007/README.md",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "7196d26b2926477b34ebe6907311a1fe527e9377",
+          "subject": "docs(D007): inventory exact dependency notices and asset rights"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "package-lock.json",
+          "exists": true
+        },
+        {
+          "declared": "public/brand",
+          "exists": true
+        },
+        {
+          "declared": "docs/licenses [신규]",
+          "exists": true
+        }
+      ],
+      "remaining": "잠금 506개/고지 확인 393개/원문 533개 확보. 113개와 Linux·Edge 실제 배포 아티팩트 및 브랜드 재배포 범위 미확인."
+    },
+    {
+      "id": "D008",
+      "title": "기능 플래그·단계별 공개",
+      "priority": "P0",
+      "acceptance": "수집·LLM·메일·결제 기능을 서버 설정으로 안전하게 켜고 끈다.",
+      "document_instruction": "feature gate는 서버 API와 UI 모두 적용한다. 토글 변경 이벤트·상태·실패 기본값을 정의한다.",
+      "negative_boundary": "수집/LLM/billing 토글 off 시 직접 요청으로 우회되지 않는다.",
+      "depends_on": [
+        "D003"
+      ],
+      "recorded_status": "IN_PROGRESS",
+      "evidence": [
+        {
+          "path": "harness/evidence/D008/README.md",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-MAIN-20261120/verification.json",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "0aa6dd3fff0f53cee4c74871328ba4fe3142b2ac",
+          "subject": "fix(D008): gate main queue adapters through explicit feature controls"
+        },
+        {
+          "sha": "88469e6731f8776936e944548cc574f0d45bcd55",
+          "subject": "feat(D008): enforce disabled feature and TEST payment gates"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "src/lib/config.ts [신규]",
+          "exists": true
+        },
+        {
+          "declared": "src/app/api",
+          "exists": true
+        }
+      ],
+      "remaining": "앱/DB 큐·lease 기본OFF 및 계약검증. 실제 환경·수집 정책·worker 활성화와 TEST DB 격리는 USER/D001 인계 필요."
+    },
+    {
+      "id": "D009",
+      "title": "외부 사용자 이메일 가입 완주",
+      "priority": "P0",
+      "acceptance": "이메일 인증·재발송·만료 링크·중복 가입·콜백 리다이렉트를 처리한다.",
+      "document_instruction": "인증 콜백은 Supabase SSR 방식 하나로 통일한다. code 교환과 token_hash OTP 방식을 섞지 말고 템플릿과 경로를 맞춘다.",
+      "negative_boundary": "임의 next URL·재사용/만료 링크·팀 밖 메일·인증 전 계정 상태를 검증한다.",
+      "depends_on": [
+        "U007",
+        "U008"
+      ],
+      "recorded_status": "BLOCKED_EXTERNAL",
+      "evidence": [
+        {
+          "path": "docs/AUTH_PROVIDER_EXECUTION.md",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/D009/README.md",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "5a6dac25aea5d13f0fe0fd734e6a89f9e4603b82",
+          "subject": "feat(D009): complete safe email confirmation and resend flows"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/actions.ts",
+          "exists": true
+        },
+        {
+          "declared": "src/components/auth-form.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/app/auth [신규]",
+          "exists": true
+        }
+      ],
+      "remaining": "로컬 Auth/Mailpit 가입·재발송·증표 재사용 거부 통과. 이번 소스/템플릿의 실제 외부 SMTP·U007/U008 재검증 필요."
+    },
+    {
+      "id": "D012",
+      "title": "브랜드 프로필·담당자 정보",
+      "priority": "P0",
+      "acceptance": "브랜드명·업종·소개·로고·담당자 공개 범위를 관리하며 사업자 인증을 가입 필수로 요구하지 않는다.",
+      "document_instruction": "브랜드 공개 DTO와 담당자 비공개 DTO를 분리한다. 로고는 D027 업로드 계약을 재사용한다.",
+      "negative_boundary": "사업자번호를 필수 입력이나 인증 배지 근거로 요구하지 않는다.",
+      "depends_on": [
+        "D011"
+      ],
+      "recorded_status": "IN_PROGRESS",
+      "evidence": [
+        {
+          "path": "harness/evidence/D012/README.md",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "bb35fb57d536d597b1f3a748f9462a79ff188987",
+          "subject": "feat(D012): separate public brands from private contacts"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/api/account/route.ts",
+          "exists": true
+        },
+        {
+          "declared": "src/components/account-form.tsx",
+          "exists": true
+        }
+      ],
+      "remaining": "브랜드/담당자 분리·공개 DTO·REST·UI 검증. D011 리뷰와 D027 로고 업로드 연결 미완료; 외부 적용 안 함."
+    },
+    {
+      "id": "D014",
+      "title": "계정 탈퇴·개인정보 삭제 실행",
+      "priority": "P0",
+      "acceptance": "프로필 숨김과 계정 삭제를 구분하고 Auth·Storage·파생 데이터·보존 예외·재수집 차단을 처리한다.",
+      "document_instruction": "삭제 요청→재인증→세션 철회→공개 중단→비동기 삭제→완료를 멱등 상태로 설계한다. 보존 예외는 필드/근거/기한을 기록한다.",
+      "negative_boundary": "Auth 삭제만으로 기존 JWT가 즉시 무효라고 가정하지 말고 민감 접근 재검증 또는 정지 상태를 강제한다.",
+      "depends_on": [
+        "D018",
+        "D073",
+        "D079"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/api/account/route.ts",
+          "exists": true
+        },
+        {
+          "declared": "src/app/api/profile/route.ts",
+          "exists": true
+        },
+        {
+          "declared": "src/lib/account-deletion.ts [신규]",
+          "exists": false
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D018, D073, D079 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D016",
+      "title": "관리자 MFA·초대 기반 권한",
+      "priority": "P0",
+      "acceptance": "관리자는 별도 프로비저닝·MFA·재인증을 요구하고 UI 숨김에 의존하지 않는다.",
+      "document_instruction": "관리자 작업에 DB 역할과 필요한 AAL2/최근 재인증을 서버에서 검사한다. 권한 부여는 감사 가능한 사용자 외부 적용 절차로 준비한다.",
+      "negative_boundary": "UI 차단만으로 완료하지 말고 관리자 RPC/REST 직접 호출을 검사한다.",
+      "depends_on": [
+        "U008"
+      ],
+      "recorded_status": "LOCAL_VERIFIED",
+      "evidence": [
+        {
+          "path": "harness/evidence/D016/README.md",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-MAIN-20261120/verification.json",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "7466c65af6afd65e948a951887c57b9c95a4c053",
+          "subject": "fix(D016): enforce expiring approvals and recent OTP for operations roles"
+        },
+        {
+          "sha": "d7077fe228df65b8b876539418e3622530440f0b",
+          "subject": "feat(D016): require provisioned administrators and recent TOTP"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/admin/page.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/lib/api.ts",
+          "exists": true
+        },
+        {
+          "declared": "src/proxy.ts",
+          "exists": true
+        }
+      ],
+      "remaining": "main 운영 역할까지 승인 만료·철회·최근OTP 강제. 실제 로컬 Auth 및 직접REST 검증. U008 외부 승인·MFA·DEV-B 리뷰 대기."
+    },
+    {
+      "id": "D018",
+      "title": "실제 인플루언서 통합 스키마",
+      "priority": "P0",
+      "acceptance": "SNS 고유 ID·핸들·시계열 지표·수집시각·출처·동의·청구 상태를 필드 수준으로 저장한다.",
+      "document_instruction": "기존 creators JSON DTO와 호환 adapter를 둔다. provider+external_id unique, nullable 지표·출처·관측시각·동의/claim 상태를 정규화한다.",
+      "negative_boundary": "스키마/공개 DTO 버전을 먼저 인계하고 이전 데이터 마이그레이션·역호환을 검증한다.",
+      "depends_on": [
+        "D017"
+      ],
+      "recorded_status": "IN_PROGRESS",
+      "evidence": [
+        {
+          "path": "harness/evidence/D018/README.md",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/D018/normalization-security-20261120.json",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/D018/packet-terms_18-20261120.json",
+          "exists": true
+        },
+        {
+          "path": "docs/handoff/DEV-A_SCHEMA_20261120.md",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "c450619348ef15fc3372c72622c6c9eda55f8bb9",
+          "subject": "chore(D018): package reviewed source and four console SQL baselines"
+        },
+        {
+          "sha": "4fd47a90639882266333b2c9550a7a2aaa072ab9",
+          "subject": "feat(D018): stage normalized creator identities and metric observations"
+        },
+        {
+          "sha": "4dbab188e3e1edf32456cafe11c1369939010a39",
+          "subject": "feat(D018): define creator identity and metric contracts"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "src/lib/catalog.ts",
+          "exists": true
+        },
+        {
+          "declared": "src/lib/schemas.ts",
+          "exists": true
+        },
+        {
+          "declared": "supabase/migrations",
+          "exists": true
+        }
+      ],
+      "remaining": "정규화 private DB/RLS·UUID 백필·본인 snapshot·JSON 호환 adapter 로컬 검증 완료. D017 승인/허용 필드·보존/목적/재배포 계약, D019 writer/운영 YouTube 이관, 공개 DTO read switch·교차 리뷰·대상 적용 미완료."
+    },
+    {
+      "id": "D020",
+      "title": "허용된 공개 웹 크롤러",
+      "priority": "P1",
+      "acceptance": "허용 목록 도메인에서 약관·권리·robots 검토 후 최소 업무 정보를 수집한다. 로그인·CAPTCHA 우회는 하지 않는다.",
+      "document_instruction": "URL allowlist·DNS/IP 검증·리다이렉트 재검증·robots·동시성·다운로드 한도·연락 가능한 user agent를 적용한다.",
+      "negative_boundary": "내부 IP/메타데이터 주소·로그인 벽·CAPTCHA·허가 없는 도메인은 수집하지 않는다.",
+      "depends_on": [
+        "D017",
+        "D018",
+        "U011"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/lib/ingestion/web.ts [신규]",
+          "exists": false
+        },
+        {
+          "declared": "docs/data-sources [신규]",
+          "exists": false
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D017, D018, U011 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D021",
+      "title": "수집 작업 큐·갱신·삭제·쿼터",
+      "priority": "P0",
+      "acceptance": "체크포인트·지수 백오프·재시도·캐시 만료·일일 한도·삭제 tombstone으로 중복·재수집을 막는다.",
+      "document_instruction": "동일 provider/job key 중복 방지·lease/heartbeat·checkpoint·retry_at·max attempts·TTL·tombstone을 저장한다. 별도 영구 서버 대신 DB 작업+허용된 실행기를 쓴다.",
+      "negative_boundary": "사용자 설정 전 외부 cron을 생성하지 않는다. 작업 중단/중복 실행에서도 중복 row와 삭제 데이터 재유입을 막는다.",
+      "depends_on": [
+        "D018",
+        "D019"
+      ],
+      "recorded_status": "PARTIAL_VERIFIED",
+      "evidence": [
+        {
+          "path": "docs/implementation-progress.md",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/lib/ingestion/jobs.ts [신규]",
+          "exists": false
+        },
+        {
+          "declared": "supabase/migrations",
+          "exists": true
+        }
+      ],
+      "remaining": "일일 Cron과 워커 리스·실패 재시도 및 30일 정리 연결. 사용자가 중단한 장기간 장애에서의 재개 및 고급 할당량 운영 미완료."
+    },
+    {
+      "id": "D022",
+      "title": "Instagram 공식 연결 어댑터",
+      "priority": "P2",
+      "acceptance": "승인된 API 기능과 계정 종류만 지원하고 OAuth 토큰 암호화·갱신·철회를 구현한다.",
+      "document_instruction": "공식 API 버전·지원 계정 타입·scope·승인 기능을 명시한다. OAuth state/만료/철회·암호화 저장·연결 해제를 구현한다.",
+      "negative_boundary": "심사 전 mock은 계약 테스트로만 기록하고 임의 계정 전수 탐색을 광고하지 않는다.",
+      "depends_on": [
+        "D018",
+        "U012"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/lib/ingestion/instagram.ts [신규]",
+          "exists": false
+        },
+        {
+          "declared": "src/app/api/integrations [신규]",
+          "exists": false
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D018, U012 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D028",
+      "title": "SNS 링크·공식 임베드·공유",
+      "priority": "P0",
+      "acceptance": "허용된 HTTPS 링크·임베드·공개 프로필 공유를 제공하고 무단 이미지 복제를 피한다.",
+      "document_instruction": "SNS URL provider host·경로를 정규화한다. 임베드는 공식 허용 방법·동의/로딩 정책으로 격리하고 실패 시 원본 링크를 제공한다.",
+      "negative_boundary": "javascript/data/protocol-relative 악성 URL·비공개 프로필 공유는 거부한다.",
+      "depends_on": [
+        "D026"
+      ],
+      "recorded_status": "IN_PROGRESS",
+      "evidence": [
+        {
+          "path": "harness/evidence/D028/README.md",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "2882507e823471361b44480fb49eef86212d76e0",
+          "subject": "feat(D028): normalize official social links and consented embeds"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/creators/[id]/page.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/lib/schemas.ts",
+          "exists": true
+        }
+      ],
+      "remaining": "D026 소유 확인, 브라우저 임베드 실패 복구 및 실제 공급원 검증 필요."
+    },
+    {
+      "id": "D029",
+      "title": "실제 광고 이력 제출·출처 검증",
+      "priority": "P0",
+      "acceptance": "브랜드·기간·형식·경제적 이해관계 표시·증거 URL·제출자·검토 상태를 저장한다. 단순 브랜드 언급을 광고로 확정하지 않는다.",
+      "document_instruction": "제출/검토/정정 버전, 광고 근거 종류·URL·표시 확인·이해관계·검토자·날짜를 저장한다. 기계 탐지 결과는 검토 대기로만 둔다.",
+      "negative_boundary": "실제 브랜드 로고·콘텐츠를 무단 복제하거나 단순 언급을 확정 광고로 만들지 않는다.",
+      "depends_on": [
+        "D018",
+        "D057"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/api/ad-history [신규]",
+          "exists": false
+        },
+        {
+          "declared": "src/app/creators/[id]/page.tsx",
+          "exists": true
+        },
+        {
+          "declared": "supabase/migrations",
+          "exists": true
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D018, D057 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D030",
+      "title": "광고 이력 타임라인·경력 필터",
+      "priority": "P1",
+      "acceptance": "실제 검증 이력 기반 브랜드·카테고리·기간 필터와 브랜드별 경쟁사 표식을 제공한다.",
+      "document_instruction": "검색 가능한 광고 이력 DTO를 D029와 공유한다. 경쟁사 목록은 브랜드/팀 소유 자료이며 공개 프로필 평판으로 쓰지 않는다.",
+      "negative_boundary": "검토 취소/정정 시 타임라인과 집계가 같이 갱신된다.",
+      "depends_on": [
+        "D029"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/creators/[id]/page.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/app/api/ad-history [신규]",
+          "exists": false
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D029 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D031",
+      "title": "실제 성과 그래프·지표 정의",
+      "priority": "P1",
+      "acceptance": "확인 가능한 시계열과 집계 산식·기간·출처를 표시하고 타깃 인구통계는 미제공 상태로 남긴다.",
+      "document_instruction": "원본 지표와 파생 지표·기간·표본·산식을 구분한다. 지연/누락 데이터를 0으로 잇지 않는다.",
+      "negative_boundary": "정책 수락 전 제한되는 YouTube 파생 지표를 비활성화하고 원본 지표 표시만 제공한다.",
+      "depends_on": [
+        "D021"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/creators/[id]/page.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/lib/metrics.ts [신규]",
+          "exists": false
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D021 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D034",
+      "title": "다중 필터·URL 상태·빈 결과",
+      "priority": "P0",
+      "acceptance": "플랫폼·분야·태그·가격·가용성·팔로워 필터를 조합하고 URL 복원·초기화·0과 결측을 구분한다.",
+      "document_instruction": "URLSearchParams와 필터 상태를 일치시키고 다중 선택 의미(필드 내 OR/필드 간 AND)를 명시한다. 검색 요청 취소/경합을 처리한다.",
+      "negative_boundary": "이전 검색의 늦은 응답이 최신 결과를 덮어쓰지 않는다.",
+      "depends_on": [
+        "D033"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/components/catalog.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/app/creators/page.tsx",
+          "exists": true
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D033 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D035",
+      "title": "지표 가용성 기반 필터",
+      "priority": "P1",
+      "acceptance": "참여율·연령·성별 필터는 적법하게 확보된 데이터가 있는 공급원만 제공한다.",
+      "document_instruction": "공급원별 제공 가능 지표·산식·샘플 크기를 API meta로 전달한다. 값 없는 필터는 숨기거나 이유와 함께 비활성화한다.",
+      "negative_boundary": "결측값을 필터 최솟값 0으로 통과시키지 않는다.",
+      "depends_on": [
+        "D031"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/components/catalog.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/lib/metrics.ts [신규]",
+          "exists": false
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D031 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D037",
+      "title": "저장 검색·신규 후보 알림",
+      "priority": "P1",
+      "acceptance": "검색 조건 버전을 저장하고 동의한 사용자에게 신규 후보 요약을 제공한다.",
+      "document_instruction": "검색 조건 schema version·마지막 알림 cursor·신규 후보 판정을 저장한다. D052 인앱 알림으로 먼저 제공하고 이메일은 D053 이후다.",
+      "negative_boundary": "동일 후보 갱신이 매번 새 알림을 만들지 않는다.",
+      "depends_on": [
+        "D034",
+        "D052"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/api/saved-searches [신규]",
+          "exists": false
+        },
+        {
+          "declared": "src/lib/notifications [신규]",
+          "exists": false
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D034, D052 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D039",
+      "title": "자연어 검색→확인 가능한 필터",
+      "priority": "P1",
+      "acceptance": "파서 기본값과 선택적 LLM을 제공하고 변환 조건을 사용자가 확인·수정한다.",
+      "document_instruction": "지원 필터 JSON 스키마에만 매핑하고 설명 가능한 deterministic parser를 기본으로 한다. LLM은 제안으로만 반환한다.",
+      "negative_boundary": "모호한 예산·팔로워 단위를 사용자 확인 없이 확정하지 않는다.",
+      "depends_on": [
+        "D034",
+        "D048"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/lib/search-parser.ts [신규]",
+          "exists": false
+        },
+        {
+          "declared": "src/components/catalog.tsx",
+          "exists": true
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D034, D048 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D041",
+      "title": "캠페인 기간·예산·산출물 계약",
+      "priority": "P0",
+      "acceptance": "모집·제작·게시 기간, 현금/제품 제공, 단가 범위, 콘텐츠 수량·사용권·독점 조건을 구조화한다.",
+      "document_instruction": "KST 입력/UTC 저장, KRW 정수·현금/제품 제공 구분·수량·사용권·독점 조건을 검증한다. 날짜 경계와 모집 상태를 분리한다.",
+      "negative_boundary": "사업자/결제 기능이 없어도 무료 캠페인 협업 조건 기록은 동작한다.",
+      "depends_on": [
+        "D012"
+      ],
+      "recorded_status": "LOCAL_VERIFIED",
+      "evidence": [
+        {
+          "path": "harness/evidence/D041/README.md",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "1054bce25950e315571bb1a3ff71fb9941d6dfd6",
+          "subject": "feat(D041): persist structured campaign terms through create and edit flows"
+        },
+        {
+          "sha": "c817d644bbadab94b6769373c550f24290a935ef",
+          "subject": "feat(D041): define versioned campaign terms validation"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "src/components/campaign-form.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/app/api/campaigns/route.ts",
+          "exists": true
+        },
+        {
+          "declared": "src/lib/schemas.ts",
+          "exists": true
+        }
+      ],
+      "remaining": "기간/제공 유형/수량/사용권/독점 조건의 폼·API·DB·공개조회/수정 및 무료모드 검증. 실제 적용/DEV-B 후속 계약 리뷰 전 DONE 아님."
+    },
+    {
+      "id": "D042",
+      "title": "캠페인 복제·brief·첨부 버전",
+      "priority": "P1",
+      "acceptance": "복제 시 참여자·메시지 등 개인정보를 복사하지 않고 brief 파일 버전을 관리한다.",
+      "document_instruction": "캠페인 복제는 brief 필드만 whitelist 복사한다. brief 파일은 immutable version+active pointer로 관리한다.",
+      "negative_boundary": "메시지·지원자·개인 메모·기존 파일 공개권한을 새 캠페인에 그대로 복제하지 않는다.",
+      "depends_on": [
+        "D027",
+        "D041"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/api/campaigns/route.ts",
+          "exists": true
+        },
+        {
+          "declared": "src/components/campaign-form.tsx",
+          "exists": true
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D027, D041 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D045",
+      "title": "추천 이유·출처·스냅샷·재계산",
+      "priority": "P0",
+      "acceptance": "점수 버전·입력·태그·예산 적합·미확인 항목을 저장하고 광고 슬롯과 순위를 분리한다.",
+      "document_instruction": "recommendation snapshot에 model_version/input/source versions/score/coverage/reasons를 저장한다. 데이터 갱신 시 이전 결과임을 알린다.",
+      "negative_boundary": "유료 HOT 입력은 organic scoring 함수로 전달하지 않는다.",
+      "depends_on": [
+        "D044"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/matches/page.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/lib/catalog.ts",
+          "exists": true
+        },
+        {
+          "declared": "supabase/migrations",
+          "exists": true
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D044 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D047",
+      "title": "추천 실험·가중치·임베딩",
+      "priority": "P2",
+      "acceptance": "기준 모델과 실험 모델을 분리하고 허용된 콘텐츠로만 임베딩하며 YouTube 파생 지표 정책 적용 여부를 검토한다.",
+      "document_instruction": "기준 모델 고정·실험 설정 버전·승인된 콘텐츠의 벡터·원본 삭제 전파·비용 상한을 정의한다.",
+      "negative_boundary": "약관상 허용되지 않은 파생 분석·무단 이미지 임베딩을 만들지 않는다.",
+      "depends_on": [
+        "D046",
+        "U010"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/lib/matching-experiments [신규]",
+          "exists": false
+        },
+        {
+          "declared": "src/app/tools/page.tsx",
+          "exists": true
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D046, U010 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D050",
+      "title": "협업 조건 변경·합의 이력",
+      "priority": "P1",
+      "acceptance": "예산·산출물·일정 수정안을 버전으로 남기고 양측 확인 전 확정으로 표시하지 않는다.",
+      "document_instruction": "agreement_versions에 작성자·조건·버전·양측 동의·대체 관계를 기록한다. 합의는 플랫폼 전자서명/정산 보장과 구분한다.",
+      "negative_boundary": "한쪽이 금액을 바꿔도 양측 승인 전 확정 상태가 되지 않는다.",
+      "depends_on": [
+        "D049"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/components/deal-controls.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/app/api/proposals/route.ts",
+          "exists": true
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D049 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D051",
+      "title": "메시지 페이지·첨부·스팸 방지",
+      "priority": "P0",
+      "acceptance": "페이지네이션·중복 전송 방지·속도 제한·신고·참여자 접근과 안전한 첨부를 제공한다.",
+      "document_instruction": "message idempotency key·cursor pagination·길이 한도·참여자·차단 상태 검사를 서버에 둔다. 첨부는 D027 재사용한다.",
+      "negative_boundary": "미리 만들어 둔 signed URL만으로 다른 방의 첨부를 영구 열람하지 못한다.",
+      "depends_on": [
+        "D049",
+        "D027",
+        "D076"
+      ],
+      "recorded_status": "IN_PROGRESS",
+      "evidence": [
+        {
+          "path": "harness/evidence/D051/README.md",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-MAIN-20261120/verification.json",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "93ce710d7614e9a95424888fd94c7bb608a1b7e3",
+          "subject": "fix(D051): distinguish message kind from proposal kind in RLS"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/api/messages/route.ts",
+          "exists": true
+        },
+        {
+          "declared": "src/app/dashboard/page.tsx",
+          "exists": true
+        }
+      ],
+      "remaining": "브랜드 일반 메시지 RLS 모호성만 보수. 페이지네이션·첨부·스팸 UX 및 D049 통합 미완료."
+    },
+    {
+      "id": "D054",
+      "title": "결과물 버전·수정 요청·승인",
+      "priority": "P0",
+      "acceptance": "링크 제출을 버전·검토 의견·승인 근거·광고 표시 체크로 확장한다.",
+      "document_instruction": "submission/review version·수정 사유·활성 버전·승인자·시각을 보존한다. 단순 URL 등록에서 검토 상태를 분리한다.",
+      "negative_boundary": "구버전 승인이 새 제출본을 완료 처리하지 않는다.",
+      "depends_on": [
+        "D049",
+        "D029"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/components/deal-controls.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/app/api/proposals/route.ts",
+          "exists": true
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D049, D029 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D055",
+      "title": "일정·마일스톤·지연 알림",
+      "priority": "P1",
+      "acceptance": "캠페인·협업별 마감·타임존·캘린더·리마인더를 제공한다.",
+      "document_instruction": "마일스톤 완료 조건·타임존·기한 변경 이력·중복 리마인더 방지를 정의한다.",
+      "negative_boundary": "외부 calendar 연동 없이 내부 달력과 기한 필터부터 완주한다.",
+      "depends_on": [
+        "D041",
+        "D052"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/dashboard/page.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/lib/schedules.ts [신규]",
+          "exists": false
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D041, D052 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D057",
+      "title": "근거 기반 이슈·검토 워크플로",
+      "priority": "P0",
+      "acceptance": "출처·확인/미확인·당사자 입장·담당자·검토일을 관리하고 무근거 의혹을 위험 점수화하지 않는다.",
+      "document_instruction": "issue/evidence/response/review 상태와 공개 범위를 모델링한다. 타인의 주장·확인 사실·공식 정정을 별도 보관한다.",
+      "negative_boundary": "미검증 의혹을 자동 위험 점수나 검색 배제로 연결하지 않는다.",
+      "depends_on": [
+        "D073"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/components/report-form.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/app/admin/page.tsx",
+          "exists": true
+        },
+        {
+          "declared": "supabase/migrations",
+          "exists": true
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D073 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D059",
+      "title": "정지·비공개 운영 잠금",
+      "priority": "P0",
+      "acceptance": "관리자 비공개 조치를 소유자가 재공개로 우회하지 못하게 별도 moderation 상태로 강제한다.",
+      "document_instruction": "owner publication과 admin moderation lock을 독립 컬럼으로 유지한다. 공개 가능 여부는 두 조건을 모두 만족해야 한다.",
+      "negative_boundary": "직접 PostgREST/RPC/수정 폼 어느 경로에서도 운영 정지를 풀 수 없다.",
+      "depends_on": [
+        "D016"
+      ],
+      "recorded_status": "LOCAL_VERIFIED",
+      "evidence": [
+        {
+          "path": "harness/evidence/D059/README.md",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-MAIN-20261120/verification.json",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "6e36d5877cf3d6dad4b5247d27ff7343ac64d661",
+          "subject": "fix(D059): preserve moderation locks in the YouTube directory"
+        },
+        {
+          "sha": "e4fca4bc75d75e7bed7feddf65b13097a1d65960",
+          "subject": "feat(D059): enforce audited moderation locks across REST and UI"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/api/admin/moderate/route.ts",
+          "exists": true
+        },
+        {
+          "declared": "src/app/api/profile/route.ts",
+          "exists": true
+        }
+      ],
+      "remaining": "main YouTube 공개 디렉터리도 독립 moderation lock 준수. 공개 DTO/동시검색·로컬 Auth/DB 검증. 외부 적용·교차 리뷰 대기."
+    },
+    {
+      "id": "D060",
+      "title": "운영 통합 검색·감사·지원",
+      "priority": "P1",
+      "acceptance": "회원·캠페인·수집 작업·신고·TEST 주문을 제한된 관리자 DTO로 찾고 변경 사유를 남긴다.",
+      "document_instruction": "관리자 DTO 최소화·페이지네이션·변경 사유·append-only audit를 제공한다. 관리자 작업도 actor/action/target/requestId를 기록한다.",
+      "negative_boundary": "운영자 자신의 권한 변경·대량 반출에 별도 재인증/정책을 둔다.",
+      "depends_on": [
+        "D075",
+        "D059"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/admin/page.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/app/api/admin/route.ts",
+          "exists": true
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D075, D059 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D064",
+      "title": "콘텐츠·계정 운영 runbook",
+      "priority": "P0",
+      "acceptance": "사칭·개인정보 노출·명예 훼손 우려·침해·계정 탈취 상황별 담당·조치·증빙 절차를 문서화한다.",
+      "document_instruction": "사고별 탐지→접수→임시 차단→증빙→통지 검토→복구→재발 방지 절차와 담당·연락 경로를 문서화한다.",
+      "negative_boundary": "개인정보 침해 통지/신고 의무의 적용은 실제 상황·최신 규정으로 확인하며 임의 기한을 법적 확정값처럼 쓰지 않는다.",
+      "depends_on": [
+        "U001"
+      ],
+      "recorded_status": "BLOCKED_EXTERNAL",
+      "evidence": [
+        {
+          "path": "harness/evidence/D064/README.md",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "b6d48389f9bc10ba8ae544ed8325d3ca247d6d35",
+          "subject": "docs(D064): draft content and account incident runbooks"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "docs/operations [신규]",
+          "exists": true
+        },
+        {
+          "declared": "docs/user-tickets",
+          "exists": true
+        }
+      ],
+      "remaining": "U001 확정 및 운영 담당 지정, 운영 모의훈련 필요."
+    },
+    {
+      "id": "D065",
+      "title": "무료·TEST 요금제 분리 정비",
+      "priority": "P0",
+      "acceptance": "무료 실서비스에서 결제 약속을 제거하고 TEST 전용 Pro/Agency/HOT/크레딧 설명과 가격을 일치시킨다.",
+      "document_instruction": "현 상품 ID를 유지할지 버전 변경할지 정하고 server service mode로 TEST 주문 가능 범위를 통제한다.",
+      "negative_boundary": "실서비스에서 URL 직접 접속으로 TEST 구매 경로가 열리지 않는다.",
+      "depends_on": [
+        "D001",
+        "D002"
+      ],
+      "recorded_status": "IN_PROGRESS",
+      "evidence": [
+        {
+          "path": "harness/evidence/D065/README.md",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "48e674da6faa81fa9ace33f1a4f23ea0b9f40d08",
+          "subject": "feat(D065): separate free beta and database TEST catalog"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "src/lib/billing.ts",
+          "exists": true
+        },
+        {
+          "declared": "src/app/pricing/page.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/components/checkout.tsx",
+          "exists": true
+        }
+      ],
+      "remaining": "D001 격리 인계와 실제 TEST 주문·승인 재검증이 필요."
+    },
+    {
+      "id": "D067",
+      "title": "주문 승인·복구·중복·금액 방어",
+      "priority": "P1",
+      "acceptance": "기존 서버 금액·소유권·원자적 권한 부여를 회귀하고 승인 중단 복구·위조 콜백을 검증한다.",
+      "document_instruction": "서버 상품 가격/주문 소유권/고유 키/잠금/한 번만 entitlement 부여를 유지한다. 공급자 성공-DB 실패 복구 조회를 검증한다.",
+      "negative_boundary": "브라우저 success URL 방문만으로 paid 상태를 만들지 않는다.",
+      "depends_on": [
+        "D066"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/api/billing/orders/route.ts",
+          "exists": true
+        },
+        {
+          "declared": "src/app/api/billing/confirm/route.ts",
+          "exists": true
+        },
+        {
+          "declared": "supabase/functions/payment-confirm/index.ts",
+          "exists": true
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D066 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D071",
+      "title": "무료 Agency 팀·초대·테넌트",
+      "priority": "P1",
+      "acceptance": "팀 관리자/구성원·초대 만료·탈퇴·브랜드 전환·팀 자료 범위를 구현하고 유료 청구는 제외한다.",
+      "document_instruction": "workspace/membership/invite·역할·팀 전환을 모델링한다. user owner 모델과의 하위 호환 및 개인/팀 자료 이동 정책을 명시한다.",
+      "negative_boundary": "요금 결제 없이 무료 팀 기능을 제공하고 cross-tenant 직접 REST를 테스트한다.",
+      "depends_on": [
+        "D075",
+        "D011"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/api/teams [신규]",
+          "exists": false
+        },
+        {
+          "declared": "supabase/migrations",
+          "exists": true
+        },
+        {
+          "declared": "src/app/settings/page.tsx",
+          "exists": true
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D075, D011 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D073",
+      "title": "개인정보·이용약관·동의 버전",
+      "priority": "P0",
+      "acceptance": "수집 출처·목적·법적 근거 검토·보존·처리위탁·국외이전 해당 여부·권리 행사·운영자 연락처를 정책과 구현에 맞춘다.",
+      "document_instruction": "정책 version/purpose/accepted_at와 수집 목적·위탁·국외이전·보존·연락처를 실제 처리 흐름과 대조한다.",
+      "negative_boundary": "법적 문서 초안은 U001 확정 전 최종 승인/준법 완료로 표시하지 않는다.",
+      "depends_on": [
+        "U001"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/privacy/page.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/app/terms [신규]",
+          "exists": false
+        },
+        {
+          "declared": "src/app/actions.ts",
+          "exists": true
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 U001 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D075",
+      "title": "RLS·RPC·Storage 전수 권한 감사",
+      "priority": "P0",
+      "acceptance": "직접 DB API·SECURITY DEFINER·검색 경로·공개 DTO·테넌트 경계를 검사하고 최소권한을 적용한다.",
+      "document_instruction": "기존 public 테이블/RPC/storage 권한 행렬을 작성하고 SECURITY DEFINER의 execute grant/search_path/auth checks를 검토한다.",
+      "negative_boundary": "모든 advisor 경고를 무조건 수정됐다고 선언하지 말고 의도/남은 위험/테스트를 각각 남긴다.",
+      "depends_on": [
+        "D018"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "supabase/migrations",
+          "exists": true
+        },
+        {
+          "declared": "tests/security.mjs",
+          "exists": true
+        },
+        {
+          "declared": "src/lib/api.ts",
+          "exists": true
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D018 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D076",
+      "title": "속도 제한·봇·리소스 남용",
+      "priority": "P0",
+      "acceptance": "가입·로그인·검색·메시지·신고·수집·LLM에 서버 측 한도와 비용 상한을 적용한다.",
+      "document_instruction": "서버 환경에서 원자적으로 동작하는 한도를 사용한다. 인메모리 map만으로 다중 인스턴스 보호가 된다고 하지 않는다.",
+      "negative_boundary": "사용자/작업/공급원 별 키·윈도우·retry-after·상한을 검증한다.",
+      "depends_on": [
+        "D004"
+      ],
+      "recorded_status": "IN_PROGRESS",
+      "evidence": [
+        {
+          "path": "harness/evidence/D076/README.md",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-MAIN-20261120/verification.json",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "a4d9991d3b20d3addfc48bff81fc093ab22ef585",
+          "subject": "fix(D076): enforce draft read quotas at the direct RPC boundary"
+        },
+        {
+          "sha": "48e845179ef0766145907db6793997e930c59024",
+          "subject": "feat(D076): add atomic database quotas and bounded worker budgets"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "src/lib/rate-limit.ts [신규]",
+          "exists": true
+        },
+        {
+          "declared": "src/app/api",
+          "exists": true
+        }
+      ],
+      "remaining": "직접 draft_get RPC 쿼터 우회 해결; 실제 getter120/min와 앱1회 호출 검증. 가입/로그인 신뢰IP·계정/Auth 설정 및 기존 카탈로그 제한 미완료."
+    },
+    {
+      "id": "D080",
+      "title": "접근성·청소년·민감 데이터 경계",
+      "priority": "P0",
+      "acceptance": "초기 성인 서비스 범위·정책을 확정하고 주민번호·민감 추정·얼굴 인식·사적 연락처 수집을 배제한다.",
+      "document_instruction": "성인 베타 범위를 알리고 운영 정책과 입력 허용 필드를 맞춘다. 나이 안내가 실제 연령 검증이라고 주장하지 않는다.",
+      "negative_boundary": "민감 추정·얼굴 인식·주민번호/사적 연락처를 데이터 계약에서 제외한다.",
+      "depends_on": [
+        "U001"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/signup/page.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/lib/schemas.ts",
+          "exists": true
+        },
+        {
+          "declared": "docs/operations [신규]",
+          "exists": true
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 U001 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D081",
+      "title": "실데이터 메인·로고·신뢰 표시",
+      "priority": "P0",
+      "acceptance": "제공 로고·차콜/오프화이트/라임을 유지하고 실제 확보 수·출처·무료 베타 한계에 맞춰 메인을 정비한다.",
+      "document_instruction": "현재 제공 로고 형태/색을 유지하고 실제 집계가 없는 숫자·로고·성공사례를 삭제한다. 정보 위계와 핵심 CTA를 재설계한다.",
+      "negative_boundary": "실제 서비스 데이터 없을 때 샘플을 실데이터로 위장하지 않는다.",
+      "depends_on": [
+        "D024",
+        "D002"
+      ],
+      "recorded_status": "IN_PROGRESS",
+      "evidence": [
+        {
+          "path": "harness/evidence/D081/README.md",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "35602e903341f3fb2ed464c310d12f1c950e120f",
+          "subject": "fix(D081): label fictional campaign recommendations as DEMO"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "src/app/page.tsx",
+          "exists": true
+        },
+        {
+          "declared": "src/app/globals.css",
+          "exists": true
+        },
+        {
+          "declared": "public/brand/ad-me-logo.png",
+          "exists": true
+        }
+      ],
+      "remaining": "캠페인 추천의 가상 프로필 DEMO 누락 보수·시각검증. 실제 메인 집계/출처 신뢰 재설계 및 D024/D002 후속 인계 남음."
+    },
+    {
+      "id": "D082",
+      "title": "전 화면 반응형·접근성·상태",
+      "priority": "P0",
+      "acceptance": "키보드·포커스·스크린리더·대비·폼 오류·로딩·빈 상태·복구 UX를 전 흐름에 적용한다.",
+      "document_instruction": "320/390/768/1440px·키보드·포커스·라벨·대비·loading/error/empty를 점검한다. 애니메이션 reduced-motion을 지원한다.",
+      "negative_boundary": "주요 흐름의 화면 캡처와 접근성 도구 결과를 증빙한다.",
+      "depends_on": [
+        "D081"
+      ],
+      "recorded_status": "OPEN",
+      "evidence": [],
+      "ticket_commits": [],
+      "declared_path_checks": [
+        {
+          "declared": "src/app",
+          "exists": true
+        },
+        {
+          "declared": "src/components",
+          "exists": true
+        },
+        {
+          "declared": "tests/e2e",
+          "exists": true
+        }
+      ],
+      "remaining": "티켓별 착수/수용 증빙 없음. 기존 기반 코드가 있어도 이 티켓을 구현/완료로 인정하지 않음. 선행 D081 인계와 독립 코드/계약 테스트 필요."
+    },
+    {
+      "id": "D084",
+      "title": "회귀 테스트·실제 수집 계약 테스트",
+      "priority": "P0",
+      "acceptance": "기존 6개 E2E를 가입·삭제·수집·정정·권한·모바일·결측·동시성까지 확장한다. 외부 연동은 실제/계약 테스트를 구분한다.",
+      "document_instruction": "계약/unit/DB권한/E2E를 구분하고 독립 fixture 생성/정리를 사용한다. 실제 공급자 테스트는 opt-in으로 실행한다.",
+      "negative_boundary": "인증된 trace/비밀번호는 공유하지 않는다. 실패를 skip으로 바꿔 전체 통과라 하지 않는다.",
+      "depends_on": [
+        "D049",
+        "D075"
+      ],
+      "recorded_status": "IN_PROGRESS",
+      "evidence": [
+        {
+          "path": "harness/evidence/D084/README.md",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-MAIN-20261120/verification.json",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json",
+          "exists": true
+        },
+        {
+          "path": "harness/evidence/DEV-A-SCHEMA-20261120/verification.json",
+          "exists": true
+        }
+      ],
+      "ticket_commits": [
+        {
+          "sha": "554c68169dcd332fcc606782840fa7b665ca03ff",
+          "subject": "test(D084): verify normalized SQL snapshots and full local regression"
+        },
+        {
+          "sha": "436171c5258e9debb5a3b81ed1ed4f47cd5220b9",
+          "subject": "test(D084): verify free campaign terms and repeatable security fixtures"
+        },
+        {
+          "sha": "fee00fd1daf701a1a1a759dc8aefef43743539d1",
+          "subject": "test(D084): verify integrated main with isolated Auth and fixture workers"
+        },
+        {
+          "sha": "5c9afd0b65848c6eddb5fbc8af0a5db54adc54f2",
+          "subject": "test(D084): add isolated DB MFA mail and browser regressions"
+        }
+      ],
+      "declared_path_checks": [
+        {
+          "declared": "tests/matching.test.ts",
+          "exists": true
+        },
+        {
+          "declared": "tests/security.mjs",
+          "exists": true
+        },
+        {
+          "declared": "tests/e2e/service.spec.ts",
+          "exists": true
+        }
+      ],
+      "remaining": "Node22 unit156+실제 로컬 SQL/RPC→TS contract1, DB/Auth E2E30·free4·keyless4, SQL/REST44그룹·rollback3·사용자 SQL4기준 통과. 개인정보 삭제·미구현 협업·실제 provider/대상 환경 출시 검증 미완료."
+    }
+  ],
+  "finding_ids": [
+    "F1",
+    "F2",
+    "F3",
+    "F4"
+  ],
+  "done_promotions": 0,
+  "confirmed_findings": [
+    {
+      "id": "F1",
+      "tickets": [
+        "D034"
+      ],
+      "finding": "단일 선택, URL 미연동, 미확보0 비교 및 정렬 tie-break 누락",
+      "resolution": "독립 필터/URL/경합 계약을 이번 구현. D033 연결 미완료 유지."
+    },
+    {
+      "id": "F2",
+      "tickets": [
+        "D018",
+        "D075",
+        "D033"
+      ],
+      "finding": "publicCreators의 owner_id/raw profile이 client props로 전달됨. 직접 REST 공개 읽기도 별도 노출 경로.",
+      "resolution": "앱 allowlist 보수와 직접 REST/읽기 이관 차단을 분리 기록."
+    },
+    {
+      "id": "F3",
+      "tickets": [
+        "D051"
+      ],
+      "finding": "RLS/한도는 구현했으나 idempotency/cursor/첨부/스팸 UX 미완료. 원장 설명이 quota 증거를 빠뜨림.",
+      "resolution": "원장 범위를 기존 quota 검증과 맞추고 완료로 승격하지 않음."
+    },
+    {
+      "id": "F4",
+      "tickets": [
+        "D073",
+        "D080",
+        "D014"
+      ],
+      "finding": "정적 정책/프로필 숨김만으로 동의 버전·성인 확인·Auth/Storage/파생 삭제가 구현된 것은 아님.",
+      "resolution": "정책 승인 및 삭제 수용 기준 미충족 유지."
+    }
+  ],
+  "follow_up": {
+    "source_head": "06bb2c1d68d4214d1727ff9f4392149097832928",
+    "commits": {
+      "review": [
+        "28d1d1b"
+      ],
+      "D034": [
+        "0899fa4",
+        "2377cdc"
+      ],
+      "D018": [
+        "eb65d37"
+      ],
+      "D084": [
+        "06bb2c1"
+      ]
+    },
+    "status_counts_after": {
+      "LOCAL_VERIFIED": 5,
+      "IN_PROGRESS": 12,
+      "PARTIAL_VERIFIED": 1,
+      "BLOCKED_EXTERNAL": 2,
+      "OPEN": 23,
+      "DONE": 0
+    },
+    "verification": "harness/evidence/DEV-A-FILTERS-20261120/verification.json",
+    "remaining_release_blockers": [
+      "D033 server search/cursor/live cancellation integration",
+      "Published legacy creators direct REST owner_id/raw JSON and user-AuthUUID public ID migration under D018/D033/D075",
+      "D017/D019 policy and actual normalized ingestion/read switch",
+      "Other P0/USER/privacy/collaboration/provider/release gates"
+    ]
+  }
+}

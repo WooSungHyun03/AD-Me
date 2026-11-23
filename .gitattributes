@@ -1,0 +1,4 @@
+# Preserve exact upstream notice text, including original trailing whitespace.
+docs/licenses/THIRD_PARTY_NOTICES.md -whitespace
+public/legal/third-party-notices.txt -text -whitespace
+public/legal/third-party-supplement-20261122.txt -text -whitespace

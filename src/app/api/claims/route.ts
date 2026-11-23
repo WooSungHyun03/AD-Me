@@ -1,3 +1,4 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
@@ -25,7 +26,7 @@ const mapError = (msg = "") => {
     ? fail(...messages[key])
     : fail("요청을 처리하지 못했습니다.", 500);
 };
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -44,7 +45,7 @@ export async function POST(req: Request) {
     expiresAt: data[0].expires_at,
   });
 }
-export async function PATCH(req: Request) {
+ async function handlePATCH(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -65,3 +66,6 @@ export async function PATCH(req: Request) {
   if (error) return mapError(error.message);
   return NextResponse.json({ status: data });
 }
+
+export const POST=compatibleApiRoute("src/app/api/claims/route.ts.POST",handlePOST);
+export const PATCH=compatibleApiRoute("src/app/api/claims/route.ts.PATCH",handlePATCH);

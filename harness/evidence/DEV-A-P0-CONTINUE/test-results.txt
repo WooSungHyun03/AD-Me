@@ -1,0 +1,29 @@
+2026-11-19 KST | Node 22 | local fictional fixtures only
+npm run lint / typecheck / test / build: exit 0
+Vitest 115/115, direct REST 13/13
+Production local DB/Auth/TOTP/Mailpit E2E:
+  ok  1 [desktop] › tests\e2e\auth-recovery.spec.ts:3:1 › recovery entry points require a real email proof and preserve privacy headers (1.6s)
+  ok  2 [desktop] › tests\e2e\auth-recovery.spec.ts:38:1 › opening confirmation does not consume proof; invalid recovery cannot change credentials (774ms)
+  ok  3 [desktop] › tests\e2e\service.spec.ts:37:1 › public discovery, filters, comparison, history, drafts and responsive layout (2.7s)
+  ok  4 [desktop] › tests\e2e\service.spec.ts:95:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation (11.3s)
+  ok  5 [desktop] › tests\e2e\service.spec.ts:249:1 › public application, shortlist persistence, account settings and administrator operations (7.5s)
+  ok  6 [desktop] › tests\local-browser\email-signup.spec.ts:16:1 › local Auth signup, real inbox sink resend, GET non-consumption and proof reuse denial (3.0s)
+  ok  7 [desktop] › tests\local-browser\p0.spec.ts:18:1 › brand CRUD preserves contact privacy and denies another account (2.7s)
+  ok  8 [desktop] › tests\local-browser\p0.spec.ts:86:1 › administrator MFA and audited moderation survive owner republish (3.7s)
+  ok  9 [desktop] › tests\local-browser\p0.spec.ts:161:1 › new provisioned administrator completes actual local TOTP enrollment (2.0s)
+  ok 10 [mobile] › tests\e2e\auth-recovery.spec.ts:3:1 › recovery entry points require a real email proof and preserve privacy headers (1.0s)
+  ok 11 [mobile] › tests\e2e\auth-recovery.spec.ts:38:1 › opening confirmation does not consume proof; invalid recovery cannot change credentials (785ms)
+  ok 12 [mobile] › tests\e2e\service.spec.ts:37:1 › public discovery, filters, comparison, history, drafts and responsive layout (2.8s)
+  ok 13 [mobile] › tests\e2e\service.spec.ts:95:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation (12.3s)
+  ok 14 [mobile] › tests\e2e\service.spec.ts:249:1 › public application, shortlist persistence, account settings and administrator operations (8.2s)
+  ok 15 [mobile] › tests\local-browser\email-signup.spec.ts:16:1 › local Auth signup, real inbox sink resend, GET non-consumption and proof reuse denial (3.0s)
+  ok 16 [mobile] › tests\local-browser\p0.spec.ts:18:1 › brand CRUD preserves contact privacy and denies another account (2.1s)
+  ok 17 [mobile] › tests\local-browser\p0.spec.ts:86:1 › administrator MFA and audited moderation survive owner republish (3.6s)
+  ok 18 [mobile] › tests\local-browser\p0.spec.ts:161:1 › new provisioned administrator completes actual local TOTP enrollment (2.0s)
+  18 passed (1.8m)
+Production free-mode/keyless E2E:
+  ok 1 [desktop] › tests\browser\free-mode.spec.ts:3:1 › free mode serves the free plan and denies direct TEST billing (2.4s)
+  ok 2 [desktop] › tests\browser\free-mode.spec.ts:38:1 › mail disabled pages and SPA controls remain usable without keys (2.0s)
+  ok 3 [mobile] › tests\browser\free-mode.spec.ts:3:1 › free mode serves the free plan and denies direct TEST billing (1.3s)
+  ok 4 [mobile] › tests\browser\free-mode.spec.ts:38:1 › mail disabled pages and SPA controls remain usable without keys (2.3s)
+  4 passed (1.1m)

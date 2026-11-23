@@ -9,7 +9,13 @@
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:e2e:keyless": "playwright test --config playwright.keyless.config.ts",
+    "test:e2e:local": "playwright test --config playwright.local.config.ts",
+    "test:e2e:free-local": "playwright test --config playwright.free-local.config.ts",
+    "test:security:local": "node tests/local-security.mjs && node tests/local-brand-security.mjs",
+    "setup:qa:local": "node scripts/setup-local-qa.mjs",
+    "check:config": "node --env-file-if-exists=.env.local scripts/check-config.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.5.0",
@@ -22,6 +28,7 @@
     "next": "^16.4.6",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
+    "sharp": "0.35.5",
     "tailwind-merge": "^3.7.0",
     "zod": "^4.6.7"
   },

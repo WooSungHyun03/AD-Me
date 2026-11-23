@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-20T03:05:51.385Z",
+  "baseline": "from_main",
+  "result": "PASS",
+  "migration_count": 18,
+  "legacy_briefs_unchanged": true,
+  "resource_controls_preserved_or_default_off": true,
+  "wrong_baselines_rejected": true,
+  "reapply_rejected": true,
+  "no_hosted_access": true
+}

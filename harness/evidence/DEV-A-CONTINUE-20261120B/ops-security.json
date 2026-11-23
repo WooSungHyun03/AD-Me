@@ -1,0 +1,25 @@
+{
+  "scope": "isolated local synthetic JWT authorization contracts",
+  "results": [
+    {
+      "name": "role-only admin, missing OTP, stale/future/refresh-only OTP deny operations through REST",
+      "result": "PASS"
+    },
+    {
+      "name": "ordinary accounts cannot self-approve; legacy delegated roles require renewed approval",
+      "result": "PASS"
+    },
+    {
+      "name": "OTP-approved invitation expires in seven days and delegated finance cannot access members or grant roles",
+      "result": "PASS"
+    },
+    {
+      "name": "expired and removed delegated grants stop access on existing JWTs",
+      "result": "PASS"
+    },
+    {
+      "name": "self-role changes, browser super grants and private-schema/table access remain denied",
+      "result": "PASS"
+    }
+  ]
+}

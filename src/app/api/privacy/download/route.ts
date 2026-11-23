@@ -1,3 +1,4 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
 import {
@@ -12,7 +13,7 @@ const messages: Record<string, [string, number]> = {
   denied: ["내보내기에 접근할 수 없습니다.", 403],
 };
 // POST (not a GET link) so the one-time token never lands in URLs, history or logs.
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -37,3 +38,5 @@ export async function POST(req: Request) {
     },
   });
 }
+
+export const POST=compatibleApiRoute("src/app/api/privacy/download/route.ts.POST",handlePOST);

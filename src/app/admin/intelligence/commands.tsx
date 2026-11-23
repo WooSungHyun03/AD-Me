@@ -104,12 +104,17 @@ export function Command({
           <label>
             운영 역할
             <select name="extra" defaultValue="support">
-              {roles.map((role) => (
-                <option key={role}>{role}</option>
-              ))}
+              {roles
+                .filter((role) => role !== "super")
+                .map((role) => (
+                  <option key={role}>{role}</option>
+                ))}
               <option value="remove">부여한 역할 제거</option>
             </select>
           </label>
+          <p>
+            초대는 7일 동안 유효합니다. 초대받은 운영자도 OTP 인증이 필요합니다.
+          </p>
         </>
       )}
       <button type="submit" className="button outline" disabled={pending}>

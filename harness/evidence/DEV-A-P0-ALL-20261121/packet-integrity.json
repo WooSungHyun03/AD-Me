@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-21T11:02:23.935Z",
+  "result": "PASS",
+  "source_head": "fd701851ceef1839e5b88ac2f234620747a049aa",
+  "old57_source_old_notices_and_old_tracked_packets_unchanged": true,
+  "new3_applied_source_matches_ledger": true,
+  "applied058_restored_exactly_and_hardening_in059": true,
+  "new3_bundle_embedded_source_matches": true,
+  "manifest_sql_hashes_match": true,
+  "permanent_erasure_and_activation_not_included": true,
+  "linux_test_tree_matches_final_product_paths": true,
+  "shipped_notice_git_blob_matches_manifest": true,
+  "upgrade_evidence": "packet-upgrade.json same01 SQL; source reference/gates regenerated only",
+  "external_applied": false
+}

@@ -3,11 +3,15 @@
 // and private notes are never part of these rows (they render only on the owner's own view).
 import type { Creator } from "./catalog";
 import { provenance, toCsv } from "./csv";
+type Comparable = Omit<Creator, "owner_id" | "followers"> & {
+  owner_id?: string | null;
+  followers: number | null;
+};
 export type Cell = { text: string; missing?: boolean };
 const gap = (text: string): Cell => ({ text, missing: true });
 const list = (xs: string[]): Cell =>
   xs.length ? { text: xs.join(", ") } : gap("미입력");
-export const COMPARE_ROWS: [string, (c: Creator) => Cell][] = [
+export const COMPARE_ROWS: [string, (c: Comparable) => Cell][] = [
   ["콘텐츠 분야", (c) => list(c.categories)],
   ["분위기", (c) => list(c.vibes)],
   ["플랫폼", (c) => list(c.platforms)],
@@ -16,7 +20,7 @@ export const COMPARE_ROWS: [string, (c: Creator) => Cell][] = [
     "팔로워",
     (c) =>
       c.is_demo
-        ? { text: `${c.followers.toLocaleString()} (가상)` }
+        ? { text: `${c.followers?.toLocaleString() ?? "미확보"} (가상)` }
         : gap("미확보"),
   ],
   [
@@ -37,7 +41,7 @@ export const COMPARE_ROWS: [string, (c: Creator) => Cell][] = [
   [
     "출처·근거",
     (c) => {
-      const p = provenance(c, c.owner_id);
+      const p = provenance(c, c.owner_id ?? null);
       return { text: `${p.label} — ${p.basis}` };
     },
   ],
@@ -62,7 +66,7 @@ export const parseIds = (s: string | null | undefined) =>
         .filter((x) => /^[A-Za-z0-9_-]{1,80}$/.test(x)),
     ),
   ].slice(0, 3);
-export function compareCsv(people: Creator[]) {
+export function compareCsv(people: Comparable[]) {
   return toCsv([
     ["비교 항목", ...people.map((c) => c.name)],
     ["ID", ...people.map((c) => c.seed_id)],

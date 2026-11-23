@@ -1,0 +1,111 @@
+{
+  "at": "2026-11-21T16:04:09.623423+00:00",
+  "scope": "Actual marked local DB/Auth/Storage; fictional accounts/records and synthetic permission JWTs; no provider/hosted verification",
+  "results": [
+    {
+      "test": "local-ad-history-security",
+      "exit": 0,
+      "pass_groups": 8
+    },
+    {
+      "test": "local-ad-timeline-security",
+      "exit": 0,
+      "pass_groups": 3
+    },
+    {
+      "test": "local-admin-support-security",
+      "exit": 0,
+      "pass_groups": 4
+    },
+    {
+      "test": "local-brand-security",
+      "exit": 0,
+      "pass_groups": 6
+    },
+    {
+      "test": "local-campaign-terms-security",
+      "exit": 0,
+      "pass_groups": 4
+    },
+    {
+      "test": "local-catalog-quota-security",
+      "exit": 0,
+      "pass_groups": 2
+    },
+    {
+      "test": "local-consent-security",
+      "exit": 0,
+      "pass_groups": 4
+    },
+    {
+      "test": "local-conversation-security",
+      "exit": 0,
+      "pass_groups": 8
+    },
+    {
+      "test": "local-creator-read-security",
+      "exit": 0,
+      "pass_groups": 8
+    },
+    {
+      "test": "local-creator-storage-security",
+      "exit": 0,
+      "pass_groups": 9
+    },
+    {
+      "test": "local-delivery-security",
+      "exit": 0,
+      "pass_groups": 10
+    },
+    {
+      "test": "local-draft-read-security",
+      "exit": 0,
+      "pass_groups": 3
+    },
+    {
+      "test": "local-ingestion-recovery-security",
+      "exit": 0,
+      "pass_groups": 7
+    },
+    {
+      "test": "local-metric-history-security",
+      "exit": 0,
+      "pass_groups": 4
+    },
+    {
+      "test": "local-ops-security",
+      "exit": 0,
+      "pass_groups": 5
+    },
+    {
+      "test": "local-p0-privacy-security",
+      "exit": 0,
+      "pass_groups": 5
+    },
+    {
+      "test": "local-p0-release-security",
+      "exit": 0,
+      "pass_groups": 5
+    },
+    {
+      "test": "local-publication-security",
+      "exit": 0,
+      "pass_groups": 6
+    },
+    {
+      "test": "local-rate-security",
+      "exit": 0,
+      "pass_groups": 8
+    },
+    {
+      "test": "local-recommendation-security",
+      "exit": 0,
+      "pass_groups": 11
+    },
+    {
+      "test": "local-review-security",
+      "exit": 1,
+      "pass_groups": 0
+    }
+  ]
+}

@@ -1,18 +1,21 @@
 \set ON_ERROR_STOP on
 begin;
+update adme_ops.resource_controls set ingestion_enabled=true,llm_enabled=true where singleton=true;
 insert into auth.users(id,raw_user_meta_data) values
   ('ad000000-0000-4000-8000-000000000001','{"name":"Integration Admin"}'),
   ('ad000000-0000-4000-8000-000000000002','{"name":"Integration Brand"}'),
   ('ad000000-0000-4000-8000-000000000003','{"name":"Integration Finance"}');
-update public.profiles set role='admin' where id='ad000000-0000-4000-8000-000000000001';
-insert into adme_ops.staff values ('ad000000-0000-4000-8000-000000000003','finance');
+select public.provision_administrator('ad000000-0000-4000-8000-000000000001','Local integration fixture',now()+interval '1 day');
+select adme_ops.provision_staff('ad000000-0000-4000-8000-000000000003','finance','Local integration fixture',now()+interval '1 day');
 
 set local role authenticated;
 select set_config('request.jwt.claim.sub','ad000000-0000-4000-8000-000000000003',true);
+select set_config('request.jwt.claims',jsonb_build_object('aal','aal2','amr',jsonb_build_array(jsonb_build_object('method','totp','timestamp',floor(extract(epoch from now())))))::text,true);
 do $$
 begin
   assert public.ops_current_role()='finance';
-  assert public.ops_dashboard()->'orders'='[]'::jsonb;
+  -- Other QA flows may have TEST orders; finance must receive an array, not null.
+  assert jsonb_typeof(public.ops_dashboard()->'orders')='array';
   assert public.ops_dashboard()->'members'='null'::jsonb;
   begin
     perform public.ops_admin_command('channel','UC_x5XG1OV2P6uZZ5FSM9Ttw');
@@ -40,6 +43,9 @@ $$;
 select set_config('request.jwt.claim.sub','ad000000-0000-4000-8000-000000000003',true);
 do $$ begin assert public.ops_draft_get(current_setting('adme.test_draft')::uuid) is null; end; $$;
 reset role;
+-- Both inserts share transaction now(); make the intended queue order explicit.
+update adme_ops.jobs set created_at=now()-interval '2 minutes'
+where kind='youtube_channel' and owner_id='ad000000-0000-4000-8000-000000000001';
 
 do $$
 declare v_token text := repeat('a',64); j jsonb;

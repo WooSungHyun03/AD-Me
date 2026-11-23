@@ -1,0 +1,58 @@
+[
+  {
+    "commit": "47b11d6ceea845ea9e1ad4f0ebaa518aefa0d8ca",
+    "message": "D042: format reviewed campaign copy boundary"
+  },
+  {
+    "commit": "c716405d0c0f058eeb7b19d9817ceb0df371baaa",
+    "message": "D047: type experiment repository proof test port"
+  },
+  {
+    "commit": "2301f6527933bda9efd12f82291cb32eecbadbe9",
+    "message": "D020: type pinned download test ports for shared checks"
+  },
+  {
+    "commit": "6e0682c05407445c0a64f519dead8f9058d73cb0",
+    "message": "D037: separate asynchronous reads from effect state updates"
+  },
+  {
+    "commit": "58fafbfb376698cd6339109a7f0bd54eb86cd9ea",
+    "message": "D067: require confirmation evidence and preserve same-order TEST recovery"
+  },
+  {
+    "commit": "f990a1fead6e289491a1c2de2650c64f9d17e35d",
+    "message": "D047: gate isolated embedding experiments on policy budget and source CAS"
+  },
+  {
+    "commit": "25faa9a72b4befb0cc6cb8f67510c58d56a8338c",
+    "message": "D071: add free-team invitation and last-admin safety contracts"
+  },
+  {
+    "commit": "b944f0f44c7293829ac1ceb96ae60ae2b57c2877",
+    "message": "D050: preserve confirmed terms through bilateral revision contracts"
+  },
+  {
+    "commit": "3e2d72d8f088e0609fecaae8d66da7c46fb7828a",
+    "message": "D022: add bound encrypted grant and single-use OAuth state contracts"
+  },
+  {
+    "commit": "0fe7d0ae33bf5c16a646cca9da67b63ec807a221",
+    "message": "D020: add policy-gated pinned web transport and conservative robots checks"
+  },
+  {
+    "commit": "a698f8b940d54ec0f1bdd113140b8ba5d1af3073",
+    "message": "D037: store private versioned search conditions with owner CAS and quota"
+  },
+  {
+    "commit": "794423b832d33a032329c0eba7bae5a7e575a5a8",
+    "message": "D055: export owner-only campaign calendars with UTC and injection guards"
+  },
+  {
+    "commit": "d00bfff6ba4661b852a114dc5d8c20dd317417f3",
+    "message": "D039: preview deterministic search conditions before explicit confirmation"
+  },
+  {
+    "commit": "3979949db6e4c9b5c4461de533dfaba15bfb0eac",
+    "message": "D042: add owner-only draft campaign copy without private relations"
+  }
+]

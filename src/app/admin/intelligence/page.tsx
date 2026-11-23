@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { featuredYoutube } from "@/lib/featured-youtube";
 import { context } from "@/lib/api";
 import { Command } from "./commands";
+export const dynamic = "force-dynamic";
 
 type Row = {
   id: string;
@@ -50,12 +51,15 @@ export default async function Intelligence() {
         <h1>운영 콘솔에 연결할 수 없습니다.</h1>
       </section>
     );
-  if (!role)
+  if (!role) {
+    const { data: enrollment } = await c.db.rpc("ops_enrollment_role");
+    if (enrollment) redirect("/admin/security");
     return (
       <section className="wrap">
         <h1>관리자 권한이 필요합니다.</h1>
       </section>
     );
+  }
   const { data, error } = await c.db.rpc("ops_dashboard");
   if (error || !data)
     return (

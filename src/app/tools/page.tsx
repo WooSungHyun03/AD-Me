@@ -9,6 +9,7 @@ export default function Tools() {
         광고 콘셉트와 제안 메시지의 출발점. API 키 없이 작동하는 규칙 기반 초안
         도구입니다.
       </p>
+      <h2 className="sr-only">광고·제안 초안 도구</h2>
       <AiStudio />
       <p>
         <Link href="/tools/local">로컬 AI로 캠페인 초안 만들기</Link>

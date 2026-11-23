@@ -1,0 +1,28 @@
+{
+  "source_head": "47b11d6ceea845ea9e1ad4f0ebaa518aefa0d8ca",
+  "baseline": "3a3f09f77f24b66321d61f18b5105e430234699a",
+  "from_migrations": 67,
+  "to_migrations": 68,
+  "sources": [
+    {
+      "path": "supabase/migrations/202611220068_saved_searches.sql",
+      "sha256_lf": "6d4f33e03ab934db98cfb6c1c30095fd56aa1de425b63922f94714c093720abe"
+    }
+  ],
+  "files": [
+    {
+      "path": "00_preflight.sql",
+      "sha256_lf": "a351afa212a92f4de6ca201ffdddecde5c092e3f3a6ad4e689270f8c29f53c8e"
+    },
+    {
+      "path": "01_apply_current_67.sql",
+      "sha256_lf": "264efe653298e231c5fd0ed6a717198f3670bd5c29fa48db0ad298f1a4ed2267"
+    },
+    {
+      "path": "02_verify.sql",
+      "sha256_lf": "d9bc7ab022daaacad8754a991d556094e09880c87c35673272a2b10e7f07664c"
+    }
+  ],
+  "external_applied": false,
+  "activation_included": false
+}

@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-21T16:03:18.287Z",
+  "scope": "Actual local PostgreSQL/PostgREST with fictional observations/policy; no actual platform metric verification",
+  "results": [
+    {
+      "name": "unapproved policies hide series and engagement capability; legacy filters remain compatible",
+      "result": "PASS"
+    },
+    {
+      "name": "original zero/null/history/source retained; YouTube derived denied on both current and series surfaces",
+      "result": "PASS"
+    },
+    {
+      "name": "explicit 0% includes genuine measured zero only; missing and YouTube values never pass",
+      "result": "PASS"
+    },
+    {
+      "name": "latest null, stale, small sample, policy withdrawal and moderation fail closed",
+      "result": "PASS"
+    }
+  ]
+}

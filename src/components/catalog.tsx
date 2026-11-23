@@ -1,78 +1,129 @@
 "use client";
+import { creatorPlatforms, platformLabels } from "@/lib/service-catalog";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { Heart, ArrowUpRight } from "lucide-react";
-import { categories, vibes } from "@/lib/catalog";
-import type { SearchPage } from "@/lib/search";
-export function Catalog({
-  initial,
-  initialSaved = [],
+import { creators as fixtures } from "@/lib/catalog";
+import type { PublicCatalogCreator } from "@/lib/creator-public-profile";
+import {
+  catalogFollowerValue,
+  creatorFilterIssues,
+  filterCreators,
+  parseCreatorFilters,
+  serializeCreatorFilters,
+  emptyCreatorFilters,
+  type CreatorFilters,
+} from "@/lib/creator-filters";
+import { useCatalogFilters } from "./use-catalog-filters";
+import { createCreatorSearchStore } from "@/lib/creator-search-store";
+import type { FilteredCatalog } from "@/lib/filtered-catalog";
+import { SearchProposalForm } from "./search-proposal";
+
+const subscribeToHydration = () => () => {};
+const clientReady = () => true;
+const serverReady = () => false;
+
+function FilterChoices({
+  name,
+  title,
+  options,
+  selected,
+  toggle,
 }: {
-  initial: SearchPage;
-  initialSaved?: string[];
+  name: string;
+  title: string;
+  options: { value: string; label: string }[];
+  selected: string[];
+  toggle: (value: string) => void;
 }) {
-  const [query, setQuery] = useState(""),
-    [category, setCategory] = useState(""),
-    [platform, setPlatform] = useState(""),
-    [tag, setTag] = useState(""),
-    [budget, setBudget] = useState(""),
-    [minFollowers, setMinFollowers] = useState(""),
-    [maxFollowers, setMaxFollowers] = useState(""),
-    [available, setAvailable] = useState(false),
-    [sort, setSort] = useState("name"),
-    [saved, setSaved] = useState<string[]>(initialSaved),
+  const interactive = useSyncExternalStore(
+    subscribeToHydration,
+    clientReady,
+    serverReady,
+  );
+  return (
+    <details
+      className="catalog-filter-choices"
+      data-testid={`filter-${name}`}
+      inert={!interactive}
+      aria-busy={!interactive}
+    >
+      <summary>
+        {title}{" "}
+        <span>{selected.length ? `${selected.length}개 선택` : "전체"}</span>
+      </summary>
+      <fieldset aria-label={title}>
+        <legend>{title} 선택</legend>
+        {options.map(({ value, label }) => (
+          <label key={value}>
+            <input
+              type="checkbox"
+              checked={selected.includes(value)}
+              disabled={selected.length >= 8 && !selected.includes(value)}
+              onChange={() => toggle(value)}
+            />
+            {label}
+          </label>
+        ))}
+      </fieldset>
+    </details>
+  );
+}
+export function Catalog({
+  items = fixtures,
+  initialSaved = [],
+  remote = false,
+  initialPage,
+  initialFilters = emptyCreatorFilters(),
+}: {
+  items?: PublicCatalogCreator[];
+  initialSaved?: string[];
+  remote?: boolean;
+  initialPage?: FilteredCatalog;
+  initialFilters?: CreatorFilters;
+}) {
+  const { filters, update, reset } = useCatalogFilters();
+  const [saved, setSaved] = useState<string[]>(initialSaved),
     [selected, setSelected] = useState<string[]>([]),
     [error, setError] = useState("");
-  const [page, setPage] = useState(initial),
-    [loading, setLoading] = useState(false);
-  const list = page.items;
-  const params = new URLSearchParams(
-    Object.entries({
-      q: query,
-      category,
-      platform,
-      tag,
-      budget,
-      min_followers: minFollowers,
-      max_followers: maxFollowers,
-      available: available ? "1" : "",
-      sort,
-    }).filter(([, v]) => v),
-  ).toString();
-  const first = useRef(true);
-  async function load(cursor?: string) {
-    setLoading(true);
-    setError("");
-    try {
-      const qs = cursor
-        ? `${params}&cursor=${encodeURIComponent(cursor)}`
-        : params;
-      const res = await fetch(`/api/creators?${qs}`);
-      const d = await res.json();
-      if (!res.ok) throw new Error(d.error?.message);
-      setPage((p) =>
-        cursor ? { ...d, items: [...p.items, ...d.items], total: p.total } : d,
-      );
-    } catch (e) {
-      setError(
-        e instanceof Error && e.message
-          ? e.message
-          : "목록을 불러오지 못했습니다.",
-      );
-    } finally {
-      setLoading(false);
-    }
-  }
+  const issues = creatorFilterIssues(filters);
+  const [store] = useState(() =>
+    createCreatorSearchStore(initialPage, initialFilters),
+  );
+  const remoteState = useSyncExternalStore(
+    store.subscribe,
+    store.getSnapshot,
+    store.getSnapshot,
+  );
+  const filterKey = serializeCreatorFilters(filters).toString();
+  const invalid = issues.length > 0;
   useEffect(() => {
-    // initial page came from the server with default filters
-    if (first.current) {
-      first.current = false;
+    if (!remote) return;
+    if (invalid) {
+      store.cancel();
       return;
     }
-    const t = setTimeout(() => load(), 250);
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params]);
+    void store.load(parseCreatorFilters(new URLSearchParams(filterKey)));
+  }, [remote, store, filterKey, invalid]);
+  useEffect(() => () => store.cancel(), [store]);
+  const list = invalid
+    ? []
+    : remote
+      ? remoteState.page.items
+      : filterCreators(items, filters);
+  const loading = remote && remoteState.loading && !invalid;
+  const searchError = remote ? remoteState.error : "";
+  const options = (values: string[]) =>
+    [...new Set(values)]
+      .sort((a, b) => a.localeCompare(b, "ko-KR"))
+      .map((value) => ({ value, label: value }));
+  function toggle(key: "platforms" | "categories" | "tags", value: string) {
+    update((current) => ({
+      [key]: current[key].includes(value)
+        ? current[key].filter((v) => v !== value)
+        : [...current[key], value],
+    }));
+  }
   async function save(id: string) {
     setError("");
     const res = await fetch("/api/saved", {
@@ -92,28 +143,27 @@ export function Catalog({
   }
   return (
     <>
+      <SearchProposalForm apply={update} />
+      <p>
+        <Link href={`/saved-searches?${serializeCreatorFilters(filters)}`}>
+          현재 조건 저장·내 저장 검색
+        </Link>
+      </p>
       <div className="toolbar">
         <input
           className="search"
           aria-label="크리에이터 검색"
           placeholder="이름, 계정, 분위기로 검색해보세요"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          value={filters.query}
+          maxLength={120}
+          onChange={(e) => update({ query: e.target.value }, true)}
         />
         <select
-          aria-label="플랫폼"
-          value={platform}
-          onChange={(e) => setPlatform(e.target.value)}
-        >
-          <option value="">모든 플랫폼</option>
-          {["instagram", "youtube", "tiktok"].map((p) => (
-            <option key={p}>{p}</option>
-          ))}
-        </select>
-        <select
           aria-label="정렬"
-          value={sort}
-          onChange={(e) => setSort(e.target.value)}
+          value={filters.sort}
+          onChange={(e) =>
+            update({ sort: e.target.value as CreatorFilters["sort"] })
+          }
         >
           <option value="name">이름순</option>
           <option value="followers">팔로워 많은 순</option>
@@ -122,106 +172,175 @@ export function Catalog({
       </div>
       {error && (
         <div role="alert" className="notice">
-          {error}{" "}
-          {error.includes("로그인") && <Link href="/login">로그인 →</Link>}
+          {error} <Link href="/login">로그인 →</Link>
+        </div>
+      )}
+      {searchError && (
+        <div role="alert" className="notice">
+          {searchError}{" "}
+          <button
+            type="button"
+            className="button outline small"
+            onClick={() => void store.load(filters, false, true)}
+          >
+            검색 다시 시도
+          </button>
+        </div>
+      )}
+      {issues.length > 0 && (
+        <div role="alert" className="notice" data-testid="filter-errors">
+          {issues.map((issue) => (
+            <p key={issue}>{issue}</p>
+          ))}
         </div>
       )}
       <div className="catalog-layout">
-        <aside className="filters">
-          <label className="field" style={{ display: "grid", width: "100%" }}>
-            콘텐츠 분야
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="">모든 분야</option>
-              {categories.map((c) => (
-                <option key={c}>{c}</option>
-              ))}
-            </select>
-          </label>
-          <label className="field" style={{ display: "grid", width: "100%" }}>
-            이미지·분위기
-            <select value={tag} onChange={(e) => setTag(e.target.value)}>
-              <option value="">모든 분위기</option>
-              {vibes.map((c) => (
-                <option key={c}>{c}</option>
-              ))}
-            </select>
-          </label>
-          <label className="field" style={{ display: "grid", width: "100%" }}>
-            최소 팔로워
-            <input
-              type="number"
-              min="0"
-              value={minFollowers}
-              onChange={(e) => setMinFollowers(e.target.value)}
-              placeholder="제한 없음"
-            />
-          </label>
-          <label className="field" style={{ display: "grid", width: "100%" }}>
-            최대 팔로워
-            <input
-              type="number"
-              min="0"
-              value={maxFollowers}
-              onChange={(e) => setMaxFollowers(e.target.value)}
-              placeholder="제한 없음"
-            />
-          </label>
-          <label className="field" style={{ display: "grid", width: "100%" }}>
-            최대 예산 (원)
-            <input
-              type="number"
-              min="0"
-              value={budget}
-              placeholder="예: 1000000"
-              onChange={(e) => setBudget(e.target.value)}
-            />
-          </label>
+        <aside className="filters catalog-filters" aria-label="크리에이터 필터">
+          <p className="catalog-filter-help">
+            같은 항목은 하나라도 일치하면 포함하고, 서로 다른 항목은 모두
+            일치해야 합니다. 항목별 최대 8개를 선택할 수 있습니다.
+          </p>
+          <div data-testid="metric-filter-availability">
+            <label className="field">
+              최소 참여율 (%)
+              <input
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                value={filters.minEngagement ?? ""}
+                disabled={
+                  !remoteState.page.metrics?.engagement.available || !remote
+                }
+                onChange={(e) =>
+                  update({ minEngagement: e.target.value }, true)
+                }
+              />
+            </label>
+            <p className="catalog-filter-help">
+              {remote && remoteState.page.metrics?.engagement.available
+                ? `승인된 자료 ${remoteState.page.metrics.engagement.profiles}개 프로필 · 표본 2개 이상, 갱신 기한 내 비 YouTube 자료 중 하나가 조건을 충족해야 합니다. 미확보 값은 0%가 아닙니다.`
+                : "승인된 참여율 자료가 없어 필터를 제공하지 않습니다. YouTube 파생 참여율은 제외합니다."}
+            </p>
+            {filters.minEngagement && (
+              <button
+                className="button ghost small"
+                onClick={() => update({ minEngagement: "" })}
+              >
+                참여율 조건 해제
+              </button>
+            )}
+            <p className="catalog-filter-help">
+              연령·성별 필터는 수집하지 않아 제공하지 않습니다.
+            </p>
+            {!!remoteState.page.metrics?.engagement.definitions.length && (
+              <details>
+                <summary>참여율 출처·산식</summary>
+                {remoteState.page.metrics.engagement.definitions.map((d, n) => (
+                  <p key={n}>
+                    {d.provider} · 정책 {d.policyVersion} · {d.formula}
+                  </p>
+                ))}
+                <p>
+                  최대 20개 산식을 표시합니다. 상세 관측 기간·표본·출처는
+                  프로필에서 확인해주세요.
+                </p>
+              </details>
+            )}
+          </div>
+          <FilterChoices
+            name="platform"
+            title="플랫폼"
+            options={creatorPlatforms.map((value) => ({
+              value,
+              label: platformLabels[value],
+            }))}
+            selected={filters.platforms}
+            toggle={(value) => toggle("platforms", value)}
+          />
+          <FilterChoices
+            name="category"
+            title="콘텐츠 분야"
+            options={options([
+              ...items.flatMap((c) => c.categories),
+              ...(remote ? remoteState.page.facets.categories : []),
+              ...filters.categories,
+            ])}
+            selected={filters.categories}
+            toggle={(value) => toggle("categories", value)}
+          />
+          <FilterChoices
+            name="tag"
+            title="이미지·분위기"
+            options={options([
+              ...items.flatMap((c) => c.vibes),
+              ...(remote ? remoteState.page.facets.tags : []),
+              ...filters.tags,
+            ])}
+            selected={filters.tags}
+            toggle={(value) => toggle("tags", value)}
+          />
+          <div className="catalog-number-filters">
+            {(
+              [
+                ["minPrice", "최소 예산 (원)", 100000000],
+                ["maxPrice", "최대 예산 (원)", 100000000],
+                ["minFollowers", "최소 팔로워", 10000000000],
+                ["maxFollowers", "최대 팔로워", 10000000000],
+              ] as const
+            ).map(([key, label, max]) => (
+              <label className="field" key={key}>
+                {label}
+                <input
+                  type="number"
+                  min="0"
+                  max={max}
+                  step="1"
+                  value={filters[key]}
+                  onChange={(e) => update({ [key]: e.target.value }, true)}
+                  placeholder="제한 없음"
+                />
+              </label>
+            ))}
+          </div>
+          <p className="catalog-filter-help">
+            예산은 견적 범위와 겹치는 후보를 찾습니다. 팔로워 조건을 사용하면
+            미확보 프로필은 제외합니다. DEMO 수치는 가상입니다.
+          </p>
           <label>
             <input
               type="checkbox"
-              checked={available}
-              onChange={(e) => setAvailable(e.target.checked)}
+              checked={filters.available}
+              onChange={(e) => update({ available: e.target.checked })}
             />
             협업 가능한 크리에이터
           </label>
-          <button
-            className="button outline small"
-            onClick={() => {
-              setQuery("");
-              setCategory("");
-              setPlatform("");
-              setTag("");
-              setBudget("");
-              setMinFollowers("");
-              setMaxFollowers("");
-              setAvailable(false);
-            }}
-          >
+          <button className="button outline small" onClick={reset}>
             필터 초기화
           </button>
         </aside>
         <div>
-          <p style={{ fontSize: 13 }}>
-            <strong style={{ color: "#111312" }}>
-              {page.total === null
-                ? `${list.length}명+`
-                : page.total > 1000
-                  ? "1000명+"
-                  : `${page.total}명`}
-            </strong>
-            의 크리에이터 {loading && "· 불러오는 중…"}
+          <p style={{ fontSize: 13 }} role="status" data-testid="catalog-count">
+            {remote && !remoteState.loaded ? (
+              "검색 결과를 확인하고 있습니다."
+            ) : (
+              <>
+                <strong style={{ color: "#111312" }}>
+                  {remote ? remoteState.page.total : list.length}명
+                </strong>
+                의 크리에이터
+              </>
+            )}
           </p>
-          <div className="creator-grid">
+          <h2 className="sr-only">검색 결과</h2>
+          <div className="creator-grid" aria-busy={loading}>
             {list.map((c, i) => (
               <article
                 key={c.seed_id}
                 className="creator"
                 data-testid="creator-card"
               >
-                <Link href={`/creators/${c.seed_id}`}>
+                <Link href={`/creators/${c.seed_id}`} prefetch={false}>
                   <div
                     className="creator-visual"
                     style={{
@@ -237,7 +356,7 @@ export function Catalog({
                   </div>
                 </Link>
                 <div className="creator-top">
-                  <Link href={`/creators/${c.seed_id}`}>
+                  <Link href={`/creators/${c.seed_id}`} prefetch={false}>
                     <h3>
                       {c.name}{" "}
                       <ArrowUpRight size={14} style={{ display: "inline" }} />
@@ -263,14 +382,12 @@ export function Catalog({
                 </div>
                 <div className="creator-bottom">
                   <span>
-                    {c.is_demo
-                      ? `${(c.followers / 10000).toFixed(1)}만 팔로워 · 가상`
+                    {catalogFollowerValue(c) !== null
+                      ? `${(catalogFollowerValue(c)! / 10000).toFixed(1)}만 팔로워 · 가상`
                       : "팔로워 미확보"}
                   </span>
                   <strong>
-                    {c.price_min_krw === null
-                      ? "견적 미확인"
-                      : `${(c.price_min_krw / 10000).toLocaleString()}만원~`}
+                    {(c.price_min_krw / 10000).toLocaleString()}만원~
                   </strong>
                 </div>
                 <label
@@ -300,17 +417,21 @@ export function Catalog({
               </article>
             ))}
           </div>
-          {page.nextCursor && (
-            <button
-              className="button outline"
-              style={{ marginTop: 24 }}
-              disabled={loading}
-              onClick={() => load(page.nextCursor!)}
-            >
-              더 보기
-            </button>
-          )}
-          {!list.length && !loading && (
+          {loading && <p role="status">검색 결과를 불러오고 있습니다.</p>}
+          {remote &&
+            remoteState.page.nextCursor &&
+            !invalid &&
+            !searchError && (
+              <button
+                type="button"
+                className="button outline"
+                disabled={loading}
+                onClick={() => void store.load(filters, true)}
+              >
+                다음 후보 더 불러오기
+              </button>
+            )}
+          {!list.length && !loading && !searchError && (
             <div className="empty">
               조건에 맞는 크리에이터가 없습니다. 필터를 조정해주세요.
             </div>

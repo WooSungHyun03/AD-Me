@@ -1,9 +1,10 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
 // D061: private selection review (checked items, memo, manual approval). The DB re-checks ownership and
 // refuses an approval that does not cover every current checklist item.
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -30,3 +31,5 @@ export async function POST(req: Request) {
       : fail("본인 캠페인의 후보만 검토할 수 있습니다.", 403);
   return NextResponse.json(data);
 }
+
+export const POST=compatibleApiRoute("src/app/api/notes/review/route.ts.POST",handlePOST);

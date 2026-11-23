@@ -53,9 +53,21 @@ export const formats = [
   "화보",
 ];
 export const platforms = ["instagram", "youtube", "tiktok"] as const;
+export type MatchingCreator = Pick<
+  Creator,
+  | "seed_id"
+  | "published"
+  | "is_available"
+  | "platforms"
+  | "vibes"
+  | "categories"
+  | "price_min_krw"
+  | "is_demo"
+  | "formats"
+>;
 type Status = "eligible" | "hold" | "excluded";
 // Gates run before scoring; an excluded creator is never scored.
-function gate(brief: Brief, c: Creator, policy: Policy) {
+function gate(brief: Brief, c: MatchingCreator, policy: Policy) {
   const excluded: string[] = [],
     held: string[] = [];
   if (!c.published) excluded.push("비공개 프로필");
@@ -87,7 +99,7 @@ function gate(brief: Brief, c: Creator, policy: Policy) {
       : "eligible";
   return { status, reasons: [...excluded, ...held] };
 }
-export function match(brief: Brief, c: Creator) {
+export function match(brief: Brief, c: MatchingCreator) {
   const policy = { ...DEFAULT_POLICY, ...brief.policy };
   const { status, reasons } = gate(brief, c, policy);
   const base = {
@@ -174,7 +186,10 @@ export function match(brief: Brief, c: Creator) {
   };
 }
 // Confirmed candidates first, then held ones; score desc; creatorId for a stable tie order.
-export function rank(brief: Brief, list: Creator[] = creators) {
+export function rank<T extends MatchingCreator = Creator>(
+  brief: Brief,
+  list: readonly T[] = creators as unknown as readonly T[],
+) {
   return list
     .map((c) => ({ creator: c, ...match(brief, c) }))
     .filter((r) => r.status !== "excluded")

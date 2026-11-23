@@ -1,3 +1,4 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
@@ -5,7 +6,7 @@ import { isDemoMode } from "@/lib/mode";
 import { cancelMessage } from "@/lib/billing";
 import { reportError } from "@/lib/observability";
 // D068: forwards to the Edge Function, which alone holds the Toss TEST secret. No paymentKey is accepted here.
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   if (!isDemoMode())
     return fail("무료 베타에서는 결제·유료 이용권을 제공하지 않습니다.", 403);
@@ -49,3 +50,5 @@ export async function POST(req: Request) {
     return fail(cancelMessage("provider_retry"), 503);
   }
 }
+
+export const POST=compatibleApiRoute("src/app/api/billing/cancel/route.ts.POST",handlePOST);

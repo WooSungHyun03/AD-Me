@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-20T07:48:39.760Z",
+  "mode": "terms_18",
+  "before_migrations": 18,
+  "after_migrations": 19,
+  "result": "PASS",
+  "legacy_profile_hash_unchanged": true,
+  "mappings_complete": true,
+  "invented_identities": 0,
+  "new_rls_tables": 3,
+  "direct_table_privileges_denied": 9,
+  "public_security_invoker": true,
+  "resource_controls_preserved_or_default_off": true,
+  "wrong_baseline_rejected": true,
+  "duplicate_rejected": true,
+  "optional_pause_verified_and_rolled_back": true,
+  "scope": "generated USER SQL in exact local disposable packet DB; no hosted changes"
+}

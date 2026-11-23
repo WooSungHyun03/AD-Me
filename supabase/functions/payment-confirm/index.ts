@@ -1,11 +1,15 @@
-import {createClient} from 'npm:@supabase/supabase-js@2';
+import {createClient} from 'npm:@supabase/supabase-js@2.119.1';
+import {allowsTestPayment} from './feature.ts';
 const json=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json'}});
 Deno.serve(async(req:Request)=>{
  if(req.method!=='POST')return json({error:'POST only'},405);
+ if(!allowsTestPayment(Deno.env.get('ADME_SERVICE_MODE'),Deno.env.get('ADME_FEATURE_TEST_BILLING')))return json({error:'현재 환경에서 TEST 결제를 제공하지 않습니다.'},404);
  const url=Deno.env.get('SUPABASE_URL')!;
  const admin=createClient(url,Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
  const auth=req.headers.get('Authorization');if(!auth?.startsWith('Bearer '))return json({error:'로그인이 필요합니다.'},401);
  const {data:{user},error:authError}=await admin.auth.getUser(auth.slice(7));if(authError||!user)return json({error:'로그인이 필요합니다.'},401);
+ const {data:billingEnabled,error:billingError}=await admin.rpc('test_billing_available');
+ if(billingError||billingEnabled!==true)return json({error:'현재 DB에서 TEST 결제를 제공하지 않습니다.'},404);
  const b=await req.json().catch(()=>null);
  // D068: TEST cancel. Only the stored paymentKey of an order the caller owns is used; the client never sends one.
  if(b?.action==='cancel')return cancel(admin,user.id,b);

@@ -1,0 +1,28 @@
+{
+  "base_commit": "80e8d1e6b13df7d81e13ed52bfd4c1cf03194b73",
+  "source_head": "25e7f08d379b297a9fdfef84607eab9b7ba7f710",
+  "branch": "codex/dev-a-p0-continue",
+  "ticket_commits": [
+    {
+      "ticket": "D030",
+      "commit": "2ef507e3fba721322a43f0fd9c8030edd956c986",
+      "subject": "D030: add verified ad timeline filters and private brand rivals"
+    },
+    {
+      "ticket": "D031",
+      "commit": "cf2bad505beadfeb23333a47e5f30e1548f43c54",
+      "subject": "D031: display permissioned metric history with explicit gaps and provenance"
+    },
+    {
+      "ticket": "D035",
+      "commit": "03f6f5ab5c30d9986f8e9d8ad3a89a55471a5582",
+      "subject": "D035: filter only available approved engagement metrics"
+    },
+    {
+      "ticket": "D060",
+      "commit": "25e7f08d379b297a9fdfef84607eab9b7ba7f710",
+      "subject": "D060: add scoped admin search and append-only support audit"
+    }
+  ],
+  "scope": "Four review boundaries, product batch tested together; intermediate commits are not independently deployable. Shared test runners/docs/SQL packet follow in one artifact commit. No whole-ticket DONE."
+}

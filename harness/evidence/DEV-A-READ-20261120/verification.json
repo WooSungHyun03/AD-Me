@@ -1,0 +1,171 @@
+{
+  "at": "2026-11-20T09:51:25.373900+00:00",
+  "baseline": "665fcae00204a9acd63740522f48fb882417140e",
+  "branch": "codex/dev-a-p0-continue",
+  "upstream_main": "65063c8412d95458e0da61b90f53d2da72decda3",
+  "scope": "local source compatibility and public read security; no hosted writes/deployment/provider validation",
+  "implementation_commits": {
+    "D075": [
+      "7a553e5",
+      "891f5a2",
+      "5937456"
+    ],
+    "D076": [
+      "1b6fbf0"
+    ]
+  },
+  "gates": {
+    "node": "22.23.5",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": {
+      "passed": 190,
+      "files": 24
+    },
+    "local_sql_rpc_to_typescript_contract": {
+      "passed": 2,
+      "command": "npx vitest run --config vitest.storage.config.ts",
+      "migrations": 23
+    },
+    "production_builds": "PASS via serial Playwright local/free/keyless harnesses",
+    "full_local_auth_db_e2e": {
+      "passed": 32,
+      "migrations": 21,
+      "scope": "actual local Auth/Mailpit/TOTP/DB and explicit fictional worker fixture; desktop/mobile Chrome"
+    },
+    "after_activation_migration": {
+      "passed": 6,
+      "migrations": 22,
+      "scope": "discovery, golden path, public RSC canary"
+    },
+    "after_final_chooser_parser": {
+      "passed": 4,
+      "migrations": 22,
+      "scope": "two-role golden and application/saved/CSV/settings/admin"
+    },
+    "after_card_prefetch_change": {
+      "passed": 2,
+      "migrations": 22,
+      "scope": "public discovery desktop/mobile"
+    },
+    "after_proposal_visibility_fix": {
+      "passed": 4,
+      "migrations": 23,
+      "command": "npm run test:e2e:local -- --grep 'two-role real DB golden|public application'",
+      "scope": "actual local Auth/DB; source/settings/proposal/application/saved/CSV/admin compatibility"
+    },
+    "free_beta_e2e": {
+      "passed": 4,
+      "migrations": 21,
+      "billing_off": true,
+      "real_toss_key": false
+    },
+    "keyless_e2e": {
+      "passed": 10,
+      "migrations": 21
+    },
+    "direct_sql_rest": {
+      "groups_passed": 54,
+      "breakdown": {
+        "campaign-terms-security.local.json": 4,
+        "catalog-quota-security.local.json": 2,
+        "creator-read-security.local.json": 8,
+        "creator-storage-security.local.json": 9,
+        "draft-read-security.local.json": 3,
+        "local-brand-security.local.json": 6,
+        "local-security.local.json": 7,
+        "ops-security.local.json": 5,
+        "rate-security.local.json": 8,
+        "youtube-security.local.json": 2
+      },
+      "timing": "full sequential54 at21; creator read8 rerun at22 and23 with additional hidden campaign/NULL cases"
+    },
+    "sql_fixtures": {
+      "passed": [
+        "intelligence",
+        "youtube_ownership",
+        "message_policy"
+      ],
+      "migrations": 22,
+      "rolled_back": true
+    },
+    "generated_user_sql": {
+      "baselines": [
+        8,
+        12,
+        16,
+        18,
+        19
+      ],
+      "to_migrations": 23,
+      "passed": 5,
+      "nonempty_fictional_profile_hash_preserved": true,
+      "scope": "exact disposable packet container only; actual generated staging SQL+owner activation; no hosted execution"
+    },
+    "inventory": {
+      "tables": 28,
+      "rls_tables": 28,
+      "functions": 81,
+      "policies": 35,
+      "migrations": 22,
+      "scope": "metadata, not full Storage/tenant/function audit;017 replaces existing function only"
+    },
+    "new_migrations": 4,
+    "harness_checks": {
+      "selftest": 5,
+      "backlog": "PASS",
+      "handoff": "PASS",
+      "secret_scan": "PASS",
+      "diff_check": "PASS"
+    }
+  },
+  "resolved_findings": [
+    {
+      "finding": "Old fixture expected anonymous raw data array, now denied42501.",
+      "resolution": "Use authorized admin fixture source and assert anon42501 plus safe RPC moderation denial; no security assertion skipped."
+    },
+    {
+      "finding": "Quota metadata query concatenated PostgreSQL char without cast.",
+      "resolution": "Cast provolatile to text, rerun exact65 concurrent60/5; quota unchanged."
+    },
+    {
+      "finding": "Agent overlapped QA setup with tests, stopping the isolated DB mid-test.",
+      "resolution": "Serialize container reset/security/build operations, rerun all54 and full32 E2E. No hosted/user data touched."
+    },
+    {
+      "finding": "Packet baseline has no seed; INSERT SELECT inserted zero fictional rows.",
+      "resolution": "Insert literal fixture JSON, assert count1, verify nonempty unchanged hash for all5 baselines."
+    },
+    {
+      "finding": "New definer proposal read could distinguish foreign private versus missing campaign; NULL kind not explicitly rejected.",
+      "resolution": "Additive017 preserves former caller RLS visibility, same code/message and explicit42501 NULL; direct8 and browser4 pass."
+    },
+    {
+      "finding": "Final opt-in DB suite first invocation used nonexistent vitest.local.config.ts.",
+      "resolution": "Use repository vitest.storage.config.ts; actual two DB/TS contracts pass. No test implementation changed to bypass failure."
+    }
+  ],
+  "preserved": {
+    "old_migrations": 19,
+    "creator_ids": true,
+    "foreign_keys": true,
+    "profile_json": true,
+    "legacy_urls": true,
+    "proposal_http_contract": true,
+    "old_archives": 5
+  },
+  "remaining_release_blockers": [
+    "정규화 private storage와 앱/DB 공개 allowlist·null 지표 및 strict raw read 보수 로컬 검증. USER staged source 확인/활성화·opaque 공개ID·D017 정책/실제 수집·D019 writer/정규화 read switch·철회/삭제/보존 연결 미완료.",
+    "014~017 호환 RPC/본인·MFA admin raw RLS·safe HOT/saved·원자 제안 및 비공개 campaign 오류 동등성,5개 SQL 기준23개 이력 검증. USER source/활성화·실제 URL·교차 리뷰·전체 Storage/RPC/테넌트 감사·opaque ID 미완료. staging은 보안 완료 아님.",
+    "strict catalog DB60/account/min·anon shared300/min·GET/leaf 거부 및 prefetch 제거 검증. USER read 활성화·가입/로그인 trustedIP/계정/Auth 설정·D033 대용량 서버 검색 UX 미완료. shared anon 한도는 IP별 한도가 아님.",
+    "Node22 lint/typecheck/unit190·실제 DB→TS2·전체 로컬 Auth/DB E2E32 및 최종 영향4·prefetch2·free4·keyless10, SQL/REST54·rollback3·USER SQL5기준23개 이력 PASS. 미구현 시나리오·전체 권한 감사·실제 공급자/URL·교차 리뷰 미완료."
+  ],
+  "runtime_counts": {
+    "IN_PROGRESS": 13,
+    "LOCAL_VERIFIED": 5,
+    "BLOCKED_EXTERNAL": 2,
+    "OPEN": 22,
+    "PARTIAL_VERIFIED": 1
+  },
+  "external_actions_performed": false
+}

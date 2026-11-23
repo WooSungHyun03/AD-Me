@@ -1,0 +1,18 @@
+{
+  "base_commit": "0a2be26f2c1571c68d51378e2d84908bec8eef3b",
+  "source_head": "5b94cd78ab1034ee59e1b1aeefb5ff96cc284d6c",
+  "branch": "codex/dev-a-p0-continue",
+  "ticket_commits": [
+    {
+      "ticket": "D073",
+      "commit": "da7e96d4ac9c23ae7be3f93405a7ed370bb38267",
+      "subject": "atomically bind publication saves and withdrawals to consent receipts"
+    },
+    {
+      "ticket": "D084",
+      "commit": "5b94cd78ab1034ee59e1b1aeefb5ff96cc284d6c",
+      "subject": "verify publication replay privacy and two-role browser regressions"
+    }
+  ],
+  "scope": "Final batch source tested together; intermediate ticket commits are review boundaries, not separate deployment units. D073 remains policy approval blocked; D084 remains in progress."
+}

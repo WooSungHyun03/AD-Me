@@ -1,0 +1,9 @@
+{
+  "archive": "deliverables/AD-Me_DEV-A_FILTERS_20261120_review.zip",
+  "sha256": "54c9010f93128e2e8d4a410574c76fcf668a13c61cd610c945123f006f4193d9",
+  "bytes": 3173820,
+  "source_files": 371,
+  "source_head": "06bb2c1d68d4214d1727ff9f4392149097832928",
+  "new_migrations": 0,
+  "external_applied": false
+}

@@ -1,0 +1,8 @@
+{
+  "lockfile_sha256": "26ef7ab278d233e29db933721c1e50d71d1b164c86dbb5eb23053266607d112d",
+  "lock_entries": 506,
+  "exact_installed_with_notices": 393,
+  "unresolved": 113,
+  "notice_files": 533,
+  "scope": "Current host installation; Linux deployment and Edge Deno artifacts need their own exact notice inventory"
+}

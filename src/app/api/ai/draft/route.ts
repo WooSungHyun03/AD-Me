@@ -1,3 +1,4 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { fail, safeOrigin } from "@/lib/api";
@@ -11,7 +12,7 @@ import {
 import { currentUser } from "@/lib/supabase";
 import { storageAdmin } from "@/lib/uploads";
 // D048: returns a draft only. Nothing is sent to a creator or saved; the user reviews and copies it.
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const body = await req.json().catch(() => null);
   const kind = z.enum(KINDS as [Kind, ...Kind[]]).safeParse(body?.kind);
@@ -43,3 +44,5 @@ export async function POST(req: Request) {
   if ("error" in r) return fail(r.error);
   return NextResponse.json(r);
 }
+
+export const POST=compatibleApiRoute("src/app/api/ai/draft/route.ts.POST",handlePOST);

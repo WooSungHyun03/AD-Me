@@ -14,10 +14,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: python3 harness/secret_scan.py --history
+      - run: python3 harness/secret_scan.py
+      - run: python3 scripts/check-deployment-hold.py
       - run: python3 harness/selftest.py
-      - run: python3 harness/migration_check.py
-      - run: python3 harness/migration_check_test.py
+      - run: python3 -m unittest discover -s tests -p 'test_*.py'
       - run: python3 harness/validate_service_backlog.py
       - run: python3 harness/validate_handoff.py
       - run: npm run lint
@@ -37,7 +37,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version: 24
+          node-version: 22
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium

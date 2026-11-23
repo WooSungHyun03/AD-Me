@@ -1,3 +1,4 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
@@ -11,7 +12,7 @@ import {
 import { isDemoMode } from "@/lib/mode";
 // D038: shortlist CSV import in two steps. "preview" validates and writes nothing; "commit" re-validates the
 // same file on the server and inserts only valid rows. Rows never trigger external fetches.
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -100,7 +101,7 @@ export async function POST(req: Request) {
   });
 }
 // Template: the export's columns; only ID and 출처 are read back.
-export function GET() {
+ function handleGET() {
   return new Response(
     toCsv([
       ["ID", "이름", "출처", "메모(가져오지 않음)"],
@@ -116,3 +117,6 @@ export function GET() {
     },
   );
 }
+
+export const POST=compatibleApiRoute("src/app/api/import/route.ts.POST",handlePOST);
+export const GET=compatibleApiRoute("src/app/api/import/route.ts.GET",handleGET);

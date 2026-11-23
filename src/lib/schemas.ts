@@ -1,27 +1,34 @@
 import { z } from "zod";
-import { categories, vibes, formats, platforms } from "./catalog";
-const pick = (list: readonly string[], max: number) =>
-  z
-    .array(z.enum(list as [string, ...string[]]))
-    .min(1)
-    .max(max)
-    .refine((a) => new Set(a).size === a.length, "중복 선택");
-const krw = z.number().int().min(0).max(100000000).nullable();
+import {
+  categories,
+  vibes as allowedVibes,
+  formats as allowedFormats,
+} from "./catalog";
+import { creatorPlatforms } from "./service-catalog";
+import { normalizeSocialLink } from "./social-links";
+import { campaignBriefTermsStorageSchema } from "./campaign-brief";
+import { safePublicText } from "./sensitive-data";
 export const campaignSchema = z.object({
   title: z.string().trim().min(2).max(120),
   product: z.string().trim().min(1).max(120),
   category: z.string().min(1).max(50),
-  vibes: z.array(z.string().max(30)).min(1).max(8),
+  vibes: z
+    .array(z.enum(allowedVibes as [string, ...string[]]))
+    .min(1)
+    .max(8)
+    .refine((a) => new Set(a).size === a.length),
   format: z.string().min(1).max(40),
-  platforms: z.array(z.enum(["instagram", "youtube", "tiktok"])).min(1),
+  platforms: z
+    .array(z.enum(creatorPlatforms))
+    .min(1)
+    .refine((a) => new Set(a).size === a.length),
   budget_krw: z.number().int().min(10000).max(100000000),
   target_audience: z.string().min(2).max(500),
   goal: z.string().min(2).max(500),
   status: z.enum(["draft", "published", "closed"]),
-  // Stored as campaign columns, not in the brief. Deadline is checked against the DB clock.
+  terms: campaignBriefTermsStorageSchema.optional(),
   recruit_until: z.iso.datetime({ offset: true }).nullable().optional(),
   capacity: z.number().int().min(1).max(100).nullable().optional(),
-  // D044 matching policy, stored in the brief.
   policy: z
     .object({
       category: z.enum(["hard", "soft"]),
@@ -80,16 +87,40 @@ export const reportError = (msg = "") =>
 export const recruitingError = (msg = "") =>
   Object.entries(recruitingErrors).find(([k]) => msg.includes(k))?.[1];
 export const profileSchema = z
-  .object({
-    name: z.string().trim().min(2).max(80),
-    bio: z.string().max(1000),
+  .strictObject({
+    name: z
+      .string()
+      .trim()
+      .min(2)
+      .max(80)
+      .refine(
+        safePublicText,
+        "공개 이름에서 개인 연락처·고유식별번호를 제외해주세요.",
+      ),
+    bio: z
+      .string()
+      .max(1000)
+      .refine(
+        safePublicText,
+        "공개 소개에서 개인 연락처·고유식별번호를 제외해주세요.",
+      ),
     social_url: z
       .union([
         z.literal(""),
         z
-          .url()
+          .string()
           .max(1000)
-          .refine((v) => v.startsWith("https://")),
+          .transform((value, ctx) => {
+            const link = normalizeSocialLink(value);
+            if (!link) {
+              ctx.addIssue({
+                code: "custom",
+                message: "공식 SNS 프로필 또는 게시물 링크를 입력해주세요.",
+              });
+              return z.NEVER;
+            }
+            return link.href;
+          }),
       ])
       .optional(),
     portfolio_url: z
@@ -102,13 +133,28 @@ export const profileSchema = z
       ])
       .optional(),
     owner_consent: z.boolean().default(false),
-    categories: pick(categories, 5),
-    vibes: pick(vibes, 8),
-    formats: pick(formats, 8),
-    platforms: pick(platforms, 3),
-    price_min_krw: krw, // null = 견적 미확인
-    price_max_krw: krw,
-    is_available: z.boolean().nullable(), // null = 협업 의사 미확인
+    categories: z
+      .array(z.enum(categories as [string, ...string[]]))
+      .min(1)
+      .max(5)
+      .refine((a) => new Set(a).size === a.length),
+    vibes: z
+      .array(z.enum(allowedVibes as [string, ...string[]]))
+      .min(1)
+      .max(8)
+      .refine((a) => new Set(a).size === a.length),
+    formats: z
+      .array(z.enum(allowedFormats as [string, ...string[]]))
+      .min(1)
+      .max(8)
+      .refine((a) => new Set(a).size === a.length),
+    platforms: z
+      .array(z.enum(creatorPlatforms))
+      .min(1)
+      .refine((a) => new Set(a).size === a.length),
+    price_min_krw: z.number().int().min(0).max(100000000).nullable(),
+    price_max_krw: z.number().int().min(0).max(100000000).nullable(),
+    is_available: z.boolean().nullable(),
     published: z.boolean(),
   })
   .refine(

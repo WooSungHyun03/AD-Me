@@ -1,51 +1,51 @@
-export const products = [
-  {
-    sku: "brand_free",
-    name: "Brand Free",
-    amount: 0,
-    role: "brand",
-    features: [
-      "크리에이터 탐색·필터",
-      "캠페인 브리프·기본 추천",
-      "협업 제안·진행 관리",
-    ],
-  },
-  {
-    sku: "brand_pro",
-    name: "Brand Pro",
-    amount: 49000,
-    role: "brand",
-    features: [
-      "브랜드 30일 이용권",
-      "후보 비교·추천 근거",
-      "AI 스튜디오 기본 도구",
-    ],
-  },
-  {
-    sku: "agency",
-    name: "Agency",
-    amount: 149000,
-    role: "brand",
-    features: [
-      "에이전시 30일 이용권",
-      "캠페인·크리에이터 관리",
-      "팀 워크스페이스는 준비 중",
-    ],
-  },
-  {
-    sku: "creator_hot",
-    name: "Creator HOT",
-    amount: 9900,
-    role: "creator",
-    features: [
-      "30일 프로모션 이용권",
-      "별도 유료 HOT 노출",
-      "일반 추천 점수에 영향 없음",
-    ],
-  },
-];
-// D066: checkout uses SDK v2 payment() = "API 개별 연동", whose keys are the test_ck_/test_sk_ set. Widget keys
-// (test_gck_/test_gsk_) belong to widgets() and fail with INVALID_API_KEY, so they are refused up front.
+import { z } from "zod";
+
+export const freeFeatures = [
+  "크리에이터 탐색·필터",
+  "캠페인 브리프·기본 추천",
+  "협업 제안·진행 관리",
+  "규칙 기반 광고·제안 초안",
+] as const;
+
+export const testSkus = [
+  "brand_pro",
+  "agency",
+  "creator_hot",
+  "ai_credits",
+  "search_run",
+  "job_post",
+  "job_application",
+] as const;
+export const testSkuSchema = z.enum(testSkus);
+export const testProductSchema = z.object({
+  sku: testSkuSchema,
+  name: z.string().min(1),
+  amount: z.number().int().positive(),
+  role: z.enum(["brand", "creator"]),
+  days: z.number().int().positive(),
+  credits: z.number().int().nonnegative(),
+});
+export type TestProduct = z.infer<typeof testProductSchema>;
+
+export const testProductDescriptions = {
+  brand_pro: "브랜드 이용권 승인 흐름을 확인합니다.",
+  agency:
+    "에이전시 이용권 승인 흐름을 확인합니다. 팀 워크스페이스는 준비 중입니다.",
+  creator_hot:
+    "별도 광고 영역에 표시됩니다. 일반 추천 순위에는 영향을 주지 않습니다.",
+  ai_credits: "TEST 크레딧 적립을 확인합니다. 고급 AI 분석은 준비 중입니다.",
+  search_run: "후보가 있는 새 YouTube 조건 검색의 TEST 검색권입니다.",
+  job_post: "YouTube 광고 공고를 게시할 때 사용하는 TEST 게시권입니다.",
+  job_application:
+    "소유권을 확인한 YouTube 채널로 지원할 때 사용하는 TEST 지원권입니다.",
+} satisfies Record<TestProduct["sku"], string>;
+
+export function testProductTerms(product: TestProduct) {
+  const cost = `${product.amount.toLocaleString("ko-KR")}원`;
+  return product.credits
+    ? `${product.credits} 크레딧 / ${cost} · ${product.days}일`
+    : `${cost} / ${product.days}일`;
+}
 export function assertTestClient(key: string | undefined) {
   if (!key || !/^test_ck_/.test(key))
     throw new Error(

@@ -1,0 +1,53 @@
+{
+  "source_head": "25e7f08d379b297a9fdfef84607eab9b7ba7f710",
+  "baseline_head": "80e8d1e6b13df7d81e13ed52bfd4c1cf03194b73",
+  "from_migrations": 60,
+  "to_migrations": 67,
+  "sources": [
+    {
+      "path": "supabase/migrations/202611220061_ad_timeline.sql",
+      "sha256_lf": "10fea74d7b056768c30a5e7192fdeae6a0faa526117ba43fc84d3633749d510b"
+    },
+    {
+      "path": "supabase/migrations/202611220062_metric_history.sql",
+      "sha256_lf": "d7deee730abc97a97b65333dbab9783dd462563f185f43d576cd81bd8206c329"
+    },
+    {
+      "path": "supabase/migrations/202611220063_ad_cursor_reference.sql",
+      "sha256_lf": "d8ae4a6c51440291a72e4989515f8cea83e3a13f578588888140092188a4ddaf"
+    },
+    {
+      "path": "supabase/migrations/202611220064_metric_filters.sql",
+      "sha256_lf": "2551ee5ac001dfef6e1f684c4bd80def0ae6dae0e91f6c0bea71f916cfa53b8d"
+    },
+    {
+      "path": "supabase/migrations/202611220065_admin_support.sql",
+      "sha256_lf": "fde1a82c5c19a03541b3c5051972274b29022e8ccd762ba0e389843d8a298483"
+    },
+    {
+      "path": "supabase/migrations/202611220066_metric_metadata_guard.sql",
+      "sha256_lf": "bd67a5c2b515b986fa814b1dc23295baf5bbb3d3debe53728b7aa45831a32261"
+    },
+    {
+      "path": "supabase/migrations/202611220067_history_permission.sql",
+      "sha256_lf": "4962d9ef4ae87cd5f081f980f81fc23b27ca71aac504443dfe762d1ad910004e"
+    }
+  ],
+  "files": [
+    {
+      "path": "00_preflight.sql",
+      "sha256_lf": "2b8224161227715e8b84eebebad12098d111f0e7c37256d82baf4b49bc82e5a6"
+    },
+    {
+      "path": "01_apply_current_60.sql",
+      "sha256_lf": "0184ab2224e422042fa798c65db4c8dd9d984d2126a9ad76f2ede4a4fcdcc94f"
+    },
+    {
+      "path": "02_verify.sql",
+      "sha256_lf": "288b444dc41fc1c239fbd9453496fad6ebd8c061c08b2d73a2bb006a932459e1"
+    }
+  ],
+  "intake_activation_included": false,
+  "policy_or_provider_approval_included": false,
+  "external_applied": false
+}

@@ -1,3 +1,4 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
@@ -16,7 +17,7 @@ async function guard(req: Request) {
   if (!c) return { err: fail("로그인이 필요합니다.", 401) };
   return { c };
 }
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   const { c, err } = await guard(req);
   if (!c) return err;
   const p = z
@@ -36,7 +37,7 @@ export async function POST(req: Request) {
   if (error) return dbError(error.message);
   return NextResponse.json(data, { status: 201 });
 }
-export async function PATCH(req: Request) {
+ async function handlePATCH(req: Request) {
   const { c, err } = await guard(req);
   if (!c) return err;
   const p = z
@@ -52,7 +53,7 @@ export async function PATCH(req: Request) {
   if (!data.length) return fail("그룹을 찾을 수 없습니다.", 404);
   return NextResponse.json({ ok: true });
 }
-export async function DELETE(req: Request) {
+ async function handleDELETE(req: Request) {
   const { c, err } = await guard(req);
   if (!c) return err;
   const id = z.uuid().safeParse(new URL(req.url).searchParams.get("id"));
@@ -66,3 +67,7 @@ export async function DELETE(req: Request) {
   if (!data.length) return fail("그룹을 찾을 수 없습니다.", 404);
   return NextResponse.json({ ok: true });
 }
+
+export const POST=compatibleApiRoute("src/app/api/lists/route.ts.POST",handlePOST);
+export const PATCH=compatibleApiRoute("src/app/api/lists/route.ts.PATCH",handlePATCH);
+export const DELETE=compatibleApiRoute("src/app/api/lists/route.ts.DELETE",handleDELETE);

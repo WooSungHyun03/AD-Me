@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-20T02:23:43.781Z",
+  "environment": "isolated Docker Supabase, fictional accounts",
+  "results": [
+    {
+      "name": "role-only AAL1 administrator cannot read private reports or invoke moderation",
+      "result": "PASS"
+    },
+    {
+      "name": "anonymous and regular accounts cannot provision or self-grant administration",
+      "result": "PASS"
+    },
+    {
+      "name": "stale, future, string-AMR and token-refresh-only JWTs fail through direct REST RPC",
+      "result": "PASS"
+    },
+    {
+      "name": "fresh MFA grants cannot update operator locks directly via REST",
+      "result": "PASS"
+    },
+    {
+      "name": "audited locks hide creators even after owner republish and deny delete/recreate",
+      "result": "PASS"
+    },
+    {
+      "name": "revoked grant blocks an otherwise fresh JWT immediately",
+      "result": "PASS"
+    },
+    {
+      "name": "operator history is append-only and denied to ordinary accounts",
+      "result": "PASS"
+    }
+  ],
+  "jwt_note": "Stale/fresh AMR REST cases use synthetic locally signed JWTs; no cloud MFA/provider verification claimed. prepare-local-qa also verifies a real TOTP against local Auth."
+}

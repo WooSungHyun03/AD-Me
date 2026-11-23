@@ -1,0 +1,50 @@
+{
+  "at": "2026-11-20T14:43:06.891Z",
+  "scope": "actual isolated local SQL/PostgREST; fictional data only, no provider or hosted writes",
+  "results": [
+    {
+      "name": "anonymous/foreign/creator requests, private table access and helper execution are denied",
+      "result": "PASS"
+    },
+    {
+      "name": "12 concurrent same-key saves create exactly one snapshot/quota reservation and reject cross-campaign key reuse",
+      "result": "PASS"
+    },
+    {
+      "name": "stored DB-owned input/version/reasons are bounded, provenance-labeled and omit private or HOT fields",
+      "result": "PASS"
+    },
+    {
+      "name": "HOT/raw irrelevant field changes cannot affect source versions, scores or ordering",
+      "result": "PASS"
+    },
+    {
+      "name": "source changes mark old records stale; explicit recalculation creates a new immutable version without overwriting old scores",
+      "result": "PASS"
+    },
+    {
+      "name": "withdrawn profiles and revoked source-link consent remain hidden even in archived snapshots",
+      "result": "PASS"
+    },
+    {
+      "name": "snapshot UPDATE/DELETE are denied and current DB role/moderation override stale JWT permissions",
+      "result": "PASS"
+    },
+    {
+      "name": "atomic account quota admits only10 unique requests and a saved retry remains available at the limit",
+      "result": "PASS"
+    },
+    {
+      "name": "catalog cap fails closed above1000 rather than silently ranking a truncated sample",
+      "result": "PASS"
+    },
+    {
+      "name": "shared read budget rejects excessive requests before the catalogue scan",
+      "result": "PASS"
+    },
+    {
+      "name": "foreign campaign deletion is denied and actual owner deletion cascades only its recommendation history",
+      "result": "PASS"
+    }
+  ]
+}

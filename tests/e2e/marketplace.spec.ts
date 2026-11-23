@@ -6,7 +6,10 @@ test("brand product and private YouTube draft use the persisted TEST catalogue",
   page,
 }) => {
   const { email, password } = JSON.parse(
-    readFileSync(".accounts.local.json", "utf8"),
+    readFileSync(
+      process.env.ADME_ACCOUNTS_FILE || ".accounts.local.json",
+      "utf8",
+    ),
   ).brand;
   await page.goto("/login");
   await page.getByLabel("이메일", { exact: true }).fill(email);

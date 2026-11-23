@@ -1,0 +1,38 @@
+{
+  "scope": "isolated local DB/API contracts; no provider calls",
+  "at": "2026-11-20T14:16:03.514Z",
+  "results": [
+    {
+      "name": "message and deliverable policies distinguish participants, kind and accepted state",
+      "result": "PASS"
+    },
+    {
+      "name": "concurrent direct REST message inserts admit exactly20 and preserve other-account access",
+      "result": "PASS"
+    },
+    {
+      "name": "concurrent reports stop at five per account/hour and reject spoofed subjects",
+      "result": "PASS"
+    },
+    {
+      "name": "shared draft poll quota is atomic, private and account-isolated",
+      "result": "PASS"
+    },
+    {
+      "name": "SQL fixed window expires naturally and denied reservations do not exceed the cap",
+      "result": "PASS"
+    },
+    {
+      "name": "provider budget reservation precedes concurrent worker leases and a retry is charged again",
+      "result": "PASS"
+    },
+    {
+      "name": "disabled resources reject direct RPC enqueue and do not lease previously queued work",
+      "result": "PASS"
+    },
+    {
+      "name": "YouTube daily cost is conservatively reserved and cannot exceed1000 units/day",
+      "result": "PASS"
+    }
+  ]
+}

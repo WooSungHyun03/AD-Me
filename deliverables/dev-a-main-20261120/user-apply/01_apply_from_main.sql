@@ -1,0 +1,1196 @@
+-- USER Supabase SQL Editor only. No account/secret values.
+do $preflight$ begin
+  if to_regclass('supabase_migrations.schema_migrations') is null
+    or to_regprocedure('adme_ops.ops_worker_claim(text)') is null
+    or to_regprocedure('public.ops_public_channels(text)') is null
+    or to_regprocedure('public.valid_campaign_dto(jsonb)') is null then
+    raise exception 'STOP: expected main65063c8 schema baseline is missing; ask agent to inspect';
+  end if;
+  if to_regclass('public.administrator_grants') is not null then
+    raise exception 'STOP: wrong baseline variant; do not edit SQL or force apply';
+  end if;
+  if to_regclass('adme_ops.resource_controls') is not null
+    or exists(select 1 from information_schema.columns where table_schema='adme_ops' and table_name='staff' and column_name='approved_at')
+    or exists(select 1 from supabase_migrations.schema_migrations where version in ('202611190004','202611190005','202611190006','202611190007','202611200006','202611200007','202611200008','202611200010')) then
+    raise exception 'STOP: new patches already/partially applied; ask agent to inspect';
+  end if;
+  if (select prosecdef from pg_proc where oid='public.ops_public_channels(text)'::regprocedure) then
+    raise exception 'STOP: main private-wrapper migration is missing';
+  end if;
+end $preflight$;
+
+-- Source SHA-256: 09373c91a5fe7b415aa23d56a96dc9c23b5d9fe4e8fca3ac25c946563168919c
+-- D016: reserved by DEV-A. Additive, no implicit grandfathering of role-only admins.
+begin;
+create table public.administrator_grants (
+  user_id uuid primary key references public.profiles(id),
+  granted_at timestamptz not null default now(),
+  expires_at timestamptz not null,
+  revoked_at timestamptz,
+  approval_reference text not null check (length(approval_reference) between 5 and 300),
+  granted_by text not null,
+  check (expires_at > granted_at)
+);
+alter table public.administrator_grants enable row level security;
+revoke all on public.administrator_grants from public, anon, authenticated, service_role;
+
+create function public.is_admin_provisioned() returns boolean
+language sql stable security definer set search_path = '' as $$
+  select exists (
+    select 1 from public.profiles p join public.administrator_grants g on g.user_id = p.id
+    where p.id = auth.uid() and p.role = 'admin' and g.revoked_at is null and g.expires_at > now()
+  );
+$$;
+revoke all on function public.is_admin_provisioned() from public, anon;
+grant execute on function public.is_admin_provisioned() to authenticated;
+
+create function public.admin_mfa_recent() returns boolean
+language plpgsql stable set search_path = '' as $$
+declare claims jsonb := auth.jwt(); entry jsonb; verified_at bigint;
+begin
+  if (claims->>'aal') is distinct from 'aal2' or jsonb_typeof(claims->'amr') is distinct from 'array' then return false; end if;
+  for entry in select value from jsonb_array_elements(claims->'amr') loop
+    if entry->>'method' in ('totp', 'mfa/totp') and jsonb_typeof(entry->'timestamp') = 'number'
+       and (entry->>'timestamp') ~ '^[0-9]{1,12}$' then
+      verified_at := (entry->>'timestamp')::bigint;
+      if verified_at between extract(epoch from now()) - 900 and extract(epoch from now()) then return true; end if;
+    end if;
+  end loop;
+  return false;
+end;
+$$;
+revoke all on function public.admin_mfa_recent() from public, anon;
+grant execute on function public.admin_mfa_recent() to authenticated;
+
+create or replace function public.is_admin() returns boolean
+language sql stable security definer set search_path = '' as $$
+  select public.is_admin_provisioned() and public.admin_mfa_recent();
+$$;
+-- Anonymous policies also call is_admin(); it only returns false for anonymous JWTs.
+revoke all on function public.is_admin() from public;
+grant execute on function public.is_admin() to anon, authenticated;
+
+-- SQL Editor/database-owner only. Never callable through browser or a service-role API.
+create function public.provision_administrator(p_user uuid, p_approval_reference text, p_expires_at timestamptz)
+returns void language plpgsql security definer set search_path = '' as $$
+begin
+  if p_expires_at is null or p_expires_at <= now() or p_expires_at > now() + interval '90 days'
+     or p_approval_reference is null or length(btrim(p_approval_reference)) not between 5 and 300 then
+    raise exception 'invalid administrator approval' using errcode = '22023';
+  end if;
+  if not exists(select 1 from public.profiles where id = p_user) then
+    raise exception 'account not found' using errcode = '22023';
+  end if;
+  insert into public.administrator_grants(user_id, granted_at, expires_at, revoked_at, approval_reference, granted_by)
+  values(p_user, now(), p_expires_at, null, btrim(p_approval_reference), session_user)
+  on conflict(user_id) do update set granted_at=excluded.granted_at, expires_at=excluded.expires_at,
+    revoked_at=null, approval_reference=excluded.approval_reference, granted_by=excluded.granted_by;
+  update public.profiles set role='admin' where id=p_user;
+  insert into public.audit_log(actor_id, entity_id, action) values(null, p_user::text, 'admin:provision');
+end;
+$$;
+create function public.revoke_administrator(p_user uuid) returns void
+language plpgsql security definer set search_path = '' as $$
+begin
+  update public.administrator_grants set revoked_at=now() where user_id=p_user and revoked_at is null;
+  if found then
+    insert into public.audit_log(actor_id, entity_id, action) values(null, p_user::text, 'admin:revoke');
+  end if;
+end;
+$$;
+revoke all on function public.provision_administrator(uuid,text,timestamptz), public.revoke_administrator(uuid)
+  from public, anon, authenticated, service_role;
+insert into supabase_migrations.schema_migrations(version,name,statements) values ('202611190004','admin_security',array[$adme_packet_body$-- D016: reserved by DEV-A. Additive, no implicit grandfathering of role-only admins.
+begin;
+create table public.administrator_grants (
+  user_id uuid primary key references public.profiles(id),
+  granted_at timestamptz not null default now(),
+  expires_at timestamptz not null,
+  revoked_at timestamptz,
+  approval_reference text not null check (length(approval_reference) between 5 and 300),
+  granted_by text not null,
+  check (expires_at > granted_at)
+);
+alter table public.administrator_grants enable row level security;
+revoke all on public.administrator_grants from public, anon, authenticated, service_role;
+
+create function public.is_admin_provisioned() returns boolean
+language sql stable security definer set search_path = '' as $$
+  select exists (
+    select 1 from public.profiles p join public.administrator_grants g on g.user_id = p.id
+    where p.id = auth.uid() and p.role = 'admin' and g.revoked_at is null and g.expires_at > now()
+  );
+$$;
+revoke all on function public.is_admin_provisioned() from public, anon;
+grant execute on function public.is_admin_provisioned() to authenticated;
+
+create function public.admin_mfa_recent() returns boolean
+language plpgsql stable set search_path = '' as $$
+declare claims jsonb := auth.jwt(); entry jsonb; verified_at bigint;
+begin
+  if (claims->>'aal') is distinct from 'aal2' or jsonb_typeof(claims->'amr') is distinct from 'array' then return false; end if;
+  for entry in select value from jsonb_array_elements(claims->'amr') loop
+    if entry->>'method' in ('totp', 'mfa/totp') and jsonb_typeof(entry->'timestamp') = 'number'
+       and (entry->>'timestamp') ~ '^[0-9]{1,12}$' then
+      verified_at := (entry->>'timestamp')::bigint;
+      if verified_at between extract(epoch from now()) - 900 and extract(epoch from now()) then return true; end if;
+    end if;
+  end loop;
+  return false;
+end;
+$$;
+revoke all on function public.admin_mfa_recent() from public, anon;
+grant execute on function public.admin_mfa_recent() to authenticated;
+
+create or replace function public.is_admin() returns boolean
+language sql stable security definer set search_path = '' as $$
+  select public.is_admin_provisioned() and public.admin_mfa_recent();
+$$;
+-- Anonymous policies also call is_admin(); it only returns false for anonymous JWTs.
+revoke all on function public.is_admin() from public;
+grant execute on function public.is_admin() to anon, authenticated;
+
+-- SQL Editor/database-owner only. Never callable through browser or a service-role API.
+create function public.provision_administrator(p_user uuid, p_approval_reference text, p_expires_at timestamptz)
+returns void language plpgsql security definer set search_path = '' as $$
+begin
+  if p_expires_at is null or p_expires_at <= now() or p_expires_at > now() + interval '90 days'
+     or p_approval_reference is null or length(btrim(p_approval_reference)) not between 5 and 300 then
+    raise exception 'invalid administrator approval' using errcode = '22023';
+  end if;
+  if not exists(select 1 from public.profiles where id = p_user) then
+    raise exception 'account not found' using errcode = '22023';
+  end if;
+  insert into public.administrator_grants(user_id, granted_at, expires_at, revoked_at, approval_reference, granted_by)
+  values(p_user, now(), p_expires_at, null, btrim(p_approval_reference), session_user)
+  on conflict(user_id) do update set granted_at=excluded.granted_at, expires_at=excluded.expires_at,
+    revoked_at=null, approval_reference=excluded.approval_reference, granted_by=excluded.granted_by;
+  update public.profiles set role='admin' where id=p_user;
+  insert into public.audit_log(actor_id, entity_id, action) values(null, p_user::text, 'admin:provision');
+end;
+$$;
+create function public.revoke_administrator(p_user uuid) returns void
+language plpgsql security definer set search_path = '' as $$
+begin
+  update public.administrator_grants set revoked_at=now() where user_id=p_user and revoked_at is null;
+  if found then
+    insert into public.audit_log(actor_id, entity_id, action) values(null, p_user::text, 'admin:revoke');
+  end if;
+end;
+$$;
+revoke all on function public.provision_administrator(uuid,text,timestamptz), public.revoke_administrator(uuid)
+  from public, anon, authenticated, service_role;
+commit;
+$adme_packet_body$]);
+commit;
+
+-- Source SHA-256: 2d94f26f37e1804301b18c1143f24bc4cb151a711ddc8b3372d4232f95a62e2d
+-- D059: owner publication preference and operator lock are independent.
+begin;
+alter table public.creators add column moderation_status text not null default 'allowed'
+  check (moderation_status in ('allowed','restricted'));
+alter table public.campaigns add column moderation_status text not null default 'allowed'
+  check (moderation_status in ('allowed','restricted'));
+create table public.moderation_events (
+  id bigint generated always as identity primary key,
+  actor_id uuid not null references public.profiles(id),
+  entity_kind text not null check (entity_kind in ('creator','campaign')),
+  entity_id text not null,
+  previous_status text not null,
+  next_status text not null,
+  reason text not null check (length(btrim(reason)) between 5 and 500),
+  created_at timestamptz not null default now()
+);
+alter table public.moderation_events enable row level security;
+revoke all on public.moderation_events from public, anon, authenticated;
+grant select on public.moderation_events to authenticated;
+create policy moderation_events_admin on public.moderation_events for select to authenticated using(public.is_admin());
+
+create function public.guard_moderation_lock() returns trigger
+language plpgsql set search_path = '' as $$
+begin
+  if TG_OP = 'DELETE' then
+    if old.moderation_status = 'restricted' and current_user not in ('postgres', 'supabase_admin') then
+      raise exception 'moderation lock prevents delete and recreate' using errcode = '42501';
+    end if;
+    return old;
+  end if;
+  if (TG_OP = 'INSERT' and new.moderation_status <> 'allowed')
+     or (TG_OP = 'UPDATE' and (new.moderation_status is distinct from old.moderation_status)) then
+    -- Only the guarded SECURITY DEFINER RPC (postgres) can change a lock.
+    -- Even an administrator's direct REST UPDATE must go through the audited RPC.
+    if current_user not in ('postgres', 'supabase_admin') then
+      raise exception 'moderation lock is managed by operators' using errcode = '42501';
+    end if;
+  end if;
+  return new;
+end;
+$$;
+revoke all on function public.guard_moderation_lock() from public, anon, authenticated;
+create trigger creators_moderation_lock before insert or update or delete on public.creators for each row execute function public.guard_moderation_lock();
+create trigger campaigns_moderation_lock before insert or update or delete on public.campaigns for each row execute function public.guard_moderation_lock();
+
+drop policy creators_read on public.creators;
+create policy creators_read on public.creators for select using(
+  (published and moderation_status='allowed') or owner_id=auth.uid() or public.is_admin()
+);
+drop policy campaigns_read on public.campaigns;
+create policy campaigns_read on public.campaigns for select using(
+  (status='published' and moderation_status='allowed') or owner_id=auth.uid() or public.is_admin()
+);
+-- Prevent direct proposals using a locked creator/campaign even when caller owns that row.
+drop policy proposals_insert on public.proposals;
+create policy proposals_insert on public.proposals for insert with check (
+  status='pending' and exists (
+    select 1 from public.campaigns ca join public.creators cr on cr.id=creator_id
+    where ca.id=campaign_id and ca.owner_id=brand_id and cr.owner_id=creator_user_id
+      and cr.published and cr.moderation_status='allowed' and ca.moderation_status='allowed'
+      and ((kind='proposal' and brand_id=auth.uid() and public.my_role()='brand')
+        or (kind='application' and creator_user_id=auth.uid() and public.my_role()='creator' and ca.status='published'))
+  )
+);
+
+create function public.moderate_entity(p_kind text,p_id text,p_published boolean,p_reason text)
+returns void language plpgsql security definer set search_path = '' as $$
+declare previous text; desired text := case when p_published then 'allowed' else 'restricted' end;
+begin
+  if not public.is_admin() then raise exception 'forbidden' using errcode='42501'; end if;
+  if p_reason is null or length(btrim(p_reason)) not between 5 and 500 then
+    raise exception 'moderation reason required' using errcode='22023';
+  end if;
+  if p_kind='creator' then
+    select moderation_status into previous from public.creators where id=p_id for update;
+    if not found then raise exception 'entity not found' using errcode='P0002'; end if;
+    update public.creators set moderation_status=desired where id=p_id;
+  elsif p_kind='campaign' then
+    select moderation_status into previous from public.campaigns where id=p_id::uuid for update;
+    if not found then raise exception 'entity not found' using errcode='P0002'; end if;
+    update public.campaigns set moderation_status=desired where id=p_id::uuid;
+  else raise exception 'invalid entity' using errcode='22023'; end if;
+  if previous=desired then return; end if;
+  insert into public.moderation_events(actor_id,entity_kind,entity_id,previous_status,next_status,reason)
+    values(auth.uid(),p_kind,p_id,previous,desired,btrim(p_reason));
+  insert into public.audit_log(actor_id,entity_id,action) values(auth.uid(),p_id,'moderate:'||p_kind||':'||desired);
+end;
+$$;
+-- Preserve the old signature; deny unaudited old-client changes until upgraded.
+create or replace function public.moderate_entity(p_kind text,p_id text,p_published boolean)
+returns void language plpgsql security definer set search_path = '' as $$
+begin
+  if not public.is_admin() then raise exception 'forbidden' using errcode='42501'; end if;
+  raise exception 'moderation reason required; upgrade client' using errcode='22023';
+end;
+$$;
+revoke all on function public.moderate_entity(text,text,boolean,text) from public, anon;
+grant execute on function public.moderate_entity(text,text,boolean,text) to authenticated;
+
+create or replace function public.active_hot_creators()
+returns table(creator_id text,profile jsonb,expires_at timestamptz)
+language sql stable security definer set search_path = '' as $$
+  select c.id,c.profile,max(e.expires_at) from public.creators c
+  join public.entitlements e on e.owner_id=c.owner_id join public.orders o on o.id=e.order_id
+  where c.published and c.moderation_status='allowed' and e.sku='creator_hot'
+    and e.starts_at<=now() and e.expires_at>now() and o.status='paid'
+  group by c.id,c.profile order by max(e.expires_at) desc limit 6;
+$$;
+insert into supabase_migrations.schema_migrations(version,name,statements) values ('202611190005','moderation_locks',array[$adme_packet_body$-- D059: owner publication preference and operator lock are independent.
+begin;
+alter table public.creators add column moderation_status text not null default 'allowed'
+  check (moderation_status in ('allowed','restricted'));
+alter table public.campaigns add column moderation_status text not null default 'allowed'
+  check (moderation_status in ('allowed','restricted'));
+create table public.moderation_events (
+  id bigint generated always as identity primary key,
+  actor_id uuid not null references public.profiles(id),
+  entity_kind text not null check (entity_kind in ('creator','campaign')),
+  entity_id text not null,
+  previous_status text not null,
+  next_status text not null,
+  reason text not null check (length(btrim(reason)) between 5 and 500),
+  created_at timestamptz not null default now()
+);
+alter table public.moderation_events enable row level security;
+revoke all on public.moderation_events from public, anon, authenticated;
+grant select on public.moderation_events to authenticated;
+create policy moderation_events_admin on public.moderation_events for select to authenticated using(public.is_admin());
+
+create function public.guard_moderation_lock() returns trigger
+language plpgsql set search_path = '' as $$
+begin
+  if TG_OP = 'DELETE' then
+    if old.moderation_status = 'restricted' and current_user not in ('postgres', 'supabase_admin') then
+      raise exception 'moderation lock prevents delete and recreate' using errcode = '42501';
+    end if;
+    return old;
+  end if;
+  if (TG_OP = 'INSERT' and new.moderation_status <> 'allowed')
+     or (TG_OP = 'UPDATE' and (new.moderation_status is distinct from old.moderation_status)) then
+    -- Only the guarded SECURITY DEFINER RPC (postgres) can change a lock.
+    -- Even an administrator's direct REST UPDATE must go through the audited RPC.
+    if current_user not in ('postgres', 'supabase_admin') then
+      raise exception 'moderation lock is managed by operators' using errcode = '42501';
+    end if;
+  end if;
+  return new;
+end;
+$$;
+revoke all on function public.guard_moderation_lock() from public, anon, authenticated;
+create trigger creators_moderation_lock before insert or update or delete on public.creators for each row execute function public.guard_moderation_lock();
+create trigger campaigns_moderation_lock before insert or update or delete on public.campaigns for each row execute function public.guard_moderation_lock();
+
+drop policy creators_read on public.creators;
+create policy creators_read on public.creators for select using(
+  (published and moderation_status='allowed') or owner_id=auth.uid() or public.is_admin()
+);
+drop policy campaigns_read on public.campaigns;
+create policy campaigns_read on public.campaigns for select using(
+  (status='published' and moderation_status='allowed') or owner_id=auth.uid() or public.is_admin()
+);
+-- Prevent direct proposals using a locked creator/campaign even when caller owns that row.
+drop policy proposals_insert on public.proposals;
+create policy proposals_insert on public.proposals for insert with check (
+  status='pending' and exists (
+    select 1 from public.campaigns ca join public.creators cr on cr.id=creator_id
+    where ca.id=campaign_id and ca.owner_id=brand_id and cr.owner_id=creator_user_id
+      and cr.published and cr.moderation_status='allowed' and ca.moderation_status='allowed'
+      and ((kind='proposal' and brand_id=auth.uid() and public.my_role()='brand')
+        or (kind='application' and creator_user_id=auth.uid() and public.my_role()='creator' and ca.status='published'))
+  )
+);
+
+create function public.moderate_entity(p_kind text,p_id text,p_published boolean,p_reason text)
+returns void language plpgsql security definer set search_path = '' as $$
+declare previous text; desired text := case when p_published then 'allowed' else 'restricted' end;
+begin
+  if not public.is_admin() then raise exception 'forbidden' using errcode='42501'; end if;
+  if p_reason is null or length(btrim(p_reason)) not between 5 and 500 then
+    raise exception 'moderation reason required' using errcode='22023';
+  end if;
+  if p_kind='creator' then
+    select moderation_status into previous from public.creators where id=p_id for update;
+    if not found then raise exception 'entity not found' using errcode='P0002'; end if;
+    update public.creators set moderation_status=desired where id=p_id;
+  elsif p_kind='campaign' then
+    select moderation_status into previous from public.campaigns where id=p_id::uuid for update;
+    if not found then raise exception 'entity not found' using errcode='P0002'; end if;
+    update public.campaigns set moderation_status=desired where id=p_id::uuid;
+  else raise exception 'invalid entity' using errcode='22023'; end if;
+  if previous=desired then return; end if;
+  insert into public.moderation_events(actor_id,entity_kind,entity_id,previous_status,next_status,reason)
+    values(auth.uid(),p_kind,p_id,previous,desired,btrim(p_reason));
+  insert into public.audit_log(actor_id,entity_id,action) values(auth.uid(),p_id,'moderate:'||p_kind||':'||desired);
+end;
+$$;
+-- Preserve the old signature; deny unaudited old-client changes until upgraded.
+create or replace function public.moderate_entity(p_kind text,p_id text,p_published boolean)
+returns void language plpgsql security definer set search_path = '' as $$
+begin
+  if not public.is_admin() then raise exception 'forbidden' using errcode='42501'; end if;
+  raise exception 'moderation reason required; upgrade client' using errcode='22023';
+end;
+$$;
+revoke all on function public.moderate_entity(text,text,boolean,text) from public, anon;
+grant execute on function public.moderate_entity(text,text,boolean,text) to authenticated;
+
+create or replace function public.active_hot_creators()
+returns table(creator_id text,profile jsonb,expires_at timestamptz)
+language sql stable security definer set search_path = '' as $$
+  select c.id,c.profile,max(e.expires_at) from public.creators c
+  join public.entitlements e on e.owner_id=c.owner_id join public.orders o on o.id=e.order_id
+  where c.published and c.moderation_status='allowed' and e.sku='creator_hot'
+    and e.starts_at<=now() and e.expires_at>now() and o.status='paid'
+  group by c.id,c.profile order by max(e.expires_at) desc limit 6;
+$$;
+commit;
+$adme_packet_body$]);
+commit;
+
+-- Source SHA-256: 315f1ba58ebc1eefb8907be44498a604626cf35f75cba3e8b7a4755260a85233
+-- D012 additive public brand / private contact split; logo attachment awaits D027.
+begin;
+create table public.brand_profiles (
+  id uuid primary key default gen_random_uuid(),
+  owner_id uuid not null unique references public.profiles(id),
+  brand_name text not null check(length(btrim(brand_name)) between 2 and 120),
+  industry text not null check(length(btrim(industry)) between 1 and 80),
+  introduction text not null default '' check(length(introduction)<=2000),
+  published boolean not null default false,
+  updated_at timestamptz not null default now()
+);
+create table public.brand_contacts (
+  owner_id uuid primary key references public.profiles(id),
+  contact_name text not null default '' check(length(contact_name)<=80),
+  contact_email text not null default '' check(contact_email='' or (length(contact_email)<=254 and contact_email ~ '^[^[:space:]@]+@[^[:space:]@]+\.[^[:space:]@]+$')),
+  visibility text not null default 'private' check(visibility in ('private','collaborators')),
+  check(visibility='private' or (length(btrim(contact_name))>0 and length(contact_email)>0))
+);
+alter table public.brand_profiles enable row level security;
+alter table public.brand_contacts enable row level security;
+revoke all on public.brand_profiles, public.brand_contacts from public, anon, authenticated;
+-- Public projection intentionally excludes the private owner identifier.
+grant select(id,brand_name,industry,introduction,published,updated_at) on public.brand_profiles to anon;
+grant select,insert,update,delete on public.brand_profiles, public.brand_contacts to authenticated;
+create policy brand_profiles_read on public.brand_profiles for select using(published or owner_id=auth.uid());
+create policy brand_profiles_write on public.brand_profiles for insert to authenticated
+  with check(owner_id=auth.uid() and public.my_role()='brand');
+create policy brand_profiles_edit on public.brand_profiles for update to authenticated
+  using(owner_id=auth.uid() and public.my_role()='brand') with check(owner_id=auth.uid() and public.my_role()='brand');
+create policy brand_profiles_delete on public.brand_profiles for delete to authenticated using(owner_id=auth.uid() and public.my_role()='brand');
+create policy brand_contacts_read on public.brand_contacts for select to authenticated using(
+  owner_id=auth.uid() or (visibility='collaborators' and exists (
+    select 1 from public.proposals p where p.brand_id=owner_id and p.creator_user_id=auth.uid()
+      and p.status in ('accepted','submitted','revision_requested','completed')
+  ))
+);
+create policy brand_contacts_insert on public.brand_contacts for insert to authenticated
+  with check(owner_id=auth.uid() and public.my_role()='brand');
+create policy brand_contacts_update on public.brand_contacts for update to authenticated
+  using(owner_id=auth.uid() and public.my_role()='brand') with check(owner_id=auth.uid() and public.my_role()='brand');
+create policy brand_contacts_delete on public.brand_contacts for delete to authenticated using(owner_id=auth.uid() and public.my_role()='brand');
+
+create function public.save_brand_account(p_name text,p_brand_name text,p_industry text,p_introduction text,
+  p_published boolean,p_contact_name text,p_contact_email text,p_contact_visibility text)
+returns uuid language plpgsql security invoker set search_path='' as $$
+declare result uuid;
+begin
+  if auth.uid() is null or public.my_role() is distinct from 'brand' then raise exception 'forbidden' using errcode='42501'; end if;
+  if p_name is null or length(btrim(p_name)) not between 2 and 80 then raise exception 'invalid name' using errcode='22023'; end if;
+  update public.profiles set name=btrim(p_name) where id=auth.uid();
+  insert into public.brand_profiles(owner_id,brand_name,industry,introduction,published)
+  values(auth.uid(),btrim(p_brand_name),btrim(p_industry),btrim(p_introduction),p_published)
+  on conflict(owner_id) do update set brand_name=excluded.brand_name,industry=excluded.industry,
+    introduction=excluded.introduction,published=excluded.published,updated_at=now() returning id into result;
+  insert into public.brand_contacts(owner_id,contact_name,contact_email,visibility)
+  values(auth.uid(),btrim(p_contact_name),btrim(p_contact_email),p_contact_visibility)
+  on conflict(owner_id) do update set contact_name=excluded.contact_name,contact_email=excluded.contact_email,visibility=excluded.visibility;
+  return result;
+end;
+$$;
+revoke all on function public.save_brand_account(text,text,text,text,boolean,text,text,text) from public,anon;
+grant execute on function public.save_brand_account(text,text,text,text,boolean,text,text,text) to authenticated;
+insert into supabase_migrations.schema_migrations(version,name,statements) values ('202611190006','brand_profiles',array[$adme_packet_body$-- D012 additive public brand / private contact split; logo attachment awaits D027.
+begin;
+create table public.brand_profiles (
+  id uuid primary key default gen_random_uuid(),
+  owner_id uuid not null unique references public.profiles(id),
+  brand_name text not null check(length(btrim(brand_name)) between 2 and 120),
+  industry text not null check(length(btrim(industry)) between 1 and 80),
+  introduction text not null default '' check(length(introduction)<=2000),
+  published boolean not null default false,
+  updated_at timestamptz not null default now()
+);
+create table public.brand_contacts (
+  owner_id uuid primary key references public.profiles(id),
+  contact_name text not null default '' check(length(contact_name)<=80),
+  contact_email text not null default '' check(contact_email='' or (length(contact_email)<=254 and contact_email ~ '^[^[:space:]@]+@[^[:space:]@]+\.[^[:space:]@]+$')),
+  visibility text not null default 'private' check(visibility in ('private','collaborators')),
+  check(visibility='private' or (length(btrim(contact_name))>0 and length(contact_email)>0))
+);
+alter table public.brand_profiles enable row level security;
+alter table public.brand_contacts enable row level security;
+revoke all on public.brand_profiles, public.brand_contacts from public, anon, authenticated;
+-- Public projection intentionally excludes the private owner identifier.
+grant select(id,brand_name,industry,introduction,published,updated_at) on public.brand_profiles to anon;
+grant select,insert,update,delete on public.brand_profiles, public.brand_contacts to authenticated;
+create policy brand_profiles_read on public.brand_profiles for select using(published or owner_id=auth.uid());
+create policy brand_profiles_write on public.brand_profiles for insert to authenticated
+  with check(owner_id=auth.uid() and public.my_role()='brand');
+create policy brand_profiles_edit on public.brand_profiles for update to authenticated
+  using(owner_id=auth.uid() and public.my_role()='brand') with check(owner_id=auth.uid() and public.my_role()='brand');
+create policy brand_profiles_delete on public.brand_profiles for delete to authenticated using(owner_id=auth.uid() and public.my_role()='brand');
+create policy brand_contacts_read on public.brand_contacts for select to authenticated using(
+  owner_id=auth.uid() or (visibility='collaborators' and exists (
+    select 1 from public.proposals p where p.brand_id=owner_id and p.creator_user_id=auth.uid()
+      and p.status in ('accepted','submitted','revision_requested','completed')
+  ))
+);
+create policy brand_contacts_insert on public.brand_contacts for insert to authenticated
+  with check(owner_id=auth.uid() and public.my_role()='brand');
+create policy brand_contacts_update on public.brand_contacts for update to authenticated
+  using(owner_id=auth.uid() and public.my_role()='brand') with check(owner_id=auth.uid() and public.my_role()='brand');
+create policy brand_contacts_delete on public.brand_contacts for delete to authenticated using(owner_id=auth.uid() and public.my_role()='brand');
+
+create function public.save_brand_account(p_name text,p_brand_name text,p_industry text,p_introduction text,
+  p_published boolean,p_contact_name text,p_contact_email text,p_contact_visibility text)
+returns uuid language plpgsql security invoker set search_path='' as $$
+declare result uuid;
+begin
+  if auth.uid() is null or public.my_role() is distinct from 'brand' then raise exception 'forbidden' using errcode='42501'; end if;
+  if p_name is null or length(btrim(p_name)) not between 2 and 80 then raise exception 'invalid name' using errcode='22023'; end if;
+  update public.profiles set name=btrim(p_name) where id=auth.uid();
+  insert into public.brand_profiles(owner_id,brand_name,industry,introduction,published)
+  values(auth.uid(),btrim(p_brand_name),btrim(p_industry),btrim(p_introduction),p_published)
+  on conflict(owner_id) do update set brand_name=excluded.brand_name,industry=excluded.industry,
+    introduction=excluded.introduction,published=excluded.published,updated_at=now() returning id into result;
+  insert into public.brand_contacts(owner_id,contact_name,contact_email,visibility)
+  values(auth.uid(),btrim(p_contact_name),btrim(p_contact_email),p_contact_visibility)
+  on conflict(owner_id) do update set contact_name=excluded.contact_name,contact_email=excluded.contact_email,visibility=excluded.visibility;
+  return result;
+end;
+$$;
+revoke all on function public.save_brand_account(text,text,text,text,boolean,text,text,text) from public,anon;
+grant execute on function public.save_brand_account(text,text,text,text,boolean,text,text,text) to authenticated;
+commit;
+$adme_packet_body$]);
+commit;
+
+-- Source SHA-256: 6a97a7a086bfc5407b94108336e31b03472f0014a37a618ab15ef5f32ab92cad
+-- D012 forward hardening: owner UUID is private even through direct authenticated REST.
+begin;
+revoke select on public.brand_profiles from authenticated;
+grant select(id,brand_name,industry,introduction,published,updated_at) on public.brand_profiles to authenticated;
+-- save_brand_account already derives owner from auth.uid() and checks current DB role.
+alter function public.save_brand_account(text,text,text,text,boolean,text,text,text) security definer;
+create function public.my_brand_account() returns jsonb
+language sql stable security definer set search_path='' as $$
+  select jsonb_build_object('id', b.id, 'brand_name', b.brand_name, 'industry', b.industry,
+    'introduction', b.introduction, 'published', b.published, 'contact_name', coalesce(c.contact_name,''),
+    'contact_email', coalesce(c.contact_email,''), 'visibility', coalesce(c.visibility,'private'))
+  from public.brand_profiles b left join public.brand_contacts c on c.owner_id=b.owner_id
+  where b.owner_id=auth.uid();
+$$;
+create function public.brand_contact_for(p_brand_id uuid)
+returns table(contact_name text, contact_email text)
+language sql stable security definer set search_path='' as $$
+  select c.contact_name,c.contact_email from public.brand_contacts c
+  join public.brand_profiles b on b.owner_id=c.owner_id
+  where b.id=p_brand_id and (c.owner_id=auth.uid() or (
+    c.visibility='collaborators' and exists(select 1 from public.proposals p
+      where p.brand_id=c.owner_id and p.creator_user_id=auth.uid()
+        and p.status in ('accepted','submitted','revision_requested','completed'))
+  ));
+$$;
+revoke all on function public.my_brand_account(), public.brand_contact_for(uuid) from public,anon;
+grant execute on function public.my_brand_account(), public.brand_contact_for(uuid) to authenticated;
+insert into supabase_migrations.schema_migrations(version,name,statements) values ('202611190007','brand_projection',array[$adme_packet_body$-- D012 forward hardening: owner UUID is private even through direct authenticated REST.
+begin;
+revoke select on public.brand_profiles from authenticated;
+grant select(id,brand_name,industry,introduction,published,updated_at) on public.brand_profiles to authenticated;
+-- save_brand_account already derives owner from auth.uid() and checks current DB role.
+alter function public.save_brand_account(text,text,text,text,boolean,text,text,text) security definer;
+create function public.my_brand_account() returns jsonb
+language sql stable security definer set search_path='' as $$
+  select jsonb_build_object('id', b.id, 'brand_name', b.brand_name, 'industry', b.industry,
+    'introduction', b.introduction, 'published', b.published, 'contact_name', coalesce(c.contact_name,''),
+    'contact_email', coalesce(c.contact_email,''), 'visibility', coalesce(c.visibility,'private'))
+  from public.brand_profiles b left join public.brand_contacts c on c.owner_id=b.owner_id
+  where b.owner_id=auth.uid();
+$$;
+create function public.brand_contact_for(p_brand_id uuid)
+returns table(contact_name text, contact_email text)
+language sql stable security definer set search_path='' as $$
+  select c.contact_name,c.contact_email from public.brand_contacts c
+  join public.brand_profiles b on b.owner_id=c.owner_id
+  where b.id=p_brand_id and (c.owner_id=auth.uid() or (
+    c.visibility='collaborators' and exists(select 1 from public.proposals p
+      where p.brand_id=c.owner_id and p.creator_user_id=auth.uid()
+        and p.status in ('accepted','submitted','revision_requested','completed'))
+  ));
+$$;
+revoke all on function public.my_brand_account(), public.brand_contact_for(uuid) from public,anon;
+grant execute on function public.my_brand_account(), public.brand_contact_for(uuid) to authenticated;
+commit;
+$adme_packet_body$]);
+commit;
+
+-- Source SHA-256: 91363ca7a0fb5b7a4229b2bca407f07685f728ea3c3fa90aaca3c38e435cf39a
+-- D016 DEV-A reserved 2026-11-20. Existing main migrations remain unchanged.
+begin;
+alter table adme_ops.staff
+  add column approved_at timestamptz,
+  add column expires_at timestamptz,
+  add column approval_reference text,
+  add column granted_by uuid references public.profiles(id),
+  add constraint ops_staff_approval check (
+    (approved_at is null and expires_at is null and approval_reference is null) or
+    (approved_at is not null and expires_at is not null and approval_reference is not null and expires_at > approved_at
+     and length(btrim(approval_reference)) between 5 and 300)
+  );
+-- Historical role-only rows deliberately remain unapproved until renewed.
+create function adme_ops.enrollment_role() returns text
+language sql stable security definer set search_path='' as $$
+  select coalesce(
+    case when public.is_admin_provisioned() then 'super' end,
+    (select role from adme_ops.staff where user_id=auth.uid()
+      and approved_at is not null and expires_at > now())
+  );
+$$;
+revoke all on function adme_ops.enrollment_role() from public,anon,authenticated;
+
+create or replace function adme_ops.staff_role() returns text
+language sql stable set search_path='' as $$
+  select case when public.admin_mfa_recent() then adme_ops.enrollment_role() end;
+$$;
+-- Only an account's own eligibility is exposed before OTP; no operational data.
+create function adme_ops.ops_enrollment_role() returns text
+language sql stable security definer set search_path='' as $$
+  select adme_ops.enrollment_role();
+$$;
+create function public.ops_enrollment_role() returns text
+language sql stable security invoker set search_path='' as $$
+  select adme_ops.ops_enrollment_role();
+$$;
+revoke all on function adme_ops.ops_enrollment_role(), public.ops_enrollment_role()
+  from public,anon,authenticated;
+grant execute on function adme_ops.ops_enrollment_role(), public.ops_enrollment_role() to authenticated;
+
+create function adme_ops.guard_staff_approval() returns trigger
+language plpgsql security definer set search_path='' as $$
+begin
+  if session_user in ('postgres','supabase_admin') then return coalesce(new,old); end if;
+  if adme_ops.staff_role() is distinct from 'super' or coalesce(new.user_id,old.user_id)=auth.uid()
+     or coalesce(new.role,old.role)='super' or (tg_op='UPDATE' and old.role='super') then
+    raise insufficient_privilege;
+  end if;
+  if tg_op <> 'DELETE' then
+    new.approved_at := now();
+    new.expires_at := now()+interval '7 days';
+    new.approval_reference := 'OTP-approved staff invitation by '||auth.uid()::text;
+    new.granted_by := auth.uid();
+    return new;
+  end if;
+  return old;
+end;
+$$;
+revoke all on function adme_ops.guard_staff_approval() from public,anon,authenticated;
+create trigger ops_staff_approval before insert or update or delete on adme_ops.staff
+for each row execute function adme_ops.guard_staff_approval();
+
+-- Database-owner console only. Does not promote the normal account's profile role.
+create function adme_ops.provision_staff(p_user uuid,p_role text,p_approval text,p_expires timestamptz)
+returns void language plpgsql security definer set search_path='' as $$
+begin
+  if p_role is null or p_role not in ('super','content','campaign','finance','support')
+    or p_approval is null or length(btrim(p_approval)) not between 5 and 300
+    or p_expires is null or p_expires<=now() or p_expires>now()+interval '90 days' then
+    raise invalid_parameter_value;
+  end if;
+  insert into adme_ops.staff(user_id,role,approved_at,expires_at,approval_reference)
+    values(p_user,p_role,now(),p_expires,btrim(p_approval))
+    on conflict(user_id) do update set role=excluded.role,approved_at=excluded.approved_at,
+      expires_at=excluded.expires_at,approval_reference=excluded.approval_reference,granted_by=null;
+  insert into public.audit_log(actor_id,entity_id,action) values(null,p_user::text,'ops:provision:'||p_role);
+end;
+$$;
+revoke all on function adme_ops.provision_staff(uuid,text,text,timestamptz)
+  from public,anon,authenticated,service_role;
+insert into supabase_migrations.schema_migrations(version,name,statements) values ('202611200006','ops_mfa',array[$adme_packet_body$-- D016 DEV-A reserved 2026-11-20. Existing main migrations remain unchanged.
+begin;
+alter table adme_ops.staff
+  add column approved_at timestamptz,
+  add column expires_at timestamptz,
+  add column approval_reference text,
+  add column granted_by uuid references public.profiles(id),
+  add constraint ops_staff_approval check (
+    (approved_at is null and expires_at is null and approval_reference is null) or
+    (approved_at is not null and expires_at is not null and approval_reference is not null and expires_at > approved_at
+     and length(btrim(approval_reference)) between 5 and 300)
+  );
+-- Historical role-only rows deliberately remain unapproved until renewed.
+create function adme_ops.enrollment_role() returns text
+language sql stable security definer set search_path='' as $$
+  select coalesce(
+    case when public.is_admin_provisioned() then 'super' end,
+    (select role from adme_ops.staff where user_id=auth.uid()
+      and approved_at is not null and expires_at > now())
+  );
+$$;
+revoke all on function adme_ops.enrollment_role() from public,anon,authenticated;
+
+create or replace function adme_ops.staff_role() returns text
+language sql stable set search_path='' as $$
+  select case when public.admin_mfa_recent() then adme_ops.enrollment_role() end;
+$$;
+-- Only an account's own eligibility is exposed before OTP; no operational data.
+create function adme_ops.ops_enrollment_role() returns text
+language sql stable security definer set search_path='' as $$
+  select adme_ops.enrollment_role();
+$$;
+create function public.ops_enrollment_role() returns text
+language sql stable security invoker set search_path='' as $$
+  select adme_ops.ops_enrollment_role();
+$$;
+revoke all on function adme_ops.ops_enrollment_role(), public.ops_enrollment_role()
+  from public,anon,authenticated;
+grant execute on function adme_ops.ops_enrollment_role(), public.ops_enrollment_role() to authenticated;
+
+create function adme_ops.guard_staff_approval() returns trigger
+language plpgsql security definer set search_path='' as $$
+begin
+  if session_user in ('postgres','supabase_admin') then return coalesce(new,old); end if;
+  if adme_ops.staff_role() is distinct from 'super' or coalesce(new.user_id,old.user_id)=auth.uid()
+     or coalesce(new.role,old.role)='super' or (tg_op='UPDATE' and old.role='super') then
+    raise insufficient_privilege;
+  end if;
+  if tg_op <> 'DELETE' then
+    new.approved_at := now();
+    new.expires_at := now()+interval '7 days';
+    new.approval_reference := 'OTP-approved staff invitation by '||auth.uid()::text;
+    new.granted_by := auth.uid();
+    return new;
+  end if;
+  return old;
+end;
+$$;
+revoke all on function adme_ops.guard_staff_approval() from public,anon,authenticated;
+create trigger ops_staff_approval before insert or update or delete on adme_ops.staff
+for each row execute function adme_ops.guard_staff_approval();
+
+-- Database-owner console only. Does not promote the normal account's profile role.
+create function adme_ops.provision_staff(p_user uuid,p_role text,p_approval text,p_expires timestamptz)
+returns void language plpgsql security definer set search_path='' as $$
+begin
+  if p_role is null or p_role not in ('super','content','campaign','finance','support')
+    or p_approval is null or length(btrim(p_approval)) not between 5 and 300
+    or p_expires is null or p_expires<=now() or p_expires>now()+interval '90 days' then
+    raise invalid_parameter_value;
+  end if;
+  insert into adme_ops.staff(user_id,role,approved_at,expires_at,approval_reference)
+    values(p_user,p_role,now(),p_expires,btrim(p_approval))
+    on conflict(user_id) do update set role=excluded.role,approved_at=excluded.approved_at,
+      expires_at=excluded.expires_at,approval_reference=excluded.approval_reference,granted_by=null;
+  insert into public.audit_log(actor_id,entity_id,action) values(null,p_user::text,'ops:provision:'||p_role);
+end;
+$$;
+revoke all on function adme_ops.provision_staff(uuid,text,text,timestamptz)
+  from public,anon,authenticated,service_role;
+commit;
+$adme_packet_body$]);
+commit;
+
+-- Source SHA-256: a12d3f449afe6d38077ef45cd3aa5d42dc75e5982edc43b06a418c776e4ba90f
+-- D076: atomic shared quotas. All subjects/limits are chosen on the server/DB.
+begin;
+-- New provider/model work is opt-in at the DB boundary as well as the app.
+create table adme_ops.resource_controls (
+  singleton boolean primary key default true check(singleton),
+  ingestion_enabled boolean not null default false,
+  llm_enabled boolean not null default false
+);
+insert into adme_ops.resource_controls default values;
+alter table adme_ops.resource_controls enable row level security;
+revoke all on adme_ops.resource_controls from public,anon,authenticated,service_role;
+create function adme_ops.job_enabled(p_kind text) returns boolean
+language sql stable security definer set search_path='' as $$
+  select coalesce((select case when p_kind='marketing_draft' then llm_enabled
+    when p_kind in ('youtube_channel','youtube_daily','youtube_claim') then ingestion_enabled else false end
+    from adme_ops.resource_controls where singleton),false);
+$$;
+revoke all on function adme_ops.job_enabled(text) from public,anon,authenticated,service_role;
+update adme_ops.settings set discovery_enabled=false where singleton=true;
+create function adme_ops.guard_discovery_enable() returns trigger
+language plpgsql security definer set search_path='' as $$
+begin
+  if new.discovery_enabled and not adme_ops.job_enabled('youtube_daily') then
+    raise sqlstate 'PT404' using message='feature disabled';
+  end if;
+  return new;
+end;
+$$;
+create function adme_ops.pause_discovery() returns trigger
+language plpgsql security definer set search_path='' as $$
+begin
+  if not new.ingestion_enabled then update adme_ops.settings set discovery_enabled=false where singleton=true; end if;
+  return new;
+end;
+$$;
+revoke all on function adme_ops.guard_discovery_enable(),adme_ops.pause_discovery() from public,anon,authenticated;
+create trigger ops_discovery_gate before update on adme_ops.settings for each row execute function adme_ops.guard_discovery_enable();
+create trigger ops_resource_pause after update on adme_ops.resource_controls for each row execute function adme_ops.pause_discovery();
+create table adme_ops.rate_windows (
+  scope text not null,
+  subject text not null,
+  window_start timestamptz not null,
+  used integer not null check(used>0),
+  primary key(scope,subject,window_start)
+);
+alter table adme_ops.rate_windows enable row level security;
+revoke all on adme_ops.rate_windows from public,anon,authenticated,service_role;
+create index ops_rate_expiry on adme_ops.rate_windows(window_start);
+
+create function adme_ops.take_quota(p_scope text,p_subject text,p_limit int,p_window int,p_cost int default 1)
+returns int language plpgsql security definer set search_path='' as $$
+declare start_at timestamptz; accepted int;
+begin
+  if p_scope is null or length(p_scope) not between 1 and 80
+     or p_subject is null or length(p_subject) not between 1 and 100
+     or p_limit is null or p_limit not between 1 and 100000
+     or p_window is null or p_window not between 1 and 86400
+     or p_cost is null or p_cost not between 1 and p_limit then raise invalid_parameter_value; end if;
+  start_at := to_timestamp(floor(extract(epoch from statement_timestamp())/p_window)*p_window);
+  insert into adme_ops.rate_windows(scope,subject,window_start,used)
+    values(p_scope,p_subject,start_at,p_cost)
+    on conflict(scope,subject,window_start) do update set used=adme_ops.rate_windows.used+excluded.used
+      where adme_ops.rate_windows.used+excluded.used<=p_limit
+    returning used into accepted;
+  if accepted is not null then return 0; end if;
+  return greatest(1,ceil(extract(epoch from start_at+make_interval(secs=>p_window)-statement_timestamp()))::int);
+end;
+$$;
+create function adme_ops.require_quota(p_scope text,p_subject text,p_limit int,p_window int,p_cost int default 1)
+returns void language plpgsql security definer set search_path='' as $$
+declare retry int;
+begin
+  retry := adme_ops.take_quota(p_scope,p_subject,p_limit,p_window,p_cost);
+  if retry>0 then
+    raise sqlstate 'PGRST' using
+      message=jsonb_build_object('code','PT429','message','request limit reached',
+        'details',jsonb_build_object('retryAfter',retry)::text)::text,
+      detail=jsonb_build_object('status',429,'headers',jsonb_build_object('Retry-After',retry::text))::text;
+  end if;
+end;
+$$;
+revoke all on function adme_ops.take_quota(text,text,int,int,int),adme_ops.require_quota(text,text,int,int,int)
+  from public,anon,authenticated,service_role;
+
+-- Deliberately no caller-controlled subject, limit or window.
+create function adme_ops.ops_request_quota(p_action text) returns jsonb
+language plpgsql security definer set search_path='' as $$
+declare retry int;
+begin
+  if auth.uid() is null then raise insufficient_privilege; end if;
+  if p_action='draft_poll' then
+    retry:=adme_ops.take_quota('draft_poll',auth.uid()::text,120,60);
+  else raise invalid_parameter_value; end if;
+  return jsonb_build_object('allowed',retry=0,'retryAfter',retry);
+end;
+$$;
+create function public.ops_request_quota(p_action text) returns jsonb
+language sql security invoker set search_path='' as $$ select adme_ops.ops_request_quota($1); $$;
+revoke all on function adme_ops.ops_request_quota(text),public.ops_request_quota(text) from public,anon,authenticated;
+grant execute on function adme_ops.ops_request_quota(text),public.ops_request_quota(text) to authenticated;
+
+create function adme_ops.limit_private_writes() returns trigger
+language plpgsql security definer set search_path='' as $$
+begin
+  -- Only developer/owner maintenance can omit a JWT; browser/service requests cannot.
+  if auth.uid() is null and session_user in ('postgres','supabase_admin') then return new; end if;
+  if auth.uid() is null then raise insufficient_privilege; end if;
+  if tg_table_name='messages' then
+    if new.sender_id<>auth.uid() then raise insufficient_privilege; end if;
+    perform adme_ops.require_quota('message_minute',auth.uid()::text,20,60);
+    perform adme_ops.require_quota('message_day',auth.uid()::text,200,86400);
+  elsif tg_table_name='reports' then
+    if new.reporter_id<>auth.uid() then raise insufficient_privilege; end if;
+    perform adme_ops.require_quota('report_hour',auth.uid()::text,5,3600);
+    perform adme_ops.require_quota('report_day',auth.uid()::text,10,86400);
+  end if;
+  return new;
+end;
+$$;
+revoke all on function adme_ops.limit_private_writes() from public,anon,authenticated;
+create trigger message_rate_limit before insert on public.messages for each row execute function adme_ops.limit_private_writes();
+create trigger report_rate_limit before insert on public.reports for each row execute function adme_ops.limit_private_writes();
+
+create function adme_ops.limit_job_enqueue() returns trigger
+language plpgsql security definer set search_path='' as $$
+begin
+  if not adme_ops.job_enabled(new.kind) then raise sqlstate 'PT404' using message='feature disabled'; end if;
+  if new.kind='marketing_draft' then
+    perform adme_ops.require_quota('draft_day',new.owner_id::text,10,86400);
+  elsif new.kind='youtube_claim' then
+    perform adme_ops.require_quota('claim_day',new.owner_id::text,5,86400);
+  elsif new.kind='youtube_channel' then
+    perform adme_ops.require_quota('manual_channel_day',new.owner_id::text,10,86400);
+  end if;
+  return new;
+end;
+$$;
+revoke all on function adme_ops.limit_job_enqueue() from public,anon,authenticated;
+create trigger ops_job_rate_limit before insert on adme_ops.jobs for each row execute function adme_ops.limit_job_enqueue();
+
+-- Reserve a conservative provider/model budget BEFORE returning a lease.
+-- A retry consumes another reservation; provider errors never refund a reservation.
+create or replace function adme_ops.ops_worker_claim(p_token text) returns jsonb
+language plpgsql security definer set search_path='' as $$
+declare job adme_ops.jobs; keyword text; retry int; cost int; provider text;
+begin
+  perform adme_ops.verify_worker(p_token);
+  delete from adme_ops.rate_windows where window_start<now()-interval '2 days';
+  update adme_ops.jobs set status='failed',lease=null,lease_until=null,error_code='LEASE_EXPIRED',finished_at=now()
+    where status='running' and lease_until<=now() and attempts>=3;
+  for iteration in 1..10 loop
+    select * into job from adme_ops.jobs
+      where adme_ops.job_enabled(kind) and ((status='queued' and available_at<=now() and attempts<3)
+        or (status='running' and lease_until<=now() and attempts<3))
+      order by created_at,id for update skip locked limit 1;
+    if not found then return null; end if;
+    provider:=case when job.kind='marketing_draft' then 'local_llm' else 'youtube' end;
+    -- Daily: 100 search + 1 channels + <=25 playlists + <=3 videos = <=129 units.
+    cost:=case job.kind when 'youtube_daily' then 130 when 'youtube_channel' then 3 else 1 end;
+    retry:=adme_ops.take_quota('provider_day',provider,case when provider='youtube' then 1000 else 30 end,86400,cost);
+    if retry>0 then
+      update adme_ops.jobs set status='queued',available_at=now()+make_interval(secs=>retry),
+        lease=null,lease_until=null,error_code='LOCAL_BUDGET' where id=job.id;
+      continue;
+    end if;
+    update adme_ops.jobs set status='running',attempts=attempts+1,lease=gen_random_uuid(),lease_until=now()+interval '6 minutes'
+      where id=job.id returning * into job;
+    select discovery_keyword into keyword from adme_ops.settings where discovery_enabled;
+    return jsonb_build_object('id',job.id,'kind',job.kind,'input',job.input,'lease',job.lease,
+      'keyword',keyword,'refresh',case when job.kind='youtube_daily' and keyword is not null then
+        (select coalesce(jsonb_agg(channel_id),'[]') from
+          (select channel_id from adme_ops.channels order by fetched_at,channel_id limit 20) c) end);
+  end loop;
+  return null;
+end;
+$$;
+select cron.schedule('adme-rate-cleanup','15 20 * * *',
+  'delete from adme_ops.rate_windows where window_start < now() - interval ''2 days''');
+insert into supabase_migrations.schema_migrations(version,name,statements) values ('202611200007','rate_limits',array[$adme_packet_body$-- D076: atomic shared quotas. All subjects/limits are chosen on the server/DB.
+begin;
+-- New provider/model work is opt-in at the DB boundary as well as the app.
+create table adme_ops.resource_controls (
+  singleton boolean primary key default true check(singleton),
+  ingestion_enabled boolean not null default false,
+  llm_enabled boolean not null default false
+);
+insert into adme_ops.resource_controls default values;
+alter table adme_ops.resource_controls enable row level security;
+revoke all on adme_ops.resource_controls from public,anon,authenticated,service_role;
+create function adme_ops.job_enabled(p_kind text) returns boolean
+language sql stable security definer set search_path='' as $$
+  select coalesce((select case when p_kind='marketing_draft' then llm_enabled
+    when p_kind in ('youtube_channel','youtube_daily','youtube_claim') then ingestion_enabled else false end
+    from adme_ops.resource_controls where singleton),false);
+$$;
+revoke all on function adme_ops.job_enabled(text) from public,anon,authenticated,service_role;
+update adme_ops.settings set discovery_enabled=false where singleton=true;
+create function adme_ops.guard_discovery_enable() returns trigger
+language plpgsql security definer set search_path='' as $$
+begin
+  if new.discovery_enabled and not adme_ops.job_enabled('youtube_daily') then
+    raise sqlstate 'PT404' using message='feature disabled';
+  end if;
+  return new;
+end;
+$$;
+create function adme_ops.pause_discovery() returns trigger
+language plpgsql security definer set search_path='' as $$
+begin
+  if not new.ingestion_enabled then update adme_ops.settings set discovery_enabled=false where singleton=true; end if;
+  return new;
+end;
+$$;
+revoke all on function adme_ops.guard_discovery_enable(),adme_ops.pause_discovery() from public,anon,authenticated;
+create trigger ops_discovery_gate before update on adme_ops.settings for each row execute function adme_ops.guard_discovery_enable();
+create trigger ops_resource_pause after update on adme_ops.resource_controls for each row execute function adme_ops.pause_discovery();
+create table adme_ops.rate_windows (
+  scope text not null,
+  subject text not null,
+  window_start timestamptz not null,
+  used integer not null check(used>0),
+  primary key(scope,subject,window_start)
+);
+alter table adme_ops.rate_windows enable row level security;
+revoke all on adme_ops.rate_windows from public,anon,authenticated,service_role;
+create index ops_rate_expiry on adme_ops.rate_windows(window_start);
+
+create function adme_ops.take_quota(p_scope text,p_subject text,p_limit int,p_window int,p_cost int default 1)
+returns int language plpgsql security definer set search_path='' as $$
+declare start_at timestamptz; accepted int;
+begin
+  if p_scope is null or length(p_scope) not between 1 and 80
+     or p_subject is null or length(p_subject) not between 1 and 100
+     or p_limit is null or p_limit not between 1 and 100000
+     or p_window is null or p_window not between 1 and 86400
+     or p_cost is null or p_cost not between 1 and p_limit then raise invalid_parameter_value; end if;
+  start_at := to_timestamp(floor(extract(epoch from statement_timestamp())/p_window)*p_window);
+  insert into adme_ops.rate_windows(scope,subject,window_start,used)
+    values(p_scope,p_subject,start_at,p_cost)
+    on conflict(scope,subject,window_start) do update set used=adme_ops.rate_windows.used+excluded.used
+      where adme_ops.rate_windows.used+excluded.used<=p_limit
+    returning used into accepted;
+  if accepted is not null then return 0; end if;
+  return greatest(1,ceil(extract(epoch from start_at+make_interval(secs=>p_window)-statement_timestamp()))::int);
+end;
+$$;
+create function adme_ops.require_quota(p_scope text,p_subject text,p_limit int,p_window int,p_cost int default 1)
+returns void language plpgsql security definer set search_path='' as $$
+declare retry int;
+begin
+  retry := adme_ops.take_quota(p_scope,p_subject,p_limit,p_window,p_cost);
+  if retry>0 then
+    raise sqlstate 'PGRST' using
+      message=jsonb_build_object('code','PT429','message','request limit reached',
+        'details',jsonb_build_object('retryAfter',retry)::text)::text,
+      detail=jsonb_build_object('status',429,'headers',jsonb_build_object('Retry-After',retry::text))::text;
+  end if;
+end;
+$$;
+revoke all on function adme_ops.take_quota(text,text,int,int,int),adme_ops.require_quota(text,text,int,int,int)
+  from public,anon,authenticated,service_role;
+
+-- Deliberately no caller-controlled subject, limit or window.
+create function adme_ops.ops_request_quota(p_action text) returns jsonb
+language plpgsql security definer set search_path='' as $$
+declare retry int;
+begin
+  if auth.uid() is null then raise insufficient_privilege; end if;
+  if p_action='draft_poll' then
+    retry:=adme_ops.take_quota('draft_poll',auth.uid()::text,120,60);
+  else raise invalid_parameter_value; end if;
+  return jsonb_build_object('allowed',retry=0,'retryAfter',retry);
+end;
+$$;
+create function public.ops_request_quota(p_action text) returns jsonb
+language sql security invoker set search_path='' as $$ select adme_ops.ops_request_quota($1); $$;
+revoke all on function adme_ops.ops_request_quota(text),public.ops_request_quota(text) from public,anon,authenticated;
+grant execute on function adme_ops.ops_request_quota(text),public.ops_request_quota(text) to authenticated;
+
+create function adme_ops.limit_private_writes() returns trigger
+language plpgsql security definer set search_path='' as $$
+begin
+  -- Only developer/owner maintenance can omit a JWT; browser/service requests cannot.
+  if auth.uid() is null and session_user in ('postgres','supabase_admin') then return new; end if;
+  if auth.uid() is null then raise insufficient_privilege; end if;
+  if tg_table_name='messages' then
+    if new.sender_id<>auth.uid() then raise insufficient_privilege; end if;
+    perform adme_ops.require_quota('message_minute',auth.uid()::text,20,60);
+    perform adme_ops.require_quota('message_day',auth.uid()::text,200,86400);
+  elsif tg_table_name='reports' then
+    if new.reporter_id<>auth.uid() then raise insufficient_privilege; end if;
+    perform adme_ops.require_quota('report_hour',auth.uid()::text,5,3600);
+    perform adme_ops.require_quota('report_day',auth.uid()::text,10,86400);
+  end if;
+  return new;
+end;
+$$;
+revoke all on function adme_ops.limit_private_writes() from public,anon,authenticated;
+create trigger message_rate_limit before insert on public.messages for each row execute function adme_ops.limit_private_writes();
+create trigger report_rate_limit before insert on public.reports for each row execute function adme_ops.limit_private_writes();
+
+create function adme_ops.limit_job_enqueue() returns trigger
+language plpgsql security definer set search_path='' as $$
+begin
+  if not adme_ops.job_enabled(new.kind) then raise sqlstate 'PT404' using message='feature disabled'; end if;
+  if new.kind='marketing_draft' then
+    perform adme_ops.require_quota('draft_day',new.owner_id::text,10,86400);
+  elsif new.kind='youtube_claim' then
+    perform adme_ops.require_quota('claim_day',new.owner_id::text,5,86400);
+  elsif new.kind='youtube_channel' then
+    perform adme_ops.require_quota('manual_channel_day',new.owner_id::text,10,86400);
+  end if;
+  return new;
+end;
+$$;
+revoke all on function adme_ops.limit_job_enqueue() from public,anon,authenticated;
+create trigger ops_job_rate_limit before insert on adme_ops.jobs for each row execute function adme_ops.limit_job_enqueue();
+
+-- Reserve a conservative provider/model budget BEFORE returning a lease.
+-- A retry consumes another reservation; provider errors never refund a reservation.
+create or replace function adme_ops.ops_worker_claim(p_token text) returns jsonb
+language plpgsql security definer set search_path='' as $$
+declare job adme_ops.jobs; keyword text; retry int; cost int; provider text;
+begin
+  perform adme_ops.verify_worker(p_token);
+  delete from adme_ops.rate_windows where window_start<now()-interval '2 days';
+  update adme_ops.jobs set status='failed',lease=null,lease_until=null,error_code='LEASE_EXPIRED',finished_at=now()
+    where status='running' and lease_until<=now() and attempts>=3;
+  for iteration in 1..10 loop
+    select * into job from adme_ops.jobs
+      where adme_ops.job_enabled(kind) and ((status='queued' and available_at<=now() and attempts<3)
+        or (status='running' and lease_until<=now() and attempts<3))
+      order by created_at,id for update skip locked limit 1;
+    if not found then return null; end if;
+    provider:=case when job.kind='marketing_draft' then 'local_llm' else 'youtube' end;
+    -- Daily: 100 search + 1 channels + <=25 playlists + <=3 videos = <=129 units.
+    cost:=case job.kind when 'youtube_daily' then 130 when 'youtube_channel' then 3 else 1 end;
+    retry:=adme_ops.take_quota('provider_day',provider,case when provider='youtube' then 1000 else 30 end,86400,cost);
+    if retry>0 then
+      update adme_ops.jobs set status='queued',available_at=now()+make_interval(secs=>retry),
+        lease=null,lease_until=null,error_code='LOCAL_BUDGET' where id=job.id;
+      continue;
+    end if;
+    update adme_ops.jobs set status='running',attempts=attempts+1,lease=gen_random_uuid(),lease_until=now()+interval '6 minutes'
+      where id=job.id returning * into job;
+    select discovery_keyword into keyword from adme_ops.settings where discovery_enabled;
+    return jsonb_build_object('id',job.id,'kind',job.kind,'input',job.input,'lease',job.lease,
+      'keyword',keyword,'refresh',case when job.kind='youtube_daily' and keyword is not null then
+        (select coalesce(jsonb_agg(channel_id),'[]') from
+          (select channel_id from adme_ops.channels order by fetched_at,channel_id limit 20) c) end);
+  end loop;
+  return null;
+end;
+$$;
+select cron.schedule('adme-rate-cleanup','15 20 * * *',
+  'delete from adme_ops.rate_windows where window_start < now() - interval ''2 days''');
+commit;
+$adme_packet_body$]);
+commit;
+
+-- Source SHA-256: b55fbc756ebd7637df109b29d30468d1c9f07ffdf5d3ed1850c13aca493d139d
+-- D059 bridge: upstream directory must honor the independent moderation lock.
+begin;
+create or replace function adme_ops.ops_public_channels(p_query text default '') returns jsonb
+language plpgsql security definer set search_path='' as $$
+begin
+  perform adme_ops.require_quota('youtube_search',coalesce(auth.uid()::text,'anonymous-shared'),
+    case when auth.uid() is null then 300 else 60 end,60);
+  return (select coalesce(jsonb_agg(to_jsonb(r)), '[]') from (
+    select ch.channel_id,ch.title,ch.subscriber_count,ch.fetched_at,creator.id as creator_id
+    from adme_ops.channels ch join adme_ops.channel_claims c using(channel_id)
+    join public.creators creator on creator.owner_id=c.owner_id and creator.published
+      and creator.moderation_status='allowed' and coalesce(creator.profile->>'is_demo','false')='false'
+    where ch.review='accepted' and ch.fetched_at>now()-interval '30 days'
+      and c.verified_at is not null and c.consent_at is not null
+      and strpos(lower(ch.title),lower(left(coalesce(p_query,''),80)))>0
+    order by ch.title,ch.channel_id limit 50
+  ) r);
+end;
+$$;
+create or replace function public.ops_public_channels(p_query text default '') returns jsonb
+language sql security invoker set search_path='' as $$ select adme_ops.ops_public_channels($1); $$;
+insert into supabase_migrations.schema_migrations(version,name,statements) values ('202611200008','youtube_moderation',array[$adme_packet_body$-- D059 bridge: upstream directory must honor the independent moderation lock.
+begin;
+create or replace function adme_ops.ops_public_channels(p_query text default '') returns jsonb
+language plpgsql security definer set search_path='' as $$
+begin
+  perform adme_ops.require_quota('youtube_search',coalesce(auth.uid()::text,'anonymous-shared'),
+    case when auth.uid() is null then 300 else 60 end,60);
+  return (select coalesce(jsonb_agg(to_jsonb(r)), '[]') from (
+    select ch.channel_id,ch.title,ch.subscriber_count,ch.fetched_at,creator.id as creator_id
+    from adme_ops.channels ch join adme_ops.channel_claims c using(channel_id)
+    join public.creators creator on creator.owner_id=c.owner_id and creator.published
+      and creator.moderation_status='allowed' and coalesce(creator.profile->>'is_demo','false')='false'
+    where ch.review='accepted' and ch.fetched_at>now()-interval '30 days'
+      and c.verified_at is not null and c.consent_at is not null
+      and strpos(lower(ch.title),lower(left(coalesce(p_query,''),80)))>0
+    order by ch.title,ch.channel_id limit 50
+  ) r);
+end;
+$$;
+create or replace function public.ops_public_channels(p_query text default '') returns jsonb
+language sql security invoker set search_path='' as $$ select adme_ops.ops_public_channels($1); $$;
+commit;
+$adme_packet_body$]);
+commit;
+
+-- Source SHA-256: 93bfd5d3804fc7ada4f7d41e19f92873a21c111aafc9332f18784969f4bdba48
+-- D051: qualify the outer message kind. Bare `kind` bound to proposals.kind.
+begin;
+drop policy messages_insert on public.messages;
+create policy messages_insert on public.messages for insert with check (
+  messages.sender_id=auth.uid() and exists (
+    select 1 from public.proposals p
+    where p.id=messages.proposal_id and auth.uid() in (p.brand_id,p.creator_user_id)
+      and p.status<>'rejected'
+      and (messages.kind='message' or (p.creator_user_id=auth.uid()
+        and p.status in ('accepted','revision_requested') and messages.kind='deliverable'))
+  )
+);
+insert into supabase_migrations.schema_migrations(version,name,statements) values ('202611200010','message_policy',array[$adme_packet_body$-- D051: qualify the outer message kind. Bare `kind` bound to proposals.kind.
+begin;
+drop policy messages_insert on public.messages;
+create policy messages_insert on public.messages for insert with check (
+  messages.sender_id=auth.uid() and exists (
+    select 1 from public.proposals p
+    where p.id=messages.proposal_id and auth.uid() in (p.brand_id,p.creator_user_id)
+      and p.status<>'rejected'
+      and (messages.kind='message' or (p.creator_user_id=auth.uid()
+        and p.status in ('accepted','revision_requested') and messages.kind='deliverable'))
+  )
+);
+commit;
+$adme_packet_body$]);
+commit;

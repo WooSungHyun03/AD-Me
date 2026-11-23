@@ -1,3 +1,4 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
@@ -17,7 +18,7 @@ const schema = z.discriminatedUnion("action", [
     note: z.string().trim().min(5).max(300),
   }),
 ]);
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -46,3 +47,5 @@ export async function POST(req: Request) {
         );
   return NextResponse.json({ ok: true });
 }
+
+export const POST=compatibleApiRoute("src/app/api/admin/entitlements/route.ts.POST",handlePOST);

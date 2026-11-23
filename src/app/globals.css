@@ -7,6 +7,14 @@
   --lime: #d7ff45;
   --surface: #fff;
 }
+.consent-fields { border: 1px solid var(--line); padding: 16px; margin: 16px 0; min-width: 0; }
+.consent-fields label { display: block; margin: 12px 0; line-height: 1.7; }
+.consent-fields input[type="checkbox"] { width: 20px; height: 20px; vertical-align: middle; margin-right: 8px; }
+.consent-fields a,.prose a,.panel a[href^="mailto:"] { text-decoration: underline; text-underline-offset: 3px; }
+[role="alert"]:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+.notice .publication-policy { color: var(--ink); }
+.ad-timeline-record p { color: var(--ink); }
+.notice a { text-decoration: underline; text-underline-offset: 3px; }
 * {
   box-sizing: border-box;
 }
@@ -366,6 +374,17 @@ input[type="checkbox"] {
   font-size: 13px;
   margin: 28px 0 18px;
 }
+.catalog-filters { display: block; min-width: 0; }
+.catalog-filter-help { font-size: 12px; line-height: 1.6; color: var(--muted); margin: 12px 0; }
+.catalog-filter-choices { border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+.catalog-filter-choices summary { cursor: pointer; padding: 12px 0; font-size: 13px; font-weight: 600; }
+.catalog-filter-choices summary span { color: var(--muted); font-size: 12px; margin-left: 8px; }
+.catalog-filter-choices fieldset { border: 0; padding: 0 0 8px; min-width: 0; }
+.catalog-filter-choices legend { font-size: 12px; color: var(--muted); }
+.catalog-filter-choices label { overflow-wrap: anywhere; }
+.catalog-number-filters { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.catalog-number-filters .field { display: grid; margin: 0; align-items: start; min-width: 0; }
+.catalog-number-filters input { width: 100%; min-width: 0; }
 .creator-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -725,6 +744,10 @@ footer span {
   .filters label {
     margin: 0;
   }
+  .catalog-filters { display: block; }
+  .catalog-filter-choices fieldset { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+  .catalog-filter-choices label { min-height: 44px; }
+  .catalog-number-filters { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .creator-grid {
     gap: 24px 12px;
   }
@@ -841,6 +864,20 @@ footer span {
 }
 .ops-form p:empty { display: none; }
 .ops-grid .panel > h3 { margin: 0; }
+.terms-fieldset {
+  min-width: 0;
+  margin-block: 1.5rem;
+  padding: clamp(.75rem, 2vw, 1.5rem);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.terms-fieldset legend { padding-inline: .4rem; font-weight: 700; }
+.terms-fieldset .field { min-width: 0; }
+.terms-fieldset input[type="datetime-local"] { min-width: 0; max-width: 100%; width: 100%; font-size: 16px; }
+.terms-summary-row { margin-block: 1rem; overflow-wrap: anywhere; }
+.terms-summary-row dt { font-weight: 700; }
+.terms-summary-row dd { margin-inline-start: 0; }
+
 
 .youtube-hero { align-self: center; }
 .youtube-directory-card { padding: 1.25rem; min-width: 0; overflow-wrap: anywhere; }

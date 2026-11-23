@@ -1,0 +1,33 @@
+{
+  "base_commit": "aab0be95766970ec8d6670214e1b4edc2edd1906",
+  "source_head": "fd701851ceef1839e5b88ac2f234620747a049aa",
+  "branch": "codex/dev-a-p0-continue",
+  "ticket_commits": [
+    {
+      "ticket": "D014",
+      "commit": "eb180e5a8da993764c6cd64d2f67dd3795bc56d6",
+      "subject": "implement reauthenticated deletion intake and verified file quarantine"
+    },
+    {
+      "ticket": "D007",
+      "commit": "0d182357cb361d6be6c5c4cda0760befa911c6ce",
+      "subject": "ship known notices and verify actual Linux runtime attribution gaps"
+    },
+    {
+      "ticket": "D009",
+      "commit": "7e5acd0dafbf1a0249db0d2d3e1ddd8f8e9c1776",
+      "subject": "record current signup regression and retain external SMTP gate"
+    },
+    {
+      "ticket": "D073",
+      "commit": "c1a4013ab856fa79cfd9cf46bcc92430bd98450e",
+      "subject": "record unapproved policy facts and deletion data processing scope"
+    },
+    {
+      "ticket": "D084",
+      "commit": "fd701851ceef1839e5b88ac2f234620747a049aa",
+      "subject": "record full P0 regression and unresolved deletion release criteria"
+    }
+  ],
+  "scope": "Product source tested as a final batch; intermediate commits are review boundaries, not independently deployable units. Permanent erasure not implemented; no whole ticket DONE."
+}

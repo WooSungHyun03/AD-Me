@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-19T09:27:37.109Z",
+  "environment": "second isolated Supabase Docker DB with baseline 001-003 and actual generated apply SQL",
+  "result": "PASS",
+  "migrations_in_history": 4,
+  "new_rls_tables": 4,
+  "provisioning_denied_to": [
+    "anon",
+    "authenticated",
+    "service_role"
+  ],
+  "helper": "Actual offline Chromium form; apostrophe escaping, generated grant/revoke executed against disposable fixture; zero external requests",
+  "tested_apply_all_sha256": "816baec3b00b55c596a48255a9e274f214c3884ed0243dacd88108fa6048dbfe"
+}

@@ -3,7 +3,7 @@ from pathlib import Path
 import json
 from collections import Counter
 
-p = json.loads((Path(__file__).parent / 'service_backlog_v2.json').read_text())
+p = json.loads((Path(__file__).parent / 'service_backlog_v2.json').read_text(encoding='utf-8'))
 all_items = p['tickets'] + p['user_tickets'] + p['deferred']
 ids = [x['id'] for x in all_items]
 assert len(ids) == len(set(ids)), 'Duplicate ticket IDs'

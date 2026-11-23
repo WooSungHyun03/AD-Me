@@ -1,3 +1,4 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
@@ -7,7 +8,7 @@ import { REASONS, SHOWN } from "@/lib/matching-eval";
 import { storageAdmin } from "@/lib/uploads";
 // D046: rating a shown recommendation. Rank, score and scorer version are recomputed here, never taken
 // from the client, so a rating always refers to what the server actually displayed.
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -54,3 +55,5 @@ export async function POST(req: Request) {
   if (error) return fail("평가를 저장하지 못했습니다.", 400);
   return NextResponse.json({ ok: true, rank_position: i + 1 });
 }
+
+export const POST=compatibleApiRoute("src/app/api/matching-feedback/route.ts.POST",handlePOST);

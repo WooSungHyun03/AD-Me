@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { z } from "zod";
 import { supabase } from "@/lib/supabase";
 import { context } from "@/lib/api";
-import { Checkout } from "@/components/checkout";
+import { TestCheckout as Checkout } from "@/components/test-checkout";
 import { JobForm } from "../forms";
 import { jobExpiry, jobsSchema } from "../model";
 

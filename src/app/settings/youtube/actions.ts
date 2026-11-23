@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { context } from "@/lib/api";
 import { parseChannel } from "@/lib/intelligence";
+import { getConfig } from "@/lib/config";
 
 const choices = z.enum(["create", "check", "publish", "hide", "unlink"]);
 
@@ -16,6 +17,11 @@ export async function manageChannel(_: string, form: FormData) {
     typeof raw === "string" && raw.length <= 240 ? parseChannel(raw) : null;
   if (!action.success || !channel)
     return "YouTube 채널 ID 또는 채널 주소를 확인해주세요.";
+  if (
+    !["hide", "unlink"].includes(action.data) &&
+    getConfig().features.ingestion !== "enabled"
+  )
+    return "현재 채널 연결과 확인 요청을 제공하지 않습니다.";
   const { error } = await c.db.rpc("ops_channel_owner", {
     p_action: action.data,
     p_channel: channel,

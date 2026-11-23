@@ -1,8 +1,9 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
 // D040: private note per creator (owner-only table, separate from proposal messages). Empty body deletes it.
-export async function PUT(req: Request) {
+ async function handlePUT(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -26,3 +27,5 @@ export async function PUT(req: Request) {
   if (error) return fail("메모를 저장하지 못했습니다.", 400);
   return NextResponse.json({ ok: true });
 }
+
+export const PUT=compatibleApiRoute("src/app/api/notes/route.ts.PUT",handlePUT);

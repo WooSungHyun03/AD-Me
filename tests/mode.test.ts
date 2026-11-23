@@ -35,7 +35,8 @@ describe("D001/D005 service mode", () => {
     vi.stubEnv("SERVICE_MODE", "free_beta");
     for (const route of [order, confirm]) {
       const res = await route(post());
-      expect(res.status).toBe(403);
+      expect(res.status).toBe(404);
+      expect((await res.json()).error.code).toBe("NOT_FOUND");
     }
   });
 });

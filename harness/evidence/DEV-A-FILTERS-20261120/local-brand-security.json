@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-20T08:33:11.459Z",
+  "environment": "isolated Docker/PostgREST with synthetic locally signed role JWT fixtures; no external accounts/data",
+  "results": [
+    {
+      "name": "public brand fields exclude contacts and owner ID, including direct REST",
+      "result": "PASS"
+    },
+    {
+      "name": "foreign account cannot edit another brand; creator cannot use brand RPC",
+      "result": "PASS"
+    },
+    {
+      "name": "invalid private contact rolls back account name and public brand atomically",
+      "result": "PASS"
+    },
+    {
+      "name": "contact sharing requires accepted participation and revocation is immediate",
+      "result": "PASS"
+    },
+    {
+      "name": "campaign lock survives republish, blocks deletion and new proposals through REST",
+      "result": "PASS"
+    },
+    {
+      "name": "expired administrator approval denies even a fresh AAL2 JWT",
+      "result": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "at": "2026-11-22T11:31:14.555Z",
+  "groups": 7,
+  "result": "PASS",
+  "scope": "Actual local Auth/PostgREST/Postgres; fictional QA accounts. No notification/provider/cloud verification."
+}

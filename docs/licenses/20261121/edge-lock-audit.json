@@ -1,0 +1,52 @@
+{
+  "deno_lock_version": "5",
+  "dependency_count": 9,
+  "packages": [
+    {
+      "package": "@supabase/auth-js@2.119.1",
+      "same_root_version": true,
+      "same_integrity": true
+    },
+    {
+      "package": "@supabase/functions-js@2.119.1",
+      "same_root_version": true,
+      "same_integrity": true
+    },
+    {
+      "package": "@supabase/phoenix@0.4.5",
+      "same_root_version": true,
+      "same_integrity": true
+    },
+    {
+      "package": "@supabase/postgrest-js@2.119.1",
+      "same_root_version": true,
+      "same_integrity": true
+    },
+    {
+      "package": "@supabase/realtime-js@2.119.1",
+      "same_root_version": true,
+      "same_integrity": true
+    },
+    {
+      "package": "@supabase/storage-js@2.119.1",
+      "same_root_version": true,
+      "same_integrity": true
+    },
+    {
+      "package": "@supabase/supabase-js@2.119.1",
+      "same_root_version": true,
+      "same_integrity": true
+    },
+    {
+      "package": "iceberg-js@0.8.1",
+      "same_root_version": true,
+      "same_integrity": true
+    },
+    {
+      "package": "tslib@2.8.1",
+      "same_root_version": true,
+      "same_integrity": true
+    }
+  ],
+  "scope": "Exact Edge lock metadata vs root lock only; final Edge/Linux artifacts and third-party rights remain unverified."
+}

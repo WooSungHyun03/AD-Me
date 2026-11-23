@@ -1,0 +1,62 @@
+{
+  "source_head": "ee832100b7b9f831a1107d4921ac8fb4028e0f52",
+  "migration_count": 30,
+  "new_migrations": [
+    {
+      "path": "supabase/migrations/202611200019_review_workflow.sql",
+      "sha256_lf": "bd9f9df5a2be58a5158ebfe9ad5b353cdf521869be3e6645c979d9f79d786eaf"
+    },
+    {
+      "path": "supabase/migrations/202611200020_review_public_boundary.sql",
+      "sha256_lf": "41a5c2a2e7acfd5090f24a665493d88896f611ac80afa28b8168d2e4d2c7ab00"
+    },
+    {
+      "path": "supabase/migrations/202611200021_ad_history.sql",
+      "sha256_lf": "0730856b73fe1ecd196ee00864675f8432363f4a1a669e8f6a0cf6526c599d48"
+    },
+    {
+      "path": "supabase/migrations/202611200022_review_withdraw_quota.sql",
+      "sha256_lf": "f6ef2706770a06dd42727425106f6c48d2beaaf64f22418c3c0f9bb293d7f1ec"
+    },
+    {
+      "path": "supabase/migrations/202611200023_ad_evidence_gate.sql",
+      "sha256_lf": "48336c3a7e8b59593dd71e3f307c191854f0b9267cf6d3778863bba67300ddef"
+    },
+    {
+      "path": "supabase/migrations/202611200024_latest_response_consent.sql",
+      "sha256_lf": "d8bed1e192cd020c643b9035fbdb3800b9dbc5ab710199523af09ff56a941a89"
+    }
+  ],
+  "files": [
+    {
+      "path": "00_preflight_current_24.sql",
+      "sha256": "067fe1cdfcdc969a1939934082520defe1a00e047b66805c5b287571d1dfe40d",
+      "bytes": 755
+    },
+    {
+      "path": "00_preflight_previous_23.sql",
+      "sha256": "1bce3c0f8b125d938069e48acda7f94200a133ac17991faedd0ca8b857a869f0",
+      "bytes": 744
+    },
+    {
+      "path": "01_apply_current_24.sql",
+      "sha256": "5a4231ff7819c451e05b871f9bd007529d67f1404ea79dbefa8155af1a242a21",
+      "bytes": 84503
+    },
+    {
+      "path": "01_apply_previous_23.sql",
+      "sha256": "40bc2fdd15018220411bcef4c4c12d27f2c8297200110c2be85be3d6739c1f5f",
+      "bytes": 104752
+    },
+    {
+      "path": "02_verify.sql",
+      "sha256": "c364404d9df4a18cbfe9d3b8e25ab247c9708985f03ed306fc3f8b5ff67d157a",
+      "bytes": 743
+    }
+  ],
+  "policy_defaults": {
+    "issue": false,
+    "advertising": false
+  },
+  "external_applied": false
+}

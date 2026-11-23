@@ -2,6 +2,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { context } from "@/lib/api";
 import { DraftQueue } from "./queue";
+import { getConfig } from "@/lib/config";
+export const dynamic = "force-dynamic";
 
 export default async function LocalTools() {
   const c = await context();
@@ -13,7 +15,9 @@ export default async function LocalTools() {
         상품, 고객, 플랫폼, 표현상 주의점을 입력하면 광고 콘셉트와 협업 메시지
         초안을 만듭니다.
       </p>
-      {c.role === "brand" ? (
+      {getConfig().features.llm !== "enabled" ? (
+        <p>현재 AI 초안 접수를 제공하지 않습니다.</p>
+      ) : c.role === "brand" ? (
         <DraftQueue />
       ) : (
         <p>브랜드 계정으로 이용할 수 있습니다.</p>

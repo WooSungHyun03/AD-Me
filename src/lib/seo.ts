@@ -2,6 +2,11 @@
 // server-side auth/RLS. Only published, owner-verified, non-demo profiles are indexable or listed in the sitemap.
 export const PRIVATE_PREFIXES = [
   "/admin",
+  "/ad-history",
+  "/collaborations",
+  "/saved-searches",
+  "/onboarding",
+  "/preferences",
   "/api",
   "/auth",
   "/billing",
@@ -30,6 +35,8 @@ export const PUBLIC_PAGES = [
   "/help",
   "/pricing",
   "/privacy",
+  "/licenses",
+  "/terms",
 ];
 export const siteUrl = () =>
   (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000").replace(

@@ -1,10 +1,11 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { snapshotAfterDeletion } from "@/lib/privacy-retention";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
 import { BUCKET, SIGNED_URL_SECONDS, storageAdmin } from "@/lib/uploads";
 // Short signed URL, created with the caller's own session so storage RLS decides (owner + live reference only).
-export async function POST(
+ async function handlePOST(
   req: Request,
   ctx: RouteContext<"/api/uploads/[id]">,
 ) {
@@ -33,7 +34,7 @@ export async function POST(
     { headers: { "Cache-Control": "no-store" } },
   );
 }
-export async function DELETE(
+ async function handleDELETE(
   req: Request,
   ctx: RouteContext<"/api/uploads/[id]">,
 ) {
@@ -55,3 +56,6 @@ export async function DELETE(
   await snapshotAfterDeletion(admin);
   return NextResponse.json({ ok: true });
 }
+
+export const POST=compatibleApiRoute("src/app/api/uploads/[id]/route.ts.POST",handlePOST);
+export const DELETE=compatibleApiRoute("src/app/api/uploads/[id]/route.ts.DELETE",handleDELETE);

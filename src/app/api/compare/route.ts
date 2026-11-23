@@ -1,3 +1,4 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
@@ -5,7 +6,7 @@ import { compareCsv, parseIds } from "@/lib/compare";
 import { publicCreators } from "@/lib/data";
 import { supabase } from "@/lib/supabase";
 // D040: save a 2–3 person comparison with its share scope; CSV of a comparison (public fields only, no notes).
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -34,7 +35,7 @@ export async function POST(req: Request) {
   if (error) return fail("비교를 저장하지 못했습니다.", 400);
   return NextResponse.json(data, { status: 201 });
 }
-export async function PATCH(req: Request) {
+ async function handlePATCH(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -50,7 +51,7 @@ export async function PATCH(req: Request) {
   if (!data?.length) return fail("비교를 찾을 수 없습니다.", 404);
   return NextResponse.json({ ok: true, share_token: data[0].share_token });
 }
-export async function GET(req: Request) {
+ async function handleGET(req: Request) {
   const u = new URL(req.url);
   let ids = parseIds(u.searchParams.get("ids"));
   const token = u.searchParams.get("share");
@@ -73,3 +74,7 @@ export async function GET(req: Request) {
     },
   });
 }
+
+export const POST=compatibleApiRoute("src/app/api/compare/route.ts.POST",handlePOST);
+export const PATCH=compatibleApiRoute("src/app/api/compare/route.ts.PATCH",handlePATCH);
+export const GET=compatibleApiRoute("src/app/api/compare/route.ts.GET",handleGET);

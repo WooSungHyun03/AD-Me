@@ -1,3 +1,4 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { reportError } from "@/lib/observability";
 import { z } from "zod";
@@ -5,7 +6,7 @@ import { context, fail, safeOrigin } from "@/lib/api";
 import { storageAdmin } from "@/lib/uploads";
 import { reapplyFromLedger, snapshotLedger } from "@/lib/privacy-retention";
 // Admin: run the retention job, copy the tombstone ledger, or re-apply deletions after a backup restore.
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -49,3 +50,5 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export const POST=compatibleApiRoute("src/app/api/admin/retention/route.ts.POST",handlePOST);

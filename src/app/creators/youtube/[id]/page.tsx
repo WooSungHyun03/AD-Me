@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, BadgeCheck, ChevronDown } from "lucide-react";
-import { z } from "zod";
+import { publicCreator } from "@/lib/data";
+import { PublicAdHistory } from "@/components/public-ad-history";
 import { cache } from "react";
 import { YoutubeImage } from "@/components/youtube-image";
 import { SaveYoutubeChannel } from "@/components/save-youtube-channel";
@@ -87,13 +88,6 @@ function languageLabel(language?: string | null) {
   }
 }
 
-const adDetails = z.object({
-  brand_label: z.string().optional(),
-  title: z.string().optional(),
-  format: z.string().optional(),
-  date: z.string().optional(),
-});
-
 function VideoList({ videos }: { videos: FeaturedChannel["videos"] }) {
   return (
     <ul className="youtube-video-grid">
@@ -153,7 +147,7 @@ export default async function YoutubeChannel({
   if (!channel) notFound();
   const { metadata, creator_id: creatorId, videos } = channel;
   const db = await supabase();
-  const [saved, profile, ads, chat, contact] = await Promise.all([
+  const [saved, owner, chat, contact] = await Promise.all([
     user
       ? db
           .from("saved_youtube_channels")
@@ -161,44 +155,10 @@ export default async function YoutubeChannel({
           .eq("channel_id", id)
           .maybeSingle()
       : null,
-    creatorId
-      ? db
-          .from("creators")
-          .select("profile")
-          .eq("id", creatorId)
-          .eq("published", true)
-          .maybeSingle()
-      : null,
-    creatorId
-      ? db
-          .from("ad_collaborations")
-          .select("id,data,source_url")
-          .eq("creator_id", creatorId)
-          .eq("is_demo", false)
-          .not("verified_at", "is", null)
-          .like("source_url", "https://%")
-          .order("verified_at", { ascending: false })
-          .limit(30)
-      : null,
-    creatorId && user
-      ? db
-          .from("proposals")
-          .select("id")
-          .eq("creator_id", creatorId)
-          .or(`brand_id.eq.${user.id},creator_user_id.eq.${user.id}`)
-          .in("status", [
-            "accepted",
-            "submitted",
-            "revision_requested",
-            "completed",
-          ])
-          .order("updated_at", { ascending: false })
-          .limit(1)
-          .maybeSingle()
-      : null,
+    creatorId ? publicCreator(creatorId) : null,
+    creatorId && user ? db.rpc("youtube_own_room", { p_channel: id }) : null,
     creatorId ? db.rpc("public_youtube_contact", { p_id: id }) : null,
   ]);
-  const owner = profile?.data?.profile;
   const sourceHashtags = [
     ...new Set(metadata?.description?.match(/#[\p{L}\p{M}\p{N}_]+/gu) ?? []),
   ].slice(0, 10);
@@ -207,12 +167,6 @@ export default async function YoutubeChannel({
   ];
   const lastVideo = videos[0];
   const stale = isYoutubeDataStale(channel.fetched_at);
-  const collaborations = (ads?.data ?? []).flatMap((row) => {
-    const parsed = adDetails.safeParse(row.data);
-    return parsed.success && row.source_url
-      ? [{ ...parsed.data, id: row.id, source: row.source_url }]
-      : [];
-  });
 
   return (
     <article className="wrap youtube-profile">
@@ -254,7 +208,7 @@ export default async function YoutubeChannel({
           {chat?.data && (
             <Link
               className="button outline"
-              href={`/dashboard#proposal-${chat.data.id}`}
+              href={`/dashboard#proposal-${chat.data}`}
             >
               채팅하기
             </Link>
@@ -405,22 +359,8 @@ export default async function YoutubeChannel({
           <h2>광고·협업</h2>
         </div>
         <h3>검증된 광고 이력</h3>
-        {ads?.error ? (
-          <p role="alert">광고 이력을 불러오지 못했습니다.</p>
-        ) : collaborations.length ? (
-          <ul className="youtube-ad-list">
-            {collaborations.map((ad) => (
-              <li key={ad.id}>
-                <strong>{ad.brand_label || "브랜드 정보 없음"}</strong>
-                <p>
-                  {[ad.title, ad.format, ad.date].filter(Boolean).join(" · ")}
-                </p>
-                <a href={ad.source} target="_blank" rel="noreferrer">
-                  검증된 광고 원본 ↗
-                </a>
-              </li>
-            ))}
-          </ul>
+        {creatorId ? (
+          <PublicAdHistory creatorId={creatorId} />
         ) : (
           <p>공개 출처로 확인된 광고 이력이 없습니다.</p>
         )}
@@ -435,7 +375,7 @@ export default async function YoutubeChannel({
                 : "협업 가능 여부 미확인"}
             </p>
             {owner?.bio && <p>{owner.bio}</p>}
-            {owner?.formats?.length > 0 && (
+            {!!owner?.formats?.length && (
               <p>선호 형식 · {owner.formats.join(" · ")}</p>
             )}
             {owner?.price_min_krw != null && (

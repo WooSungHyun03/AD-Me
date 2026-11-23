@@ -1,10 +1,11 @@
+import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@supabase/supabase-js";
 import { fail } from "@/lib/api";
 // D053: one-click unsubscribe (RFC 8058). POST only, so link scanners that prefetch GET cannot unsubscribe.
 // Accepts the page form (JSON) and mail clients' "List-Unsubscribe=One-Click" form posts.
-export async function POST(req: Request) {
+ async function handlePOST(req: Request) {
   const url = new URL(req.url);
   const body = req.headers.get("content-type")?.includes("json")
     ? await req.json().catch(() => null)
@@ -27,3 +28,5 @@ export async function POST(req: Request) {
   if (error) return fail("잘못되었거나 만료된 수신거부 링크입니다.");
   return NextResponse.json({ ok: true, purpose: data });
 }
+
+export const POST=compatibleApiRoute("src/app/api/email/unsubscribe/route.ts.POST",handlePOST);

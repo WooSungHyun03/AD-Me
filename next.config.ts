@@ -60,6 +60,13 @@ const config: NextConfig = {
         ],
       },
       {
+        source: "/admin/:path*",
+        headers: [
+          { key: "Cache-Control", value: "private, no-store, max-age=0" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        ],
+      },
+      {
         source: "/auth/:path*",
         headers: [
           { key: "Referrer-Policy", value: "no-referrer" },
@@ -70,7 +77,7 @@ const config: NextConfig = {
       {
         // API responses are data, never pages: no caching of personal data by shared caches.
         source: "/api/(.*)",
-        headers: [{ key: "Cache-Control", value: "no-store" }],
+        headers: [{ key: "Cache-Control", value: "private, no-store" }],
       },
       // D083: private/unreviewed routes are never indexed (access control stays server-side).
       ...PRIVATE_PREFIXES.flatMap((p) =>

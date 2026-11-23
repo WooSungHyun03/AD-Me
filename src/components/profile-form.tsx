@@ -1,8 +1,11 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { creatorPlatforms } from "@/lib/service-catalog";
+import { useRef, useState } from "react";
+import Link from "next/link";
+import { policyDocument, publicationIntent } from "@/lib/consent";
+import { usePublicationChoice } from "./use-publication-choice";
 import { Button } from "./ui/button";
-import { categories, vibes, formats, platforms } from "@/lib/catalog";
+import { categories, vibes } from "@/lib/catalog";
 type Profile = {
   social_url?: string;
   portfolio_url?: string;
@@ -13,16 +16,21 @@ type Profile = {
   vibes?: string[];
   formats?: string[];
   platforms?: string[];
-  price_min_krw?: number | null;
-  price_max_krw?: number | null;
-  is_available?: boolean | null;
+  price_min_krw?: number;
+  price_max_krw?: number;
+  is_available?: boolean;
   published?: boolean;
 };
 export function ProfileForm({ initial = {} }: { initial?: Profile }) {
-  const router = useRouter();
+  const [published, setPublished] = usePublicationChoice(
+    initial.published ?? false,
+  );
+  const [ownerConsent, setOwnerConsent] = usePublicationChoice(
+    initial.owner_consent ?? false,
+  );
+  const intent = useRef<ReturnType<typeof publicationIntent> | null>(null);
   const [message, setMessage] = useState(""),
-    [pending, setPending] = useState(false),
-    [priceUnknown, setPriceUnknown] = useState(initial.price_min_krw === null);
+    [pending, setPending] = useState(false);
   return (
     <form
       className="form-stack"
@@ -31,27 +39,36 @@ export function ProfileForm({ initial = {} }: { initial?: Profile }) {
         setPending(true);
         const f = new FormData(e.currentTarget);
         const body = {
-          ...Object.fromEntries(f),
-          categories: f.getAll("categories"),
-          vibes: f.getAll("vibes"),
-          formats: f.getAll("formats"),
-          platforms: f.getAll("platforms"),
-          price_min_krw: priceUnknown ? null : Number(f.get("price_min_krw")),
-          price_max_krw: priceUnknown ? null : Number(f.get("price_max_krw")),
+          name: String(f.get("name") ?? ""),
+          bio: String(f.get("bio") ?? ""),
+          social_url: String(f.get("social_url") ?? ""),
+          portfolio_url: String(f.get("portfolio_url") ?? ""),
+          categories: [f.get("category")],
+          vibes: [f.get("vibe")],
+          formats: [f.get("format")],
+          platforms: [f.get("platform")],
+          price_min_krw: Number(f.get("price_min_krw")),
+          price_max_krw: Number(f.get("price_max_krw")),
           published: f.get("published") === "on",
           owner_consent: f.get("owner_consent") === "on",
-          is_available:
-            f.get("availability") === "unknown"
-              ? null
-              : f.get("availability") === "yes",
+          is_available: f.get("is_available") === "on",
         };
+        intent.current = publicationIntent(intent.current, body);
         try {
           const res = await fetch("/api/profile", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(body),
+            body: JSON.stringify({
+              profile: body,
+              publication: {
+                version: policyDocument.version,
+                documentHash: policyDocument.documentHash,
+                requestKey: intent.current.requestKey,
+              },
+            }),
           });
           const d = await res.json();
+          if (res.ok) intent.current = null;
           setMessage(
             res.ok ? "프로필을 저장했습니다." : d.error?.message || "저장 실패",
           );
@@ -81,6 +98,10 @@ export function ProfileForm({ initial = {} }: { initial?: Profile }) {
           defaultValue={initial.bio}
         />
       </label>
+      <p className="notice">
+        공개 소개에는 개인 이메일·전화번호·주민등록번호를 넣지 마세요.
+        건강·정치·종교 등 민감 특성이나 얼굴 인식을 지표로 수집하지 않습니다.
+      </p>
       <label className="field">
         대표 SNS 링크
         <input
@@ -105,98 +126,115 @@ export function ProfileForm({ initial = {} }: { initial?: Profile }) {
         <input
           type="checkbox"
           name="owner_consent"
-          defaultChecked={initial.owner_consent ?? false}
+          checked={ownerConsent}
+          onChange={(e) => setOwnerConsent(e.target.checked)}
         />
         입력한 링크·콘텐츠의 권리가 있으며 공개에 동의합니다.
       </label>
-      {(
-        [
-          ["categories", "분야 (최대 5)", categories, 5],
-          ["vibes", "분위기 (최대 8)", vibes, 8],
-          ["formats", "광고 형식", formats, 8],
-          ["platforms", "플랫폼", platforms, 3],
-        ] as const
-      ).map(([name, legend, options]) => (
-        <fieldset key={name} className="field">
-          <legend>{legend}</legend>
-          <div className="tags">
-            {options.map((o, i) => (
-              <label key={o} className="inline">
-                <input
-                  type="checkbox"
-                  name={name}
-                  value={o}
-                  defaultChecked={
-                    // deleted profiles keep empty arrays; fall back to a default pick
-                    initial[name]?.length ? initial[name]!.includes(o) : i === 0
-                  }
-                />
-                {o}
-              </label>
+      <div className="form-grid">
+        <label className="field">
+          분야
+          <select
+            aria-label="분야"
+            name="category"
+            defaultValue={initial.categories?.[0]}
+          >
+            {categories.map((c) => (
+              <option key={c}>{c}</option>
             ))}
-          </div>
-        </fieldset>
-      ))}
+          </select>
+        </label>
+        <label className="field">
+          분위기
+          <select
+            aria-label="분위기"
+            name="vibe"
+            defaultValue={initial.vibes?.[0]}
+          >
+            {vibes.map((c) => (
+              <option key={c}>{c}</option>
+            ))}
+          </select>
+        </label>
+        <label className="field">
+          광고 형식
+          <select
+            aria-label="광고 형식"
+            name="format"
+            defaultValue={initial.formats?.[0]}
+          >
+            {[
+              "숏폼",
+              "제품 리뷰",
+              "브이로그",
+              "언박싱",
+              "튜토리얼",
+              "PPL",
+              "화보",
+            ].map((c) => (
+              <option key={c}>{c}</option>
+            ))}
+          </select>
+        </label>
+        <label className="field">
+          플랫폼
+          <select
+            aria-label="플랫폼"
+            name="platform"
+            defaultValue={initial.platforms?.[0]}
+          >
+            {creatorPlatforms.map((c) => (
+              <option key={c}>{c}</option>
+            ))}
+          </select>
+        </label>
+        <label className="field">
+          최소 견적
+          <input
+            type="number"
+            name="price_min_krw"
+            required
+            min="0"
+            max="100000000"
+            defaultValue={initial.price_min_krw ?? 200000}
+          />
+        </label>
+        <label className="field">
+          최대 견적
+          <input
+            type="number"
+            name="price_max_krw"
+            required
+            min="0"
+            max="100000000"
+            defaultValue={initial.price_max_krw ?? 500000}
+          />
+        </label>
+      </div>
       <label className="inline">
         <input
           type="checkbox"
-          checked={priceUnknown}
-          onChange={(e) => setPriceUnknown(e.target.checked)}
+          name="is_available"
+          defaultChecked={initial.is_available ?? true}
         />
-        견적 미확인 (협의 후 결정)
-      </label>
-      {!priceUnknown && (
-        <div className="form-grid">
-          <label className="field">
-            최소 견적
-            <input
-              type="number"
-              name="price_min_krw"
-              required
-              min="0"
-              max="100000000"
-              defaultValue={initial.price_min_krw ?? 200000}
-            />
-          </label>
-          <label className="field">
-            최대 견적
-            <input
-              type="number"
-              name="price_max_krw"
-              required
-              min="0"
-              max="100000000"
-              defaultValue={initial.price_max_krw ?? 500000}
-            />
-          </label>
-        </div>
-      )}
-      <label className="field">
-        협업 의사
-        <select
-          name="availability"
-          defaultValue={
-            initial.is_available === null
-              ? "unknown"
-              : initial.is_available === false
-                ? "no"
-                : "yes"
-          }
-        >
-          <option value="yes">협업 가능</option>
-          <option value="no">현재 일정 어려움</option>
-          <option value="unknown">미정</option>
-        </select>
+        협업 가능
       </label>
       <label className="inline">
         <input
           type="checkbox"
           name="published"
-          defaultChecked={initial.published ?? false}
+          checked={published}
+          onChange={(e) => setPublished(e.target.checked)}
         />
         프로필 공개
       </label>
       <div className="notice">
+        <p className="publication-policy">
+          공개 선택과 저장 결과를 정책 {policyDocument.version}에 기록합니다.{" "}
+          <Link href="/privacy">처리 안내</Link> ·{" "}
+          <Link href="/terms">이용약관</Link>. 공개하지 않아도 계정을 사용할 수
+          있으며, 비공개 저장은 계정·파일 전체 삭제와 다릅니다.
+        </p>
         본인 등록 정보로 표시됩니다. 외부 SNS 팔로워·참여율은 검증된 데이터 연결
         전까지 미확보로 처리합니다.
       </div>
@@ -212,10 +250,6 @@ export function ProfileForm({ initial = {} }: { initial?: Profile }) {
           )
             return;
           const res = await fetch("/api/profile", { method: "DELETE" });
-          if (res.status === 401) {
-            router.push("/login?next=/settings&reauth=1");
-            return;
-          }
           const d = await res.json();
           setMessage(
             res.ok ? "프로필을 삭제했습니다." : d.error?.message || "삭제 실패",

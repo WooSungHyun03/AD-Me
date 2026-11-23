@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Button } from "./ui/button";
+import { confirmTestPayment } from "@/lib/billing-confirmation";
 export function PaymentConfirm({
   orderId,
   paymentKey,
@@ -23,17 +24,12 @@ export function PaymentConfirm({
         onClick={async () => {
           setPending(true);
           try {
-            const res = await fetch("/api/billing/confirm", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ orderId, paymentKey, amount }),
+            const result = await confirmTestPayment({
+              orderId,
+              paymentKey,
+              amount,
             });
-            const data = await res.json();
-            setState(
-              res.ok
-                ? "TEST 결제가 승인되었습니다."
-                : data.error?.message || "결제 승인 실패",
-            );
+            setState(result.message);
           } catch {
             setState("네트워크 오류입니다. 다시 시도해주세요.");
           } finally {

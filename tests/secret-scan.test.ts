@@ -13,7 +13,7 @@ const run = (...args: string[]) => {
   try {
     return {
       code: 0,
-      out: execFileSync("python3", [
+      out: execFileSync(process.platform === "win32" ? "python" : "python3", [
         "harness/secret_scan.py",
         ...args,
       ]).toString(),
