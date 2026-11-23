@@ -608,3 +608,5 @@ USER requested all feasible tickets in order, keeping direct main push and ticke
 - D019 추가: 별도 소유 증명 worker 분기의 ID/도전값/응답 귀속·정확 토큰 검증. Python11 통과, 실제 소유 증명/공급자 호출 아님.
 
 - D037: 현109 DB 본인 저장 조건·CAS 경합/재실행·삭제·한도7그룹 통과. D052 후보 알림과 동의/중복/해지 통합 미완료를 분리, IN_PROGRESS 유지.
+
+- D048: 취소 신호만 주던 어댑터에 실제 응답 deadline/늦은 결과 폐기, 한도 확인 실패의 안전 fallback, 토큰 usage 스키마 추가. 합성11건 통과. 로컬11539 listener/ollama 명령 미확인, configuredProvider=null·실제 모델/worker통합 게이트 유지.

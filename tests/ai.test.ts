@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   buildPrompt,
   generate,
@@ -36,6 +36,85 @@ const ok = (r: Awaited<ReturnType<typeof generate>>) => {
 };
 
 describe("AI draft adapter (D048)", () => {
+  it("enforces a response deadline even if a provider ignores abort and discards late results", async () => {
+    vi.useFakeTimers();
+    try {
+      let resolve!: (result: {
+        text: string;
+        usage: { input_tokens: number; output_tokens: number };
+      }) => void;
+      let signal!: AbortSignal;
+      const call = vi.fn((request) => {
+        signal = request.signal;
+        return new Promise<{
+          text: string;
+          usage: { input_tokens: number; output_tokens: number };
+        }>((done) => {
+          resolve = done;
+        });
+      });
+      const record = vi.fn();
+      const reserve = vi.fn().mockResolvedValue(true);
+      const result = generate("concept", input, {
+        provider: { name: "SYNTHETIC", model: "ignores-abort", call },
+        reserve,
+        record,
+        timeoutMs: 20,
+      });
+      await vi.advanceTimersByTimeAsync(20);
+      expect(ok(await result)).toMatchObject({
+        method: "template",
+        fallback_reason: "응답 시간 초과",
+        usage: null,
+      });
+      expect(signal.aborted).toBe(true);
+      expect(call).toHaveBeenCalledTimes(1);
+      expect(reserve).toHaveBeenCalledTimes(1);
+      resolve({
+        text: "늦은 응답",
+        usage: { input_tokens: 1, output_tokens: 1 },
+      });
+      await vi.advanceTimersByTimeAsync(1);
+      expect(record).not.toHaveBeenCalled();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+  it("fails closed on reservation errors and never sends input to a provider", async () => {
+    const provider = fake("초안");
+    const result = ok(
+      await generate("concept", input, {
+        provider,
+        reserve: async () => {
+          throw Error("PRIVATE DB error");
+        },
+      }),
+    );
+    expect(result.fallback_reason).toBe("사용 한도 확인 실패");
+    expect(provider.calls).toHaveLength(0);
+  });
+  it("rejects unsafe token usage and response shapes before recording or publishing", async () => {
+    for (const usage of [
+      { input_tokens: -1, output_tokens: 1 },
+      { input_tokens: 1, output_tokens: 1201 },
+      { input_tokens: NaN, output_tokens: 1 },
+    ]) {
+      const record = vi.fn();
+      const result = ok(
+        await generate("concept", input, {
+          provider: {
+            name: "SYNTHETIC",
+            model: "invalid-usage",
+            call: async () => ({ text: "초안", usage }),
+          },
+          reserve: async () => true,
+          record,
+        }),
+      );
+      expect(result.method).toBe("template");
+      expect(record).not.toHaveBeenCalled();
+    }
+  });
   it("no key → template with version and reason, every kind", async () => {
     for (const k of KINDS) {
       const r = ok(

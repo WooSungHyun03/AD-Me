@@ -1064,8 +1064,9 @@ DEV-A · P1 · S1 주요 부족 · AI · IN_PROGRESS · 8 SP · ACTIVE
 - **보안** — 초안은 자동 전송하지 않는다. 키 미설정/실패 시 템플릿 fallback과 생성 방식을 표시한다.
 - **검증** — 키 없음·프롬프트 주입·개인정보 유출·타임아웃·사용량 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 기존 내부 템플릿·Local AI API 어댑터에 입력·출처·프롬프트 버전·결과 검증·사용량 계약이 적용되고 AI 스튜디오 사용자 경로는 계속 리디렉션된다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/implementation-progress.md · harness/evidence/D048/ (이번 검증 기록 위치)
+- **차단 요인** — 현재 configuredProvider=null이며127.0.0.1:11539 listener/ollama 명령 미확인. 승인 실행기/모델 연결, queue prompt/version/usage 및 PR-00330표본 실제 격리 복구 필요.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/implementation-progress.md · harness/evidence/D048/ (이번 검증 기록 위치) · harness/evidence/D048/DEADLINE_20261123.md
+- **검증 범위** — 공통 호환 어댑터11건: 취소 무시 provider 절대 응답 제한/늦은 결과 폐기·한도 실패/안전 usage·schema·PII·명시 template. 실제 모델/worker 통합과 별도.
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## D049 · 제안·지원·상태 머신 회귀

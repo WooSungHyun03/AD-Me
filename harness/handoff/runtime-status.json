@@ -448,9 +448,10 @@
       "owner": "DEV-B",
       "status": "PARTIAL_VERIFIED",
       "evidence": [
-        "docs/implementation-progress.md"
+        "docs/implementation-progress.md",
+        "harness/evidence/D048/DEADLINE_20261123.md"
       ],
-      "blocker": "실제 로컬 모델로 캠페인 콘셉트와 협업 초안 작동. 요약, 그 외 AI 에이전트 범위 미완료."
+      "blocker": "공통 어댑터11 합성 테스트 및 실제 시간 경계 보강. 현재 호환 provider는null, 승인된 로컬 모델/queue 통합과 실제 복구/부하 검증 미완료."
     },
     "D049": {
       "owner": "DEV-B",

@@ -190,15 +190,51 @@ export async function generate(
   };
   if (!deps.provider) return fallback("LLM 공급자 미연결");
   if (!deps.reserve) return fallback("로그인 사용자만 LLM 사용 가능");
-  if (!(await deps.reserve())) return fallback("오늘 사용 한도 도달");
-  const { system, user } = buildPrompt(kind, input);
   try {
-    const out = await deps.provider.call({
-      system,
-      user,
-      maxOutputTokens: LIMITS.maxOutputTokens,
-      signal: AbortSignal.timeout(deps.timeoutMs ?? LIMITS.timeoutMs),
-    });
+    if (!(await deps.reserve())) return fallback("오늘 사용 한도 도달");
+  } catch {
+    return fallback("사용 한도 확인 실패");
+  }
+  const { system, user } = buildPrompt(kind, input);
+  const controller = new AbortController();
+  const timeoutMs = Number.isFinite(deps.timeoutMs)
+    ? Math.min(LIMITS.timeoutMs, Math.max(1, Math.floor(deps.timeoutMs!)))
+    : LIMITS.timeoutMs;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  let timedOut = false;
+  try {
+    const response = await Promise.race([
+      Promise.resolve().then(() =>
+        deps.provider!.call({
+          system,
+          user,
+          maxOutputTokens: LIMITS.maxOutputTokens,
+          signal: controller.signal,
+        }),
+      ),
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(() => {
+          timedOut = true;
+          const reason = new DOMException(
+            "Provider response deadline",
+            "TimeoutError",
+          );
+          controller.abort(reason);
+          reject(reason);
+        }, timeoutMs);
+      }),
+    ]);
+    const parsedResponse = z
+      .object({
+        text: z.string().max(4000),
+        usage: z.strictObject({
+          input_tokens: z.number().int().min(0).max(100000),
+          output_tokens: z.number().int().min(0).max(LIMITS.maxOutputTokens),
+        }),
+      })
+      .safeParse(response);
+    if (!parsedResponse.success) return fallback("생성 결과 검증 실패");
+    const out = parsedResponse.data;
     await deps.record?.(out.usage);
     if (!validOutput(out.text)) return fallback("생성 결과 검증 실패");
     const text = redact(out.text);
@@ -216,15 +252,16 @@ export async function generate(
     };
   } catch (e) {
     return fallback(
-      (e as Error)?.name === "TimeoutError"
+      timedOut || (e as Error)?.name === "TimeoutError"
         ? "응답 시간 초과"
         : "LLM 호출 실패",
     );
+  } finally {
+    if (timer) clearTimeout(timer);
   }
 }
 
-// shortcut: no real provider is wired — @anthropic-ai/sdk install needs user approval (plus a server-only key).
-// Add an Anthropic adapter here when approved; until then every draft is the template.
+// This compatibility endpoint has no selected provider. Do not label templates as actual model output.
 export function configuredProvider(): Provider | null {
   return null;
 }
