@@ -149,6 +149,11 @@ export default async function Campaign({
                 <Link href={`/creators/${r.creatorId}`}>
                   <h3>{r.creator.name} ↗</h3>
                 </Link>
+                {r.status === "hold" && (
+                  <p className="notice">
+                    필수 조건 확인 필요: {r.reasons.join(" · ")}
+                  </p>
+                )}
                 <p style={{ fontSize: 13 }}>
                   {r.matchedTags.length
                     ? `일치 태그: ${r.matchedTags.join(", ")}`

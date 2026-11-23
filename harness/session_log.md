@@ -594,3 +594,5 @@ USER requested all feasible tickets in order, keeping direct main push and ticke
 - D019: TypeScript 응답/입력 한도·실제 귀속·공개 영상/안전 통계·오류 분류, 실제 Python worker의 동일 귀속/숫자 경계 보강. TS20/Python8 및 typecheck PASS; 키·공급자/운영 호출 없음. 정책/U009 게이트와 IN_PROGRESS 유지. D033으로 진행.
 
 - D033: 공개 첫24개 클라이언트 필터를 안전한 서버 필터·키셋 페이지·개수로 전환. TS/API10 및 실제 격리 DB5그룹(가상67/적격63) 통과. epoch 커서 결함은 원본106 보존+107 전진 수정. 누락 DB에서 가상 대체 없이 복구 안내. 브라우저/공유 배치 및 운영 적용·실데이터/성능 게이트는 별도.
+
+- D044: 현재 추천에 hard/soft 분야·예산과 결측 제외/보류 연결. JS scorer1.2는 보류를 확정 적격과 구분, 빈 태그/형식 재정규화·숫자 검증·중복 태그 제거. 합성39건 통과. 구 SQL snapshot-v1은 보존하며 운영/통합 게이트 별도. 다음 D029/D016/D075 최신 소스 격리 검증으로 진행.

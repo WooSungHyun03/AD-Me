@@ -354,4 +354,41 @@ describe("D044 hard gates, missing data and score contract", () => {
       r.slice(0, 5).map((x) => [x.creatorId, x.score, x.coverage]),
     ).toMatchSnapshot();
   });
+  it("holds are not confirmed eligibility and undefined policy entries keep defaults", () => {
+    const held = match(
+      { ...brief, policy: { budget: "hard", unknown: "hold" } },
+      { ...c0, price_min_krw: null },
+    );
+    expect(held.eligible).toBe(false);
+    expect(held.status).toBe("hold");
+    expect(
+      match({ ...brief, policy: { budget: undefined } }, c0).policy.budget,
+    ).toBe("soft");
+  });
+  it("missing creator tags/formats remove factor weights instead of inventing mismatches", () => {
+    const result = match(brief, { ...c0, vibes: [], formats: [] });
+    expect(result.coverage).toBe(WEIGHTS.category + WEIGHTS.budget);
+    expect(result.missing).toEqual(
+      expect.arrayContaining(["이미지·분위기", "광고 형식", "타깃 고객"]),
+    );
+    expect(
+      match({ ...brief, vibes: [c0.vibes[0], c0.vibes[0]] }, c0).matchedTags,
+    ).toEqual([c0.vibes[0]]);
+  });
+  it("invalid numeric observations remain missing and invalid budgets/policy cannot bypass gates", () => {
+    for (const price_min_krw of [NaN, Infinity, -1, 0.5]) {
+      const result = match(
+        { ...brief, policy: { budget: "hard" } },
+        { ...c0, price_min_krw },
+      );
+      expect(result.status).toBe("hold");
+      expect(result.missing).toContain("예산");
+      expect(Number.isFinite(result.score)).toBe(true);
+    }
+    for (const budget_krw of [NaN, Infinity, -1, 0.5])
+      expect(() => match({ ...brief, budget_krw }, c0)).toThrow();
+    expect(() =>
+      match({ ...brief, policy: { budget: "invalid" as "hard" } }, c0),
+    ).toThrow();
+  });
 });

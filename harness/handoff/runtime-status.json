@@ -405,8 +405,10 @@
     "D044": {
       "owner": "DEV-B",
       "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "evidence": [
+        "harness/evidence/D044/MATCHING_20261123.md"
+      ],
+      "blocker": "현재 폼/JS scorer1.2 연결과39개 합성 테스트 통과. 승인 실데이터·D041·SQL snapshot-v1/운영 수용은 미완료."
     },
     "D045": {
       "owner": "DEV-A",

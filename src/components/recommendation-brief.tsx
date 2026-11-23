@@ -93,11 +93,28 @@ export function RecommendationBrief() {
             placeholder="예: 자연스러움, 전문적"
           />
         </label>
-        <button
-          type="submit"
-          className="button primary brief-wide"
-          disabled={pending}
-        >
+        <label className="field">
+          분야 조건
+          <select name="categoryPolicy" defaultValue="hard">
+            <option value="hard">일치 필수</option>
+            <option value="soft">선호 조건</option>
+          </select>
+        </label>
+        <label className="field">
+          예산 조건
+          <select name="budgetPolicy" defaultValue="hard">
+            <option value="hard">예산 이내 필수</option>
+            <option value="soft">선호 조건</option>
+          </select>
+        </label>
+        <label className="field brief-wide">
+          필수 조건 미확인 후보
+          <select name="unknownPolicy" defaultValue="exclude">
+            <option value="exclude">제외</option>
+            <option value="hold">확인 필요로 표시</option>
+          </select>
+        </label>
+        <button type="submit" className="button primary brief-wide" disabled={pending}>
           <Search size={18} aria-hidden="true" />{" "}
           {pending ? "후보 확인 중…" : "조건에 맞는 유튜버 찾기"}
         </button>
@@ -128,8 +145,15 @@ export function RecommendationBrief() {
                     <ArrowUpRight size={15} aria-hidden="true" />
                   </Link>
                   <p>
+                    {r.status === "hold"
+                      ? "필수 조건 확인 필요 · "
+                      : "입력 조건 통과 · "}
                     {r.reasons.join(" · ")}
                     {r.score != null ? ` · 프로필 적합도 ${r.score}점` : ""}
+                  </p>
+                  <p>
+                    데이터 충족률 {r.coverage}% · 조건 점수는 협업 성과의 예측이
+                    아닙니다.
                   </p>
                   <p>확인할 항목 {r.missing.join(" · ")}</p>
                 </li>

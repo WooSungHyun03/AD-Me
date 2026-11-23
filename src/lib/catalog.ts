@@ -1,5 +1,6 @@
 import creators from "../../fixtures/creators.demo.json";
 import campaigns from "../../fixtures/campaigns.demo.json";
+import { z } from "zod";
 export type Creator = Omit<
   (typeof creators)[number],
   "owner_id" | "source_url" | "price_min_krw" | "price_max_krw" | "is_available"
@@ -24,8 +25,16 @@ export const DEFAULT_POLICY: Policy = {
   budget: "soft",
   unknown: "hold",
 };
+export const matchingPolicySchema = z
+  .strictObject({
+    category: z.enum(["hard", "soft"]),
+    budget: z.enum(["hard", "soft"]),
+    unknown: z.enum(["exclude", "hold"]),
+  })
+  .partial();
 export type Brief = {
   category: string;
+  categories?: string[]; // alternative accepted categories, matched with OR
   vibes: string[];
   format: string;
   budget_krw: number;
@@ -82,9 +91,14 @@ function gate(brief: Brief, c: MatchingCreator, policy: Policy) {
     excluded.push("플랫폼 불일치");
   const unknown = (reason: string) =>
     (policy.unknown === "exclude" ? excluded : held).push(reason);
-  if (policy.category === "hard" && brief.category) {
+  const categories = brief.categories?.length
+    ? brief.categories
+    : brief.category
+      ? [brief.category]
+      : [];
+  if (policy.category === "hard" && categories.length) {
     if (!c.categories.length) unknown("분야 미확인");
-    else if (!c.categories.includes(brief.category))
+    else if (!categories.some((category) => c.categories.includes(category)))
       excluded.push("분야 불일치(필수)");
   }
   if (policy.budget === "hard" && brief.budget_krw > 0) {
@@ -100,15 +114,36 @@ function gate(brief: Brief, c: MatchingCreator, policy: Policy) {
   return { status, reasons: [...excluded, ...held] };
 }
 export function match(brief: Brief, c: MatchingCreator) {
-  const policy = { ...DEFAULT_POLICY, ...brief.policy };
+  const parsedPolicy = matchingPolicySchema.parse(brief.policy ?? {});
+  const policy: Policy = {
+    category: parsedPolicy.category ?? DEFAULT_POLICY.category,
+    budget: parsedPolicy.budget ?? DEFAULT_POLICY.budget,
+    unknown: parsedPolicy.unknown ?? DEFAULT_POLICY.unknown,
+  };
+  const validBudget =
+    Number.isSafeInteger(brief.budget_krw) &&
+    brief.budget_krw >= 0 &&
+    brief.budget_krw <= 100_000_000;
+  if (!validBudget) throw Error("추천 예산을 확인해주세요.");
+  // Invalid observations remain missing, never negative/NaN/free quotes.
+  c = {
+    ...c,
+    price_min_krw:
+      c.price_min_krw !== null &&
+      Number.isSafeInteger(c.price_min_krw) &&
+      c.price_min_krw >= 0 &&
+      c.price_min_krw <= 100_000_000
+        ? c.price_min_krw
+        : null,
+  };
   const { status, reasons } = gate(brief, c, policy);
   const base = {
     creatorId: c.seed_id,
-    eligible: status !== "excluded",
+    eligible: status === "eligible",
     status,
     reasons,
     policy,
-    version: "adme-1.1",
+    version: "adme-1.2",
   };
   if (status === "excluded")
     return {
@@ -119,20 +154,35 @@ export function match(brief: Brief, c: MatchingCreator) {
       matchedTags: [],
       missing: [],
     };
-  const overlap = brief.vibes.filter((t) => c.vibes.includes(t));
+  const requestedTags = [...new Set(brief.vibes)];
+  const overlap = requestedTags.filter((t) => c.vibes.includes(t));
+  const requestedCategories = brief.categories?.length
+    ? brief.categories
+    : brief.category
+      ? [brief.category]
+      : [];
   const breakdown = [
     {
       factor: "이미지·분위기",
       weight: WEIGHTS.vibe,
-      value: brief.vibes.length ? overlap.length / brief.vibes.length : null,
-      evidence: overlap.join(", ") || "일치 태그 없음",
+      value:
+        requestedTags.length && c.vibes.length
+          ? overlap.length / requestedTags.length
+          : null,
+      evidence: !c.vibes.length
+        ? "분위기 정보 미확인"
+        : overlap.join(", ") || "일치 태그 없음",
     },
     {
       factor: "콘텐츠 분야",
       weight: WEIGHTS.category,
       value:
-        brief.category && c.categories.length
-          ? Number(c.categories.includes(brief.category))
+        requestedCategories.length && c.categories.length
+          ? Number(
+              requestedCategories.some((category) =>
+                c.categories.includes(category),
+              ),
+            )
           : null,
       evidence: c.categories.join(", ") || "분야 미확인",
     },
@@ -160,8 +210,11 @@ export function match(brief: Brief, c: MatchingCreator) {
     {
       factor: "광고 형식",
       weight: WEIGHTS.format,
-      value: brief.format ? Number(c.formats.includes(brief.format)) : null,
-      evidence: c.formats.join(", "),
+      value:
+        brief.format && c.formats.length
+          ? Number(c.formats.includes(brief.format))
+          : null,
+      evidence: c.formats.join(", ") || "광고 형식 미확인",
     },
   ];
   // coverage = data fidelity: share of total weight backed by known data.

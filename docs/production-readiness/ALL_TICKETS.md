@@ -955,7 +955,7 @@ DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TODO · 5 SP · ACTIVE
 
 ## D044 · 추천 하드 조건·결측·점수 계약
 
-DEV-A · P0 · S0 출시 차단 · MATCHING · TODO · 8 SP · ACTIVE
+DEV-A · P0 · S0 출시 차단 · MATCHING · TESTED · 8 SP · ACTIVE
 
 - **현재 문제** — 기본 조건 추천은 실제 공개 채널을 반환하지만 오디언스·7/30/90 조회수·승인 데이터·크레딧까지 일관된 경로는 부족하다.
 - **재현·관찰** — 동일 실제 공개 집합에서 음식과 테크 조건을 변경한다. 차단·누락·비공개·HOT 변화에도 일반 결과와 순위 규칙을 대조한다.
@@ -971,8 +971,9 @@ DEV-A · P0 · S0 출시 차단 · MATCHING · TODO · 8 SP · ACTIVE
 - **보안** — 0분모·결측·tie-break·가중치 합·hard gate 위반 테스트를 고정한다.
 - **검증** — 고정 데이터셋 점수·경계값·입력 순서 독립성·결측 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 현재 소프트 점수인 예산·분야의 하드/선호 조건을 명시하고 초기 가중치·결측 재정규화·데이터 충실도를 일관되게 계산한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D044/ (이번 검증 기록 위치)
+- **차단 요인** — 실데이터/정책·D041 실환경 회귀, 배포 조율과 기존 snapshot-v1 대비 통합 검증이 남았다.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D044/ (이번 검증 기록 위치) · harness/evidence/D044/MATCHING_20261123.md
+- **검증 범위** — 현재 추천 폼의 hard/soft/unknown과 scorer1.2 연결, 결측 가중치·보류 적격·안전 숫자·정렬·HOT 독립성 포함39개 합성 단위/action/DTO 테스트 통과. 운영 및 SQL snapshot-v1 통합과 구분.
 - **이전 기록** — OPEN
 
 ## D045 · 추천 이유·출처·스냅샷·재계산
