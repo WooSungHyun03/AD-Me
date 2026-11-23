@@ -3,7 +3,10 @@ import { test, expect, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 const accounts = JSON.parse(
-  readFileSync(process.env.ADME_ACCOUNTS_FILE || ".accounts.local.json", "utf8"),
+  readFileSync(
+    process.env.ADME_ACCOUNTS_FILE || ".accounts.local.json",
+    "utf8",
+  ),
 ) as Record<string, { email: string; password: string; id: string }>;
 async function login(page: Page, role: string) {
   await page.goto("/login");
@@ -63,13 +66,7 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
     page.getByRole("heading", { name: "과거 광고 이력" }),
   ).toBeVisible();
   await page.goto("/tools");
-  await page.getByLabel("상품·서비스").fill("비건 토너");
-  await page.getByLabel("타깃 고객").fill("20대");
-  await page.getByLabel("원하는 분위기").fill("자연스러움");
-  await page.getByRole("button", { name: "초안 만들기" }).click();
-  await expect(page.getByLabel("초안 (직접 수정 가능)")).toHaveValue(
-    /\[규칙 기반 광고 콘셉트 초안\]/,
-  );
+  await expect(page).toHaveURL(/\/creators$/);
   await page.goto("/pricing");
   await expect(
     page.getByRole("heading", { name: "AI 검색권", exact: true }),

@@ -8,7 +8,6 @@ export default async function Login({
   const { error, next, reauth } = await searchParams;
   return (
     <div className="auth">
-      <span className="eyebrow">Welcome back</span>
       <h1 style={{ marginTop: 20 }}>다음 협업을 이어가세요.</h1>
       <p>AD Me 워크스페이스에 로그인하세요.</p>
       {error === "link" && (

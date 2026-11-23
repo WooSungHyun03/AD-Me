@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Megaphone, Search, Sparkles, Ticket } from "lucide-react";
+import { Megaphone, Search, Ticket } from "lucide-react";
 import Image from "next/image";
 import "./globals.css";
 import "./marketplace-theme.css";
@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(siteUrl()),
     title: { default: "AD Me — 브랜드의 다음 파트너", template: "%s | AD Me" },
-    description: "분위기로 발견하고, 근거로 결정하는 크리에이터 협업 플랫폼.",
+    description: "브랜드와 YouTube 크리에이터를 연결하는 광고 협업 플랫폼.",
     icons: { icon: "/brand/ad-me-symbol.png" },
     openGraph: {
       siteName: "AD Me",
@@ -56,9 +56,6 @@ export default function RootLayout({
             </Link>
             <Link href="/jobs">
               <Megaphone size={16} aria-hidden="true" /> 광고 공고
-            </Link>
-            <Link href="/tools">
-              <Sparkles size={16} aria-hidden="true" /> AI 스튜디오
             </Link>
             <Link href="/pricing">
               <Ticket size={16} aria-hidden="true" /> 요금제

@@ -17,6 +17,11 @@ import {
   readFilteredCatalog,
   type FilteredCatalog,
 } from "@/lib/filtered-catalog";
+export const metadata = {
+  title: "크리에이터 탐색",
+  alternates: { canonical: "/creators" },
+};
+
 export default async function Creators({
   searchParams,
 }: {
@@ -27,6 +32,30 @@ export default async function Creators({
     for (const v of Array.isArray(value) ? value : value ? [value] : [])
       query.append(key, v);
   const params = query;
+  return (
+    <>
+      <section className="discovery-hero discovery-hero--compact">
+        <div className="wrap discovery-hero-inner">
+          <h1>YouTube 크리에이터 탐색</h1>
+          <p>공식 YouTube 데이터로 채널과 최근 공개 영상을 확인하세요.</p>
+          <ChannelSearch query={params.get("q") ?? ""} params={params} />
+        </div>
+      </section>
+      <Suspense
+        fallback={
+          <section className="wrap discovery-results" aria-live="polite">
+            <p>공개 채널과 등록 프로필을 불러오는 중입니다.</p>
+          </section>
+        }
+      >
+        <CreatorResults params={params} />
+      </Suspense>
+    </>
+  );
+}
+
+async function CreatorResults({ params }: { params: URLSearchParams }) {
+  const query = params;
   const filters = parseCreatorFilters(query),
     remote = configured();
   let initialPage: FilteredCatalog | undefined;
@@ -65,19 +94,9 @@ export default async function Creators({
       /* Saving errors remain recoverable in the catalogue. */
     }
   }
-  const channels = filterPublicChannels(
-    featured.items,
-    params.get("subscribers") ?? undefined,
-  );
+  const channels = filterPublicChannels(featured.items, params);
   return (
     <>
-      <section className="discovery-hero discovery-hero--compact">
-        <div className="wrap discovery-hero-inner">
-          <h1>YouTube 크리에이터 탐색</h1>
-          <p>공식 YouTube 데이터로 채널과 최근 공개 영상을 확인하세요.</p>
-          <ChannelSearch query={params.get("q") ?? ""} params={params} />
-        </div>
-      </section>
       <section className="wrap discovery-results">
         <div className="section-heading">
           <h2>공개 YouTube 채널</h2>

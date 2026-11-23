@@ -8,7 +8,6 @@ export default function ForgotPassword() {
   const canSendMail = getConfig().features.mail === "enabled";
   return (
     <section className="auth">
-      <span className="eyebrow">Account recovery</span>
       <h1>비밀번호 찾기</h1>
       <p>
         가입한 이메일로 복구 링크를 요청하세요. 링크의 안내에 따라 새 비밀번호를

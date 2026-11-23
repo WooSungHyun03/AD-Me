@@ -80,25 +80,29 @@ test(
     : "brand submits a private Korean draft to the real worker",
   async ({ page }) => {
     await login(page, "brand");
-    await page.goto("/tools/local");
-    await page
-      .getByLabel("광고 브리프")
-      .fill(
-        "무향 선크림을 소개하는 YouTube 영상. 효능을 단정하지 말고 손에 바르는 장면을 포함해주세요.",
-      );
-    const queued = page.waitForResponse(
-      (r) =>
-        r.url().endsWith("/api/intelligence") &&
-        r.request().method() === "POST",
-    );
-    await page.getByRole("button", { name: "초안 생성" }).click();
-    expect((await queued).status()).toBe(202);
+    const queued = await page.request.post("/api/intelligence", {
+      data: {
+        brief:
+          "무향 선크림을 소개하는 YouTube 영상. 효능을 단정하지 말고 손에 바르는 장면을 포함해주세요.",
+      },
+    });
+    expect(queued.status()).toBe(202);
+    const { id } = await queued.json();
     if (localFixture) await finishLocalFixtureJob("marketing_draft");
     else if (isolatedYoutube) finishLocalWorkerJob("marketing_draft");
-    await expect(
-      page.getByRole("heading", { name: "협업 제안 초안" }),
-    ).toBeVisible({ timeout: 75000 });
-    await expect(page.locator("article").first()).toContainText(/[가-힣]/);
+    await expect
+      .poll(
+        async () => {
+          const response = await page.request.get("/api/intelligence?id=" + id);
+          return response.ok()
+            ? (await response.json()).status
+            : response.status();
+        },
+        { timeout: 75000, intervals: [500, 1000, 2000, 3000] },
+      )
+      .toBe("done");
+    const response = await page.request.get("/api/intelligence?id=" + id);
+    expect(JSON.stringify((await response.json()).output)).toMatch(/[가-힣]/);
   },
 );
 

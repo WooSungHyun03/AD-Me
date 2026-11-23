@@ -18,7 +18,6 @@ export default async function Signup() {
   }
   return (
     <div className="auth">
-      <span className="eyebrow">Create your account</span>
       <h1 style={{ marginTop: 20 }}>좋은 만남의 시작.</h1>
       <p>브랜드 또는 크리에이터로 함께하세요.</p>
       <p>

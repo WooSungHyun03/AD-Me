@@ -45,7 +45,8 @@ export default async function Help() {
           집계합니다.
         </li>
         <li>
-          AI 초안은 입력한 내용만 사용하며 반드시 직접 검토 후 사용해야 합니다.
+          추천 결과는 등록 정보와 공개 YouTube 자료를 바탕으로 제공합니다. 협업
+          전에 채널과 조건을 직접 확인해 주세요.
         </li>
         <li>결제는 Toss TEST 모드이며 실제 과금되지 않습니다.</li>
       </ul>

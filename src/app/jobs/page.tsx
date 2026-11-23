@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowUpRight, ClipboardList } from "lucide-react";
 import { configured, supabase } from "@/lib/supabase";
 import { jobExpiry, jobsSchema } from "./model";
 
@@ -8,7 +9,7 @@ export default async function Jobs() {
     : null;
   const rows = jobsSchema.safeParse(response?.data);
   return (
-    <section className="wrap marketplace-board">
+    <section className="wrap marketplace-board premium-job-board">
       <div className="section-heading marketplace-board-heading">
         <div>
           <h1 className="page-title">YouTube 광고 공고</h1>
@@ -21,7 +22,13 @@ export default async function Jobs() {
       {response?.error || !rows.success ? (
         <p role="alert">공고를 불러오지 못했습니다.</p>
       ) : !rows.data.length ? (
-        <p className="empty">표시할 광고 공고가 없습니다.</p>
+        <div className="marketplace-empty">
+          <ClipboardList aria-hidden="true" size={28} />
+          <h2>현재 공개된 공고가 없습니다.</h2>
+          <Link href="/creators" className="button outline">
+            YouTube 채널 탐색
+          </Link>
+        </div>
       ) : (
         rows.data.map((row) => (
           <Link
@@ -29,7 +36,9 @@ export default async function Jobs() {
             key={row.id}
             href={"/jobs/" + row.id}
           >
-            <span>↗</span>
+            <span className="marketplace-job-icon">
+              <ArrowUpRight aria-hidden="true" size={20} />
+            </span>
             <div>
               <h3>{row.brief.title}</h3>
               <p>

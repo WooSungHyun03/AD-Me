@@ -30,6 +30,16 @@ export const csp = [
   .replace(/ {2,}/g, " ");
 const config: NextConfig = {
   poweredByHeader: false,
+  async redirects() {
+    return [
+      { source: "/tools", destination: "/creators", permanent: true },
+      {
+        source: "/tools/local",
+        destination: "/campaigns/new",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

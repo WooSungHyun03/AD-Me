@@ -1,127 +1,163 @@
-import { RecommendationBrief } from "@/components/recommendation-brief";
-import { featuredYoutube } from "@/lib/featured-youtube";
-import { YoutubeChannelCards } from "@/components/featured-youtube";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { creators } from "@/lib/catalog";
-import { configured, supabase } from "@/lib/supabase";
-import { getConfig } from "@/lib/config";
-import { projectPublicCreator } from "@/lib/creator-public-profile";
-import { homeCatalogSchema } from "@/lib/home-catalog";
+import { Suspense } from "react";
+import {
+  ArrowDown,
+  ArrowUpRight,
+  Megaphone,
+  Search,
+  UsersRound,
+} from "lucide-react";
+import { RecommendationBrief } from "@/components/recommendation-brief";
+import { YoutubeImage } from "@/components/youtube-image";
+import { featuredYoutube, youtubeCount } from "@/lib/featured-youtube";
+
 export const dynamic = "force-dynamic";
-export default async function Home() {
-  const demoMode = getConfig().serviceMode === "test_demo";
-  let summary: ReturnType<typeof homeCatalogSchema.parse> | null = null;
-  if (configured()) {
-    const db = await supabase(),
-      { data, error } = await db.rpc("creator_home_summary", {
-        p_demo: demoMode,
-      });
-    const parsed = homeCatalogSchema.safeParse(data);
-    if (!error && parsed.success) summary = parsed.data;
-  } else if (demoMode) {
-    const samples = creators
-      .map((c) =>
-        projectPublicCreator({
-          id: c.seed_id,
-          published: c.published,
-          profile: c,
-        }),
-      )
-      .filter((c) => c !== null);
-    summary = homeCatalogSchema.parse({
-      version: 1,
-      total: samples.length,
-      demo: samples.length,
-      registered: 0,
-      asOf: new Date().toISOString(),
-      featured: samples.slice(0, 3),
-    });
-  }
-  const { items } = await featuredYoutube("", null, 3);
+export const metadata = { alternates: { canonical: "/" } };
+
+const workflows = [
+  {
+    href: "/creators",
+    title: "크리에이터 탐색",
+    description: "공개 채널의 구독자, 최근 영상과 주제를 살펴보세요.",
+    Icon: Search,
+  },
+  {
+    href: "/jobs",
+    title: "광고 공고",
+    description: "YouTube 협업을 제안하거나 모집 중인 공고에 지원하세요.",
+    Icon: Megaphone,
+  },
+  {
+    href: "/dashboard",
+    title: "협업 워크스페이스",
+    description: "협업 제안, 대화와 결과물 검토를 한곳에서 관리하세요.",
+    Icon: UsersRound,
+  },
+];
+
+async function HomeChannelPreview() {
+  const { items, unavailable } = await featuredYoutube("", null, 3);
+  return (
+    <section
+      className="channel-preview"
+      aria-labelledby="channel-preview-title"
+    >
+      <div className="channel-preview-header">
+        <h2 id="channel-preview-title">공개 YouTube 채널</h2>
+        <span>구독자</span>
+      </div>
+      {items.length ? (
+        <ul>
+          {items.map((channel) => (
+            <li key={channel.channel_id}>
+              <Link href={`/creators/youtube/${channel.channel_id}`}>
+                <YoutubeImage src={channel.metadata?.avatar} kind="avatar" />
+                <strong>{channel.title}</strong>
+                <span>{youtubeCount(channel.subscriber_count)}</span>
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>
+          {unavailable
+            ? "채널 정보를 불러오지 못했습니다."
+            : "표시할 공개 채널이 없습니다."}
+        </p>
+      )}
+      <p className="channel-preview-source">
+        YouTube Data API · 공개 채널의 협업 가능 여부는 미확인
+      </p>
+    </section>
+  );
+}
+
+export default function Home() {
   return (
     <>
-      <section className="product-hero">
-        <div className="wrap product-hero-grid">
-          <div className="product-hero-copy">
+      <section className="product-hero premium-hero">
+        <div className="wrap premium-hero-grid">
+          <div className="premium-hero-copy">
             <h1>
               우리 브랜드다운
               <br />
-              유튜버를 찾는 첫 단계.
+              유튜버를 찾으세요.
             </h1>
-            <p>광고할 상품, 타깃, 예산을 입력해 협업 후보를 찾아보세요.</p>
             <p>
-              등록 프로필의 견적과 협업 상태, 공개 YouTube 채널의 콘텐츠 분야를
-              확인할 수 있습니다.
+              상품과 예산에 맞는 협업 후보를 찾고, 실제 YouTube 채널에서
+              콘텐츠를 확인하세요.
             </p>
-            <Link className="product-hero-link" href="/creators">
-              채널명으로 탐색 <ArrowUpRight size={16} aria-hidden="true" />
-            </Link>
+            <div className="premium-hero-actions">
+              <Link className="button primary" href="#recommendation">
+                추천 조건 입력 <ArrowDown size={17} aria-hidden="true" />
+              </Link>
+              <Link className="premium-hero-link" href="/creators">
+                채널 탐색 <ArrowUpRight size={17} aria-hidden="true" />
+              </Link>
+            </div>
           </div>
-          <RecommendationBrief />
+          <Suspense
+            fallback={
+              <section
+                className="channel-preview channel-preview-loading"
+                aria-label="공개 YouTube 채널"
+              >
+                <div className="channel-preview-header">
+                  <h2>공개 YouTube 채널</h2>
+                  <span>구독자</span>
+                </div>
+                <p role="status">공개 채널을 불러오는 중입니다.</p>
+              </section>
+            }
+          >
+            <HomeChannelPreview />
+          </Suspense>
         </div>
       </section>
-      {items.length > 0 && (
-        <section className="wrap section-line discovery-results">
-          <div className="section-heading">
-            <h2>주목할 YouTube 채널</h2>
-            <Link href="/creators" className="inline">
-              전체 탐색 <ArrowUpRight size={18} />
-            </Link>
-          </div>
+      <section
+        className="wrap premium-recommendation"
+        id="recommendation"
+        aria-labelledby="recommendation-title"
+      >
+        <div>
+          <h2 id="recommendation-title">광고할 상품부터 알려주세요.</h2>
           <p>
-            출처는 YouTube Data API입니다. 공개 채널의 AD Me 가입과 협업 가능
-            여부는 확인되지 않았습니다.
+            등록 크리에이터의 견적과 협업 상태를 조건과 비교합니다. 관련 주제로
+            분류된 공개 채널도 함께 확인할 수 있습니다.
           </p>
-          <YoutubeChannelCards channels={items} />
-        </section>
-      )}
-      <section className="wrap discovery-workflows" aria-label="협업 시작">
-        <Link href="/jobs">
-          <strong>광고 공고</strong>
-          <span>모집 중인 YouTube 협업 보기</span>
-          <ArrowUpRight size={18} aria-hidden="true" />
-        </Link>
-        <Link href="/tools">
-          <strong>AI 스튜디오</strong>
-          <span>상품에 맞는 캠페인 초안 만들기</span>
-          <ArrowUpRight size={18} aria-hidden="true" />
-        </Link>
-        <Link href="/dashboard">
-          <strong>협업 워크스페이스</strong>
-          <span>제안, 메시지, 결과물 관리</span>
-          <ArrowUpRight size={18} aria-hidden="true" />
-        </Link>
-      </section>
-      <section className="wrap">
-        <div className="section-heading">
-          <h2>
-            다음 캠페인의 시작,
-            <br />
-            좋은 파트너와 함께.
-          </h2>
-          <Button asChild>
-            <Link href="/signup">
-              무료로 시작하기 <ArrowUpRight size={18} />
-            </Link>
-          </Button>
         </div>
-        <p style={{ fontSize: 12 }}>
-          {summary
-            ? `현재 공개 프로필 ${summary.total}명 · 본인 등록 ${summary.registered}명${summary.demo ? ` · 가상 시연 ${summary.demo}명` : ""}. 본인 등록은 플랫폼 소유·지표 검증 완료를 뜻하지 않습니다.`
-            : "현재 공개 현황은 확인 중입니다. 확보 인원이나 성과를 추정해 표시하지 않습니다."}
-          {summary && (
-            <>
-              <br />
-              집계 시각{" "}
-              {new Date(summary.asOf).toLocaleString("ko-KR", {
-                timeZone: "Asia/Seoul",
-              })}{" "}
-              (KST) · 무료 베타 · 공개 범위에 따라 변경됩니다.
-            </>
-          )}
-        </p>
+        <RecommendationBrief />
+      </section>
+      <section
+        className="wrap premium-workflows"
+        aria-labelledby="workflow-title"
+      >
+        <h2 id="workflow-title">후보 발굴부터 협업까지</h2>
+        <div className="premium-workflow-grid">
+          {workflows.map(({ href, title, description, Icon }) => (
+            <Link href={href} key={href}>
+              <Icon aria-hidden="true" size={23} />
+              <h3>{title}</h3>
+              <p>{description}</p>
+              <ArrowUpRight aria-hidden="true" size={19} />
+            </Link>
+          ))}
+        </div>
+      </section>
+      <section className="wrap premium-next">
+        <div>
+          <h2>다음 캠페인을 준비하세요.</h2>
+          <p>탐색과 캠페인 초안을 무료로 이용할 수 있습니다.</p>
+        </div>
+        <div>
+          <Link className="button outline" href="/pricing">
+            요금제 보기
+          </Link>
+          <Link className="button primary" href="/signup">
+            무료로 시작하기
+          </Link>
+        </div>
       </section>
     </>
   );

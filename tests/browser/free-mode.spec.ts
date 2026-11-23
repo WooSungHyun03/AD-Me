@@ -67,11 +67,8 @@ test("mail disabled pages and SPA controls remain usable without keys", async ({
   expect(callback.headers()["set-cookie"]).toBeUndefined();
 
   await page.goto("/tools");
-  await page.getByLabel("상품·서비스").fill("로컬 테스트");
-  await page.getByLabel("타깃 고객").fill("테스트 참여자");
-  await page.getByLabel("원하는 분위기").fill("차분함");
-  await page.getByRole("button", { name: "초안 만들기" }).click();
+  await expect(page).toHaveURL(/\/creators$/);
   await expect(
-    page.getByText("[규칙 기반 광고 콘셉트 초안]", { exact: false }),
-  ).toBeVisible();
+    page.getByRole("navigation", { name: "메인 메뉴" }),
+  ).not.toContainText("AI 스튜디오");
 });

@@ -212,7 +212,7 @@ test("P0 authenticated brand creator and MFA admin main flows pass axe", async (
       "/settings",
       "/campaigns/new",
       "/reports/new",
-      "/tools/local",
+      "/creators",
     ],
     creator: [
       "/dashboard",

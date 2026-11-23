@@ -17,7 +17,9 @@ export function Checkout({
   return (
     <>
       <Button
-        variant="outline"
+        className="checkout-button"
+        type="button"
+        aria-busy={pending}
         disabled={pending}
         onClick={async () => {
           setPending(true);
@@ -56,11 +58,7 @@ export function Checkout({
         {pending ? "결제창 준비 중…" : "TEST 이용권 선택"}
       </Button>
       {error && (
-        <p
-          role="alert"
-          className="error"
-          style={{ fontSize: 12, marginTop: 14 }}
-        >
+        <p role="alert" className="checkout-error">
           {error}
         </p>
       )}

@@ -4,7 +4,6 @@ export const freeFeatures = [
   "크리에이터 탐색·필터",
   "캠페인 브리프·기본 추천",
   "협업 제안·진행 관리",
-  "규칙 기반 광고·제안 초안",
 ] as const;
 
 export const testSkus = [

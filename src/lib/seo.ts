@@ -25,7 +25,6 @@ export const PRIVATE_PREFIXES = [
   "/reset-password",
   "/settings",
   "/signup",
-  "/tools",
   "/unsubscribe",
 ];
 export const PUBLIC_PAGES = [

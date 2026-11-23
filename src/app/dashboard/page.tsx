@@ -134,7 +134,32 @@ export default async function Dashboard() {
           <span>저장한 후보</span>
         </div>
       </div>
-      <div className="section-heading">
+      <ul className="workspace-summary" aria-label="업무 현황">
+        <li>
+          <a href="#workspace-campaigns">
+            <strong>{campaigns?.length ?? 0}</strong>
+            <span>내 캠페인</span>
+          </a>
+        </li>
+        <li>
+          <a href="#workspace-collaboration">
+            <strong>
+              {proposals?.filter((item) => item.status === "pending").length ??
+                0}
+            </strong>
+            <span>응답 대기</span>
+          </a>
+        </li>
+        <li>
+          <a href="#workspace-saved">
+            <strong>
+              {(saved?.length ?? 0) + (savedChannels?.length ?? 0)}
+            </strong>
+            <span>저장한 후보</span>
+          </a>
+        </li>
+      </ul>
+      <div className="section-heading" id="workspace-campaigns">
         <h2>내 캠페인</h2>
         {profile?.role === "brand" && (
           <Link href="/campaigns/new" className="button primary">
@@ -163,7 +188,9 @@ export default async function Dashboard() {
             : "첫 캠페인의 브리프를 작성해보세요."}
         </p>
       )}
-      <h2 style={{ marginTop: 55 }}>협업 파이프라인</h2>
+      <h2 id="workspace-collaboration" style={{ marginTop: 55 }}>
+        협업 파이프라인
+      </h2>
       {proposals?.length ? (
         proposals.map((p) => (
           <article
@@ -219,7 +246,9 @@ export default async function Dashboard() {
       ) : (
         <div className="empty">아직 협업 제안이 없습니다.</div>
       )}
-      <h2 style={{ marginTop: 45 }}>저장한 크리에이터</h2>
+      <h2 id="workspace-saved" style={{ marginTop: 45 }}>
+        저장한 크리에이터
+      </h2>
       <a href="/api/export" className="button outline small">
         후보 CSV 내보내기
       </a>
