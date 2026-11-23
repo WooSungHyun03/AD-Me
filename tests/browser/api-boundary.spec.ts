@@ -17,7 +17,7 @@ test("public health and ordinary denied API responses expose no diagnostics or p
   expect(JSON.stringify(result)).not.toMatch(
     /SELECT |stack|sb_secret|eyJ|SERVICE_ROLE_KEY/,
   );
-  const res = await page.request.get(
+  const res = await page.request.post(
     "/api/uploads/00000000-0000-4000-8000-000000000001",
   );
   expect(res.status()).toBe(401);
@@ -61,7 +61,11 @@ test("login remains usable and reports unavailable account configuration safely"
     .getByLabel("비밀번호", { exact: true })
     .fill("fictional-password-only");
   await page.getByRole("button", { name: "로그인", exact: true }).click();
-  await expect(page.getByRole("alert")).toContainText("연결");
+  const error = page
+    .getByRole("alert")
+    .filter({ hasText: "계정 서비스 연결 준비 중" });
+  await expect(error).toBeVisible();
+  await expect(error).toBeFocused();
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,
