@@ -4,8 +4,18 @@ import { normalizeSocialLink, safeHttpsLink } from "./social-links";
 
 export type PublicCatalogCreator = Omit<
   Creator,
-  "owner_id" | "owner_consent" | "followers"
-> & { followers: number | null };
+  | "owner_id"
+  | "owner_consent"
+  | "followers"
+  | "price_min_krw"
+  | "price_max_krw"
+  | "is_available"
+> & {
+  followers: number | null;
+  price_min_krw: number;
+  price_max_krw: number;
+  is_available: boolean;
+};
 // Contract of the database allowlist, never a raw legacy profile. Unknown keys
 // fail closed so a future SQL change cannot silently reintroduce private fields.
 export const publicCatalogCreatorSchema = z

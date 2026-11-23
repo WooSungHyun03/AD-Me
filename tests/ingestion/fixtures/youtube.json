@@ -1,0 +1,60 @@
+{
+  "_note": "SYNTHETIC fixture shaped like YouTube Data API v3 responses. Not real channels or statistics.",
+  "channels": {
+    "items": [
+      {
+        "id": "UCaaaaaaaaaaaaaaaaaaaaaa",
+        "snippet": {
+          "title": "Synthetic Visible",
+          "description": "demo",
+          "customUrl": "@synthetic-visible",
+          "publishedAt": "2020-01-01T00:00:00Z",
+          "country": "KR"
+        },
+        "statistics": {
+          "viewCount": "1200",
+          "subscriberCount": "345",
+          "hiddenSubscriberCount": false,
+          "videoCount": "2"
+        },
+        "contentDetails": {
+          "relatedPlaylists": { "uploads": "UUaaaaaaaaaaaaaaaaaaaaaa" }
+        }
+      },
+      {
+        "id": "UCbbbbbbbbbbbbbbbbbbbbbb",
+        "snippet": { "title": "Synthetic Hidden" },
+        "statistics": {
+          "viewCount": "90",
+          "hiddenSubscriberCount": true,
+          "videoCount": "0"
+        },
+        "contentDetails": { "relatedPlaylists": {} }
+      }
+    ]
+  },
+  "playlistItems": {
+    "items": [
+      { "contentDetails": { "videoId": "vid1" } },
+      { "contentDetails": { "videoId": "vid2" } }
+    ]
+  },
+  "videos": {
+    "items": [
+      {
+        "id": "vid1",
+        "snippet": { "title": "V1", "publishedAt": "2026-01-01T00:00:00Z" },
+        "statistics": {
+          "viewCount": "100",
+          "likeCount": "7",
+          "commentCount": "2"
+        }
+      },
+      {
+        "id": "vid2",
+        "snippet": { "title": "V2", "publishedAt": "2026-02-01T00:00:00Z" },
+        "statistics": { "viewCount": "50" }
+      }
+    ]
+  }
+}

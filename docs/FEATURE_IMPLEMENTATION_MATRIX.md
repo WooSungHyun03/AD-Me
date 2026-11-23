@@ -11,7 +11,7 @@
 | 유사 인플루언서 | Modash | 태그 Jaccard/벡터 유사도 | JS/Jaccard, pgvector optional | P1 |
 | 자연어 검색 | Modash, 피처링 | LLM이 Zod schema 필터로만 변환 | Zod + provider adapter | P1 |
 | AI 캠페인 기획안 | 피처링 AI, GRIN Gia | 등록된 brief·태그만 바탕으로 초안 생성 | LLM adapter; output validation | P1 |
-| 추천 후보 저장/공유 | 피처링 | shortlist, 소유권, compare | saved_creators + RLS | P0 |
+| 추천 후보 저장/공유 | 피처링 | shortlist, 소유권, compare | saved_lists + saved_list_items + RLS (D036) | P0 |
 | CSV 인플루언서 업로드 | 피처링 | 업로드→검증→중복 미리보기→commit | PapaParse or csv-parse | P1 |
 | 다수 후보 비교 | Modash, HypeAuditor | 동일 요건으로 비교 + 누락 데이터 별도 | custom comparison UI | P0 |
 | 브랜드 캠페인 생성 | 레뷰 Direct | Stepper / validated form | React Hook Form + Zod | P0 |

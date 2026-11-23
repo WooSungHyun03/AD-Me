@@ -33,7 +33,10 @@ export default async function Settings() {
       <p>
         {profile?.name} · {profile?.role} · {user.email}
       </p>
-      <AccountForm name={profile?.name ?? ""} />
+      <AccountForm
+        name={profile?.name ?? ""}
+        optOut={Boolean(user.user_metadata.email_opt_out)}
+      />
       {profile?.role === "creator" ? (
         <>
           <p>

@@ -72,9 +72,12 @@ assert.ok(
     })
   ).error,
 );
-const { data: orders } = await brand.from("orders").select("id,amount,status");
+const { data: orders } = await brand.from("orders").select("id,sku,amount,status");
+const { data: prices } = await brand.from("products").select("sku,amount");
+const price = Object.fromEntries(prices.map((p) => [p.sku, p.amount]));
 assert.ok(orders.length);
-assert.ok(orders.every((o) => o.amount === 49000 && o.status === "pending"));
+// Server-priced (client amount ignored, e.g. marketplace job_post amount:1) and never paid.
+assert.ok(orders.every((o) => o.amount === price[o.sku] && o.status === "pending"));
 assert.equal((await brand.from("entitlements").select("*")).data.length, 0);
 assert.equal(
   (await other.from("orders").select("*").eq("owner_id", a.brand.id)).data
@@ -97,20 +100,23 @@ assert.ok(
   (await other.rpc("transition_proposal", { p_id: p.id, p_action: "accepted" }))
     .error,
 );
-const { data: r, error: re } = await creator
-  .from("reports")
-  .insert({
-    reporter_id: a.creator.id,
-    creator_id: "creator-001",
-    reason: "QA 정정 검토 테스트입니다. 가상 데이터 검증.",
-    source_url: "https://example.com/qa-source",
-  })
-  .select("id")
-  .single();
-assert.equal(re, null);
+// Reports: direct insert is closed; requests go through submit_report (fresh account: 5/day limit).
 assert.ok(
-  (await brand.rpc("review_report", { p_id: r.id, p_status: "reviewed" }))
-    .error,
+  (
+    await creator
+      .from("reports")
+      .insert({
+        reporter_id: a.creator.id,
+        creator_id: "creator-001",
+        reason: "직접 삽입 시도입니다. 거부되어야 합니다.",
+        source_url: "https://example.com/x",
+      })
+  ).error,
+);
+const reporter = createClient(
+  e.NEXT_PUBLIC_SUPABASE_URL,
+  e.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  { auth: { persistSession: false } },
 );
 assert.equal(
   (
@@ -124,9 +130,14 @@ assert.equal(
   null,
 );
 assert.equal(
-  (await creator.from("reports").select("status").eq("id", r.id).single()).data
+  (await reporter.from("reports").select("status").eq("id", r.id).single()).data
     .status,
-  "reviewed",
+  "resolved",
+);
+assert.equal(
+  (await creator.from("reports").select("id").eq("id", r.id)).data.length,
+  0,
+  "other users cannot see the request",
 );
 assert.ok(
   (await admin.from("audit_log").select("id").eq("entity_id", r.id)).data

@@ -198,9 +198,11 @@ export function filterCreators<T extends FilterItem>(
       (!filters.available || c.is_available) &&
       (filters.maxPrice === "" ||
         (finiteNonnegative(c.price_min_krw) &&
+          c.price_min_krw !== null &&
           c.price_min_krw <= Number(filters.maxPrice))) &&
       (filters.minPrice === "" ||
         (finiteNonnegative(c.price_max_krw) &&
+          c.price_max_krw !== null &&
           c.price_max_krw >= Number(filters.minPrice))) &&
       (filters.minFollowers === "" ||
         (followers !== null && followers >= Number(filters.minFollowers))) &&
@@ -216,7 +218,14 @@ export function filterCreators<T extends FilterItem>(
       numeric =
         av === null ? (bv === null ? 0 : 1) : bv === null ? -1 : bv - av;
     } else if (filters.sort === "price") {
-      numeric = a.price_min_krw - b.price_min_krw;
+      numeric =
+        a.price_min_krw === null
+          ? b.price_min_krw === null
+            ? 0
+            : 1
+          : b.price_min_krw === null
+            ? -1
+            : a.price_min_krw - b.price_min_krw;
     }
     return (
       numeric ||

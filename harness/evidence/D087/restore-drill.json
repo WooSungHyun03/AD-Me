@@ -1,0 +1,27 @@
+{
+  "backup": {
+    "seconds": 1.865,
+    "db_sql_bytes": 274972,
+    "files": 3,
+    "rows": 791
+  },
+  "rpo": {
+    "backup_to_disaster_seconds": 0.1,
+    "lost_writes": 1,
+    "policy": "daily manual dump → RPO ≤ 24h"
+  },
+  "rto": {
+    "schema_recreate_seconds": 28.739,
+    "db_restore": 0.16,
+    "files": 0.045,
+    "tombstones_and_probe": 0.019,
+    "data_total_seconds": 0.224
+  },
+  "reapply": {
+    "merged": 0,
+    "uploads": 0,
+    "owner_profiles": 0,
+    "suppressed_keys": 0,
+    "collected_profiles": 0
+  }
+}

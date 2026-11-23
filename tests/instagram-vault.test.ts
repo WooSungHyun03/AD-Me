@@ -31,7 +31,7 @@ it("binds authenticated encryption to owner/app/key and rejects corruption witho
     expect(() => openInstagramGrant(e, b, key)).toThrow("UNAVAILABLE");
   expect(() =>
     openInstagramGrant(
-      { ...e, ciphertext: "A" + e.ciphertext.slice(1) },
+      { ...e, ciphertext: (e.ciphertext[0] === "A" ? "B" : "A") + e.ciphertext.slice(1) },
       binding,
       key,
     ),

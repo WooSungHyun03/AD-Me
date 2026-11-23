@@ -7,9 +7,11 @@ import { Button } from "./ui/button";
 export function AuthForm({
   mode,
   policy,
+  next,
 }: {
   mode: "login" | "signup";
   policy?: PolicyStatus;
+  next?: string;
 }) {
   const [state, action, pending] = useActionState(authAction, null);
   const statusId = useId(),
@@ -23,6 +25,7 @@ export function AuthForm({
       aria-busy={pending}
       aria-describedby={state?.error || state?.message ? statusId : undefined}
     >
+      {next && <input type="hidden" name="next" value={next} />}
       <input type="hidden" name="mode" value={mode} />
       {mode === "login" ? (
         <input type="hidden" name="name" value="로그인" />

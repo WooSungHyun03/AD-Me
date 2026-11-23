@@ -1,4 +1,5 @@
 import "server-only";
+import { getConfig } from "./config";
 import { creators } from "./catalog";
 import { configured, supabase } from "./supabase";
 import {
@@ -8,6 +9,8 @@ import {
 } from "./creator-public-profile";
 import { readPublicCreatorCatalog } from "./creator-catalog-read";
 export async function publicCreators(): Promise<PublicCatalogCreator[]> {
+  if (!configured() && getConfig().serviceMode === "free_beta")
+    throw Error("실제 크리에이터 데이터 연결이 필요합니다.");
   if (!configured())
     return creators
       .map((profile) =>

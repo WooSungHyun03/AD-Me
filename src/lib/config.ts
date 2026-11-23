@@ -8,7 +8,10 @@ export function getConfig() {
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     NEXT_PUBLIC_TOSS_CLIENT_KEY: process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY,
-    ADME_SERVICE_MODE: process.env.ADME_SERVICE_MODE,
+    ADME_SERVICE_MODE:
+      process.env.SERVICE_MODE === "free_beta"
+        ? "free_beta"
+        : (process.env.ADME_SERVICE_MODE ?? process.env.SERVICE_MODE),
     ADME_FEATURE_MAIL: process.env.ADME_FEATURE_MAIL,
     ADME_FEATURE_TEST_BILLING: process.env.ADME_FEATURE_TEST_BILLING,
     ADME_FEATURE_INGESTION: process.env.ADME_FEATURE_INGESTION,

@@ -85,7 +85,9 @@ try {
         "PT404",
       );
       assert.deepEqual((await anon.from("products").select("sku")).data, []);
-      assert.deepEqual((await anon.rpc("active_hot_creators")).data, []);
+      const legacyHot = await anon.rpc("active_hot_creators");
+      assert.equal(legacyHot.error?.code, "42501"); // DEV-B retires this public RPC in favor of service-only promotion slots.
+      assert.equal(legacyHot.data, null);
       for (const role of ["anon", "authenticated", "service_role"])
         assert.equal(
           sql(

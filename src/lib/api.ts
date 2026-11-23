@@ -10,6 +10,9 @@ const codes = {
   403: "FORBIDDEN",
   404: "NOT_FOUND",
   409: "CONFLICT",
+  410: "GONE",
+  413: "PAYLOAD_TOO_LARGE",
+  415: "UNSUPPORTED_MEDIA_TYPE",
   422: "INVALID_INPUT",
   429: "RATE_LIMITED",
   500: "INTERNAL_ERROR",
@@ -29,10 +32,23 @@ class ApiFailure extends Error {
 
 export function fail(
   message: string,
-  status: ErrorStatus = 400,
+  status: number = 400,
   retryAfter?: number,
 ): never {
-  throw new ApiFailure(message, status, retryAfter);
+  throw new ApiFailure(
+    message,
+    status in codes ? (status as ErrorStatus) : 500,
+    retryAfter,
+  );
+}
+
+// DEV-B handlers retain their route context while sharing the established error/CSRF boundary.
+export function compatibleApiRoute<Args extends unknown[]>(
+  operation: string,
+  handler: (request: Request, ...args: Args) => Promise<Response> | Response,
+) {
+  return (request: Request, ...args: Args) =>
+    apiRoute(operation, (req) => handler(req, ...args))(request);
 }
 
 export function apiRoute(
@@ -207,7 +223,7 @@ export function requireFeature(feature: "ingestion" | "llm") {
   if (state !== "enabled") fail("서비스 연결을 준비 중입니다.", 503);
 }
 
-function safeOrigin(req: Request) {
+export function safeOrigin(req: Request) {
   if (req.headers.get("sec-fetch-site") === "cross-site") return false;
   const origin = req.headers.get("origin");
   if (!origin) return true;

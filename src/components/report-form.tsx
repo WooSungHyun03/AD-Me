@@ -2,7 +2,7 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { Button } from "./ui/button";
-export function ReportForm({ creatorId }: { creatorId: string }) {
+export function ReportForm({ creatorId }: { creatorId: string; parentId?: string; initialKind?: string }) {
   const [message, setMessage] = useState("");
   const [pending, setPending] = useState(false);
   const sending = useRef(false),
