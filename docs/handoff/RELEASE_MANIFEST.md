@@ -6,10 +6,10 @@ Current as of 2026-11-23. DEV-B migrations were renumbered `202611231000NN` (for
 | Environment | State | Basis |
 |---|---|---|
 | Local isolated Supabase (Docker) | 0001–0016 applied, full regression PASS | Agent ran it 2026-11-22 (`harness/evidence/D079`, `D085`) |
-| Hosted Supabase (`ivtdfioypmzknlhinstg`) | 0001–0003 applied; DEV-A `2026112000NN`/`20261122…` probably applied (live site). DEV-B `202611231000NN` not applied | Not re-checked this session (needs user consent / access token) |
-| Vercel production URL | Previous deployment. **No verification of the new features** | D088 re-verifies after the user deploys |
+| Hosted Supabase (`ivtdfioypmzknlhinstg`) | DEV-A and DEV-B release migrations through repository version `20261123100029` applied | [D088 production ledger mapping](../../harness/evidence/D088/README.md) |
+| Vercel production URL | PR #3 and release corrections promoted and checked at be-celeb.org | [D088 production verification](../../harness/evidence/D088/README.md) |
 
-Local PASS does not mean hosted or production PASS. After deploying, update the second and third rows only with evidence.
+The D088 evidence records checks performed against the hosted database and production URL.
 
 ## Migrations: phases and compatibility
 Phases: expand (additions only, old app unaffected), backfill (transforms existing data), switch (replaces policy/function behaviour), contract (removes things the old app may use).
