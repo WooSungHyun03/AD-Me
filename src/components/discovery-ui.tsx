@@ -29,7 +29,7 @@ export function ChannelSearch({
         placeholder="YouTube 채널 이름을 검색하세요"
       />
       {[...(params ?? [])]
-        .filter(([key]) => key !== "q")
+        .filter(([key]) => !["q", "yt-cursor"].includes(key))
         .map(([key, value], index) => (
           <input key={key + index} type="hidden" name={key} value={value} />
         ))}
@@ -83,7 +83,7 @@ export function PublicChannelFilters({
   count,
 }: {
   params: URLSearchParams;
-  count: number;
+  count: number | null;
 }) {
   const current = params.get("subscribers") ?? "";
   const active = subscriberRanges.some(({ key }) => key === current)
@@ -93,7 +93,9 @@ export function PublicChannelFilters({
     <div className="discovery-filter-group">
       <form className="discovery-selects" method="get" action="/creators">
         {[...params]
-          .filter(([key]) => !["yt-topic", "yt-sort"].includes(key))
+          .filter(
+            ([key]) => !["yt-topic", "yt-sort", "yt-cursor"].includes(key),
+          )
           .map(([name, value], index) => (
             <input type="hidden" name={name} value={value} key={name + index} />
           ))}
@@ -112,6 +114,7 @@ export function PublicChannelFilters({
             <option value="">기본 정렬</option>
             <option value="subscribers">구독자 많은 순</option>
             <option value="updated">데이터 최근 갱신순</option>
+            <option value="name">채널 이름순</option>
           </select>
         </label>
         <button type="submit" className="button outline">
@@ -122,6 +125,7 @@ export function PublicChannelFilters({
         <nav aria-label="공개 채널 구독자 수">
           {subscriberRanges.map(({ key, label }) => {
             const query = new URLSearchParams(params);
+            query.delete("yt-cursor");
             if (key) query.set("subscribers", key);
             else query.delete("subscribers");
             return (
@@ -135,7 +139,11 @@ export function PublicChannelFilters({
             );
           })}
         </nav>
-        <span>{count.toLocaleString("ko-KR")}개 채널</span>
+        <span>
+          {count == null
+            ? "채널 수 확인 불가"
+            : `${count.toLocaleString("ko-KR")}개 채널`}
+        </span>
       </div>
     </div>
   );

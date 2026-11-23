@@ -1605,16 +1605,18 @@
       "acceptance": "전체 프로필 브라우저 전송을 없애고 공개 DTO·정렬·페이지 크기 제한·검색 인덱스를 적용한다.",
       "points": 8,
       "owner": "DEV-A",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "D005와 실제 데이터 회귀, USER 조율105→107 DB 적용 및 합의된 데이터량 성능 검증이 남았다.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D033/ (이번 검증 기록 위치)"
+        "harness/evidence/D033/ (이번 검증 기록 위치)",
+        "harness/evidence/D033/DIRECTORY_20261123.md"
       ],
-      "status": "TODO",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "verified_scope": "로컬 계약10건 + 실제 격리 Postgres/PostgREST5개 그룹(가상67/적격63), 세 정렬 다중 페이지·필터·권한·철회 통과. 운영/대규모 성능/브라우저 최종 배치는 별도."
     },
     {
       "id": "D034",

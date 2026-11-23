@@ -308,8 +308,10 @@
     "D033": {
       "owner": "DEV-B",
       "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "evidence": [
+        "harness/evidence/D033/DIRECTORY_20261123.md"
+      ],
+      "blocker": "공개 서버 필터/페이지 SQL106+107, TS/API10 및 격리 DB5그룹 통과. USER 적용·D005·운영량 성능/실환경 회귀는 미완료."
     },
     "D034": {
       "owner": "DEV-A",

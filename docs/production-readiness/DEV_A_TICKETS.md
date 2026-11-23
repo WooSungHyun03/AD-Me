@@ -368,7 +368,7 @@ DEV-A · P0 · S0 출시 차단 · YOUTUBE · TODO · 8 SP · ACTIVE
 
 ## D033 · 서버 검색·페이지네이션·인덱스
 
-DEV-A · P0 · S0 출시 차단 · MATCHING · TODO · 8 SP · ACTIVE
+DEV-A · P0 · S0 출시 차단 · MATCHING · TESTED · 8 SP · ACTIVE
 
 - **현재 문제** — 공개 주제·정렬은 동작하나 운영에 filtered_creator_catalog RPC가 없고 현재 공개 큐레이션·등록 조건 검색의 전체 동작이 일치하지 않는다.
 - **재현·관찰** — 운영 /creators에서 주제와 정렬을 변경하고 실제 결과를 확인한다. 스테이징에서 정렬 동률·cursor 경계 중복/누락과 후보 DTO 권한을 검증한다.
@@ -384,8 +384,9 @@ DEV-A · P0 · S0 출시 차단 · MATCHING · TODO · 8 SP · ACTIVE
 - **보안** — 서버 limit 상한·전체 개수 정책·필터별 인덱스를 검증하고 owner_id/비공개 필드를 응답에서 제거한다.
 - **검증** — 페이지 중복·비공개 누출·합의된 데이터량의 쿼리 성능 검사 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 전체 프로필 브라우저 전송을 없애고 공개 DTO·정렬·페이지 크기 제한·검색 인덱스를 적용한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D033/ (이번 검증 기록 위치)
+- **차단 요인** — D005와 실제 데이터 회귀, USER 조율105→107 DB 적용 및 합의된 데이터량 성능 검증이 남았다.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D033/ (이번 검증 기록 위치) · harness/evidence/D033/DIRECTORY_20261123.md
+- **검증 범위** — 로컬 계약10건 + 실제 격리 Postgres/PostgREST5개 그룹(가상67/적격63), 세 정렬 다중 페이지·필터·권한·철회 통과. 운영/대규모 성능/브라우저 최종 배치는 별도.
 - **이전 기록** — OPEN
 
 ## D034 · 다중 필터·URL 상태·빈 결과

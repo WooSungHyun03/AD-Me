@@ -1,9 +1,8 @@
+import { ChannelSearch, PublicChannelFilters } from "@/components/discovery-ui";
 import {
-  ChannelSearch,
-  PublicChannelFilters,
-  filterPublicChannels,
-} from "@/components/discovery-ui";
-import { featuredYoutube } from "@/lib/featured-youtube";
+  readYoutubeDirectory,
+  type YoutubeDirectoryPage,
+} from "@/lib/youtube-directory";
 import { YoutubeChannelCards } from "@/components/featured-youtube";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -70,8 +69,21 @@ async function CreatorResults({ params }: { params: URLSearchParams }) {
       /* Client retry preserves the page and filter inputs. */
     }
   }
-  const items = remote ? (initialPage?.items ?? []) : await publicCreators();
-  const featured = await featuredYoutube(filters.query.slice(0, 80));
+  let registeredUnavailable = remote && !initialPage;
+  const items = remote
+    ? (initialPage?.items ?? [])
+    : await publicCreators().catch(() => {
+        registeredUnavailable = true;
+        return [];
+      });
+  let featured: YoutubeDirectoryPage | undefined;
+  if (remote) {
+    try {
+      featured = await readYoutubeDirectory(await supabase(), params);
+    } catch {
+      /* Missing configuration/RPC and invalid cursors remain visible and recoverable. */
+    }
+  }
   let hot: {
     creator_id: string;
     profile: { name: string };
@@ -94,7 +106,11 @@ async function CreatorResults({ params }: { params: URLSearchParams }) {
       /* Saving errors remain recoverable in the catalogue. */
     }
   }
-  const channels = filterPublicChannels(featured.items, params);
+  const channels = featured?.items ?? [];
+  const firstQuery = new URLSearchParams(params);
+  firstQuery.delete("yt-cursor");
+  const nextQuery = new URLSearchParams(firstQuery);
+  if (featured?.nextCursor) nextQuery.set("yt-cursor", featured.nextCursor);
   return (
     <>
       <section className="wrap discovery-results">
@@ -104,19 +120,38 @@ async function CreatorResults({ params }: { params: URLSearchParams }) {
             등록 프로필 보기
           </Link>
         </div>
-        <PublicChannelFilters params={params} count={channels.length} />
-        {featured.unavailable ? (
+        <PublicChannelFilters params={params} count={featured?.total ?? null} />
+        {!featured ? (
           <p className="notice" role="alert">
-            공개 채널을 불러오지 못했습니다.
+            공개 채널을 불러오지 못했습니다. 연결 또는 검색 조건을 확인해주세요.
           </p>
         ) : channels.length ? (
           <YoutubeChannelCards channels={channels} />
         ) : (
           <p className="empty">검색 조건과 일치하는 공개 채널이 없습니다.</p>
         )}
+        {(params.has("yt-cursor") || featured?.nextCursor) && (
+          <nav aria-label="공개 채널 페이지" className="inline">
+            {params.has("yt-cursor") && (
+              <Link className="button outline" href={"/creators?" + firstQuery}>
+                첫 페이지
+              </Link>
+            )}
+            {featured?.nextCursor && (
+              <Link className="button outline" href={"/creators?" + nextQuery}>
+                다음 채널
+              </Link>
+            )}
+          </nav>
+        )}
       </section>
       <section id="registered-creators" className="wrap discovery-registered">
         <h2>AD Me 등록 프로필</h2>
+        {registeredUnavailable && (
+          <p className="notice" role="alert">
+            등록 프로필 연결을 준비 중입니다.
+          </p>
+        )}
         <p>
           <Link href="/creators/youtube">소유권 확인 채널 검색</Link>
         </p>

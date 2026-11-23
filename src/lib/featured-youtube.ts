@@ -45,7 +45,7 @@ const video = z.object({
   likes: statistic,
   thumbnail: image,
 });
-const channel = z.object({
+export const featuredChannelSchema = z.object({
   channel_id: youtubeChannelId,
   creator_id: z.string().nullable().optional(),
   title: z.string(),
@@ -54,7 +54,7 @@ const channel = z.object({
   metadata: metadata.optional(),
   videos: z.array(video),
 });
-export type FeaturedChannel = z.infer<typeof channel>;
+export type FeaturedChannel = z.infer<typeof featuredChannelSchema>;
 
 export async function featuredYoutube(
   query = "",
@@ -69,7 +69,7 @@ export async function featuredYoutube(
     p_id: id,
     p_limit: limit,
   });
-  const parsed = z.array(channel).safeParse(data);
+  const parsed = z.array(featuredChannelSchema).safeParse(data);
   return {
     items: !error && parsed.success ? parsed.data : [],
     unavailable: !!error || !parsed.success,

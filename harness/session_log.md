@@ -592,3 +592,5 @@ Scope: D003 configuration consumers and D004 API boundary; no DB/UI redesign/pro
 USER requested all feasible tickets in order, keeping direct main push and ticket commits. First ready IN_PROGRESS P0 is D019: src/lib/ingestion/youtube.ts, scripts/intelligence_worker.py and provider-free contract tests. No SQL, policy approval, hosted/provider call or key action. Validate bounded inputs/responses, immutable channel/video attribution, hidden/unsafe numeric fields, public-only videos, error/timeout and quota classification. D033 server directory pagination and D044 matching contract follow after this adapter commit. U001/D017/U009/D085 gates remain explicit; existing TESTED receipts are not whole-ticket acceptance.
 
 - D019: TypeScript 응답/입력 한도·실제 귀속·공개 영상/안전 통계·오류 분류, 실제 Python worker의 동일 귀속/숫자 경계 보강. TS20/Python8 및 typecheck PASS; 키·공급자/운영 호출 없음. 정책/U009 게이트와 IN_PROGRESS 유지. D033으로 진행.
+
+- D033: 공개 첫24개 클라이언트 필터를 안전한 서버 필터·키셋 페이지·개수로 전환. TS/API10 및 실제 격리 DB5그룹(가상67/적격63) 통과. epoch 커서 결함은 원본106 보존+107 전진 수정. 누락 DB에서 가상 대체 없이 복구 안내. 브라우저/공유 배치 및 운영 적용·실데이터/성능 게이트는 별도.
