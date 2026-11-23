@@ -18,6 +18,16 @@ const brief = {
   notes: "private",
 };
 describe("campaign copy privacy boundary", () => {
+  it("copies the validated matching policy without sharing mutable state", () => {
+    const policy = { category: "hard", budget: "hard", unknown: "exclude" };
+    const copy = copyCampaignBrief(
+      { ownerId: "a", isDemo: false, brief: { ...brief, policy } },
+      "a",
+    );
+    expect(copy.policy).toEqual(policy);
+    copy.policy!.budget = "soft";
+    expect(policy.budget).toBe("hard");
+  });
   it("creates only a draft brief, never carries child data or ownership", () => {
     const copy = copyCampaignBrief({ ownerId: "a", isDemo: false, brief }, "a");
     expect(copy.status).toBe("draft");

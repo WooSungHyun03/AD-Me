@@ -4,6 +4,7 @@ import { z } from "zod";
 import { configured, supabase, currentUser } from "@/lib/supabase";
 import { recommendationPageSchema } from "@/lib/recommendation-snapshots";
 import { RecommendationSave } from "@/components/recommendation-save";
+import { isDemoMode } from "@/lib/mode";
 export const dynamic = "force-dynamic";
 const kst = (v: string) =>
   new Date(v).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
@@ -26,9 +27,10 @@ export default async function RecommendationHistory({
       `/login?next=${encodeURIComponent(`/campaigns/${id}/recommendations`)}`,
     );
   const db = await supabase(),
-    { data, error } = await db.rpc("recommendation_page", {
+    { data, error } = await db.rpc("recommendation_page_v12", {
       p_campaign: id,
       p_snapshot: q.snapshot ?? null,
+      p_demo: isDemoMode(),
     });
   if (error?.code === "42501") notFound();
   const parsed = recommendationPageSchema.safeParse(data);
@@ -57,8 +59,8 @@ export default async function RecommendationHistory({
       <Link href={`/campaigns/${id}`}>← 캠페인으로</Link>
       <h1 className="page-title">추천 기록과 근거.</h1>
       <p>
-        브랜드 본인만 보는 저장 결과입니다. 기존 태그·분야·예산·형식 모델을
-        사용하며 HOT 노출은 점수 입력에 포함하지 않습니다. 실제 성과를
+        브랜드 본인만 보는 저장 결과입니다. 태그·분야·예산·형식과 저장한 필수
+        조건을 사용하며 HOT 노출은 점수 입력에 포함하지 않습니다. 실제 성과를
         예측하거나 광고 적합성을 보증하지 않습니다.
       </p>
       <RecommendationSave campaignId={id} hasSnapshot={!!s} />
@@ -96,9 +98,26 @@ export default async function RecommendationHistory({
               {s.input.budget_krw.toLocaleString()}원 · 플랫폼{" "}
               {s.input.platforms.join(", ")}
             </p>
+            {s.input.policy ? (
+              <p>
+                분야: {s.input.policy.category === "hard" ? "필수" : "선호"} ·
+                예산: {s.input.policy.budget === "hard" ? "필수" : "선호"} ·
+                필수 정보 미확인:{" "}
+                {s.input.policy.unknown === "hold" ? "보류" : "제외"} ·{" "}
+                {s.input.includeDemo
+                  ? "가상 테스트 자료 포함"
+                  : "가상 자료 제외"}
+              </p>
+            ) : (
+              <p>
+                이전 1.0 기록입니다. 필수 조건 정책이 저장되지 않은 당시 계산
+                결과입니다.
+              </p>
+            )}
             <p>
               공개 목록 {s.catalogCount}명 중 기본 조건 통과 {s.eligibleCount}
-              명, 상위 최대6명. 목록 상한1000명을 넘으면 저장을 거부합니다.
+              명, 확인 전 보류 {s.heldCount ?? 0}명. 확정 후보를 먼저 표시하며
+              상위 최대6명입니다. 목록 상한1000명을 넘으면 저장을 거부합니다.
               오디언스·추정 성과는 미확인입니다. 본인 등록 정보는 플랫폼 검증
               지표가 아닙니다.
             </p>
@@ -135,6 +154,12 @@ export default async function RecommendationHistory({
                     {r.name} ↗
                   </Link>
                 </h2>
+                {r.status === "hold" && (
+                  <p className="notice">
+                    확인 전 보류 · {r.reasons?.join(", ")}. 필수 조건 통과
+                    후보가 아닙니다.
+                  </p>
+                )}
                 <p>
                   일치 태그: {r.matchedTags.join(", ") || "없음"} · 데이터
                   충족률 {r.coverage}%

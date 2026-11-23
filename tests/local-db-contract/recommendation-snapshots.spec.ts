@@ -46,15 +46,18 @@ it("frozen SQL v1 scorer reproduces catalog factors for all48 fixtures, missing/
   for (const row of rows) {
     const { c, b } = cases[row.n];
     const actual = row.r,
-      base = match(
-        b as Brief,
-        creators.find((x) => x.seed_id === c.seed_id)!,
-      );
+      // Frozen1.0 calculated factors even for platform/unavailable exclusions.
+      // Compare those known-data factors independently from the current1.2 gate.
+      base = match({ ...b, platforms: [] } as Brief, {
+        ...c,
+        published: true,
+        is_available: true,
+      });
     expect(actual.score).toBe(base.coverage ? base.score : null);
     expect(actual.coverage).toBe(base.coverage);
     expect(actual.matchedTags).toEqual(base.matchedTags);
     expect(actual.missing).toEqual(base.missing);
-    expect(actual.eligible).toBe(base.eligible);
+    expect(actual.eligible).toBe(match(b as Brief, c).eligible);
     expect(
       actual.breakdown.map((x: { value: number | null }) => x.value),
     ).toEqual(base.breakdown.map((x) => x.value));

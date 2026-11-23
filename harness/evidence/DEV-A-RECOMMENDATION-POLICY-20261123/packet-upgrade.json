@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "baseline": 112,
+  "target": 113,
+  "baselineFunctions": 7,
+  "injectedFailureRollback": true,
+  "columnAndFunctionsRolledBack": true,
+  "legacyRowsFrozenScorerAndFlagsPreserved": true,
+  "repeatedApplyRejected": true,
+  "exactSourceReceipt": true,
+  "scope": "marked secondary local Postgres; no hosted actions"
+}

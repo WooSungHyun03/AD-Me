@@ -5,3 +5,4 @@ public/legal/third-party-supplement-20261122.txt -text -whitespace
 # Preserve checksum/ZIP bytes exactly across platforms; these immutable packets already contain normalized SQL.
 deliverables/dev-a-sequential-20261123*/** -text -whitespace
 deliverables/dev-a-brief-files-20261123/** -text -whitespace
+deliverables/dev-a-recommendation-policy-20261123/** -text -whitespace

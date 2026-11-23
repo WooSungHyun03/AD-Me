@@ -1,5 +1,10 @@
 import { z } from "zod";
 import { safeHttpsLink } from "./social-links";
+const policy = z.strictObject({
+  category: z.enum(["hard", "soft"]),
+  budget: z.enum(["hard", "soft"]),
+  unknown: z.enum(["hold", "exclude"]),
+});
 const tags = z.array(z.string().max(50)).max(8);
 const fingerprint = z.string().regex(/^[a-f0-9]{32}$/);
 export const recommendationCreateSchema = z.strictObject({
@@ -12,6 +17,8 @@ export const recommendationInputSchema = z.strictObject({
   format: z.string().max(50),
   budget_krw: z.number().int().min(0).max(100000000),
   platforms: tags,
+  policy: policy.optional(),
+  includeDemo: z.boolean().optional(),
 });
 export const recommendationResultSchema = z
   .strictObject({
@@ -35,10 +42,14 @@ export const recommendationResultSchema = z
       vibes: tags,
       formats: tags,
       platforms: tags,
-      price: z.number().int().min(0).max(100000000),
+      price: z.number().int().min(0).max(100000000).nullable(),
       isDemo: z.boolean(),
     }),
-    eligible: z.literal(true),
+    eligible: z.boolean(),
+    version: z.literal("adme-1.2").optional(),
+    status: z.enum(["eligible", "hold"]).optional(),
+    policy: policy.optional(),
+    reasons: z.array(z.string().min(1).max(50)).max(5).optional(),
     score: z.number().int().min(0).max(100).nullable(),
     coverage: z.number().int().min(0).max(80),
     matchedTags: tags,
@@ -59,7 +70,22 @@ export const recommendationResultSchema = z
     if (
       r.creatorId !== r.input.id ||
       r.isDemo !== r.input.isDemo ||
-      (r.coverage === 0) !== (r.score === null)
+      (r.version === "adme-1.2"
+        ? !r.status ||
+          !r.policy ||
+          !r.reasons ||
+          r.eligible !== (r.status === "eligible") ||
+          r.score === null ||
+          (r.coverage === 0 && r.score !== 0) ||
+          (r.status === "hold"
+            ? r.reasons.length === 0
+            : r.reasons.length !== 0)
+        : !r.eligible ||
+          r.input.price === null ||
+          r.status !== undefined ||
+          r.policy !== undefined ||
+          r.reasons !== undefined ||
+          (r.coverage === 0) !== (r.score === null))
     )
       ctx.addIssue({
         code: "custom",
@@ -75,15 +101,36 @@ export const recommendationPageSchema = z.strictObject({
     .strictObject({
       id: z.uuid(),
       createdAt: stamp,
-      modelVersion: z.literal("adme-1.0"),
+      modelVersion: z.enum(["adme-1.0", "adme-1.2"]),
       sourceContract: z.literal("public-catalog-v1"),
       sourceVersion: fingerprint,
       stale: z.boolean(),
       input: recommendationInputSchema,
       catalogCount: z.number().int().min(0).max(1000),
       eligibleCount: z.number().int().min(0).max(1000),
+      heldCount: z.number().int().min(0).max(1000).optional(),
       withheldCount: z.number().int().min(0).max(6),
       results: z.array(recommendationResultSchema).max(6),
+    })
+    .superRefine((s, ctx) => {
+      if (
+        s.eligibleCount + (s.heldCount ?? 0) > s.catalogCount ||
+        (s.modelVersion === "adme-1.2"
+          ? !s.input.policy ||
+            s.input.includeDemo === undefined ||
+            s.heldCount === undefined ||
+            s.results.some(
+              (r) =>
+                r.version !== "adme-1.2" ||
+                JSON.stringify(r.policy) !== JSON.stringify(s.input.policy) ||
+                (!s.input.includeDemo && r.isDemo),
+            )
+          : s.results.some((r) => r.version !== undefined))
+      )
+        ctx.addIssue({
+          code: "custom",
+          message: "Invalid recommendation model contract",
+        });
     })
     .nullable(),
 });

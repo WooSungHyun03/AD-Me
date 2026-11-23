@@ -2,7 +2,12 @@
 import { creatorPlatforms } from "@/lib/service-catalog";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { categories, vibes } from "@/lib/catalog";
+import {
+  categories,
+  vibes,
+  matchingPolicySchema,
+  type Policy,
+} from "@/lib/catalog";
 import { Button } from "./ui/button";
 import { ZodError } from "zod";
 import {
@@ -22,6 +27,7 @@ type CampaignInput = {
   format: string;
   status: string;
   terms?: CampaignTerms;
+  policy?: Partial<Policy>;
 };
 export function CampaignForm({
   id,
@@ -62,6 +68,11 @@ export function CampaignForm({
         vibes: tags,
         platforms,
         budget_krw: Number(d.budget_krw),
+        policy: matchingPolicySchema.parse({
+          category: d.policy_category,
+          budget: d.policy_budget,
+          unknown: d.policy_unknown,
+        }),
         ...(structured ? { terms: campaignTermsFromForm(form) } : {}),
       };
       const res = await fetch("/api/campaigns", {
@@ -191,6 +202,45 @@ export function CampaignForm({
           </select>
         </label>
       </div>
+      <fieldset style={{ marginTop: 24 }}>
+        <legend>추천 조건</legend>
+        <p>
+          필수 조건이 맞지 않는 후보는 제외합니다. 정보가 없는 후보는 아래
+          기준으로 처리합니다.
+        </p>
+        <div className="form-grid">
+          <label className="field">
+            분야 조건
+            <select
+              name="policy_category"
+              defaultValue={initial?.policy?.category ?? "soft"}
+            >
+              <option value="soft">선호 조건으로 점수 반영</option>
+              <option value="hard">필수 일치</option>
+            </select>
+          </label>
+          <label className="field">
+            예산 조건
+            <select
+              name="policy_budget"
+              defaultValue={initial?.policy?.budget ?? "soft"}
+            >
+              <option value="soft">선호 조건으로 점수 반영</option>
+              <option value="hard">최소 견적이 예산 이내</option>
+            </select>
+          </label>
+          <label className="field">
+            필수 정보 미확인 후보
+            <select
+              name="policy_unknown"
+              defaultValue={initial?.policy?.unknown ?? "hold"}
+            >
+              <option value="hold">확인 전 보류로 구분</option>
+              <option value="exclude">추천에서 제외</option>
+            </select>
+          </label>
+        </div>
+      </fieldset>
       {id && !initial?.terms && (
         <div className="notice" style={{ marginTop: 24 }}>
           <p>

@@ -19,6 +19,7 @@ export function copyCampaignBrief(
     target_audience: brief.target_audience,
     goal: brief.goal,
     status: "draft",
+    ...(brief.policy ? { policy: { ...brief.policy } } : {}),
     ...(brief.terms ? { terms: structuredClone(brief.terms) } : {}),
   });
 }

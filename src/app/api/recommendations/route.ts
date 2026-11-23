@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isDemoMode } from "@/lib/mode";
 import {
   apiRoute,
   fail,
@@ -18,9 +19,10 @@ export const POST = apiRoute("recommendations.create", async (req) => {
       recommendationCreateSchema,
       "추천 저장 항목을 확인해주세요.",
     );
-  const { data, error } = await c.db.rpc("recommendation_create", {
+  const { data, error } = await c.db.rpc("recommendation_create_v12", {
     p_campaign: p.campaignId,
     p_key: p.clientKey,
+    p_demo: isDemoMode(),
   });
   if (error) failDatabase(error, "추천을 저장하지 못했습니다.");
   if (!z.uuid().safeParse(data).success)
@@ -31,15 +33,19 @@ export const POST = apiRoute("recommendations.create", async (req) => {
   );
 });
 export const GET = apiRoute("recommendations.get", async (req) => {
+  const query = new URL(req.url).searchParams;
+  if ([...query.keys()].some((key) => query.getAll(key).length !== 1))
+    fail("추천 조회 항목을 확인해주세요.", 422);
   const c = await requireContext(),
     p = parseInput(
       z.strictObject({ campaignId: z.uuid(), snapshotId: z.uuid().optional() }),
-      Object.fromEntries(new URL(req.url).searchParams),
+      Object.fromEntries(query),
       "추천 조회 항목을 확인해주세요.",
     );
-  const { data, error } = await c.db.rpc("recommendation_page", {
+  const { data, error } = await c.db.rpc("recommendation_page_v12", {
     p_campaign: p.campaignId,
     p_snapshot: p.snapshotId ?? null,
+    p_demo: isDemoMode(),
   });
   if (error) failDatabase(error, "저장한 추천을 불러오지 못했습니다.");
   const parsed = recommendationPageSchema.safeParse(data);
