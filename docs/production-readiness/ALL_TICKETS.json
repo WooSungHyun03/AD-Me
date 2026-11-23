@@ -140,12 +140,14 @@
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/D003/README.md",
         "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
-        "harness/evidence/D003/ (이번 검증 기록 위치)"
+        "harness/evidence/D003/ (이번 검증 기록 위치)",
+        "harness/evidence/D003/CONFIG_20261123.md"
       ],
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "verified_scope": "2026-11-23 로컬: 앱·legacy mode·CLI·admin health의 동일 모드 해석, 충돌/잘못된 alias 무료 안전 모드와 값 없는 진단, optional TEST 키 진단29건. 운영 적용 미검증."
     },
     {
       "id": "D004",

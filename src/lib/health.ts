@@ -1,6 +1,7 @@
 // D086: health checks shared by /api/health (admin details) and the admin page.
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { alert, usage } from "./observability";
+import { getConfig } from "./config";
 
 // Public probe: one tiny anonymous read. No details leave this function except ok/latency.
 export async function probe() {
@@ -31,6 +32,7 @@ export async function probe() {
 }
 
 export async function details(db: SupabaseClient) {
+  const config = getConfig();
   const p = await probe();
   if (!p.ok) await alert(`health:${p.reason}`, `헬스체크 실패: ${p.reason}`);
   const { data: stats, error } = await db.rpc("ops_stats");
@@ -43,7 +45,8 @@ export async function details(db: SupabaseClient) {
   return {
     status: p.ok ? "ok" : "down",
     db: p,
-    mode: process.env.SERVICE_MODE ?? "free_beta",
+    mode: config.serviceMode,
+    diagnostics: config.diagnostics,
     region: process.env.VERCEL_REGION ?? "local",
     commit: process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) ?? "local",
     // Configured or not — never the values.

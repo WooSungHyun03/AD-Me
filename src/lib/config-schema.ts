@@ -1,5 +1,32 @@
 import { z } from "zod";
 
+export type ServiceMode = "free_beta" | "test_demo";
+type ModeSetting = "ADME_SERVICE_MODE" | "SERVICE_MODE";
+export function resolveServiceMode(
+  env: Readonly<Record<string, string | undefined>>,
+) {
+  const names: ModeSetting[] = ["ADME_SERVICE_MODE", "SERVICE_MODE"];
+  const present = names.filter((name) => Boolean(env[name]));
+  const invalid = present.filter(
+    (name) => !["free_beta", "test_demo"].includes(env[name]!),
+  );
+  const conflict =
+    !invalid.length && new Set(present.map((name) => env[name])).size > 1;
+  const issues: { name: ModeSetting; reason: "invalid" | "conflict" }[] =
+    invalid.map((name) => ({ name, reason: "invalid" }));
+  if (conflict)
+    issues.push(
+      ...present.map((name) => ({ name, reason: "conflict" as const })),
+    );
+  const value: ServiceMode =
+    !invalid.length &&
+    present.length > 0 &&
+    present.every((name) => env[name] === "test_demo")
+      ? "test_demo"
+      : "free_beta";
+  return { value, issues };
+}
+
 function originSchema(allowLocalHttp: boolean) {
   return z
     .string()
@@ -60,7 +87,10 @@ export function parseConfig(env: Readonly<Record<string, string | undefined>>) {
     }),
   };
   type Setting = keyof typeof schemas;
-  const settings: { name: Setting; reason: "missing" | "invalid" }[] = [];
+  const settings: {
+    name: Setting | ModeSetting;
+    reason: "missing" | "invalid" | "conflict";
+  }[] = [];
 
   function read<Name extends Setting>(
     name: Name,
@@ -76,19 +106,24 @@ export function parseConfig(env: Readonly<Record<string, string | undefined>>) {
   const appOrigin = read("NEXT_PUBLIC_APP_URL");
   const supabaseUrl = read("NEXT_PUBLIC_SUPABASE_URL");
   const supabaseKey = read("NEXT_PUBLIC_SUPABASE_ANON_KEY");
-  const tossClientKey = read("NEXT_PUBLIC_TOSS_CLIENT_KEY");
   const supabase =
     supabaseUrl && supabaseKey ? { url: supabaseUrl, key: supabaseKey } : null;
-  const serviceMode = read("ADME_SERVICE_MODE", "free_beta");
+  const resolvedMode = resolveServiceMode(env);
+  const serviceMode = resolvedMode.value;
+  settings.push(...resolvedMode.issues);
   const mailFlag = read("ADME_FEATURE_MAIL", "off");
   const billingFlag = read("ADME_FEATURE_TEST_BILLING", "off");
   const ingestionFlag = read("ADME_FEATURE_INGESTION", "off");
   const llmFlag = read("ADME_FEATURE_LLM", "off");
-  const uploads = !!(
-    supabase &&
-    env.SUPABASE_SERVICE_ROLE_KEY &&
-    read("SUPABASE_SERVICE_ROLE_KEY")
-  );
+  const tossClientKey =
+    env.NEXT_PUBLIC_TOSS_CLIENT_KEY ||
+    (serviceMode === "test_demo" && billingFlag === "on")
+      ? read("NEXT_PUBLIC_TOSS_CLIENT_KEY")
+      : null;
+  const serviceRole = env.SUPABASE_SERVICE_ROLE_KEY
+    ? read("SUPABASE_SERVICE_ROLE_KEY")
+    : null;
+  const uploads = Boolean(supabase && serviceRole);
   const features = {
     mail:
       mailFlag !== "on"

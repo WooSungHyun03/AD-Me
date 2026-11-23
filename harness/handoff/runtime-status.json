@@ -24,9 +24,10 @@
       "status": "LOCAL_VERIFIED",
       "evidence": [
         "harness/evidence/D003/README.md",
-        "harness/evidence/DEV-A-P0-CONTINUE/verification.json"
+        "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
+        "harness/evidence/D003/CONFIG_20261123.md"
       ],
-      "blocker": "정확한 잠금 의존성·Node 22·설정 계약·빌드·로컬 E2E 검증. DEV-B 리뷰 및 대상 환경 적용 검증 전 DONE 아님.",
+      "blocker": "통합 모드/CLI/관리자 진단 및 누락·충돌·라이브 키 거부 로컬 검사 통과. USER 대상 환경 적용·운영 수용은 미검증; DONE 아님.",
       "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
     },
     "D004": {

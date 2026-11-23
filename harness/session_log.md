@@ -576,3 +576,8 @@ Preserved codex/dev-a-p0-continue and ticket commits; merged YouTube main5d3bc6c
 - 브라우저 운영 60개 고유 경로, API 16개 읽기 관측, 운영 Playwright 14건 및 격리 Playwright 8건을 확인했다. 격리 보안 직접 REST는 미인증 fixture와 정상 앱 RPC를 구분하도록 수정한 후 14건을 통과했다.
 - Local Ollama에서 한국어 구조화 응답, 768차원 임베딩, 근거 기반 합성 태그를 실행했다. 실제 콘텐츠 태그 운영 저장·심사와 장애 복구는 별도 티켓이다.
 - 기존 108개 ID를 보존한 114개 원장과 DEV-A/B 독립 실행 문서를 만들었다. 감사 문서, CSV/JSON/Markdown, 외부 조건, 릴리스 게이트와 증빙은 docs/production-readiness에 있다. 구매 문구·SDK 오류 노출은 main 검증 변경이며 운영 재배포는 하지 않았다.
+
+
+## 2026-11-23 DEV-A resumed from latest main d79235d
+
+Scope: D003 configuration consumers and D004 API boundary; no DB/UI redesign/provider work. Preserve shared exports and existing API errors; main ordinary push requested by USER. D003 unified app/legacy/CLI/admin health mode resolution; optional keys no longer falsely required when disabled. Affected29 tests PASS. Canonical production-readiness status remains TESTED; external acceptance not inferred. Evidence: harness/evidence/D003/CONFIG_20261123.md.

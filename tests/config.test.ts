@@ -1,16 +1,120 @@
-import { describe, expect, it } from "vitest";
-import { parseConfig } from "../src/lib/config-schema";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { execFileSync } from "node:child_process";
+import { parseConfig, resolveServiceMode } from "../src/lib/config-schema";
+import { getConfig } from "../src/lib/config";
+import { serviceMode } from "../src/lib/mode";
+afterEach(() => vi.unstubAllEnvs());
 
 describe("server configuration", () => {
   it("reports missing settings by name and permits service startup", () => {
     const { diagnostics, supabase, appOrigin } = parseConfig({});
-    expect(diagnostics.settings).toHaveLength(4);
+    expect(diagnostics.settings).toHaveLength(3);
     expect(
       diagnostics.settings.every((setting) => setting.reason === "missing"),
     ).toBe(true);
     expect(diagnostics.availability.account).toBe(false);
     expect(supabase).toBeNull();
     expect(appOrigin).toBeNull();
+  });
+
+  it.each([
+    [{}, "free_beta"],
+    [{ SERVICE_MODE: "test_demo" }, "test_demo"],
+    [{ ADME_SERVICE_MODE: "test_demo" }, "test_demo"],
+    [
+      { ADME_SERVICE_MODE: "test_demo", SERVICE_MODE: "test_demo" },
+      "test_demo",
+    ],
+    [
+      { ADME_SERVICE_MODE: "test_demo", SERVICE_MODE: "free_beta" },
+      "free_beta",
+    ],
+    [
+      { ADME_SERVICE_MODE: "free_beta", SERVICE_MODE: "test_demo" },
+      "free_beta",
+    ],
+    [
+      {
+        ADME_SERVICE_MODE: "test_demo",
+        SERVICE_MODE: "INVALID_PRIVATE_CANARY",
+      },
+      "free_beta",
+    ],
+  ])(
+    "uses one fail-closed mode in app, legacy helpers and CLI: %j",
+    (input, expected) => {
+      vi.stubEnv("ADME_SERVICE_MODE", input.ADME_SERVICE_MODE ?? "");
+      vi.stubEnv("SERVICE_MODE", input.SERVICE_MODE ?? "");
+      vi.stubEnv("ADME_FEATURE_TEST_BILLING", "on");
+      const config = getConfig();
+      expect(config.serviceMode).toBe(expected);
+      expect(serviceMode()).toBe(expected);
+      expect(
+        parseConfig({ ...input, ADME_FEATURE_TEST_BILLING: "on" }).features
+          .testBilling,
+      ).toBe(config.features.testBilling);
+      const output = execFileSync(
+        process.execPath,
+        ["scripts/check-config.mjs"],
+        {
+          encoding: "utf8",
+          env: {
+            ...process.env,
+            NEXT_PUBLIC_SUPABASE_URL: "",
+            NEXT_PUBLIC_SUPABASE_ANON_KEY: "",
+            NEXT_PUBLIC_TOSS_CLIENT_KEY: "",
+          },
+        },
+      );
+      expect(JSON.parse(output).availability.testBilling).toBe(
+        expected === "free_beta" ? "off" : "missing_prerequisites",
+      );
+      expect(output).not.toContain("INVALID_PRIVATE_CANARY");
+    },
+  );
+
+  it("names conflicts/invalid aliases without values and never enables TEST billing", () => {
+    expect(
+      resolveServiceMode({
+        ADME_SERVICE_MODE: "test_demo",
+        SERVICE_MODE: "free_beta",
+      }).issues,
+    ).toEqual([
+      { name: "ADME_SERVICE_MODE", reason: "conflict" },
+      { name: "SERVICE_MODE", reason: "conflict" },
+    ]);
+    const result = parseConfig({
+      ADME_SERVICE_MODE: "test_demo",
+      SERVICE_MODE: "PRIVATE_CANARY",
+      ADME_FEATURE_TEST_BILLING: "on",
+    });
+    expect(result.diagnostics.settings).toContainEqual({
+      name: "SERVICE_MODE",
+      reason: "invalid",
+    });
+    expect(result.features.testBilling).toBe("off");
+    expect(JSON.stringify(result.diagnostics)).not.toContain("PRIVATE_CANARY");
+  });
+
+  it("requires an optional TEST client only when that feature is requested", () => {
+    expect(
+      parseConfig({}).diagnostics.settings.some(
+        (s) => s.name === "NEXT_PUBLIC_TOSS_CLIENT_KEY",
+      ),
+    ).toBe(false);
+    expect(
+      parseConfig({
+        ADME_SERVICE_MODE: "test_demo",
+        ADME_FEATURE_TEST_BILLING: "on",
+      }).diagnostics.settings,
+    ).toContainEqual({
+      name: "NEXT_PUBLIC_TOSS_CLIENT_KEY",
+      reason: "missing",
+    });
+    expect(
+      parseConfig({ SUPABASE_SERVICE_ROLE_KEY: "PRIVATE_CANARY" }).diagnostics
+        .settings,
+    ).toContainEqual({ name: "SUPABASE_SERVICE_ROLE_KEY", reason: "invalid" });
   });
 
   it.each([
