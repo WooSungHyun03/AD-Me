@@ -562,3 +562,4 @@ Preserved codex/dev-a-p0-continue and ticket commits; merged YouTube main5d3bc6c
 
 - 격리 Supabase에서 105개를 새로 적용했다. 과거 범용 E2E 2건 통과·4건 실패 원인은 필수 산출물 사용권 누락과 미인증 수락 가정이다. 보강 후 공고·주문 API, 대화, YouTube 기본값과 미인증 수락 409에 대한 격리 E2E 6건이 통과했다.
 - 신규 캠페인 플랫폼 기본값 수정은 호환 소스 6fb374f2c0fdb3d896c0e4ea3078bdf20ee0718b와 운영 Vercel dpl_HpKpLetDybQVECCFdpFfUyCgTYbE로 배포했다.
+- 최종 운영 재실행은 13건 통과 및 1건 실패였다. 동일 QA 계정에 적용되는 시간당 Local AI 초안 생성 한도 3건을 초과해 모바일 네 번째 요청이 429로 거부됐다. 1차 운영 실행에서는 데스크톱·모바일 추론이 모두 통과했다. 최종 새 캠페인 YouTube 기본값은 두 화면 폭에서 통과했다.
