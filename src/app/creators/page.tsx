@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { getConfig } from "@/lib/config";
 import { Catalog } from "@/components/catalog";
+import { promotionSlots } from "@/lib/promotions";
 import { configured, currentUser, supabase } from "@/lib/supabase";
 import { publicCreators } from "@/lib/data";
 import { readMySavedCreatorCatalog } from "@/lib/creator-catalog-read";
@@ -84,16 +85,10 @@ async function CreatorResults({ params }: { params: URLSearchParams }) {
       /* Missing configuration/RPC and invalid cursors remain visible and recoverable. */
     }
   }
-  let hot: {
-    creator_id: string;
-    profile: { name: string };
-    expires_at: string;
-  }[] = [];
-  if (getConfig().features.testBilling === "enabled") {
-    const db = await supabase();
-    const { data } = await db.rpc("active_hot_creators");
-    hot = data ?? [];
-  }
+  const hot =
+    getConfig().features.testBilling === "enabled"
+      ? await promotionSlots(false)
+      : [];
   let initialSaved: string[] = [];
   const user = await currentUser();
   if (user) {
@@ -170,7 +165,7 @@ async function CreatorResults({ params }: { params: URLSearchParams }) {
                   href={`/creators/${h.creator_id}`}
                   key={h.creator_id}
                 >
-                  {h.profile.name} ↗
+                  {h.name} ↗
                 </Link>
               ))}
             </div>

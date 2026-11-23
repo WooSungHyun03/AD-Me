@@ -685,9 +685,11 @@
         "harness/evidence/D075/permission-inventory-20261120.json",
         "harness/evidence/DEV-A-READ-20261120/verification.json",
         "harness/evidence/D075/VERIFY_20261121.md",
-        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json"
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json",
+        "harness/evidence/D075/BOUNDARY_20261123.md",
+        "harness/evidence/D075/permissions-109-20261123.json"
       ],
-      "blocker": "USER source 적용·owner-only one-way activation과 D018/DEV-B 검토/대상 URL은 미완료. staging은 old-source 호환이며 개인정보 경계 완료가 아니다. 메타데이터 감사와 실제 역할 동작 검증 범위를 구분한다.",
+      "blocker": "현재109-source 권한 감사 및 저장/HOT 호환성 수정. B 명명 목록/import·D049, 실제 파일 브라우저·운영 적용/전수 행위 검증은 별도.",
       "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
     },
     "D076": {

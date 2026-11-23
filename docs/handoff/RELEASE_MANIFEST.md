@@ -171,3 +171,5 @@ These rows complete the source inventory; they do not assert any hosted applicat
 | `20261123055918` | expand | Include official public channel topics in the existing directory DTO | Compatible with older and newer public visibility rules. |
 | `20261123112401` | expand/switch | DEV-A D033: `20261123112401_youtube_directory_pagination.sql` | Public directory server filtering, safe DTO and bounded keyset pagination; local fixtures only, hosted application pending. |
 | `20261123113123` | switch | DEV-A D033: `20261123113123_youtube_directory_cursor_integer.sql` | Forward fix for integer microsecond cursor encoding; must apply together with directory pagination. |
+| `20261123114341` | switch | DEV-A D075: `20261123114341_saved_catalog_list_compatibility.sql` | Repair safe default-favorites/CSV gateways after main retires saved_creators; no raw creator read grant. |
+| `20261123114636` | switch | DEV-A D075: `20261123114636_promotion_public_reference_boundary.sql` | Preserve B service-only slots with A opaque-reference/publication/source and DB TEST gates. |

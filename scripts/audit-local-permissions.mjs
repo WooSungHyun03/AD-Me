@@ -25,14 +25,15 @@ const storagePolicies = JSON.parse(
 );
 assert.ok(tables.length > 20);
 assert.ok(tables.every((t) => t.rls));
-for (const t of tables.filter((t) =>
-  [
-    "adme_upload",
-    "adme_release",
-    "adme_creator",
-    "adme_consent",
-    "adme_privacy",
-  ].includes(t.schema),
+for (const t of tables.filter(
+  (t) =>
+    [
+      "adme_upload",
+      "adme_release",
+      "adme_creator",
+      "adme_consent",
+      "adme_privacy",
+    ].includes(t.schema) || t.schema !== "public",
 ))
   assert.ok(
     !t.anon_select && !t.authenticated_select,
@@ -54,6 +55,18 @@ for (const t of ["creators", "products"])
     true,
   );
 assert.ok(buckets.every((b) => !b.public));
+for (const fn of functions.filter((f) => f.definer))
+  assert.ok(
+    fn.config?.some((value) => value.startsWith("search_path=")),
+    `Unpinned definer path: ${fn.signature}`,
+  );
+for (const role of ["anon", "authenticated"])
+  for (const schema of ["public", "extensions"])
+    assert.equal(
+      sql(`select has_schema_privilege('${role}','${schema}','create');`),
+      "f",
+      `${role} can shadow objects in ${schema}`,
+    );
 assert.equal(
   buckets.find((b) => b.id === "adme-private-images")?.size,
   4194304,

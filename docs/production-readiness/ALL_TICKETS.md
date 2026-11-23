@@ -1641,7 +1641,7 @@ DEV-B · P0 · S0 출시 차단 · PRIVACY · TODO · 5 SP · ACTIVE
 
 ## D075 · RLS·RPC·Storage 전수 권한 감사
 
-DEV-A · P0 · S0 출시 차단 · SECURITY · TODO · 8 SP · ACTIVE
+DEV-A · P0 · S0 출시 차단 · SECURITY · IN_PROGRESS · 8 SP · ACTIVE
 
 - **현재 문제** — 운영 public 기본 테이블 47개가 RLS를 사용하지만 정책 동작·GRANT·권한별 RPC·Storage 전수 검증이 끝나지 않았다.
 - **재현·관찰** — 격리 복제본 권한 테스트로 다른 계정·역할 변경·미확인 관리자·비공개 파일을 검증하고 각 접근이 차단되는지 확인한다.
@@ -1657,9 +1657,9 @@ DEV-A · P0 · S0 출시 차단 · SECURITY · TODO · 8 SP · ACTIVE
 - **보안** — 모든 advisor 경고를 무조건 수정됐다고 선언하지 말고 의도/남은 위험/테스트를 각각 남긴다.
 - **검증** — 익명/브랜드/크리에이터/관리자 권한 행렬 통합 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 직접 DB API·SECURITY DEFINER·검색 경로·공개 DTO·테넌트 경계를 검사하고 최소권한을 적용한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D075/README.md · harness/evidence/D075/PLAN_20261120.md · harness/evidence/D075/creator-read-security-20261120.json · harness/evidence/D075/ (이번 검증 기록 위치)
-- **검증 범위** — 이번 격리 직접 REST 테스트 14건 통과. 운영 권한 정책 전체·Storage 및 RPC 정합성은 미검증.
+- **차단 요인** — 실제 파일 브라우저/역할 회귀, B D036/D038 named-list/import 공개DTO 통합 및 D049 전체 경로, 운영 DB/앱 적용과 실환경 전수 검증 필요.
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D075/README.md · harness/evidence/D075/PLAN_20261120.md · harness/evidence/D075/creator-read-security-20261120.json · harness/evidence/D075/ (이번 검증 기록 위치) · harness/evidence/D075/BOUNDARY_20261123.md · harness/evidence/D075/permissions-109-20261123.json
+- **검증 범위** — 109-source 로컬98 RLS테이블/371함수/4비공개버킷 메타데이터와 core7·brand7·creator-read8·정규화storage9 그룹 통과. 기본 저장·서비스HOT 통합 결함 전진 수정. 함수 전수 행위/운영은 미완료.
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D076 · 속도 제한·봇·리소스 남용

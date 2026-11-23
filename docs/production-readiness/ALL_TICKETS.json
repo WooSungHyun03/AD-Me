@@ -3654,20 +3654,22 @@
       "acceptance": "직접 DB API·SECURITY DEFINER·검색 경로·공개 DTO·테넌트 경계를 검사하고 최소권한을 적용한다.",
       "points": 8,
       "owner": "DEV-A",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "실제 파일 브라우저/역할 회귀, B D036/D038 named-list/import 공개DTO 통합 및 D049 전체 경로, 운영 DB/앱 적용과 실환경 전수 검증 필요.",
       "evidence": [
         "docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/D075/README.md",
         "harness/evidence/D075/PLAN_20261120.md",
         "harness/evidence/D075/creator-read-security-20261120.json",
-        "harness/evidence/D075/ (이번 검증 기록 위치)"
+        "harness/evidence/D075/ (이번 검증 기록 위치)",
+        "harness/evidence/D075/BOUNDARY_20261123.md",
+        "harness/evidence/D075/permissions-109-20261123.json"
       ],
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": true,
-      "verified_scope": "이번 격리 직접 REST 테스트 14건 통과. 운영 권한 정책 전체·Storage 및 RPC 정합성은 미검증."
+      "verified_scope": "109-source 로컬98 RLS테이블/371함수/4비공개버킷 메타데이터와 core7·brand7·creator-read8·정규화storage9 그룹 통과. 기본 저장·서비스HOT 통합 결함 전진 수정. 함수 전수 행위/운영은 미완료."
     },
     {
       "id": "D076",
