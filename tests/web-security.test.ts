@@ -11,7 +11,7 @@ const files = (dir: string): string[] =>
     return statSync(p).isDirectory() ? files(p) : /\.tsx?$/.test(p) ? [p] : [];
   });
 describe("D077 web boundary", () => {
-  it("CSP: no eval, no plugins, no framing, only self + Toss + Supabase", () => {
+  it("CSP: no eval, no plugins, no framing, restrict external origins by resource", () => {
     const d = Object.fromEntries(
       csp.split("; ").map((x) => [x.split(" ")[0], x.split(" ").slice(1)]),
     );
@@ -20,8 +20,19 @@ describe("D077 web boundary", () => {
     expect(d["frame-ancestors"]).toEqual(["'none'"]);
     expect(d["base-uri"]).toEqual(["'self'"]);
     expect(d["script-src"]).not.toContain("'unsafe-eval'");
-    const external = Object.values(d)
-      .flat()
+    expect(d["img-src"]).toEqual([
+      "'self'",
+      "data:",
+      "blob:",
+      "https://yt3.ggpht.com",
+      "https://yt3.googleusercontent.com",
+      "https://lh3.googleusercontent.com",
+      "https://i.ytimg.com",
+      "https://img.youtube.com",
+    ]);
+    const external = Object.entries(d)
+      .filter(([directive]) => directive !== "img-src")
+      .flatMap(([, sources]) => sources)
       .filter((s) => /^(https?|wss?):/.test(s));
     for (const s of external)
       expect(s).toMatch(

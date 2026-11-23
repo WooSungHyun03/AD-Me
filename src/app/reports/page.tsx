@@ -49,8 +49,12 @@ export default async function MyReports() {
             </div>
             <p style={{ margin: "8px 0" }}>
               {reportKinds[r.kind]} ·{" "}
-              <Link href={`/creators/${r.creator_id}`}>대상 프로필</Link> · 처리
-              기한 {kst(r.due_at)}
+              {r.creator_id ? (
+                <Link href={`/creators/${r.creator_id}`}>대상 프로필</Link>
+              ) : (
+                "보관된 대상 프로필"
+              )}{" "}
+              · 처리 기한 {kst(r.due_at)}
               {r.interim_hidden && " · 검토 중 임시 비공개 조치"}
             </p>
             {r.response && (

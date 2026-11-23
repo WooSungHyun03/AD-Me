@@ -6,7 +6,6 @@ import { configured, currentUser, supabase } from "@/lib/supabase";
 import { youtubeChannelId } from "@/lib/featured-youtube";
 import { ClaimButton } from "@/components/claim";
 import { AddToList } from "@/components/lists";
-import ads from "../../../../fixtures/ads.demo.json";
 import { cache } from "react";
 import type { Metadata } from "next";
 import { indexable, siteUrl } from "@/lib/seo";

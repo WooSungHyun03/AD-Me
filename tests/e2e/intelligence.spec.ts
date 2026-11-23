@@ -1,3 +1,4 @@
+import { finishLocalWorkerJob } from "./support/youtube";
 import { expect, test, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 
@@ -64,9 +65,16 @@ test("brand submits a private Korean draft to the real worker", async ({
   await page
     .getByLabel("광고 브리프")
     .fill(
-      "무향 선크림을 소개하는 인스타그램 릴스. 효능을 단정하지 말고 손에 바르는 장면을 포함해주세요.",
+      "무향 선크림을 소개하는 YouTube 영상. 효능을 단정하지 말고 손에 바르는 장면을 포함해주세요.",
     );
+  const request = page.waitForResponse(
+    (response) =>
+      response.url().endsWith("/api/intelligence") &&
+      response.request().method() === "POST",
+  );
   await page.getByRole("button", { name: "초안 생성" }).click();
+  expect((await request).ok()).toBe(true);
+  finishLocalWorkerJob("marketing_draft");
   await expect(
     page.getByRole("heading", { name: "협업 제안 초안" }),
   ).toBeVisible({ timeout: 75000 });
@@ -103,6 +111,7 @@ test("unverified YouTube candidates remain private and creators can unlink a cla
   await expect(
     page.getByRole("status").filter({ hasText: "확인 작업을 등록했습니다" }),
   ).toBeVisible();
+  finishLocalWorkerJob("youtube_claim");
   await expect
     .poll(
       async () => {

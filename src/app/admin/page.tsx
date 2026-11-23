@@ -167,7 +167,11 @@ export default async function Admin({
   const fb = (fbRows ?? []) as FeedbackRow[];
   const fbVersion = fb.at(-1)?.model_version ?? "adme-1.1";
   const fbEval = evaluate(fb, fbVersion);
-  const targetIds = [...new Set((reports ?? []).map((r) => r.creator_id))];
+  const targetIds = [
+    ...new Set(
+      (reports ?? []).flatMap((r) => (r.creator_id ? [r.creator_id] : [])),
+    ),
+  ];
   const [{ data: owned }, { data: restrictions }] = await Promise.all([
     c.db
       .from("creators")
@@ -249,8 +253,13 @@ export default async function Admin({
               <span className="badge">{reportStatuses[r.status]}</span>
             </div>
             <p style={{ fontSize: 13 }}>
-              대상 <a href={`/creators/${r.creator_id}`}>{r.creator_id}</a> ·
-              요청자 {r.reporter_id.slice(0, 8)}
+              대상{" "}
+              {r.creator_id ? (
+                <a href={`/creators/${r.creator_id}`}>{r.creator_id}</a>
+              ) : (
+                "보관된 프로필"
+              )}{" "}
+              · 요청자 {r.reporter_id.slice(0, 8)}
               {r.identity_verified ? " (프로필 소유자 본인)" : ""} · 기한{" "}
               <span
                 className={

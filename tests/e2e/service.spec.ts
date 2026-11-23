@@ -1,3 +1,4 @@
+import { channels } from "./support/youtube";
 import { test, expect, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
@@ -38,14 +39,18 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
   await expect(
     page.getByText("조건에 맞는 크리에이터가 없습니다."),
   ).toBeVisible();
-  // Real channel rows come from the YouTube worker (needs YOUTUBE_API_KEY); empty in a keyless local stack.
+  // CI provisions an isolated directory; hosted smoke tests use the real channel name.
   await page.goto("/creators");
   await expect(page.getByTestId("youtube-channel")).toHaveCount(10);
-  await page.getByRole("searchbox", { name: "채널 이름" }).fill("쯔양");
+  await page
+    .getByRole("searchbox", { name: "채널 이름" })
+    .fill(channels[0].name);
   await page.getByRole("button", { name: "검색", exact: true }).click();
   await expect(page.getByTestId("youtube-channel")).toHaveCount(1);
   await page.getByTestId("youtube-channel").click();
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("쯔양");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    channels[0].name,
+  );
   await expect(
     page.getByRole("heading", { name: "최근 공개 영상" }),
   ).toBeVisible();
