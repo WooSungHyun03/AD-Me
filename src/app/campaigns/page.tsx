@@ -1,21 +1,25 @@
 import Link from "next/link";
 import { campaigns } from "@/lib/catalog";
 import { configured, supabase } from "@/lib/supabase";
+import { isDemoMode } from "@/lib/mode";
 export default async function Campaigns() {
+  const demo = isDemoMode();
   let records: {
     id: string;
     brief: (typeof campaigns)[number];
     is_demo?: boolean;
   }[] = campaigns
-    .filter((c) => c.status === "published")
+    .filter((c) => demo && c.status === "published")
     .map((c) => ({ id: c.seed_id, brief: c, is_demo: true }));
   if (configured()) {
     const db = await supabase();
-    const { data } = await db
+    let query = db
       .from("campaigns")
       .select("id,brief,is_demo")
       .eq("status", "published")
       .eq("moderation_status", "allowed");
+    if (!demo) query = query.eq("is_demo", false);
+    const { data } = await query;
     if (data) records = data;
   }
   return (

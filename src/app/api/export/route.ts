@@ -1,6 +1,7 @@
 import { apiRoute, failDatabase, requireContext } from "@/lib/api";
 import { toCsv } from "@/lib/csv";
 import { readMySavedCreatorCatalog } from "@/lib/creator-catalog-read";
+import { isDemoMode } from "@/lib/mode";
 export const GET = apiRoute("export.get", async () => {
   const c = await requireContext();
   let saved;
@@ -13,7 +14,7 @@ export const GET = apiRoute("export.get", async () => {
     toCsv([
       ["이름", "분야", "분위기", "최소견적", "출처"],
       ...saved.flatMap(({ creator }) =>
-        creator
+        creator && (!creator.is_demo || isDemoMode())
           ? [
               [
                 creator.name,

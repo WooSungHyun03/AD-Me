@@ -7,6 +7,7 @@ import { readCreatorProposalChoices } from "@/lib/creator-catalog-read";
 import { ProposalForm } from "@/components/proposal-form";
 import { CampaignTermsSummary } from "@/components/campaign-terms-summary";
 import type { CampaignTerms } from "@/lib/campaign-brief";
+import { isDemoMode } from "@/lib/mode";
 export default async function Campaign({
   params,
   searchParams,
@@ -15,6 +16,7 @@ export default async function Campaign({
   searchParams: Promise<{ creator?: string | string[] }>;
 }) {
   const [{ id }, { creator }] = await Promise.all([params, searchParams]);
+  const demo = isDemoMode();
   let brief:
     | (Brief & {
         title: string;
@@ -23,7 +25,7 @@ export default async function Campaign({
         target_audience: string;
         terms?: CampaignTerms;
       })
-    | undefined = campaigns.find((c) => c.seed_id === id);
+    | undefined = demo ? campaigns.find((c) => c.seed_id === id) : undefined;
   let isDemo = true,
     ownerId: string | null = null;
   let people: { id: string; name: string }[] = [];
@@ -35,11 +37,11 @@ export default async function Campaign({
       .select("*")
       .eq("id", id)
       .maybeSingle();
-    if (data) {
+    if (data && (!data.is_demo || demo)) {
       brief = data.brief;
       isDemo = data.is_demo;
       ownerId = data.owner_id;
-    } else if (!id.startsWith("campaign-")) notFound();
+    } else if (!demo || !id.startsWith("campaign-")) notFound();
     if (user && data) {
       people = await readCreatorProposalChoices(db, data.id);
     }

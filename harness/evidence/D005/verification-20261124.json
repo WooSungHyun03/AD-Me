@@ -1,0 +1,51 @@
+{
+  "ticket": "D005",
+  "date_kst": "2026-11-24T17:22:21+09:00",
+  "baseline_main": "a78610e9667eb173b0a4399270a228a09bf3080a",
+  "scope": "fictional loopback PostgreSQL/PostgREST/Auth, no provider or hosted DB writes",
+  "source_sha256_lf": {
+    "src/lib/data.ts": "7ec302f9e44b5659726a9088c1648faf16bde25d646e896e59d2d6cec42042df",
+    "supabase/migrations/20261124080724_demo_catalog_boundary.sql": "46fa6afdc0d580bdf9a32a2d76fc058a68fe6a72fad288d08f8411a51eac76e9"
+  },
+  "reproduction": {
+    "unit_failures": 2,
+    "direct_demo_detail": true,
+    "direct_demo_home": 48,
+    "direct_legacy_demo_search_page": 24,
+    "direct_public_demo_campaigns": 4
+  },
+  "results": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "vitest": {
+      "files": 90,
+      "passed": 533,
+      "failed": 0
+    },
+    "build": "PASS",
+    "upgrade_118_119": "PASS",
+    "rollback_injected_failure": "PASS",
+    "fresh_migrations": 119,
+    "static_migrations": 119,
+    "db_demo_boundary_groups": 3,
+    "db_creator_read_groups": 8,
+    "db_recommendation_policy_groups": 6,
+    "browser_free": 4,
+    "browser_test_local_otp": 4,
+    "browser_keyless": 2,
+    "public_screenshots": 6,
+    "qa_control_full_row_restore": "PASS"
+  },
+  "retained_failures": [
+    "baseline data filter regressions, repaired",
+    "first local test filters invalid22023, valid minEngagement fixture repaired",
+    "bundled Chromium executable absent, installed Chrome channel2 PASS",
+    "prior catalog GET expected405 actual400 not re-run or relabeled"
+  ],
+  "external_gates": [
+    "hosted118-to119 target/backups/fingerprint/operator approval",
+    "separate free OFF and isolated TEST ON databases plus actual URL acceptance",
+    "D075/D033 general legacy search raw-profile/ID projection audit"
+  ],
+  "status": "TESTED locally; runtime LOCAL_VERIFIED; external activation BLOCKED_EXTERNAL; not DONE"
+}

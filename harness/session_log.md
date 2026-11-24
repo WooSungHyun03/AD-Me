@@ -683,3 +683,9 @@ GitHub 소유자 승인 뒤 Vercel 프로젝트를 연결했다. Vercel API 기�
 - 최신main8ec0ec2 독립트리에서 D001 선정, 작업 중 d471c1b FF통합. 무료/featureOFF API200와 DBOFF fresh관리자 발급을 재현해 grant만 서버 feature/DB boundary로 차단, 회수·기존 데이터 유지. CLI 신규118, 적용 SQL 불변. DEV-A 교차리뷰 P2 전체 QA 제어행 복원 보완 및 재검토.
 - 통합 소스 lint/typecheck/Vitest523/build,118 migration_check, fresh0→118 및117→118 rollback/실패주입, 역할REST3그룹, 무료 desktop/mobile2 + 실제 로컬Auth OTP TEST관리자 API desktop/mobile2 PASS. 초기 단위 실행 경합과 기존 catalog GET405/400 미해결을 증빙에 분리. 운영118/환경분리/관리자 확인은 BLOCKED_EXTERNAL, Toss/운영DB/외부 승인 실행 없음. D001 TESTED/runtimeLOCAL_VERIFIED이며 DONE아님.
 - 증빙 harness/evidence/D001/GRANT_BOUNDARY_20261124.md 및 verification-20261124.json, 공개 캡처4개. 인계 deliverables/d001-grant-boundary-20261124/. 이전 패킷/이력 보존, 원장D001 외 상대 상태 변경없음.
+
+## 2026-11-24 — DEV-B D005 공개 시연 데이터 경계
+
+- 기준a78610e 기존 독립트리 재사용. mixed목록/상세free필터 누락과 직접DB demo48/legacysearch24/공개campaign4 재현. free 서버data/CSV/캠페인fallback 차단, CLI119 기본OFF 독립catalog경계를 중앙DTO/legacyfilter/count/campaignRLS에 추가. 기존SQL·48행·개인계정/캠페인·스냅샷 보존. DEV-A 계약/교차리뷰 완료, D005 원장만 TESTED/runtimeLOCAL_VERIFIED.
+-119 static/fresh0→119 및118→119 rollback/실패주입, demo역할3+기존creator-read8+추천policy6 DB그룹, desktop/mobile free4+TEST OTP4+keyless2, lint/typecheck/Vitest533/build PASS. 키없는 브라우저는 기존 설치Chrome옵션 사용. 운영119·독립환경·실제URL 및 legacyraw투영(D075/D033)은 별도 게이트, 기존catalog405/400 실패 보존.
+- 증빙 harness/evidence/D005/DEMO_BOUNDARY_20261124.md, verification-20261124.json·공개캡처6개. 인계 deliverables/d005-demo-boundary-20261124/. 운영DB/라이브결제/외부승인 수행 없음, 이전패킷 불변.

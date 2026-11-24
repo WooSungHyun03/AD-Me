@@ -16,6 +16,7 @@ enableLocalIngestionPolicy();
 const admin = localClient(runtime.SERVICE_ROLE_KEY);
 const accounts = {};
 // Explicit opt-in of isolated fixtures only; hosted controls remain default-off.
+sql("select adme_release.set_demo_catalog(true,'local-fictional-qa-only');");
 sql(
   "update adme_ops.resource_controls set ingestion_enabled=true,llm_enabled=true where singleton=true;",
 );

@@ -100,7 +100,7 @@ DEV-B · P0 · S0 출시 차단 · UX · TESTED · 3 SP · ACTIVE
 
 ## D005 · 데모와 실제 데이터 저장·조회 분리
 
-DEV-B · P0 · S0 출시 차단 · DATABASE · TODO · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · DATABASE · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. is_demo 필터를 서버에 강제하고 실서비스 API·검색·SEO·통계에서 가상 데이터를 제외한다.
 - **재현·관찰** — /creators · /admin/intelligence에서 먼저 직접 API 호출과 검색 결과의 시연 데이터 누출 검사을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/lib/data.ts, src/lib/catalog.ts, supabase/seed.sql.
@@ -116,8 +116,8 @@ DEV-B · P0 · S0 출시 차단 · DATABASE · TODO · 5 SP · ACTIVE
 - **보안** — 키 없는 free_beta는 명확한 연결 오류/빈 상태이고 48명 가상 목록으로 대체하지 않는다.
 - **검증** — 직접 API 호출과 검색 결과의 시연 데이터 누출 검사 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — is_demo 필터를 서버에 강제하고 실서비스 API·검색·SEO·통계에서 가상 데이터를 제외한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D005/ (이번 검증 기록 위치)
+- **차단 요인** — 무료/시연 공개 데이터 경계의 로컬 코드·DB·역할 검증 범위만 TESTED. 운영118→119 스키마·지문 승인/적용과 별도 환경·실제 사용자 확인은 BLOCKED_EXTERNAL. legacy 검색 일반 raw 투영은 D075/D033 별도 출시 게이트이며 전체 VERIFIED/DONE 아님.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D005/ (이번 검증 기록 위치) · harness/evidence/D005/DEMO_BOUNDARY_20261124.md
 - **이전 기록** — OPEN
 
 ## D010 · 비밀번호 재설정·이메일 변경

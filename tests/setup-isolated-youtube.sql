@@ -5,6 +5,7 @@ insert into adme_ops.source_runtime_policies(
 ) values ('ci-source-fixture','youtube',true,3600,3600,3600,1000,3,'ISOLATED QA ONLY; no provider approval');
 update adme_ops.resource_controls set ingestion_enabled=true,llm_enabled=true where singleton;
 select adme_release.set_test_billing(true,'isolated CI TEST only');
+select adme_release.set_demo_catalog(true,'isolated CI TEST only');
 update adme_ops.settings set worker_hash=sha256(convert_to(repeat('0',64),'UTF8'));
 with channels as (
   select channel_id, case channel_id

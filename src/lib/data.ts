@@ -22,7 +22,10 @@ export async function publicCreators(): Promise<PublicCatalogCreator[]> {
       )
       .filter((c) => c !== null);
   const db = await supabase();
-  return readPublicCreatorCatalog(db);
+  const rows = await readPublicCreatorCatalog(db);
+  return getConfig().serviceMode === "test_demo"
+    ? rows
+    : rows.filter((c) => !c.is_demo);
 }
 export async function publicCreator(
   reference: string,
@@ -35,5 +38,8 @@ export async function publicCreator(
     { data, error } = await db.rpc("creator_public_one", { p_ref: reference });
   if (error) throw Error("프로필을 불러오지 못했습니다.");
   if (data === null) return null;
-  return publicCatalogCreatorSchema.parse(data);
+  const creator = publicCatalogCreatorSchema.parse(data);
+  return creator.is_demo && getConfig().serviceMode !== "test_demo"
+    ? null
+    : creator;
 }

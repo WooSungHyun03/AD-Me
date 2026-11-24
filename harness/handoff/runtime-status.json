@@ -50,9 +50,12 @@
     },
     "D005": {
       "owner": "DEV-B",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "LOCAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/D005/DEMO_BOUNDARY_20261124.md"
+      ],
+      "blocker": "공개 DEMO 경계 기본OFF·서버필터·직접RPC/역할·과거이력 보존 로컬 검증. 운영119/스키마지문/독립 환경·실제 URL 수용은 BLOCKED_EXTERNAL. D075/D033 raw 검색 투영 및 기존 catalog GET405/400 별도 미해결. DONE 아님.",
+      "last_checked_at": "2026-11-24T17:22:21+09:00"
     },
     "D006": {
       "owner": "DEV-B",

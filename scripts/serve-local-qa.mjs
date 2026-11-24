@@ -12,7 +12,7 @@ enableLocalDeletionIntake();
 const freeBeta = process.env.ADME_QA_MODE === "free_beta";
 // Exact marked loopback DB only; public source/env flags cannot enable this gate.
 sql(
-  `select adme_release.set_test_billing(${freeBeta ? "false" : "true"},'local-fictional-qa-only');`,
+  `begin; select adme_release.set_test_billing(${!freeBeta},'local-fictional-qa-only'); select adme_release.set_demo_catalog(${!freeBeta},'local-fictional-qa-only'); commit;`,
 );
 const env = {
   ...process.env,
