@@ -700,3 +700,8 @@ GitHub 소유자 승인 뒤 Vercel 프로젝트를 연결했다. Vercel API 기�
 
 - main922f34d 통합 후 provider signOut 오류 무시 재현(신규단위3 FAIL)·global 범위/실패 안내 수정. 실제 로컬 양 역할2세션/복수탭/철회refresh/명시만료JWT fixture/재로그인 및 기존 탈퇴 후 접근 차단 회귀 검증. D010/D074와 최종source 공통lint/typecheck/Vitest559/build1회·영향desktop/mobile16 PASS. DEV-A 정적리뷰 추가blocker/공유예약 없음. 기존access JWT 즉시전역폐기는 미검증으로 분리.
 - D013 TESTED/runtimeLOCAL_VERIFIED, D009/U007/U008실제Auth/메일/계정/TTL은BLOCKED_EXTERNAL. 증빙 harness/evidence/D013/SESSION_LIFECYCLE_20261124.md. 기존자료/운영DB/키/결제 변경없음.
+
+## 2026-11-24 — DEV-B D074 자기 자료 반출
+
+- 설정 미연결/계정전체 로그인시각 우회 재현(route2 FAIL) 후 현재verified AMR/live session gate+기존PrivacyExport연결. CLI120 신규SQL의 quota account lock/actor 검사·private ACL, 기존티켓/consume/테이블/기록 보존. 실제localAuth/PostgREST 양역할·foreign/wrongtoken·oneuse race·expiry·감사보호·동시8중5·철회JWT RPC거부 및119→120 rollback/failure PASS.
+- D013과 같은 최종source 공통검사/productionbuild1회/영향desktop-mobile16 PASS, DEV-A 정적review 추가blocking/예약없음. D074 TESTED/runtimeLOCAL_VERIFIED. U001/D073·운영120/지문/실제요청처리 BLOCKED_EXTERNAL. 증빙 harness/evidence/D074/SESSION_EXPORT_20261124.md, 패킷 deliverables/d074-session-export-20261124/. 운영SQL/키/결제/승인 미실행.

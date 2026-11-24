@@ -7,6 +7,7 @@ import { BrandAccountForm } from "@/components/brand-account-form";
 import { ConsentSettings } from "@/components/consent-settings";
 import { AccountDeletionForm } from "@/components/account-deletion-form";
 import { EmailForm } from "@/components/account-auth-forms";
+import { PrivacyExport } from "@/components/privacy-panel";
 import { getConfig } from "@/lib/config";
 export const dynamic = "force-dynamic";
 export default async function Settings() {
@@ -91,6 +92,8 @@ export default async function Settings() {
       ) : (
         <p role="status">이메일 변경 서비스 연결을 준비 중입니다.</p>
       )}
+      <h2>내 데이터</h2>
+      <PrivacyExport />
       <AccountDeletionForm enabled={!intake.error && intake.data === true} />
     </section>
   );

@@ -1,13 +1,16 @@
 import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { context, fail, safeOrigin } from "@/lib/api";
-import { REAUTH_MESSAGE, recentSignIn } from "@/lib/auth-links";
+import { REAUTH_MESSAGE } from "@/lib/auth-links";
+import { hasRecentSessionSignIn } from "@/lib/session-reauth";
 // Creates a one-time export ticket (15 min). Re-authentication is checked here and again in the DB.
- async function handlePOST(req: Request) {
+async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
-  if (!recentSignIn(c.user)) return fail(REAUTH_MESSAGE, 401);
+  const proof = await c.db.auth.getClaims();
+  if (proof.error || !hasRecentSessionSignIn(proof.data?.claims, c.user.id))
+    return fail(REAUTH_MESSAGE, 401);
   const { data, error } = await c.db.rpc("create_privacy_export");
   if (error)
     return error.message.includes("reauth_required")
@@ -22,4 +25,7 @@ import { REAUTH_MESSAGE, recentSignIn } from "@/lib/auth-links";
   );
 }
 
-export const POST=compatibleApiRoute("src/app/api/privacy/exports/route.ts.POST",handlePOST);
+export const POST = compatibleApiRoute(
+  "src/app/api/privacy/exports/route.ts.POST",
+  handlePOST,
+);

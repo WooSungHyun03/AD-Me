@@ -711,9 +711,12 @@
     },
     "D074": {
       "owner": "DEV-B",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "LOCAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/D074/SESSION_EXPORT_20261124.md"
+      ],
+      "blocker": "양 역할 현재-session AMR/live-session 재인증·자기 자료 JSON 반출/foreign deny/일회 race/만료/24h quota 및 local119→120 검증. U001/D073 정책·hosted120/지문·실제 요청 처리 수용은 BLOCKED_EXTERNAL; 전체 DONE/VERIFIED 아님.",
+      "last_checked_at": "2026-11-24T22:03:00+09:00"
     },
     "D075": {
       "owner": "DEV-A",

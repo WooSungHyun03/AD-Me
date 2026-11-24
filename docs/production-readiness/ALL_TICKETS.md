@@ -1686,7 +1686,7 @@ DEV-A · P0 · S0 출시 차단 · COMPLIANCE · BLOCKED · 5 SP · ACTIVE
 
 ## D074 · 개인정보 열람·수정·반출
 
-DEV-B · P0 · S0 출시 차단 · PRIVACY · TODO · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · PRIVACY · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 본인 확인 후 자기 자료만 내보내고 처리 요청과 수집 프로필 삭제 경로를 제공한다.
 - **재현·관찰** — /settings에서 먼저 다른 사람 반출 차단·내보내기 만료·민감 정보 검사을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/app/api/privacy, src/app/settings/page.tsx.
@@ -1702,8 +1702,8 @@ DEV-B · P0 · S0 출시 차단 · PRIVACY · TODO · 5 SP · ACTIVE
 - **보안** — 동일 협업의 타인 비공개 자료는 자기 자료 반출에 포함하지 않는다.
 - **검증** — 다른 사람 반출 차단·내보내기 만료·민감 정보 검사 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 본인 확인 후 자기 자료만 내보내고 처리 요청과 수집 프로필 삭제 경로를 제공한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D074/ (이번 검증 기록 위치)
+- **차단 요인** — 양 역할 현재-session AMR/live-session 재인증·자기 자료 JSON 반출/foreign deny/일회 race/만료/24h quota 및 local119→120 검증. U001/D073 정책·hosted120/지문·실제 요청 처리 수용은 BLOCKED_EXTERNAL; 전체 DONE/VERIFIED 아님.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D074/ (이번 검증 기록 위치) · harness/evidence/D074/SESSION_EXPORT_20261124.md · harness/evidence/D074/verification-20261124.json
 - **이전 기록** — OPEN
 
 ## D075 · RLS·RPC·Storage 전수 권한 감사

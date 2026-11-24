@@ -1,0 +1,6 @@
+{
+  "ticket": "D074",
+  "commonVerification": "harness/evidence/D013/verification-20261124.json",
+  "migration": "supabase/migrations/20261124124402_privacy_session_reauthentication.sql",
+  "sha256": "516535ef6d4709f99e6cd981dcaf7f88d76c4b21751472733b55b1d6dfc4a461"
+}

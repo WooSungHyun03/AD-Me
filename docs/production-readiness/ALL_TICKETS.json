@@ -5204,13 +5204,15 @@
       "acceptance": "본인 확인 후 자기 자료만 내보내고 처리 요청과 수집 프로필 삭제 경로를 제공한다.",
       "points": 5,
       "owner": "DEV-B",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "양 역할 현재-session AMR/live-session 재인증·자기 자료 JSON 반출/foreign deny/일회 race/만료/24h quota 및 local119→120 검증. U001/D073 정책·hosted120/지문·실제 요청 처리 수용은 BLOCKED_EXTERNAL; 전체 DONE/VERIFIED 아님.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D074/ (이번 검증 기록 위치)"
+        "harness/evidence/D074/ (이번 검증 기록 위치)",
+        "harness/evidence/D074/SESSION_EXPORT_20261124.md",
+        "harness/evidence/D074/verification-20261124.json"
       ],
-      "status": "TODO",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,
