@@ -1057,7 +1057,7 @@ DEV-A · P1 · S1 주요 부족 · AI · IN_PROGRESS · 8 SP · ACTIVE
 - **관련 코드** — src/app/api/intelligence/route.ts · src/lib/ai · scripts/intelligence_worker.py
 - **DB·RPC** — adme_ops.jobs, ops_draft_create; API 유지·스튜디오 경로 유지 금지
 - **기대 동작** — 기존 내부 템플릿·Local AI API 어댑터에 입력·출처·프롬프트 버전·결과 검증·사용량 계약이 적용되고 AI 스튜디오 사용자 경로는 계속 리디렉션된다.
-- **구현** — concept/proposal/summary/brief별 schema·프롬프트 버전·provider adapter·timeout·usage를 둔다. 외부 콘텐츠는 신뢰할 수 없는 입력이다. 사용자 AI 스튜디오와 공개 초안 생성 UI는 재도입하지 않고, AI가 필요한 추천·운영 지원에 내부 어댑터를 재사용한다.
+- **구현** — concept/proposal/summary/brief별 schema·프롬프트 버전·provider adapter·timeout·usage를 둔다. 외부 콘텐츠는 신뢰할 수 없는 입력이다. 사용자 AI 스튜디오와 공개 초안 생성 UI는 재도입하지 않고, AI가 필요한 추천·운영 지원에 내부 어댑터를 재사용한다. 모델 호출 코드·입출력 검증·자동 테스트는 A가 담당하고 운영 모델 설치·가동·복구 작업은 PR-003 운영자에게 인계한다.
 - **변경 파일** — src/app/api/intelligence/route.ts · src/lib/ai · scripts/intelligence_worker.py
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D003 · D008
@@ -1808,7 +1808,7 @@ DEV-A · P0 · S0 출시 차단 · ACCESSIBILITY · TESTED · 5 SP · ACTIVE
 - **관련 코드** — src/app · src/components · tests/e2e
 - **DB·RPC** — profiles, campaigns 또는 products 중 담당 기능의 기존 소유권 계약
 - **기대 동작** — 키보드·포커스·스크린리더·대비·폼 오류·로딩·빈 상태·복구 UX를 전 흐름에 적용한다.
-- **구현** — 320/390/768/1440px·키보드·포커스·라벨·대비·loading/error/empty를 점검한다. 애니메이션 reduced-motion을 지원한다.
+- **구현** — 320/390/768/1440px·키보드·포커스·라벨·대비·loading/error/empty를 점검한다. 애니메이션 reduced-motion을 지원한다. 이전 발견 항목의 결함 수정과 접근성 회귀는 병렬 진행한다. 새 시안 또는 공통 토큰 변경은 운영자 O001의 기준서로 작업하고 실제 화면 증거를 넘긴다.
 - **변경 파일** — src/app · src/components · tests/e2e
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D081
@@ -1874,7 +1874,7 @@ DEV-B · P0 · S0 출시 차단 · DEVOPS · TODO · 5 SP · ACTIVE
 - **관련 코드** — .github/workflows/ci.yml · vercel.json · supabase/migrations · docs/handoff
 - **DB·RPC** — supabase_migrations.schema_migrations; release, environment 및 실제 적용 RPC 매핑
 - **기대 동작** — CI 검사·마이그레이션 순서·롤백/forward fix·환경 설정 목록·사용자 배포 체크리스트를 준비한다.
-- **구현** — 검증 CI는 유지하되 사용자 승인 없는 배포 workflow를 추가하지 않는다. expand→backfill→switch→contract 순서를 release manifest에 기록한다.
+- **구현** — 검증 CI는 유지하되 사용자 승인 없는 배포 workflow를 추가하지 않는다. expand→backfill→switch→contract 순서를 release manifest에 기록한다. 빌드·마이그레이션·롤백 패킷과 증거를 운영자 U004/U005에게 전달한다. 운영자의 실제 승격 여부를 코드 작업의 완료 증거와 구분한다.
 - **변경 파일** — .github/workflows/ci.yml · vercel.json · supabase/migrations · docs/handoff
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D003 · D075 · D087
@@ -1896,7 +1896,7 @@ DEV-B · P0 · S0 출시 차단 · OBSERVABILITY · TODO · 5 SP · ACTIVE
 - **관련 코드** — src/lib/observability.ts · src/app/api/health · docs/operations
 - **DB·RPC** — adme_ops.jobs, ops health, error ledger
 - **기대 동작** — PII 없는 요청 추적·오류 알림·health·가용성·API 한도·무료 리소스 한도를 관측한다.
-- **구현** — health 공개 응답은 최소화하고 연결 상세·통계는 관리자만 본다. 오류/쿼터/비용 알림 수신 경로를 U018와 맞춘다.
+- **구현** — health 공개 응답은 최소화하고 연결 상세·통계는 관리자만 본다. 오류/쿼터/비용 알림 수신 경로를 U018와 맞춘다. 워커·상태·경보 코드 기준을 PR-003 운영 담당자에게 넘기고 운영 채널 연결은 U018에서 다룬다.
 - **변경 파일** — src/lib/observability.ts · src/app/api/health · docs/operations
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D078 · U018
@@ -1954,7 +1954,7 @@ DEV-B · P0 · S0 출시 차단 · QA · TODO · 5 SP · ACTIVE
 
 ## U001 · 서비스 운영 범위·정책·운영자 확정
 
-USER · P0 · S0 출시 조건 · COMPLIANCE · BLOCKED · 외부 SP · ACTIVE
+OPERATOR · P0 · S0 출시 조건 · COMPLIANCE · BLOCKED · 외부 SP · ACTIVE
 
 - **현재 문제** — 공개 운영 책임과 개인정보 처리 문서 승인이 남았다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -1972,11 +1972,12 @@ USER · P0 · S0 출시 조건 · COMPLIANCE · BLOCKED · 외부 SP · ACTIVE
 - **완료 조건** — 기존 공개 운영자 연락처의 수신, 권리 행사 절차, 보유기간·처리위탁·성인 범위를 결정하고 승인본에 날짜를 남긴다.
 - **차단 요인** — 공개 운영 책임과 개인정보 처리 문서 승인이 남았다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## U002 · GitHub 조직·저장소·앱 권한 설정
 
-USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
+OPERATOR · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 
 - **현재 문제** — main 푸시가 가능하지만 Git 연동 배포는 비활성이다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -1994,11 +1995,12 @@ USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 - **완료 조건** — GitHub 접근과 Vercel 앱 권한을 소유자가 검토한다. 자동 배포를 즉시 켜지 말고 D085에 승인·공개 순서·권한 증빙을 전달한다.
 - **차단 요인** — main 푸시가 가능하지만 Git 연동 배포는 비활성이다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## U003 · Supabase 환경·계정·리전·한도 설정
 
-USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
+OPERATOR · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 
 - **현재 문제** — 운영 원장과 저장소 차이, 격리 및 복원 보관 범위가 남았다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2016,11 +2018,12 @@ USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 - **완료 조건** — 운영·스테이징·TEST 프로젝트 식별 관계, 리전·한도·보존·복원 가능한 백업을 확인한다.
 - **차단 요인** — 운영 원장과 저장소 차이, 격리 및 복원 보관 범위가 남았다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## U004 · Supabase 외부 환경·DB 변경 적용
 
-USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
+OPERATOR · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 
 - **현재 문제** — 현재 호환 릴리스만 동작한다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2038,11 +2041,12 @@ USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 - **완료 조건** — D085/D087의 복제본 검증과 롤백 증거를 검토한 뒤 승인된 순서로 SQL·Storage·함수를 적용한다.
 - **차단 요인** — 현재 호환 릴리스만 동작한다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## U005 · Vercel 프로젝트·Git 연결·배포 실행
 
-USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
+OPERATOR · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 
 - **현재 문제** — 현재 도메인은 운영 호환 Vercel 배포를 사용한다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2060,11 +2064,12 @@ USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 - **완료 조건** — D085 승인된 소스의 preview/production 분리, 빌드·도메인·롤백 이력을 확인한다.
 - **차단 요인** — 현재 도메인은 운영 호환 Vercel 배포를 사용한다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## U006 · 환경변수·시크릿 등록과 교체
 
-USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
+OPERATOR · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 
 - **현재 문제** — 등록된 키의 실제 값은 승인 문서나 코드에 필요하지 않다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2075,18 +2080,19 @@ USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 - **구현** — 검토된 변수명·환경별 scope·회전 소유자만 기록한다. TEST 전용 등록 후 redacted 체크 결과를 공유한다.
 - **변경 파일** — 운영 인계서 및 증빙 기록
 - **신규 파일** — 비밀값을 제외한 승인·운영 확인 기록
-- **선행 티켓** — 없음
+- **선행 티켓** — D003
 - **영향** — 계정·운영·정책 설정의 대응 기능
 - **보안** — 비밀값, 이메일 원문, 복구 링크, 인증 토큰을 공유 저장소에 보관하지 않는다.
 - **검증** — 완료 확인자가 날짜·환경·설정명·해당 검증 결과를 기록한다.
 - **완료 조건** — 검토된 변수명·환경별 scope·회전 소유자만 기록한다. TEST 전용 등록 후 redacted 체크 결과를 공유한다.
 - **차단 요인** — 등록된 키의 실제 값은 승인 문서나 코드에 필요하지 않다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## U007 · SMTP 계정·키·발신 도메인 설정
 
-USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
+OPERATOR · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 
 - **현재 문제** — 과거 가입·복구 실제 수신 이력이 있으나 새 가입·운영 발송 경보 재검증이 필요하다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2104,11 +2110,12 @@ USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 - **완료 조건** — 기존 설정의 DNS SPF/DKIM/DMARC, 발신자, 실제 수신 케이스를 확인한다. 앱 알림은 D053 별도 검증이다.
 - **차단 요인** — 과거 가입·복구 실제 수신 이력이 있으나 새 가입·운영 발송 경보 재검증이 필요하다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — VERIFIED_AUTH_SMTP
 
 ## U008 · Auth 외부 콘솔 설정
 
-USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
+OPERATOR · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 
 - **현재 문제** — 운영 MFA 전용 경로와 재발송 화면 미지원. 기존 callback 결과는 역사 증거다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2126,11 +2133,12 @@ USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 - **완료 조건** — host별 Auth 허용 URL, 가입/복구 템플릿, 세션 정책, MFA 정책을 설정하고 콜백 성공·거부 로그를 확인한다.
 - **차단 요인** — 운영 MFA 전용 경로와 재발송 화면 미지원. 기존 callback 결과는 역사 증거다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## U009 · YouTube 프로젝트·API 키 발급/등록
 
-USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
+OPERATOR · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 
 - **현재 문제** — 공식 YouTube 원본 수집은 동작한다. 키 제한과 쿼터 소유자의 증빙이 남았다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2148,11 +2156,12 @@ USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 - **완료 조건** — YouTube Data API 전용 제한, 무료 quota, 키 회전 주체 및 호출 결과를 값 없이 확인한다.
 - **차단 요인** — 공식 YouTube 원본 수집은 동작한다. 키 제한과 쿼터 소유자의 증빙이 남았다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## U010 · YouTube 이용 정책·파생 지표 승인
 
-USER · P0 · S0 출시 조건 · COMPLIANCE · BLOCKED · 외부 SP · GATED
+OPERATOR · P0 · S0 출시 조건 · COMPLIANCE · BLOCKED · 외부 SP · GATED
 
 - **현재 문제** — 파생 지표·콘텐츠 태그 용도의 명시적 승인 증거가 없다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2170,11 +2179,12 @@ USER · P0 · S0 출시 조건 · COMPLIANCE · BLOCKED · 외부 SP · GATED
 - **완료 조건** — 프로젝트의 허용 목적, API 필드, 보존, 승인·심사 필요 여부를 검토해 처리 근거와 적용 범위를 명시한다.
 - **차단 요인** — 파생 지표·콘텐츠 태그 용도의 명시적 승인 증거가 없다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — BLOCKED_USER_DECISION
 
 ## U011 · 웹 수집 대상의 허용 근거 확보
 
-USER · P1 · S1 조건부 · COMPLIANCE · BLOCKED · 외부 SP · GATED
+OPERATOR · P1 · S1 조건부 · COMPLIANCE · BLOCKED · 외부 SP · GATED
 
 - **현재 문제** — 공식 API 외 소재의 사용권·허용 범위가 확인되지 않았다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2192,11 +2202,12 @@ USER · P1 · S1 조건부 · COMPLIANCE · BLOCKED · 외부 SP · GATED
 - **완료 조건** — domain/path/필드/출처/권리/철회·삭제를 문서로 승인한다. 미승인 소스는 비활성이다.
 - **차단 요인** — 공식 API 외 소재의 사용권·허용 범위가 확인되지 않았다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — BLOCKED_SOURCE_PERMISSION
 
 ## U012 · Instagram 앱·OAuth·심사·키
 
-USER · P2 · S1 조건부 · OPERATIONS · BLOCKED · 외부 SP · ARCHIVED
+OPERATOR · P2 · S1 조건부 · OPERATIONS · BLOCKED · 외부 SP · ARCHIVED
 
 - **현재 문제** — Meta는 출시 범위 밖이다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2214,11 +2225,12 @@ USER · P2 · S1 조건부 · OPERATIONS · BLOCKED · 외부 SP · ARCHIVED
 - **완료 조건** — 업무 범위 밖으로 유지하며 신규 연동하지 않는다.
 - **차단 요인** — Meta는 출시 범위 밖이다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — BLOCKED_IMPLEMENTATION_AND_ACCESS
 
 ## U013 · TikTok 앱·OAuth·심사·키
 
-USER · P2 · S1 조건부 · OPERATIONS · BLOCKED · 외부 SP · ARCHIVED
+OPERATOR · P2 · S1 조건부 · OPERATIONS · BLOCKED · 외부 SP · ARCHIVED
 
 - **현재 문제** — TikTok은 출시 범위 밖이다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2236,11 +2248,12 @@ USER · P2 · S1 조건부 · OPERATIONS · BLOCKED · 외부 SP · ARCHIVED
 - **완료 조건** — 업무 범위 밖으로 유지하며 신규 연동하지 않는다.
 - **차단 요인** — TikTok은 출시 범위 밖이다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — BLOCKED_IMPLEMENTATION_AND_ACCESS
 
 ## U014 · 실제 크리에이터 시범 참여·운영 동의
 
-USER · P0 · S0 출시 조건 · COMPLIANCE · BLOCKED · 외부 SP · ACTIVE
+OPERATOR · P0 · S0 출시 조건 · COMPLIANCE · BLOCKED · 외부 SP · ACTIVE
 
 - **현재 문제** — 실제로 등록·인증한 참가자의 동의와 두 역할 협업 QA가 남았다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2258,11 +2271,12 @@ USER · P0 · S0 출시 조건 · COMPLIANCE · BLOCKED · 외부 SP · ACTIVE
 - **완료 조건** — 한 명 이상의 승인된 창작자와 브랜드 QA를 확보하여 채널 소유권·연락·삭제 조건을 동의 범위에서 확인한다.
 - **차단 요인** — 실제로 등록·인증한 참가자의 동의와 두 역할 협업 QA가 남았다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — BLOCKED_PARTICIPATION
 
 ## U015 · Toss TEST 계정·호환 키·등록
 
-USER · P1 · S1 조건부 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
+OPERATOR · P1 · S1 조건부 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 
 - **현재 문제** — 과거 TEST 승인 이력이 있다. 이번 릴리스 실패·취소·복구 완주에는 별도 격리 환경의 확인이 필요하다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2280,11 +2294,12 @@ USER · P1 · S1 조건부 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 - **완료 조건** — 같은 TEST 상점의 SDK v2 세트와 isolated 환경 등록을 확인한다. 키는 비공개 설정에만 넣는다.
 - **차단 요인** — 과거 TEST 승인 이력이 있다. 이번 릴리스 실패·취소·복구 완주에는 별도 격리 환경의 확인이 필요하다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## U016 · 선택적 LLM 계정·키·비용 상한
 
-USER · P1 · S1 조건부 · OPERATIONS · BLOCKED · 외부 SP · GATED
+OPERATOR · P1 · S1 조건부 · OPERATIONS · BLOCKED · 외부 SP · GATED
 
 - **현재 문제** — Local AI가 실행되며 외부 LLM은 현재 출시 필수가 아니다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2302,11 +2317,12 @@ USER · P1 · S1 조건부 · OPERATIONS · BLOCKED · 외부 SP · GATED
 - **완료 조건** — 외부 공급자를 추가하기로 한 경우에만 비용 상한·처리 조건·보존/이전을 검토한다.
 - **차단 요인** — Local AI가 실행되며 외부 LLM은 현재 출시 필수가 아니다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — OPTIONAL_NOT_ENABLED
 
 ## U017 · 도메인·DNS·TLS·소유권
 
-USER · P1 · S1 조건부 · OPERATIONS · VERIFIED · 외부 SP · ACTIVE
+OPERATOR · P1 · S1 조건부 · OPERATIONS · VERIFIED · 외부 SP · ACTIVE
 
 - **현재 문제** — 공개 도메인 TLS 및 www→apex 이동을 확인했다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2325,11 +2341,12 @@ USER · P1 · S1 조건부 · OPERATIONS · VERIFIED · 외부 SP · ACTIVE
 - **차단 요인** — 공개 도메인 TLS 및 www→apex 이동을 확인했다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
 - **검증 범위** — 운영 DNS/TLS, www→apex 308, 홈 canonical
+- **이전 담당 기록** — USER
 - **이전 기록** — VERIFIED_CUSTOM_DOMAIN
 
 ## U018 · 관측·알림·백업 외부 계정 설정
 
-USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
+OPERATOR · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 
 - **현재 문제** — 과거 복구 이력은 있으나 최신 SQL+Auth+Storage의 외부 보관과 연락 경보는 확인되지 않았다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2347,11 +2364,12 @@ USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 - **완료 조건** — 권한 있는 저장 위치, 암호화·보유 및 복원 훈련 계정, 연락 경보를 지정한다.
 - **차단 요인** — 과거 복구 이력은 있으나 최신 SQL+Auth+Storage의 외부 보관과 연락 경보는 확인되지 않았다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## U019 · 실제 테스트 참여·브라우저 승인
 
-USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
+OPERATOR · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 
 - **현재 문제** — 기존 사용자 인증·TEST 이력과 현재 합격 기준은 별개다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2369,11 +2387,12 @@ USER · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 - **완료 조건** — 필요할 때 실제 가입, 잠금/MFA, 운영자 QR 확인 및 격리 TEST 승인·취소를 수행하고 결과만 공유한다.
 - **차단 요인** — 기존 사용자 인증·TEST 이력과 현재 합격 기준은 별개다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## U020 · 공개 베타 출시·사고 연락·운영 책임
 
-USER · P0 · S0 출시 조건 · COMPLIANCE · BLOCKED · 외부 SP · ACTIVE
+OPERATOR · P0 · S0 출시 조건 · COMPLIANCE · BLOCKED · 외부 SP · ACTIVE
 
 - **현재 문제** — 정식 출시 전 책임과 사고 대응 범위가 승인되지 않았다.
 - **재현·관찰** — 외부 계정/운영자가 해당 서비스 콘솔의 설정과 최근 검증된 동작을 대조한다.
@@ -2391,6 +2410,7 @@ USER · P0 · S0 출시 조건 · COMPLIANCE · BLOCKED · 외부 SP · ACTIVE
 - **완료 조건** — D088의 기술 증거를 검토하고 무료 베타와 유료 운영 각각의 책임자, 지원·장애 기준, GO/NO-GO를 기록한다.
 - **차단 요인** — 정식 출시 전 책임과 사고 대응 범위가 승인되지 않았다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **이전 담당 기록** — USER
 - **이전 기록** — NO_GO
 
 ## PR-001 · 브랜드 상품 설명을 추천 입력으로 변환
@@ -2435,9 +2455,9 @@ DEV-A · P0 · S0 출시 차단 · AI · IN_PROGRESS · 8 SP · ACTIVE
 - **차단 요인** — 제한 vocabulary/출처·근거/버전/검토 대기 계약과 실제 합성 입력 시험. B D017 실제 승인 소스·동의, durable 큐/검토/공개 projection/철회·삭제 미구현; raw YouTube 분석은 U010 전 제외.
 - **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-002/ (신규 검증 기록 위치) · harness/evidence/PR-002/SCHEMA_FIX_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
 
-## PR-003 · Local AI 워커의 모델 장애 격리와 복구 예산
+## PR-003 · Local AI 호스트·모델 가동 및 장애 복구 승인
 
-DEV-A · P1 · S1 주요 부족 · AI · IN_PROGRESS · 5 SP · ACTIVE
+OPERATOR · P1 · S1 주요 부족 · AI · IN_PROGRESS · 외부 SP · ACTIVE
 
 - **현재 문제** — 호스트에서 Qwen과 임베딩 모델이 실제 동작했으나 운영 p95·시간 제한·부하·재시작 복구가 입증되지 않았다.
 - **재현·관찰** — Ollama loopback에서 짧은 한국어 JSON·임베딩과 동시 2건을 재측정한다. 운영 출력과 별도로 격리 환경의 재기동·서킷 차단을 확인한다.
@@ -2445,16 +2465,18 @@ DEV-A · P1 · S1 주요 부족 · AI · IN_PROGRESS · 5 SP · ACTIVE
 - **관련 코드** — scripts/intelligence_worker.py · docs/operations · src/components/youtube-ops-summary.tsx
 - **DB·RPC** — adme_ops.jobs lease, model version, failure code, retry cap
 - **기대 동작** — 30건 이상에서 p50/p95·실패율 보고, 대기상태가 복구·한도 초과에 수렴, 재실행 중복 없음, 일반 조회·채팅·ORDERS 영향 없음.
-- **구현** — Ollama loopback만 사용하고 worker의 concurrency·TTL·retry limit를 설정한다. 격리 운영에서 모델 미응답, bad JSON과 재시작을 재현하고 추천의 결정론적 경로를 사용할 수 있게 한다.
-- **변경 파일** — scripts/intelligence_worker.py · docs/operations · src/components/youtube-ops-summary.tsx
-- **신규 파일** — 테스트와 evidence 계약 우선. 신규 스키마는 CLI 생성 및 통합 순번 승인
+- **구현** — 기존 Ollama·모델·systemd 서비스의 버전, 보호된 로컬 연결, 실행 주체와 가용 자원을 점검한다. D048의 실행 파일과 D086의 큐·경보 계약을 인수한다. 승인된 격리 런타임에서 실제 모델로 재시작·타임아웃·복구를 검증하고 모델 버전과 p50/p95·실패 건수를 보관한다. 앱 코드 수정 사항은 각 담당에게 재현과 함께 인계한다.
+- **변경 파일** — docs/operations/local-model-recovery.md · 운영 서비스 설정 및 비공개 상태 기록
+- **신규 파일** — 격리 모델 결과와 승인된 운영 활성화 기록
 - **선행 티켓** — D048 · D086
 - **영향** — /admin/intelligence · /api/health
 - **보안** — 호스트 포트 공개 금지, 고객 입력 대신 합성 자료로 부하 측정, 권한·결제 로직에 LLM 사용 금지.
 - **검증** — 30건 이상에서 p50/p95·실패율 보고, 대기상태가 복구·한도 초과에 수렴, 재실행 중복 없음, 일반 조회·채팅·ORDERS 영향 없음.
 - **완료 조건** — 30건 이상에서 p50/p95·실패율 보고, 대기상태가 복구·한도 초과에 수렴, 재실행 중복 없음, 일반 조회·채팅·ORDERS 영향 없음.
-- **차단 요인** — 고정 loopback/160초/동시1/transport circuit 및 실제 CPU 측정·격리 재시작 증거 참조. B D086 host worker 수·TTL/dead-letter/readiness, 실제 embedding/라이선스와 일반 조회·채팅 통합 부하 수용 미완료.
+- **차단 요인** — 공유 GPU와 기존 워커의 실행 상태를 확인한다. 재시작 시험은 격리 환경에서만 하고 운영 활성화는 안전 한도·관측·릴리스 승인 후에 한다.
 - **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-003/ (신규 검증 기록 위치) · harness/evidence/PR-003/TRANSPORT_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
+- **검증 범위** — 기존 격리 CPU 모델과 복구 시험 증빙을 인수한다. 운영 호스트 장애 복구와 최종 활성화는 별도로 확인한다.
+- **이전 담당 기록** — DEV-A
 
 ## PR-004 · 라이브 판매 전원장·대사·환불 출시 게이트
 
@@ -2479,7 +2501,7 @@ DEV-B · P0 · S0 출시 차단 · BILLING · BLOCKED · 8 SP · GATED
 
 ## U021 · 유료 판매 사업 주체와 상품·환불 정책 승인
 
-BUSINESS · P0 · S0 출시 차단 · COMPLIANCE · BLOCKED · 외부 SP · GATED
+OPERATOR · P0 · S0 출시 차단 · COMPLIANCE · BLOCKED · 외부 SP · GATED
 
 - **현재 문제** — 현재 사업자등록 계획이 없고 별도 라이브 유료 판매 요건을 승인한 자료가 없다.
 - **재현·관찰** — 운영자가 현재 무료 베타 범위를 확인하고 정식 판매 추진 여부를 기록한다.
@@ -2497,10 +2519,11 @@ BUSINESS · P0 · S0 출시 차단 · COMPLIANCE · BLOCKED · 외부 SP · GATE
 - **완료 조건** — 주체·책임·고지 승인 결과를 남겼거나 미추진 상태를 명시한다.
 - **차단 요인** — 사업자등록 미추진 방침. 무료 베타와 별도.
 - **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/U021/ (신규 검증 기록 위치)
+- **이전 담당 기록** — BUSINESS
 
 ## U022 · Toss 라이브 상점 계약 및 환경 승인
 
-BUSINESS · P0 · S0 출시 차단 · BILLING · BLOCKED · 외부 SP · GATED
+OPERATOR · P0 · S0 출시 차단 · BILLING · BLOCKED · 외부 SP · GATED
 
 - **현재 문제** — 정식 운영 상점·라이브 계약·운영 키 증빙이 없다.
 - **재현·관찰** — Toss 개발자센터/운영 관리자에서 승인된 상점·결제수단·환경 분리 증빙을 검토한다.
@@ -2518,3 +2541,25 @@ BUSINESS · P0 · S0 출시 차단 · BILLING · BLOCKED · 외부 SP · GATED
 - **완료 조건** — 승인된 계약·환경/merchant 검증·철회 또는 롤백 증빙이 운영자에게 확보된다.
 - **차단 요인** — 유료 판매 승인 이전에는 진행하지 않는다.
 - **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/U022/ (신규 검증 기록 위치)
+- **이전 담당 기록** — BUSINESS
+
+## O001 · 웹디자인 시안·브랜드 기준 및 반영 승인
+
+OPERATOR · P1 · S1 시각·사용성 검수 · UI · TODO · 외부 SP · ACTIVE
+
+- **현재 문제** — 기존 시각 감사와 화면 개선을 바탕으로 운영자가 변경할 디자인의 범위·우선순위·승인 기준을 명시해야 한다.
+- **재현·관찰** — 홈·탐색·채널 상세·공고·대시보드·요금제를 열어 현행 화면과 시안의 차이를 비교하고, 모바일 390px과 데스크톱 1440px에서 CTA·상태·가독성을 점검한다.
+- **화면** — / · /creators · /creators/youtube/[id] · /jobs · /dashboard · /pricing
+- **관련 코드** — docs/DESIGN_SYSTEM.md · docs/design/visual-audit.md · src/app/marketplace-theme.css
+- **DB·RPC** — 화면 설계와 시각 검수는 DB 변경 없음. 공개 프로필과 결측 표시는 기존 데이터 계약을 사용한다.
+- **기대 동작** — 웹디자인 시안과 공통 원칙이 승인되고, 구현 담당자와 배포 전에 확인할 판정 기준이 명시된다.
+- **구현** — 운영자가 페이지별 우선순위와 시안(링크 또는 이미지)을 확정한다. 로고·타이포·색상·여백·CTA·모바일 및 로딩/빈/오류 상태를 인계서에 명시한다. B가 공통 레이아웃·토큰·UI를 반영하고 A가 탐색·추천·콘텐츠 근거를 검토한다. 운영자는 프리뷰 실화면을 확인하고 채택 또는 수정 요청의 근거를 남긴다.
+- **변경 파일** — docs/design/visual-audit.md · 승인한 웹디자인 시안과 운영 인계 기록
+- **신규 파일** — harness/evidence/O001/ 디자인 결정과 공개 가능한 브라우저 비교 증거
+- **선행 티켓** — D081
+- **영향** — 공통 내비게이션, 브랜드 탐색, 광고 공고, 업무 화면, 요금제
+- **보안** — 시안·캡처에 개인 QA 데이터와 비밀 설정을 넣지 않는다. TEST 고지, 스폰서 표식, 출처 문구, 권한 실패 안내를 확인한다.
+- **검증** — 390px과 1440px에서 공개/로그인 상태, 주요 CTA와 로딩/빈/오류 화면을 비교한다. 키보드 포커스와 명암비의 개발자 회귀 결과를 인수한다.
+- **완료 조건** — 시안과 적용 범위가 확인되고 담당 개발자·프리뷰 URL·캡처·승인 결과가 하나의 기록으로 연결된다.
+- **차단 요인** — 승인할 새 시안이나 변경 범위가 정해져야 한다. 기존 결함 및 접근성 회귀는 개발자가 병렬로 진행할 수 있다.
+- **증빙** — docs/design/visual-audit.md · harness/evidence/VISUAL-REDESIGN-20261123/verification.json

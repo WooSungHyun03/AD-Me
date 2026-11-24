@@ -4,13 +4,13 @@
 
 ## 시작 프롬프트
 
-> 저장소의 AGENTS.md와 docs/production-readiness/SHARED_CONTRACT.md, 본 문서를 읽어라. git fetch origin main, git status --short, git rev-parse HEAD를 실행해 최신 main 기준의 독립 작업트리를 사용하라. 본 문서에서 선행 조건이 충족된 ACTIVE P0를 한 건 골라 관련 화면·API·DB·테스트를 함께 조사하라. 재현을 기록하고 가장 작은 호환 변경을 구현하라. 로컬 복제 DB에서 역할별 성공·거부·재시도를 확인하고 desktop/mobile evidence를 남겨라. USER 작업이 막힌 경우 해당 실제 환경 검증만 BLOCKED로 남기고, 먼저 진행 가능한 계약·단위 테스트를 실행하라. 테스트 후 한 티켓 커밋으로 저장하고 상대 담당과 공유 파일을 통합한 뒤 일반 push로 main에 반영하라. 운영 마이그레이션·라이브 결제·외부 승인 대행은 별도 승인 없이 실행하지 마라.
+> 저장소의 AGENTS.md와 docs/production-readiness/SHARED_CONTRACT.md, 본 문서를 읽어라. git fetch origin main, git status --short, git rev-parse HEAD를 실행해 최신 main 기준의 독립 작업트리를 사용하라. 본 문서에서 선행 조건이 충족된 ACTIVE P0를 한 건 골라 관련 화면·API·DB·테스트를 함께 조사하라. 재현을 기록하고 가장 작은 호환 변경을 구현하라. 로컬 복제 DB에서 역할별 성공·거부·재시도를 확인하고 desktop/mobile evidence를 남겨라. 운영자 작업이 막힌 경우 해당 실제 환경 검증만 BLOCKED로 남기고, 먼저 진행 가능한 계약·단위 테스트를 실행하라. 테스트 후 한 티켓 커밋으로 저장하고 상대 담당과 공유 파일을 통합한 뒤 일반 push로 main에 반영하라. 운영 마이그레이션·라이브 결제·외부 승인 대행은 별도 승인 없이 실행하지 마라.
 
-YouTube 출처·수집, 검색·추천·태그, Local AI, 데이터 투영과 동의·권한 기반. 탐색/추천 화면, API, DB 및 테스트를 함께 수정한다.
+YouTube 출처·수집, 검색·추천·태그, Local AI 호출 코드와 데이터 투영·권한 기반. 탐색/추천 화면, API, DB 및 테스트를 함께 수정한다.
 
 현재 운영은 https://be-celeb.org 의 YouTube 전용 무료 베타이며 Toss TEST는 격리한다. main과 운영 스키마 차이는 D085에서 다룬다. 테스트 데이터를 운영 공개 목록에 게시하지 않는다. ARCHIVED는 과거 기록으로 유지한다. GATED는 외부 승인 없이 운영에 적용하지 않는다.
 
-미완료 ACTIVE 37건 · 202 SP · P0 30건.
+미완료 ACTIVE 36건 · 197 SP · P0 30건.
 
 ## 착수 순서 및 공유 계약
 
@@ -20,41 +20,40 @@ YouTube 출처·수집, 검색·추천·태그, Local AI, 데이터 투영과 �
 
 A→B · 승인 필드와 출처·갱신·결측을 포함한 공개 채널 DTO 및 추천 스냅샷 계약을 전달한다.
 B→A · 캠페인 입력, 지원 상태, 결제·이용권 결과와 채팅 참가자 권한을 합의한다.
-두 개발자는 운영 변경 전에 마이그레이션 적용과 앱 교체 순서, 무료/TEST 격리, 실패 복구 조건을 교차 리뷰한다.
+운영자에게 넘길 모델·배포·키·디자인 작업은 [운영자 실행 문서](OPERATOR_TICKETS.md)에 있다. 운영 변경 전에 마이그레이션 적용과 앱 교체 순서, 무료/TEST 격리, 실패 복구 조건을 교차 리뷰한다.
 
-### 상대 담당 및 USER 선행
+### 상대 개발자 및 운영자 선행
 
 - D002 ← D001 (DEV-B) · 실서비스는 무료 기능만 노출하고 TEST 상품·시연 데이터는 별도 환경으로 격리한다.
-- D009 ← U007 (USER) · 기존 설정의 DNS SPF/DKIM/DMARC, 발신자, 실제 수신 케이스를 확인한다. 앱 알림은 D053 별도 검증이다.
-- D009 ← U008 (USER) · host별 Auth 허용 URL, 가입/복구 템플릿, 세션 정책, MFA 정책을 설정하고 콜백 성공·거부 로그를 확인한다.
+- D009 ← U007 (OPERATOR) · 기존 설정의 DNS SPF/DKIM/DMARC, 발신자, 실제 수신 케이스를 확인한다. 앱 알림은 D053 별도 검증이다.
+- D009 ← U008 (OPERATOR) · host별 Auth 허용 URL, 가입/복구 템플릿, 세션 정책, MFA 정책을 설정하고 콜백 성공·거부 로그를 확인한다.
 - D012 ← D011 (DEV-B) · 역할별 필수 항목·진행 상태·재진입을 제공하고 역할 자가 승격을 막는다.
 - D014 ← D079 (DEV-B) · 프로필·메시지·로그·파일·백업의 보존 규칙과 삭제 작업을 적용하고 복구 시 삭제 요청을 재적용한다.
-- D016 ← U008 (USER) · host별 Auth 허용 URL, 가입/복구 템플릿, 세션 정책, MFA 정책을 설정하고 콜백 성공·거부 로그를 확인한다.
+- D016 ← U008 (OPERATOR) · host별 Auth 허용 URL, 가입/복구 템플릿, 세션 정책, MFA 정책을 설정하고 콜백 성공·거부 로그를 확인한다.
 - D018 ← D017 (DEV-B) · 필드·목적·근거·약관 버전·보존기간·갱신주기·재배포 범위를 공급원별로 정의한다.
-- D019 ← U009 (USER) · YouTube Data API 전용 제한, 무료 quota, 키 회전 주체 및 호출 결과를 값 없이 확인한다.
+- D019 ← U009 (OPERATOR) · YouTube Data API 전용 제한, 무료 quota, 키 회전 주체 및 호출 결과를 값 없이 확인한다.
 - D028 ← D026 (DEV-B) · 분야·분위기·형식·플랫폼 다중 선택, 견적 범위·가용성·견적 미확인을 구분한다.
 - D033 ← D005 (DEV-B) · is_demo 필터를 서버에 강제하고 실서비스 API·검색·SEO·통계에서 가상 데이터를 제외한다.
 - D044 ← D041 (DEV-B) · 모집·제작·게시 기간, 현금/제품 제공, 단가 범위, 콘텐츠 수량·사용권·독점 조건을 구조화한다.
-- D064 ← U001 (USER) · 기존 공개 운영자 연락처의 수신, 권리 행사 절차, 보유기간·처리위탁·성인 범위를 결정하고 승인본에 날짜를 남긴다.
-- D073 ← U001 (USER) · 기존 공개 운영자 연락처의 수신, 권리 행사 절차, 보유기간·처리위탁·성인 범위를 결정하고 승인본에 날짜를 남긴다.
-- D080 ← U001 (USER) · 기존 공개 운영자 연락처의 수신, 권리 행사 절차, 보유기간·처리위탁·성인 범위를 결정하고 승인본에 날짜를 남긴다.
+- D064 ← U001 (OPERATOR) · 기존 공개 운영자 연락처의 수신, 권리 행사 절차, 보유기간·처리위탁·성인 범위를 결정하고 승인본에 날짜를 남긴다.
+- D073 ← U001 (OPERATOR) · 기존 공개 운영자 연락처의 수신, 권리 행사 절차, 보유기간·처리위탁·성인 범위를 결정하고 승인본에 날짜를 남긴다.
+- D080 ← U001 (OPERATOR) · 기존 공개 운영자 연락처의 수신, 권리 행사 절차, 보유기간·처리위탁·성인 범위를 결정하고 승인본에 날짜를 남긴다.
 - D081 ← D024 (DEV-B) · 허용된 실제 프로필 50~100개를 목표로 중복·출처·갱신·결측·삭제 대응을 표본 검수한다. 확보 수량은 결과로 기록한다.
 - D084 ← D049 (DEV-B) · 제안/지원/수락/거절/취소/수정요청/완료와 중복·경합·참여자 권한을 검증한다.
 - PR-002 ← D017 (DEV-B) · 필드·목적·근거·약관 버전·보존기간·갱신주기·재배포 범위를 공급원별로 정의한다.
 - D037 ← D052 (DEV-B) · 단순 읽음 버튼을 넘어 이벤트·미읽음 수·읽음 커서·알림함을 구현한다.
 - D042 ← D027 (DEV-B) · 파일 크기·실제 MIME·경로·접근권한·삭제를 검증하고 권리 있는 파일만 업로드한다.
 - D042 ← D041 (DEV-B) · 모집·제작·게시 기간, 현금/제품 제공, 단가 범위, 콘텐츠 수량·사용권·독점 조건을 구조화한다.
-- D042 ← U001 (USER) · 기존 공개 운영자 연락처의 수신, 권리 행사 절차, 보유기간·처리위탁·성인 범위를 결정하고 승인본에 날짜를 남긴다.
+- D042 ← U001 (OPERATOR) · 기존 공개 운영자 연락처의 수신, 권리 행사 절차, 보유기간·처리위탁·성인 범위를 결정하고 승인본에 날짜를 남긴다.
 - D042 ← D079 (DEV-B) · 프로필·메시지·로그·파일·백업의 보존 규칙과 삭제 작업을 적용하고 복구 시 삭제 요청을 재적용한다.
 - D055 ← D041 (DEV-B) · 모집·제작·게시 기간, 현금/제품 제공, 단가 범위, 콘텐츠 수량·사용권·독점 조건을 구조화한다.
 - D055 ← D052 (DEV-B) · 단순 읽음 버튼을 넘어 이벤트·미읽음 수·읽음 커서·알림함을 구현한다.
-- PR-003 ← D086 (DEV-B) · PII 없는 요청 추적·오류 알림·health·가용성·API 한도·무료 리소스 한도를 관측한다.
 - D047 ← D046 (DEV-B) · 적합/부적합 사유·수락 결과를 저장하고 데이터 희소성·특정 규모 편향을 검토한다.
-- D047 ← U010 (USER) · 프로젝트의 허용 목적, API 필드, 보존, 승인·심사 필요 여부를 검토해 처리 근거와 적용 범위를 명시한다.
+- D047 ← U010 (OPERATOR) · 프로젝트의 허용 목적, API 필드, 보존, 승인·심사 필요 여부를 검토해 처리 근거와 적용 범위를 명시한다.
 
 ## 완료 보고 형식
 
-`ID / 상태 / main SHA / 변경 파일 / SQL·API 계약 / 실행 명령과 통과·실패 / desktop·mobile / 권한·재시도 / 남은 USER 게이트 / 운영 검증 여부 / 증빙 경로`. 이전 증빙은 새 결과와 구분한다. 상태 변경은 ALL_TICKETS.json에 반영한 뒤 `python3 harness/production_readiness.py`로 파생 원장을 다시 생성한다.
+`ID / 상태 / main SHA / 변경 파일 / SQL·API 계약 / 실행 명령과 통과·실패 / desktop·mobile / 권한·재시도 / 남은 운영자 게이트 / 운영 검증 여부 / 증빙 경로`. 이전 증빙은 새 결과와 구분한다. 상태 변경은 ALL_TICKETS.json에 반영한 뒤 `python3 harness/production_readiness.py`로 파생 원장을 다시 생성한다.
 
 ## D002 · 운영 정책·요금·기능 설명 일치
 
@@ -671,7 +670,7 @@ DEV-A · P0 · S0 출시 차단 · ACCESSIBILITY · TESTED · 5 SP · ACTIVE
 - **관련 코드** — src/app · src/components · tests/e2e
 - **DB·RPC** — profiles, campaigns 또는 products 중 담당 기능의 기존 소유권 계약
 - **기대 동작** — 키보드·포커스·스크린리더·대비·폼 오류·로딩·빈 상태·복구 UX를 전 흐름에 적용한다.
-- **구현** — 320/390/768/1440px·키보드·포커스·라벨·대비·loading/error/empty를 점검한다. 애니메이션 reduced-motion을 지원한다.
+- **구현** — 320/390/768/1440px·키보드·포커스·라벨·대비·loading/error/empty를 점검한다. 애니메이션 reduced-motion을 지원한다. 이전 발견 항목의 결함 수정과 접근성 회귀는 병렬 진행한다. 새 시안 또는 공통 토큰 변경은 운영자 O001의 기준서로 작업하고 실제 화면 증거를 넘긴다.
 - **변경 파일** — src/app · src/components · tests/e2e
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D081
@@ -825,7 +824,7 @@ DEV-A · P1 · S1 주요 부족 · AI · IN_PROGRESS · 8 SP · ACTIVE
 - **관련 코드** — src/app/api/intelligence/route.ts · src/lib/ai · scripts/intelligence_worker.py
 - **DB·RPC** — adme_ops.jobs, ops_draft_create; API 유지·스튜디오 경로 유지 금지
 - **기대 동작** — 기존 내부 템플릿·Local AI API 어댑터에 입력·출처·프롬프트 버전·결과 검증·사용량 계약이 적용되고 AI 스튜디오 사용자 경로는 계속 리디렉션된다.
-- **구현** — concept/proposal/summary/brief별 schema·프롬프트 버전·provider adapter·timeout·usage를 둔다. 외부 콘텐츠는 신뢰할 수 없는 입력이다. 사용자 AI 스튜디오와 공개 초안 생성 UI는 재도입하지 않고, AI가 필요한 추천·운영 지원에 내부 어댑터를 재사용한다.
+- **구현** — concept/proposal/summary/brief별 schema·프롬프트 버전·provider adapter·timeout·usage를 둔다. 외부 콘텐츠는 신뢰할 수 없는 입력이다. 사용자 AI 스튜디오와 공개 초안 생성 UI는 재도입하지 않고, AI가 필요한 추천·운영 지원에 내부 어댑터를 재사용한다. 모델 호출 코드·입출력 검증·자동 테스트는 A가 담당하고 운영 모델 설치·가동·복구 작업은 PR-003 운영자에게 인계한다.
 - **변경 파일** — src/app/api/intelligence/route.ts · src/lib/ai · scripts/intelligence_worker.py
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D003 · D008
@@ -859,27 +858,6 @@ DEV-A · P1 · S1 주요 부족 · MARKETPLACE · IN_PROGRESS · 5 SP · ACTIVE
 - **차단 요인** — 기존 private calendar/일정 계약과 B D052 milestone/지연 event cursor·outbox·opt-in·중복·해지·삭제 통합 필요. 운영 알림 전달은 미검증.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D055/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D055/ (이번 검증 기록 위치) · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
 - **이전 기록** — IN_PROGRESS
-
-## PR-003 · Local AI 워커의 모델 장애 격리와 복구 예산
-
-DEV-A · P1 · S1 주요 부족 · AI · IN_PROGRESS · 5 SP · ACTIVE
-
-- **현재 문제** — 호스트에서 Qwen과 임베딩 모델이 실제 동작했으나 운영 p95·시간 제한·부하·재시작 복구가 입증되지 않았다.
-- **재현·관찰** — Ollama loopback에서 짧은 한국어 JSON·임베딩과 동시 2건을 재측정한다. 운영 출력과 별도로 격리 환경의 재기동·서킷 차단을 확인한다.
-- **화면** — /admin/intelligence · /api/health
-- **관련 코드** — scripts/intelligence_worker.py · docs/operations · src/components/youtube-ops-summary.tsx
-- **DB·RPC** — adme_ops.jobs lease, model version, failure code, retry cap
-- **기대 동작** — 30건 이상에서 p50/p95·실패율 보고, 대기상태가 복구·한도 초과에 수렴, 재실행 중복 없음, 일반 조회·채팅·ORDERS 영향 없음.
-- **구현** — Ollama loopback만 사용하고 worker의 concurrency·TTL·retry limit를 설정한다. 격리 운영에서 모델 미응답, bad JSON과 재시작을 재현하고 추천의 결정론적 경로를 사용할 수 있게 한다.
-- **변경 파일** — scripts/intelligence_worker.py · docs/operations · src/components/youtube-ops-summary.tsx
-- **신규 파일** — 테스트와 evidence 계약 우선. 신규 스키마는 CLI 생성 및 통합 순번 승인
-- **선행 티켓** — D048 · D086
-- **영향** — /admin/intelligence · /api/health
-- **보안** — 호스트 포트 공개 금지, 고객 입력 대신 합성 자료로 부하 측정, 권한·결제 로직에 LLM 사용 금지.
-- **검증** — 30건 이상에서 p50/p95·실패율 보고, 대기상태가 복구·한도 초과에 수렴, 재실행 중복 없음, 일반 조회·채팅·ORDERS 영향 없음.
-- **완료 조건** — 30건 이상에서 p50/p95·실패율 보고, 대기상태가 복구·한도 초과에 수렴, 재실행 중복 없음, 일반 조회·채팅·ORDERS 영향 없음.
-- **차단 요인** — 고정 loopback/160초/동시1/transport circuit 및 실제 CPU 측정·격리 재시작 증거 참조. B D086 host worker 수·TTL/dead-letter/readiness, 실제 embedding/라이선스와 일반 조회·채팅 통합 부하 수용 미완료.
-- **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-003/ (신규 검증 기록 위치) · harness/evidence/PR-003/TRANSPORT_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
 
 ## D047 · 추천 실험·가중치·임베딩
 

@@ -616,3 +616,8 @@ USER requested all feasible tickets in order, keeping direct main push and ticke
 - D042 continuation: immutable private brief files/state/versions + owner UI/API,4MiB/account20/revision200; actual9 DB/Storage groups and9 API+5copy tests, final desktop/mobile4 PASS.109→112 atomic USER packet tested separately; default collectionOFF. USER U001/B D079 physical expiry/orphans/delete/export and short-link behavior are activation gates. Existing account parent cleanup FK preserved;110 schema resolution caught before apply,111 attestation snapshot/112 global owner cap added forward only.
 
 - D045/remaining batch20261123: additive113 model1.2 hard/soft/unknown snapshots + immutable1.0 read/replay compatibility, campaign policy edit/copy and exact112→113 USER packet. Final494unit/42Python/lint/typecheck/build/affected14 browser, actual D0456+legacy12 DB groups and fresh0→113 PASS. PR-001/002/003 independent model/Zod/source/transport contracts progressed with actual disposable CPU model receipts; first empty/invalid extraction failures retained and prompt versions advanced rather than weakening validation. Legacy runtime owners/status vocabulary preserved; new PR statuses live in canonical production-readiness only. External/B gates and unfinished owner-bound pipelines remain explicit; no DONE/VERIFIED/hosted deployment claim.
+
+## 2026-11-24 — 개발자 A·B 및 운영자 실행 인계
+
+- 원격 DEV-A 작업과 검증 이력을 최신 main으로 반영한 뒤 115개 원장을 세 역할로 나눴다. 운영자 문서에 기존 U/BUSINESS 항목, PR-003 Local AI 호스트 운영과 O001 웹디자인 승인을 연결했다.
+- 로컬 AI 호출 코드와 웹 화면 통합은 개발자 인계로 유지했다. 운영 배포·키 등록·외부 승인에 필요한 확인과 담당 범위는 운영자 문서에 모았다.

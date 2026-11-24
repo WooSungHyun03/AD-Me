@@ -48,4 +48,4 @@
 
 원본 로고는 제공된 자산을 사용합니다. MIT 라이선스와 `ASSETS_NOTICE.md`를 참고하세요.
 
-[실서비스 출시 감사와 DEV-A/B 인계 문서](docs/production-readiness/MASTER_AUDIT.md)
+[실서비스 출시 감사](docs/production-readiness/MASTER_AUDIT.md) · [개발자 A](docs/production-readiness/DEV_A_TICKETS.md) · [개발자 B](docs/production-readiness/DEV_B_TICKETS.md) · [운영자](docs/production-readiness/OPERATOR_TICKETS.md)
