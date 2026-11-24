@@ -1,0 +1,7 @@
+# D003 · portable production schema fingerprint
+
+Latest main1710f23 adds a production fingerprint gate; ordinary main builds are now enabled and branch builds remain off. Reproduced the same reviewed Korean SQL with LF and CRLF returning different approvals. Hash canonical UTF-8 LF text while retaining BOM and all other content; invalid UTF-8 fails closed. No migration, installed DB, environment registration or approval was changed. Linux LF approvals remain identical; an approval formerly computed from Windows raw CRLF bytes must be reviewed/recomputed, never accepted as a second automatic fallback.
+
+Seven production-schema tests PASS, including new LF/CRLF equivalence/content/BOM/lone-CR/trailing-newline changes, invalid encoding, and preview-labeled production target denial. Missing/stale approval still stops production. Compared all116 actual committed SQL blobs with this Windows checkout: canonical manifest hashes match (batch schema-fingerprint.json). SQL names/additions/content changes still invalidate approval. No operating DB readiness is inferred from a matching local hash.
+
+Final batch lint/typecheck517unit/43Python/Next free-keyless build/affected desktop-mobile10 PASS. See DEV-A-MAIN-FOLLOWUP-20261124. Operator/B D085·D087 still need actual production schema/restore/RPC/permission acceptance before registering ADME_PRODUCTION_SCHEMA_SHA256. No fresh/upgrade DB rerun or hosted activation is claimed this session.

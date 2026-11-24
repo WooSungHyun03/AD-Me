@@ -25,9 +25,10 @@
       "evidence": [
         "harness/evidence/D003/README.md",
         "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
-        "harness/evidence/D003/CONFIG_20261123.md"
+        "harness/evidence/D003/CONFIG_20261123.md",
+        "harness/evidence/D003/SCHEMA_FINGERPRINT_20261124.md"
       ],
-      "blocker": "통합 모드/CLI/관리자 진단 및 누락·충돌·라이브 키 거부 로컬 검사 통과. USER 대상 환경 적용·운영 수용은 미검증; DONE 아님.",
+      "blocker": "통합 모드/CLI/관리자 진단 및 누락·충돌·라이브 키 거부 로컬 검사 통과. USER 대상 환경 적용·운영 수용은 미검증; DONE 아님. main1710f23 후속: Windows/Linux SQL 지문 정규화·운영 차단7계약 및 실제116 Git 소스/체크아웃 일치 검증. 운영 승인/설정 변경은 없음. 기존 운영/선행 게이트와 상태는 유지한다.",
       "last_checked_at": "2026-11-19T09:35:40.219919+00:00"
     },
     "D004": {

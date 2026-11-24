@@ -28,6 +28,8 @@ GitHub `main`을 Vercel의 Production branch로 사용한다. `main`에 푸시�
 
 GitHub 소유자 승인 후 2026-11-24 기존 Vercel `ad-me` 프로젝트에 `WooSungHyun03/AD-Me`를 연결했다. Vercel API에서 Production branch가 `main`이고 운영 도메인 자동 할당이 켜져 있음을 확인했다. 도메인을 분리한 운영 빌드에서 검증 지문이 비어 있으면 빌드가 실패함을 확인했다.
 
+지문은 UTF-8 SQL의 CRLF를 LF로 표준화해 Windows 체크아웃과 Linux 빌드에서 일치시킨다. BOM·그 밖의 본문·파일명·추가 파일은 그대로 지문에 반영하며 잘못된 UTF-8은 거부한다. 이전 Windows 원시 CRLF 지문을 승인한 경우 새 지문으로 다시 검토하며 두 형식을 동시에 허용하지 않는다. 로컬 산출 지문 자체는 운영 DB 적용·복구 승인이 아니며, 승인 없이 환경에 등록해 빌드를 통과시키지 않는다. [검토 인계](../../deliverables/dev-a-main-followup-20261124/README_KO.md)
+
 ## Figma 전환 검증
 
 [프레임 매핑](../design/figma-frame-map.json)에서 원본과 확장 디자인의 실제 ID를 확인한다. 홈·캠페인 목록부터 비교하며, 캠페인 공개를 승인하기 전에 작성·공개·지원·협업·결제의 역할별 권한, 운영 백업과 복구, 배포 교체 호환성을 확인한다. 무료 공개 모드에서 승인되지 않은 결제 상품을 숨긴다.

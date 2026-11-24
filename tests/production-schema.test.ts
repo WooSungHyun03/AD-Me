@@ -69,3 +69,52 @@ test("an approved database fingerprint is invalidated by a migration edit or add
     rmSync(directory, { recursive: true, force: true });
   }
 });
+
+test("an approved SQL fingerprint survives Git LF/CRLF checkouts but rejects content changes", () => {
+  const directory = mkdtempSync(join(tmpdir(), "adme-line-ending-test-"));
+  try {
+    const file = join(directory, "202611240001_first.sql");
+    writeFileSync(file, "-- 한국어 검토\nselect 1;\n");
+    const approved = migrationFingerprint(directory);
+    const env = { ...production, ADME_PRODUCTION_SCHEMA_SHA256: approved };
+    writeFileSync(file, "-- 한국어 검토\r\nselect 1;\r\n");
+    expect(migrationFingerprint(directory)).toBe(approved);
+    expect(() => checkProductionSchema(env, directory)).not.toThrow();
+    for (const changed of [
+      "-- 한국어 검토\r\nselect 2;\r\n",
+      "-- 한국어 검토\nselect 1;",
+      "-- 한국어 검토\rselect 1;\r",
+      "\uFEFF-- 한국어 검토\nselect 1;\n",
+    ]) {
+      writeFileSync(file, changed);
+      expect(() => checkProductionSchema(env, directory)).toThrow(
+        /not been verified/,
+      );
+    }
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("invalid UTF-8 SQL is rejected instead of hashing replacement characters", () => {
+  const directory = mkdtempSync(join(tmpdir(), "adme-encoding-test-"));
+  try {
+    writeFileSync(
+      join(directory, "202611240001_first.sql"),
+      Buffer.from([0xff, 0xfe]),
+    );
+    expect(() => migrationFingerprint(directory)).toThrow();
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("a preview label cannot bypass the gate when the deployment target is production", () => {
+  expect(() =>
+    checkProductionSchema({
+      VERCEL: "1",
+      VERCEL_ENV: "preview",
+      VERCEL_TARGET_ENV: "production",
+    }),
+  ).toThrow(/not been verified/);
+});

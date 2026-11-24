@@ -19,9 +19,12 @@ export function migrationFingerprint(directory = migrations) {
       directory instanceof URL
         ? new URL(entry.name, directory)
         : join(directory, entry.name);
-    const fingerprint = createHash("sha256")
-      .update(readFileSync(file))
-      .digest("hex");
+    // Git's Windows checkout converts LF to CRLF. Match the committed SQL on
+    // every host, retaining BOM/other bytes and rejecting invalid UTF-8.
+    const sql = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true })
+      .decode(readFileSync(file))
+      .replace(/\r\n/g, "\n");
+    const fingerprint = createHash("sha256").update(sql, "utf8").digest("hex");
     manifest.update(`${entry.name}\0${fingerprint}\n`);
   }
   return manifest.digest("hex");
