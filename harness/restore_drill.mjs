@@ -1,32 +1,38 @@
 // D087: backup → disaster → restore drill on the LOCAL isolated Supabase only. Measures RPO/RTO and verifies
 // row counts, a pre-backup marker present, a post-backup marker lost (= RPO), Auth sign-in, Storage file bytes,
 // and tombstone re-application. The backup format is the one a Free-plan user can make themselves:
-// a data-only pg_dump (public + auth.users/identities + storage metadata) plus a separate Storage file export.
+// a data-only pg_dump (application data, Auth and bucket definitions) plus a Storage API export.
 //   node harness/restore_drill.mjs [backupDir]
 import { createClient } from "@supabase/supabase-js";
 import { execFileSync } from "node:child_process";
 import {
+  existsSync,
   mkdirSync,
   readFileSync,
-  rmSync,
   writeFileSync,
   statSync,
 } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
+import { parseEnv } from "node:util";
 import assert from "node:assert/strict";
 
-const env = Object.fromEntries(
-  readFileSync(".env.local", "utf8")
-    .trim()
-    .split("\n")
-    .map((l) => [l.slice(0, l.indexOf("=")), l.slice(l.indexOf("=") + 1)]),
+const workdir = resolve(process.env.ADME_RESTORE_WORKDIR ?? ".");
+const config = readFileSync(join(workdir, "supabase/config.toml"), "utf8");
+const project = /^project_id\s*=\s*"([\w-]+)"/m.exec(config)?.[1];
+assert.ok(project, "Expected a local Supabase project ID");
+const database = `supabase_db_${project}`;
+const gateway = `supabase_kong_${project}`;
+const env = parseEnv(readFileSync(".env.local", "utf8"));
+const api = new URL(env.NEXT_PUBLIC_SUPABASE_URL);
+assert.match(api.origin, /^http:\/\/(127\.0\.0\.1|localhost):\d+$/);
+const listeners = execFileSync("docker", ["port", gateway, "8000/tcp"], {
+  encoding: "utf8",
+}).trim().split("\n");
+assert.ok(
+  listeners.some((listener) => listener.endsWith(`:${api.port}`)),
+  "Backup, reset and file operations must target the same isolated stack",
 );
-assert.match(
-  env.NEXT_PUBLIC_SUPABASE_URL,
-  /^http:\/\/(127\.0\.0\.1|localhost):/,
-  "local isolated Supabase only — never a hosted project",
-);
-const dir = process.argv[2] ?? "backups/drill";
+const dir = resolve(process.argv[2] ?? `backups/drill-${crypto.randomUUID()}`);
 const opts = { auth: { persistSession: false } };
 const svc = createClient(
   env.NEXT_PUBLIC_SUPABASE_URL,
@@ -39,7 +45,7 @@ const sql = (q, user = "postgres") =>
     [
       "exec",
       "-i",
-      "supabase_db_AD-Me",
+      database,
       "psql",
       "-U",
       user,
@@ -57,11 +63,13 @@ const sql = (q, user = "postgres") =>
   ).trim();
 const tables = () =>
   sql(
-    `select tablename from pg_tables where schemaname = 'public' order by 1`,
+    `select format('%I.%I', schemaname, tablename)
+     from pg_tables where schemaname = 'public'
+        or left(schemaname, 5) = 'adme_' order by 1`,
   ).split("\n");
 const counts = () =>
   Object.fromEntries(
-    tables().map((t) => [t, Number(sql(`select count(*) from public."${t}"`))]),
+    tables().map((table) => [table, Number(sql(`select count(*) from ${table}`))]),
   );
 const t = () => performance.now();
 const secs = (a, b) => Math.round(b - a) / 1000;
@@ -104,14 +112,15 @@ assert.equal(
 );
 
 // 1. Backup.
-rmSync(dir, { recursive: true, force: true });
-mkdirSync(join(dir, "files"), { recursive: true });
+mkdirSync(dirname(dir), { recursive: true, mode: 0o700 });
+mkdirSync(dir, { mode: 0o700 });
+mkdirSync(join(dir, "files"));
 const b0 = t();
 const dump = execFileSync(
   "docker",
   [
     "exec",
-    "supabase_db_AD-Me",
+    database,
     "pg_dump",
     "-U",
     "supabase_admin",
@@ -119,42 +128,54 @@ const dump = execFileSync(
     "postgres",
     "--data-only",
     "-t",
-    "public.*", // not -n: with any -t, pg_dump ignores -n (would silently drop public data)
-
+    "public.*",
+    "-t",
+    "adme_*.*",
     "-t",
     "auth.users",
     "-t",
     "auth.identities",
     "-t",
     "storage.buckets",
-    "-t",
-    "storage.objects",
   ],
   { maxBuffer: 1 << 28 },
 );
 writeFileSync(join(dir, "db.sql"), dump);
 const dumped = new Set(
-  [...dump.toString().matchAll(/^COPY public\.(\S+) /gm)].map((m) =>
+  [...dump.toString().matchAll(/^COPY (\S+) /gm)].map((m) =>
     m[1].replaceAll('"', ""),
   ),
 );
 assert.deepEqual(
   tables().filter((x) => !dumped.has(x)),
   [],
-  "every public table is in the dump",
+  "every application table is in the dump",
 );
-const objects = sql(
-  `select bucket_id || '|' || name || '|' || coalesce(metadata->>'mimetype', 'application/octet-stream') from storage.objects order by 1`,
-)
-  .split("\n")
-  .filter(Boolean);
-for (const o of objects) {
-  const [bucket, name] = o.split("|");
+const objects = JSON.parse(sql(
+  `select coalesce(json_agg(json_build_object(
+     'bucket', bucket_id, 'name', name,
+     'contentType', coalesce(metadata->>'mimetype', 'application/octet-stream')
+   ) order by bucket_id, name), '[]') from storage.objects`,
+));
+const objectFile = ({ bucket, name }) => {
+  assert.match(bucket, /^[a-zA-Z0-9_-]+$/);
+  assert.ok(name.split("/").every((part) => part && part !== "." && part !== ".."));
+  return join(dir, "files", bucket, name);
+};
+for (const object of objects) {
+  const { bucket, name } = object;
   const { data, error } = await svc.storage.from(bucket).download(name);
   assert.equal(error, null, `download ${bucket}/${name}`);
-  const p = join(dir, "files", bucket, name);
+  const p = objectFile(object);
   mkdirSync(dirname(p), { recursive: true });
   writeFileSync(p, Buffer.from(await data.arrayBuffer()));
+}
+const ledgerFile = join(dir, "files", "privacy-ledger", "tombstones.json");
+if (!existsSync(ledgerFile)) {
+  const { data, error } = await svc.rpc("tombstone_ledger");
+  assert.equal(error, null, "export current tombstones");
+  mkdirSync(dirname(ledgerFile), { recursive: true });
+  writeFileSync(ledgerFile, JSON.stringify(data));
 }
 const before = counts();
 writeFileSync(
@@ -172,13 +193,20 @@ const backupAt = Date.now();
 sql(
   `insert into audit_log(entity_id, action) values ('${tag}', 'after-backup')`,
 );
-for (const o of objects) {
-  const [bucket, name] = o.split("|");
-  await svc.storage.from(bucket).remove([name]);
+for (const { bucket, name } of objects) {
+  const { error } = await svc.storage.from(bucket).remove([name]);
+  assert.equal(error, null, `remove before reset ${bucket}/${name}`);
 }
+assert.equal(sql("select count(*) from storage.objects"), "0");
+
 const disasterAt = Date.now();
 const z0 = t();
-execFileSync("npx", ["supabase@2", "db", "reset"], { stdio: "ignore" }); // schema + migrations, no data
+const cli = process.env.ADME_RESTORE_CLI;
+execFileSync(
+  cli ?? "npx",
+  [...(cli ? [] : ["supabase@2"]), "db", "reset", "--local", "--no-seed", "--workdir", workdir],
+  { stdio: "inherit" },
+);
 // The reset restarts the API services; wait until Storage answers before restoring files.
 for (
   let i = 0;
@@ -192,30 +220,21 @@ const schemaSecs = secs(z0, t());
 const r0 = t();
 sql(
   `set session_replication_role = replica;
-   truncate ${tables()
-     .map((x) => `public."${x}"`)
-     .join(
-       ", ",
-     )}, auth.identities, auth.users, storage.objects, storage.buckets cascade;
+   truncate ${tables().join(", ")}, auth.identities, auth.users, storage.buckets cascade;
    ${readFileSync(join(dir, "db.sql"), "utf8")}`,
   "supabase_admin",
 );
 const r1 = t();
-for (const o of objects) {
-  const [bucket, name, contentType] = o.split("|");
-  const body = readFileSync(join(dir, "files", bucket, name));
-  const { error } = await svc.storage
-    .from(bucket)
-    .upload(name, body, { upsert: true, contentType });
+// Storage creates the object row at the same time as the bytes. Restoring
+// object rows through SQL first creates metadata pointing to missing files.
+for (const object of objects) {
+  const { bucket, name, contentType } = object;
+  const body = readFileSync(objectFile(object));
+  const { error } = await svc.storage.from(bucket).upload(name, body, { contentType });
   assert.equal(error, null, `re-upload ${bucket}/${name}`);
 }
 const r2 = t();
-const ledger = JSON.parse(
-  readFileSync(
-    join(dir, "files", "privacy-ledger", "tombstones.json"),
-    "utf8",
-  ).toString() || "[]",
-);
+const ledger = JSON.parse(readFileSync(ledgerFile, "utf8"));
 const re = await svc.rpc("reapply_tombstones", { p_ledger: ledger });
 assert.equal(re.error, null);
 const { error: probe } = await createClient(
@@ -255,12 +274,13 @@ assert.equal(
   null,
   "existing account signs in after restore",
 );
-for (const o of objects) {
-  const [bucket, name] = o.split("|");
-  const { data } = await svc.storage.from(bucket).download(name);
+for (const object of objects) {
+  const { bucket, name } = object;
+  const { data, error } = await svc.storage.from(bucket).download(name);
+  assert.equal(error, null, `download after restore ${bucket}/${name}`);
   assert.ok(
     Buffer.from(await data.arrayBuffer()).equals(
-      readFileSync(join(dir, "files", bucket, name)),
+      readFileSync(objectFile(object)),
     ),
     `bytes ${bucket}/${name}`,
   );

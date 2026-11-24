@@ -20,14 +20,14 @@ Where to keep it: **a folder only you can access**, outside the repo (e.g. an en
 ## Restore (when needed, onto a new project or an emptied DB)
 1. Create a new Supabase project (or empty the existing one) → `supabase db push` (migrations 0001–latest).
 2. Restore data: run `set session_replication_role = replica;` then `data.sql` as a superuser connection (reports has circular FKs).
-3. Re-upload Storage files **with their original MIME type** (if missing, `private-uploads` rejects them with `InvalidMimeType`).
+3. Restore bucket definitions and policies, then upload file bytes through the Storage API with their original MIME type. Leave object rows out of the SQL restore so the Storage API can create matching metadata and bytes together.
 4. Re-apply the deletions requested since the backup: admin page "복구 후 삭제 재적용" (D079).
 5. Check `/api/health` 200 → sign in with an existing account → open a private file.
 
 ## Isolated-environment drill (agent, `node harness/restore_drill.mjs`)
-- Backup (public, auth, storage metadata + Storage files) → write after the backup → delete files and wipe the DB → restore.
+- Back up public and private app data, Auth users and identities, bucket definitions and Storage bytes. After the recovery-point write, delete the files, reset the isolated database, and restore.
 - Then verifies: every table's row count matches, the pre-backup marker exists, the post-backup write is lost (= RPO), an existing account signs in, the owner opens the private file with matching bytes, deletion re-apply is consistent.
-- Runs locally only (refuses hosted URLs). Never restores against the live service.
+- Runs on a matching Docker-backed local database and Storage API. Use one Supabase CLI version to start and reset the isolated stack. The optional `ADME_RESTORE_WORKDIR` selects the dedicated local project and must match the configured loopback API port. The rehearsal covers private file access by application path policy. Provider ownership and version history for other bucket types require separate verification.
 
 ## Performance and capacity baselines
 `BASE_URL=http://localhost:3100 node tests/load/load.mjs` (production build + local Supabase). Budgets: p95 page ≤ 1000ms, search RPC ≤ 300ms, 0 errors.
