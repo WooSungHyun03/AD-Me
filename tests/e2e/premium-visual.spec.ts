@@ -1,4 +1,5 @@
 import { expect, test, type Locator } from "@playwright/test";
+import { channels } from "./support/youtube";
 
 async function expectReadableAction(action: Locator) {
   await action.scrollIntoViewIfNeeded();
@@ -117,15 +118,15 @@ test("official topic and sort persist in the public directory results", async ({
   await page.goto("/creators");
   const select = page.getByLabel("YouTube 주제");
   const cards = page.getByTestId("youtube-channel");
-  await expect(cards.filter({ hasText: "쯔양" })).toBeVisible();
+  await expect(cards.filter({ hasText: channels[0].name })).toBeVisible();
   await select.selectOption("음식");
   await page.getByLabel("결과 정렬").selectOption("subscribers");
   await page.getByRole("button", { name: "필터 적용" }).click();
   await expect(page).toHaveURL(/yt-sort=subscribers/);
-  await expect(cards.first()).toContainText("쯔양");
-  await expect(cards.filter({ hasText: "PONY" })).toHaveCount(0);
+  await expect(cards.first()).toContainText(channels[0].name);
+  await expect(cards.filter({ hasText: channels[1].name })).toHaveCount(0);
   await select.selectOption("테크·게임");
   await page.getByRole("button", { name: "필터 적용" }).click();
   await expect(select).toHaveValue("테크·게임");
-  await expect(cards.filter({ hasText: "쯔양" })).toHaveCount(0);
+  await expect(cards.filter({ hasText: channels[0].name })).toHaveCount(0);
 });

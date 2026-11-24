@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 test("light public surfaces and candidate entry points fit each viewport", async ({
   page,
 }) => {
-  for (const width of [360, 390, 768, 1024, 1440, 1920]) {
+  for (const width of [360, 390, 768, 1024, 1280, 1440, 1920]) {
     await page.setViewportSize({ width, height: 900 });
     for (const [url, hero] of [
       ["/", ".premium-hero"],

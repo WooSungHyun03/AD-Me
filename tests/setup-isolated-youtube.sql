@@ -18,7 +18,8 @@ insert into adme_ops.channels(channel_id,title,subscriber_count,metadata,videos)
 select c.channel_id, 'QA YouTube 채널 ' || lpad(c.ordinal::text,2,'0'), 500000/c.ordinal,
   jsonb_build_object('avatar','https://yt3.googleusercontent.com/adme-e2e/avatar',
     'banner','https://yt3.googleusercontent.com/adme-e2e/banner',
-    'views',1000000,'videoCount',30),
+    'views',1000000,'videoCount',30,'topics',jsonb_build_array(case c.ordinal
+      when 1 then 'Food' when 2 then 'Fashion' when 3 then 'Fashion' else 'Technology' end)),
   (select jsonb_agg(jsonb_build_object('id',lpad(n::text,11,'0'),'title','QA 영상 ' || n,
     'views',1000,'likes',100,'publishedAt',now()-n*interval '1 day',
     'thumbnail','https://i.ytimg.com/adme-e2e/thumbnail') order by n)
