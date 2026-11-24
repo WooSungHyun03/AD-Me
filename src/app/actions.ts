@@ -105,7 +105,10 @@ export async function authAction(_: unknown, form: FormData) {
 }
 export async function logout() {
   const db = await supabase();
-  await db.auth.signOut();
+  const result = await db.auth
+    .signOut({ scope: "global" })
+    .catch(() => ({ error: true }));
+  if (result.error) redirect("/login?error=logout");
   redirect("/");
 }
 

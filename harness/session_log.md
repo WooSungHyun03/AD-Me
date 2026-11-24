@@ -695,3 +695,8 @@ GitHub 소유자 승인 뒤 Vercel 프로젝트를 연결했다. Vercel API 기�
 - 기준2425405. 다른기기로그인/토큰갱신0초·현재AMR1201초에서도 허용되던emailchange 재현/수정, settings폼 및 양쪽확인/pending/최종settings연결. 새SQL없음, 기존119/볼륨재사용, localemail_change템플릿만설정. DEV-A source리뷰완료.
 - lint/typecheck/Vitest552 및 Playwright productionbuild PASS, actuallocalAuth/Mailpit 신규desktop-mobile4+기존recovery4 PASS. 만료/재사용·반대역할세션·새/기존주소/암호·refresh회수검증. 첫locator충돌/scan5s timeout은수정·재실행증빙보존. 사용자사용량정책에따라 동일build/미변경SQL검증 중복실행하지않음.
 - D010 TESTED/runtimeLOCAL_VERIFIED. U007/U008/D009운영메일/템플릿/계정 및 직접AuthAPI·기존D013/D074helper는별도게이트. 증빙 harness/evidence/D010/EMAIL_SESSION_20261124.md, packet deliverables/d010-email-session-20261124/. 운영변경/실결제없음.
+
+## 2026-11-24 — DEV-B D013 세션 생명주기
+
+- main922f34d 통합 후 provider signOut 오류 무시 재현(신규단위3 FAIL)·global 범위/실패 안내 수정. 실제 로컬 양 역할2세션/복수탭/철회refresh/명시만료JWT fixture/재로그인 및 기존 탈퇴 후 접근 차단 회귀 검증. D010/D074와 최종source 공통lint/typecheck/Vitest559/build1회·영향desktop/mobile16 PASS. DEV-A 정적리뷰 추가blocker/공유예약 없음. 기존access JWT 즉시전역폐기는 미검증으로 분리.
+- D013 TESTED/runtimeLOCAL_VERIFIED, D009/U007/U008실제Auth/메일/계정/TTL은BLOCKED_EXTERNAL. 증빙 harness/evidence/D013/SESSION_LIFECYCLE_20261124.md. 기존자료/운영DB/키/결제 변경없음.

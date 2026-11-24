@@ -168,7 +168,7 @@ DEV-B · P0 · S0 출시 차단 · PRODUCT · TODO · 3 SP · ACTIVE
 
 ## D013 · 세션 만료·재인증·로그아웃
 
-DEV-B · P0 · S0 출시 차단 · AUTH · TODO · 3 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · AUTH · TESTED · 3 SP · ACTIVE
 
 - **현재 문제** — 역할 로그인 접근은 확인했다. TTL 만료·재인증·탈퇴 직후 세션의 전 경로는 미검증이다.
 - **재현·관찰** — 격리 DB에서 만료된 세션으로 설정·민감 API·다중 탭을 확인하고 요구 작업만 재인증으로 복구한다.
@@ -184,8 +184,8 @@ DEV-B · P0 · S0 출시 차단 · AUTH · TODO · 3 SP · ACTIVE
 - **보안** — 민감 작업은 만료/철회된 세션으로 실행되지 않는다.
 - **검증** — 만료·새로고침·복수 탭·로그아웃 E2E · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 만료 후 재로그인 경로·탭 간 상태·민감 작업 재인증을 처리한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D013/ (이번 검증 기록 위치)
+- **차단 요인** — 로컬 Auth 두 역할의 logout/refresh 철회·다중 탭·만료 fixture·재로그인·탈퇴 회귀 검증. D009/U007/U008 운영 Auth/TTL/계정/메일 수용은 BLOCKED_EXTERNAL. 기존 access JWT 즉시 전역 폐기는 주장하지 않으며 전체 DONE/VERIFIED 아님.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D013/ (이번 검증 기록 위치) · harness/evidence/D013/SESSION_LIFECYCLE_20261124.md · harness/evidence/D013/verification-20261124.json
 - **Figma 노드** — [16 · 로그인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361) · [16 · 로그인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537)
 - **이전 기록** — OPEN
 

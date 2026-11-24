@@ -794,13 +794,15 @@
       "acceptance": "만료 후 재로그인 경로·탭 간 상태·민감 작업 재인증을 처리한다.",
       "points": 3,
       "owner": "DEV-B",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "로컬 Auth 두 역할의 logout/refresh 철회·다중 탭·만료 fixture·재로그인·탈퇴 회귀 검증. D009/U007/U008 운영 Auth/TTL/계정/메일 수용은 BLOCKED_EXTERNAL. 기존 access JWT 즉시 전역 폐기는 주장하지 않으며 전체 DONE/VERIFIED 아님.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D013/ (이번 검증 기록 위치)"
+        "harness/evidence/D013/ (이번 검증 기록 위치)",
+        "harness/evidence/D013/SESSION_LIFECYCLE_20261124.md",
+        "harness/evidence/D013/verification-20261124.json"
       ],
-      "status": "TODO",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,

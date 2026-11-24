@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-24",
+  "baseline": "922f34d96a1905c89ccc8e5553c88979f5d5cb71",
+  "scope": "disposable loopback Auth/PostgreSQL/Mailpit; synthetic accounts only; no hosted application",
+  "sha256": {
+    "src/app/actions.ts": "836d0a040399ebd32062f89c2bef7d86946eac613347de78fc68ef9b20cd2874",
+    "src/app/login/page.tsx": "b8cadb7a5d710b216463c039dba5886de83cb49a54d3e5a031c9253c1e80abd7",
+    "src/app/api/privacy/exports/route.ts": "189f3ac7dcf6cd86277e606ca966642e0b0bfbb6acffd3560c16e0728ee4b91f",
+    "src/app/settings/page.tsx": "9be65a752c89ff54d3890dd1680f46d741a067cfc7a321d7ab37dab1f7af8392",
+    "src/lib/session-reauth.ts": "cd7bf3bf17acbb75c37cafecc2dc2b0d9d19bb898267591591dd241679114694",
+    "supabase/migrations/20261124124402_privacy_session_reauthentication.sql": "516535ef6d4709f99e6cd981dcaf7f88d76c4b21751472733b55b1d6dfc4a461"
+  },
+  "results": {
+    "targeted_unit": "26 PASS",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": "93 files / 559 tests PASS",
+    "build": "Playwright webServer production next build PASS; same output reused for final regression",
+    "browser": "desktop/mobile 16 PASS: session lifecycle, privacy export, email change, recovery, account deletion",
+    "database": "node tests/local-privacy-session.mjs PASS",
+    "upgrade": "node scripts/verify-local-privacy-migration.mjs PASS:119→120, rollback/fault, private helper ACL",
+    "migration_check": "120 PASS",
+    "secrets": "source/client bundle/artifacts PASS"
+  },
+  "commands": [
+    "npm run lint",
+    "npm run typecheck",
+    "npm test",
+    "npm run test:e2e -- --config playwright.local.config.ts tests/local-browser/session-lifecycle.spec.ts tests/local-browser/privacy-session.spec.ts",
+    "npm run test:e2e -- --config output/auth-batch-reuse.config.ts tests/local-browser/session-lifecycle.spec.ts tests/local-browser/privacy-session.spec.ts tests/local-browser/account-email.spec.ts tests/local-browser/account-deletion.spec.ts tests/e2e/auth-recovery.spec.ts",
+    "node tests/local-privacy-session.mjs",
+    "node scripts/verify-local-privacy-migration.mjs",
+    "python -X utf8 harness/migration_check.py",
+    "python -X utf8 harness/secret_scan.py --bundle --artifacts"
+  ],
+  "blockers": [
+    "D009/U007/U008 hosted Auth/mail/account acceptance",
+    "U001/D073 rights/retention policy approval",
+    "Hosted schema120/fingerprint/application acceptance"
+  ],
+  "notes": [
+    "Legacy unexpired access JWT immediate global invalidation not claimed.",
+    "Expired JWT is explicitly local signed expiry fixture; refresh revocation is actual local Auth.",
+    "Prior unrelated catalog GET405/400 failure unchanged; not converted to PASS."
+  ]
+}

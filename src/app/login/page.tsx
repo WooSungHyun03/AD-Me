@@ -17,6 +17,12 @@ export default async function Login({
         </p>
       )}
       {reauth && <p role="status">보안을 위해 비밀번호를 다시 확인해주세요.</p>}
+      {error === "logout" && (
+        <p role="alert" className="error">
+          로그아웃을 완료하지 못했습니다. 연결을 확인하고 워크스페이스에서 다시
+          시도해주세요.
+        </p>
+      )}
       <AuthForm mode="login" next={next} />
       <p style={{ marginTop: 24, fontSize: 13 }}>
         <Link href="/forgot-password">비밀번호를 잊으셨나요?</Link> ·

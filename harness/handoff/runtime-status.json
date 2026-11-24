@@ -136,9 +136,12 @@
     },
     "D013": {
       "owner": "DEV-B",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "LOCAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/D013/SESSION_LIFECYCLE_20261124.md"
+      ],
+      "blocker": "로컬 Auth 두 역할의 logout/refresh 철회·다중 탭·만료 fixture·재로그인·탈퇴 회귀 검증. D009/U007/U008 운영 Auth/TTL/계정/메일 수용은 BLOCKED_EXTERNAL. 기존 access JWT 즉시 전역 폐기는 주장하지 않으며 전체 DONE/VERIFIED 아님.",
+      "last_checked_at": "2026-11-24T22:02:00+09:00"
     },
     "D014": {
       "owner": "DEV-A",
