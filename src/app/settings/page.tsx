@@ -6,6 +6,8 @@ import { ProfileForm } from "@/components/profile-form";
 import { BrandAccountForm } from "@/components/brand-account-form";
 import { ConsentSettings } from "@/components/consent-settings";
 import { AccountDeletionForm } from "@/components/account-deletion-form";
+import { EmailForm } from "@/components/account-auth-forms";
+import { getConfig } from "@/lib/config";
 export const dynamic = "force-dynamic";
 export default async function Settings() {
   const user = await currentUser();
@@ -80,6 +82,15 @@ export default async function Settings() {
         )
       ) : null}
       <ConsentSettings />
+      <h2>이메일 변경</h2>
+      <p>
+        확인 메일의 안내를 완료하기 전까지 기존 이메일로 로그인할 수 있습니다.
+      </p>
+      {getConfig().features.mail === "enabled" ? (
+        <EmailForm />
+      ) : (
+        <p role="status">이메일 변경 서비스 연결을 준비 중입니다.</p>
+      )}
       <AccountDeletionForm enabled={!intake.error && intake.data === true} />
     </section>
   );

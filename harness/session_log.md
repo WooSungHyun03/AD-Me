@@ -689,3 +689,9 @@ GitHub 소유자 승인 뒤 Vercel 프로젝트를 연결했다. Vercel API 기�
 - 기준a78610e 기존 독립트리 재사용. mixed목록/상세free필터 누락과 직접DB demo48/legacysearch24/공개campaign4 재현. free 서버data/CSV/캠페인fallback 차단, CLI119 기본OFF 독립catalog경계를 중앙DTO/legacyfilter/count/campaignRLS에 추가. 기존SQL·48행·개인계정/캠페인·스냅샷 보존. DEV-A 계약/교차리뷰 완료, D005 원장만 TESTED/runtimeLOCAL_VERIFIED.
 -119 static/fresh0→119 및118→119 rollback/실패주입, demo역할3+기존creator-read8+추천policy6 DB그룹, desktop/mobile free4+TEST OTP4+keyless2, lint/typecheck/Vitest533/build PASS. 키없는 브라우저는 기존 설치Chrome옵션 사용. 운영119·독립환경·실제URL 및 legacyraw투영(D075/D033)은 별도 게이트, 기존catalog405/400 실패 보존.
 - 증빙 harness/evidence/D005/DEMO_BOUNDARY_20261124.md, verification-20261124.json·공개캡처6개. 인계 deliverables/d005-demo-boundary-20261124/. 운영DB/라이브결제/외부승인 수행 없음, 이전패킷 불변.
+
+## 2026-11-24 — DEV-B D010 이메일 변경·현재 세션
+
+- 기준2425405. 다른기기로그인/토큰갱신0초·현재AMR1201초에서도 허용되던emailchange 재현/수정, settings폼 및 양쪽확인/pending/최종settings연결. 새SQL없음, 기존119/볼륨재사용, localemail_change템플릿만설정. DEV-A source리뷰완료.
+- lint/typecheck/Vitest552 및 Playwright productionbuild PASS, actuallocalAuth/Mailpit 신규desktop-mobile4+기존recovery4 PASS. 만료/재사용·반대역할세션·새/기존주소/암호·refresh회수검증. 첫locator충돌/scan5s timeout은수정·재실행증빙보존. 사용자사용량정책에따라 동일build/미변경SQL검증 중복실행하지않음.
+- D010 TESTED/runtimeLOCAL_VERIFIED. U007/U008/D009운영메일/템플릿/계정 및 직접AuthAPI·기존D013/D074helper는별도게이트. 증빙 harness/evidence/D010/EMAIL_SESSION_20261124.md, packet deliverables/d010-email-session-20261124/. 운영변경/실결제없음.

@@ -108,11 +108,13 @@
     },
     "D010": {
       "owner": "DEV-B",
-      "status": "PARTIAL_VERIFIED",
+      "status": "LOCAL_VERIFIED",
       "evidence": [
-        "docs/AUTH_PROVIDER_EXECUTION.md"
+        "docs/AUTH_PROVIDER_EXECUTION.md",
+        "harness/evidence/D010/EMAIL_SESSION_20261124.md"
       ],
-      "blocker": "증표 기반 비밀번호 복구·오류 경로 검증 및 사용자 새 비밀번호 설정/재로그인 성공 확인. 이메일 변경 전체 범위 미완료."
+      "blocker": "로컬 두주소 이메일변경·현재 AMR·만료/재사용/복구 역할 검증. D009/U007/U008 운영 템플릿/실제 SMTP·계정 수용 BLOCKED_EXTERNAL. 직접AuthAPI/기존recentSignIn 정책은별도, DONE아님.",
+      "last_checked_at": "2026-11-24T17:36:46+09:00"
     },
     "D011": {
       "owner": "DEV-B",

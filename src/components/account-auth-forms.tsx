@@ -1,8 +1,6 @@
 "use client";
 import { useActionState } from "react";
-import {
-  changeEmail,
-} from "@/app/actions";
+import { changeEmail } from "@/app/actions";
 import Link from "next/link";
 import { REAUTH_MESSAGE } from "@/lib/auth-links";
 function Result({
@@ -24,7 +22,13 @@ export function EmailForm() {
     <form action={action} className="form-stack" style={{ marginBottom: 40 }}>
       <label className="field">
         새 이메일
-        <input name="email" type="email" required autoComplete="email" />
+        <input
+          name="email"
+          type="email"
+          required
+          maxLength={254}
+          autoComplete="email"
+        />
       </label>
       <button className="button outline" disabled={pending}>
         {pending ? "처리 중…" : "이메일 변경 요청"}

@@ -73,12 +73,20 @@ export async function confirmEmail(
     return { error: "올바른 인증 링크를 다시 열어주세요." };
   if (!configured()) return { error: "계정 서비스 연결을 준비 중입니다." };
   const db = await supabase();
-  const { error } = await db.auth.verifyOtp(parsed.data);
+  const { data, error } = await db.auth.verifyOtp(parsed.data);
   if (error)
     return {
       error:
         "인증 링크가 만료되었거나 이미 사용되었습니다. 새 안내 메일을 요청해주세요.",
     };
+  if (parsed.data.type === "email_change") {
+    if (!data?.user || !data.session)
+      return {
+        message:
+          "한쪽 이메일 확인이 끝났습니다. 다른 주소로 받은 이메일의 확인도 완료해주세요.",
+      };
+    redirect("/settings");
+  }
   redirect("/dashboard");
 }
 

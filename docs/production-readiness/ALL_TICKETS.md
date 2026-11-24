@@ -209,7 +209,7 @@ DEV-A · P0 · S0 출시 차단 · AUTH · BLOCKED · 3 SP · ACTIVE
 
 ## D010 · 비밀번호 재설정·이메일 변경
 
-DEV-B · P0 · S0 출시 차단 · AUTH · IN_PROGRESS · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · AUTH · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 PARTIAL_VERIFIED이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 재설정·변경 확인·링크 만료·열린 리다이렉트 방지를 구현한다.
 - **재현·관찰** — /settings에서 먼저 메일 링크 및 기존·변경 계정 로그인 테스트을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/app/actions.ts, src/app/auth, src/app/settings/page.tsx.
@@ -225,8 +225,8 @@ DEV-B · P0 · S0 출시 차단 · AUTH · IN_PROGRESS · 5 SP · ACTIVE
 - **보안** — 이전 링크 재사용·다른 계정 세션 혼동·외부 리다이렉트를 거부한다.
 - **검증** — 메일 링크 및 기존·변경 계정 로그인 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 재설정·변경 확인·링크 만료·열린 리다이렉트 방지를 구현한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/AUTH_PROVIDER_EXECUTION.md · harness/evidence/D010/ (이번 검증 기록 위치)
+- **차단 요인** — 현재세션 AMR·설정 이메일변경·로컬 양쪽메일/복구 검증만 TESTED. D009/U007/U008 운영 템플릿/secure확인/SMTP·실제 계정 수용은 BLOCKED_EXTERNAL. 직접 Auth API 전체의10분 정책강제와 D013/D074 기존helper 보강은 별도, 전체 DONE/VERIFIED 아님.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/AUTH_PROVIDER_EXECUTION.md · harness/evidence/D010/ (이번 검증 기록 위치) · harness/evidence/D010/EMAIL_SESSION_20261124.md
 - **Figma 노드** — [16 · 로그인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361) · [16 · 로그인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537)
 - **이전 기록** — PARTIAL_VERIFIED
 

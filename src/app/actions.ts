@@ -12,11 +12,11 @@ import {
 import {
   REAUTH_MESSAGE,
   authSiteOrigin,
-  recentSignIn,
   safeNext,
   isPrivateSignupResult,
   signupEmailAcknowledgement,
 } from "@/lib/auth-links";
+import { hasRecentSessionSignIn } from "@/lib/session-reauth";
 export async function authAction(_: unknown, form: FormData) {
   if (!configured())
     return {
@@ -117,12 +117,16 @@ export async function changeEmail(
   const email = z.email().max(254).safeParse(form.get("email"));
   if (!email.success) return { error: "새 이메일 주소를 확인해주세요." };
   if (!configured()) return { error: "계정 서비스 연결 준비 중입니다." };
+  if (getConfig().features.mail !== "enabled")
+    return { error: "이메일 변경 서비스 연결을 준비 중입니다." };
   const db = await supabase();
   const {
     data: { user },
   } = await db.auth.getUser();
   if (!user) return { error: "다시 로그인해주세요." };
-  if (!recentSignIn(user)) return { error: REAUTH_MESSAGE };
+  const { data: verified, error: claimsError } = await db.auth.getClaims();
+  if (claimsError || !hasRecentSessionSignIn(verified?.claims, user.id))
+    return { error: REAUTH_MESSAGE };
   if (email.data.toLowerCase() === user.email?.toLowerCase())
     return { error: "현재 이메일과 같습니다." };
   const { error } = await db.auth.updateUser(

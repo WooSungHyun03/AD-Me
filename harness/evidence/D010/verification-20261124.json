@@ -1,0 +1,38 @@
+{
+  "ticket": "D010",
+  "baseline_main": "24254050c334c5c664943fdd5e30a454cd54ef6b",
+  "date_kst": "2026-11-24T17:39:29+09:00",
+  "scope": "real local Auth/PostgreSQL/Mailpit with fictional accounts and seeded AMR/recovery ages; no hosted changes",
+  "results": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit_files": 91,
+    "unit_passed": 552,
+    "production_build": "PASS next build via Playwright server hook",
+    "browser_new_local_auth": 4,
+    "browser_existing_recovery": 4,
+    "masked_screenshots": 2,
+    "sql_migrations": "unchanged119; reuse D005 evidence"
+  },
+  "baseline_reproduction": {
+    "global_sign_in_age_seconds": 0,
+    "refreshed_jwt_age_seconds": 0,
+    "current_password_amr_age_seconds": 1201,
+    "unit_old_session_change_allowed": "FAIL before repair"
+  },
+  "source_sha256_lf": {
+    "src/lib/session-reauth.ts": "cd7bf3bf17acbb75c37cafecc2dc2b0d9d19bb898267591591dd241679114694",
+    "src/app/actions.ts": "b272da28ec0795a509c23cb56ab5d63810a5430edb7f8ede8ab798cc813e23d9",
+    "src/app/auth/actions.ts": "f57f6990ed54d8c5fb74e36be7badf963a7f4cfb0e8fc0f41eb71a89122b48d5"
+  },
+  "retained_failures": [
+    "initial new browser alert/Next announcer locator collision repaired without changing product assertions",
+    "initial full secret-scan timeout5s; unchanged full retry552 PASS"
+  ],
+  "external": [
+    "U007/U008/D009 actual SMTP, secure-change/template/SiteURL and real account acceptance",
+    "app action policy is not a provider-wide direct Auth API policy",
+    "old account-wide recentSignIn helper D013/D074 follow-up preserved"
+  ],
+  "status": "TESTED locally; runtime LOCAL_VERIFIED; external BLOCKED_EXTERNAL, not DONE"
+}

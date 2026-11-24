@@ -82,6 +82,8 @@ config = config
 // Local Mailpit is an inbox sink; this does not alter hosted SMTP or abuse limits.
 if (!/^\[auth.email.template.confirmation\]$/m.test(config))
   config += `\n[auth.email.template.confirmation]\nsubject = "AD Me local confirmation"\ncontent_path = "./supabase/templates/confirmation.html"\n\n[auth.email.template.recovery]\nsubject = "AD Me local recovery"\ncontent_path = "./supabase/templates/recovery.html"\n`;
+if (!/^\[auth.email.template.email_change\]$/m.test(config))
+  config += `\n[auth.email.template.email_change]\nsubject = "AD Me local email change"\ncontent_path = "./supabase/templates/email_change.html"\n`;
 writeFileSync(configPath, config);
 for (const directory of ["migrations", "templates"]) {
   mkdirSync(`${workdir}/supabase/${directory}`, { recursive: true });

@@ -218,6 +218,27 @@ describe("email confirmation and recovery server actions", () => {
       type: "email",
     });
   });
+  it("keeps a pending secure email change on the confirmation step until both addresses verify", async () => {
+    mocks.verifyOtp.mockResolvedValue({
+      data: { user: null, session: null },
+      error: null,
+    });
+    expect(
+      await confirmEmail({}, form({ token_hash: proof, type: "email_change" })),
+    ).toEqual({ message: expect.stringContaining("다른 주소") });
+  });
+  it("returns completed email changes to settings", async () => {
+    mocks.verifyOtp.mockResolvedValue({
+      data: {
+        user: { id: "verified-user" },
+        session: { access_token: "fixture" },
+      },
+      error: null,
+    });
+    await expect(
+      confirmEmail({}, form({ token_hash: proof, type: "email_change" })),
+    ).rejects.toThrow("REDIRECT:/settings");
+  });
   it("does not update a password for mismatched inputs", async () => {
     const data = reset();
     data.set("confirm_password", "different-password");
