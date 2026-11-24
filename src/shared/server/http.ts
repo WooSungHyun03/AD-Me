@@ -97,7 +97,14 @@ export function compatibleApiRoute<Args extends unknown[]>(
       // Bound every body: trusting a JSON media type would allow a forged type to bypass the limit.
       if (req.body) {
         const bytes = await boundedBody(req, limit);
-        req = new Request(req, { body: bytes.buffer });
+        // The incoming NextRequest stream has been consumed. Reconstruct the
+        // handler's Request from its URL/headers, including the empty-body case.
+        req = new Request(req.url, {
+          method: req.method,
+          headers: req.headers,
+          signal: req.signal,
+          body: bytes.byteLength ? bytes.buffer : undefined,
+        });
       }
       return handler(req, ...args);
     })(request);

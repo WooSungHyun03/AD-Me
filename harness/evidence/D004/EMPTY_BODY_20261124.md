@@ -1,0 +1,5 @@
+# D004 · empty streamed request compatibility
+
+Actual Next production-mode keyless HTTP regression returned500 for anonymous POST/api/uploads/<uuid>; expected401. The compatible boundary consumed an empty NextRequest stream then constructed another Request from the consumed incoming object. Reconstruct from URL/method/headers/abort signal and omit a zero-length body. Keep limits, origin enforcement, cookies/headers, nonempty multipart content and dynamic route arguments intact. No authorization was removed.
+
+Final actual HTTP desktop/mobile6 API scenarios PASS: anonymous upload401/UNAUTHENTICATED, safe request correlation/no diagnostics, unconfigured service503, forged media type with oversized bytes413, normal login failure.25 API unit contracts PASS, including empty streamed denial, unconfigured upload denial, existing multipart/dynamic context/immutable response/input/auth boundaries. Full517unit and shared checks PASS. Initial production failure is retained here; passing unit stubs alone had not reproduced it. No DB/provider permission success is claimed; DB startup was automatically rejected.

@@ -38,9 +38,10 @@
         "harness/evidence/D004/README.md",
         "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
         "harness/evidence/DEV-A-MAIN-20261120/verification.json",
-        "harness/evidence/D004/API_20261123.md"
+        "harness/evidence/D004/API_20261123.md",
+        "harness/evidence/D004/EMPTY_BODY_20261124.md"
       ],
-      "blocker": "API 본문 크기·오류·immutable 응답·legacy 호환50건 로컬 통과. 실제 DB 전체 역할 회귀·USER 대상 환경 적용 전 DONE 아님.",
+      "blocker": "API 본문 크기·오류·immutable 응답·legacy 호환50건 로컬 통과. 실제 DB 전체 역할 회귀·USER 대상 환경 적용 전 DONE 아님. 실제 keyless HTTP 빈 업로드 요청500→401 전진 수정; API25계약 및 desktop/mobile6 HTTP 회귀 통과. DB 권한 성공을 대신하지 않음. 기존 운영/선행 게이트와 상태는 유지한다.",
       "last_checked_at": "2026-11-20T02:36:28.405549+00:00"
     },
     "D005": {

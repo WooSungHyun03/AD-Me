@@ -1,10 +1,12 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { z } from "zod";
+import { POST as readUpload } from "@/app/api/uploads/[id]/route";
 import {
   apiRoute,
   compatibleApiRoute,
   MAX_API_JSON_BYTES,
   failDatabase,
+  fail,
   parseBody,
   requireContext,
 } from "@/lib/api";
@@ -40,6 +42,38 @@ function request(body = "{}", headers: Record<string, string> = {}) {
 }
 
 describe("API errors", () => {
+  it("keeps an unconfigured upload's anonymous denial outside database access", async () => {
+    db.configured.mockReturnValue(false);
+    const response = await readUpload(
+      new Request(
+        "https://preview.example/api/uploads/00000000-0000-4000-8000-000000000001",
+        { method: "POST" },
+      ),
+      {
+        params: Promise.resolve({ id: "00000000-0000-4000-8000-000000000001" }),
+      },
+    );
+    expect(response.status).toBe(401);
+    expect((await response.json()).error.code).toBe("UNAUTHENTICATED");
+  });
+  it("preserves an expected denial after consuming an empty streamed POST body", async () => {
+    const post = compatibleApiRoute("empty.post", () =>
+      fail("로그인이 필요합니다.", 401),
+    );
+    const req = new Request("https://preview.example/api/example", {
+      method: "POST",
+      headers: { host: "preview.example", "content-length": "0" },
+      body: new ReadableStream({
+        start(controller) {
+          controller.close();
+        },
+      }),
+      duplex: "half",
+    } as RequestInit);
+    const response = await post(req);
+    expect(response.status).toBe(401);
+    expect((await response.json()).error.code).toBe("UNAUTHENTICATED");
+  });
   it.each([
     "",
     "text/plain",

@@ -124,8 +124,8 @@ DEV-A · P0 · S0 출시 차단 · BACKEND · TESTED · 3 SP · ACTIVE
 - **검증** — 잘못된 입력·DB 실패·로그 민감값 검사 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 주요 API에 오류 코드·요청 ID·Zod 검증과 안전한 오류 응답을 적용한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D004/README.md · harness/evidence/DEV-A-P0-CONTINUE/verification.json · harness/evidence/DEV-A-MAIN-20261120/verification.json · harness/evidence/D004/ (이번 검증 기록 위치) · harness/evidence/D004/API_20261123.md · docs/production-readiness/REFACTOR_IMPACT.md
-- **검증 범위** — 2026-11-23 로컬: UTF-8 실제 바이트·거짓 길이·분할 입력·미디어 위장 제한, immutable 응답·동적 문맥 보존·안전한 오류50건. DB/provider 역할 전체 및 운영 미검증.
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D004/README.md · harness/evidence/DEV-A-P0-CONTINUE/verification.json · harness/evidence/DEV-A-MAIN-20261120/verification.json · harness/evidence/D004/ (이번 검증 기록 위치) · harness/evidence/D004/API_20261123.md · docs/production-readiness/REFACTOR_IMPACT.md · harness/evidence/D004/EMPTY_BODY_20261124.md
+- **검증 범위** — 2026-11-23 로컬: UTF-8 실제 바이트·거짓 길이·분할 입력·미디어 위장 제한, immutable 응답·동적 문맥 보존·안전한 오류50건. DB/provider 역할 전체 및 운영 미검증. 실제 keyless HTTP 빈 업로드 요청500→401 전진 수정; API25계약 및 desktop/mobile6 HTTP 회귀 통과. DB 권한 성공을 대신하지 않음.
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D007 · 라이선스·의존성·출처 목록

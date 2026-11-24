@@ -237,13 +237,14 @@
         "harness/evidence/DEV-A-MAIN-20261120/verification.json",
         "harness/evidence/D004/ (이번 검증 기록 위치)",
         "harness/evidence/D004/API_20261123.md",
-        "docs/production-readiness/REFACTOR_IMPACT.md"
+        "docs/production-readiness/REFACTOR_IMPACT.md",
+        "harness/evidence/D004/EMPTY_BODY_20261124.md"
       ],
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": false,
-      "verified_scope": "2026-11-23 로컬: UTF-8 실제 바이트·거짓 길이·분할 입력·미디어 위장 제한, immutable 응답·동적 문맥 보존·안전한 오류50건. DB/provider 역할 전체 및 운영 미검증.",
+      "verified_scope": "2026-11-23 로컬: UTF-8 실제 바이트·거짓 길이·분할 입력·미디어 위장 제한, immutable 응답·동적 문맥 보존·안전한 오류50건. DB/provider 역할 전체 및 운영 미검증. 실제 keyless HTTP 빈 업로드 요청500→401 전진 수정; API25계약 및 desktop/mobile6 HTTP 회귀 통과. DB 권한 성공을 대신하지 않음.",
       "operator_refactor_review": {
         "decision": "UPDATE",
         "moved_implementations": {
