@@ -7,6 +7,7 @@ import {
   Search,
   UsersRound,
 } from "lucide-react";
+import { HomeAmbientMotion } from "@/components/home-ambient-motion";
 import { RecommendationBrief } from "@/components/recommendation-brief";
 import { YoutubeImage } from "@/components/youtube-image";
 import { featuredYoutube, youtubeCount } from "@/lib/featured-youtube";
@@ -77,6 +78,7 @@ export default function Home() {
   return (
     <>
       <section className="product-hero premium-hero">
+        <HomeAmbientMotion />
         <div className="wrap premium-hero-grid">
           <div className="premium-hero-copy">
             <h1>
@@ -143,6 +145,35 @@ export default function Home() {
               <ArrowUpRight aria-hidden="true" size={19} />
             </Link>
           ))}
+        </div>
+      </section>
+      <section className="product-paths" aria-labelledby="product-paths-title">
+        <div className="wrap product-paths-inner">
+          <h2 id="product-paths-title">협업을 시작하는 두 가지 방법</h2>
+          <div className="product-paths-grid">
+            <article>
+              <h3>브랜드에서 캠페인을 준비한다면</h3>
+              <ol>
+                <li>광고할 상품과 예산을 등록합니다.</li>
+                <li>추천 근거와 후보 채널을 비교합니다.</li>
+                <li>선택한 크리에이터에게 협업을 제안합니다.</li>
+              </ol>
+              <Link className="premium-hero-link" href="/brand/products">
+                상품 등록 <ArrowUpRight size={17} aria-hidden="true" />
+              </Link>
+            </article>
+            <article>
+              <h3>YouTube 채널을 운영한다면</h3>
+              <ol>
+                <li>프로필에서 채널 소유권을 인증합니다.</li>
+                <li>채널에 맞는 광고 공고를 확인합니다.</li>
+                <li>지원 내역과 협업을 대시보드에서 관리합니다.</li>
+              </ol>
+              <Link className="premium-hero-link" href="/jobs">
+                공고 찾아보기 <ArrowUpRight size={17} aria-hidden="true" />
+              </Link>
+            </article>
+          </div>
         </div>
       </section>
       <section className="wrap premium-next">

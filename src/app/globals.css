@@ -110,8 +110,8 @@ nav a:hover {
   background: transparent;
 }
 .dark {
-  background: var(--ink);
-  color: white;
+  background: var(--surface-elevated, #edf4e7);
+  color: var(--ink);
 }
 .small {
   min-height: 40px;
@@ -246,8 +246,8 @@ p {
   position: absolute;
   left: -30px;
   top: 10px;
-  background: var(--ink);
-  color: white;
+  background: var(--surface-elevated, #edf4e7);
+  color: var(--ink);
   padding: 22px;
   border-radius: 8px;
   font-size: 14px;
@@ -273,11 +273,11 @@ p {
   margin-bottom: 0;
 }
 .band {
-  background: var(--ink);
-  color: white;
+  background: var(--surface-elevated, #edf4e7);
+  color: var(--ink);
 }
 .band p {
-  color: #bbc2b7;
+  color: var(--muted);
 }
 .steps {
   display: grid;
@@ -542,8 +542,8 @@ input[type="checkbox"] {
 .compare-bar {
   position: sticky;
   bottom: 18px;
-  background: var(--ink);
-  color: white;
+  background: var(--surface-elevated, #edf4e7);
+  color: var(--ink);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -562,8 +562,8 @@ input[type="checkbox"] {
   border: 1px solid var(--line);
 }
 .plan.featured {
-  background: var(--ink);
-  color: white;
+  background: var(--surface-elevated, #edf4e7);
+  color: var(--ink);
 }
 .plan ul {
   padding-left: 18px;
@@ -584,7 +584,7 @@ input[type="checkbox"] {
   color: var(--muted);
 }
 .plan.featured small {
-  color: #b5bcae;
+  color: var(--muted);
 }
 footer {
   padding: 50px 5%;
