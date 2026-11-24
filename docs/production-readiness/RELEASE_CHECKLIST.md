@@ -26,4 +26,4 @@ GitHub `main`을 Vercel의 Production branch로 사용한다. `main`에 푸시�
 
 새 SQL을 적용할 때에는 운영 백업·복구 증빙, 운영 스키마로부터의 업그레이드 검사, 각 RPC 및 권한 대조를 완료한다. 검증을 마친 커밋의 체크아웃에서 `node scripts/production-schema.mjs --fingerprint`로 지문을 구해 Vercel Production 환경에 등록한다. 같은 커밋을 재배포하면 환경변수가 적용된다. SQL 파일에 변화가 없는 후속 앱 변경은 기존 지문으로 배포할 수 있다. 이 값은 비밀키나 DB 접속 정보가 아니다. 기존 배포를 롤백해야 할 경우에도 Vercel 배포와 DB 마이그레이션의 호환성을 확인한다.
 
-연결 전 확인은 Vercel 프로젝트의 Git 설정에서 `WooSungHyun03/AD-Me`와 Production branch `main`이 함께 표시되는지 확인한다. 2026-11-24 Vercel API에서 기존 프로젝트의 Git 연결이 비어 있었고 연결 요청은 GitHub App 설치·접근 승인을 요구했다. GitHub 소유자가 저장소 액세스를 승인한 다음 기존 `ad-me` 프로젝트에서 연결을 재시도한다.
+GitHub 소유자 승인 후 2026-11-24 기존 Vercel `ad-me` 프로젝트에 `WooSungHyun03/AD-Me`를 연결했다. Vercel API에서 Production branch가 `main`이고 운영 도메인 자동 할당이 켜져 있음을 확인했다. 도메인을 분리한 운영 빌드에서 검증 지문이 비어 있으면 빌드가 실패함을 확인했다.

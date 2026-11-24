@@ -640,3 +640,5 @@ USER requested all feasible tickets in order, keeping direct main push and ticke
 ## 2026-11-24 — main 자동 배포
 
 main 푸시 후 Vercel 운영 빌드를 시작하도록 변경했다. 운영 DB 대상으로 검증된 마이그레이션 지문이 일치해야 운영 사이트에 승격된다. 운영 ledger 41건과 신규 상품 조건 RPC 부재를 읽기 전용으로 재확인했으며 운영 DB에 변경을 적용하지 않았다.
+
+GitHub 소유자 승인 뒤 Vercel 프로젝트를 연결했다. Vercel API 기준 Production branch는 main이고 도메인 자동 할당이 켜져 있다. 분리된 Production 빌드는 승인 지문 미등록으로 중단했고 기존 운영 별칭은 유지됐다.
