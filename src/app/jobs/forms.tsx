@@ -153,9 +153,11 @@ export function JobDraftForm({
 export function JobForm({
   id,
   kind,
+  requiresCredit = false,
 }: {
   id: string;
   kind: "publish" | "close" | "apply";
+  requiresCredit?: boolean;
 }) {
   const [result, action, pending] = useActionState(jobAction, "");
   return (
@@ -178,9 +180,9 @@ export function JobForm({
         {pending
           ? "처리 중…"
           : {
-              publish: "게시권 1장으로 공개",
+              publish: requiresCredit ? "게시권 1장으로 공개" : "캠페인 공개",
               close: "캠페인 마감",
-              apply: "지원권 1장으로 제출",
+              apply: requiresCredit ? "지원권 1장으로 제출" : "지원서 제출",
             }[kind]}
       </button>
       <p role="status">{result}</p>

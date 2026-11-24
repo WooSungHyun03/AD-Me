@@ -9,6 +9,7 @@ import { campaignSchema } from "@/lib/schemas";
 function message(error: { message: string; code: string }) {
   if (error.message === "MARKETPLACE_CREDIT_REQUIRED")
     return "사용 가능한 이용권이 없습니다.";
+  if (error.code === "PT429") return "요청 횟수를 초과했습니다. 잠시 후 다시 시도해주세요.";
   if (error.code === "42501")
     return "이 작업의 권한 또는 YouTube 소유권 인증을 확인해주세요.";
   return "지금은 요청을 완료할 수 없습니다. 캠페인 상태 및 입력 내용을 확인해주세요.";
@@ -78,7 +79,9 @@ export async function jobAction(_: string, form: FormData) {
   revalidatePath("/jobs/" + data.data.job);
   return data.data.action === "apply"
     ? "지원서를 제출했습니다."
-    : "캠페인 상태를 변경했습니다.";
+    : data.data.action === "publish"
+      ? "캠페인을 공개했습니다."
+      : "캠페인을 마감했습니다.";
 }
 
 export type SearchState = {

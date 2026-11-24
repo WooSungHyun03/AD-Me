@@ -43,7 +43,7 @@ export function LiveMessages() {
     const fallback = setInterval(() => {
       if (
         document.visibilityState === "visible" &&
-        document.querySelector("[data-live-chat][open]")
+        document.querySelector('[data-live-chat][open], [data-live-chat="expanded"]')
       )
         refresh();
     }, 6500);

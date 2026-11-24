@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { z } from "zod";
 import { supabase } from "@/lib/supabase";
 import { context } from "@/lib/api";
+import { isDemoMode } from "@/lib/mode";
 import { TestCheckout as Checkout } from "@/components/test-checkout";
 import { JobForm } from "../forms";
 import { jobExpiry, jobsSchema } from "../model";
@@ -27,6 +28,7 @@ export default async function JobPage({
   if (!row) notFound();
   const b = row.brief;
   const open = row.status === "published";
+  const requiresCredit = isDemoMode();
   return (
     <section className="figma-width figma-campaign-detail">
       <Link href="/jobs">캠페인 목록</Link>
@@ -53,34 +55,37 @@ export default async function JobPage({
           {row.owned && row.status === "draft" && (
             <section className="ops-section">
               <h2>캠페인 게시</h2>
-              <p>공개 모집 기간은 30일입니다. 게시권 1장을 사용합니다.</p>
-              <Checkout sku="job_post" />
-              <JobForm kind="publish" id={row.id} />
+              <p>
+                공개 모집 기간은 30일입니다.
+                {requiresCredit && " 게시권 1장을 사용합니다."}
+              </p>
+              {requiresCredit && <Checkout sku="job_post" />}
+              <JobForm kind="publish" id={row.id} requiresCredit={requiresCredit} />
             </section>
           )}
           {row.owned && open && (
             <section className="ops-section">
               <h2>지원자 검토</h2>
               <p>
-                <Link href="/dashboard">워크스페이스에서 지원자 확인</Link>
+                <Link href="/dashboard#workspace-collaboration">워크스페이스에서 지원자 확인</Link>
               </p>
               <JobForm kind="close" id={row.id} />
             </section>
           )}
           {row.applied ? (
             <p>
-              <Link href="/dashboard">제출한 지원서 상태 보기</Link>
+              <Link href="/dashboard#workspace-collaboration">제출한 지원서 상태 보기</Link>
             </p>
           ) : open && c?.role === "creator" ? (
             <section className="ops-section">
               <h2>캠페인 지원</h2>
               <p>
                 소유권이 인증된 YouTube 채널과 공개 협업 프로필이 필요합니다.
-                제출에 지원권 1장을 사용합니다.
+                {requiresCredit && " 제출에 지원권 1장을 사용합니다."}
               </p>
               <Link href="/settings/youtube">채널 인증 상태 확인</Link>
-              <JobForm kind="apply" id={row.id} />
-              <Checkout sku="job_application" />
+              <JobForm kind="apply" id={row.id} requiresCredit={requiresCredit} />
+              {requiresCredit && <Checkout sku="job_application" />}
             </section>
           ) : open && !c ? (
             <Link href="/login">로그인하고 지원하기</Link>

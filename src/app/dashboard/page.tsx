@@ -81,14 +81,30 @@ export default async function Dashboard() {
     revision_requested: "수정 요청",
     completed: "완료",
   };
+  const creator = profile?.role === "creator";
+  const pendingCount = proposals?.filter((item) => item.status === "pending").length ?? 0;
+  const inProgressCount = proposals?.filter((item) =>
+    ["accepted", "submitted", "revision_requested"].includes(item.status),
+  ).length ?? 0;
+  const liveCampaigns = campaigns?.filter((item) => item.status === "published") ?? [];
+  const campaignBudget = liveCampaigns.reduce((total, item) => total + Number(item.brief.budget_krw || 0), 0);
+  const metrics = creator
+    ? [{ label: "지원·제안 응답 대기", value: pendingCount }, { label: "진행 중인 협업", value: inProgressCount }]
+    : [
+        { label: "모집 중 캠페인", value: liveCampaigns.length },
+        { label: "응답 대기 중인 지원·제안", value: pendingCount },
+        { label: "진행 중인 협업", value: inProgressCount },
+        { label: "모집 중 캠페인 총 예산", value: `${campaignBudget.toLocaleString("ko-KR")}원` },
+      ];
   return (
-    <section className="wrap">
+    <section className="figma-width figma-workspace">
       <LiveMessages />
       <div className="section-heading">
         <div>
-          <span className="eyebrow">Your workspace / {profile?.role}</span>
-          <h1 className="page-title">{profile?.name}님의 다음 협업.</h1>
-          <p>발견한 가능성을 함께 만드는 일로.</p>
+          <span className="figma-eyebrow">{creator ? "크리에이터 워크스페이스" : "브랜드 워크스페이스"}</span>
+          <h1 className="page-title">
+            {creator ? `${profile?.name ?? "크리에이터"}님다운 이야기, 더 넓은 기회로.` : `${profile?.name ?? "브랜드"}님, 다음 협업이 기다리고 있어요.`}
+          </h1>
         </div>
         <div className="inline">
           {profile?.role === "creator" && (
@@ -117,56 +133,28 @@ export default async function Dashboard() {
           </form>
         </div>
       </div>
-      <div className="metric-row">
-        <div>
-          <strong>{campaigns?.length ?? 0}</strong>
-          <span>내 캠페인</span>
-        </div>
-        <div>
-          <strong>{proposals?.length ?? 0}</strong>
-          <span>협업·지원</span>
-        </div>
-        <div>
-          <strong>{entitlements?.length ?? 0}</strong>
-          <span>유효 이용권</span>
-        </div>
-        <div>
-          <strong>{saved?.length ?? 0}</strong>
-          <span>저장한 후보</span>
-        </div>
-      </div>
-      <ul className="workspace-summary" aria-label="업무 현황">
-        <li>
-          <a href="#workspace-campaigns">
-            <strong>{campaigns?.length ?? 0}</strong>
-            <span>내 캠페인</span>
-          </a>
-        </li>
-        <li>
-          <a href="#workspace-collaboration">
-            <strong>
-              {proposals?.filter((item) => item.status === "pending").length ??
-                0}
-            </strong>
-            <span>응답 대기</span>
-          </a>
-        </li>
-        <li>
-          <a href="#workspace-saved">
-            <strong>
-              {(saved?.length ?? 0) + (savedChannels?.length ?? 0)}
-            </strong>
-            <span>저장한 후보</span>
-          </a>
-        </li>
+      <nav className="figma-workspace-nav" aria-label="업무 현황">
+        <a href="#workspace-overview">전체 현황</a>
+        <a href="#workspace-campaigns">{creator ? "캠페인 탐색" : "내 캠페인"}</a>
+        <a href="#workspace-collaboration">{creator ? "지원 내역·메시지" : "지원자 관리·메시지"}</a>
+        <a href="#workspace-saved">저장한 크리에이터</a>
+      </nav>
+      <ul className="figma-workspace-metrics" id="workspace-overview">
+        {metrics.map(({ label, value }) => (
+          <li className="figma-workspace-panel" key={label}>
+            <span>{label}</span>
+            <strong>{value}</strong>
+          </li>
+        ))}
       </ul>
       <div className="section-heading" id="workspace-campaigns">
         <h2>내 캠페인</h2>
         {profile?.role === "brand" && (
-          <Link href="/campaigns/new" className="button primary">
+          <Link href="/jobs/new" className="button primary">
             캠페인 만들기 ↗
           </Link>
         )}
+        {creator && <Link className="button outline" href="/jobs">캠페인 탐색</Link>}
       </div>
       {campaigns?.length ? (
         campaigns.map((c) => (
@@ -225,6 +213,9 @@ export default async function Dashboard() {
               />
             </div>
             <section style={{ marginTop: 24 }}>
+              <Link className="button primary small" href={`/collaborations/${p.id}/messages`}>
+                메시지 열기
+              </Link>{" "}
               <Link
                 className="button outline small"
                 href={`/collaborations/${p.id}/deliverables`}

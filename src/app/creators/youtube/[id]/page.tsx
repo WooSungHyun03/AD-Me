@@ -187,7 +187,7 @@ export default async function YoutubeChannel({
   const stale = isYoutubeDataStale(channel.fetched_at);
 
   return (
-    <article className="wrap youtube-profile">
+    <article className="figma-width youtube-profile figma-creator-profile">
       <Link className="youtube-back" href="/creators">
         <ArrowLeft size={16} /> 크리에이터 탐색
       </Link>
@@ -210,10 +210,18 @@ export default async function YoutubeChannel({
               <p className="youtube-handle">{metadata.handle}</p>
             )}
             {!!topics.length && (
-              <p className="youtube-topics">{topics.join(" · ")}</p>
+              <ul className="figma-channel-topics tags">
+                {topics.slice(0, 5).map((topic) => (
+                  <li className="badge" key={topic}>{topic}</li>
+                ))}
+              </ul>
             )}
           </div>
         </div>
+        <dl className="figma-profile-key-stats" aria-label="채널 공개 지표">
+          <div><dt>구독자</dt><dd>{youtubeCount(channel.subscriber_count)}</dd></div>
+          <div><dt>채널 누적 조회수</dt><dd>{youtubeMetric(metadata?.views, "회")}</dd></div>
+        </dl>
         <div className="youtube-actions">
           {creatorId && (
             <Link
@@ -226,7 +234,7 @@ export default async function YoutubeChannel({
           {chat?.data && (
             <Link
               className="button outline"
-              href={`/dashboard#proposal-${chat.data}`}
+              href={`/collaborations/${chat.data}/messages`}
             >
               채팅하기
             </Link>

@@ -57,7 +57,7 @@
         "/creators/youtube/[id]"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127",
-      "web_status": "pending"
+      "web_status": "partial"
     },
     {
       "name": "04 · AI 추천 조건 / Desktop",
@@ -168,10 +168,11 @@
       "w": 1440,
       "h": 1279,
       "product_routes": [
+        "/collaborations/[id]/messages",
         "/dashboard"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253",
-      "web_status": "pending"
+      "web_status": "partial"
     },
     {
       "name": "11 · 요금제 / Desktop",
@@ -208,7 +209,7 @@
         "/dashboard"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307",
-      "web_status": "pending"
+      "web_status": "partial"
     },
     {
       "name": "14 · 크리에이터 대시보드 / Desktop",
@@ -220,7 +221,7 @@
         "/dashboard"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325",
-      "web_status": "pending"
+      "web_status": "partial"
     },
     {
       "name": "15 · 관리자 / Desktop",
@@ -293,7 +294,7 @@
         "/creators/youtube/[id]"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420",
-      "web_status": "pending"
+      "web_status": "partial"
     },
     {
       "name": "04 · AI 추천 조건 / Mobile",
@@ -404,10 +405,11 @@
       "w": 390,
       "h": 1349,
       "product_routes": [
+        "/collaborations/[id]/messages",
         "/dashboard"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483",
-      "web_status": "pending"
+      "web_status": "partial"
     },
     {
       "name": "11 · 요금제 / Mobile",
@@ -444,7 +446,7 @@
         "/dashboard"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510",
-      "web_status": "pending"
+      "web_status": "partial"
     },
     {
       "name": "14 · 크리에이터 대시보드 / Mobile",
@@ -456,7 +458,7 @@
         "/dashboard"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519",
-      "web_status": "pending"
+      "web_status": "partial"
     },
     {
       "name": "15 · 관리자 / Mobile",

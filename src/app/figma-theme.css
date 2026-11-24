@@ -153,3 +153,36 @@ body { font-family: "Noto Sans KR", "Noto Sans CJK KR", "Apple SD Gothic Neo", s
   .figma-discovery-layout, .figma-directory-results .discovery-channel-grid { grid-template-columns: minmax(0,1fr); }
   .figma-discovery-hero .discovery-search { border-radius: 16px; }
 }
+
+.figma-workspace, .figma-room { padding-block: clamp(32px, 5vw, 72px); }
+.figma-workspace .page-title, .figma-room .page-title { font-size: clamp(28px, 3.4vw, 44px); }
+.figma-workspace-nav { display: flex; flex-wrap: wrap; gap: 4px 24px; border-bottom: 1px solid var(--line); margin-block: 24px; }
+.figma-workspace-nav a { display: inline-flex; align-items: center; min-height: 44px; color: var(--action-text); font-weight: 650; }
+.figma-workspace-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 20px; padding: 0; margin: 0 0 36px; list-style: none; }
+.figma-workspace-panel { border: 1px solid var(--line); border-radius: 24px; background: var(--surface); padding: clamp(18px, 2.4vw, 28px); min-width: 0; }
+.figma-workspace-metrics span { color: var(--muted); }
+.figma-workspace-metrics strong { display: block; margin-top: 16px; font-size: clamp(25px, 2.8vw, 38px); }
+.figma-room-layout { display: grid; align-items: start; grid-template-columns: minmax(150px,.7fr) minmax(0,1.55fr) minmax(150px,.8fr); gap: clamp(14px, 2vw, 24px); margin-top: 32px; }
+.figma-room-list ul { margin: 0; padding: 0; list-style: none; }
+.figma-room-list a, .figma-room-campaign a { display: block; padding: 14px; border-radius: 12px; overflow-wrap: anywhere; }
+.figma-room-list a[aria-current] { background: var(--figma-lavender); color: var(--action-text); font-weight: 700; }
+.figma-room-list time { display: block; color: var(--muted); margin-top: 4px; }
+.figma-room .message-bubble { width: fit-content; max-width: min(95%, 440px); border-radius: 18px; background: var(--canvas); }
+.figma-room .message-bubble-mine { margin-left: auto; background: var(--figma-lavender); }
+@media (max-width: 850px) {
+  .figma-room-layout { grid-template-columns: minmax(0,1fr); }
+  .figma-room-list ul { display: flex; gap: 8px; overflow-x: auto; }
+}
+
+.figma-creator-profile { padding-block: clamp(22px, 4.5vw, 60px); }
+.figma-creator-profile .youtube-hero { border: 1px solid var(--line); background: var(--surface); border-radius: 24px; }
+.figma-creator-profile .youtube-identity { padding-inline: clamp(20px, 4vw, 46px); }
+.figma-creator-profile .youtube-identity h1 { font-size: clamp(30px, 4vw, 52px); overflow-wrap: anywhere; }
+.figma-channel-topics { padding: 0; list-style: none; }
+.figma-profile-key-stats { display: flex; flex-wrap: wrap; gap: 14px clamp(20px,5vw,56px); margin: 20px clamp(20px, 4vw, 46px); }
+.figma-profile-key-stats dt { color: var(--muted); font-size: .875rem; }
+.figma-profile-key-stats dd { margin: 4px 0 0; font-weight: 750; font-size: clamp(18px, 3vw, 29px); }
+.figma-creator-profile .youtube-actions { padding-inline: clamp(20px, 4vw, 46px); }
+.figma-creator-profile .youtube-section { margin-top: 24px; padding: clamp(18px, 3vw, 28px); border: 1px solid var(--line); border-radius: 24px; background: var(--surface); }
+.figma-registered-profile { margin-top: 24px; padding: clamp(18px, 3vw, 28px); border: 1px solid var(--line); border-radius: 24px; background: var(--surface); }
+.figma-registered-profile .creator-visual { border-radius: 18px; }

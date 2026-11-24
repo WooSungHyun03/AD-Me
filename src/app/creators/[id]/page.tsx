@@ -51,11 +51,11 @@ export default async function Detail({
     .filter((r) => r.creatorId !== id)
     .slice(0, 3);
   return (
-    <section className="wrap">
+    <section className="figma-width figma-creator-profile">
       <Link href="/creators" className="muted">
         ← 크리에이터 탐색
       </Link>
-      <div className="split" style={{ marginTop: 35 }}>
+      <div className="split figma-registered-profile">
         <aside>
           <div className="creator-visual" style={{ height: 340 }}>
             {c.name.slice(1)}

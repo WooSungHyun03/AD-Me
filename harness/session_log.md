@@ -664,3 +664,12 @@ GitHub 소유자 승인 뒤 Vercel 프로젝트를 연결했다. Vercel API 기�
 - D00366be9d8 LF/CRLF 지문·인코딩 검증, D0042ea36b6 소비된 빈 NextRequest의 실제500→401, D07557f67d0 Windows graph false-green 수정, PR-0012b56fa2 Figma 앵커/스트리밍 수동 추천 호환, D0024cc9d74 현행 YouTube 안내. 티켓 전체 상태는 보존.
 - 최종517unit/87files·43Python·lint·typecheck·free-keyless production build·영향 desktop/mobile10 PASS. 실제317 소스 그래프의 직접 DB9개/순환0/위반0, 정적 SQL116 및116 Git 소스/Windows 지문 일치. 초기 오류·수정·정확한 미실행 범위를 DEV-A-MAIN-FOLLOWUP-20261124 증빙에 기록.
 - Docker Desktop 시작과 후속 모델 version/preflight 명령이 자동 승인 검토에서 blocked by policy로 거부됨. 대체 가동/포트 probe/DB·실제 모델·전체 양측 테스트를 우회하지 않음. 새 SQL·이전 패킷 변경 없음. 검토 인계 deliverables/dev-a-main-followup-20261124/. main 생산 빌드 지문 게이트 유지, 운영 적용·전체 DONE/VERIFIED 주장 없음.
+
+### 2026-11-24 Figma 운영 호환 릴리스와 복구 재검증
+
+- 운영 DB에 직접 접속해 역할·스키마·데이터 및 마이그레이션 기록을 비공개 위치에 백업했다. 운영 원장 41건의 SQL을 다시 받아 Vercel 빌드의 스키마 지문과 대조했다. 적용 내역을 변경하지 않았다.
+- 기존 운영 서버 커밋 `11af311`에 검증한 Figma 변경을 이식한 호환 릴리스 `3fa78d1`을 Vercel `dpl_C4JnCULQagACgsuFky3DbaxjB1cU`로 만들고 `be-celeb.org`로 승격했다. 이전 배포 `dpl_G3S8oSBWEEadE4dShsgjKHjKa854`가 롤백 지점이다.
+- 1440px·390px Chromium에서 운영 홈·탐색·캠페인·요금제·로그인·회원가입이 각 HTTP 200을 반환하고 가로 넘침이 없음을 확인했다. 공개 구매는 닫혀 있다.
+- D087 재현에서 이전 Storage API와 재초기화된 DB의 인덱스가 맞지 않아 최초 업로드도 42P10을 반환했다. 새 스택의 API·DB를 맞추고 복원 순서를 수정해 성공했다. 합성 데이터 225행과 비공개 파일 1개를 백업·초기화·복구했다. 복구 후 로그인, 소유자 파일 접근, 내용 바이트 일치 및 삭제 원장 재적용을 확인했다.
+- 신규 main의 무료 캠페인 RPC는 기존 게시·지원 로직과 검증된 YouTube 소유권을 사용한다. 격리 실행에서 상품→게시→지원→수락→메시지와 다른 계정의 접근 거부가 데스크톱·모바일에서 통과했다. 호환 운영 버전에는 새 RPC와 메시지 화면이 아직 반영되지 않았다.
+- 상품 분석 RPC는 현재 운영에 없으며, 운영 원장을 새로 만든 격리 DB에서 최신 스키마 전환 SQL의 트랜잭션 실행·롤백까지 검증했다. 데이터 이관 및 권한 회귀를 포함한 운영 적용은 별도 증거가 필요하다.

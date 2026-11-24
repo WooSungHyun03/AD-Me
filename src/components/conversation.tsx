@@ -229,7 +229,7 @@ function ConversationBody({
         const link = safeHttpsLink(m.url ?? undefined);
         return (
           <div
-            className="notice"
+            className={`notice message-bubble ${m.senderId === viewerId ? "message-bubble-mine" : ""}`}
             key={m.id}
             data-testid="conversation-message"
             style={{ overflowWrap: "anywhere" }}
@@ -278,8 +278,11 @@ export function Conversation(props: {
   refreshVersion?: string;
   deliverable: boolean;
   writable: boolean;
+  expanded?: boolean;
 }) {
   const [open, setOpen] = useState(false);
+  if (props.expanded)
+    return <div data-live-chat="expanded"><ConversationBody {...props} /></div>;
   return (
     <details
       data-live-chat
