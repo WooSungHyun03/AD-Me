@@ -849,7 +849,7 @@ DEV-B · P1 · S1 주요 부족 · MATCHING · TODO · 5 SP · ACTIVE
 
 ## D039 · 자연어 검색→확인 가능한 필터
 
-DEV-A · P0 · S0 출시 차단 · MATCHING · IN_PROGRESS · 5 SP · ACTIVE
+DEV-A · P0 · S0 출시 차단 · MATCHING · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 홈은 명시 조건 일치 방식이다. 한국어 자연어 질의를 승인된 구조와 확인 가능한 필터로 바꾸는 운영 흐름은 미확인이다.
 - **재현·관찰** — 같은 카탈로그에 한국어 질의 5종을 주고 기존 필터와 비교한다. 범위 밖 민감 추론과 가짜 후보, 잘못된 JSON은 배제한다.
@@ -865,8 +865,9 @@ DEV-A · P0 · S0 출시 차단 · MATCHING · IN_PROGRESS · 5 SP · ACTIVE
 - **보안** — 모호한 예산·팔로워 단위를 사용자 확인 없이 확정하지 않는다.
 - **검증** — 환각 조건·지원하지 않는 필터·키 없는 fallback · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 파서 기본값과 선택적 LLM을 제공하고 변환 조건을 사용자가 확인·수정한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D039/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D039/ (이번 검증 기록 위치)
+- **차단 요인** — 결정론적 로컬 범위 TESTED. 선택 LLM/운영 worker 통합과 B 교차 검토·실제 운영 URL 수용은 미완료. 정책/권한을 우회하거나 VERIFIED/DONE으로 간주하지 않는다.
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D039/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D039/ (이번 검증 기록 위치) · harness/evidence/D039/YOUTUBE_SCOPE_20261124.md
+- **검증 범위** — 결정론적 YouTube 자연어 조건 제안6 단위/desktop-mobile2 시나리오 통과. 부정·제외·OR·비지원 플랫폼 차단, 명시 확인/취소 및 실제 URL/필터 반영. 실제 LLM/provider 검증과 구분.
 - **이전 기록** — IN_PROGRESS
 
 ## D040 · 개인 CRM 메모·후보 비교 리포트

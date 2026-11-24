@@ -17,8 +17,9 @@ const categories = [
   "교육",
 ];
 export type SearchProposal = {
-  version: 1;
+  version: 2;
   mode: "deterministic";
+  scope: "youtube" | "legacy";
   filters: CreatorFilters;
   evidence: string[];
   warnings: string[];
@@ -26,16 +27,39 @@ export type SearchProposal = {
 };
 
 // Deliberately limited grammar. Unrecognized/ambiguous words are shown for review, never guessed.
-export function proposeSearch(text: string): SearchProposal {
+export function proposeSearch(
+  text: string,
+  scope: "youtube" | "legacy" = "youtube",
+): SearchProposal {
   if (!text.trim() || text.length > 500 || /[\u0000-\u001f\u007f]/.test(text))
     throw Error("검색 문장을 1~500자로 입력해주세요.");
   let remainder = text;
   const filters = emptyCreatorFilters(),
     evidence: string[] = [],
     warnings: string[] = [];
+  if (scope === "youtube") filters.platforms = ["youtube"];
+  const blocked =
+    /제외|빼고|빼줘|아님|아닌|아니고|말고|원하지|원치|금지|하지\s*않|또는|혹은|아니면/.test(
+      text,
+    )
+      ? "제외·부정·선택 조건은 자동으로 해석하지 않습니다. 아래 필터에서 직접 설정해주세요."
+      : scope === "youtube" && /인스타그램|instagram|틱톡|tiktok/i.test(text)
+        ? "현재 문장 검색은 YouTube만 지원합니다. 다른 플랫폼 조건은 적용하지 않습니다."
+        : null;
+  if (blocked)
+    return {
+      version: 2,
+      mode: "deterministic",
+      scope,
+      filters,
+      evidence: [],
+      warnings: [blocked],
+      unparsed: text.trim(),
+    };
   for (const [label, value] of Object.entries(platforms)) {
+    if (scope === "youtube" && value !== "youtube") continue;
     if (remainder.includes(label)) {
-      filters.platforms.push(value);
+      if (!filters.platforms.includes(value)) filters.platforms.push(value);
       evidence.push(`${label} → 플랫폼`);
       remainder = remainder.replaceAll(label, " ");
     }
@@ -96,8 +120,9 @@ export function proposeSearch(text: string): SearchProposal {
       "남은 문구는 필터로 적용되지 않습니다. 나이·성별·모호한 단위 등은 직접 확인해주세요.",
     );
   return {
-    version: 1,
+    version: 2,
     mode: "deterministic",
+    scope,
     filters: creatorFilterSchema.parse(filters),
     evidence,
     warnings,

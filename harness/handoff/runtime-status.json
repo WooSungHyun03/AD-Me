@@ -372,14 +372,15 @@
     },
     "D039": {
       "owner": "DEV-A",
-      "status": "IN_PROGRESS",
+      "status": "LOCAL_VERIFIED",
       "evidence": [
         "harness/evidence/D039/INDEPENDENT_20261122.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json",
-        "harness/evidence/DEV-A-SEQUENTIAL-20261123/verification.json"
+        "harness/evidence/DEV-A-SEQUENTIAL-20261123/verification.json",
+        "harness/evidence/D039/YOUTUBE_SCOPE_20261124.md"
       ],
-      "blocker": "독립 부분 구현/로컬 계약 검증. 전체 미완료 선행·API/저장소/실제 공급자·교차 검토 범위는 DEV-A-INDEPENDENT-20261122/README.md 표 참조. 외부 성공/전체 완료 아님.",
+      "blocker": "결정론적 YouTube 제안/확인·취소·부정/OR 거부의 단위·desktop/mobile 로컬 검증 완료. 선택 LLM/운영 worker 통합·B 교차검토·실제 운영 수용은 미완료이며 DONE 아님.",
       "last_checked_at": "2026-11-22T11:51:39.993451+00:00"
     },
     "D040": {

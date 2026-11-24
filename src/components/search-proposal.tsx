@@ -14,8 +14,8 @@ export function SearchProposalForm({
     <details className="panel">
       <summary>문장으로 검색 조건 제안받기</summary>
       <p>
-        예: 인스타그램 뷰티 팔로워 1만명 이상 예산 100만원 이하. 지원하는 표현만
-        해석하며 적용 전 확인합니다.
+        예: 유튜브 뷰티 예산 100만원 이하. 현재 YouTube 범위에서 지원하는 표현만
+        해석하며 적용 전 확인합니다. 제외·부정·“또는” 조건은 직접 설정해주세요.
       </p>
       <form
         onSubmit={(e) => {
