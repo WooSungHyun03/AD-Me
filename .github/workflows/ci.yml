@@ -23,6 +23,7 @@ jobs:
       - run: python3 harness/validate_handoff.py
       - run: npm run lint
       - run: npm run typecheck
+      - run: node scripts/check-domain-boundaries.mjs
       - run: npm test
       - run: npm run build
       - run: python3 harness/secret_scan.py --bundle

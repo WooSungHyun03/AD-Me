@@ -308,9 +308,15 @@ describe("API errors", () => {
     expect(await result.text()).not.toContain("RAW_TOKEN_FIXTURE");
     expect(log).toHaveBeenCalledExactlyOnceWith("api_error", {
       operation: "example.post",
-      code: "INTERNAL_ERROR",
+      domain: "example",
+      duration: expect.any(Number),
+      errorCode: "INTERNAL_ERROR",
+      level: "error",
       requestId,
+      retryable: false,
+      timestamp: expect.any(String),
     });
+    expect(JSON.stringify(log.mock.calls)).not.toContain("RAW_TOKEN_FIXTURE");
   });
 
   it("distinguishes missing auth, throttling and provider unavailability", async () => {

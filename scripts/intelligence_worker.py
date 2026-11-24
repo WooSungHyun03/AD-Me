@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Outbound-only AD Me worker. Error codes are logged without provider bodies."""
 import argparse
+from datetime import datetime, timezone
 import http.client
 import json
 import math
@@ -459,7 +460,18 @@ def once():
     elapsed = round((time.monotonic() - start) * 1000)
     accepted = rpc("ops_worker_finish", p_id=job["id"], p_lease=job["lease"], p_result=result,
                    p_error=code, p_elapsed=elapsed)
-    print(json.dumps({"job": job["kind"], "stored": accepted, "error": code, "ms": elapsed}), flush=True)
+    print(json.dumps({
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "domain": "intelligence",
+        "operation": job["kind"],
+        "level": "error" if code else "info",
+        "duration": elapsed,
+        "errorCode": code,
+        "stored": accepted,
+        "job": job["kind"],
+        "error": code,
+        "ms": elapsed,
+    }), flush=True)
 
 
 def smoke():
