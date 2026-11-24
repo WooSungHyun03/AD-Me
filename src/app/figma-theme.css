@@ -133,3 +133,23 @@ body { font-family: "Noto Sans KR", "Noto Sans CJK KR", "Apple SD Gothic Neo", s
   .figma-auth-layout { grid-template-columns: minmax(0,1fr); }
   .figma-auth-editorial { display: none; }
 }
+
+.figma-discovery-hero { background: var(--canvas); border: 0; }
+.figma-discovery-hero .discovery-hero-inner { background: none; max-width: 1440px; }
+.figma-discovery-hero h1 { font-size: clamp(32px, 4.5vw, 48px); max-width: 24ch; }
+.figma-discovery-hero .discovery-search { width: 100%; padding: clamp(10px, 2vw, 24px); border-radius: 24px; box-shadow: none; }
+.figma-directory-results { max-width: 1440px; }
+.figma-discovery-layout { display: grid; grid-template-columns: minmax(200px,.32fr) minmax(0,1fr); gap: clamp(18px, 4vw, 34px); align-items: start; }
+.figma-discovery-filters { border: 1px solid var(--line); border-radius: 24px; background: var(--surface); padding: clamp(16px, 2.5vw, 28px); }
+.figma-discovery-filters summary { min-height: 44px; cursor: pointer; font-weight: 700; }
+.figma-discovery-filters .discovery-selects, .figma-discovery-filters .discovery-toolbar { display: grid; grid-template-columns: minmax(0,1fr); }
+.figma-discovery-filters .discovery-toolbar { padding: 0; border: 0; margin-bottom: 0; }
+.figma-discovery-filters .discovery-toolbar nav { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 4px; }
+.figma-directory-results .discovery-channel-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.figma-directory-results .discovery-channel { box-shadow: none; border-radius: 20px; }
+.figma-discovery-next { background: var(--figma-lavender); border: 1px solid var(--line); border-radius: 24px; padding: clamp(20px, 4vw, 36px); margin-top: 24px; }
+@media (max-width: 1080px) { .figma-directory-results .discovery-channel-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 740px) {
+  .figma-discovery-layout, .figma-directory-results .discovery-channel-grid { grid-template-columns: minmax(0,1fr); }
+  .figma-discovery-hero .discovery-search { border-radius: 16px; }
+}

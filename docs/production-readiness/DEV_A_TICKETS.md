@@ -391,7 +391,7 @@ DEV-A · P0 · S0 출시 차단 · MATCHING · TESTED · 8 SP · ACTIVE
 - **DB·RPC** — creators, saved lists/searches, campaign recommendation snapshots, marketplace_search
 - **기대 동작** — 전체 프로필 브라우저 전송을 없애고 공개 DTO·정렬·페이지 크기 제한·검색 인덱스를 적용한다.
 - **구현** — search/category/platform/tag/price/availability/follower/cursor/limit 입력을 Zod로 검증한다. 허용 정렬에 id tie-breaker를 둔다.
-- **변경 파일** — src/components/catalog.tsx · src/lib/data.ts · src/app/api/creators
+- **변경 파일** — src/components/catalog.tsx · src/lib/data.ts · src/app/api/creators · src/app/creators/page.tsx · src/app/figma-theme.css
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D018 · D005
 - **영향** — /creators · /explore · /compare · /campaigns/[id]
@@ -399,9 +399,9 @@ DEV-A · P0 · S0 출시 차단 · MATCHING · TESTED · 8 SP · ACTIVE
 - **검증** — 페이지 중복·비공개 누출·합의된 데이터량의 쿼리 성능 검사 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 전체 프로필 브라우저 전송을 없애고 공개 DTO·정렬·페이지 크기 제한·검색 인덱스를 적용한다.
 - **차단 요인** — D005와 실제 데이터 회귀, USER 조율105→107 DB 적용 및 합의된 데이터량 성능 검증이 남았다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D033/ (이번 검증 기록 위치) · harness/evidence/D033/DIRECTORY_20261123.md
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D033/ (이번 검증 기록 위치) · harness/evidence/D033/DIRECTORY_20261123.md · docs/design/visual-review.md (Figma 탐색 DB 연결, 데스크톱·모바일 주제 필터 및 정렬 E2E)
 - **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [23 · 모바일 상세 필터](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2303)
-- **검증 범위** — 로컬 계약10건 + 실제 격리 Postgres/PostgREST5개 그룹(가상67/적격63), 세 정렬 다중 페이지·필터·권한·철회 통과. 운영/대규모 성능/브라우저 최종 배치는 별도.
+- **검증 범위** — 로컬 계약10건 + 실제 격리 Postgres/PostgREST5개 그룹(가상67/적격63), 세 정렬 다중 페이지·필터·권한·철회 통과. 운영/대규모 성능/브라우저 최종 배치는 별도. Figma 탐색 레이아웃에서 격리 Playwright 데스크톱·모바일 주제 필터 및 정렬 재검증. 고급 조건의 데이터 정책·전체 반응형 Figma 일치도는 별도.
 - **이전 기록** — OPEN
 
 ## D034 · 다중 필터·URL 상태·빈 결과
@@ -415,7 +415,7 @@ DEV-A · P0 · S0 출시 차단 · FRONTEND · TESTED · 5 SP · ACTIVE
 - **DB·RPC** — creators, saved lists/searches, campaign recommendation snapshots, marketplace_search
 - **기대 동작** — 플랫폼·분야·태그·가격·가용성·팔로워 필터를 조합하고 URL 복원·초기화·0과 결측을 구분한다.
 - **구현** — URLSearchParams와 필터 상태를 일치시키고 다중 선택 의미(필드 내 OR/필드 간 AND)를 명시한다. 검색 요청 취소/경합을 처리한다.
-- **변경 파일** — src/components/catalog.tsx · src/app/creators/page.tsx
+- **변경 파일** — src/components/catalog.tsx · src/app/creators/page.tsx · src/app/figma-theme.css
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D033
 - **영향** — /creators · /explore · /compare · /campaigns/[id]
@@ -423,8 +423,9 @@ DEV-A · P0 · S0 출시 차단 · FRONTEND · TESTED · 5 SP · ACTIVE
 - **검증** — 필터 조합·새로고침·모바일·경계값 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 플랫폼·분야·태그·가격·가용성·팔로워 필터를 조합하고 URL 복원·초기화·0과 결측을 구분한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D034/README.md · harness/evidence/D034/PLAN_20261120.md · harness/evidence/D034/VERIFY_20261121.md · harness/evidence/D034/ (이번 검증 기록 위치)
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D034/README.md · harness/evidence/D034/PLAN_20261120.md · harness/evidence/D034/VERIFY_20261121.md · harness/evidence/D034/ (이번 검증 기록 위치) · docs/design/visual-review.md (Figma 탐색 DB 연결, 데스크톱·모바일 주제 필터 및 정렬 E2E)
 - **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [23 · 모바일 상세 필터](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2303)
+- **검증 범위** — Figma 탐색 레이아웃에서 격리 Playwright 데스크톱·모바일 주제 필터 및 정렬 재검증. 고급 조건의 데이터 정책·전체 반응형 Figma 일치도는 별도.
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D039 · 자연어 검색→확인 가능한 필터
