@@ -1,20 +1,24 @@
-import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
-import { context } from "@/lib/api";
+import { requireAdminContext } from "@/lib/admin";
+import { compatibleApiRoute } from "@/lib/api";
 import { details, probe } from "@/lib/health";
 import { alert } from "@/lib/observability";
-// Public: only {status} for uptime monitors. Admin session: connection details, usage vs free limits.
+
 export const dynamic = "force-dynamic";
- async function handleGET() {
-  const c = await context().catch(() => null);
-  if (c?.role === "admin") return NextResponse.json(await details(c.db));
-  const p = await probe();
-  // An uptime monitor polling this URL turns an outage into one (deduplicated) alert.
-  if (!p.ok) await alert(`health:${p.reason}`, `헬스체크 실패: ${p.reason}`);
+
+async function handleGET() {
+  // The uptime contract is also used for sessions without current admin MFA.
+  const admin = await requireAdminContext().catch(() => null);
+  if (admin) return NextResponse.json(await details(admin.db));
+
+  const status = await probe();
+  if (!status.ok) {
+    await alert(`health:${status.reason}`, `헬스체크 실패: ${status.reason}`);
+  }
   return NextResponse.json(
-    { status: p.ok ? "ok" : "down" },
-    { status: p.ok ? 200 : 503 },
+    { status: status.ok ? "ok" : "down" },
+    { status: status.ok ? 200 : 503 },
   );
 }
 
-export const GET=compatibleApiRoute("src/app/api/health/route.ts.GET",handleGET);
+export const GET = compatibleApiRoute("operations.health.get", handleGET);
