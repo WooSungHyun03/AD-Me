@@ -333,7 +333,7 @@ export function ProductConditionWorkbench({
         </div>
       )}
       <p style={{ marginTop: 24 }}>
-        <Link className="button outline" href="/#recommend">
+        <Link className="button outline" href="/#recommendation">
           수동으로 유튜버 추천 조건 입력
         </Link>
       </p>

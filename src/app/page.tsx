@@ -95,7 +95,7 @@ export default function Home() {
         </div>
       </section>
       <section className="figma-recommendation" id="recommendation">
-        <div className="figma-width figma-two-columns">
+        <div className="figma-width figma-two-columns" id="recommend">
           <div>
             <p className="figma-eyebrow">AI MATCHING</p>
             <h2>

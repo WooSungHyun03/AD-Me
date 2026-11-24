@@ -7187,13 +7187,14 @@
         "harness/evidence/PR-001/PROMPT_FIX_20261123.md",
         "harness/evidence/DEV-A-REMAINING-20261123/README.md",
         "harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md",
-        "harness/evidence/PR-001/WORKFLOW_20261124.md"
+        "harness/evidence/PR-001/WORKFLOW_20261124.md",
+        "harness/evidence/PR-001/FIGMA_FALLBACK_20261124.md"
       ],
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": null,
       "reopened": false,
-      "verified_scope": "116-source 격리 소유 상품→기존 예산 큐→검토/확인·거부→명시적 검색. 실제 로컬 SQL/REST와 합성 모델 결과; desktop/mobile 각1 시나리오. 실제 모델/운영 수용은 미검증.",
+      "verified_scope": "116-source 격리 소유 상품→기존 예산 큐→검토/확인·거부→명시적 검색. 실제 로컬 SQL/REST와 합성 모델 결과; desktop/mobile 각1 시나리오. 실제 모델/운영 수용은 미검증. Figma home의 현행/과거 앵커와 스트리밍 후 수동 추천 이동·keyless 실패/입력 보존 desktop/mobile2 검증. 인증 상품 DB 시나리오는 이번 미재실행.",
       "operator_refactor_review": {
         "decision": "KEEP"
       },

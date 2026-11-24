@@ -179,6 +179,8 @@ test("owned product proposal requires explicit selection and confirmation before
     await page
       .getByRole("link", { name: "수동으로 유튜버 추천 조건 입력" })
       .click();
+    await expect(page).toHaveURL(/\/#recommendation$/);
+    await expect(page.getByRole("form", { name: "유튜버 추천 조건" })).toBeInViewport();
     await expect(
       page.getByRole("button", {
         name: "조건에 맞는 유튜버 찾기",

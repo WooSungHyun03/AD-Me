@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { ArrowUpRight, Search } from "lucide-react";
 import { recommendCreators } from "@/app/recommend-creators";
 import { publicTopicOptions } from "@/lib/public-youtube-topics";
@@ -33,6 +33,15 @@ export function RecommendationBrief({
     ...initial,
   });
   const [confirmed, setConfirmed] = useState(condition);
+  useEffect(() => {
+    // The streamed home content can arrive after the browser's initial fragment
+    // scroll. Honor only the two explicit recommendation destinations on mount.
+    if (["#recommendation", "#recommend"].includes(window.location.hash))
+      document.getElementById(window.location.hash.slice(1))?.scrollIntoView({
+        block: "start",
+        behavior: "auto",
+      });
+  }, []);
   function update(
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) {
