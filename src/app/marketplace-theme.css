@@ -408,3 +408,11 @@ main :is(h1, h2, h3, h4, p) { overflow-wrap: anywhere; word-break: keep-all; }
 @media (max-width: 650px) {
   .product-paths-grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+.catalog-layout input[type="checkbox"] {
+  flex: 0 0 24px;
+  inline-size: 24px;
+  block-size: 24px;
+  min-block-size: 24px;
+  vertical-align: middle;
+}
