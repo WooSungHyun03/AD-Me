@@ -22,7 +22,7 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
 }, info) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "우리 브랜드다운",
+    "브랜드의 다음 장면",
   );
   await expect(page.locator('header img[alt="AD Me"]')).toBeVisible();
   await page.screenshot({

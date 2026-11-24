@@ -55,42 +55,47 @@ test("job posting pass and all primary pricing actions have visible, readable ta
   await expectReadableAction(
     page.getByRole("link", { name: "무료로 시작하기" }).first(),
   );
+  const posting = page.getByTestId("pricing-job_post");
+  const available = page.getByRole("heading", {
+    name: "지금 이용할 수 있는 기능",
+  });
+  if (await available.isVisible()) {
+    await expect(posting).toHaveCount(0);
+    await expect(
+      page.getByRole("button", { name: "이용권 구매하기" }),
+    ).toHaveCount(0);
+    const draft = page.getByRole("link", { name: "캠페인 초안 작성" });
+    await expectReadableAction(draft);
+    await draft.click();
+    await expect(page).toHaveURL(/\/jobs\/new|\/login/);
+    return;
+  }
   for (const sku of [
     "search_run",
     "job_post",
     "job_application",
     "creator_hot",
   ]) {
-    const product = page.getByTestId("pricing-" + sku);
-    const action = product.getByRole("link").or(product.getByRole("button"));
-    await expectReadableAction(action);
-  }
-  const posting = page.getByTestId("pricing-job_post");
-  await expect(
-    posting.getByRole("heading", { name: "광고 공고 게시권" }),
-  ).toBeVisible();
-  const draft = posting.getByRole("link", { name: "공고 초안 작성" });
-  if (process.env.ADME_LOCAL_QA === "1") await expect(draft).toHaveCount(0);
-  if (await draft.count()) {
-    await draft.click();
-    await expect(page).toHaveURL(/\/jobs\/new|\/login/);
-  } else {
-    await posting.getByRole("button", { name: "이용권 구매하기" }).click();
-    await expect(posting.getByRole("alert")).toContainText("로그인");
-    await page.route("**/api/billing/orders", (route) =>
-      route.fulfill({
-        status: 503,
-        json: { error: { message: "provider-internal diagnostic" } },
-      }),
-    );
-    await posting.getByRole("button", { name: "이용권 구매하기" }).click();
-    await expect(posting.getByRole("alert")).toContainText(
-      "현재 결제를 이용할 수 없습니다",
-    );
-    await expect(posting.getByRole("alert")).not.toContainText(
-      "provider-internal",
+    await expectReadableAction(
+      page.getByTestId("pricing-" + sku).getByRole("button"),
     );
   }
+  const purchase = posting.getByRole("button", { name: "이용권 구매하기" });
+  await purchase.click();
+  await expect(posting.getByRole("alert")).toContainText("로그인");
+  await page.route("**/api/billing/orders", (route) =>
+    route.fulfill({
+      status: 503,
+      json: { error: { message: "provider-internal diagnostic" } },
+    }),
+  );
+  await purchase.click();
+  await expect(posting.getByRole("alert")).toContainText(
+    "현재 결제를 이용할 수 없습니다",
+  );
+  await expect(posting.getByRole("alert")).not.toContainText(
+    "provider-internal",
+  );
 });
 
 test("home navigation links reach the discovery and recommendation sections", async ({
@@ -108,7 +113,7 @@ test("home navigation links reach the discovery and recommendation sections", as
   await expect(page).toHaveURL(/\/creators$/);
   await expect(page.getByLabel("YouTube 주제")).toBeVisible();
   await expect(
-    page.getByRole("navigation", { name: "메인 메뉴" }),
+    page.getByRole("navigation", { name: "메인 메뉴", includeHidden: true }),
   ).not.toContainText("AI 스튜디오");
 });
 

@@ -26,7 +26,7 @@ test("brand product and private YouTube draft use the persisted TEST catalogue",
   ).toBeVisible();
   await page.getByRole("link", { name: "공고 초안 만들기" }).click();
   await page.getByLabel("광고 상품").selectOption({ label: name });
-  await page.getByLabel("공고 제목").fill(name + " 모집");
+  await page.getByLabel("캠페인 제목").fill(name + " 모집");
   await page.getByLabel("총 예산 (원)").fill("100000");
   await page
     .getByLabel("광고 목표와 요청 결과물")

@@ -11,7 +11,7 @@ function message(error: { message: string; code: string }) {
     return "사용 가능한 이용권이 없습니다.";
   if (error.code === "42501")
     return "이 작업의 권한 또는 YouTube 소유권 인증을 확인해주세요.";
-  return "지금은 요청을 완료할 수 없습니다. 공고 상태 및 입력 내용을 확인해주세요.";
+  return "지금은 요청을 완료할 수 없습니다. 캠페인 상태 및 입력 내용을 확인해주세요.";
 }
 
 export async function saveProduct(_: string, form: FormData) {
@@ -52,7 +52,7 @@ export async function saveJob(_: string, form: FormData) {
     p_brief: brief.data,
   });
   if (error || !data)
-    return error ? message(error) : "공고 초안을 저장하지 못했습니다.";
+    return error ? message(error) : "캠페인 초안을 저장하지 못했습니다.";
   revalidatePath("/jobs");
   redirect("/jobs/" + data);
 }
@@ -78,7 +78,7 @@ export async function jobAction(_: string, form: FormData) {
   revalidatePath("/jobs/" + data.data.job);
   return data.data.action === "apply"
     ? "지원서를 제출했습니다."
-    : "공고 상태를 변경했습니다.";
+    : "캠페인 상태를 변경했습니다.";
 }
 
 export type SearchState = {

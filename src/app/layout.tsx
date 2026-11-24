@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Megaphone, Search, Ticket } from "lucide-react";
-import Image from "next/image";
+import { FigmaNavigation } from "@/components/figma-navigation";
 import "./globals.css";
 import "./marketplace-theme.css";
+import "./figma-theme.css";
 import { isDemoMode } from "@/lib/mode";
 import { siteUrl } from "@/lib/seo";
 export async function generateMetadata(): Promise<Metadata> {
@@ -33,60 +33,19 @@ export default function RootLayout({
         <a className="skip" href="#main">
           본문으로 이동
         </a>
-        <header className="marketplace-nav">
-          <Link href="/" aria-label="AD Me 홈" className="brand-lockup">
-            <Image
-              src="/brand/ad-me-symbol.png"
-              width={43}
-              height={43}
-              alt=""
-              priority
-            />
-            <Image
-              src="/brand/ad-me-wordmark.png"
-              width={132}
-              height={51}
-              alt="AD Me"
-              priority
-            />
-          </Link>
-          <nav aria-label="메인 메뉴">
-            <Link href="/creators">
-              <Search size={16} aria-hidden="true" /> 크리에이터 탐색
-            </Link>
-            <Link href="/jobs">
-              <Megaphone size={16} aria-hidden="true" /> 광고 공고
-            </Link>
-            <Link href="/pricing">
-              <Ticket size={16} aria-hidden="true" /> 요금제
-            </Link>
-          </nav>
-          <Link className="button outline small" href="/dashboard">
-            내 워크스페이스 <span aria-hidden="true">↗</span>
-          </Link>
-        </header>
+        <FigmaNavigation />
         <main id="main" tabIndex={-1}>
           {children}
         </main>
-        <footer>
-          <div>
-            <Image
-              src="/brand/ad-me-wordmark.png"
-              width={105}
-              height={41}
-              alt="AD Me"
-            />
-            <p>좋은 브랜드와 좋은 크리에이터가 만나는 곳.</p>
-          </div>
-          <div>
+        <footer className="figma-footer">
+          <span>© 2026 AD Me · YouTube 크리에이터 협업</span>
+          <nav aria-label="서비스 안내">
             <Link href="/about">서비스·데이터 안내</Link>
             <Link href="/help">도움말·문의</Link>
             <Link href="/privacy">개인정보 처리방침</Link>
             <Link href="/terms">이용약관</Link>
             <Link href="/licenses">오픈소스 고지</Link>
-            <Link href="/login">로그인</Link>
-            <span>© 2026 AD Me · 대학 프로젝트</span>
-          </div>
+          </nav>
         </footer>
       </body>
     </html>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { jobAction, saveJob, saveProduct, searchCreators } from "./actions";
 import { categories } from "@/lib/catalog";
 const formats = ["숏폼", "브랜디드 영상", "제품 리뷰", "언박싱", "라이브"];
@@ -38,65 +38,115 @@ export function JobDraftForm({
   products: { id: string; name: string }[];
 }) {
   const [result, action, pending] = useActionState(saveJob, "");
+  const [preview, setPreview] = useState({
+    title: "",
+    budget: "",
+    category: categories[0],
+    format: formats[0],
+  });
   return (
-    <form className="form ops-form" action={action}>
-      <label>
-        광고 상품
-        <select name="productId" required>
-          {products.map((p) => (
-            <option value={p.id} key={p.id}>
-              {p.name}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label>
-        공고 제목
-        <input name="title" required minLength={2} maxLength={120} />
-      </label>
-      <label>
-        콘텐츠 분야
-        <select name="category">
-          {categories.map((c) => (
-            <option key={c}>{c}</option>
-          ))}
-        </select>
-      </label>
-      <label>
-        YouTube 광고 형식
-        <select name="format">
-          {formats.map((f) => (
-            <option key={f}>{f}</option>
-          ))}
-        </select>
-      </label>
-      <label>
-        총 예산 (원)
-        <input
-          name="budget_krw"
-          type="number"
-          min={10000}
-          max={100000000}
-          required
-        />
-      </label>
-      <label>
-        광고 목표와 요청 결과물
-        <textarea name="goal" required minLength={2} maxLength={500} rows={4} />
-      </label>
-      <label>
-        대상 시청자
-        <input name="target_audience" required minLength={2} maxLength={500} />
-      </label>
-      <label>
-        콘텐츠 분위기 (쉼표로 구분)
-        <input name="vibes" required maxLength={160} />
-      </label>
-      <button className="button primary" disabled={pending}>
-        {pending ? "저장 중…" : "무료로 초안 저장"}
-      </button>
-      <p role="status">{result}</p>
-    </form>
+    <div className="figma-campaign-layout">
+      <form
+        className="form ops-form figma-campaign-form"
+        action={action}
+        onChange={(event) => {
+          const fields = new FormData(event.currentTarget);
+          setPreview({
+            title: String(fields.get("title") ?? ""),
+            budget: String(fields.get("budget_krw") ?? ""),
+            category: String(fields.get("category") ?? ""),
+            format: String(fields.get("format") ?? ""),
+          });
+        }}
+      >
+        <h2>기본 정보</h2>
+        <label>
+          광고 상품
+          <select name="productId" required>
+            {products.map((p) => (
+              <option value={p.id} key={p.id}>
+                {p.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          캠페인 제목
+          <input name="title" required minLength={2} maxLength={120} />
+        </label>
+        <label>
+          콘텐츠 분야
+          <select name="category">
+            {categories.map((c) => (
+              <option key={c}>{c}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          YouTube 광고 형식
+          <select name="format">
+            {formats.map((f) => (
+              <option key={f}>{f}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          총 예산 (원)
+          <input
+            name="budget_krw"
+            type="number"
+            min={10000}
+            max={100000000}
+            required
+          />
+        </label>
+        <label>
+          광고 목표와 요청 결과물
+          <textarea
+            name="goal"
+            required
+            minLength={2}
+            maxLength={500}
+            rows={4}
+          />
+        </label>
+        <label>
+          대상 시청자
+          <input
+            name="target_audience"
+            required
+            minLength={2}
+            maxLength={500}
+          />
+        </label>
+        <label>
+          콘텐츠 분위기 (쉼표로 구분)
+          <input name="vibes" required maxLength={160} />
+        </label>
+        <button className="button primary" disabled={pending}>
+          {pending ? "저장 중…" : "무료로 초안 저장"}
+        </button>
+        <p role="status">{result}</p>
+      </form>
+      <aside
+        className="figma-campaign-summary figma-campaign-draft"
+        aria-label="캠페인 미리보기"
+      >
+        <p className="figma-eyebrow">캠페인 미리보기</p>
+        <h2>{preview.title.trim() || "캠페인 제목"}</h2>
+        <p>
+          {preview.category} · {preview.format}
+        </p>
+        {Number(preview.budget) > 0 && (
+          <p>총 예산 {Number(preview.budget).toLocaleString("ko-KR")}원</p>
+        )}
+        <h3>작성 전 확인</h3>
+        <ul>
+          <li>제작할 콘텐츠와 제공할 상품을 적어주세요.</li>
+          <li>사용할 채널과 대상 시청자를 알려주세요.</li>
+        </ul>
+      </aside>
+    </div>
   );
 }
 
@@ -129,7 +179,7 @@ export function JobForm({
           ? "처리 중…"
           : {
               publish: "게시권 1장으로 공개",
-              close: "공고 마감",
+              close: "캠페인 마감",
               apply: "지원권 1장으로 제출",
             }[kind]}
       </button>

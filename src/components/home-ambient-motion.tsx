@@ -31,7 +31,11 @@ export function HomeAmbientMotion() {
       className="hero-ambient"
       data-running={visible && foreground && !paused}
     >
-      <span className="hero-ambient-shape" aria-hidden="true" />
+      <div className="hero-ambient-shape">
+        <p className="figma-eyebrow">AI MATCH INSIGHT</p>
+        <strong>상품과 조건에 맞는 후보 찾기</strong>
+        <p>콘텐츠 분야 · 타깃 · 광고 예산</p>
+      </div>
       <button
         type="button"
         className="hero-motion-toggle"

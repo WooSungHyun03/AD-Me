@@ -20,8 +20,8 @@ export default async function About() {
       <h2>채널 데이터와 출처</h2>
       <p>
         공개 채널의 이름, 구독자 수, 최근 영상은 YouTube Data API에서
-        가져옵니다. AD Me 등록과 협업 가능 여부는 별도입니다. DEMO로 표시된
-        캠페인은 시연 자료입니다.
+        가져옵니다. 공개 채널의 AD Me 등록과 협업 가능 여부는 채널별로 확인할 수
+        있습니다.
       </p>
       <h2>SNS 플랫폼</h2>
       <p>
