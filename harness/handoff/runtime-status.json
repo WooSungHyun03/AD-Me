@@ -718,9 +718,10 @@
         "harness/evidence/D075/permissions-109-20261123.json",
         "harness/evidence/DEV-A-SEQUENTIAL-20261123/verification.json",
         "harness/evidence/DEV-A-REMAINING-20261123/README.md",
-        "harness/evidence/D075/PRODUCT_OPERATION_20261124.md"
+        "harness/evidence/D075/PRODUCT_OPERATION_20261124.md",
+        "harness/evidence/D075/WINDOWS_GRAPH_20261124.md"
       ],
-      "blocker": "기본 즐겨찾기/CSV/서비스 슬롯과 실제 로컬 Storage·역할 회귀 완료. B D036/D038 named-list/import 공개DTO 계약 및 B D049 전체 경로, 운영 DB/앱 적용과 실환경 권한 전수 검증 필요. 116 상품 내부 operation 분리와9그룹 로컬 회귀·fresh/원자 패킷은 통과했으며 전체 전수 감사 완료로 바꾸지 않는다.",
+      "blocker": "기본 즐겨찾기/CSV/서비스 슬롯과 실제 로컬 Storage·역할 회귀 완료. B D036/D038 named-list/import 공개DTO 계약 및 B D049 전체 경로, 운영 DB/앱 적용과 실환경 권한 전수 검증 필요. 116 상품 내부 operation 분리와9그룹 로컬 회귀·fresh/원자 패킷은 통과했으며 전체 전수 감사 완료로 바꾸지 않는다. Windows 경로 감사의 false-green 수정, 실제317 파일/직접 DB 라우트9개·순환0/위반0와 CLI 행위2계약 통과. 명명 목록/import·전수 DB 수용은 별도. 기존 운영/선행 게이트와 상태는 유지한다.",
       "last_checked_at": "2026-11-23T13:53:32.835691+00:00"
     },
     "D076": {

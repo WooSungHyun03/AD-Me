@@ -5262,13 +5262,14 @@
         "harness/evidence/DEV-A-REMAINING-20261123/README.md",
         "harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md",
         "harness/evidence/D075/PRODUCT_OPERATION_20261124.md",
-        "docs/production-readiness/REFACTOR_IMPACT.md"
+        "docs/production-readiness/REFACTOR_IMPACT.md",
+        "harness/evidence/D075/WINDOWS_GRAPH_20261124.md"
       ],
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": true,
-      "verified_scope": "109-source 로컬98 RLS테이블/371함수/4비공개버킷 메타데이터와 core7·brand7·creator-read8·정규화storage9 그룹 통과. 기본 저장·서비스HOT 통합 결함 전진 수정. 함수 전수 행위/운영은 미완료.116 추가 상품 queue/owner/삭제·만료/결정 CAS/기존 텍스트 호환9그룹,113→116 원자 패킷/비어 있지 않은 이력 보존 및 fresh0→116 통과.",
+      "verified_scope": "109-source 로컬98 RLS테이블/371함수/4비공개버킷 메타데이터와 core7·brand7·creator-read8·정규화storage9 그룹 통과. 기본 저장·서비스HOT 통합 결함 전진 수정. 함수 전수 행위/운영은 미완료.116 추가 상품 queue/owner/삭제·만료/결정 CAS/기존 텍스트 호환9그룹,113→116 원자 패킷/비어 있지 않은 이력 보존 및 fresh0→116 통과. Windows 경로 감사의 false-green 수정, 실제317 파일/직접 DB 라우트9개·순환0/위반0와 CLI 행위2계약 통과. 명명 목록/import·전수 DB 수용은 별도.",
       "operator_refactor_review": {
         "decision": "UPDATE",
         "moved_implementations": {

@@ -5,6 +5,7 @@ import ts from "typescript";
 const root = path.resolve(process.argv[2] ?? ".");
 const src = path.join(root, "src");
 const files = readdirSync(src, { recursive: true })
+  .map((file) => file.replaceAll("\\", "/"))
   .filter((file) => /\.tsx?$/.test(file) && !file.endsWith(".d.ts"))
   .sort();
 const known = new Set(files);
