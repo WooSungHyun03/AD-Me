@@ -31,7 +31,7 @@ async function ProductList({
   return (
     <>
       <p>
-        공고 초안에 연결할 상품을 등록하세요. 이 목록은 내 브랜드 계정에서만 볼
+        캠페인 초안에 연결할 상품을 등록하세요. 이 목록은 내 브랜드 계정에서만 볼
         수 있습니다.
       </p>
       <ProductForm />
@@ -55,7 +55,7 @@ async function ProductList({
         <p className="empty">등록한 상품이 없습니다.</p>
       )}
       <Link className="button outline" href="/jobs/new">
-        공고 초안 만들기
+        캠페인 초안 만들기
       </Link>
     </>
   );

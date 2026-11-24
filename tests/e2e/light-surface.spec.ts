@@ -31,7 +31,7 @@ test("light public surfaces and candidate entry points fit each viewport", async
     "/brand/products",
   );
   await expect(
-    page.getByRole("link", { name: "공고 찾아보기" }),
+    page.getByRole("link", { name: "캠페인 찾아보기" }),
   ).toHaveAttribute("href", "/jobs");
 });
 

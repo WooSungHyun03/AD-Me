@@ -14,13 +14,10 @@ export default function Privacy() {
       <h2>보관과 공개</h2>
       <p>
         {c.retention} 공개로 설정한 자료만 공개하며 제안·메시지·주문은 현재
-        권한을 확인합니다. 가상 시연 데이터는 실존 인물과 무관합니다.
+        권한을 확인합니다.
       </p>
       <h2>처리 서비스</h2>
-      <p>
-        {c.processors} TEST 결제는 별도 격리 환경에서만 제공하며 카드번호를 AD
-        Me에 저장하지 않습니다.
-      </p>
+      <p>{c.processors} 카드번호는 AD Me에 저장하지 않습니다.</p>
       <h2>사용자의 선택</h2>
       <p>
         {c.rights} {c.adult} 민감한 개인정보를 프로필·메시지·결과물에 입력하지

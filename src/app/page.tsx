@@ -152,7 +152,7 @@ export default function Home() {
             </h2>
             <p>내 채널에 맞는 캠페인을 찾아보세요.</p>
             <Link className="button primary" href="/jobs">
-              공고 찾아보기 <ArrowUpRight size={16} aria-hidden="true" />
+              캠페인 찾아보기 <ArrowUpRight size={16} aria-hidden="true" />
             </Link>
           </div>
         </div>

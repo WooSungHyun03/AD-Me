@@ -7,6 +7,7 @@ import { logout } from "@/app/actions";
 import { DealControls, ReadButton } from "@/components/deal-controls";
 import { Conversation } from "@/components/conversation";
 import { canTransition } from "@/lib/schemas";
+import { isDemoMode } from "@/lib/mode";
 export default async function Dashboard() {
   const user = await currentUser();
   if (!user) redirect("/login");
@@ -281,43 +282,47 @@ export default async function Dashboard() {
               directory.has(channel_id),
             ) && <p>탐색에서 관심 있는 후보를 저장해보세요.</p>}
       </div>
-      <h2 style={{ marginTop: 45 }}>이용권·결제 내역</h2>
-      {entitlements?.map((e) => (
-        <p className="notice" key={e.id}>
-          {e.sku} ·{" "}
-          {new Date(e.expires_at).toLocaleDateString("ko-KR", {
-            timeZone: "Asia/Seoul",
-          })}{" "}
-          만료 · 잔여 크레딧 {e.credits}
-        </p>
-      ))}
-      <div className="table-scroll">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>상품</th>
-              <th>TEST 금액</th>
-              <th>상태</th>
-              <th>주문일</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders?.map((o) => (
-              <tr key={o.id}>
-                <td>{o.sku}</td>
-                <td>{o.amount.toLocaleString()}원</td>
-                <td>{o.status}</td>
-                <td>
-                  {new Date(o.created_at).toLocaleDateString("ko-KR", {
-                    timeZone: "Asia/Seoul",
-                  })}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {!orders?.length && <p className="empty">결제 내역이 없습니다.</p>}
-      </div>
+      {isDemoMode() && (
+        <>
+          <h2 style={{ marginTop: 45 }}>이용권·결제 내역</h2>
+          {entitlements?.map((e) => (
+            <p className="notice" key={e.id}>
+              {e.sku} ·{" "}
+              {new Date(e.expires_at).toLocaleDateString("ko-KR", {
+                timeZone: "Asia/Seoul",
+              })}{" "}
+              만료 · 잔여 크레딧 {e.credits}
+            </p>
+          ))}
+          <div className="table-scroll">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>상품</th>
+                  <th>TEST 금액</th>
+                  <th>상태</th>
+                  <th>주문일</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders?.map((o) => (
+                  <tr key={o.id}>
+                    <td>{o.sku}</td>
+                    <td>{o.amount.toLocaleString()}원</td>
+                    <td>{o.status}</td>
+                    <td>
+                      {new Date(o.created_at).toLocaleDateString("ko-KR", {
+                        timeZone: "Asia/Seoul",
+                      })}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {!orders?.length && <p className="empty">결제 내역이 없습니다.</p>}
+          </div>
+        </>
+      )}
     </section>
   );
 }
