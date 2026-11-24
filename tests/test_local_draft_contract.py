@@ -3,6 +3,7 @@ import importlib.util
 import json
 from pathlib import Path
 import unittest
+import sys
 from unittest.mock import patch
 
 spec = importlib.util.spec_from_file_location('draft_worker', Path(__file__).resolve().parents[1]/'scripts/intelligence_worker.py')
@@ -15,6 +16,22 @@ def response(**extra):
                 message={'content': json.dumps({'concept':'가상 제품의 사용 장면 초안', 'outline':['광고 표기와 권리 확인'], 'proposal':'발송하지 않은 협업 제안 초안'}, ensure_ascii=False)}, **extra)
 
 class DraftContract(unittest.TestCase):
+    def test_owned_product_job_binds_source_and_preserves_model_fingerprint_with_two_heartbeats(self):
+        scripts=str(Path(__file__).resolve().parents[1]/'scripts')
+        if scripts not in sys.path:sys.path.insert(0,scripts)
+        payload=response()
+        payload['message']['content']=json.dumps({'suggestions':[{'kind':'category','value':'음식','field':'description','quote':'음식'}]})
+        job={'id':'fictional-job','lease':'fictional-lease','kind':'marketing_draft','input':'opaque product marker','operation':'product_conditions_v1','productSourceVersion':'a'*64,
+             'productSource':{'name':'가상 상품','description':'음식 분야의 가상 상품입니다','audience':'가상 성인 고객'}}
+        with patch.object(worker,'rpc',side_effect=[True,True])as rpc,patch.object(worker,'model_request',return_value=payload)as model:
+            result=worker.process(job)
+        self.assertEqual(result['sourceContract'],'owned-product-v1');self.assertEqual(result['sourceVersion'],'a'*64)
+        self.assertEqual(len(result['modelSourceVersion']),64);self.assertNotEqual(result['modelSourceVersion'],result['sourceVersion'])
+        self.assertTrue(result['requiresConfirmation']);self.assertFalse(result['applied']);self.assertEqual(rpc.call_count,2);model.assert_called_once()
+        for extra in [{'operation':'unapproved'},{'productSource':{'ownerId':'forged'}},{'productSourceVersion':'bad'}]:
+            with patch.object(worker,'rpc')as rpc,patch.object(worker,'model_request')as model:
+                with self.assertRaises(worker.WorkerError):worker.process({**job,**extra})
+                rpc.assert_not_called();model.assert_not_called()
     def test_schema_versions_usage_and_pii_minimization(self):
         payload = response()
         raw = json.loads(payload['message']['content'])

@@ -22,7 +22,7 @@ SCHEMA = {
         }}}},
 }
 
-def propose_product_conditions(name, description, audience=''):
+def propose_product_conditions(name, description, audience='', *, transport=None):
     inputs={'name':name,'description':description,'audience':audience}
     for key,minimum,maximum in [('name',2,100),('description',5,1200),('audience',0,160)]:
         value=inputs[key]
@@ -31,7 +31,7 @@ def propose_product_conditions(name, description, audience=''):
         inputs[key]=redact_model_text(value.strip())
     canonical=json.dumps(inputs,ensure_ascii=False,sort_keys=True,separators=(',',':'))
     version=hashlib.sha256(canonical.encode()).hexdigest()
-    response=model_request('/api/chat',{
+    response=(transport or model_request)('/api/chat',{
         'model':MODEL,'stream':False,'think':False,'format':SCHEMA,
         'options':{'temperature':0,'num_ctx':4096,'num_predict':650,'num_thread':4},
         'messages':[

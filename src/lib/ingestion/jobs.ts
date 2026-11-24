@@ -1,6 +1,7 @@
 import "server-only";
 import { z } from "zod";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { productConditionSource } from "../product-conditions";
 const channel = z.string().regex(/^UC[A-Za-z0-9_-]{22}$/);
 export const ingestionCheckpointSchema = z
   .strictObject({
@@ -16,22 +17,40 @@ export const ingestionCheckpointSchema = z
     )
       c.addIssue({ code: "custom", message: "Invalid checkpoint membership" });
   });
-export const ingestionLeaseSchema = z.object({
-  id: z.uuid(),
-  kind: z.enum([
-    "youtube_channel",
-    "youtube_daily",
-    "youtube_claim",
-    "marketing_draft",
-  ]),
-  input: z.string().max(1600),
-  lease: z.uuid(),
-  policyVersion: z.string().min(1).max(80).optional(),
-  cacheTtlSeconds: z.number().int().min(60).max(2592000).optional(),
-  checkpoint: z
-    .union([z.strictObject({}), ingestionCheckpointSchema])
-    .optional(),
-});
+export const ingestionLeaseSchema = z
+  .object({
+    id: z.uuid(),
+    kind: z.enum([
+      "youtube_channel",
+      "youtube_daily",
+      "youtube_claim",
+      "marketing_draft",
+    ]),
+    input: z.string().max(1600),
+    lease: z.uuid(),
+    policyVersion: z.string().min(1).max(80).optional(),
+    cacheTtlSeconds: z.number().int().min(60).max(2592000).optional(),
+    checkpoint: z
+      .union([z.strictObject({}), ingestionCheckpointSchema])
+      .optional(),
+    operation: z.literal("product_conditions_v1").optional(),
+    productSource: productConditionSource.optional(),
+    productSourceVersion: z
+      .string()
+      .regex(/^[a-f0-9]{64}$/)
+      .optional(),
+  })
+  .superRefine((job, ctx) => {
+    const owned = [job.operation, job.productSource, job.productSourceVersion];
+    if (
+      owned.some((v) => v !== undefined) &&
+      (owned.some((v) => v === undefined) || job.kind !== "marketing_draft")
+    )
+      ctx.addIssue({
+        code: "custom",
+        message: "Incomplete owned product operation",
+      });
+  });
 export async function heartbeatIngestionJob(
   db: SupabaseClient,
   workerToken: string,

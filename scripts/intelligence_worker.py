@@ -384,9 +384,23 @@ def process(job):
         return []
     match job["kind"]:
         case "marketing_draft":
+            operation = job.get("operation")
+            if operation is not None and operation != "product_conditions_v1":
+                raise WorkerError("UNKNOWN_JOB_OPERATION")
+            if operation == "product_conditions_v1":
+                source = job.get("productSource")
+                version = job.get("productSourceVersion")
+                if not isinstance(source, dict) or set(source) != {"name", "description", "audience"} or not isinstance(version, str) or not re.fullmatch(r"[a-f0-9]{64}", version):
+                    raise WorkerError("PRODUCT_INPUT_INVALID")
             if not rpc("ops_worker_heartbeat", p_id=job["id"], p_lease=job["lease"]):
                 raise WorkerError("LEASE_LOST")
-            output = draft(job["input"])
+            if operation == "product_conditions_v1":
+                from product_conditions import propose_product_conditions
+                output = propose_product_conditions(**source, transport=model_request)
+                output = {**output, "modelSourceVersion": output["sourceVersion"], "sourceVersion": version,
+                          "sourceContract": "owned-product-v1"}
+            else:
+                output = draft(job["input"])
             if not rpc("ops_worker_heartbeat", p_id=job["id"], p_lease=job["lease"]):
                 raise WorkerError("LEASE_LOST")
             return output
