@@ -4,7 +4,7 @@ ALL_TICKETS.json에서 생성했다. 상태와 기존 이력은 검증 범위별
 
 ## D001 · 무료 실서비스·TEST 시연 모드 분리
 
-DEV-B · P0 · S0 출시 차단 · UX · TODO · 3 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · UX · TESTED · 3 SP · ACTIVE
 
 - **현재 문제** — 운영은 무료 모드로 열리지만 독립된 공개 시연/정식 결제 환경과 데이터 격리 증빙이 부족하다.
 - **재현·관찰** — 운영 GET /pricing과 격리 TEST 결제 사례를 비교하고 동일 계정의 크레딧·노출이 다른 환경으로 번지지 않는지 검증한다.
@@ -20,8 +20,8 @@ DEV-B · P0 · S0 출시 차단 · UX · TODO · 3 SP · ACTIVE
 - **보안** — 동일 사용자로 환경을 바꿔도 TEST entitlement가 무료 실서비스 권한/노출을 변경하지 않아야 한다.
 - **검증** — 환경별 라우트·상품·데이터 노출 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 실서비스는 무료 기능만 노출하고 TEST 상품·시연 데이터는 별도 환경으로 격리한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D001/ (이번 검증 기록 위치)
+- **차단 요인** — 로컬 무료/TEST·역할·반복 거부·회수 검증 범위만 TESTED. 운영 선행 스키마 전환/지문 승인과118 적용, 독립 운영 환경 분리 및 실제 관리자 API 확인은 BLOCKED_EXTERNAL. 실제 Toss 승인·전체 출시 VERIFIED 아님.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D001/ (이번 검증 기록 위치) · harness/evidence/D001/GRANT_BOUNDARY_20261124.md
 - **Figma 노드** — [11 · 요금제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271) · [11 · 요금제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492)
 - **이전 기록** — OPEN
 

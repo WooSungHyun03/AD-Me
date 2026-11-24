@@ -677,3 +677,9 @@ GitHub 소유자 승인 뒤 Vercel 프로젝트를 연결했다. Vercel API 기�
 - 후속 Figma 호환 배포 `dpl_9nWr4BscAEwxyPtzacDUaJx3wbhG`를 운영 도메인으로 승격했다. /recommendations 및 실제 YouTube 상세, 공개 서비스 안내 검증을 추가했다.
 - 운영 기존 원장 41건을 재현한 격리 스키마에 검토용 변경을 적용해 상품 분석 RPC 계약 9개 그룹을 통과시켰다. 운영에서는 데이터 이관·권한 전환·Cron과 기존 동선의 호환성을 남겼다.
 - 최신 main의 캠페인 게시·지원 완료 상태와 신규 메시지 화면을 격리 브라우저 데스크톱·모바일로 재검증했다. 단위 테스트 517건, 린트·타입·빌드가 통과했다.
+
+## 2026-11-24 — DEV-B D001 수동 TEST 발급 경계
+
+- 최신main8ec0ec2 독립트리에서 D001 선정, 작업 중 d471c1b FF통합. 무료/featureOFF API200와 DBOFF fresh관리자 발급을 재현해 grant만 서버 feature/DB boundary로 차단, 회수·기존 데이터 유지. CLI 신규118, 적용 SQL 불변. DEV-A 교차리뷰 P2 전체 QA 제어행 복원 보완 및 재검토.
+- 통합 소스 lint/typecheck/Vitest523/build,118 migration_check, fresh0→118 및117→118 rollback/실패주입, 역할REST3그룹, 무료 desktop/mobile2 + 실제 로컬Auth OTP TEST관리자 API desktop/mobile2 PASS. 초기 단위 실행 경합과 기존 catalog GET405/400 미해결을 증빙에 분리. 운영118/환경분리/관리자 확인은 BLOCKED_EXTERNAL, Toss/운영DB/외부 승인 실행 없음. D001 TESTED/runtimeLOCAL_VERIFIED이며 DONE아님.
+- 증빙 harness/evidence/D001/GRANT_BOUNDARY_20261124.md 및 verification-20261124.json, 공개 캡처4개. 인계 deliverables/d001-grant-boundary-20261124/. 이전 패킷/이력 보존, 원장D001 외 상대 상태 변경없음.

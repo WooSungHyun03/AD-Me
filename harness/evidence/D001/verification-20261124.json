@@ -1,0 +1,47 @@
+{
+  "ticket": "D001",
+  "date_kst": "2026-11-24T17:01:46+09:00",
+  "baseline_main": "8ec0ec2658aefed7d9918873822dcd0a1ea23ef4",
+  "integrated_parent": "d471c1b6259bf136a7d93896b94b915d9d64c7fd",
+  "source_sha256_lf": {
+    "src/app/api/admin/entitlements/route.ts": "df666e72c9eba32f976caa4bbfa180ff4660060828867ce5173e3183c9266bc0",
+    "supabase/migrations/20261124074917_test_entitlement_grant_boundary.sql": "14b5b389888e100891142aca5d1a938ff3b1cfbe7fa954c998e2f41014b93108"
+  },
+  "scope": "fictional loopback PostgreSQL/PostgREST/Auth; no Toss provider or hosted DB mutation",
+  "results": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "vitest": {
+      "files": 88,
+      "passed": 523,
+      "failed": 0
+    },
+    "build": "PASS npm run build",
+    "migration_static": 118,
+    "fresh_migrations": 118,
+    "upgrade_117_118": "PASS",
+    "rollback_and_injected_failure": "PASS",
+    "role_rest_groups": 3,
+    "playwright_free": {
+      "desktop": 1,
+      "mobile": 1
+    },
+    "playwright_test_real_local_otp": {
+      "desktop": 1,
+      "mobile": 1
+    },
+    "qa_boundary_exact_restore": "PASS enabled/release_ref/changed_at"
+  },
+  "retained_failures": [
+    "initial baseline API200 vs404 and DB grant while OFF",
+    "initial unit scan timeout with build resource contention; unchanged tests pass after serial execution",
+    "integrated unit ENOENT test-results/d078.log due concurrent Playwright cleanup; serial final523 pass",
+    "existing wider catalog GET expected405 actual400; first3 D001 DB groups passed"
+  ],
+  "external": {
+    "hosted_migration_and_admin_validation": "BLOCKED_EXTERNAL",
+    "production_pricing_read_only": "HTTP200 free beta present, TEST product marker absent",
+    "figma_reference_screenshot": "BLOCKED file edit access",
+    "actual_toss": "NOT_RUN outside this local contract"
+  }
+}

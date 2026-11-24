@@ -2,6 +2,7 @@ import { compatibleApiRoute } from "@/lib/api";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { context, fail, safeOrigin } from "@/lib/api";
+import { getConfig } from "@/lib/config";
 // D069: admin manual grant (reason required) and revoke/recover. The DB re-checks the admin role and limits.
 const schema = z.discriminatedUnion("action", [
   z.object({
@@ -18,7 +19,7 @@ const schema = z.discriminatedUnion("action", [
     note: z.string().trim().min(5).max(300),
   }),
 ]);
- async function handlePOST(req: Request) {
+async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -26,6 +27,8 @@ const schema = z.discriminatedUnion("action", [
   if (!p.success)
     return fail("입력값을 확인해주세요. 사유는 5자 이상이어야 합니다.");
   const d = p.data;
+  if (d.action === "grant" && getConfig().features.testBilling !== "enabled")
+    return fail("이용권 발급을 사용할 수 없습니다.", 404);
   const { error } =
     d.action === "grant"
       ? await c.db.rpc("admin_grant_entitlement", {
@@ -36,6 +39,8 @@ const schema = z.discriminatedUnion("action", [
           p_note: d.note,
         })
       : await c.db.rpc("revoke_entitlement", { p_id: d.id, p_reason: d.note });
+  if (error?.code === "PT404")
+    return fail("이용권 발급을 사용할 수 없습니다.", 404);
   if (error)
     return error.message.includes("forbidden")
       ? fail("관리자 권한이 필요합니다.", 403)
@@ -48,4 +53,7 @@ const schema = z.discriminatedUnion("action", [
   return NextResponse.json({ ok: true });
 }
 
-export const POST=compatibleApiRoute("src/app/api/admin/entitlements/route.ts.POST",handlePOST);
+export const POST = compatibleApiRoute(
+  "src/app/api/admin/entitlements/route.ts.POST",
+  handlePOST,
+);

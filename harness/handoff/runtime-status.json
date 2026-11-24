@@ -4,9 +4,12 @@
   "tickets": {
     "D001": {
       "owner": "DEV-B",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "LOCAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/D001/GRANT_BOUNDARY_20261124.md"
+      ],
+      "blocker": "무료 환경 수동 TEST grant의 API/DB 차단 로컬 검증. 운영118 적용·대상 스키마 승인/환경 격리·실제 관리자 URL 확인은 BLOCKED_EXTERNAL. DONE 아님. 기존 catalog GET 회귀405/400 실패는 별도 범위로 증빙에 보존.",
+      "last_checked_at": "2026-11-24T17:01:46+09:00"
     },
     "D002": {
       "owner": "DEV-A",

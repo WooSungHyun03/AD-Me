@@ -37,13 +37,14 @@
       "acceptance": "실서비스는 무료 기능만 노출하고 TEST 상품·시연 데이터는 별도 환경으로 격리한다.",
       "points": 3,
       "owner": "DEV-B",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "로컬 무료/TEST·역할·반복 거부·회수 검증 범위만 TESTED. 운영 선행 스키마 전환/지문 승인과118 적용, 독립 운영 환경 분리 및 실제 관리자 API 확인은 BLOCKED_EXTERNAL. 실제 Toss 승인·전체 출시 VERIFIED 아님.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D001/ (이번 검증 기록 위치)"
+        "harness/evidence/D001/ (이번 검증 기록 위치)",
+        "harness/evidence/D001/GRANT_BOUNDARY_20261124.md"
       ],
-      "status": "TODO",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,
