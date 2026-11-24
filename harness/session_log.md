@@ -621,3 +621,10 @@ USER requested all feasible tickets in order, keeping direct main push and ticke
 
 - 원격 DEV-A 작업과 검증 이력을 최신 main으로 반영한 뒤 115개 원장을 세 역할로 나눴다. 운영자 문서에 기존 U/BUSINESS 항목, PR-003 Local AI 호스트 운영과 O001 웹디자인 승인을 연결했다.
 - 로컬 AI 호출 코드와 웹 화면 통합은 개발자 인계로 유지했다. 운영 배포·키 등록·외부 승인에 필요한 확인과 담당 범위는 운영자 문서에 모았다.
+
+## 2026-11-24 — 최신 main 반영 및 상품 조건 로컬 통합
+
+- main7ae25a6 문서/역할 변경을 기존 codex/dev-a-p0-continue에 fast-forward, 기능 코드 충돌 없음. 모델 host PR-003는 OPERATOR 소유이므로 가동하지 않음.
+- D048 f8087d7 기존 worker operation 계약; PR-001083395d 소유 상품/버전·큐·확인/거부→명시 검색; D0755fc6838 private operation/legacy 호환; D0391519bad YouTube·부정/OR 거부. PR-001/D039 로컬 TESTED, 전체 VERIFIED/DONE 아님.
+- 최종504unit/43Python/lint/typecheck/build/영향 desktop-mobile6, 상품 SQL/REST9그룹·legacy draft, fresh0→116, 엄격113→116 원자 USER패킷 PASS. 전체 원격 CI/실제 provider·메일·Toss·운영 적용 미완료. Vitest 병렬 자원 경합 timeout은 maxWorkers4로 제한, 기존 assertion/5s timeout/isolation 유지.
+- A ACTIVE 미완료36 = TESTED23+추가 구현·통합·외부선행13(P0 9/P1 3/P2 1). 상세/증빙 harness/evidence/DEV-A-PRODUCT-CONDITIONS-20261124/. U001 미확정, collection OFF/정책·기간NULL 유지. main/A 자동 배포 차단 유지, 로컬 QA는 volume 보존 종료.

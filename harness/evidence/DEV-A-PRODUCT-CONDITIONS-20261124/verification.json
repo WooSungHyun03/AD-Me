@@ -1,0 +1,86 @@
+{
+  "base_main": "7ae25a63e8b83b180e21454cd9142cc14457091f",
+  "tested_product_commit": "1519bad5181778d37ae94d52f4240fa5edce0cbf",
+  "tickets": [
+    "D048",
+    "PR-001",
+    "D075",
+    "D039",
+    "D084"
+  ],
+  "scope": "actual isolated local SQL/Auth/REST/queue/cron; synthetic model responses and explicit fictional data; no hosted/provider/model-runtime acceptance this session",
+  "checks": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": {
+      "result": "PASS",
+      "tests": 504,
+      "files": 84
+    },
+    "python": {
+      "result": "PASS",
+      "tests": 43
+    },
+    "build": "PASS Next production-mode build with loopback QA TEST environment",
+    "browser": {
+      "result": "PASS",
+      "distinctScenarios": 6,
+      "projects": [
+        "desktop",
+        "mobile"
+      ],
+      "product": 2,
+      "naturalScope": 2,
+      "legacyCampaignPolicy": 2,
+      "scopeScreenshotRefresh": 2,
+      "fullSuiteRun": false
+    },
+    "productSecurity": {
+      "result": "PASS",
+      "groups": 9
+    },
+    "legacyDraftProvenance": "PASS using synthetic provider output",
+    "migrationStatic": {
+      "result": "PASS",
+      "sources": 116
+    },
+    "freshDatabase": {
+      "result": "PASS",
+      "from": 0,
+      "to": 116,
+      "seeded": false,
+      "workdir": "output/dev-a-packet-db"
+    },
+    "packetUpgrade": "PASS113→116 including rollback/nonempty legacy/flags/receipts/replay",
+    "secretScanAndClientBundle": "PASS",
+    "handoffAndBacklog": "PASS historical runtime IDs preserved; current canonical115",
+    "deploymentHold": "PASS main/A unchanged"
+  },
+  "knownFailuresAndCorrections": [
+    "Concurrent build plus auto Vitest workers caused the repository secret-scan unit to hit its unchanged5s timeout. Cap Vitest workers to min(4, available CPU); retain test isolation/timeout/assertions. Final all504 pass.",
+    "Initial browser selector ambiguity with Next route-announcer/native options corrected by scoped exact semantic locators. No skipped assertions.",
+    "Natural-search screenshot initially captured pending catalog; add settled-count/no-loading assertions, desktop/mobile re-pass."
+  ],
+  "remainingGates": [
+    "U001 actual privacy/retention policy remains unconfirmed; collectionOFF and NULL policy/retention",
+    "OPERATOR PR-003 actual approved worker/model host and rollout acceptance",
+    "B D079 export/erasure/restore and D085 DB/app rollout/recovery review",
+    "Full B D049/named-list/import/provider/mail/Toss TEST and operating regression remain incomplete"
+  ],
+  "source_sha256": {
+    "src/lib/product-conditions.ts": "a3dbd1dd57071e6b25fa1dcea7c4c7fd8f3fc2880753f918c245199d822c92f9",
+    "src/lib/product-condition-workflow.ts": "c2121f7ffae890282342e9ec344019d812cb9ff306e967f32d4b6d52df33dc1a",
+    "src/app/api/product-conditions/route.ts": "43ee439225ad148ed00c6329f278f3545cbf980e3f3963839e47114d600db6f1",
+    "src/app/brand/products/[id]/recommendations/page.tsx": "1cacc24f006ee19601115f0ae6538878194a9bf272bee1c7b2db32a1f35ecc5b",
+    "src/components/product-condition-workbench.tsx": "fedcc2013db25d9c628e0e4da599eeba10a6c787d79255be0a2f9d81e9748eec",
+    "src/components/recommendation-brief.tsx": "49b6b91b50cf85a23747ea98f55d4c27b356b5c32949a492eda419310c0946f9",
+    "src/app/recommend-creators.ts": "630871f377fb9b0e235b5b06daafb9c9d6f41982d4a34e7b6f5046c794859001",
+    "src/lib/search-parser.ts": "e4953f1c76ac3ddb1dffef9cd6661f9690fb441ff4e69486100a00e6adc00da5",
+    "src/components/search-proposal.tsx": "2cd26be8685b1d20398f856ec2976a38a8481a32335c3339fb283608461b310d",
+    "scripts/intelligence_worker.py": "d07945ce398fce609d0467bf9ada5bb02a5dea8178c27851f331d096c347fb04",
+    "scripts/product_conditions.py": "bf273ca43a141ba74758dda35f716b3813dacdc30932d1765fa02a7f3e6afc2c",
+    "src/lib/ingestion/jobs.ts": "47944ddfcc648b6769eb107d1d8a4de1b12460a2f098cbce5389f481ae72b564",
+    "vitest.config.ts": "bd907ed2c47ce704c3fb277c42b6b0222a2f23f6abd453d3db061d70163830f6"
+  },
+  "packet_archive_sha256": "f770214cf8939ed50437c6356fc44dee2c7c37d4106883d520b12c12d3cdc9fb"
+}

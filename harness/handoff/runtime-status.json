@@ -468,9 +468,10 @@
         "harness/evidence/D048/DEADLINE_20261123.md",
         "harness/evidence/DEV-A-SEQUENTIAL-20261123/verification.json",
         "harness/evidence/D048/QUEUE_PROVENANCE_20261123.md",
-        "harness/evidence/DEV-A-REMAINING-20261123/README.md"
+        "harness/evidence/DEV-A-REMAINING-20261123/README.md",
+        "harness/evidence/D048/OWNED_OPERATION_20261124.md"
       ],
-      "blocker": "고정 loopback CPU Qwen 실제 합성 입력 추론/로컬 private queue bridge 검증. 공통 configuredProvider=null 수동 템플릿은 유지. 운영 worker 접속/예약·소비자 연결, B D086 TTL/전역동시성·실환경 수용 별도.",
+      "blocker": "소유 상품 operation의 기존 예산 큐 소비/사전·사후 heartbeat/엄격한 출처 계약 연결 완료(f8087d7), PR-001 로컬 end-to-end는 합성 결과로 검증. OPERATOR PR-003 실제 worker/model host, B D086 TTL/전역동시성·실환경 수용 별도; 이번 세션 모델 host 가동 없음.",
       "last_checked_at": "2026-11-23T13:53:32.835691+00:00"
     },
     "D049": {
@@ -816,9 +817,10 @@
         "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json",
         "harness/evidence/D084/FRESH_113_20261123.md",
-        "harness/evidence/DEV-A-REMAINING-20261123/README.md"
+        "harness/evidence/DEV-A-REMAINING-20261123/README.md",
+        "harness/evidence/DEV-A-PRODUCT-CONDITIONS-20261124/verification.json"
       ],
-      "blocker": "로컬 fresh0→113,494unit/42Python/영향 desktop-mobile14 PASS. GitHub 기존 checks 성공이나 DB 통합 CI 취소; B D049/D075 전체 흐름·실제 provider/메일/Toss TEST·복구 및 운영 적용 미완료.",
+      "blocker": "최종 로컬504unit/43Python/lint/typecheck/build/영향 desktop-mobile6/fresh0→116/113→116 원자 패킷 통과. 전체 E2E 및 B D049/D075 전수, 실제 provider/메일/Toss TEST·복구·운영 적용과 최신 remote CI는 별도 미완료.",
       "last_checked_at": "2026-11-23T13:53:32.835691+00:00"
     },
     "D085": {

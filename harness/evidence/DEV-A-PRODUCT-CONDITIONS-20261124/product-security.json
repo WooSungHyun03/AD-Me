@@ -1,0 +1,41 @@
+{
+  "scope": "actual local SQL/REST/queue/cron; fictional actors/policies and synthetic model output, no operator model startup",
+  "results": [
+    {
+      "name": "defaultOFF and invalid policy gate create no job; owner role/foreign/raw-table/helper gates deny",
+      "result": "PASS"
+    },
+    {
+      "name": "contact-only source is rejected after minimization before any quota/job reservation",
+      "result": "PASS"
+    },
+    {
+      "name": "five concurrent create retries persist one source/key/quota receipt and reject changed product/audience",
+      "result": "PASS"
+    },
+    {
+      "name": "real budgeted claim delivers minimized bound source; invalid result is withheld and retried under same job",
+      "result": "PASS"
+    },
+    {
+      "name": "server confirm requires valid indices; five same-key CAS retries produce one immutable decision",
+      "result": "PASS"
+    },
+    {
+      "name": "source change hides old output and prevents stale confirmation without modifying saved selection",
+      "result": "PASS"
+    },
+    {
+      "name": "product deletion revokes an existing lease/result; confirmation is never automatic",
+      "result": "PASS"
+    },
+    {
+      "name": "operational deadline terminates pending work; policy expiry physically purges source/result via scheduled sweep",
+      "result": "PASS"
+    },
+    {
+      "name": "legacy reserved-prefix text remains a normal draft operation",
+      "result": "PASS"
+    }
+  ]
+}
