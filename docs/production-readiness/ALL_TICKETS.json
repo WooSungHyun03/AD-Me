@@ -5284,18 +5284,20 @@
       "acceptance": "한국어 상품 5개에서 근거가 있는 구조만 생성, 입력 확인 전 지출/공개 없음, 타 계정 상품 차단, 관련 없는 후보와 가짜 채널 0, 모델 중단 때 수동 추천 유지.",
       "points": 8,
       "owner": "DEV-A",
-      "blockers": "독립 model/Zod 추출 계약과 실제 합성 입력 시험. 소유 상품·버전 바인딩, operation queue/idempotency, 확인/거부 UI→필터 및 운영 D048 계약 통합 미완료.",
+      "blockers": "기본 collection OFF, policy_ref/retention 미설정. U001 승인·B D079 export/삭제/복구 검토, OPERATOR PR-003 실제 worker/model 수용, B D085 DB/app 호환 배포·복구/실제 URL 회귀가 남음. VERIFIED/DONE 아님.",
       "evidence": [
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/PR-001/ (신규 검증 기록 위치)",
         "harness/evidence/PR-001/PROMPT_FIX_20261123.md",
         "harness/evidence/DEV-A-REMAINING-20261123/README.md",
-        "harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md"
+        "harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md",
+        "harness/evidence/PR-001/WORKFLOW_20261124.md"
       ],
-      "status": "IN_PROGRESS",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": null,
-      "reopened": false
+      "reopened": false,
+      "verified_scope": "116-source 격리 소유 상품→기존 예산 큐→검토/확인·거부→명시적 검색. 실제 로컬 SQL/REST와 합성 모델 결과; desktop/mobile 각1 시나리오. 실제 모델/운영 수용은 미검증."
     },
     {
       "id": "PR-002",

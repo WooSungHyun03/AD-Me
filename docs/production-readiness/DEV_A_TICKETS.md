@@ -706,7 +706,7 @@ DEV-A · P0 · S0 출시 차단 · QA · IN_PROGRESS · 8 SP · ACTIVE
 
 ## PR-001 · 브랜드 상품 설명을 추천 입력으로 변환
 
-DEV-A · P0 · S0 출시 차단 · AI · IN_PROGRESS · 8 SP · ACTIVE
+DEV-A · P0 · S0 출시 차단 · AI · TESTED · 8 SP · ACTIVE
 
 - **현재 문제** — 현재 홈은 선택한 주제·예산으로 후보를 고르지만 상품과 타깃 원문을 모델이 분석해 승인 가능한 조건으로 바꾸지는 않는다.
 - **재현·관찰** — 운영 홈에서 주제·예산을 고정하고 상품/타깃만 바꿔 결과와 추천 근거를 비교한다. 로컬 draft()와 실제 추천 입력 계약이 연결되지 않은 것을 확인한다.
@@ -722,8 +722,9 @@ DEV-A · P0 · S0 출시 차단 · AI · IN_PROGRESS · 8 SP · ACTIVE
 - **보안** — 민감한 사람 특성 추론과 원본 원고 유출을 차단한다. raw output을 UI에 곧바로 표시하지 않는다.
 - **검증** — 한국어 상품 5개에서 근거가 있는 구조만 생성, 입력 확인 전 지출/공개 없음, 타 계정 상품 차단, 관련 없는 후보와 가짜 채널 0, 모델 중단 때 수동 추천 유지.
 - **완료 조건** — 한국어 상품 5개에서 근거가 있는 구조만 생성, 입력 확인 전 지출/공개 없음, 타 계정 상품 차단, 관련 없는 후보와 가짜 채널 0, 모델 중단 때 수동 추천 유지.
-- **차단 요인** — 독립 model/Zod 추출 계약과 실제 합성 입력 시험. 소유 상품·버전 바인딩, operation queue/idempotency, 확인/거부 UI→필터 및 운영 D048 계약 통합 미완료.
-- **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-001/ (신규 검증 기록 위치) · harness/evidence/PR-001/PROMPT_FIX_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
+- **차단 요인** — 기본 collection OFF, policy_ref/retention 미설정. U001 승인·B D079 export/삭제/복구 검토, OPERATOR PR-003 실제 worker/model 수용, B D085 DB/app 호환 배포·복구/실제 URL 회귀가 남음. VERIFIED/DONE 아님.
+- **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-001/ (신규 검증 기록 위치) · harness/evidence/PR-001/PROMPT_FIX_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md · harness/evidence/PR-001/WORKFLOW_20261124.md
+- **검증 범위** — 116-source 격리 소유 상품→기존 예산 큐→검토/확인·거부→명시적 검색. 실제 로컬 SQL/REST와 합성 모델 결과; desktop/mobile 각1 시나리오. 실제 모델/운영 수용은 미검증.
 
 ## PR-002 · 허용된 콘텐츠 태그의 저장·검토·공개 파이프라인
 

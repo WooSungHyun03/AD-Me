@@ -6,8 +6,22 @@ import { ArrowUpRight, Search } from "lucide-react";
 import { recommendCreators } from "@/app/recommend-creators";
 import { publicTopicOptions } from "@/lib/public-youtube-topics";
 import { YoutubeImage } from "./youtube-image";
+import { formats } from "@/lib/catalog";
 
-export function RecommendationBrief() {
+export function RecommendationBrief({
+  initial,
+  condition,
+}: {
+  initial?: Partial<{
+    product: string;
+    audience: string;
+    category: string;
+    budget: string;
+    preference: string;
+    format: string;
+  }>;
+  condition?: { id: string; revision: number; sourceVersion: string };
+} = {}) {
   const [result, action, pending] = useActionState(recommendCreators, {});
   const [brief, setBrief] = useState({
     product: "",
@@ -15,12 +29,16 @@ export function RecommendationBrief() {
     category: "",
     budget: "",
     preference: "",
+    format: "",
+    ...initial,
   });
+  const [confirmed, setConfirmed] = useState(condition);
   function update(
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) {
     const { name, value } = event.currentTarget;
     setBrief((current) => ({ ...current, [name]: value }));
+    if (name !== "budget") setConfirmed(undefined);
   }
   return (
     <div className="brief-workbench">
@@ -31,6 +49,29 @@ export function RecommendationBrief() {
         className="brief-form"
         aria-label="유튜버 추천 조건"
       >
+        {confirmed && (
+          <>
+            <input
+              type="hidden"
+              name="conditionRequestId"
+              value={confirmed.id}
+            />
+            <input
+              type="hidden"
+              name="conditionRevision"
+              value={confirmed.revision}
+            />
+            <input
+              type="hidden"
+              name="conditionSourceVersion"
+              value={confirmed.sourceVersion}
+            />
+            <p className="notice brief-wide">
+              직접 확인한 상품 조건입니다. 아래 추천 실행 전까지
+              검색·공개·이용권 차감은 발생하지 않습니다.
+            </p>
+          </>
+        )}
         <label className="field">
           상품명·설명
           <input
@@ -95,6 +136,15 @@ export function RecommendationBrief() {
             placeholder="예: 자연스러움, 전문적"
           />
         </label>
+        <label className="field brief-wide">
+          콘텐츠 형식 (선택)
+          <select name="format" value={brief.format} onChange={update}>
+            <option value="">형식 지정 안 함</option>
+            {formats.map((value) => (
+              <option key={value}>{value}</option>
+            ))}
+          </select>
+        </label>
         <label className="field">
           분야 조건
           <select name="categoryPolicy" defaultValue="hard">
@@ -137,7 +187,15 @@ export function RecommendationBrief() {
             {result.brief.category} · 최대{" "}
             {result.brief.budget.toLocaleString("ko-KR")}원 · 타깃{" "}
             {result.brief.audience}
+            {result.brief.format ? ` · ${result.brief.format}` : ""}
           </p>
+          {result.brief.confirmedSource && (
+            <p>
+              사용자가 확인한 상품 조건 ·{" "}
+              {result.brief.confirmedSource.promptVersion} · 출처 버전{" "}
+              {result.brief.confirmedSource.sourceVersion.slice(0, 8)}
+            </p>
+          )}
           {result.incomplete && (
             <p role="status">일부 후보 자료를 불러오지 못했습니다.</p>
           )}

@@ -5,6 +5,15 @@ const source = vi.hoisted(() => ({
   profiles: vi.fn(),
   directory: vi.fn(),
   configured: true,
+  condition: vi.fn(),
+  role: "brand",
+}));
+vi.mock("@/lib/product-condition-workflow", () => ({
+  confirmedProductConditionContext: source.condition,
+}));
+vi.mock("@/lib/api", async (original) => ({
+  ...(await original<typeof import("@/lib/api")>()),
+  context: async () => ({ role: source.role, db: {} }),
 }));
 vi.mock("@/lib/data", () => ({ publicCreators: source.profiles }));
 vi.mock("@/lib/youtube-directory", () => ({
@@ -42,6 +51,7 @@ const form = (overrides: Record<string, string> = {}) => {
 beforeEach(() => {
   vi.resetAllMocks();
   source.configured = true;
+  source.role = "brand";
   source.profiles.mockResolvedValue([base]);
   source.directory.mockResolvedValue({
     items: [],
@@ -49,6 +59,47 @@ beforeEach(() => {
     nextCursor: null,
     version: 1,
   });
+});
+it("consumes a confirmed format in scoring and rechecks a bound reference before catalogue reads", async () => {
+  const reference = {
+    id: "ad000000-0000-4000-8000-000000000001",
+    sourceVersion: "a".repeat(64),
+    promptVersion: "product-conditions-v2",
+  };
+  source.condition.mockResolvedValue(reference);
+  source.profiles.mockResolvedValue([{ ...base, formats: ["제품 리뷰"] }]);
+  const input = form({
+    format: "제품 리뷰",
+    conditionRequestId: reference.id,
+    conditionRevision: "1",
+    conditionSourceVersion: reference.sourceVersion,
+  });
+  const result = await recommendCreators({}, input);
+  expect(result.registered?.[0]).toMatchObject({ score: 100, coverage: 80 });
+  expect(result.brief?.confirmedSource).toEqual(reference);
+  expect(source.condition).toHaveBeenCalledOnce();
+  source.profiles.mockClear();
+  source.directory.mockClear();
+  source.condition.mockRejectedValue(Error("stale"));
+  expect((await recommendCreators({}, input)).error).toBeTruthy();
+  expect(source.profiles).not.toHaveBeenCalled();
+  expect(source.directory).not.toHaveBeenCalled();
+  source.role = "creator";
+  source.condition.mockClear();
+  expect((await recommendCreators({}, input)).error).toBeTruthy();
+  expect(source.condition).not.toHaveBeenCalled();
+});
+it("refuses partial/forged confirmation and unsupported formats while leaving manual input usable", async () => {
+  const invalid: Record<string, string>[] = [
+    { conditionRequestId: "forged" },
+    { conditionRevision: "1" },
+    { format: "inferred" },
+  ];
+  for (const extra of invalid) {
+    expect((await recommendCreators({}, form(extra))).error).toBeTruthy();
+  }
+  expect(source.profiles).not.toHaveBeenCalled();
+  expect((await recommendCreators({}, form())).registered).toHaveLength(1);
 });
 it("defaults to explicit hard budget/category, excludes demo/unpublished/unavailable/wrong-platform candidates", async () => {
   source.profiles.mockResolvedValue([

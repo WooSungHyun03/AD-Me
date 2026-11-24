@@ -1,7 +1,14 @@
 "use server";
 
 import { z } from "zod";
-import { rank, matchingPolicySchema, type Policy } from "@/lib/catalog";
+import {
+  rank,
+  matchingPolicySchema,
+  formats,
+  type Policy,
+} from "@/lib/catalog";
+import { context } from "@/lib/api";
+import { confirmedProductConditionContext } from "@/lib/product-condition-workflow";
 import { publicCreators } from "@/lib/data";
 import type { FeaturedChannel } from "@/lib/featured-youtube";
 import { readYoutubeDirectory } from "@/lib/youtube-directory";
@@ -18,6 +25,7 @@ const input = z.object({
   category: topic,
   budget: z.coerce.number().int().min(10000).max(100000000),
   preference: z.string().trim().max(120),
+  format: z.union([z.literal(""), z.enum(formats as [string, ...string[]])]),
   policy: matchingPolicySchema,
 });
 export type RecommendationState = {
@@ -28,6 +36,12 @@ export type RecommendationState = {
     category: string;
     budget: number;
     policy: Policy;
+    format?: string;
+    confirmedSource?: {
+      id: string;
+      sourceVersion: string;
+      promptVersion: string;
+    };
   };
   registered?: Array<{
     id: string;
@@ -52,6 +66,7 @@ export async function recommendCreators(
     category: form.get("category"),
     budget: form.get("budget"),
     preference: form.get("preference"),
+    format: form.get("format") ?? "",
     policy: {
       category: form.get("categoryPolicy") ?? "hard",
       budget: form.get("budgetPolicy") ?? "hard",
@@ -63,7 +78,44 @@ export async function recommendCreators(
       error:
         "상품과 타깃을 입력하고, 콘텐츠 분야와 1만~1억 원의 예산을 확인해 주세요.",
     };
-  const { product, audience, category, budget, preference } = parsed.data;
+  const { product, audience, category, budget, preference, format } =
+    parsed.data;
+  let confirmedSource:
+    { id: string; sourceVersion: string; promptVersion: string } | undefined;
+  if (
+    ["conditionRequestId", "conditionRevision", "conditionSourceVersion"].some(
+      (key) => form.has(key),
+    )
+  ) {
+    const reference = z
+      .strictObject({
+        id: z.uuid(),
+        revision: z.coerce.number().int().min(1).max(1),
+        sourceVersion: z.string().regex(/^[a-f0-9]{64}$/),
+      })
+      .safeParse({
+        id: form.get("conditionRequestId"),
+        revision: form.get("conditionRevision"),
+        sourceVersion: form.get("conditionSourceVersion"),
+      });
+    if (!reference.success)
+      return { error: "확인한 상품 조건을 다시 불러와 주세요." };
+    try {
+      const actor = await context();
+      if (!actor || actor.role !== "brand")
+        return { error: "본인 브랜드 계정에서 조건을 확인해주세요." };
+      confirmedSource = await confirmedProductConditionContext(
+        actor.db,
+        reference.data,
+        parsed.data,
+      );
+    } catch {
+      return {
+        error:
+          "상품이나 확인한 조건이 변경됐습니다. 다시 확인하거나 수동으로 추천을 실행해주세요.",
+      };
+    }
+  }
   const policy: Policy = {
     category: "hard",
     budget: "hard",
@@ -100,7 +152,7 @@ export async function recommendCreators(
       category: "",
       categories,
       vibes: tags,
-      format: "",
+      format,
       budget_krw: budget,
       platforms: ["youtube"],
       policy,
@@ -136,7 +188,15 @@ export async function recommendCreators(
     .filter((channel) => !channel.creator_id)
     .slice(0, 6);
   return {
-    brief: { product, audience, category, budget, policy },
+    brief: {
+      product,
+      audience,
+      category,
+      budget,
+      policy,
+      format,
+      ...(confirmedSource ? { confirmedSource } : {}),
+    },
     registered,
     channels,
     incomplete: !profiles || !publicDirectory,

@@ -47,6 +47,78 @@ export const productConditionProposal = z.strictObject({
     )
     .max(8),
 });
+export const ownedProductConditionProposal = productConditionProposal.extend({
+  sourceContract: z.literal("owned-product-v1"),
+  modelSourceVersion: z.string().regex(/^[a-f0-9]{64}$/),
+});
+export type ProductConditionSuggestion = z.infer<
+  typeof productConditionProposal
+>["suggestions"][number];
+const suggestion = productConditionProposal.shape.suggestions.element;
+export const productConditionPageSchema = z
+  .strictObject({
+    id: z.uuid(),
+    productId: z.uuid(),
+    sourceVersion: z.string().regex(/^[a-f0-9]{64}$/),
+    source: productConditionSource,
+    expiresAt: z.iso.datetime({ offset: true }),
+    status: z.enum([
+      "queued",
+      "running",
+      "done",
+      "failed",
+      "stale",
+      "disabled",
+    ]),
+    decision: z.enum(["pending", "confirmed", "dismissed"]),
+    revision: z.union([z.literal(0), z.literal(1)]),
+    selected: z.array(suggestion).max(8),
+    output: ownedProductConditionProposal.nullable(),
+  })
+  .superRefine((page, ctx) => {
+    const output = page.output;
+    if (
+      (page.decision === "pending"
+        ? page.revision !== 0 || page.selected.length !== 0
+        : page.revision !== 1) ||
+      (page.decision === "confirmed" && page.selected.length === 0) ||
+      (page.decision === "dismissed" && page.selected.length !== 0) ||
+      (page.status === "done") !== Boolean(output) ||
+      (output &&
+        (output.sourceVersion !== page.sourceVersion ||
+          page.selected.some(
+            (item) =>
+              !output.suggestions.some(
+                (candidate) =>
+                  JSON.stringify(candidate) === JSON.stringify(item),
+              ),
+          )))
+    )
+      ctx.addIssue({
+        code: "custom",
+        message: "Invalid product condition state",
+      });
+    for (const rows of [output?.suggestions ?? [], page.selected]) {
+      const keys = new Set<string>();
+      for (const row of rows) {
+        const key = `${row.kind}:${row.value}`;
+        if (
+          keys.has(key) ||
+          !redact(page.source[row.field]).includes(row.quote) ||
+          !row.quote.includes(row.value)
+        )
+          ctx.addIssue({ code: "custom", message: "Invalid product evidence" });
+        keys.add(key);
+      }
+    }
+    for (const kind of ["category", "format"])
+      if (page.selected.filter((item) => item.kind === kind).length > 1)
+        ctx.addIssue({
+          code: "custom",
+          message: "Ambiguous confirmed condition",
+        });
+  });
+export type ProductConditionPage = z.infer<typeof productConditionPageSchema>;
 
 // The future server producer supplies its own RLS-checked product source and stored
 // fingerprint. Neither this text contract nor a caller/model proves ownership.

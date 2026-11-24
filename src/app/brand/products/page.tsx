@@ -43,6 +43,12 @@ async function ProductList({
           <article className="ops-row" key={row.id}>
             <strong>{row.name}</strong>
             <p>{row.description}</p>
+            <Link
+              className="button outline small"
+              href={`/brand/products/${row.id}/recommendations`}
+            >
+              추천 조건 검토
+            </Link>
           </article>
         ))
       ) : (
