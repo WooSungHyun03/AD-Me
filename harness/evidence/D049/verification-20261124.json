@@ -1,0 +1,43 @@
+{
+  "date": "2026-11-24",
+  "baseline": "65ba5723a195e754bf0d4d4eeb59df2dee7676fb",
+  "scope": "actual disposable loopback Auth/PostgREST/PostgreSQL; fictional QA people/profiles/channel claims",
+  "sha256": {
+    "src/app/api/proposals/route.ts": "bacbe04307fc2dde1803f345134aef272d5e5e069c9c4b02d26580c3eb53fc69",
+    "src/components/deal-controls.tsx": "90365343b76a0d5e0adce451ea0d9f05ea3fd834b286ce6124bf3564dc5f3672",
+    "src/app/dashboard/page.tsx": "8c6f07b1f69164969e9e6994e3bf3746d52b2145b5b99eafe494f2d473f22612",
+    "supabase/migrations/20261124133155_proposal_transition_requests.sql": "82570f93e08d3d18a7f2cdd44bbd462009bf62f80961a447154e8d5dcc93c36f",
+    "supabase/migrations/20261124133707_proposal_acceptance_eligibility.sql": "546e2ade913f0e73fa804a277a09adadf8644aa0039e54c3f8b5f3c423c03120"
+  },
+  "results": {
+    "before": "3/4 new unit FAIL; actual restricted-recipient acceptance succeeded before123",
+    "unit": "95 files / 568 tests PASS",
+    "affected_unit": "16 PASS",
+    "lint": "full PASS plus final changed scripts PASS",
+    "typecheck": "PASS",
+    "build": "Playwright production next build PASS; same JS bundle reused after forward SQL123",
+    "browser": "desktop/mobile4 PASS after123: decision lostACK2 + existing versioned delivery2",
+    "database": "5 decision permission/race/atomicity groups PASS; existing versioned delivery9 groups PASS",
+    "upgrade": "121→123 bundle rollback/fault/legacy/ACL/private table/helper PASS",
+    "migrations": "123 PASS",
+    "secrets": "source/client bundle/artifacts PASS",
+    "review": "DEV-A122/123 static review no additional blocking or conflict",
+    "local_ledger": "after atomic application+checks, loopback-only CLI repair122/123; no hosted mutation"
+  },
+  "commands": [
+    "npm run lint",
+    "npm run typecheck",
+    "npm test",
+    "npm run test:e2e -- --config playwright.local.config.ts tests/local-browser/decision-retry.spec.ts tests/local-browser/deliverables.spec.ts",
+    "node tests/local-proposal-decisions.mjs",
+    "node tests/local-delivery-security.mjs",
+    "node scripts/verify-local-proposal-request-migration.mjs",
+    "python -X utf8 harness/migration_check.py",
+    "python -X utf8 harness/secret_scan.py --bundle --artifacts"
+  ],
+  "blockers": [
+    "Hosted121→123 backup/fingerprint/application approval",
+    "U014 actual approved two-role/channel acceptance",
+    "Unchanged broad catalogue GET405/400 regression remains unresolved; no whole-suite/provider success claim"
+  ]
+}

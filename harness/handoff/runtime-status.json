@@ -493,9 +493,12 @@
     },
     "D049": {
       "owner": "DEV-B",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "LOCAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/D049/DECISION_RETRY_20261124.md"
+      ],
+      "blocker": "actual local 양 역할 취소/수락 lostACK동일키·동시경합·이력/알림 원자성·미청구/차단/양측제한/moderation 거부 및121→123 검증. U014 실제 승인 QA/채널·hosted123/백업/지문/적용은 BLOCKED_EXTERNAL. 기존 versioned delivery fixture와 구분하며 전체 DONE/VERIFIED 아님.",
+      "last_checked_at": "2026-11-24T13:42:32.126Z"
     },
     "D050": {
       "owner": "DEV-A",

@@ -711,3 +711,9 @@ GitHub 소유자 승인 뒤 Vercel 프로젝트를 연결했다. Vercel API 기�
 - main44b3dff 뒤 API모집columns미저장/SECDEF신규지원의기존window·capacity검사우회 재현(unit4FAIL/future실제지원성공). 신규121 privatepredicate/applicationtrigger+clock/lock로RPC·REST통합강제, 기존선정/상태/idempotentretry·레거시기록보존. board집계/accepting·조건요약/모집필터/최소마감/만석화면 및명시APIcolumns매핑.
 - 실제localSDK/DB 기간·일회중복·1slot경합·만석/마감·role/foreign/private·경계/기존retry 및120→121 fault/rollback/ACL PASS. source lint/typecheck/Vitest564/productionbuild·desktop-mobile6(신규2/기존D0414) PASS. fixturecleanup·초기타입·마감후사라진폼locator·Date.now lint 실패를수정재검증했고원시증거보존. DEV-A추가blocking/번호충돌없음.
 - D043 TESTED/runtimeLOCAL_VERIFIED, 운영121/지문·과거metadata·실제채널/계정수용은BLOCKED_EXTERNAL. 수동claim은합성fixture이며실제공급자승인아님. evidence harness/evidence/D043/RECRUITMENT_WINDOW_20261124.md, packet deliverables/d043-recruitment-window-20261124/. 운영DB/키/결제/외부승인없음.
+
+## 2026-11-24 — DEV-B D049 초기 결정·재시도·양측 적격성
+
+- main65ba572 clean/fetch/HEAD후 D043선행충족. 취소 enum/화면누락 및lostACK재시도재현(신규3FAIL), 선택적requestKey/expectedStatus·privateRLS receipt122·클라이언트동일키재시도/취소표시추가. actualDB수신상대연락제한 수락우회추가재현후122불변·123공통acceptance trigger로양측contact/privacy/creator·campaign적격성강제. 기존2argRPC/결과물계약/과거accepted/ACK보존.
+- directSDK/RPC5그룹·기존delivery9,121→123원자rollback/fault/ACL,desktop-mobile4(초기decision2/기존결과물2),lint/typecheck/Vitest568/productionbuild/secret/migration123 PASS. SQL123후동일JSbuild재사용. DEV-A122/123추가blocking/예약없음. local-only실제적용검증후ledger123동기화; hosted없음.
+- D049 TESTED/runtimeLOCAL_VERIFIED; U014실제승인QA/채널·hosted123/백업/지문은BLOCKED_EXTERNAL. evidence harness/evidence/D049/DECISION_RETRY_20261124.md, packet deliverables/d049-decision-retry-20261124/. D052 read-api/upto계약불일치는별도후속으로기록했으며이번변경에미포함. 운영SQL/키/라이브결제/외부승인없음.

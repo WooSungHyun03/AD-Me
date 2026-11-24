@@ -1,0 +1,15 @@
+# D049 — 취소·재시도·수락 적격성
+
+- 기준 main `65ba5723a195e754bf0d4d4eeb59df2dee7676fb`; 기존 독립 트리 clean/fetch/HEAD 확인. D043 TESTED 뒤 준비된 P0를 진행. D024/D025/U014 및 D067/D066의 미변경 외부 게이트는 재실행하지 않았다.
+- 재현: 취소 DB 규칙은 있지만 API action enum·dashboard 버튼/상태에 cancelled가 빠졌다. 응답 유실 후 상태 재요청은 이미 바뀐 상태 때문에 실패하고 성공 여부를 복구할 요청 키가 없었다. 신규 단위4 중3 FAIL(`output/d049-before.log`).
+- 변경: cancelled 선택/표시와 기존 API 취소를 복원. 초기 수락/거절/취소에 선택적 requestKey+expectedStatus=pending 계약을 추가했다. 클라이언트는 같은 동작의 재시도 키를 유지하고 동시 클릭을 막는다. SQL122 private RLS receipt는 actor/key 및 proposal/action/expected를 묶는다. actor/privacy·참여자 확인, 키/행 잠금, 기존 전이+이력/알림+receipt를 한 트랜잭션으로 처리한다. 다른 payload 키 재사용/상태 경합은409, 동일 요청은 이전 ACK만 반환한다. 기존2인자 RPC와 버전 결과물 계약(clientKey/expectedVersion)은 보존하며 혼합 요청은422로 거부한다.
+- 추가 재현: 실제 DB에서 제한 중인 크리에이터를 브랜드가 수락하면 성공했다. 기존 contact_denied는 sender 제한만 검사했다. 이 케이스 FAIL 후 적용122는 편집하지 않고 신규123 공통 pending→accepted trigger를 추가했다. 양측 연락/계정 적격성, 현재 크리에이터 공개/청구/moderation 및 캠페인 moderation을 검사한다. 기존 RPC로 우회해도 동일하게 거부한다. 과거 accepted 기록·취소/거절·이전 ACK 조회는 바꾸지 않는다.
+- `node tests/local-proposal-decisions.mjs`: actual local Auth/PostgREST5그룹 PASS. sender cancellation/동일 키 동시2ACK는 전이1·추가event1·추가notification1·receipt1, 동시 수락/거절1winner/1conflict, stale/different-payload/foreign/anon/잘못된 쪽/미청구 거부 및 원자 rollback, verified creator의 브랜드 제안 수락, 이력 위조/타인 조회·private receipt 거부, blocked/suspended/moderated counterpart의 기존/새 RPC 수락 거부를 확인했다.
+- 기존 `node tests/local-delivery-security.mjs`9그룹 PASS: 버전/근거·광고 확인, 동시 재시도·수정요청·새 버전·완료·옛 승인 거부·차단 및 이력/원본 불변. 새 initial-decision fixture와 기존 versioned-delivery fixture를 구분하며 운영 한 사용자쌍의 전체 실거래로 주장하지 않는다.
+- `node scripts/verify-local-proposal-request-migration.mjs`:121→123 bundle 원자 적용·rollback·실패 주입, 기존 함수/receipt/ACL 보존, private table/helper 및 anon RPC 거부 PASS. 기존121 fresh/업그레이드는 D043 및 이전 기록에서 재사용. 전체 DB reset은 반복하지 않았다.
+- `npm run test:e2e -- --config playwright.local.config.ts tests/local-browser/decision-retry.spec.ts tests/local-browser/deliverables.spec.ts`:desktop/mobile4 PASS. 실제 상태 변경200 응답을 의도적으로 유실시킨 뒤 동일 키 재시도로 취소/수락이 양쪽 화면에 반영되고 이력/알림은 중복되지 않았다. 기존 결과물 수정/새 버전/완료/다른 탭 stale 승인·제3자 거부도 PASS. SQL123 적용 후 같은 JS production build를 재사용해4건 재검증 PASS(`output/d049-browser-verified.log`).
+- 최종 lint/typecheck/Vitest95files568tests·production build·migration_check123·source/client/artifact scan PASS. 소스/명령은 verification 참조. 공통 검사 후 테스트가 바꾼 matching snapshot 줄바꿈만 복원했다. screenshot2개는 합성 협업 card만 포함하며 desktop/mobile 직접 확인 및 가로 넘침 검사 PASS. 새 스타일/자산 없음; Figma 원본 접근 게이트는 이전 증빙 유지.
+- DEV-A가122 및 추가123을 읽기 전용 교차 리뷰했다. 추가 blocking finding/번호 충돌/상대 변경 없음. 수신 상대 제한도 검사하며 기존 ACK·취소/거절·승인 이력 보존 범위를 합의했다.
+- **BLOCKED_EXTERNAL:** hosted121→123 대상/백업·지문·적용 및 실제 승인된 QA 쌍(U014)의 채널·협업 수용. 프로필/claim은 합성 QA fixture이며 실제 YouTube 소유권/제3자 승인이 아니다. 기존 넓은 catalog GET405/400 회귀는 미해결로 보존. 기존 전체 E2E의 외부 공급자 게이트를 통과로 바꾸지 않는다. TESTED/LOCAL_VERIFIED이며 전체 DONE/VERIFIED 아님.
+- 후속 D052 조사: MarkAllRead의 upto 요청과 기존 read API proposalId 계약이 연결되지 않는다. 이번 D049 diff에는 넣지 않았으며 다음 독립 티켓에서 기존 message-read와 notification cursor를 함께 검증한다.
+- 운영자 패킷: `deliverables/d049-decision-retry-20261124/README.md`. 운영 migration/키/라이브 결제/외부 승인 대행 없음. 이전 증거/패킷 불변.

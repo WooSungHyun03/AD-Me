@@ -77,33 +77,50 @@ export default async function Dashboard() {
     pending: "응답 대기",
     accepted: "협업 진행",
     rejected: "거절",
+    cancelled: "취소됨",
     submitted: "검토 대기",
     revision_requested: "수정 요청",
     completed: "완료",
   };
   const creator = profile?.role === "creator";
-  const pendingCount = proposals?.filter((item) => item.status === "pending").length ?? 0;
-  const inProgressCount = proposals?.filter((item) =>
-    ["accepted", "submitted", "revision_requested"].includes(item.status),
-  ).length ?? 0;
-  const liveCampaigns = campaigns?.filter((item) => item.status === "published") ?? [];
-  const campaignBudget = liveCampaigns.reduce((total, item) => total + Number(item.brief.budget_krw || 0), 0);
+  const pendingCount =
+    proposals?.filter((item) => item.status === "pending").length ?? 0;
+  const inProgressCount =
+    proposals?.filter((item) =>
+      ["accepted", "submitted", "revision_requested"].includes(item.status),
+    ).length ?? 0;
+  const liveCampaigns =
+    campaigns?.filter((item) => item.status === "published") ?? [];
+  const campaignBudget = liveCampaigns.reduce(
+    (total, item) => total + Number(item.brief.budget_krw || 0),
+    0,
+  );
   const metrics = creator
-    ? [{ label: "지원·제안 응답 대기", value: pendingCount }, { label: "진행 중인 협업", value: inProgressCount }]
+    ? [
+        { label: "지원·제안 응답 대기", value: pendingCount },
+        { label: "진행 중인 협업", value: inProgressCount },
+      ]
     : [
         { label: "모집 중 캠페인", value: liveCampaigns.length },
         { label: "응답 대기 중인 지원·제안", value: pendingCount },
         { label: "진행 중인 협업", value: inProgressCount },
-        { label: "모집 중 캠페인 총 예산", value: `${campaignBudget.toLocaleString("ko-KR")}원` },
+        {
+          label: "모집 중 캠페인 총 예산",
+          value: `${campaignBudget.toLocaleString("ko-KR")}원`,
+        },
       ];
   return (
     <section className="figma-width figma-workspace">
       <LiveMessages />
       <div className="section-heading">
         <div>
-          <span className="figma-eyebrow">{creator ? "크리에이터 워크스페이스" : "브랜드 워크스페이스"}</span>
+          <span className="figma-eyebrow">
+            {creator ? "크리에이터 워크스페이스" : "브랜드 워크스페이스"}
+          </span>
           <h1 className="page-title">
-            {creator ? `${profile?.name ?? "크리에이터"}님다운 이야기, 더 넓은 기회로.` : `${profile?.name ?? "브랜드"}님, 다음 협업이 기다리고 있어요.`}
+            {creator
+              ? `${profile?.name ?? "크리에이터"}님다운 이야기, 더 넓은 기회로.`
+              : `${profile?.name ?? "브랜드"}님, 다음 협업이 기다리고 있어요.`}
           </h1>
         </div>
         <div className="inline">
@@ -135,8 +152,12 @@ export default async function Dashboard() {
       </div>
       <nav className="figma-workspace-nav" aria-label="업무 현황">
         <a href="#workspace-overview">전체 현황</a>
-        <a href="#workspace-campaigns">{creator ? "캠페인 탐색" : "내 캠페인"}</a>
-        <a href="#workspace-collaboration">{creator ? "지원 내역·메시지" : "지원자 관리·메시지"}</a>
+        <a href="#workspace-campaigns">
+          {creator ? "캠페인 탐색" : "내 캠페인"}
+        </a>
+        <a href="#workspace-collaboration">
+          {creator ? "지원 내역·메시지" : "지원자 관리·메시지"}
+        </a>
         <a href="#workspace-saved">저장한 크리에이터</a>
       </nav>
       <ul className="figma-workspace-metrics" id="workspace-overview">
@@ -154,7 +175,11 @@ export default async function Dashboard() {
             캠페인 만들기 ↗
           </Link>
         )}
-        {creator && <Link className="button outline" href="/jobs">캠페인 탐색</Link>}
+        {creator && (
+          <Link className="button outline" href="/jobs">
+            캠페인 탐색
+          </Link>
+        )}
       </div>
       {campaigns?.length ? (
         campaigns.map((c) => (
@@ -202,7 +227,8 @@ export default async function Dashboard() {
             <div style={{ marginTop: 22 }}>
               <DealControls
                 id={p.id}
-                actions={["accepted", "rejected"].filter((a) =>
+                status={p.status}
+                actions={["accepted", "rejected", "cancelled"].filter((a) =>
                   canTransition(
                     p.kind,
                     p.status,
@@ -213,7 +239,10 @@ export default async function Dashboard() {
               />
             </div>
             <section style={{ marginTop: 24 }}>
-              <Link className="button primary small" href={`/collaborations/${p.id}/messages`}>
+              <Link
+                className="button primary small"
+                href={`/collaborations/${p.id}/messages`}
+              >
                 메시지 열기
               </Link>{" "}
               <Link

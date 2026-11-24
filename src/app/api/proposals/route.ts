@@ -44,6 +44,7 @@ export const PATCH = apiRoute("proposals.patch", async (req) => {
       action: z.enum([
         "accepted",
         "rejected",
+        "cancelled",
         "submitted",
         "completed",
         "revision_requested",
@@ -53,6 +54,8 @@ export const PATCH = apiRoute("proposals.patch", async (req) => {
       clientKey: z.uuid().optional(),
       reviewNote: z.string().trim().max(2000).optional(),
       advertisingChecked: z.boolean().optional(),
+      requestKey: z.uuid().optional(),
+      expectedStatus: z.literal("pending").optional(),
     }),
     "잘못된 요청입니다.",
   );
@@ -70,6 +73,41 @@ export const PATCH = apiRoute("proposals.patch", async (req) => {
     b.clientKey !== undefined ||
     b.reviewNote !== undefined ||
     b.advertisingChecked !== undefined;
+  if (b.requestKey !== undefined || b.expectedStatus !== undefined) {
+    if (hasVersion)
+      fail("결과물 검토와 요청 상태 변경을 함께 보낼 수 없습니다.", 422);
+    const decision = parseInput(
+      z.object({
+        id: z.uuid(),
+        action: z.enum(["accepted", "rejected", "cancelled"]),
+        requestKey: z.uuid(),
+        expectedStatus: z.literal("pending"),
+      }),
+      b,
+      "요청 키와 현재 상태를 확인해주세요.",
+    );
+    const { data, error } = await c.db.rpc("transition_proposal_request", {
+      p_id: decision.id,
+      p_action: decision.action,
+      p_expected: decision.expectedStatus,
+      p_key: decision.requestKey,
+    });
+    if (error?.code === "P0001") {
+      const message = recruitingError(error.message);
+      if (message) fail(message, 409);
+    }
+    if (error)
+      failDatabase(
+        error,
+        "상태 변경을 확인하지 못했습니다. 최신 상태를 확인해주세요.",
+      );
+    if (data !== decision.action)
+      fail("상태 변경 응답을 확인하지 못했습니다.", 503);
+    return NextResponse.json(
+      { ok: true, data },
+      { headers: { "Cache-Control": "no-store" } },
+    );
+  }
   if (hasVersion) {
     const v = parseInput(
       deliveryTransitionSchema,

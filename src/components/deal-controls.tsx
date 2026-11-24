@@ -5,13 +5,17 @@ import { Button } from "./ui/button";
 export function DealControls({
   id,
   actions,
+  status = "pending",
 }: {
   id: string;
   actions: string[];
+  status?: string;
 }) {
   const [error, setError] = useState(""),
     [pending, setPending] = useState(false);
   const router = useRouter();
+  const sending = useRef(false);
+  const retry = useRef<{ signature: string; key: string } | null>(null);
   const labels: Record<string, string> = {
     accepted: "수락",
     rejected: "거절",
@@ -31,19 +35,39 @@ export function DealControls({
               ["rejected", "cancelled"].includes(action) ? "outline" : "default"
             }
             onClick={async () => {
+              if (sending.current) return;
+              const signature = JSON.stringify({ id, action, status });
+              if (retry.current?.signature !== signature)
+                retry.current = { signature, key: crypto.randomUUID() };
+              sending.current = true;
+              setError("");
               setPending(true);
               try {
                 const res = await fetch("/api/proposals", {
                   method: "PATCH",
                   headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ id, action }),
+                  body: JSON.stringify({
+                    id,
+                    action,
+                    ...(["accepted", "rejected", "cancelled"].includes(
+                      action,
+                    ) && status === "pending"
+                      ? {
+                          requestKey: retry.current.key,
+                          expectedStatus: status,
+                        }
+                      : {}),
+                  }),
                 });
                 const d = await res.json();
                 if (!res.ok) setError(d.error?.message || "변경 실패");
                 else router.refresh();
               } catch {
-                setError("네트워크 오류입니다.");
+                setError(
+                  "처리 결과를 확인하지 못했습니다. 같은 동작으로 다시 시도하거나 최신 상태를 확인해주세요.",
+                );
               } finally {
+                sending.current = false;
                 setPending(false);
               }
             }}
