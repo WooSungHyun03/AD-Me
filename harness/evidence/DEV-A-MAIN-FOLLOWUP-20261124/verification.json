@@ -1,0 +1,86 @@
+{
+  "base_main": "1710f233f1e6a0f10281be80f7849e8ad78397da",
+  "scope": "current Windows checkout; real keyless Next HTTP/browser and unit/CLI contracts; no DB/model/provider/hosted acceptance",
+  "checks": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "unit": {
+      "tests": 517,
+      "files": 87,
+      "result": "PASS"
+    },
+    "python": {
+      "tests": 43,
+      "result": "PASS"
+    },
+    "build": "PASS production-mode free-keyless Next build as Playwright webServer prerequisite",
+    "affected_browser": {
+      "result": "PASS",
+      "distinct": 10,
+      "api": 6,
+      "manual_navigation_and_unavailable_data": 2,
+      "service_guidance": 2,
+      "projects": [
+        "desktop",
+        "mobile"
+      ]
+    },
+    "static_migrations": {
+      "result": "PASS",
+      "sources": 116,
+      "sql_changed": false
+    },
+    "domain_graph": {
+      "result": "PASS",
+      "files": 317,
+      "direct_database_routes": 9,
+      "cycles": 0,
+      "violations": 0
+    },
+    "production_gate": {
+      "result": "PASS",
+      "tests": 7,
+      "committed_sql_and_windows_checkout_fingerprint_equal": true,
+      "unapproved_production_denied": true,
+      "main_enabled": true,
+      "branch_enabled": false
+    },
+    "secret_scan_and_client_bundle": "PASS"
+  },
+  "source_sha256": {
+    "scripts/production-schema.mjs": "eb1813fde86e9d498588ebd1b32e2cb6957b034025d4b26c9be0f64d0951be51",
+    "scripts/check-domain-boundaries.mjs": "014ce2a1de78eb9542a354d3e04182586c380980193c6a8b9cef78e1e7aed346",
+    "src/shared/server/http.ts": "45a04d2ee714e3e4fb99dd68179ceb9783f40100fc360f934371aa2a16a8d3a9",
+    "src/app/page.tsx": "a72ce8983b9126200ed9b9cb2eeae1ba0ca15b700b22f50762e62a06133f7055",
+    "src/app/about/page.tsx": "d3440796d59654eb75b83116bd08c25d7b031657bc349d27fbea2ae001ddeec3",
+    "src/components/recommendation-brief.tsx": "8ddc4b2dabffffb3c9d3075df25c33918af08d50401c7620e8edb85cf12e1722",
+    "src/components/product-condition-workbench.tsx": "5661c2362e1fa33e3ac570c8111400e92c0ce0f3616dc3aeebf07c12f6b691f4",
+    "src/lib/service-catalog.ts": "3b80ef88c840c8d8f1301b798edc8b6265b5121d42ef5f82b6b212c80cc07d47",
+    "tests/production-schema.test.ts": "d3ce9a0c282476fb24e08b77fdbb0df4775d4e4dc6ae08f54cc0d5dc02abc0eb",
+    "tests/domain-boundaries.test.ts": "a0965acc139a721564a7154fb5a331bcc9dfacff55410e89124b01bb611635d5",
+    "tests/api-errors.test.ts": "c5d59c2c1141ec9963b6ff0bcb104c82affc89a5e4fe5a3433882b9f1301438a",
+    "tests/browser/recommendation-fallback.spec.ts": "a0cc967630f2db139a081fdb8aca82c1dfc6dd6ae3a6550b49af6e360c03e9a1",
+    "tests/browser/service-guidance.spec.ts": "a0d2e2d4b79d62ca5d9de56df6adbafd5631575ad0600d52f575094719762a6f"
+  },
+  "not_run": [
+    "current DB roles/RPC/Storage/fresh/upgrade",
+    "authenticated owner-product full browser workflow",
+    "actual LocalAI inference/queue",
+    "real supplier/mail/Toss TEST",
+    "production/preview configuration or deploy/restore",
+    "full historical E2E"
+  ],
+  "automatic_approval_rejections": [
+    "Docker Desktop Start-Process: blocked by policy",
+    "combined model-version/preflight command: blocked by policy; no alternate startup or probe attempted"
+  ],
+  "ticket_status": "existing scopes/status preserved; no whole-ticket DONE/VERIFIED",
+  "tested_product_commit": "4cc9d7422f05529577b26f40f5f529543146cc94",
+  "implementation_commits": {
+    "D003": "66be9d8",
+    "D004": "2ea36b6",
+    "D075": "57f67d0",
+    "PR-001": "2b56fa2",
+    "D002": "4cc9d74"
+  }
+}

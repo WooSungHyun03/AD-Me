@@ -1928,7 +1928,8 @@ DEV-A · P0 · S0 출시 차단 · QA · IN_PROGRESS · 8 SP · ACTIVE
 - **검증** — lint/typecheck/unit/integration/build/E2E 통과와 실패 증거 기록 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 기존 6개 E2E를 가입·삭제·수집·정정·권한·모바일·결측·동시성까지 확장한다. 외부 연동은 실제/계약 테스트를 구분한다.
 - **차단 요인** — 최종 로컬504unit/43Python/lint/typecheck/build/영향 desktop-mobile6/fresh0→116/113→116 원자 패킷 통과. 전체 E2E 및 B D049/D075 전수, 실제 provider/메일/Toss TEST·복구·운영 적용과 최신 remote CI는 별도 미완료.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D084/README.md · harness/evidence/DEV-A-P0-CONTINUE/verification.json · harness/evidence/DEV-A-MAIN-20261120/verification.json · harness/evidence/D084/ (이번 검증 기록 위치) · harness/evidence/D084/FRESH_113_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md · harness/evidence/DEV-A-PRODUCT-CONDITIONS-20261124/verification.json · docs/production-readiness/REFACTOR_IMPACT.md
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D084/README.md · harness/evidence/DEV-A-P0-CONTINUE/verification.json · harness/evidence/DEV-A-MAIN-20261120/verification.json · harness/evidence/D084/ (이번 검증 기록 위치) · harness/evidence/D084/FRESH_113_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md · harness/evidence/DEV-A-PRODUCT-CONDITIONS-20261124/verification.json · docs/production-readiness/REFACTOR_IMPACT.md · harness/evidence/DEV-A-MAIN-FOLLOWUP-20261124/verification.json
+- **검증 범위** —  최신 main1710f23 후속517unit/43Python/lint/typecheck/keyless build/영향 desktop-mobile10 및 Windows 실제 그래프 검증. Docker/모델 확인 요청 정책 차단으로 현 DB·모델·전체 역할 E2E 재실행 없음.
 - **이전 기록** — IN_PROGRESS
 
 ## D085 · CI·배포 산출물·마이그레이션 안전

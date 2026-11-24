@@ -657,3 +657,10 @@ GitHub 소유자 승인 뒤 Vercel 프로젝트를 연결했다. Vercel API 기�
 - 격리 환경에서 Playwright 10건 및 브랜드 상품→캠페인 초안, 모집 중 필터, 다른 사용자 초안 차단을 검증했다. 단위 테스트 510건, ESLint·TypeScript·Next.js 빌드 통과. 테스트 결제·협업·채팅까지의 운영 E2E 및 전체 화면 3회 검수는 미완료다.
 - 서명된 운영 스키마 확인이 없어 Vercel의 운영 빌드 보호가 작동했다. 운영은 기존 Ready 배포 `dpl_G3S8oSBWEEadE4dShsgjKHjKa854`를 제공한다. Figma 프리뷰에서는 운영 DB와 결제 설정을 사용하지 않는다.
 - 이전 복구 검증의 Storage `42P10`과 호스팅 스키마 차이, Local AI 제품 동선 검증은 해결 증거가 생길 때까지 운영 출시 차단으로 유지한다.
+
+## 2026-11-24 — DEV-A 최신 main1710f23 후속
+
+- 기존 브랜치 fast-forward. Figma·도메인 이동·main 자동 빌드 및 필수 운영 DB 지문 변경을 반영했다. U001/D017/D052/D079 미완료를 승인으로 추정하지 않음.
+- D00366be9d8 LF/CRLF 지문·인코딩 검증, D0042ea36b6 소비된 빈 NextRequest의 실제500→401, D07557f67d0 Windows graph false-green 수정, PR-0012b56fa2 Figma 앵커/스트리밍 수동 추천 호환, D0024cc9d74 현행 YouTube 안내. 티켓 전체 상태는 보존.
+- 최종517unit/87files·43Python·lint·typecheck·free-keyless production build·영향 desktop/mobile10 PASS. 실제317 소스 그래프의 직접 DB9개/순환0/위반0, 정적 SQL116 및116 Git 소스/Windows 지문 일치. 초기 오류·수정·정확한 미실행 범위를 DEV-A-MAIN-FOLLOWUP-20261124 증빙에 기록.
+- Docker Desktop 시작과 후속 모델 version/preflight 명령이 자동 승인 검토에서 blocked by policy로 거부됨. 대체 가동/포트 probe/DB·실제 모델·전체 양측 테스트를 우회하지 않음. 새 SQL·이전 패킷 변경 없음. 검토 인계 deliverables/dev-a-main-followup-20261124/. main 생산 빌드 지문 게이트 유지, 운영 적용·전체 DONE/VERIFIED 주장 없음.

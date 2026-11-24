@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "migrations": 116,
+  "git_blob_and_worktree_equal": true,
+  "fingerprint": "7c66ac7a809a137ff7d81bc8174d8c48f3c7956b36e100f95302ccc789e72d9f",
+  "sqlChanged": false
+}

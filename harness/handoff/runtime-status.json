@@ -822,9 +822,10 @@
         "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json",
         "harness/evidence/D084/FRESH_113_20261123.md",
         "harness/evidence/DEV-A-REMAINING-20261123/README.md",
-        "harness/evidence/DEV-A-PRODUCT-CONDITIONS-20261124/verification.json"
+        "harness/evidence/DEV-A-PRODUCT-CONDITIONS-20261124/verification.json",
+        "harness/evidence/DEV-A-MAIN-FOLLOWUP-20261124/verification.json"
       ],
-      "blocker": "최종 로컬504unit/43Python/lint/typecheck/build/영향 desktop-mobile6/fresh0→116/113→116 원자 패킷 통과. 전체 E2E 및 B D049/D075 전수, 실제 provider/메일/Toss TEST·복구·운영 적용과 최신 remote CI는 별도 미완료.",
+      "blocker": "최종 로컬504unit/43Python/lint/typecheck/build/영향 desktop-mobile6/fresh0→116/113→116 원자 패킷 통과. 전체 E2E 및 B D049/D075 전수, 실제 provider/메일/Toss TEST·복구·운영 적용과 최신 remote CI는 별도 미완료. 최신 main1710f23 후속517unit/43Python/lint/typecheck/keyless build/영향 desktop-mobile10 및 Windows 실제 그래프 검증. Docker/모델 확인 요청 정책 차단으로 현 DB·모델·전체 역할 E2E 재실행 없음. 기존 운영/선행 게이트와 상태는 유지한다.",
       "last_checked_at": "2026-11-23T13:53:32.835691+00:00"
     },
     "D085": {

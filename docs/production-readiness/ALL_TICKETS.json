@@ -5896,7 +5896,8 @@
         "harness/evidence/DEV-A-REMAINING-20261123/README.md",
         "harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md",
         "harness/evidence/DEV-A-PRODUCT-CONDITIONS-20261124/verification.json",
-        "docs/production-readiness/REFACTOR_IMPACT.md"
+        "docs/production-readiness/REFACTOR_IMPACT.md",
+        "harness/evidence/DEV-A-MAIN-FOLLOWUP-20261124/verification.json"
       ],
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
@@ -5906,7 +5907,8 @@
         "decision": "UPDATE",
         "acceptance_followup": "빈 로컬 DB의 116개 적용과 운영 업그레이드의 별도 증거를 요구한다."
       },
-      "figma_review": "KEEP"
+      "figma_review": "KEEP",
+      "verified_scope": " 최신 main1710f23 후속517unit/43Python/lint/typecheck/keyless build/영향 desktop-mobile10 및 Windows 실제 그래프 검증. Docker/모델 확인 요청 정책 차단으로 현 DB·모델·전체 역할 E2E 재실행 없음."
     },
     {
       "id": "D085",
