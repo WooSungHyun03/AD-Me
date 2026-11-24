@@ -22,7 +22,7 @@
 
 ## main 자동 배포 설정
 
-GitHub `main`을 Vercel의 Production branch로 사용한다. `main`에 푸시하면 Vercel이 운영 빌드를 시작한다. 빌드 명령은 전체 `supabase/migrations` SQL 파일의 이름과 내용에서 산출한 지문을 Production 환경의 `ADME_PRODUCTION_SCHEMA_SHA256`과 비교한다. 값이 없거나 다르면 빌드가 멈추고 기존 도메인 배포가 계속 응답한다. Preview와 로컬 빌드는 이 운영 설정 없이 실행된다.
+GitHub `main`을 Vercel의 Production branch로 사용한다. `main`에 푸시하면 Vercel이 운영 빌드를 시작한다. 빌드 명령은 전체 `supabase/migrations` SQL 파일의 이름과 내용에서 산출한 지문을 Production 환경의 `ADME_PRODUCTION_SCHEMA_SHA256`과 비교한다. 값이 없거나 다르면 Vercel이 빌드를 시작하기 전에 스키마 검증 대기로 취소한다. GitHub 검증과 기존 도메인 배포는 계속 동작한다. 취소된 배포의 상세 로그에 사유가 표시된다. Git 배포의 사전 검사를 거치지 않는 방식에도 빌드 시 스키마 검사가 적용된다. Preview와 로컬 빌드는 이 운영 설정 없이 실행된다.
 
 새 SQL을 적용할 때에는 운영 백업·복구 증빙, 운영 스키마로부터의 업그레이드 검사, 각 RPC 및 권한 대조를 완료한다. 검증을 마친 커밋의 체크아웃에서 `node scripts/production-schema.mjs --fingerprint`로 지문을 구해 Vercel Production 환경에 등록한다. 같은 커밋을 재배포하면 환경변수가 적용된다. SQL 파일에 변화가 없는 후속 앱 변경은 기존 지문으로 배포할 수 있다. 이 값은 비밀키나 DB 접속 정보가 아니다. 기존 배포를 롤백해야 할 경우에도 Vercel 배포와 DB 마이그레이션의 호환성을 확인한다.
 

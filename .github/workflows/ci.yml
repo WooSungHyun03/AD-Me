@@ -18,6 +18,7 @@ jobs:
       - run: python3 -m unittest discover -s tests -p 'test_*.py'
       - run: python3 harness/validate_service_backlog.py
       - run: python3 harness/production_readiness.py --check
+      - run: python3 harness/migration_check.py
       - run: python3 harness/validate_handoff.py
       - run: npm run lint
       - run: npm run typecheck
@@ -30,7 +31,9 @@ jobs:
     # Uses only the throwaway keys of that local stack; no repository secrets.
     runs-on: ubuntu-latest
     needs: checks
-    timeout-minutes: 30
+    timeout-minutes: 45
+    env:
+      SUPABASE_CLI_VERSION: 2.122.1
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -41,7 +44,31 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium
-      - run: npx supabase@2 start
+      - name: Select an available local test mail port
+        run: |
+          python3 - <<'PYTHON'
+          import os
+          from pathlib import Path
+          import re
+          import socket
+
+          with socket.socket() as listener:
+              listener.bind(("127.0.0.1", 0))
+              port = listener.getsockname()[1]
+              path = Path("supabase/config.toml")
+              config, count = re.subn(
+                  r"(\[local_smtp\][^\[]*?^port = )\d+",
+                  lambda match: f"{match[1]}{port}",
+                  path.read_text(),
+                  flags=re.MULTILINE,
+              )
+              if count != 1:
+                  raise SystemExit("Expected one local SMTP settings block")
+              path.write_text(config)
+              with open(os.environ["GITHUB_ENV"], "a") as exported:
+                  exported.write(f"MAILPIT_URL=http://127.0.0.1:{port}\n")
+          PYTHON
+      - run: npx --yes "supabase@${SUPABASE_CLI_VERSION}" start
       - run: bash tests/ci-db.sh
       - if: always()
         run: python3 harness/secret_scan.py --artifacts

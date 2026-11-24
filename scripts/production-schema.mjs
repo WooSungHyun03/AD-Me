@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
 const migrations = new URL("../supabase/migrations/", import.meta.url);
+const unverifiedSchema = "ADME_UNVERIFIED_SCHEMA";
 
 /** @param {URL | string} [directory] */
 export function migrationFingerprint(directory = migrations) {
@@ -53,8 +54,11 @@ export function checkProductionSchema(
     !/^[a-f0-9]{64}$/.test(approved ?? "") ||
     approved !== migrationFingerprint(directory)
   ) {
-    throw new Error(
-      "Production release blocked: the migration fingerprint has not been verified against production. See docs/production-readiness/RELEASE_CHECKLIST.md.",
+    throw Object.assign(
+      new Error(
+        "Production release blocked: the migration fingerprint has not been verified against production. See docs/production-readiness/RELEASE_CHECKLIST.md.",
+      ),
+      { code: unverifiedSchema },
     );
   }
 }
@@ -63,12 +67,19 @@ if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(process.argv[1]).href
 ) {
+  const ignoredBuildStep = process.argv[2] === "--ignore-unapproved";
   try {
     if (process.argv[2] === "--fingerprint")
       console.log(migrationFingerprint());
     else checkProductionSchema();
+    // Vercel's Ignored Build Step continues on 1 and stops on 0.
+    if (ignoredBuildStep) process.exitCode = 1;
   } catch (error) {
-    console.error(error.message);
-    process.exitCode = 1;
+    if (ignoredBuildStep && error.code === unverifiedSchema) {
+      console.log(`Production build skipped: ${error.message}`);
+    } else {
+      console.error(error.message);
+      process.exitCode = 1;
+    }
   }
 }

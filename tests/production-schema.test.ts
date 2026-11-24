@@ -1,3 +1,4 @@
+import { spawnSync } from "node:child_process";
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -20,6 +21,25 @@ test("main deploys through the database gate before the app build", () => {
   expect(config.buildCommand).toBe(
     "node scripts/production-schema.mjs && npm run build",
   );
+});
+
+test("the Vercel ignore step skips only unapproved production builds", () => {
+  const shouldBuild = (env: Record<string, string>) =>
+    spawnSync(process.execPath, ["scripts/production-schema.mjs", "--ignore-unapproved"], {
+      encoding: "utf8",
+      env: { NODE_ENV: "test", ...env },
+    });
+
+  expect(config.ignoreCommand).toBe(
+    "node scripts/production-schema.mjs --ignore-unapproved",
+  );
+  const skipped = shouldBuild(production);
+  expect(skipped.status).toBe(0);
+  expect(skipped.stdout).toContain("Production build skipped");
+  expect(shouldBuild({ ...production, ADME_PRODUCTION_SCHEMA_SHA256: fingerprint }).status).toBe(1);
+  expect(shouldBuild({ VERCEL_ENV: "preview" }).status).toBe(1);
+  expect(shouldBuild({ VERCEL_ENV: "preview", VERCEL_TARGET_ENV: "production" }).status).toBe(0);
+  expect(shouldBuild({ VERCEL: "1" }).status).toBe(1);
 });
 
 test("production fails closed without the approved fingerprint for the SQL files", () => {

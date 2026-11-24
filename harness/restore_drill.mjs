@@ -204,7 +204,7 @@ const z0 = t();
 const cli = process.env.ADME_RESTORE_CLI;
 execFileSync(
   cli ?? "npx",
-  [...(cli ? [] : ["supabase@2"]), "db", "reset", "--local", "--no-seed", "--workdir", workdir],
+  [...(cli ? [] : ["--yes", `supabase@${process.env.SUPABASE_CLI_VERSION ?? "2.122.1"}`]), "db", "reset", "--local", "--no-seed", "--workdir", workdir],
   { stdio: "inherit" },
 );
 // The reset restarts the API services; wait until Storage answers before restoring files.
