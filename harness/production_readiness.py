@@ -87,7 +87,9 @@ def workloads(rows):
 
 
 def printable(value):
-    return " · ".join(value) if isinstance(value, list) else str(value)
+    if isinstance(value, list):
+        return " · ".join(item if isinstance(item, str) else json.dumps(item, ensure_ascii=False) for item in value)
+    return str(value)
 
 
 def ticket_text(row):
@@ -101,6 +103,9 @@ def ticket_text(row):
     for field, label in LABELS.items():
         text = printable(row[field]) if row[field] else "없음"
         pieces.append(f"- **{label}** — {text}")
+    if row.get("figma_nodes"):
+        links = " · ".join(f"[{node['label']}]({node['url']})" for node in row["figma_nodes"])
+        pieces.append(f"- **Figma 노드** — {links}")
     if row.get("verified_scope"):
         pieces.append(f"- **검증 범위** — {row['verified_scope']}")
     if row.get("previous_owner"):
@@ -142,6 +147,8 @@ def render_developer(owner, rows, summary, records):
 미완료 ACTIVE {summary['tickets']}건 · {summary['points']} SP · P0 {summary['p0']}건.
 
 ## 착수 순서 및 공유 계약
+
+[AD ME Figma 프레임 매핑](../design/figma-frame-map.json)에서 실제 노드 UX를 확인한 뒤 코드로 구현한다. 적용되지 않은 화면과 데이터 필드는 [미완료 화면 목록](../design/missing-frames.md)을 확인한다.
 
 {waves}
 

@@ -17,7 +17,7 @@
 | layout, globals.css, marketplace-theme.css, ui 컴포넌트 | B, A는 소비자 리뷰 | 색상·대비·focus·disabled·mobile/empty |
 | Supabase migrations, 릴리스/CI, 운영 도메인 | 각 도메인 작성, B D085 통합, A D075 권한 검토 | 번호 예약, SQL 순서, expand/backfill/read switch 분리 |
 
-기존 로고, 차콜 #101311, 행동 라임 #D7FF45, 캔버스 #F7F8F4 및 기존 버튼/설정 토큰을 유지한다. 새 기능에서 Instagram/TikTok이나 AI 스튜디오를 되살리지 않는다.
+AD ME Figma 원본의 로고와 라벤더 기반 토큰을 따른다. 이미 있는 화면과 필요한 추가 화면의 실제 노드는 [Figma 프레임 목록](../design/figma-frame-map.json)에 기록한다. 새 기능에서 Instagram/TikTok이나 AI 스튜디오를 되살리지 않는다.
 
 ## 통합과 검증
 
@@ -31,4 +31,4 @@
 
 ## 2026-11-24 도메인 및 UI 계약
 
-[파일 이동 매핑](FILE_MOVE_MAP.json)의 기존 URL·경로와 기존 호출 계약을 지원한다. 공통 HTTP 오류와 로그는 `src/shared/server`에 둔다. 공개 화면은 밝은 표면과 라임 CTA를 공통 사용한다. 5초를 넘는 자동 모션에는 일시정지와 감소 모션 정책을 제공한다.
+[파일 이동 매핑](FILE_MOVE_MAP.json)의 기존 URL·경로와 기존 호출 계약을 지원한다. 공통 HTTP 오류와 로그는 `src/shared/server`에 둔다. 적용된 공개 화면은 밝은 표면과 Figma의 보라색 행동 토큰을 사용한다. 5초를 넘는 자동 모션에는 일시정지와 감소 모션 정책을 제공한다.

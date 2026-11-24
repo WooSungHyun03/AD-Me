@@ -1,0 +1,1714 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "id": "BASE",
+      "title": "최신 main / 운영 SHA / 기존 원장 / 실제 라우트 / 기능 기준선",
+      "depends_on": [],
+      "kind": "engineering",
+      "owner": "LEAD",
+      "gate": "core",
+      "checks": [
+        "repo_sha",
+        "baseline_tests",
+        "route_inventory",
+        "canonical_ledger"
+      ]
+    },
+    {
+      "id": "FIGMA",
+      "title": "AD ME 원본 찾기, 실제 file key 및 전체 페이지/노드 인벤토리",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "design",
+      "owner": "LEAD",
+      "gate": "core",
+      "checks": [
+        "figma_file_key",
+        "node_inventory",
+        "screenshots",
+        "design_skill"
+      ]
+    },
+    {
+      "id": "MAP",
+      "title": "Figma 전체 프레임 ↔ 실제 route ↔ 기능 ↔ 역할 매핑 및 누락 화면 조사",
+      "depends_on": [
+        "FIGMA"
+      ],
+      "kind": "engineering",
+      "owner": "LEAD",
+      "gate": "core",
+      "checks": [
+        "coverage_matrix",
+        "missing_screen_inventory",
+        "feature_contract"
+      ]
+    },
+    {
+      "id": "EXTRA",
+      "title": "누락된 필수 화면 및 캠페인 복원 화면을 Figma에서 생성/검수",
+      "depends_on": [
+        "MAP"
+      ],
+      "kind": "design",
+      "owner": "LEAD",
+      "gate": "core",
+      "checks": [
+        "figma_node_links",
+        "design_context",
+        "screenshots",
+        "missing_screen_resolution"
+      ]
+    },
+    {
+      "id": "TOKENS",
+      "title": "Figma Variables / Components / assets / 모션 → 공통 UI",
+      "depends_on": [
+        "EXTRA"
+      ],
+      "kind": "engineering",
+      "owner": "LEAD",
+      "gate": "core",
+      "checks": [
+        "design_context",
+        "asset_manifest",
+        "browser_screenshots",
+        "component_tests"
+      ]
+    },
+    {
+      "id": "CAMPAIGN",
+      "title": "광고 공고를 캠페인으로 복원: URL/권한/상태/기능/기존 데이터",
+      "depends_on": [
+        "MAP"
+      ],
+      "kind": "engineering",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "route_contract",
+        "migration_compatibility",
+        "campaign_e2e",
+        "negative_tests"
+      ]
+    },
+    {
+      "id": "DATA",
+      "title": "실제 YouTube 채널 수집/검색/통계/허용 태그/일일 동기화",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "engineering",
+      "owner": "DEV-A",
+      "gate": "core",
+      "checks": [
+        "source_policy",
+        "real_data_proof",
+        "sync_tests",
+        "negative_tests"
+      ]
+    },
+    {
+      "id": "AI",
+      "title": "Local AI 상품 조건 분석/추천/태그 및 실제 worker 연결",
+      "depends_on": [
+        "DATA"
+      ],
+      "kind": "engineering",
+      "owner": "DEV-A",
+      "gate": "core",
+      "checks": [
+        "model_version",
+        "real_inference",
+        "queue_recovery",
+        "matching_tests"
+      ]
+    },
+    {
+      "id": "AUTH",
+      "title": "가입/로그인/역할/채널 인증 및 RLS 경계",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "engineering",
+      "owner": "DEV-A",
+      "gate": "core",
+      "checks": [
+        "auth_e2e",
+        "rls_negative_tests"
+      ]
+    },
+    {
+      "id": "CHAT",
+      "title": "실제 캠페인 협업/채팅/알림/차단/신고",
+      "depends_on": [
+        "CAMPAIGN",
+        "AUTH"
+      ],
+      "kind": "engineering",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "two_role_e2e",
+        "rls_negative_tests"
+      ]
+    },
+    {
+      "id": "BILL",
+      "title": "주문/이용권/HOT/환불/중복/격리 검증 및 공개 UI 분리",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "engineering",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "payment_sandbox_tests",
+        "ledger_tests",
+        "hot_expiry",
+        "environment_isolation"
+      ]
+    },
+    {
+      "id": "COPY",
+      "title": "공개 화면 TEST/SDK/내부 설정 문구 전수 제거 및 실제 제공 기능만 표시",
+      "depends_on": [
+        "BILL",
+        "TOKENS"
+      ],
+      "kind": "engineering",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "copy_scan",
+        "public_browser_proof",
+        "payment_truthfulness"
+      ]
+    },
+    {
+      "id": "OPSAPP",
+      "title": "관리자·관측·복구·보안·배포 패킷 및 마이그레이션 검증",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "engineering",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "migration_check",
+        "backup_restore",
+        "monitoring",
+        "security_tests"
+      ]
+    },
+    {
+      "id": "F01-D",
+      "title": "01 · 홈페이지 / Desktop",
+      "depends_on": [
+        "TOKENS"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F02-D",
+      "title": "02 · 크리에이터 탐색 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "DATA"
+      ],
+      "kind": "frame",
+      "owner": "DEV-A",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F03-D",
+      "title": "03 · 크리에이터 프로필 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "DATA"
+      ],
+      "kind": "frame",
+      "owner": "DEV-A",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F04-D",
+      "title": "04 · AI 추천 조건 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "AI"
+      ],
+      "kind": "frame",
+      "owner": "DEV-A",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F05-D",
+      "title": "05 · AI 추천 결과 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "AI"
+      ],
+      "kind": "frame",
+      "owner": "DEV-A",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F06-D",
+      "title": "06 · 광고 공고 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "CAMPAIGN"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F07-D",
+      "title": "07 · 광고 공고 상세 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "CAMPAIGN"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F08-D",
+      "title": "08 · 광고 공고 작성 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "CAMPAIGN"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F09-D",
+      "title": "09 · 광고 지원 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "CAMPAIGN"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F10-D",
+      "title": "10 · 실시간 채팅 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "CHAT"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F11-D",
+      "title": "11 · 요금제 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "BILL",
+        "COPY"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F12-D",
+      "title": "12 · 결제 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "BILL",
+        "COPY"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F13-D",
+      "title": "13 · 브랜드 대시보드 / Desktop",
+      "depends_on": [
+        "TOKENS"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F14-D",
+      "title": "14 · 크리에이터 대시보드 / Desktop",
+      "depends_on": [
+        "TOKENS"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F15-D",
+      "title": "15 · 관리자 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "OPSAPP"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F16-D",
+      "title": "16 · 로그인 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "AUTH"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F17-D",
+      "title": "17 · 회원가입 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "AUTH"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F01-M",
+      "title": "01 · 홈페이지 / Mobile",
+      "depends_on": [
+        "TOKENS"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F02-M",
+      "title": "02 · 크리에이터 탐색 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "DATA"
+      ],
+      "kind": "frame",
+      "owner": "DEV-A",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F03-M",
+      "title": "03 · 크리에이터 프로필 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "DATA"
+      ],
+      "kind": "frame",
+      "owner": "DEV-A",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F04-M",
+      "title": "04 · AI 추천 조건 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "AI"
+      ],
+      "kind": "frame",
+      "owner": "DEV-A",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F05-M",
+      "title": "05 · AI 추천 결과 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "AI"
+      ],
+      "kind": "frame",
+      "owner": "DEV-A",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F06-M",
+      "title": "06 · 광고 공고 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "CAMPAIGN"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F07-M",
+      "title": "07 · 광고 공고 상세 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "CAMPAIGN"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F08-M",
+      "title": "08 · 광고 공고 작성 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "CAMPAIGN"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F09-M",
+      "title": "09 · 광고 지원 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "CAMPAIGN"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F10-M",
+      "title": "10 · 실시간 채팅 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "CHAT"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F11-M",
+      "title": "11 · 요금제 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "BILL",
+        "COPY"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F12-M",
+      "title": "12 · 결제 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "BILL",
+        "COPY"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F13-M",
+      "title": "13 · 브랜드 대시보드 / Mobile",
+      "depends_on": [
+        "TOKENS"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F14-M",
+      "title": "14 · 크리에이터 대시보드 / Mobile",
+      "depends_on": [
+        "TOKENS"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F15-M",
+      "title": "15 · 관리자 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "OPSAPP"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F16-M",
+      "title": "16 · 로그인 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "AUTH"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F17-M",
+      "title": "17 · 회원가입 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "AUTH"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F18-D",
+      "title": "18 · 공고 게시 완료 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "CAMPAIGN"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F19-D",
+      "title": "19 · 지원 완료 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "CAMPAIGN"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F20-D",
+      "title": "20 · 결제 완료 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "BILL",
+        "COPY"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F21-D",
+      "title": "21 · 가입 완료 / Desktop",
+      "depends_on": [
+        "TOKENS",
+        "AUTH"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F18-M",
+      "title": "18 · 공고 게시 완료 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "CAMPAIGN"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F19-M",
+      "title": "19 · 지원 완료 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "CAMPAIGN"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F20-M",
+      "title": "20 · 결제 완료 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "BILL",
+        "COPY"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F21-M",
+      "title": "21 · 가입 완료 / Mobile",
+      "depends_on": [
+        "TOKENS",
+        "AUTH"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F22-M",
+      "title": "22 · 모바일 전체 메뉴",
+      "depends_on": [
+        "TOKENS"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "F23-M",
+      "title": "23 · 모바일 상세 필터",
+      "depends_on": [
+        "TOKENS"
+      ],
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "PR-003",
+      "title": "Local AI 호스트·모델 가동 및 장애 복구 승인",
+      "depends_on": [
+        "AI",
+        "OPSAPP"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U016",
+      "title": "선택적 LLM 계정·키·비용 상한",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "optional",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U002",
+      "title": "GitHub 조직·저장소·앱 권한 설정",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U003",
+      "title": "Supabase 환경·계정·리전·한도 설정",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U004",
+      "title": "Supabase 외부 환경·DB 변경 적용",
+      "depends_on": [
+        "OPSAPP"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U005",
+      "title": "Vercel 프로젝트·Git 연결·배포 실행",
+      "depends_on": [
+        "U004"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U008",
+      "title": "Auth 외부 콘솔 설정",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U018",
+      "title": "관측·알림·백업 외부 계정 설정",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U017",
+      "title": "도메인·DNS·TLS·소유권",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U006",
+      "title": "환경변수·시크릿 등록과 교체",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U007",
+      "title": "SMTP 계정·키·발신 도메인 설정",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U009",
+      "title": "YouTube 프로젝트·API 키 발급/등록",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U015",
+      "title": "Toss TEST 계정·호환 키·등록",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "paid",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U010",
+      "title": "YouTube 이용 정책·파생 지표 승인",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U011",
+      "title": "웹 수집 대상의 허용 근거 확보",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "optional",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "O001",
+      "title": "웹디자인 시안·브랜드 기준 및 반영 승인",
+      "depends_on": [
+        "TOKENS"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U001",
+      "title": "서비스 운영 범위·정책·운영자 확정",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U014",
+      "title": "실제 크리에이터 시범 참여·운영 동의",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U019",
+      "title": "실제 테스트 참여·브라우저 승인",
+      "depends_on": [
+        "AUTH",
+        "BILL"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U020",
+      "title": "공개 베타 출시·사고 연락·운영 책임",
+      "depends_on": [
+        "U001",
+        "U014",
+        "U019",
+        "U005"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "core",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U021",
+      "title": "유료 판매 사업 주체와 상품·환불 정책 승인",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "paid",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U022",
+      "title": "Toss 라이브 상점 계약 및 환경 승인",
+      "depends_on": [
+        "U021"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "paid",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U012",
+      "title": "Instagram 앱·OAuth·심사·키",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "excluded",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "U013",
+      "title": "TikTok 앱·OAuth·심사·키",
+      "depends_on": [
+        "BASE"
+      ],
+      "kind": "operator",
+      "owner": "OPERATOR",
+      "gate": "excluded",
+      "checks": [
+        "canonical_preconditions",
+        "actual_environment",
+        "verification_or_approval",
+        "redacted_evidence"
+      ]
+    },
+    {
+      "id": "QA",
+      "title": "Figma 대비 전수 시각·기능·반응형·접근성 회귀",
+      "depends_on": [
+        "EXTRA",
+        "COPY",
+        "AUTH",
+        "CHAT",
+        "OPSAPP",
+        "F01-D",
+        "F02-D",
+        "F03-D",
+        "F04-D",
+        "F05-D",
+        "F06-D",
+        "F07-D",
+        "F08-D",
+        "F09-D",
+        "F10-D",
+        "F11-D",
+        "F12-D",
+        "F13-D",
+        "F14-D",
+        "F15-D",
+        "F16-D",
+        "F17-D",
+        "F01-M",
+        "F02-M",
+        "F03-M",
+        "F04-M",
+        "F05-M",
+        "F06-M",
+        "F07-M",
+        "F08-M",
+        "F09-M",
+        "F10-M",
+        "F11-M",
+        "F12-M",
+        "F13-M",
+        "F14-M",
+        "F15-M",
+        "F16-M",
+        "F17-M",
+        "F18-D",
+        "F19-D",
+        "F20-D",
+        "F21-D",
+        "F18-M",
+        "F19-M",
+        "F20-M",
+        "F21-M",
+        "F22-M",
+        "F23-M",
+        "X-CREATOR-CHECKOUT-D",
+        "X-CREATOR-CHECKOUT-M",
+        "X-CREATOR-SIGNUP-D",
+        "X-CREATOR-SIGNUP-M"
+      ],
+      "kind": "engineering",
+      "owner": "LEAD",
+      "gate": "core",
+      "checks": [
+        "coverage_matrix",
+        "visual_diffs",
+        "e2e",
+        "lint_typecheck_build",
+        "security_tests",
+        "accessibility"
+      ]
+    },
+    {
+      "id": "HANDOFF",
+      "title": "공식 원장 전수 재판정 및 A/B/운영자 독립 실행문서 생성",
+      "depends_on": [
+        "QA"
+      ],
+      "kind": "engineering",
+      "owner": "LEAD",
+      "gate": "core",
+      "checks": [
+        "ticket_diff",
+        "ledger_validation",
+        "generated_documents",
+        "dependency_check"
+      ]
+    },
+    {
+      "id": "PREVIEW",
+      "title": "검증된 main push / preview / 배포 호환성 검증",
+      "depends_on": [
+        "QA",
+        "HANDOFF"
+      ],
+      "kind": "engineering",
+      "owner": "LEAD",
+      "gate": "core",
+      "checks": [
+        "remote_sha",
+        "preview_url",
+        "schema_compatibility",
+        "preview_smoke"
+      ]
+    },
+    {
+      "id": "LIVE",
+      "title": "운영 반영 및 무료/유료 출시 판정",
+      "depends_on": [
+        "PREVIEW",
+        "PR-003",
+        "O001",
+        "U002",
+        "U003",
+        "U004",
+        "U005",
+        "U006",
+        "U007",
+        "U008",
+        "U009",
+        "U010",
+        "U014",
+        "U017",
+        "U018",
+        "U019",
+        "U020",
+        "U001"
+      ],
+      "kind": "engineering",
+      "owner": "LEAD",
+      "gate": "core",
+      "checks": [
+        "production_sha",
+        "production_url",
+        "production_smoke",
+        "go_no_go",
+        "rollback_plan"
+      ]
+    },
+    {
+      "id": "PAID-LIVE",
+      "title": "정식 유료 판매 활성화 및 운영 검증",
+      "depends_on": [
+        "LIVE",
+        "U015",
+        "U021",
+        "U022"
+      ],
+      "kind": "engineering",
+      "owner": "LEAD",
+      "gate": "paid",
+      "checks": [
+        "merchant_approval",
+        "live_config_review",
+        "reconciliation_refund",
+        "authorized_live_verification"
+      ]
+    },
+    {
+      "id": "X-CREATOR-CHECKOUT-D",
+      "title": "크리에이터 결제 / Desktop",
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "node_id": "11:2348",
+      "depends_on": [
+        "TOKENS",
+        "BILL"
+      ],
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "X-CREATOR-CHECKOUT-M",
+      "title": "크리에이터 결제 / Mobile",
+      "kind": "frame",
+      "owner": "DEV-B",
+      "gate": "core",
+      "node_id": "11:2388",
+      "depends_on": [
+        "TOKENS",
+        "BILL"
+      ],
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "X-CREATOR-SIGNUP-D",
+      "title": "크리에이터 가입 / Desktop",
+      "kind": "frame",
+      "owner": "DEV-A",
+      "gate": "core",
+      "node_id": "11:2416",
+      "depends_on": [
+        "TOKENS",
+        "AUTH"
+      ],
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    },
+    {
+      "id": "X-CREATOR-SIGNUP-M",
+      "title": "크리에이터 가입 / Mobile",
+      "kind": "frame",
+      "owner": "DEV-A",
+      "gate": "core",
+      "node_id": "11:2444",
+      "depends_on": [
+        "TOKENS",
+        "AUTH"
+      ],
+      "checks": [
+        "figma_node_id",
+        "design_context",
+        "figma_screenshot",
+        "browser_screenshot",
+        "asset_check",
+        "visual_review",
+        "functional_test"
+      ]
+    }
+  ]
+}

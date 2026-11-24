@@ -22,6 +22,7 @@ DEV-B · P0 · S0 출시 차단 · UX · TODO · 3 SP · ACTIVE
 - **완료 조건** — 실서비스는 무료 기능만 노출하고 TEST 상품·시연 데이터는 별도 환경으로 격리한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D001/ (이번 검증 기록 위치)
+- **Figma 노드** — [11 · 요금제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271) · [11 · 요금제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492)
 - **이전 기록** — OPEN
 
 ## D002 · 운영 정책·요금·기능 설명 일치
@@ -44,6 +45,7 @@ DEV-A · P0 · S0 출시 차단 · UX · IMPLEMENTED · 2 SP · ACTIVE
 - **완료 조건** — 현재 제공 기능만 안내하고 AI 크레딧 수량·가격 등 문서와 코드의 불일치를 제거한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D002/README.md · harness/evidence/D002/VERIFY_20261121.md · harness/evidence/DEV-A-P0-FINISH-20261121/verification.json · harness/evidence/D002/ (이번 검증 기록 위치)
+- **Figma 노드** — [11 · 요금제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271) · [11 · 요금제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492)
 - **검증 범위** — 새 문구와 Checkout 오류 라벨은 main 및 격리 검증 범위. 운영 호환 배포에 미반영.
 - **이전 기록** — LOCAL_VERIFIED
 
@@ -67,6 +69,7 @@ DEV-A · P0 · S0 출시 차단 · DEVOPS · TESTED · 3 SP · ACTIVE
 - **완료 조건** — 환경값을 Zod로 검증하고 비밀값 없이 누락된 설정명과 비활성 기능을 표시한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D003/README.md · harness/evidence/DEV-A-P0-CONTINUE/verification.json · harness/evidence/D003/ (이번 검증 기록 위치) · harness/evidence/D003/CONFIG_20261123.md · docs/production-readiness/REFACTOR_IMPACT.md
+- **Figma 노드** — [16 · 로그인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361) · [16 · 로그인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537)
 - **검증 범위** — 2026-11-23 로컬: 앱·legacy mode·CLI·admin health의 동일 모드 해석, 충돌/잘못된 alias 무료 안전 모드와 값 없는 진단, optional TEST 키 진단29건. 운영 적용 미검증.
 - **이전 기록** — LOCAL_VERIFIED
 
@@ -201,6 +204,7 @@ DEV-A · P0 · S0 출시 차단 · AUTH · BLOCKED · 3 SP · ACTIVE
 - **완료 조건** — 이메일 인증·재발송·만료 링크·중복 가입·콜백 리다이렉트를 처리한다.
 - **차단 요인** — 외부 선행 U007, U008의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/AUTH_PROVIDER_EXECUTION.md · harness/evidence/D009/README.md · harness/evidence/DEV-A-P0-CONTINUE/verification.json · harness/evidence/D009/ (이번 검증 기록 위치)
+- **Figma 노드** — [16 · 로그인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361) · [17 · 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-379) · [16 · 로그인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537) · [17 · 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1546) · [21 · 가입 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2206) · [21 · 가입 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2271) · [17b · 크리에이터 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416) · [17b · 크리에이터 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444)
 - **이전 기록** — BLOCKED_EXTERNAL
 
 ## D010 · 비밀번호 재설정·이메일 변경
@@ -223,6 +227,7 @@ DEV-B · P0 · S0 출시 차단 · AUTH · IN_PROGRESS · 5 SP · ACTIVE
 - **완료 조건** — 재설정·변경 확인·링크 만료·열린 리다이렉트 방지를 구현한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/AUTH_PROVIDER_EXECUTION.md · harness/evidence/D010/ (이번 검증 기록 위치)
+- **Figma 노드** — [16 · 로그인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361) · [16 · 로그인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537)
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## D011 · 브랜드·크리에이터 온보딩
@@ -245,6 +250,7 @@ DEV-B · P0 · S0 출시 차단 · PRODUCT · TODO · 3 SP · ACTIVE
 - **완료 조건** — 역할별 필수 항목·진행 상태·재진입을 제공하고 역할 자가 승격을 막는다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D011/ (이번 검증 기록 위치)
+- **Figma 노드** — [16 · 로그인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361) · [17 · 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-379) · [16 · 로그인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537) · [17 · 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1546) · [21 · 가입 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2206) · [21 · 가입 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2271) · [17b · 크리에이터 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416) · [17b · 크리에이터 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444)
 - **이전 기록** — OPEN
 
 ## D012 · 브랜드 프로필·담당자 정보
@@ -289,6 +295,7 @@ DEV-B · P0 · S0 출시 차단 · AUTH · TODO · 3 SP · ACTIVE
 - **완료 조건** — 만료 후 재로그인 경로·탭 간 상태·민감 작업 재인증을 처리한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D013/ (이번 검증 기록 위치)
+- **Figma 노드** — [16 · 로그인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361) · [16 · 로그인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537)
 - **이전 기록** — OPEN
 
 ## D014 · 계정 탈퇴·개인정보 삭제 실행
@@ -333,6 +340,7 @@ DEV-B · P1 · S1 주요 부족 · UX · TODO · 3 SP · ACTIVE
 - **완료 조건** — 서비스 알림·선택적 마케팅·관심 분야를 분리하여 변경 기록을 저장한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D015/ (이번 검증 기록 위치)
+- **Figma 노드** — [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519)
 - **이전 기록** — OPEN
 
 ## D016 · 관리자 MFA·초대 기반 권한
@@ -355,6 +363,7 @@ DEV-A · P0 · S0 출시 차단 · AUTH · TESTED · 5 SP · ACTIVE
 - **완료 조건** — 관리자는 별도 프로비저닝·MFA·재인증을 요구하고 UI 숨김에 의존하지 않는다.
 - **차단 요인** — 외부 선행 U008의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D016/README.md · harness/evidence/DEV-A-P0-CONTINUE/verification.json · harness/evidence/DEV-A-MAIN-20261120/verification.json · harness/evidence/D016/ (이번 검증 기록 위치) · harness/evidence/D016/REVALIDATE_20261123.md · docs/production-readiness/REFACTOR_IMPACT.md
+- **Figma 노드** — [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [16 · 로그인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528) · [16 · 로그인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537)
 - **검증 범위** — 현재107 격리 DB 직접 권한6그룹: MFA/초대/회수/자기승격/집계 definer와 public CREATE 경계. 합성 JWT이며 외부 U008/실제 운영 OTP 미검증.
 - **이전 기록** — LOCAL_VERIFIED
 
@@ -400,6 +409,7 @@ DEV-A · P0 · S0 출시 차단 · DATABASE · TESTED · 5 SP · ACTIVE
 - **완료 조건** — SNS 고유 ID·핸들·시계열 지표·수집시각·출처·동의·청구 상태를 필드 수준으로 저장한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D018/README.md · harness/evidence/D018/normalization-security-20261120.json · harness/evidence/D018/packet-terms_18-20261120.json · harness/evidence/D018/ (이번 검증 기록 위치)
+- **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D019 · YouTube 공식 API 수집 어댑터
@@ -422,6 +432,7 @@ DEV-A · P0 · S0 출시 차단 · YOUTUBE · IN_PROGRESS · 8 SP · ACTIVE
 - **완료 조건** — 허용된 채널 seed로 공개 프로필·영상·제공 지표를 수집하고 비공개 지표를 추정값으로 채우지 않는다.
 - **차단 요인** — 일반 공식 원본 API에는 U009의 키·권한이 필요하다. 파생·추가 용도의 U010은 D031/PR-002에서 적용한다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/implementation-progress.md · harness/evidence/D019/ (이번 검증 기록 위치) · harness/evidence/D019/ADAPTER_20261123.md · harness/evidence/D019/OWNERSHIP_20261123.md
+- **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411)
 - **검증 범위** — 실제 공급자 호출 없는 TS20/Python8 계약: 응답·요청 상한, 공개/타 채널 귀속, 숨김/안전 정수, quota·rate·404·전송 실패. 정책·현재 키/소유권/운영 검증은 미완료.
 - **이전 기록** — PARTIAL_VERIFIED
 
@@ -534,6 +545,7 @@ DEV-B · P0 · S0 출시 차단 · YOUTUBE · IN_PROGRESS · 5 SP · ACTIVE
 - **완료 조건** — 허용된 실제 프로필 50~100개를 목표로 중복·출처·갱신·결측·삭제 대응을 표본 검수한다. 확보 수량은 결과로 기록한다.
 - **차단 요인** — 외부 선행 U014의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/implementation-progress.md · harness/evidence/D024/ (이번 검증 기록 위치)
+- **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420)
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## D025 · 미청구 프로필과 본인 프로필 청구
@@ -556,6 +568,7 @@ DEV-B · P0 · S0 출시 차단 · YOUTUBE · IN_PROGRESS · 8 SP · ACTIVE
 - **완료 조건** — 수집 프로필은 미인증·협업 의사 미확인으로 표시하고 소유 증명 후에만 수정·제안 수신을 허용한다.
 - **차단 요인** — 외부 선행 U014의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/implementation-progress.md · harness/evidence/D025/ (이번 검증 기록 위치)
+- **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420) · [17b · 크리에이터 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416) · [17b · 크리에이터 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444)
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## D026 · 크리에이터 프로필 편집 확장
@@ -578,6 +591,7 @@ DEV-B · P0 · S0 출시 차단 · SECURITY · TODO · 5 SP · ACTIVE
 - **완료 조건** — 분야·분위기·형식·플랫폼 다중 선택, 견적 범위·가용성·견적 미확인을 구분한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D026/ (이번 검증 기록 위치)
+- **Figma 노드** — [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519)
 - **이전 기록** — OPEN
 
 ## D027 · 안전한 이미지·포트폴리오 업로드
@@ -600,6 +614,7 @@ DEV-B · P0 · S0 출시 차단 · SECURITY · TODO · 5 SP · ACTIVE
 - **완료 조건** — 파일 크기·실제 MIME·경로·접근권한·삭제를 검증하고 권리 있는 파일만 업로드한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D027/ (이번 검증 기록 위치)
+- **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420)
 - **이전 기록** — OPEN
 
 ## D028 · SNS 링크·공식 임베드·공유
@@ -622,6 +637,7 @@ DEV-A · P0 · S0 출시 차단 · YOUTUBE · TESTED · 3 SP · ACTIVE
 - **완료 조건** — 허용된 HTTPS 링크·임베드·공개 프로필 공유를 제공하고 무단 이미지 복제를 피한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D028/README.md · harness/evidence/D028/VERIFY_20261121.md · harness/evidence/DEV-A-P0-FINISH-20261121/verification.json · harness/evidence/D028/ (이번 검증 기록 위치)
+- **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D029 · 실제 광고 이력 제출·출처 검증
@@ -644,6 +660,7 @@ DEV-A · P0 · S0 출시 차단 · YOUTUBE · TESTED · 8 SP · ACTIVE
 - **완료 조건** — 브랜드·기간·형식·경제적 이해관계 표시·증거 URL·제출자·검토 상태를 저장한다. 단순 브랜드 언급을 광고로 확정하지 않는다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D029/PLAN_20261120.md · harness/evidence/D029/README.md · harness/evidence/D029/ad-history-security-v29-20261120.json · harness/evidence/D029/ (이번 검증 기록 위치) · harness/evidence/D029/REVALIDATE_20261123.md
+- **Figma 노드** — [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420)
 - **검증 범위** — 현재107 격리 DB 실제 SQL/PostgREST8그룹 통과. 독립 가상 프로필 fixture로 변경; 기존 seed 부재 및 QA 관리자 초대 만료 실패를 수정 후 검증. 운영/출처 검토와 구분.
 - **이전 기록** — LOCAL_VERIFIED
 
@@ -667,6 +684,7 @@ DEV-A · P1 · S1 주요 부족 · YOUTUBE · TESTED · 5 SP · ACTIVE
 - **완료 조건** — 실제 검증 이력 기반 브랜드·카테고리·기간 필터와 브랜드별 경쟁사 표식을 제공한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D030/VERIFY_READY_20261122.md · harness/evidence/DEV-A-READY-20261122/verification.json · harness/evidence/D030/ (이번 검증 기록 위치)
+- **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D031 · 실제 성과 그래프·지표 정의
@@ -689,6 +707,7 @@ DEV-A · P1 · S1 주요 부족 · YOUTUBE · TESTED · 5 SP · GATED
 - **완료 조건** — 확인 가능한 시계열과 집계 산식·기간·출처를 표시하고 타깃 인구통계는 미제공 상태로 남긴다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D031/VERIFY_READY_20261122.md · harness/evidence/DEV-A-READY-20261122/verification.json · harness/evidence/D031/ (이번 검증 기록 위치)
+- **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D032 · 유사 프로필·신고·정정 진입
@@ -711,6 +730,7 @@ DEV-B · P1 · S1 주요 부족 · MATCHING · TODO · 3 SP · ACTIVE
 - **완료 조건** — 근거 있는 태그 유사 후보와 프로필별 정정·삭제 요청 경로를 제공한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D032/ (이번 검증 기록 위치)
+- **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420)
 - **이전 기록** — OPEN
 
 ## D033 · 서버 검색·페이지네이션·인덱스
@@ -733,6 +753,7 @@ DEV-A · P0 · S0 출시 차단 · MATCHING · TESTED · 8 SP · ACTIVE
 - **완료 조건** — 전체 프로필 브라우저 전송을 없애고 공개 DTO·정렬·페이지 크기 제한·검색 인덱스를 적용한다.
 - **차단 요인** — D005와 실제 데이터 회귀, USER 조율105→107 DB 적용 및 합의된 데이터량 성능 검증이 남았다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D033/ (이번 검증 기록 위치) · harness/evidence/D033/DIRECTORY_20261123.md
+- **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [23 · 모바일 상세 필터](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2303)
 - **검증 범위** — 로컬 계약10건 + 실제 격리 Postgres/PostgREST5개 그룹(가상67/적격63), 세 정렬 다중 페이지·필터·권한·철회 통과. 운영/대규모 성능/브라우저 최종 배치는 별도.
 - **이전 기록** — OPEN
 
@@ -756,6 +777,7 @@ DEV-A · P0 · S0 출시 차단 · FRONTEND · TESTED · 5 SP · ACTIVE
 - **완료 조건** — 플랫폼·분야·태그·가격·가용성·팔로워 필터를 조합하고 URL 복원·초기화·0과 결측을 구분한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D034/README.md · harness/evidence/D034/PLAN_20261120.md · harness/evidence/D034/VERIFY_20261121.md · harness/evidence/D034/ (이번 검증 기록 위치)
+- **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [23 · 모바일 상세 필터](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2303)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D035 · 지표 가용성 기반 필터
@@ -778,6 +800,7 @@ DEV-A · P1 · S1 주요 부족 · YOUTUBE · TESTED · 3 SP · GATED
 - **완료 조건** — 참여율·연령·성별 필터는 적법하게 확보된 데이터가 있는 공급원만 제공한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D035/VERIFY_READY_20261122.md · harness/evidence/DEV-A-READY-20261122/verification.json · harness/evidence/D035/ (이번 검증 기록 위치)
+- **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [23 · 모바일 상세 필터](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2303)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D036 · 후보 그룹·캠페인별 shortlist
@@ -800,6 +823,7 @@ DEV-B · P0 · S0 출시 차단 · MATCHING · TODO · 5 SP · ACTIVE
 - **완료 조건** — 기존 즐겨찾기를 이름 있는 그룹·캠페인 후보로 확장하고 중복을 방지한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D036/ (이번 검증 기록 위치)
+- **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510)
 - **이전 기록** — OPEN
 
 ## D037 · 저장 검색·신규 후보 알림
@@ -822,6 +846,7 @@ DEV-A · P1 · S1 주요 부족 · MATCHING · IN_PROGRESS · 5 SP · ACTIVE
 - **완료 조건** — 검색 조건 버전을 저장하고 동의한 사용자에게 신규 후보 요약을 제공한다.
 - **차단 요인** — D052와 후보 신규성 cursor/outbox·opt-in·중복/해지/삭제 통합 필요. 이메일은 D053 이후, 운영 적용 별도.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D037/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D037/ (이번 검증 기록 위치) · harness/evidence/D037/REVALIDATE_20261123.md
+- **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510)
 - **검증 범위** — 109-source 실제 로컬 Auth/PostgREST/SQL7그룹: 본인 저장/재실행·CAS·해지/삭제·한도. 새 후보 알림은 미구현/미검증.
 - **이전 기록** — IN_PROGRESS
 
@@ -867,6 +892,7 @@ DEV-A · P0 · S0 출시 차단 · MATCHING · TESTED · 5 SP · ACTIVE
 - **완료 조건** — 파서 기본값과 선택적 LLM을 제공하고 변환 조건을 사용자가 확인·수정한다.
 - **차단 요인** — 결정론적 로컬 범위 TESTED. 선택 LLM/운영 worker 통합과 B 교차 검토·실제 운영 URL 수용은 미완료. 정책/권한을 우회하거나 VERIFIED/DONE으로 간주하지 않는다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D039/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D039/ (이번 검증 기록 위치) · harness/evidence/D039/YOUTUBE_SCOPE_20261124.md · docs/production-readiness/REFACTOR_IMPACT.md
+- **Figma 노드** — [01 · 홈페이지 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-91) · [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [04 · AI 추천 조건 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-145) · [05 · AI 추천 결과 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163) · [01 · 홈페이지 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1402) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [04 · AI 추천 조건 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1429) · [05 · AI 추천 결과 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438)
 - **검증 범위** — 결정론적 YouTube 자연어 조건 제안6 단위/desktop-mobile2 시나리오 통과. 부정·제외·OR·비지원 플랫폼 차단, 명시 확인/취소 및 실제 URL/필터 반영. 실제 LLM/provider 검증과 구분.
 - **이전 기록** — IN_PROGRESS
 
@@ -890,6 +916,7 @@ DEV-B · P1 · S1 주요 부족 · UX · TODO · 5 SP · ACTIVE
 - **완료 조건** — 공개 메시지와 비공개 메모를 분리하고 2~3인 비교·출처·공유 범위를 저장한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D040/ (이번 검증 기록 위치)
+- **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411)
 - **이전 기록** — OPEN
 
 ## D041 · 캠페인 기간·예산·산출물 계약
@@ -899,11 +926,11 @@ DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TESTED · 5 SP · ACTIVE
 - **현재 문제** — 현재 원장 LOCAL_VERIFIED이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 모집·제작·게시 기간, 현금/제품 제공, 단가 범위, 콘텐츠 수량·사용권·독점 조건을 구조화한다.
 - **재현·관찰** — /api/campaigns에서 먼저 날짜 순서·음수·예산 단위·필수 조건 검증을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/components/campaign-form.tsx, src/app/api/campaigns/route.ts, src/lib/schemas.ts.
 - **화면** — /api/campaigns
-- **관련 코드** — src/components/campaign-form.tsx · src/app/api/campaigns/route.ts · src/lib/schemas.ts
+- **관련 코드** — src/components/campaign-form.tsx · src/app/api/campaigns/route.ts · src/lib/schemas.ts · src/app/jobs/forms.tsx · src/app/jobs/new/page.tsx · src/app/jobs/[id]/page.tsx
 - **DB·RPC** — campaigns, brand_products, proposals, proposal_events, marketplace_action, delivery_transition
 - **기대 동작** — 모집·제작·게시 기간, 현금/제품 제공, 단가 범위, 콘텐츠 수량·사용권·독점 조건을 구조화한다.
-- **구현** — KST 입력/UTC 저장, KRW 정수·현금/제품 제공 구분·수량·사용권·독점 조건을 검증한다. 날짜 경계와 모집 상태를 분리한다.
-- **변경 파일** — src/components/campaign-form.tsx · src/app/api/campaigns/route.ts · src/lib/schemas.ts
+- **구현** — KST 입력/UTC 저장, KRW 정수·현금/제품 제공 구분·수량·사용권·독점 조건을 검증한다. 날짜 경계와 모집 상태를 분리한다. Figma 전환 · 캠페인 작성과 상세 조건을 디자인에 맞췄다. 신규 모집 필드와 이미지·권한은 기존 DTO와 맞춘 뒤 추가한다.
+- **변경 파일** — src/components/campaign-form.tsx · src/app/api/campaigns/route.ts · src/lib/schemas.ts · src/app/jobs/forms.tsx · src/app/jobs/new/page.tsx · src/app/jobs/[id]/page.tsx
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D012
 - **영향** — /jobs · /campaigns · /dashboard · /collaborations/[id]/deliverables
@@ -911,7 +938,8 @@ DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TESTED · 5 SP · ACTIVE
 - **검증** — 날짜 순서·음수·예산 단위·필수 조건 검증 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 모집·제작·게시 기간, 현금/제품 제공, 단가 범위, 콘텐츠 수량·사용권·독점 조건을 구조화한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D041/README.md · harness/evidence/DEV-A-CONTINUE-20261120B/verification.json · harness/evidence/D041/ (이번 검증 기록 위치)
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D041/README.md · harness/evidence/DEV-A-CONTINUE-20261120B/verification.json · harness/evidence/D041/ (이번 검증 기록 위치) · docs/design/visual-review.md
+- **Figma 노드** — [06 · 캠페인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-809) · [07 · 캠페인 상세 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870) · [08 · 캠페인 작성 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-921) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [06 · 캠페인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-840) · [07 · 캠페인 상세 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898) · [08 · 캠페인 작성 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-970) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510) · [18 · 캠페인 게시 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1063) · [18 · 캠페인 게시 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1072)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D042 · 캠페인 복제·brief·첨부 버전
@@ -934,6 +962,7 @@ DEV-A · P1 · S1 주요 부족 · MARKETPLACE · TESTED · 5 SP · ACTIVE
 - **완료 조건** — 복제 시 참여자·메시지 등 개인정보를 복사하지 않고 brief 파일 버전을 관리한다.
 - **차단 요인** — 새 수집 기본OFF. U001 최종 정책/보존과 B D079 새 버킷·고아/만료/계정 삭제 물리 정리·export 및60초 기존 서명 링크 검토 전 활성화 금지. USER DB/앱 적용과 운영 회귀 별도.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D042/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D042/ (이번 검증 기록 위치) · harness/evidence/D042/VERSIONS_PLAN_20261123.md · harness/evidence/D042/FILES_20261123.md
+- **Figma 노드** — [07 · 캠페인 상세 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870) · [08 · 캠페인 작성 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-921) · [07 · 캠페인 상세 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898) · [08 · 캠페인 작성 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-970)
 - **검증 범위** — 112-source 본인 전용 불변 첨부/active pointer/재시도·CAS·복원·복제 분리. API9+복제5, 실제 로컬DB/Storage9그룹, desktop/mobile4 시나리오 통과. 실제 정책/저작권·물리 정리/운영 별도.
 - **이전 기록** — IN_PROGRESS
 
@@ -944,11 +973,11 @@ DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TODO · 5 SP · ACTIVE
 - **현재 문제** — 브랜드 공고 초안·TEST 주문 계약이 격리에서 통과했다. 운영 유료 게시·지원과 승인된 채널 조건의 전체 순환은 미검증이다.
 - **재현·관찰** — 격리 브랜드 상품→공고→게시권→공개→인증 크리에이터 지원→마감/상태를 확인. 실제 Toss 승인 증거는 D066과 독립으로 기록한다.
 - **화면** — /campaigns · /api/campaigns · /api/proposals
-- **관련 코드** — src/app/campaigns/page.tsx · src/app/api/campaigns/route.ts · src/app/api/proposals/route.ts
+- **관련 코드** — src/app/campaigns/page.tsx · src/app/api/campaigns/route.ts · src/app/api/proposals/route.ts · src/app/jobs/page.tsx · src/app/jobs/actions.ts · tests/e2e/marketplace.spec.ts
 - **DB·RPC** — campaigns, brand_products, proposals, proposal_events, marketplace_action, delivery_transition
 - **기대 동작** — 모집 종료·중복 지원·마감 후 지원·선정 인원·비공개 전환 규칙을 서버에서 강제한다.
-- **구현** — 허용 상태 전이·모집 마감·capacity·지원 unique·선정 경합을 DB transaction/RPC로 강제한다.
-- **변경 파일** — src/app/campaigns/page.tsx · src/app/api/campaigns/route.ts · src/app/api/proposals/route.ts
+- **구현** — 허용 상태 전이·모집 마감·capacity·지원 unique·선정 경합을 DB transaction/RPC로 강제한다. Figma 전환 · 캠페인 목록에서 범위·마감 순서를 검증한다. 임시 저장·게시·마감은 기존 marketplace RPC에 연결한다.
+- **변경 파일** — src/app/campaigns/page.tsx · src/app/api/campaigns/route.ts · src/app/api/proposals/route.ts · src/app/jobs/page.tsx · src/app/jobs/actions.ts · tests/e2e/marketplace.spec.ts
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D041
 - **영향** — /jobs · /campaigns · /dashboard · /collaborations/[id]/deliverables
@@ -956,7 +985,8 @@ DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TODO · 5 SP · ACTIVE
 - **검증** — 마감 경계·동시 선정·다른 브랜드 접근 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 모집 종료·중복 지원·마감 후 지원·선정 인원·비공개 전환 규칙을 서버에서 강제한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D043/ (이번 검증 기록 위치)
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D043/ (이번 검증 기록 위치) · docs/design/visual-review.md
+- **Figma 노드** — [06 · 캠페인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-809) · [07 · 캠페인 상세 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870) · [08 · 캠페인 작성 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-921) · [09 · 캠페인 지원 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1002) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [06 · 캠페인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-840) · [07 · 캠페인 상세 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898) · [08 · 캠페인 작성 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-970) · [09 · 캠페인 지원 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1039) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510) · [18 · 캠페인 게시 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1063) · [19 · 캠페인 지원 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1081) · [18 · 캠페인 게시 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1072) · [19 · 캠페인 지원 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1090)
 - **이전 기록** — OPEN
 
 ## D044 · 추천 하드 조건·결측·점수 계약
@@ -979,6 +1009,7 @@ DEV-A · P0 · S0 출시 차단 · MATCHING · TESTED · 8 SP · ACTIVE
 - **완료 조건** — 현재 소프트 점수인 예산·분야의 하드/선호 조건을 명시하고 초기 가중치·결측 재정규화·데이터 충실도를 일관되게 계산한다.
 - **차단 요인** — 실데이터/정책·D041 실환경 회귀, 배포 조율과 기존 snapshot-v1 대비 통합 검증이 남았다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D044/ (이번 검증 기록 위치) · harness/evidence/D044/MATCHING_20261123.md
+- **Figma 노드** — [01 · 홈페이지 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-91) · [04 · AI 추천 조건 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-145) · [05 · AI 추천 결과 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163) · [01 · 홈페이지 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1402) · [04 · AI 추천 조건 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1429) · [05 · AI 추천 결과 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438)
 - **검증 범위** — 현재 추천 폼의 hard/soft/unknown과 scorer1.2 연결, 결측 가중치·보류 적격·안전 숫자·정렬·HOT 독립성 포함39개 합성 단위/action/DTO 테스트 통과. 운영 및 SQL snapshot-v1 통합과 구분.
 - **이전 기록** — OPEN
 
@@ -1002,6 +1033,7 @@ DEV-A · P0 · S0 출시 차단 · MATCHING · TESTED · 5 SP · ACTIVE
 - **완료 조건** — 점수 버전·입력·태그·예산 적합·미확인 항목을 저장하고 광고 슬롯과 순위를 분리한다.
 - **차단 요인** — 현재1.2 정책/결측/보류·운영 가상 제외와 불변1.0 호환 로컬 검증 완료. USER 정확112→113 기준 적용·배포와 실제 URL/교차 검토는 미완료.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D045/PLAN_20261120.md · harness/evidence/D045/README.md · harness/evidence/D045/verification.json · harness/evidence/D045/ (이번 검증 기록 위치) · harness/evidence/D045/POLICY_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
+- **Figma 노드** — [04 · AI 추천 조건 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-145) · [05 · AI 추천 결과 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163) · [04 · AI 추천 조건 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1429) · [05 · AI 추천 결과 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D046 · 추천 피드백·평가 데이터셋
@@ -1024,6 +1056,7 @@ DEV-B · P1 · S1 주요 부족 · MATCHING · TODO · 5 SP · ACTIVE
 - **완료 조건** — 적합/부적합 사유·수락 결과를 저장하고 데이터 희소성·특정 규모 편향을 검토한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D046/ (이번 검증 기록 위치)
+- **Figma 노드** — [05 · AI 추천 결과 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163) · [05 · AI 추천 결과 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438)
 - **이전 기록** — OPEN
 
 ## D047 · 추천 실험·가중치·임베딩
@@ -1046,6 +1079,7 @@ DEV-A · P2 · S2 개선 · MATCHING · IN_PROGRESS · 8 SP · ACTIVE
 - **완료 조건** — 기준 모델과 실험 모델을 분리하고 허용된 콘텐츠로만 임베딩하며 YouTube 파생 지표 정책 적용 여부를 검토한다.
 - **차단 요인** — 외부 선행 U010의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D047/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D047/ (이번 검증 기록 위치)
+- **Figma 노드** — [05 · AI 추천 결과 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163) · [05 · AI 추천 결과 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438)
 - **이전 기록** — IN_PROGRESS
 
 ## D048 · 콘셉트·제안문·요약 AI 어댑터
@@ -1068,6 +1102,7 @@ DEV-A · P1 · S1 주요 부족 · AI · IN_PROGRESS · 8 SP · ACTIVE
 - **완료 조건** — 기존 내부 템플릿·Local AI API 어댑터에 입력·출처·프롬프트 버전·결과 검증·사용량 계약이 적용되고 AI 스튜디오 사용자 경로는 계속 리디렉션된다.
 - **차단 요인** — 소유 상품 operation의 기존 예산 큐 소비/사전·사후 heartbeat/엄격한 출처 계약 연결 완료(f8087d7), PR-001 로컬 end-to-end는 합성 결과로 검증. OPERATOR PR-003 실제 worker/model host, B D086 TTL/전역동시성·실환경 수용 별도; 이번 세션 모델 host 가동 없음.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/implementation-progress.md · harness/evidence/D048/ (이번 검증 기록 위치) · harness/evidence/D048/DEADLINE_20261123.md · harness/evidence/D048/QUEUE_PROVENANCE_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md · harness/evidence/D048/OWNED_OPERATION_20261124.md · docs/production-readiness/REFACTOR_IMPACT.md
+- **Figma 노드** — [04 · AI 추천 조건 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-145) · [05 · AI 추천 결과 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163) · [04 · AI 추천 조건 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1429) · [05 · AI 추천 결과 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438)
 - **검증 범위** — 공통 호환 어댑터11건: 취소 무시 provider 절대 응답 제한/늦은 결과 폐기·한도 실패/안전 usage·schema·PII·명시 template. 실제 모델/worker 통합과 별도.
 - **이전 기록** — PARTIAL_VERIFIED
 
@@ -1078,11 +1113,11 @@ DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TODO · 5 SP · ACTIVE
 - **현재 문제** — 격리에서 미인증 지원 수락이 차단됐다. 인증된 양측 사용자로 실제 확정·결과물 연동까지 검증한 기록은 없다.
 - **재현·관찰** — 권한이 승인된 QA 쌍에서 제안/지원→수락→역할별 목록을 비교하고 상태·idempotency·동시 요청 검증.
 - **화면** — /api/proposals
-- **관련 코드** — src/app/api/proposals/route.ts · src/components/deal-controls.tsx · supabase/migrations
+- **관련 코드** — src/app/api/proposals/route.ts · src/components/deal-controls.tsx · supabase/migrations · src/app/jobs/[id]/page.tsx · src/app/jobs/forms.tsx
 - **DB·RPC** — campaigns, brand_products, proposals, proposal_events, marketplace_action, delivery_transition
 - **기대 동작** — 제안/지원/수락/거절/취소/수정요청/완료와 중복·경합·참여자 권한을 검증한다.
-- **구현** — 현 상태 전이를 읽고 기존 데이터와 호환되는 회귀 테스트부터 작성한다. 상태 변경+이력+알림 event는 단일 원자 작업이다.
-- **변경 파일** — src/app/api/proposals/route.ts · src/components/deal-controls.tsx · supabase/migrations
+- **구현** — 현 상태 전이를 읽고 기존 데이터와 호환되는 회귀 테스트부터 작성한다. 상태 변경+이력+알림 event는 단일 원자 작업이다. Figma 전환 · 브랜드 초안 저장과 공개 접근 거부를 격리 확인했다. 게시·지원·양측 채팅 및 새 상태 화면은 후속 확인 대상이다.
+- **변경 파일** — src/app/api/proposals/route.ts · src/components/deal-controls.tsx · supabase/migrations · src/app/jobs/[id]/page.tsx · src/app/jobs/forms.tsx
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D043
 - **영향** — /jobs · /campaigns · /dashboard · /collaborations/[id]/deliverables
@@ -1090,7 +1125,8 @@ DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TODO · 5 SP · ACTIVE
 - **검증** — 두 역할 E2E·동시 요청·DB 이력 원자성 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 제안/지원/수락/거절/취소/수정요청/완료와 중복·경합·참여자 권한을 검증한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D049/ (이번 검증 기록 위치)
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D049/ (이번 검증 기록 위치) · docs/design/visual-review.md
+- **Figma 노드** — [06 · 캠페인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-809) · [07 · 캠페인 상세 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870) · [08 · 캠페인 작성 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-921) · [09 · 캠페인 지원 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1002) · [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [06 · 캠페인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-840) · [07 · 캠페인 상세 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898) · [08 · 캠페인 작성 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-970) · [09 · 캠페인 지원 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1039) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519) · [18 · 캠페인 게시 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1063) · [19 · 캠페인 지원 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1081) · [18 · 캠페인 게시 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1072) · [19 · 캠페인 지원 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1090)
 - **이전 기록** — OPEN
 
 ## D050 · 협업 조건 변경·합의 이력
@@ -1113,6 +1149,7 @@ DEV-B · P1 · S1 주요 부족 · MARKETPLACE · IN_PROGRESS · 5 SP · ACTIVE
 - **완료 조건** — 예산·산출물·일정 수정안을 버전으로 남기고 양측 확인 전 확정으로 표시하지 않는다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D050/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D050/ (이번 검증 기록 위치)
+- **Figma 노드** — [07 · 캠페인 상세 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870) · [09 · 캠페인 지원 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1002) · [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [07 · 캠페인 상세 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898) · [09 · 캠페인 지원 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1039) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483)
 - **이전 기록** — IN_PROGRESS
 
 ## D051 · 메시지 페이지·첨부·스팸 방지
@@ -1135,6 +1172,7 @@ DEV-B · P0 · S0 출시 차단 · CHAT · TESTED · 5 SP · ACTIVE
 - **완료 조건** — 페이지네이션·중복 전송 방지·속도 제한·신고·참여자 접근과 안전한 첨부를 제공한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D051/README.md · harness/evidence/DEV-A-MAIN-20261120/verification.json · harness/evidence/DEV-A-SCHEMA-20261120/rate-security.json · harness/evidence/D051/ (이번 검증 기록 위치)
+- **Figma 노드** — [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D052 · 미읽음·인앱 알림·실시간 갱신
@@ -1157,6 +1195,7 @@ DEV-B · P0 · S0 출시 차단 · CHAT · TODO · 5 SP · ACTIVE
 - **완료 조건** — 단순 읽음 버튼을 넘어 이벤트·미읽음 수·읽음 커서·알림함을 구현한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D052/ (이번 검증 기록 위치)
+- **Figma 노드** — [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519)
 - **이전 기록** — OPEN
 
 ## D053 · 이메일 알림 outbox·수신 설정
@@ -1179,6 +1218,7 @@ DEV-B · P1 · S1 주요 부족 · CHAT · TODO · 5 SP · ACTIVE
 - **완료 조건** — 인증 메일과 서비스/마케팅 메일을 구분하고 발송 재시도·동의·수신거부를 관리한다.
 - **차단 요인** — 외부 선행 U007의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D053/ (이번 검증 기록 위치)
+- **Figma 노드** — [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510)
 - **이전 기록** — OPEN
 
 ## D054 · 결과물 버전·수정 요청·승인
@@ -1201,6 +1241,7 @@ DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TODO · 5 SP · ACTIVE
 - **완료 조건** — 링크 제출을 버전·검토 의견·승인 근거·광고 표시 체크로 확장한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D054/PLAN_20261120.md · harness/evidence/D054/README.md · harness/evidence/D054/verification.json · harness/evidence/D054/ (이번 검증 기록 위치)
+- **Figma 노드** — [07 · 캠페인 상세 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870) · [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [07 · 캠페인 상세 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D055 · 일정·마일스톤·지연 알림
@@ -1223,6 +1264,7 @@ DEV-A · P1 · S1 주요 부족 · MARKETPLACE · IN_PROGRESS · 5 SP · ACTIVE
 - **완료 조건** — 캠페인·협업별 마감·타임존·캘린더·리마인더를 제공한다.
 - **차단 요인** — 기존 private calendar/일정 계약과 B D052 milestone/지연 event cursor·outbox·opt-in·중복·해지·삭제 통합 필요. 운영 알림 전달은 미검증.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D055/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D055/ (이번 검증 기록 위치) · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
+- **Figma 노드** — [07 · 캠페인 상세 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870) · [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [07 · 캠페인 상세 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519)
 - **이전 기록** — IN_PROGRESS
 
 ## D056 · 양측 대시보드·성과 내보내기
@@ -1245,6 +1287,7 @@ DEV-B · P1 · S1 주요 부족 · UX · TODO · 5 SP · ACTIVE
 - **완료 조건** — 활성 제안·진행·대기 검토·완료를 실데이터로 집계하고 결과 CSV를 제공한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D056/ (이번 검증 기록 위치)
+- **Figma 노드** — [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519)
 - **이전 기록** — OPEN
 
 ## D057 · 근거 기반 이슈·검토 워크플로
@@ -1267,6 +1310,7 @@ DEV-A · P0 · S0 출시 차단 · ADMIN · TESTED · 8 SP · ACTIVE
 - **완료 조건** — 출처·확인/미확인·당사자 입장·담당자·검토일을 관리하고 무근거 의혹을 위험 점수화하지 않는다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D057/PLAN_20261120.md · harness/evidence/D057/README.md · harness/evidence/D057/review-security-20261120.json · harness/evidence/D057/ (이번 검증 기록 위치)
+- **Figma 노드** — [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D058 · 신고·정정·삭제·이의신청 큐
@@ -1289,6 +1333,7 @@ DEV-B · P0 · S0 출시 차단 · ADMIN · TODO · 5 SP · ACTIVE
 - **완료 조건** — 접수번호·처리 기한·임시 조치·답변·재심·처리 로그와 요청자 확인을 제공한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D058/ (이번 검증 기록 위치)
+- **Figma 노드** — [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
 - **이전 기록** — OPEN
 
 ## D059 · 정지·비공개 운영 잠금
@@ -1311,6 +1356,7 @@ DEV-A · P0 · S0 출시 차단 · ADMIN · TESTED · 5 SP · ACTIVE
 - **완료 조건** — 관리자 비공개 조치를 소유자가 재공개로 우회하지 못하게 별도 moderation 상태로 강제한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D059/README.md · harness/evidence/DEV-A-P0-CONTINUE/verification.json · harness/evidence/DEV-A-MAIN-20261120/verification.json · harness/evidence/D059/ (이번 검증 기록 위치)
+- **Figma 노드** — [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D060 · 운영 통합 검색·감사·지원
@@ -1333,6 +1379,7 @@ DEV-B · P1 · S1 주요 부족 · ADMIN · TESTED · 5 SP · ACTIVE
 - **완료 조건** — 회원·캠페인·수집 작업·신고·TEST 주문을 제한된 관리자 DTO로 찾고 변경 사유를 남긴다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D060/VERIFY_READY_20261122.md · harness/evidence/DEV-A-READY-20261122/verification.json · harness/evidence/D060/ (이번 검증 기록 위치)
+- **Figma 노드** — [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D061 · 안전성 체크리스트·선정 승인
@@ -1355,6 +1402,7 @@ DEV-B · P1 · S1 주요 부족 · MARKETPLACE · TODO · 3 SP · ACTIVE
 - **완료 조건** — 브랜드별 체크 항목·검토 메모·수동 승인 게이트를 비공개로 보관한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D061/ (이번 검증 기록 위치)
+- **Figma 노드** — [09 · 캠페인 지원 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1002) · [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [09 · 캠페인 지원 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1039) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
 - **이전 기록** — OPEN
 
 ## D062 · 사용자 차단·사칭·악용 대응
@@ -1377,6 +1425,7 @@ DEV-B · P0 · S0 출시 차단 · CHAT · TODO · 5 SP · ACTIVE
 - **완료 조건** — 차단 관계·신고 누적·스팸·사칭 검토 및 연락 제한을 적용한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D062/ (이번 검증 기록 위치)
+- **Figma 노드** — [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
 - **이전 기록** — OPEN
 
 ## D063 · 통계·도움말·문의 운영
@@ -1399,6 +1448,7 @@ DEV-B · P1 · S1 주요 부족 · UX · TODO · 3 SP · ACTIVE
 - **완료 조건** — 실제 이용량·오류·신고 처리량과 사용법·데이터 한계·문의 접점을 제공한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D063/ (이번 검증 기록 위치)
+- **Figma 노드** — [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
 - **이전 기록** — OPEN
 
 ## D064 · 콘텐츠·계정 운영 runbook
@@ -1421,6 +1471,7 @@ DEV-A · P0 · S0 출시 차단 · ADMIN · TESTED · 3 SP · ACTIVE
 - **완료 조건** — 사칭·개인정보 노출·명예 훼손 우려·침해·계정 탈취 상황별 담당·조치·증빙 절차를 문서화한다.
 - **차단 요인** — 외부 선행 U001의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D064/README.md · harness/evidence/D064/VERIFY_NEXT_20261121.md · harness/evidence/DEV-A-P0-NEXT-20261121/verification.json · harness/evidence/D064/ (이번 검증 기록 위치)
+- **Figma 노드** — [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D065 · 무료·TEST 요금제 분리 정비
@@ -1430,11 +1481,11 @@ DEV-B · P0 · S0 출시 차단 · UX · TESTED · 3 SP · ACTIVE
 - **현재 문제** — 현재 운영 CTA는 무료 베타의 공고 초안으로 연결한다. 별도 시연/유료 정식 상태가 혼동되지 않는지 계속 확인해야 한다.
 - **재현·관찰** — /pricing에서 구매 숨김과 체험/실제 청구 여부, 격리에서 실제 TEST CTA·승인 실패 문구 확인.
 - **화면** — /pricing
-- **관련 코드** — src/lib/billing.ts · src/app/pricing/page.tsx · src/components/checkout.tsx
+- **관련 코드** — src/lib/billing.ts · src/app/pricing/page.tsx · src/components/checkout.tsx · src/components/pricing-plans.tsx · tests/e2e/premium-visual.spec.ts
 - **DB·RPC** — profiles, campaigns 또는 products 중 담당 기능의 기존 소유권 계약
 - **기대 동작** — 무료 실서비스에서 결제 약속을 제거하고 TEST 전용 Pro/Agency/HOT/크레딧 설명과 가격을 일치시킨다.
-- **구현** — 현 상품 ID를 유지할지 버전 변경할지 정하고 server service mode로 TEST 주문 가능 범위를 통제한다.
-- **변경 파일** — src/lib/billing.ts · src/app/pricing/page.tsx · src/components/checkout.tsx
+- **구현** — 현 상품 ID를 유지할지 버전 변경할지 정하고 server service mode로 TEST 주문 가능 범위를 통제한다. Figma 전환 · 공개 요금제에서 TEST 상품·금액과 구매 CTA를 숨긴다. 격리 결제 카탈로그 및 서버 가격 계약을 유지한다.
+- **변경 파일** — src/lib/billing.ts · src/app/pricing/page.tsx · src/components/checkout.tsx · src/components/pricing-plans.tsx · tests/e2e/premium-visual.spec.ts
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D001 · D002
 - **영향** — / · /pricing · /dashboard
@@ -1442,7 +1493,8 @@ DEV-B · P0 · S0 출시 차단 · UX · TESTED · 3 SP · ACTIVE
 - **검증** — 실서비스 구매 경로 미노출·TEST 고지·라이브 키 거부 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 무료 실서비스에서 결제 약속을 제거하고 TEST 전용 Pro/Agency/HOT/크레딧 설명과 가격을 일치시킨다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D065/README.md · harness/evidence/D065/VERIFY_20261121.md · harness/evidence/DEV-A-P0-FINISH-20261121/verification.json · harness/evidence/D065/ (이번 검증 기록 위치)
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D065/README.md · harness/evidence/D065/VERIFY_20261121.md · harness/evidence/DEV-A-P0-FINISH-20261121/verification.json · harness/evidence/D065/ (이번 검증 기록 위치) · docs/design/visual-review.md
+- **Figma 노드** — [06 · 캠페인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-809) · [11 · 요금제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271) · [12 · 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289) · [06 · 캠페인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-840) · [11 · 요금제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492) · [12 · 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501) · [12b · 크리에이터 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348) · [12b · 크리에이터 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D066 · Toss SDK v2 실제 TEST 완주
@@ -1465,6 +1517,7 @@ DEV-B · P0 · S0 출시 차단 · BILLING · BLOCKED · 5 SP · ACTIVE
 - **완료 조건** — SDK·키 종류·승인 API 조합을 공식 호환 기준으로 점검하고 성공·실패·사용자 취소를 실제 확인한다.
 - **차단 요인** — U015의 테스트 상점·등록, U006 격리 및 U019의 브라우저 인증 참여. 테스트 계약 구현은 U019 완료 이전 진행한다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D066/ (이번 검증 기록 위치)
+- **Figma 노드** — [11 · 요금제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271) · [12 · 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289) · [11 · 요금제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492) · [12 · 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501) · [20 · 결제 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2183) · [20 · 결제 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2257) · [12b · 크리에이터 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348) · [12b · 크리에이터 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388)
 - **이전 기록** — OPEN
 
 ## D067 · 주문 승인·복구·중복·금액 방어
@@ -1487,6 +1540,7 @@ DEV-B · P0 · S0 출시 차단 · BILLING · IN_PROGRESS · 5 SP · ACTIVE
 - **완료 조건** — 기존 서버 금액·소유권·원자적 권한 부여를 회귀하고 승인 중단 복구·위조 콜백을 검증한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D067/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D067/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
+- **Figma 노드** — [12 · 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289) · [12 · 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501) · [20 · 결제 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2183) · [20 · 결제 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2257) · [12b · 크리에이터 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348) · [12b · 크리에이터 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388)
 - **이전 기록** — IN_PROGRESS
 
 ## D068 · TEST 취소·취소 후 권한 회수
@@ -1509,6 +1563,7 @@ DEV-B · P0 · S0 출시 차단 · BILLING · BLOCKED · 5 SP · ACTIVE
 - **완료 조건** — 공급자가 허용한 TEST 취소·거래 상태 동기화·오류 복구·감사 이력을 처리한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D068/ (이번 검증 기록 위치)
+- **Figma 노드** — [12 · 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289) · [12 · 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501) · [12b · 크리에이터 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348) · [12b · 크리에이터 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388)
 - **이전 기록** — OPEN
 
 ## D069 · TEST 이용권 만료·usage·크레딧
@@ -1531,6 +1586,7 @@ DEV-B · P0 · S0 출시 차단 · BILLING · TODO · 5 SP · ACTIVE
 - **완료 조건** — 서버 usage ledger와 만료·중복 차감 방지·관리자 수동 발급 사유를 구현한다. 실서비스 무료 권한과 분리한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D069/ (이번 검증 기록 위치)
+- **Figma 노드** — [09 · 캠페인 지원 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1002) · [11 · 요금제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271) · [12 · 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289) · [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [09 · 캠페인 지원 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1039) · [11 · 요금제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492) · [12 · 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519) · [12b · 크리에이터 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348) · [12b · 크리에이터 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388)
 - **이전 기록** — OPEN
 
 ## D070 · HOT 독립 슬롯·광고 고지
@@ -1553,6 +1609,7 @@ DEV-B · P0 · S0 출시 차단 · BILLING · TODO · 3 SP · ACTIVE
 - **완료 조건** — TEST 프로모션만 별도 슬롯에서 기간·소유권·노출 이력을 표시한다. 실서비스 유료 HOT은 비활성이다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D070/ (이번 검증 기록 위치)
+- **Figma 노드** — [11 · 요금제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271) · [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [11 · 요금제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519) · [12b · 크리에이터 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348) · [12b · 크리에이터 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388)
 - **이전 기록** — OPEN
 
 ## D071 · 무료 Agency 팀·초대·테넌트
@@ -1575,6 +1632,7 @@ DEV-A · P1 · S1 주요 부족 · SECURITY · IN_PROGRESS · 8 SP · GATED
 - **완료 조건** — 팀 관리자/구성원·초대 만료·탈퇴·브랜드 전환·팀 자료 범위를 구현하고 유료 청구는 제외한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D071/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D071/ (이번 검증 기록 위치)
+- **Figma 노드** — [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510)
 - **이전 기록** — IN_PROGRESS
 
 ## D072 · 수수료 가정 계산·결제 이력
@@ -1597,6 +1655,7 @@ DEV-B · P2 · S2 개선 · BILLING · TODO · 3 SP · ACTIVE
 - **완료 조건** — 선택적 시뮬레이터를 가정으로 명시하고 TEST 거래 이력만 제공한다. 실제 수납·정산 기능은 연결하지 않는다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D072/ (이번 검증 기록 위치)
+- **Figma 노드** — [11 · 요금제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271) · [11 · 요금제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492)
 - **이전 기록** — OPEN
 
 ## D073 · 개인정보·이용약관·동의 버전
@@ -1619,6 +1678,7 @@ DEV-A · P0 · S0 출시 차단 · COMPLIANCE · BLOCKED · 5 SP · ACTIVE
 - **완료 조건** — 수집 출처·목적·법적 근거 검토·보존·처리위탁·국외이전 해당 여부·권리 행사·운영자 연락처를 정책과 구현에 맞춘다.
 - **차단 요인** — 외부 선행 U001의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D073/VERIFY_NEXT_20261121.md · harness/evidence/DEV-A-P0-NEXT-20261121/verification.json · harness/evidence/D073/VERIFY_PUBLICATION_20261121.md · harness/evidence/D073/ (이번 검증 기록 위치)
+- **Figma 노드** — [17 · 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-379) · [17 · 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1546) · [17b · 크리에이터 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416) · [17b · 크리에이터 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444)
 - **이전 기록** — BLOCKED_EXTERNAL
 
 ## D074 · 개인정보 열람·수정·반출
@@ -1663,6 +1723,7 @@ DEV-A · P0 · S0 출시 차단 · SECURITY · IN_PROGRESS · 8 SP · ACTIVE
 - **완료 조건** — 직접 DB API·SECURITY DEFINER·검색 경로·공개 DTO·테넌트 경계를 검사하고 최소권한을 적용한다.
 - **차단 요인** — 기본 즐겨찾기/CSV/서비스 슬롯과 실제 로컬 Storage·역할 회귀 완료. B D036/D038 named-list/import 공개DTO 계약 및 B D049 전체 경로, 운영 DB/앱 적용과 실환경 권한 전수 검증 필요.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D075/README.md · harness/evidence/D075/PLAN_20261120.md · harness/evidence/D075/creator-read-security-20261120.json · harness/evidence/D075/ (이번 검증 기록 위치) · harness/evidence/D075/BOUNDARY_20261123.md · harness/evidence/D075/permissions-109-20261123.json · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md · harness/evidence/D075/PRODUCT_OPERATION_20261124.md · docs/production-readiness/REFACTOR_IMPACT.md
+- **Figma 노드** — [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
 - **검증 범위** — 109-source 로컬98 RLS테이블/371함수/4비공개버킷 메타데이터와 core7·brand7·creator-read8·정규화storage9 그룹 통과. 기본 저장·서비스HOT 통합 결함 전진 수정. 함수 전수 행위/운영은 미완료.116 추가 상품 queue/owner/삭제·만료/결정 CAS/기존 텍스트 호환9그룹,113→116 원자 패킷/비어 있지 않은 이력 보존 및 fresh0→116 통과.
 - **이전 기록** — LOCAL_VERIFIED
 
@@ -1774,6 +1835,7 @@ DEV-A · P0 · S0 출시 차단 · UX · TESTED · 3 SP · ACTIVE
 - **완료 조건** — 초기 성인 서비스 범위·정책을 확정하고 주민번호·민감 추정·얼굴 인식·사적 연락처 수집을 배제한다.
 - **차단 요인** — 외부 선행 U001의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
 - **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D080/VERIFY_NEXT_20261121.md · harness/evidence/DEV-A-P0-NEXT-20261121/verification.json · harness/evidence/D080/ (이번 검증 기록 위치)
+- **Figma 노드** — [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420) · [22 · 캠페인 내비게이션 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1099)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D081 · 실데이터 메인·로고·신뢰 표시
@@ -1783,11 +1845,11 @@ DEV-A · P0 · S0 출시 차단 · UI · VERIFIED · 5 SP · ACTIVE
 - **현재 문제** — 현재 원장 LOCAL_VERIFIED이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 제공 로고·차콜/오프화이트/라임을 유지하고 실제 확보 수·출처·무료 베타 한계에 맞춰 메인을 정비한다.
 - **재현·관찰** — /에서 먼저 모바일·데스크톱 스크린샷 및 과장 수치 점검을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/app/page.tsx, src/app/globals.css, public/brand/ad-me-logo.png.
 - **화면** — /
-- **관련 코드** — src/app/page.tsx · src/app/globals.css · public/brand/ad-me-logo.png
+- **관련 코드** — src/app/page.tsx · src/app/globals.css · public/brand/ad-me-logo.png · src/components/figma-navigation.tsx · src/app/figma-theme.css
 - **DB·RPC** — profiles, campaigns 또는 products 중 담당 기능의 기존 소유권 계약
 - **기대 동작** — 제공 로고·차콜/오프화이트/라임을 유지하고 실제 확보 수·출처·무료 베타 한계에 맞춰 메인을 정비한다.
-- **구현** — 현재 제공 로고 형태/색을 유지하고 실제 집계가 없는 숫자·로고·성공사례를 삭제한다. 정보 위계와 핵심 CTA를 재설계한다.
-- **변경 파일** — src/app/page.tsx · src/app/globals.css · public/brand/ad-me-logo.png
+- **구현** — 현재 제공 로고 형태/색을 유지하고 실제 집계가 없는 숫자·로고·성공사례를 삭제한다. 정보 위계와 핵심 CTA를 재설계한다. Figma 전환 · Figma 원본 자산과 밝은 라벤더 홈을 적용했다. 운영 대조와 전체 화면 승격을 별도로 검증한다.
+- **변경 파일** — src/app/page.tsx · src/app/globals.css · public/brand/ad-me-logo.png · src/components/figma-navigation.tsx · src/app/figma-theme.css
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D024 · D002
 - **영향** — / · /pricing · /dashboard
@@ -1795,7 +1857,8 @@ DEV-A · P0 · S0 출시 차단 · UI · VERIFIED · 5 SP · ACTIVE
 - **검증** — 모바일·데스크톱 스크린샷 및 과장 수치 점검 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 제공 로고·차콜/오프화이트/라임을 유지하고 실제 확보 수·출처·무료 베타 한계에 맞춰 메인을 정비한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D081/README.md · harness/evidence/DEV-A-CONTINUE-20261120B/verification.json · harness/evidence/D081/VERIFY_20261121.md · harness/evidence/D081/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D081/README.md · harness/evidence/DEV-A-CONTINUE-20261120B/verification.json · harness/evidence/D081/VERIFY_20261121.md · harness/evidence/D081/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md · docs/design/visual-review.md
+- **Figma 노드** — [01 · 홈페이지 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-91) · [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [06 · 캠페인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-809) · [01 · 홈페이지 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1402) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420) · [06 · 캠페인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-840) · [22 · 캠페인 내비게이션 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1099)
 - **검증 범위** — 현재 운영 공개 홈, 실제 공개 채널 10개, 로고·데이터 출처 브라우저 검증 범위.
 - **이전 기록** — LOCAL_VERIFIED
 
@@ -1806,11 +1869,11 @@ DEV-A · P0 · S0 출시 차단 · ACCESSIBILITY · TESTED · 5 SP · ACTIVE
 - **현재 문제** — 최근 감사의 주요 화면 접근성 점검은 유효하나 역할별 404, 동적 업무·세션 만료·키보드 전체 흐름은 남았다.
 - **재현·관찰** — 라우트 원장별 desktop/tablet/mobile, 키보드, 오류·빈·만료 상태와 확대 200%를 확인한다.
 - **화면** — / · /pricing · /dashboard
-- **관련 코드** — src/app · src/components · tests/e2e
+- **관련 코드** — src/app · src/components · tests/e2e · src/app/figma-theme.css · tests/e2e/light-surface.spec.ts
 - **DB·RPC** — profiles, campaigns 또는 products 중 담당 기능의 기존 소유권 계약
 - **기대 동작** — 키보드·포커스·스크린리더·대비·폼 오류·로딩·빈 상태·복구 UX를 전 흐름에 적용한다.
-- **구현** — 320/390/768/1440px·키보드·포커스·라벨·대비·loading/error/empty를 점검한다. 애니메이션 reduced-motion을 지원한다. 이전 발견 항목의 결함 수정과 접근성 회귀는 병렬 진행한다. 새 시안 또는 공통 토큰 변경은 운영자 O001의 기준서로 작업하고 실제 화면 증거를 넘긴다.
-- **변경 파일** — src/app · src/components · tests/e2e
+- **구현** — 320/390/768/1440px·키보드·포커스·라벨·대비·loading/error/empty를 점검한다. 애니메이션 reduced-motion을 지원한다. 이전 발견 항목의 결함 수정과 접근성 회귀는 병렬 진행한다. 새 시안 또는 공통 토큰 변경은 운영자 O001의 기준서로 작업하고 실제 화면 증거를 넘긴다. Figma 전환 · 1440/390 브라우저 및 감소 모션을 대조한다. 전체 역할·오류·시트 및 다중 폭은 후속 검수 대상이다.
+- **변경 파일** — src/app · src/components · tests/e2e · src/app/figma-theme.css · tests/e2e/light-surface.spec.ts
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D081
 - **영향** — / · /pricing · /dashboard
@@ -1818,7 +1881,8 @@ DEV-A · P0 · S0 출시 차단 · ACCESSIBILITY · TESTED · 5 SP · ACTIVE
 - **검증** — axe·모바일 뷰포트·키보드 수동 점검 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 키보드·포커스·스크린리더·대비·폼 오류·로딩·빈 상태·복구 UX를 전 흐름에 적용한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D082/VERIFY_NEXT_20261121.md · harness/evidence/DEV-A-P0-NEXT-20261121/verification.json · harness/evidence/D082/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D082/VERIFY_NEXT_20261121.md · harness/evidence/DEV-A-P0-NEXT-20261121/verification.json · harness/evidence/D082/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md · docs/design/visual-review.md
+- **Figma 노드** — [01 · 홈페이지 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-91) · [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [06 · 캠페인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-809) · [01 · 홈페이지 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1402) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420) · [06 · 캠페인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-840) · [22 · 캠페인 내비게이션 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1099)
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D083 · SEO·공유·인덱싱 공개 경계
@@ -1841,6 +1905,7 @@ DEV-B · P1 · S1 주요 부족 · SEO · TODO · 3 SP · ACTIVE
 - **완료 조건** — canonical·sitemap·robots·OG·구조화 데이터를 정비하고 사적/미검토 자료를 noindex와 인증으로 보호한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D083/ (이번 검증 기록 위치)
+- **Figma 노드** — [01 · 홈페이지 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-91) · [01 · 홈페이지 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1402)
 - **이전 기록** — OPEN
 
 ## D084 · 회귀 테스트·실제 수집 계약 테스트
@@ -1907,6 +1972,7 @@ DEV-B · P0 · S0 출시 차단 · OBSERVABILITY · TODO · 5 SP · ACTIVE
 - **완료 조건** — PII 없는 요청 추적·오류 알림·health·가용성·API 한도·무료 리소스 한도를 관측한다.
 - **차단 요인** — 외부 선행 U018의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D086/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
+- **Figma 노드** — [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
 - **이전 기록** — OPEN
 
 ## D087 · 백업·복원·성능·용량
@@ -2111,6 +2177,7 @@ OPERATOR · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTI
 - **완료 조건** — 기존 설정의 DNS SPF/DKIM/DMARC, 발신자, 실제 수신 케이스를 확인한다. 앱 알림은 D053 별도 검증이다.
 - **차단 요인** — 과거 가입·복구 실제 수신 이력이 있으나 새 가입·운영 발송 경보 재검증이 필요하다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **Figma 노드** — [17 · 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-379) · [17 · 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1546) · [21 · 가입 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2206) · [21 · 가입 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2271) · [17b · 크리에이터 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416) · [17b · 크리에이터 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444)
 - **이전 담당 기록** — USER
 - **이전 기록** — VERIFIED_AUTH_SMTP
 
@@ -2134,6 +2201,7 @@ OPERATOR · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTI
 - **완료 조건** — host별 Auth 허용 URL, 가입/복구 템플릿, 세션 정책, MFA 정책을 설정하고 콜백 성공·거부 로그를 확인한다.
 - **차단 요인** — 운영 MFA 전용 경로와 재발송 화면 미지원. 기존 callback 결과는 역사 증거다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **Figma 노드** — [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [16 · 로그인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361) · [17 · 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-379) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528) · [16 · 로그인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537) · [17 · 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1546) · [17b · 크리에이터 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416) · [17b · 크리에이터 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444)
 - **이전 담당 기록** — USER
 - **이전 기록** — PARTIAL_VERIFIED
 
@@ -2295,6 +2363,7 @@ OPERATOR · P1 · S1 조건부 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 - **완료 조건** — 같은 TEST 상점의 SDK v2 세트와 isolated 환경 등록을 확인한다. 키는 비공개 설정에만 넣는다.
 - **차단 요인** — 과거 TEST 승인 이력이 있다. 이번 릴리스 실패·취소·복구 완주에는 별도 격리 환경의 확인이 필요하다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **Figma 노드** — [11 · 요금제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271) · [12 · 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289) · [11 · 요금제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492) · [12 · 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501) · [12b · 크리에이터 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348) · [12b · 크리에이터 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388)
 - **이전 담당 기록** — USER
 - **이전 기록** — PARTIAL_VERIFIED
 
@@ -2434,6 +2503,7 @@ DEV-A · P0 · S0 출시 차단 · AI · TESTED · 8 SP · ACTIVE
 - **완료 조건** — 한국어 상품 5개에서 근거가 있는 구조만 생성, 입력 확인 전 지출/공개 없음, 타 계정 상품 차단, 관련 없는 후보와 가짜 채널 0, 모델 중단 때 수동 추천 유지.
 - **차단 요인** — 기본 collection OFF, policy_ref/retention 미설정. U001 승인·B D079 export/삭제/복구 검토, OPERATOR PR-003 실제 worker/model 수용, B D085 DB/app 호환 배포·복구/실제 URL 회귀가 남음. VERIFIED/DONE 아님.
 - **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-001/ (신규 검증 기록 위치) · harness/evidence/PR-001/PROMPT_FIX_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md · harness/evidence/PR-001/WORKFLOW_20261124.md
+- **Figma 노드** — [04 · AI 추천 조건 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-145) · [05 · AI 추천 결과 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163) · [04 · AI 추천 조건 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1429) · [05 · AI 추천 결과 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438)
 - **검증 범위** — 116-source 격리 소유 상품→기존 예산 큐→검토/확인·거부→명시적 검색. 실제 로컬 SQL/REST와 합성 모델 결과; desktop/mobile 각1 시나리오. 실제 모델/운영 수용은 미검증.
 
 ## PR-002 · 허용된 콘텐츠 태그의 저장·검토·공개 파이프라인
@@ -2456,6 +2526,7 @@ DEV-A · P0 · S0 출시 차단 · AI · IN_PROGRESS · 8 SP · ACTIVE
 - **완료 조건** — 실제 모델로 허용된 자료 실행, 2차 작업 중복 없음, 원본 YouTube와 비승인 자료 차단, 승인 뒤만 태그 공개, 철회와 데이터 삭제 시 미표시.
 - **차단 요인** — 제한 vocabulary/출처·근거/버전/검토 대기 계약과 실제 합성 입력 시험. B D017 실제 승인 소스·동의, durable 큐/검토/공개 projection/철회·삭제 미구현; raw YouTube 분석은 U010 전 제외.
 - **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-002/ (신규 검증 기록 위치) · harness/evidence/PR-002/SCHEMA_FIX_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
+- **Figma 노드** — [04 · AI 추천 조건 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-145) · [05 · AI 추천 결과 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163) · [04 · AI 추천 조건 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1429) · [05 · AI 추천 결과 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438)
 
 ## PR-003 · Local AI 호스트·모델 가동 및 장애 복구 승인
 
@@ -2500,6 +2571,7 @@ DEV-B · P0 · S0 출시 차단 · BILLING · BLOCKED · 8 SP · GATED
 - **완료 조건** — 운영자와 공급자 승인 증빙, TEST/실거래 데이터 상호 차단, 승인·취소·환불·영수증·대사 완주, 이상 시 fail-closed와 운영 대응 기록.
 - **차단 요인** — 현재 사업자등록 계획이 없으므로 라이브 판매는 범위 차단.
 - **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-004/ (신규 검증 기록 위치)
+- **Figma 노드** — [11 · 요금제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271) · [12 · 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289) · [11 · 요금제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492) · [12 · 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501) · [20 · 결제 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2183) · [20 · 결제 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2257) · [12b · 크리에이터 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348) · [12b · 크리에이터 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388)
 
 ## U021 · 유료 판매 사업 주체와 상품·환불 정책 승인
 
@@ -2521,6 +2593,7 @@ OPERATOR · P0 · S0 출시 차단 · COMPLIANCE · BLOCKED · 외부 SP · GATE
 - **완료 조건** — 주체·책임·고지 승인 결과를 남겼거나 미추진 상태를 명시한다.
 - **차단 요인** — 사업자등록 미추진 방침. 무료 베타와 별도.
 - **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/U021/ (신규 검증 기록 위치)
+- **Figma 노드** — [12 · 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289) · [12 · 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501) · [12b · 크리에이터 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348) · [12b · 크리에이터 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388)
 - **이전 담당 기록** — BUSINESS
 
 ## U022 · Toss 라이브 상점 계약 및 환경 승인
@@ -2543,6 +2616,7 @@ OPERATOR · P0 · S0 출시 차단 · BILLING · BLOCKED · 외부 SP · GATED
 - **완료 조건** — 승인된 계약·환경/merchant 검증·철회 또는 롤백 증빙이 운영자에게 확보된다.
 - **차단 요인** — 유료 판매 승인 이전에는 진행하지 않는다.
 - **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/U022/ (신규 검증 기록 위치)
+- **Figma 노드** — [12 · 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289) · [12 · 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501) · [12b · 크리에이터 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348) · [12b · 크리에이터 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388)
 - **이전 담당 기록** — BUSINESS
 
 ## O001 · 웹디자인 시안·브랜드 기준 및 반영 승인
@@ -2552,11 +2626,11 @@ OPERATOR · P1 · S1 시각·사용성 검수 · UI · IN_PROGRESS · 외부 SP 
 - **현재 문제** — 기존 시각 감사와 화면 개선을 바탕으로 운영자가 변경할 디자인의 범위·우선순위·승인 기준을 명시해야 한다.
 - **재현·관찰** — 홈·탐색·채널 상세·공고·대시보드·요금제를 열어 현행 화면과 시안의 차이를 비교하고, 모바일 390px과 데스크톱 1440px에서 CTA·상태·가독성을 점검한다.
 - **화면** — / · /creators · /creators/youtube/[id] · /jobs · /dashboard · /pricing
-- **관련 코드** — docs/DESIGN_SYSTEM.md · docs/design/visual-audit.md · src/app/marketplace-theme.css
+- **관련 코드** — docs/DESIGN_SYSTEM.md · docs/design/visual-audit.md · src/app/marketplace-theme.css · docs/design/figma-frame-map.json · docs/design/visual-review.md
 - **DB·RPC** — 화면 설계와 시각 검수는 DB 변경 없음. 공개 프로필과 결측 표시는 기존 데이터 계약을 사용한다.
 - **기대 동작** — 웹디자인 시안과 공통 원칙이 승인되고, 구현 담당자와 배포 전에 확인할 판정 기준이 명시된다.
-- **구현** — 운영자가 페이지별 우선순위와 시안(링크 또는 이미지)을 확정한다. 로고·타이포·색상·여백·CTA·모바일 및 로딩/빈/오류 상태를 인계서에 명시한다. B가 공통 레이아웃·토큰·UI를 반영하고 A가 탐색·추천·콘텐츠 근거를 검토한다. 운영자는 프리뷰 실화면을 확인하고 채택 또는 수정 요청의 근거를 남긴다.
-- **변경 파일** — docs/design/visual-audit.md · 승인한 웹디자인 시안과 운영 인계 기록
+- **구현** — 운영자가 페이지별 우선순위와 시안(링크 또는 이미지)을 확정한다. 로고·타이포·색상·여백·CTA·모바일 및 로딩/빈/오류 상태를 인계서에 명시한다. B가 공통 레이아웃·토큰·UI를 반영하고 A가 탐색·추천·콘텐츠 근거를 검토한다. 운영자는 프리뷰 실화면을 확인하고 채택 또는 수정 요청의 근거를 남긴다. Figma 전환 · AD ME 원본 49개 최상위 프레임과 새 Production Extensions 13개를 연결했다. 디자인·운영 승인은 증빙이 필요하다.
+- **변경 파일** — docs/design/visual-audit.md · 승인한 웹디자인 시안과 운영 인계 기록 · docs/design/figma-frame-map.json · docs/design/visual-review.md
 - **신규 파일** — harness/evidence/O001/ 디자인 결정과 공개 가능한 브라우저 비교 증거
 - **선행 티켓** — D081
 - **영향** — 공통 내비게이션, 브랜드 탐색, 광고 공고, 업무 화면, 요금제
@@ -2564,4 +2638,5 @@ OPERATOR · P1 · S1 시각·사용성 검수 · UI · IN_PROGRESS · 외부 SP 
 - **검증** — 390px과 1440px에서 공개/로그인 상태, 주요 CTA와 로딩/빈/오류 화면을 비교한다. 키보드 포커스와 명암비의 개발자 회귀 결과를 인수한다.
 - **완료 조건** — 시안과 적용 범위가 확인되고 담당 개발자·프리뷰 URL·캡처·승인 결과가 하나의 기록으로 연결된다.
 - **차단 요인** — 밝은 UI 및 모션의 로컬 검증과 별도로 운영 디자인 확인 및 운영 릴리스 승인이 필요하다.
-- **증빙** — docs/design/visual-audit.md · harness/evidence/VISUAL-REDESIGN-20261123/verification.json · docs/production-readiness/OPERATOR_EXECUTION_20261124.md
+- **증빙** — docs/design/visual-audit.md · harness/evidence/VISUAL-REDESIGN-20261123/verification.json · docs/production-readiness/OPERATOR_EXECUTION_20261124.md · docs/design/visual-review.md
+- **Figma 노드** — [01 · 홈페이지 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-91) · [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [01 · 홈페이지 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1402) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420) · [22 · 캠페인 내비게이션 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1099)

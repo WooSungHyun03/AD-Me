@@ -1,0 +1,29 @@
+{
+  "source": "Figma design context 11:91, 11:1402",
+  "assets": [
+    {
+      "path": "public/brand/figma/logo.png",
+      "node": "11:66",
+      "slot": "Desktop and mobile site navigation",
+      "sha256": "cff934cfbaf2b96a7880709f8b4410d48e454524f4a00f2819c6c78a3f714838"
+    },
+    {
+      "path": "public/brand/figma/hero.png",
+      "node": "11:409",
+      "slot": "Home editorial hero",
+      "sha256": "3839fbbfd9900b19d2e79ee60c703c794480cae9ac974a561cb16918140571d8"
+    },
+    {
+      "path": "public/brand/figma/editorial.png",
+      "node": "11:445",
+      "slot": "Home creator editorial",
+      "sha256": "e0aef600bd203bb6261858b39c22030536ced8025fea3f8fbbbfce6ab3f7c3a9"
+    },
+    {
+      "path": "public/brand/figma/creator-editorial.png",
+      "node": "11:494",
+      "slot": "Home creator invitation",
+      "sha256": "4471fca29eceac053542a1e7629501944ca284616ea4eff85c94f85c04225957"
+    }
+  ]
+}

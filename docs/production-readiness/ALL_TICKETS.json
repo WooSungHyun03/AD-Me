@@ -49,7 +49,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "11 · 요금제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271"
+        },
+        {
+          "label": "11 · 요금제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492"
+        }
+      ]
     },
     {
       "id": "D002",
@@ -103,7 +114,18 @@
       "verified_scope": "새 문구와 Checkout 오류 라벨은 main 및 격리 검증 범위. 운영 호환 배포에 미반영.",
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "11 · 요금제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271"
+        },
+        {
+          "label": "11 · 요금제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492"
+        }
+      ]
     },
     {
       "id": "D003",
@@ -158,7 +180,18 @@
       "operator_refactor_review": {
         "decision": "UPDATE",
         "acceptance_followup": "격리 DB 권한과 로그에 요청 ID만 노출되는지 재검증. Preview/Production 키의 DB 격리 확인 필요."
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "16 · 로그인 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361"
+        },
+        {
+          "label": "16 · 로그인 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537"
+        }
+      ]
     },
     {
       "id": "D004",
@@ -215,7 +248,8 @@
         "moved_implementations": {
           "src/lib/api.ts": "src/shared/server/http.ts"
         }
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D005",
@@ -266,7 +300,8 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D006",
@@ -312,7 +347,8 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D007",
@@ -365,7 +401,8 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D008",
@@ -417,7 +454,8 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D009",
@@ -474,7 +512,42 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "16 · 로그인 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361"
+        },
+        {
+          "label": "17 · 회원가입 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-379"
+        },
+        {
+          "label": "16 · 로그인 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537"
+        },
+        {
+          "label": "17 · 회원가입 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1546"
+        },
+        {
+          "label": "21 · 가입 완료 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2206"
+        },
+        {
+          "label": "21 · 가입 완료 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2271"
+        },
+        {
+          "label": "17b · 크리에이터 회원가입 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416"
+        },
+        {
+          "label": "17b · 크리에이터 회원가입 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444"
+        }
+      ]
     },
     {
       "id": "D010",
@@ -525,7 +598,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "16 · 로그인 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361"
+        },
+        {
+          "label": "16 · 로그인 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537"
+        }
+      ]
     },
     {
       "id": "D011",
@@ -576,7 +660,42 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "16 · 로그인 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361"
+        },
+        {
+          "label": "17 · 회원가입 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-379"
+        },
+        {
+          "label": "16 · 로그인 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537"
+        },
+        {
+          "label": "17 · 회원가입 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1546"
+        },
+        {
+          "label": "21 · 가입 완료 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2206"
+        },
+        {
+          "label": "21 · 가입 완료 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2271"
+        },
+        {
+          "label": "17b · 크리에이터 회원가입 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416"
+        },
+        {
+          "label": "17b · 크리에이터 회원가입 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444"
+        }
+      ]
     },
     {
       "id": "D012",
@@ -627,7 +746,8 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D013",
@@ -680,7 +800,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "16 · 로그인 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361"
+        },
+        {
+          "label": "16 · 로그인 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537"
+        }
+      ]
     },
     {
       "id": "D014",
@@ -738,7 +869,8 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D015",
@@ -786,7 +918,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "14 · 크리에이터 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519"
+        }
+      ]
     },
     {
       "id": "D016",
@@ -847,7 +990,26 @@
         "moved_implementations": {
           "src/lib/api.ts": "src/shared/server/http.ts"
         }
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "15 · 관리자 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343"
+        },
+        {
+          "label": "16 · 로그인 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361"
+        },
+        {
+          "label": "15 · 관리자 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528"
+        },
+        {
+          "label": "16 · 로그인 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537"
+        }
+      ]
     },
     {
       "id": "D017",
@@ -897,7 +1059,8 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D018",
@@ -951,7 +1114,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420"
+        }
+      ]
     },
     {
       "id": "D019",
@@ -1006,7 +1188,18 @@
       "verified_scope": "실제 공급자 호출 없는 TS20/Python8 계약: 응답·요청 상한, 공개/타 채널 귀속, 숨김/안전 정수, quota·rate·404·전송 실패. 정책·현재 키/소유권/운영 검증은 미완료.",
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        }
+      ]
     },
     {
       "id": "D020",
@@ -1061,7 +1254,8 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D021",
@@ -1117,7 +1311,8 @@
       "verified_scope": "현 Python 워커 출력50→5 영상과 실제 격리107 DB 체크포인트 저장/복구7그룹, Python9건 통과. 운영 공급자·cron과 구분.",
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D022",
@@ -1169,7 +1364,8 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "ARCHIVE"
-      }
+      },
+      "figma_review": "ARCHIVE"
     },
     {
       "id": "D023",
@@ -1218,7 +1414,8 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "ARCHIVE"
-      }
+      },
+      "figma_review": "ARCHIVE"
     },
     {
       "id": "D024",
@@ -1272,7 +1469,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420"
+        }
+      ]
     },
     {
       "id": "D025",
@@ -1326,7 +1542,34 @@
       "reopened": true,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420"
+        },
+        {
+          "label": "17b · 크리에이터 회원가입 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416"
+        },
+        {
+          "label": "17b · 크리에이터 회원가입 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444"
+        }
+      ]
     },
     {
       "id": "D026",
@@ -1374,7 +1617,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "03 · 크리에이터 프로필 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519"
+        }
+      ]
     },
     {
       "id": "D027",
@@ -1425,7 +1687,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420"
+        }
+      ]
     },
     {
       "id": "D028",
@@ -1476,7 +1757,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420"
+        }
+      ]
     },
     {
       "id": "D029",
@@ -1532,7 +1832,18 @@
       "verified_scope": "현재107 격리 DB 실제 SQL/PostgREST8그룹 통과. 독립 가상 프로필 fixture로 변경; 기존 seed 부재 및 QA 관리자 초대 만료 실패를 수정 후 검증. 운영/출처 검토와 구분.",
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "03 · 크리에이터 프로필 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420"
+        }
+      ]
     },
     {
       "id": "D030",
@@ -1582,7 +1893,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420"
+        }
+      ]
     },
     {
       "id": "D031",
@@ -1633,7 +1963,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420"
+        }
+      ]
     },
     {
       "id": "D032",
@@ -1682,7 +2031,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420"
+        }
+      ]
     },
     {
       "id": "D033",
@@ -1738,7 +2106,22 @@
       "verified_scope": "로컬 계약10건 + 실제 격리 Postgres/PostgREST5개 그룹(가상67/적격63), 세 정렬 다중 페이지·필터·권한·철회 통과. 운영/대규모 성능/브라우저 최종 배치는 별도.",
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "23 · 모바일 상세 필터",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2303"
+        }
+      ]
     },
     {
       "id": "D034",
@@ -1789,7 +2172,22 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "23 · 모바일 상세 필터",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2303"
+        }
+      ]
     },
     {
       "id": "D035",
@@ -1840,7 +2238,22 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "23 · 모바일 상세 필터",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2303"
+        }
+      ]
     },
     {
       "id": "D036",
@@ -1889,7 +2302,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510"
+        }
+      ]
     },
     {
       "id": "D037",
@@ -1946,7 +2378,26 @@
       "verified_scope": "109-source 실제 로컬 Auth/PostgREST/SQL7그룹: 본인 저장/재실행·CAS·해지/삭제·한도. 새 후보 알림은 미구현/미검증.",
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510"
+        }
+      ]
     },
     {
       "id": "D038",
@@ -1996,7 +2447,8 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D039",
@@ -2055,7 +2507,42 @@
       "operator_refactor_review": {
         "decision": "UPDATE",
         "acceptance_followup": "상품 조건은 explicit proposal 계약과 실제 공개 채널 흐름 회귀로 확인한다."
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "01 · 홈페이지 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-91"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "04 · AI 추천 조건 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-145"
+        },
+        {
+          "label": "05 · AI 추천 결과 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163"
+        },
+        {
+          "label": "01 · 홈페이지 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1402"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "04 · AI 추천 조건 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1429"
+        },
+        {
+          "label": "05 · AI 추천 결과 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438"
+        }
+      ]
     },
     {
       "id": "D040",
@@ -2103,7 +2590,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        }
+      ]
     },
     {
       "id": "D041",
@@ -2119,15 +2617,21 @@
       "code_files": [
         "src/components/campaign-form.tsx",
         "src/app/api/campaigns/route.ts",
-        "src/lib/schemas.ts"
+        "src/lib/schemas.ts",
+        "src/app/jobs/forms.tsx",
+        "src/app/jobs/new/page.tsx",
+        "src/app/jobs/[id]/page.tsx"
       ],
       "database": "campaigns, brand_products, proposals, proposal_events, marketplace_action, delivery_transition",
       "expected": "모집·제작·게시 기간, 현금/제품 제공, 단가 범위, 콘텐츠 수량·사용권·독점 조건을 구조화한다.",
-      "implementation": "KST 입력/UTC 저장, KRW 정수·현금/제품 제공 구분·수량·사용권·독점 조건을 검증한다. 날짜 경계와 모집 상태를 분리한다.",
+      "implementation": "KST 입력/UTC 저장, KRW 정수·현금/제품 제공 구분·수량·사용권·독점 조건을 검증한다. 날짜 경계와 모집 상태를 분리한다. Figma 전환 · 캠페인 작성과 상세 조건을 디자인에 맞췄다. 신규 모집 필드와 이미지·권한은 기존 DTO와 맞춘 뒤 추가한다.",
       "change_files": [
         "src/components/campaign-form.tsx",
         "src/app/api/campaigns/route.ts",
-        "src/lib/schemas.ts"
+        "src/lib/schemas.ts",
+        "src/app/jobs/forms.tsx",
+        "src/app/jobs/new/page.tsx",
+        "src/app/jobs/[id]/page.tsx"
       ],
       "new_files": [
         "기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정"
@@ -2147,7 +2651,8 @@
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/D041/README.md",
         "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json",
-        "harness/evidence/D041/ (이번 검증 기록 위치)"
+        "harness/evidence/D041/ (이번 검증 기록 위치)",
+        "docs/design/visual-review.md"
       ],
       "status": "TESTED",
       "scope": "ACTIVE",
@@ -2155,7 +2660,50 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "06 · 캠페인 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-809"
+        },
+        {
+          "label": "07 · 캠페인 상세 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870"
+        },
+        {
+          "label": "08 · 캠페인 작성 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-921"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307"
+        },
+        {
+          "label": "06 · 캠페인 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-840"
+        },
+        {
+          "label": "07 · 캠페인 상세 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898"
+        },
+        {
+          "label": "08 · 캠페인 작성 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-970"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510"
+        },
+        {
+          "label": "18 · 캠페인 게시 완료 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1063"
+        },
+        {
+          "label": "18 · 캠페인 게시 완료 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1072"
+        }
+      ]
     },
     {
       "id": "D042",
@@ -2218,7 +2766,26 @@
       "verified_scope": "112-source 본인 전용 불변 첨부/active pointer/재시도·CAS·복원·복제 분리. API9+복제5, 실제 로컬DB/Storage9그룹, desktop/mobile4 시나리오 통과. 실제 정책/저작권·물리 정리/운영 별도.",
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "07 · 캠페인 상세 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870"
+        },
+        {
+          "label": "08 · 캠페인 작성 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-921"
+        },
+        {
+          "label": "07 · 캠페인 상세 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898"
+        },
+        {
+          "label": "08 · 캠페인 작성 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-970"
+        }
+      ]
     },
     {
       "id": "D043",
@@ -2236,15 +2803,21 @@
       "code_files": [
         "src/app/campaigns/page.tsx",
         "src/app/api/campaigns/route.ts",
-        "src/app/api/proposals/route.ts"
+        "src/app/api/proposals/route.ts",
+        "src/app/jobs/page.tsx",
+        "src/app/jobs/actions.ts",
+        "tests/e2e/marketplace.spec.ts"
       ],
       "database": "campaigns, brand_products, proposals, proposal_events, marketplace_action, delivery_transition",
       "expected": "모집 종료·중복 지원·마감 후 지원·선정 인원·비공개 전환 규칙을 서버에서 강제한다.",
-      "implementation": "허용 상태 전이·모집 마감·capacity·지원 unique·선정 경합을 DB transaction/RPC로 강제한다.",
+      "implementation": "허용 상태 전이·모집 마감·capacity·지원 unique·선정 경합을 DB transaction/RPC로 강제한다. Figma 전환 · 캠페인 목록에서 범위·마감 순서를 검증한다. 임시 저장·게시·마감은 기존 marketplace RPC에 연결한다.",
       "change_files": [
         "src/app/campaigns/page.tsx",
         "src/app/api/campaigns/route.ts",
-        "src/app/api/proposals/route.ts"
+        "src/app/api/proposals/route.ts",
+        "src/app/jobs/page.tsx",
+        "src/app/jobs/actions.ts",
+        "tests/e2e/marketplace.spec.ts"
       ],
       "new_files": [
         "기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정"
@@ -2262,7 +2835,8 @@
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D043/ (이번 검증 기록 위치)"
+        "harness/evidence/D043/ (이번 검증 기록 위치)",
+        "docs/design/visual-review.md"
       ],
       "status": "TODO",
       "scope": "ACTIVE",
@@ -2270,7 +2844,66 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "06 · 캠페인 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-809"
+        },
+        {
+          "label": "07 · 캠페인 상세 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870"
+        },
+        {
+          "label": "08 · 캠페인 작성 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-921"
+        },
+        {
+          "label": "09 · 캠페인 지원 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1002"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307"
+        },
+        {
+          "label": "06 · 캠페인 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-840"
+        },
+        {
+          "label": "07 · 캠페인 상세 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898"
+        },
+        {
+          "label": "08 · 캠페인 작성 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-970"
+        },
+        {
+          "label": "09 · 캠페인 지원 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1039"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510"
+        },
+        {
+          "label": "18 · 캠페인 게시 완료 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1063"
+        },
+        {
+          "label": "19 · 캠페인 지원 완료 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1081"
+        },
+        {
+          "label": "18 · 캠페인 게시 완료 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1072"
+        },
+        {
+          "label": "19 · 캠페인 지원 완료 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1090"
+        }
+      ]
     },
     {
       "id": "D044",
@@ -2324,7 +2957,34 @@
       "verified_scope": "현재 추천 폼의 hard/soft/unknown과 scorer1.2 연결, 결측 가중치·보류 적격·안전 숫자·정렬·HOT 독립성 포함39개 합성 단위/action/DTO 테스트 통과. 운영 및 SQL snapshot-v1 통합과 구분.",
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "01 · 홈페이지 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-91"
+        },
+        {
+          "label": "04 · AI 추천 조건 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-145"
+        },
+        {
+          "label": "05 · AI 추천 결과 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163"
+        },
+        {
+          "label": "01 · 홈페이지 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1402"
+        },
+        {
+          "label": "04 · AI 추천 조건 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1429"
+        },
+        {
+          "label": "05 · AI 추천 결과 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438"
+        }
+      ]
     },
     {
       "id": "D045",
@@ -2380,7 +3040,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "04 · AI 추천 조건 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-145"
+        },
+        {
+          "label": "05 · AI 추천 결과 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163"
+        },
+        {
+          "label": "04 · AI 추천 조건 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1429"
+        },
+        {
+          "label": "05 · AI 추천 결과 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438"
+        }
+      ]
     },
     {
       "id": "D046",
@@ -2428,7 +3107,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "05 · AI 추천 결과 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163"
+        },
+        {
+          "label": "05 · AI 추천 결과 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438"
+        }
+      ]
     },
     {
       "id": "D047",
@@ -2484,7 +3174,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "05 · AI 추천 결과 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163"
+        },
+        {
+          "label": "05 · AI 추천 결과 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438"
+        }
+      ]
     },
     {
       "id": "D048",
@@ -2545,7 +3246,26 @@
       "operator_refactor_review": {
         "decision": "UPDATE",
         "acceptance_followup": "워커 로그 계약과 로컬 추론 검증을 PR-003과 연결한다. 운영 대기열 복구는 D086에 남긴다."
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "04 · AI 추천 조건 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-145"
+        },
+        {
+          "label": "05 · AI 추천 결과 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163"
+        },
+        {
+          "label": "04 · AI 추천 조건 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1429"
+        },
+        {
+          "label": "05 · AI 추천 결과 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438"
+        }
+      ]
     },
     {
       "id": "D049",
@@ -2561,15 +3281,19 @@
       "code_files": [
         "src/app/api/proposals/route.ts",
         "src/components/deal-controls.tsx",
-        "supabase/migrations"
+        "supabase/migrations",
+        "src/app/jobs/[id]/page.tsx",
+        "src/app/jobs/forms.tsx"
       ],
       "database": "campaigns, brand_products, proposals, proposal_events, marketplace_action, delivery_transition",
       "expected": "제안/지원/수락/거절/취소/수정요청/완료와 중복·경합·참여자 권한을 검증한다.",
-      "implementation": "현 상태 전이를 읽고 기존 데이터와 호환되는 회귀 테스트부터 작성한다. 상태 변경+이력+알림 event는 단일 원자 작업이다.",
+      "implementation": "현 상태 전이를 읽고 기존 데이터와 호환되는 회귀 테스트부터 작성한다. 상태 변경+이력+알림 event는 단일 원자 작업이다. Figma 전환 · 브랜드 초안 저장과 공개 접근 거부를 격리 확인했다. 게시·지원·양측 채팅 및 새 상태 화면은 후속 확인 대상이다.",
       "change_files": [
         "src/app/api/proposals/route.ts",
         "src/components/deal-controls.tsx",
-        "supabase/migrations"
+        "supabase/migrations",
+        "src/app/jobs/[id]/page.tsx",
+        "src/app/jobs/forms.tsx"
       ],
       "new_files": [
         "기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정"
@@ -2587,7 +3311,8 @@
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D049/ (이번 검증 기록 위치)"
+        "harness/evidence/D049/ (이번 검증 기록 위치)",
+        "docs/design/visual-review.md"
       ],
       "status": "TODO",
       "scope": "ACTIVE",
@@ -2595,7 +3320,82 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "06 · 캠페인 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-809"
+        },
+        {
+          "label": "07 · 캠페인 상세 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870"
+        },
+        {
+          "label": "08 · 캠페인 작성 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-921"
+        },
+        {
+          "label": "09 · 캠페인 지원 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1002"
+        },
+        {
+          "label": "10 · 실시간 채팅 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325"
+        },
+        {
+          "label": "06 · 캠페인 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-840"
+        },
+        {
+          "label": "07 · 캠페인 상세 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898"
+        },
+        {
+          "label": "08 · 캠페인 작성 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-970"
+        },
+        {
+          "label": "09 · 캠페인 지원 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1039"
+        },
+        {
+          "label": "10 · 실시간 채팅 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519"
+        },
+        {
+          "label": "18 · 캠페인 게시 완료 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1063"
+        },
+        {
+          "label": "19 · 캠페인 지원 완료 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1081"
+        },
+        {
+          "label": "18 · 캠페인 게시 완료 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1072"
+        },
+        {
+          "label": "19 · 캠페인 지원 완료 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1090"
+        }
+      ]
     },
     {
       "id": "D050",
@@ -2646,7 +3446,34 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "07 · 캠페인 상세 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870"
+        },
+        {
+          "label": "09 · 캠페인 지원 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1002"
+        },
+        {
+          "label": "10 · 실시간 채팅 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253"
+        },
+        {
+          "label": "07 · 캠페인 상세 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898"
+        },
+        {
+          "label": "09 · 캠페인 지원 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1039"
+        },
+        {
+          "label": "10 · 실시간 채팅 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483"
+        }
+      ]
     },
     {
       "id": "D051",
@@ -2700,7 +3527,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "10 · 실시간 채팅 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253"
+        },
+        {
+          "label": "10 · 실시간 채팅 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483"
+        }
+      ]
     },
     {
       "id": "D052",
@@ -2751,7 +3589,34 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "10 · 실시간 채팅 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325"
+        },
+        {
+          "label": "10 · 실시간 채팅 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519"
+        }
+      ]
     },
     {
       "id": "D053",
@@ -2801,7 +3666,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "10 · 실시간 채팅 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307"
+        },
+        {
+          "label": "10 · 실시간 채팅 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510"
+        }
+      ]
     },
     {
       "id": "D054",
@@ -2853,7 +3737,42 @@
       "reopened": true,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "07 · 캠페인 상세 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870"
+        },
+        {
+          "label": "10 · 실시간 채팅 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325"
+        },
+        {
+          "label": "07 · 캠페인 상세 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898"
+        },
+        {
+          "label": "10 · 실시간 채팅 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519"
+        }
+      ]
     },
     {
       "id": "D055",
@@ -2907,7 +3826,42 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "07 · 캠페인 상세 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870"
+        },
+        {
+          "label": "10 · 실시간 채팅 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325"
+        },
+        {
+          "label": "07 · 캠페인 상세 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898"
+        },
+        {
+          "label": "10 · 실시간 채팅 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519"
+        }
+      ]
     },
     {
       "id": "D056",
@@ -2957,7 +3911,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "13 · 브랜드 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519"
+        }
+      ]
     },
     {
       "id": "D057",
@@ -3010,7 +3983,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "15 · 관리자 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343"
+        },
+        {
+          "label": "15 · 관리자 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528"
+        }
+      ]
     },
     {
       "id": "D058",
@@ -3058,7 +4042,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "15 · 관리자 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343"
+        },
+        {
+          "label": "15 · 관리자 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528"
+        }
+      ]
     },
     {
       "id": "D059",
@@ -3110,7 +4105,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "15 · 관리자 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343"
+        },
+        {
+          "label": "15 · 관리자 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528"
+        }
+      ]
     },
     {
       "id": "D060",
@@ -3162,7 +4168,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "15 · 관리자 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343"
+        },
+        {
+          "label": "15 · 관리자 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528"
+        }
+      ]
     },
     {
       "id": "D061",
@@ -3210,7 +4227,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "09 · 캠페인 지원 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1002"
+        },
+        {
+          "label": "15 · 관리자 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343"
+        },
+        {
+          "label": "09 · 캠페인 지원 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1039"
+        },
+        {
+          "label": "15 · 관리자 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528"
+        }
+      ]
     },
     {
       "id": "D062",
@@ -3262,7 +4298,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "10 · 실시간 채팅 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253"
+        },
+        {
+          "label": "15 · 관리자 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343"
+        },
+        {
+          "label": "10 · 실시간 채팅 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483"
+        },
+        {
+          "label": "15 · 관리자 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528"
+        }
+      ]
     },
     {
       "id": "D063",
@@ -3314,7 +4369,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "15 · 관리자 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343"
+        },
+        {
+          "label": "15 · 관리자 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528"
+        }
+      ]
     },
     {
       "id": "D064",
@@ -3367,7 +4433,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "15 · 관리자 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343"
+        },
+        {
+          "label": "15 · 관리자 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528"
+        }
+      ]
     },
     {
       "id": "D065",
@@ -3383,15 +4460,19 @@
       "code_files": [
         "src/lib/billing.ts",
         "src/app/pricing/page.tsx",
-        "src/components/checkout.tsx"
+        "src/components/checkout.tsx",
+        "src/components/pricing-plans.tsx",
+        "tests/e2e/premium-visual.spec.ts"
       ],
       "database": "profiles, campaigns 또는 products 중 담당 기능의 기존 소유권 계약",
       "expected": "무료 실서비스에서 결제 약속을 제거하고 TEST 전용 Pro/Agency/HOT/크레딧 설명과 가격을 일치시킨다.",
-      "implementation": "현 상품 ID를 유지할지 버전 변경할지 정하고 server service mode로 TEST 주문 가능 범위를 통제한다.",
+      "implementation": "현 상품 ID를 유지할지 버전 변경할지 정하고 server service mode로 TEST 주문 가능 범위를 통제한다. Figma 전환 · 공개 요금제에서 TEST 상품·금액과 구매 CTA를 숨긴다. 격리 결제 카탈로그 및 서버 가격 계약을 유지한다.",
       "change_files": [
         "src/lib/billing.ts",
         "src/app/pricing/page.tsx",
-        "src/components/checkout.tsx"
+        "src/components/checkout.tsx",
+        "src/components/pricing-plans.tsx",
+        "tests/e2e/premium-visual.spec.ts"
       ],
       "new_files": [
         "기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정"
@@ -3413,7 +4494,8 @@
         "harness/evidence/D065/README.md",
         "harness/evidence/D065/VERIFY_20261121.md",
         "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json",
-        "harness/evidence/D065/ (이번 검증 기록 위치)"
+        "harness/evidence/D065/ (이번 검증 기록 위치)",
+        "docs/design/visual-review.md"
       ],
       "status": "TESTED",
       "scope": "ACTIVE",
@@ -3421,7 +4503,42 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "06 · 캠페인 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-809"
+        },
+        {
+          "label": "11 · 요금제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271"
+        },
+        {
+          "label": "12 · 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289"
+        },
+        {
+          "label": "06 · 캠페인 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-840"
+        },
+        {
+          "label": "11 · 요금제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492"
+        },
+        {
+          "label": "12 · 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388"
+        }
+      ]
     },
     {
       "id": "D066",
@@ -3476,7 +4593,42 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "11 · 요금제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271"
+        },
+        {
+          "label": "12 · 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289"
+        },
+        {
+          "label": "11 · 요금제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492"
+        },
+        {
+          "label": "12 · 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501"
+        },
+        {
+          "label": "20 · 결제 완료 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2183"
+        },
+        {
+          "label": "20 · 결제 완료 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2257"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388"
+        }
+      ]
     },
     {
       "id": "D067",
@@ -3536,7 +4688,34 @@
         "moved_implementations": {
           "src/app/api/billing/orders/route.ts": "src/domains/billing/orders.server.ts"
         }
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "12 · 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289"
+        },
+        {
+          "label": "12 · 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501"
+        },
+        {
+          "label": "20 · 결제 완료 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2183"
+        },
+        {
+          "label": "20 · 결제 완료 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2257"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388"
+        }
+      ]
     },
     {
       "id": "D068",
@@ -3587,7 +4766,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "12 · 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289"
+        },
+        {
+          "label": "12 · 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388"
+        }
+      ]
     },
     {
       "id": "D069",
@@ -3637,7 +4835,50 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "09 · 캠페인 지원 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1002"
+        },
+        {
+          "label": "11 · 요금제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271"
+        },
+        {
+          "label": "12 · 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325"
+        },
+        {
+          "label": "09 · 캠페인 지원 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1039"
+        },
+        {
+          "label": "11 · 요금제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492"
+        },
+        {
+          "label": "12 · 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388"
+        }
+      ]
     },
     {
       "id": "D070",
@@ -3687,7 +4928,34 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "11 · 요금제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325"
+        },
+        {
+          "label": "11 · 요금제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492"
+        },
+        {
+          "label": "14 · 크리에이터 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388"
+        }
+      ]
     },
     {
       "id": "D071",
@@ -3739,7 +5007,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "13 · 브랜드 대시보드 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307"
+        },
+        {
+          "label": "13 · 브랜드 대시보드 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510"
+        }
+      ]
     },
     {
       "id": "D072",
@@ -3788,7 +5067,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "11 · 요금제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271"
+        },
+        {
+          "label": "11 · 요금제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492"
+        }
+      ]
     },
     {
       "id": "D073",
@@ -3841,7 +5131,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "17 · 회원가입 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-379"
+        },
+        {
+          "label": "17 · 회원가입 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1546"
+        },
+        {
+          "label": "17b · 크리에이터 회원가입 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416"
+        },
+        {
+          "label": "17b · 크리에이터 회원가입 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444"
+        }
+      ]
     },
     {
       "id": "D074",
@@ -3889,7 +5198,8 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D075",
@@ -3957,7 +5267,18 @@
           "src/lib/api.ts": "src/shared/server/http.ts"
         },
         "acceptance_followup": "브랜드 타인 접근 거부 및 관리자 AAL2 증거를 분리한다."
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "15 · 관리자 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343"
+        },
+        {
+          "label": "15 · 관리자 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528"
+        }
+      ]
     },
     {
       "id": "D076",
@@ -4010,7 +5331,8 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D077",
@@ -4067,7 +5389,8 @@
         "moved_implementations": {
           "src/lib/api.ts": "src/shared/server/http.ts"
         }
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D078",
@@ -4125,7 +5448,8 @@
         "moved_implementations": {
           "src/lib/api.ts": "src/shared/server/http.ts"
         }
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D079",
@@ -4176,7 +5500,8 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D080",
@@ -4228,7 +5553,22 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "03 · 크리에이터 프로필 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420"
+        },
+        {
+          "label": "22 · 캠페인 내비게이션 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1099"
+        }
+      ]
     },
     {
       "id": "D081",
@@ -4244,15 +5584,19 @@
       "code_files": [
         "src/app/page.tsx",
         "src/app/globals.css",
-        "public/brand/ad-me-logo.png"
+        "public/brand/ad-me-logo.png",
+        "src/components/figma-navigation.tsx",
+        "src/app/figma-theme.css"
       ],
       "database": "profiles, campaigns 또는 products 중 담당 기능의 기존 소유권 계약",
       "expected": "제공 로고·차콜/오프화이트/라임을 유지하고 실제 확보 수·출처·무료 베타 한계에 맞춰 메인을 정비한다.",
-      "implementation": "현재 제공 로고 형태/색을 유지하고 실제 집계가 없는 숫자·로고·성공사례를 삭제한다. 정보 위계와 핵심 CTA를 재설계한다.",
+      "implementation": "현재 제공 로고 형태/색을 유지하고 실제 집계가 없는 숫자·로고·성공사례를 삭제한다. 정보 위계와 핵심 CTA를 재설계한다. Figma 전환 · Figma 원본 자산과 밝은 라벤더 홈을 적용했다. 운영 대조와 전체 화면 승격을 별도로 검증한다.",
       "change_files": [
         "src/app/page.tsx",
         "src/app/globals.css",
-        "public/brand/ad-me-logo.png"
+        "public/brand/ad-me-logo.png",
+        "src/components/figma-navigation.tsx",
+        "src/app/figma-theme.css"
       ],
       "new_files": [
         "기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정"
@@ -4275,7 +5619,8 @@
         "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json",
         "harness/evidence/D081/VERIFY_20261121.md",
         "harness/evidence/D081/ (이번 검증 기록 위치)",
-        "docs/production-readiness/REFACTOR_IMPACT.md"
+        "docs/production-readiness/REFACTOR_IMPACT.md",
+        "docs/design/visual-review.md"
       ],
       "status": "VERIFIED",
       "scope": "ACTIVE",
@@ -4285,7 +5630,46 @@
       "operator_refactor_review": {
         "decision": "UPDATE",
         "acceptance_followup": "기존 공개 브라우저 통과는 해당 배포 SHA에서 보존한다. 밝은 테마로 바뀐 운영 배포의 재검증은 D088에서 수행한다."
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "01 · 홈페이지 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-91"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127"
+        },
+        {
+          "label": "06 · 캠페인 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-809"
+        },
+        {
+          "label": "01 · 홈페이지 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1402"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420"
+        },
+        {
+          "label": "06 · 캠페인 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-840"
+        },
+        {
+          "label": "22 · 캠페인 내비게이션 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1099"
+        }
+      ]
     },
     {
       "id": "D082",
@@ -4303,15 +5687,19 @@
       "code_files": [
         "src/app",
         "src/components",
-        "tests/e2e"
+        "tests/e2e",
+        "src/app/figma-theme.css",
+        "tests/e2e/light-surface.spec.ts"
       ],
       "database": "profiles, campaigns 또는 products 중 담당 기능의 기존 소유권 계약",
       "expected": "키보드·포커스·스크린리더·대비·폼 오류·로딩·빈 상태·복구 UX를 전 흐름에 적용한다.",
-      "implementation": "320/390/768/1440px·키보드·포커스·라벨·대비·loading/error/empty를 점검한다. 애니메이션 reduced-motion을 지원한다. 이전 발견 항목의 결함 수정과 접근성 회귀는 병렬 진행한다. 새 시안 또는 공통 토큰 변경은 운영자 O001의 기준서로 작업하고 실제 화면 증거를 넘긴다.",
+      "implementation": "320/390/768/1440px·키보드·포커스·라벨·대비·loading/error/empty를 점검한다. 애니메이션 reduced-motion을 지원한다. 이전 발견 항목의 결함 수정과 접근성 회귀는 병렬 진행한다. 새 시안 또는 공통 토큰 변경은 운영자 O001의 기준서로 작업하고 실제 화면 증거를 넘긴다. Figma 전환 · 1440/390 브라우저 및 감소 모션을 대조한다. 전체 역할·오류·시트 및 다중 폭은 후속 검수 대상이다.",
       "change_files": [
         "src/app",
         "src/components",
-        "tests/e2e"
+        "tests/e2e",
+        "src/app/figma-theme.css",
+        "tests/e2e/light-surface.spec.ts"
       ],
       "new_files": [
         "기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정"
@@ -4332,7 +5720,8 @@
         "harness/evidence/D082/VERIFY_NEXT_20261121.md",
         "harness/evidence/DEV-A-P0-NEXT-20261121/verification.json",
         "harness/evidence/D082/ (이번 검증 기록 위치)",
-        "docs/production-readiness/REFACTOR_IMPACT.md"
+        "docs/production-readiness/REFACTOR_IMPACT.md",
+        "docs/design/visual-review.md"
       ],
       "status": "TESTED",
       "scope": "ACTIVE",
@@ -4341,7 +5730,46 @@
       "operator_refactor_review": {
         "decision": "UPDATE",
         "acceptance_followup": "밝은 공통 표면·홈 모션·모바일 가격 CTA를 격리 환경에서 검증한다."
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "01 · 홈페이지 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-91"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127"
+        },
+        {
+          "label": "06 · 캠페인 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-809"
+        },
+        {
+          "label": "01 · 홈페이지 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1402"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420"
+        },
+        {
+          "label": "06 · 캠페인 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-840"
+        },
+        {
+          "label": "22 · 캠페인 내비게이션 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1099"
+        }
+      ]
     },
     {
       "id": "D083",
@@ -4394,7 +5822,18 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "01 · 홈페이지 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-91"
+        },
+        {
+          "label": "01 · 홈페이지 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1402"
+        }
+      ]
     },
     {
       "id": "D084",
@@ -4456,7 +5895,8 @@
       "operator_refactor_review": {
         "decision": "UPDATE",
         "acceptance_followup": "빈 로컬 DB의 116개 적용과 운영 업그레이드의 별도 증거를 요구한다."
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D085",
@@ -4513,7 +5953,8 @@
       "operator_refactor_review": {
         "decision": "UPDATE",
         "acceptance_followup": "운영·프리뷰 격리, 백업·복구를 호환성 승인 전에 검증한다."
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D086",
@@ -4567,7 +6008,18 @@
       "operator_refactor_review": {
         "decision": "UPDATE",
         "acceptance_followup": "실모델 재시작과 내구성 큐 재처리·임대 만료를 따로 검증한다."
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "15 · 관리자 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343"
+        },
+        {
+          "label": "15 · 관리자 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528"
+        }
+      ]
     },
     {
       "id": "D087",
@@ -4623,7 +6075,8 @@
       "operator_refactor_review": {
         "decision": "UPDATE",
         "acceptance_followup": "운영 스키마/마이그레이션 번호 매핑·복구를 승인 전에 검증한다."
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "D088",
@@ -4688,7 +6141,8 @@
       "operator_refactor_review": {
         "decision": "UPDATE",
         "acceptance_followup": "공개 URL의 역할별 흐름과 모바일, 새 밝은 화면 및 모션을 운영 적용 후 재확인한다."
-      }
+      },
+      "figma_review": "KEEP"
     },
     {
       "id": "U001",
@@ -4731,7 +6185,8 @@
       "prior_status": "PARTIAL_VERIFIED",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "BUSINESS_APPROVAL"
+      "execution_track": "BUSINESS_APPROVAL",
+      "figma_review": "KEEP"
     },
     {
       "id": "U002",
@@ -4774,7 +6229,8 @@
       "prior_status": "PARTIAL_VERIFIED",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "DEPLOYMENT"
+      "execution_track": "DEPLOYMENT",
+      "figma_review": "KEEP"
     },
     {
       "id": "U003",
@@ -4817,7 +6273,8 @@
       "prior_status": "PARTIAL_VERIFIED",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "DEPLOYMENT"
+      "execution_track": "DEPLOYMENT",
+      "figma_review": "KEEP"
     },
     {
       "id": "U004",
@@ -4863,7 +6320,8 @@
       "prior_status": "PARTIAL_VERIFIED",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "DEPLOYMENT"
+      "execution_track": "DEPLOYMENT",
+      "figma_review": "KEEP"
     },
     {
       "id": "U005",
@@ -4908,7 +6366,8 @@
       "prior_status": "PARTIAL_VERIFIED",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "DEPLOYMENT"
+      "execution_track": "DEPLOYMENT",
+      "figma_review": "KEEP"
     },
     {
       "id": "U006",
@@ -4953,7 +6412,8 @@
       "prior_status": "PARTIAL_VERIFIED",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "API_KEYS"
+      "execution_track": "API_KEYS",
+      "figma_review": "KEEP"
     },
     {
       "id": "U007",
@@ -4996,7 +6456,34 @@
       "prior_status": "VERIFIED_AUTH_SMTP",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "API_KEYS"
+      "execution_track": "API_KEYS",
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "17 · 회원가입 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-379"
+        },
+        {
+          "label": "17 · 회원가입 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1546"
+        },
+        {
+          "label": "21 · 가입 완료 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2206"
+        },
+        {
+          "label": "21 · 가입 완료 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2271"
+        },
+        {
+          "label": "17b · 크리에이터 회원가입 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416"
+        },
+        {
+          "label": "17b · 크리에이터 회원가입 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444"
+        }
+      ]
     },
     {
       "id": "U008",
@@ -5039,7 +6526,42 @@
       "prior_status": "PARTIAL_VERIFIED",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "DEPLOYMENT"
+      "execution_track": "DEPLOYMENT",
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "15 · 관리자 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343"
+        },
+        {
+          "label": "16 · 로그인 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361"
+        },
+        {
+          "label": "17 · 회원가입 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-379"
+        },
+        {
+          "label": "15 · 관리자 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528"
+        },
+        {
+          "label": "16 · 로그인 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537"
+        },
+        {
+          "label": "17 · 회원가입 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1546"
+        },
+        {
+          "label": "17b · 크리에이터 회원가입 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416"
+        },
+        {
+          "label": "17b · 크리에이터 회원가입 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444"
+        }
+      ]
     },
     {
       "id": "U009",
@@ -5082,7 +6604,8 @@
       "prior_status": "PARTIAL_VERIFIED",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "API_KEYS"
+      "execution_track": "API_KEYS",
+      "figma_review": "KEEP"
     },
     {
       "id": "U010",
@@ -5125,7 +6648,8 @@
       "prior_status": "BLOCKED_USER_DECISION",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "API_KEYS"
+      "execution_track": "API_KEYS",
+      "figma_review": "KEEP"
     },
     {
       "id": "U011",
@@ -5168,7 +6692,8 @@
       "prior_status": "BLOCKED_SOURCE_PERMISSION",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "API_KEYS"
+      "execution_track": "API_KEYS",
+      "figma_review": "KEEP"
     },
     {
       "id": "U012",
@@ -5211,7 +6736,8 @@
       "prior_status": "BLOCKED_IMPLEMENTATION_AND_ACCESS",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "BUSINESS_APPROVAL"
+      "execution_track": "BUSINESS_APPROVAL",
+      "figma_review": "ARCHIVE"
     },
     {
       "id": "U013",
@@ -5254,7 +6780,8 @@
       "prior_status": "BLOCKED_IMPLEMENTATION_AND_ACCESS",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "BUSINESS_APPROVAL"
+      "execution_track": "BUSINESS_APPROVAL",
+      "figma_review": "ARCHIVE"
     },
     {
       "id": "U014",
@@ -5297,7 +6824,8 @@
       "prior_status": "BLOCKED_PARTICIPATION",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "BUSINESS_APPROVAL"
+      "execution_track": "BUSINESS_APPROVAL",
+      "figma_review": "KEEP"
     },
     {
       "id": "U015",
@@ -5340,7 +6868,34 @@
       "prior_status": "PARTIAL_VERIFIED",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "API_KEYS"
+      "execution_track": "API_KEYS",
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "11 · 요금제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271"
+        },
+        {
+          "label": "12 · 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289"
+        },
+        {
+          "label": "11 · 요금제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492"
+        },
+        {
+          "label": "12 · 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388"
+        }
+      ]
     },
     {
       "id": "U016",
@@ -5383,7 +6938,8 @@
       "prior_status": "OPTIONAL_NOT_ENABLED",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "LOCAL_AI"
+      "execution_track": "LOCAL_AI",
+      "figma_review": "KEEP"
     },
     {
       "id": "U017",
@@ -5428,7 +6984,8 @@
       "reopened": false,
       "verified_scope": "운영 DNS/TLS, www→apex 308, 홈 canonical",
       "previous_owner": "USER",
-      "execution_track": "DEPLOYMENT"
+      "execution_track": "DEPLOYMENT",
+      "figma_review": "KEEP"
     },
     {
       "id": "U018",
@@ -5471,7 +7028,8 @@
       "prior_status": "PARTIAL_VERIFIED",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "DEPLOYMENT"
+      "execution_track": "DEPLOYMENT",
+      "figma_review": "KEEP"
     },
     {
       "id": "U019",
@@ -5516,7 +7074,8 @@
       "prior_status": "PARTIAL_VERIFIED",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "BUSINESS_APPROVAL"
+      "execution_track": "BUSINESS_APPROVAL",
+      "figma_review": "KEEP"
     },
     {
       "id": "U020",
@@ -5563,7 +7122,8 @@
       "prior_status": "NO_GO",
       "reopened": false,
       "previous_owner": "USER",
-      "execution_track": "BUSINESS_APPROVAL"
+      "execution_track": "BUSINESS_APPROVAL",
+      "figma_review": "KEEP"
     },
     {
       "id": "PR-001",
@@ -5627,7 +7187,26 @@
       "verified_scope": "116-source 격리 소유 상품→기존 예산 큐→검토/확인·거부→명시적 검색. 실제 로컬 SQL/REST와 합성 모델 결과; desktop/mobile 각1 시나리오. 실제 모델/운영 수용은 미검증.",
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "04 · AI 추천 조건 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-145"
+        },
+        {
+          "label": "05 · AI 추천 결과 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163"
+        },
+        {
+          "label": "04 · AI 추천 조건 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1429"
+        },
+        {
+          "label": "05 · AI 추천 결과 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438"
+        }
+      ]
     },
     {
       "id": "PR-002",
@@ -5687,7 +7266,26 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "04 · AI 추천 조건 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-145"
+        },
+        {
+          "label": "05 · AI 추천 결과 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163"
+        },
+        {
+          "label": "04 · AI 추천 조건 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1429"
+        },
+        {
+          "label": "05 · AI 추천 결과 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438"
+        }
+      ]
     },
     {
       "id": "PR-003",
@@ -5745,7 +7343,8 @@
       "previous_owner": "DEV-A",
       "execution_track": "LOCAL_AI",
       "previous_points": 5,
-      "verified_scope": "기존 격리 CPU 모델과 복구 시험 증빙을 인수한다. 운영 호스트 장애 복구와 최종 활성화는 별도로 확인한다."
+      "verified_scope": "기존 격리 CPU 모델과 복구 시험 증빙을 인수한다. 운영 호스트 장애 복구와 최종 활성화는 별도로 확인한다.",
+      "figma_review": "KEEP"
     },
     {
       "id": "PR-004",
@@ -5803,7 +7402,42 @@
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
-      }
+      },
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "11 · 요금제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271"
+        },
+        {
+          "label": "12 · 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289"
+        },
+        {
+          "label": "11 · 요금제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492"
+        },
+        {
+          "label": "12 · 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501"
+        },
+        {
+          "label": "20 · 결제 완료 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2183"
+        },
+        {
+          "label": "20 · 결제 완료 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2257"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388"
+        }
+      ]
     },
     {
       "id": "U021",
@@ -5849,7 +7483,26 @@
       "prior_status": null,
       "reopened": false,
       "previous_owner": "BUSINESS",
-      "execution_track": "BUSINESS_APPROVAL"
+      "execution_track": "BUSINESS_APPROVAL",
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "12 · 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289"
+        },
+        {
+          "label": "12 · 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388"
+        }
+      ]
     },
     {
       "id": "U022",
@@ -5897,7 +7550,26 @@
       "prior_status": null,
       "reopened": false,
       "previous_owner": "BUSINESS",
-      "execution_track": "BUSINESS_APPROVAL"
+      "execution_track": "BUSINESS_APPROVAL",
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "12 · 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289"
+        },
+        {
+          "label": "12 · 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348"
+        },
+        {
+          "label": "12b · 크리에이터 결제 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388"
+        }
+      ]
     },
     {
       "id": "O001",
@@ -5924,14 +7596,18 @@
       "code_files": [
         "docs/DESIGN_SYSTEM.md",
         "docs/design/visual-audit.md",
-        "src/app/marketplace-theme.css"
+        "src/app/marketplace-theme.css",
+        "docs/design/figma-frame-map.json",
+        "docs/design/visual-review.md"
       ],
       "database": "화면 설계와 시각 검수는 DB 변경 없음. 공개 프로필과 결측 표시는 기존 데이터 계약을 사용한다.",
       "expected": "웹디자인 시안과 공통 원칙이 승인되고, 구현 담당자와 배포 전에 확인할 판정 기준이 명시된다.",
-      "implementation": "운영자가 페이지별 우선순위와 시안(링크 또는 이미지)을 확정한다. 로고·타이포·색상·여백·CTA·모바일 및 로딩/빈/오류 상태를 인계서에 명시한다. B가 공통 레이아웃·토큰·UI를 반영하고 A가 탐색·추천·콘텐츠 근거를 검토한다. 운영자는 프리뷰 실화면을 확인하고 채택 또는 수정 요청의 근거를 남긴다.",
+      "implementation": "운영자가 페이지별 우선순위와 시안(링크 또는 이미지)을 확정한다. 로고·타이포·색상·여백·CTA·모바일 및 로딩/빈/오류 상태를 인계서에 명시한다. B가 공통 레이아웃·토큰·UI를 반영하고 A가 탐색·추천·콘텐츠 근거를 검토한다. 운영자는 프리뷰 실화면을 확인하고 채택 또는 수정 요청의 근거를 남긴다. Figma 전환 · AD ME 원본 49개 최상위 프레임과 새 Production Extensions 13개를 연결했다. 디자인·운영 승인은 증빙이 필요하다.",
       "change_files": [
         "docs/design/visual-audit.md",
-        "승인한 웹디자인 시안과 운영 인계 기록"
+        "승인한 웹디자인 시안과 운영 인계 기록",
+        "docs/design/figma-frame-map.json",
+        "docs/design/visual-review.md"
       ],
       "new_files": [
         "harness/evidence/O001/ 디자인 결정과 공개 가능한 브라우저 비교 증거"
@@ -5947,7 +7623,39 @@
       "evidence": [
         "docs/design/visual-audit.md",
         "harness/evidence/VISUAL-REDESIGN-20261123/verification.json",
-        "docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+        "docs/production-readiness/OPERATOR_EXECUTION_20261124.md",
+        "docs/design/visual-review.md"
+      ],
+      "figma_review": "UPDATE",
+      "figma_nodes": [
+        {
+          "label": "01 · 홈페이지 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-91"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Desktop",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127"
+        },
+        {
+          "label": "01 · 홈페이지 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1402"
+        },
+        {
+          "label": "02 · 크리에이터 탐색 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
+        },
+        {
+          "label": "03 · 크리에이터 프로필 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420"
+        },
+        {
+          "label": "22 · 캠페인 내비게이션 / Mobile",
+          "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1099"
+        }
       ]
     }
   ],

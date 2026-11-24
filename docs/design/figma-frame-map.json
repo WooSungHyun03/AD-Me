@@ -1,0 +1,827 @@
+{
+  "page": "0:1",
+  "counts": {
+    "FRAME": 592,
+    "TEXT": 1450,
+    "RECTANGLE": 121,
+    "COMPONENT_SET": 4,
+    "COMPONENT": 18,
+    "INSTANCE": 375,
+    "VECTOR": 5
+  },
+  "frames": [
+    {
+      "name": "00 · AD Me · Variables & Components",
+      "id": "11:12",
+      "type": "FRAME",
+      "w": 1600,
+      "h": 2113,
+      "product_routes": [
+        "src/app/figma-theme.css"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-12",
+      "web_status": "pending"
+    },
+    {
+      "name": "01 · 홈페이지 / Desktop",
+      "id": "11:91",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 3637,
+      "product_routes": [
+        "/"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-91",
+      "web_status": "implemented_in_verified_slice"
+    },
+    {
+      "name": "02 · 크리에이터 탐색 / Desktop",
+      "id": "11:109",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1318,
+      "product_routes": [
+        "/creators"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109",
+      "web_status": "pending"
+    },
+    {
+      "name": "03 · 크리에이터 프로필 / Desktop",
+      "id": "11:127",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1445,
+      "product_routes": [
+        "/creators/[id]",
+        "/creators/youtube/[id]"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127",
+      "web_status": "pending"
+    },
+    {
+      "name": "04 · AI 추천 조건 / Desktop",
+      "id": "11:145",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1351,
+      "product_routes": [
+        "/#recommendation",
+        "/brand/products/[id]/recommendations"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-145",
+      "web_status": "pending"
+    },
+    {
+      "name": "05 · AI 추천 결과 / Desktop",
+      "id": "11:163",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1281,
+      "product_routes": [
+        "/#recommendation",
+        "/campaigns/[id]/recommendations"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163",
+      "web_status": "pending"
+    },
+    {
+      "name": "06 · 광고 공고 / Desktop",
+      "id": "11:181",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1481,
+      "product_routes": [
+        "/jobs"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-181",
+      "web_status": "implemented_in_verified_slice",
+      "extension": {
+        "source": "11:181",
+        "id": "25:809",
+        "name": "06 · 캠페인 / Desktop",
+        "children": 3,
+        "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-809"
+      }
+    },
+    {
+      "name": "07 · 광고 공고 상세 / Desktop",
+      "id": "11:199",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1379,
+      "product_routes": [
+        "/jobs/[id]"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-199",
+      "web_status": "partial",
+      "extension": {
+        "source": "11:199",
+        "id": "25:870",
+        "name": "07 · 캠페인 상세 / Desktop",
+        "children": 3,
+        "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870"
+      }
+    },
+    {
+      "name": "08 · 광고 공고 작성 / Desktop",
+      "id": "11:217",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1746,
+      "product_routes": [
+        "/jobs/new"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-217",
+      "web_status": "partial",
+      "extension": {
+        "source": "11:217",
+        "id": "25:921",
+        "name": "08 · 캠페인 작성 / Desktop",
+        "children": 3,
+        "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-921"
+      }
+    },
+    {
+      "name": "09 · 광고 지원 / Desktop",
+      "id": "11:235",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1382,
+      "product_routes": [
+        "/jobs/[id]"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-235",
+      "web_status": "partial",
+      "extension": {
+        "source": "11:235",
+        "id": "25:1002",
+        "name": "09 · 캠페인 지원 / Desktop",
+        "children": 3,
+        "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1002"
+      }
+    },
+    {
+      "name": "10 · 실시간 채팅 / Desktop",
+      "id": "11:253",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1279,
+      "product_routes": [
+        "/dashboard"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253",
+      "web_status": "pending"
+    },
+    {
+      "name": "11 · 요금제 / Desktop",
+      "id": "11:271",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1400,
+      "product_routes": [
+        "/pricing"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271",
+      "web_status": "partial"
+    },
+    {
+      "name": "12 · 결제 / Desktop",
+      "id": "11:289",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1186,
+      "product_routes": [
+        "/pricing",
+        "/billing/success"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289",
+      "web_status": "pending"
+    },
+    {
+      "name": "13 · 브랜드 대시보드 / Desktop",
+      "id": "11:307",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1496,
+      "product_routes": [
+        "/dashboard"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307",
+      "web_status": "pending"
+    },
+    {
+      "name": "14 · 크리에이터 대시보드 / Desktop",
+      "id": "11:325",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1602,
+      "product_routes": [
+        "/dashboard"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325",
+      "web_status": "pending"
+    },
+    {
+      "name": "15 · 관리자 / Desktop",
+      "id": "11:343",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1349,
+      "product_routes": [
+        "/admin"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343",
+      "web_status": "pending"
+    },
+    {
+      "name": "16 · 로그인 / Desktop",
+      "id": "11:361",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1155,
+      "product_routes": [
+        "/login"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361",
+      "web_status": "implemented_in_verified_slice"
+    },
+    {
+      "name": "17 · 회원가입 / Desktop",
+      "id": "11:379",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1254,
+      "product_routes": [
+        "/signup"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-379",
+      "web_status": "implemented_in_verified_slice"
+    },
+    {
+      "name": "01 · 홈페이지 / Mobile",
+      "id": "11:1402",
+      "type": "FRAME",
+      "w": 390,
+      "h": 4037,
+      "product_routes": [
+        "/"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1402",
+      "web_status": "implemented_in_verified_slice"
+    },
+    {
+      "name": "02 · 크리에이터 탐색 / Mobile",
+      "id": "11:1411",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1909,
+      "product_routes": [
+        "/creators"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411",
+      "web_status": "pending"
+    },
+    {
+      "name": "03 · 크리에이터 프로필 / Mobile",
+      "id": "11:1420",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1919,
+      "product_routes": [
+        "/creators/[id]",
+        "/creators/youtube/[id]"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420",
+      "web_status": "pending"
+    },
+    {
+      "name": "04 · AI 추천 조건 / Mobile",
+      "id": "11:1429",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1445,
+      "product_routes": [
+        "/#recommendation",
+        "/brand/products/[id]/recommendations"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1429",
+      "web_status": "pending"
+    },
+    {
+      "name": "05 · AI 추천 결과 / Mobile",
+      "id": "11:1438",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1672,
+      "product_routes": [
+        "/#recommendation",
+        "/campaigns/[id]/recommendations"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438",
+      "web_status": "pending"
+    },
+    {
+      "name": "06 · 광고 공고 / Mobile",
+      "id": "11:1447",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1616,
+      "product_routes": [
+        "/jobs"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1447",
+      "web_status": "implemented_in_verified_slice",
+      "extension": {
+        "source": "11:1447",
+        "id": "25:840",
+        "name": "06 · 캠페인 / Mobile",
+        "children": 3,
+        "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-840"
+      }
+    },
+    {
+      "name": "07 · 광고 공고 상세 / Mobile",
+      "id": "11:1456",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1634,
+      "product_routes": [
+        "/jobs/[id]"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1456",
+      "web_status": "partial",
+      "extension": {
+        "source": "11:1456",
+        "id": "25:898",
+        "name": "07 · 캠페인 상세 / Mobile",
+        "children": 3,
+        "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898"
+      }
+    },
+    {
+      "name": "08 · 광고 공고 작성 / Mobile",
+      "id": "11:1465",
+      "type": "FRAME",
+      "w": 390,
+      "h": 2019,
+      "product_routes": [
+        "/jobs/new"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1465",
+      "web_status": "partial",
+      "extension": {
+        "source": "11:1465",
+        "id": "25:970",
+        "name": "08 · 캠페인 작성 / Mobile",
+        "children": 3,
+        "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-970"
+      }
+    },
+    {
+      "name": "09 · 광고 지원 / Mobile",
+      "id": "11:1474",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1364,
+      "product_routes": [
+        "/jobs/[id]"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1474",
+      "web_status": "partial",
+      "extension": {
+        "source": "11:1474",
+        "id": "25:1039",
+        "name": "09 · 캠페인 지원 / Mobile",
+        "children": 3,
+        "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1039"
+      }
+    },
+    {
+      "name": "10 · 실시간 채팅 / Mobile",
+      "id": "11:1483",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1349,
+      "product_routes": [
+        "/dashboard"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483",
+      "web_status": "pending"
+    },
+    {
+      "name": "11 · 요금제 / Mobile",
+      "id": "11:1492",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1852,
+      "product_routes": [
+        "/pricing"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492",
+      "web_status": "partial"
+    },
+    {
+      "name": "12 · 결제 / Mobile",
+      "id": "11:1501",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1681,
+      "product_routes": [
+        "/pricing",
+        "/billing/success"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501",
+      "web_status": "pending"
+    },
+    {
+      "name": "13 · 브랜드 대시보드 / Mobile",
+      "id": "11:1510",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1940,
+      "product_routes": [
+        "/dashboard"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510",
+      "web_status": "pending"
+    },
+    {
+      "name": "14 · 크리에이터 대시보드 / Mobile",
+      "id": "11:1519",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1873,
+      "product_routes": [
+        "/dashboard"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519",
+      "web_status": "pending"
+    },
+    {
+      "name": "15 · 관리자 / Mobile",
+      "id": "11:1528",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1580,
+      "product_routes": [
+        "/admin"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528",
+      "web_status": "pending"
+    },
+    {
+      "name": "16 · 로그인 / Mobile",
+      "id": "11:1537",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1137,
+      "product_routes": [
+        "/login"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537",
+      "web_status": "implemented_in_verified_slice"
+    },
+    {
+      "name": "17 · 회원가입 / Mobile",
+      "id": "11:1546",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1251,
+      "product_routes": [
+        "/signup"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1546",
+      "web_status": "implemented_in_verified_slice"
+    },
+    {
+      "name": "18 · 공고 게시 완료 / Desktop",
+      "id": "11:2137",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 900,
+      "product_routes": [
+        "/jobs/[id]"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2137",
+      "web_status": "pending",
+      "extension": {
+        "source": "11:2137",
+        "id": "25:1063",
+        "name": "18 · 캠페인 게시 완료 / Desktop",
+        "children": 2,
+        "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1063"
+      }
+    },
+    {
+      "name": "19 · 지원 완료 / Desktop",
+      "id": "11:2160",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 900,
+      "product_routes": [
+        "/jobs/[id]"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2160",
+      "web_status": "pending",
+      "extension": {
+        "source": "11:2160",
+        "id": "25:1081",
+        "name": "19 · 캠페인 지원 완료 / Desktop",
+        "children": 2,
+        "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1081"
+      }
+    },
+    {
+      "name": "20 · 결제 완료 / Desktop",
+      "id": "11:2183",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 900,
+      "product_routes": [
+        "/billing/success"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2183",
+      "web_status": "pending"
+    },
+    {
+      "name": "21 · 가입 완료 / Desktop",
+      "id": "11:2206",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 900,
+      "product_routes": [
+        "/auth/confirm"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2206",
+      "web_status": "pending"
+    },
+    {
+      "name": "18 · 공고 게시 완료 / Mobile",
+      "id": "11:2229",
+      "type": "FRAME",
+      "w": 390,
+      "h": 844,
+      "product_routes": [
+        "/jobs/[id]"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2229",
+      "web_status": "pending",
+      "extension": {
+        "source": "11:2229",
+        "id": "25:1072",
+        "name": "18 · 캠페인 게시 완료 / Mobile",
+        "children": 2,
+        "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1072"
+      }
+    },
+    {
+      "name": "19 · 지원 완료 / Mobile",
+      "id": "11:2243",
+      "type": "FRAME",
+      "w": 390,
+      "h": 844,
+      "product_routes": [
+        "/jobs/[id]"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2243",
+      "web_status": "pending",
+      "extension": {
+        "source": "11:2243",
+        "id": "25:1090",
+        "name": "19 · 캠페인 지원 완료 / Mobile",
+        "children": 2,
+        "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1090"
+      }
+    },
+    {
+      "name": "20 · 결제 완료 / Mobile",
+      "id": "11:2257",
+      "type": "FRAME",
+      "w": 390,
+      "h": 844,
+      "product_routes": [
+        "/billing/success"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2257",
+      "web_status": "pending"
+    },
+    {
+      "name": "21 · 가입 완료 / Mobile",
+      "id": "11:2271",
+      "type": "FRAME",
+      "w": 390,
+      "h": 844,
+      "product_routes": [
+        "/auth/confirm"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2271",
+      "web_status": "pending"
+    },
+    {
+      "name": "22 · 모바일 전체 메뉴",
+      "id": "11:2285",
+      "type": "FRAME",
+      "w": 390,
+      "h": 705,
+      "product_routes": [
+        "src/components/figma-navigation.tsx"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2285",
+      "web_status": "implemented_in_verified_slice",
+      "extension": {
+        "source": "11:2285",
+        "id": "25:1099",
+        "name": "22 · 캠페인 내비게이션 / Mobile",
+        "children": 9,
+        "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1099"
+      }
+    },
+    {
+      "name": "23 · 모바일 상세 필터",
+      "id": "11:2303",
+      "type": "FRAME",
+      "w": 390,
+      "h": 826,
+      "product_routes": [
+        "/creators"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2303",
+      "web_status": "pending"
+    },
+    {
+      "name": "12b · 크리에이터 결제 / Desktop",
+      "id": "11:2348",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1186,
+      "product_routes": [
+        "/pricing",
+        "/billing/success"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348",
+      "web_status": "pending"
+    },
+    {
+      "name": "12b · 크리에이터 결제 / Mobile",
+      "id": "11:2388",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1681,
+      "product_routes": [
+        "/pricing",
+        "/billing/success"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388",
+      "web_status": "pending"
+    },
+    {
+      "name": "17b · 크리에이터 회원가입 / Desktop",
+      "id": "11:2416",
+      "type": "FRAME",
+      "w": 1440,
+      "h": 1254,
+      "product_routes": [
+        "/signup"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416",
+      "web_status": "pending"
+    },
+    {
+      "name": "17b · 크리에이터 회원가입 / Mobile",
+      "id": "11:2444",
+      "type": "FRAME",
+      "w": 390,
+      "h": 1251,
+      "product_routes": [
+        "/signup"
+      ],
+      "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444",
+      "web_status": "pending"
+    }
+  ],
+  "extension": {
+    "page": "25:808",
+    "frames": [
+      {
+        "source": "11:181",
+        "id": "25:809",
+        "name": "06 · 캠페인 / Desktop",
+        "children": 3
+      },
+      {
+        "source": "11:1447",
+        "id": "25:840",
+        "name": "06 · 캠페인 / Mobile",
+        "children": 3
+      },
+      {
+        "source": "11:199",
+        "id": "25:870",
+        "name": "07 · 캠페인 상세 / Desktop",
+        "children": 3
+      },
+      {
+        "source": "11:1456",
+        "id": "25:898",
+        "name": "07 · 캠페인 상세 / Mobile",
+        "children": 3
+      },
+      {
+        "source": "11:217",
+        "id": "25:921",
+        "name": "08 · 캠페인 작성 / Desktop",
+        "children": 3
+      },
+      {
+        "source": "11:1465",
+        "id": "25:970",
+        "name": "08 · 캠페인 작성 / Mobile",
+        "children": 3
+      },
+      {
+        "source": "11:235",
+        "id": "25:1002",
+        "name": "09 · 캠페인 지원 / Desktop",
+        "children": 3
+      },
+      {
+        "source": "11:1474",
+        "id": "25:1039",
+        "name": "09 · 캠페인 지원 / Mobile",
+        "children": 3
+      },
+      {
+        "source": "11:2137",
+        "id": "25:1063",
+        "name": "18 · 캠페인 게시 완료 / Desktop",
+        "children": 2
+      },
+      {
+        "source": "11:2229",
+        "id": "25:1072",
+        "name": "18 · 캠페인 게시 완료 / Mobile",
+        "children": 2
+      },
+      {
+        "source": "11:2160",
+        "id": "25:1081",
+        "name": "19 · 캠페인 지원 완료 / Desktop",
+        "children": 2
+      },
+      {
+        "source": "11:2243",
+        "id": "25:1090",
+        "name": "19 · 캠페인 지원 완료 / Mobile",
+        "children": 2
+      },
+      {
+        "source": "11:2285",
+        "id": "25:1099",
+        "name": "22 · 캠페인 내비게이션 / Mobile",
+        "children": 9
+      }
+    ]
+  },
+  "document_url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME",
+  "verified_source_version": "Figma Plugin API current read, 2026-11-24 KST",
+  "basis_sha": "feff6dbc3bbd1c2f046e53a3483eebbaf073ecc9",
+  "app_page_count": 50,
+  "routes_without_direct_frame": [
+    "/about",
+    "/ad-history/new",
+    "/admin/intelligence",
+    "/admin/reviews",
+    "/admin/security",
+    "/auth/error",
+    "/billing/fail",
+    "/brand/products",
+    "/campaigns",
+    "/campaigns/[id]",
+    "/campaigns/[id]/brief",
+    "/campaigns/[id]/copy",
+    "/campaigns/[id]/edit",
+    "/campaigns/new",
+    "/collaborations/[id]/deliverables",
+    "/compare",
+    "/creators/youtube",
+    "/explore",
+    "/forgot-password",
+    "/help",
+    "/licenses",
+    "/lists",
+    "/matches",
+    "/notifications",
+    "/privacy",
+    "/reports",
+    "/reports/new",
+    "/reset-password",
+    "/saved-searches",
+    "/settings",
+    "/settings/youtube",
+    "/signup/resend",
+    "/terms",
+    "/unsubscribe"
+  ],
+  "prototype_inventory": "docs/design/figma-prototype-inventory.json"
+}

@@ -187,6 +187,7 @@ OPERATOR · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTI
 - **완료 조건** — host별 Auth 허용 URL, 가입/복구 템플릿, 세션 정책, MFA 정책을 설정하고 콜백 성공·거부 로그를 확인한다.
 - **차단 요인** — 운영 MFA 전용 경로와 재발송 화면 미지원. 기존 callback 결과는 역사 증거다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **Figma 노드** — [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [16 · 로그인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361) · [17 · 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-379) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528) · [16 · 로그인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537) · [17 · 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1546) · [17b · 크리에이터 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416) · [17b · 크리에이터 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444)
 - **이전 담당 기록** — USER
 - **이전 기록** — PARTIAL_VERIFIED
 
@@ -282,6 +283,7 @@ OPERATOR · P0 · S0 출시 조건 · OPERATIONS · BLOCKED · 외부 SP · ACTI
 - **완료 조건** — 기존 설정의 DNS SPF/DKIM/DMARC, 발신자, 실제 수신 케이스를 확인한다. 앱 알림은 D053 별도 검증이다.
 - **차단 요인** — 과거 가입·복구 실제 수신 이력이 있으나 새 가입·운영 발송 경보 재검증이 필요하다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **Figma 노드** — [17 · 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-379) · [17 · 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1546) · [21 · 가입 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2206) · [21 · 가입 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2271) · [17b · 크리에이터 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416) · [17b · 크리에이터 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444)
 - **이전 담당 기록** — USER
 - **이전 기록** — VERIFIED_AUTH_SMTP
 
@@ -328,6 +330,7 @@ OPERATOR · P1 · S1 조건부 · OPERATIONS · BLOCKED · 외부 SP · ACTIVE
 - **완료 조건** — 같은 TEST 상점의 SDK v2 세트와 isolated 환경 등록을 확인한다. 키는 비공개 설정에만 넣는다.
 - **차단 요인** — 과거 TEST 승인 이력이 있다. 이번 릴리스 실패·취소·복구 완주에는 별도 격리 환경의 확인이 필요하다.
 - **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **Figma 노드** — [11 · 요금제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271) · [12 · 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289) · [11 · 요금제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492) · [12 · 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501) · [12b · 크리에이터 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348) · [12b · 크리에이터 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388)
 - **이전 담당 기록** — USER
 - **이전 기록** — PARTIAL_VERIFIED
 
@@ -386,11 +389,11 @@ OPERATOR · P1 · S1 시각·사용성 검수 · UI · IN_PROGRESS · 외부 SP 
 - **현재 문제** — 기존 시각 감사와 화면 개선을 바탕으로 운영자가 변경할 디자인의 범위·우선순위·승인 기준을 명시해야 한다.
 - **재현·관찰** — 홈·탐색·채널 상세·공고·대시보드·요금제를 열어 현행 화면과 시안의 차이를 비교하고, 모바일 390px과 데스크톱 1440px에서 CTA·상태·가독성을 점검한다.
 - **화면** — / · /creators · /creators/youtube/[id] · /jobs · /dashboard · /pricing
-- **관련 코드** — docs/DESIGN_SYSTEM.md · docs/design/visual-audit.md · src/app/marketplace-theme.css
+- **관련 코드** — docs/DESIGN_SYSTEM.md · docs/design/visual-audit.md · src/app/marketplace-theme.css · docs/design/figma-frame-map.json · docs/design/visual-review.md
 - **DB·RPC** — 화면 설계와 시각 검수는 DB 변경 없음. 공개 프로필과 결측 표시는 기존 데이터 계약을 사용한다.
 - **기대 동작** — 웹디자인 시안과 공통 원칙이 승인되고, 구현 담당자와 배포 전에 확인할 판정 기준이 명시된다.
-- **구현** — 운영자가 페이지별 우선순위와 시안(링크 또는 이미지)을 확정한다. 로고·타이포·색상·여백·CTA·모바일 및 로딩/빈/오류 상태를 인계서에 명시한다. B가 공통 레이아웃·토큰·UI를 반영하고 A가 탐색·추천·콘텐츠 근거를 검토한다. 운영자는 프리뷰 실화면을 확인하고 채택 또는 수정 요청의 근거를 남긴다.
-- **변경 파일** — docs/design/visual-audit.md · 승인한 웹디자인 시안과 운영 인계 기록
+- **구현** — 운영자가 페이지별 우선순위와 시안(링크 또는 이미지)을 확정한다. 로고·타이포·색상·여백·CTA·모바일 및 로딩/빈/오류 상태를 인계서에 명시한다. B가 공통 레이아웃·토큰·UI를 반영하고 A가 탐색·추천·콘텐츠 근거를 검토한다. 운영자는 프리뷰 실화면을 확인하고 채택 또는 수정 요청의 근거를 남긴다. Figma 전환 · AD ME 원본 49개 최상위 프레임과 새 Production Extensions 13개를 연결했다. 디자인·운영 승인은 증빙이 필요하다.
+- **변경 파일** — docs/design/visual-audit.md · 승인한 웹디자인 시안과 운영 인계 기록 · docs/design/figma-frame-map.json · docs/design/visual-review.md
 - **신규 파일** — harness/evidence/O001/ 디자인 결정과 공개 가능한 브라우저 비교 증거
 - **선행 티켓** — D081
 - **영향** — 공통 내비게이션, 브랜드 탐색, 광고 공고, 업무 화면, 요금제
@@ -398,7 +401,8 @@ OPERATOR · P1 · S1 시각·사용성 검수 · UI · IN_PROGRESS · 외부 SP 
 - **검증** — 390px과 1440px에서 공개/로그인 상태, 주요 CTA와 로딩/빈/오류 화면을 비교한다. 키보드 포커스와 명암비의 개발자 회귀 결과를 인수한다.
 - **완료 조건** — 시안과 적용 범위가 확인되고 담당 개발자·프리뷰 URL·캡처·승인 결과가 하나의 기록으로 연결된다.
 - **차단 요인** — 밝은 UI 및 모션의 로컬 검증과 별도로 운영 디자인 확인 및 운영 릴리스 승인이 필요하다.
-- **증빙** — docs/design/visual-audit.md · harness/evidence/VISUAL-REDESIGN-20261123/verification.json · docs/production-readiness/OPERATOR_EXECUTION_20261124.md
+- **증빙** — docs/design/visual-audit.md · harness/evidence/VISUAL-REDESIGN-20261123/verification.json · docs/production-readiness/OPERATOR_EXECUTION_20261124.md · docs/design/visual-review.md
+- **Figma 노드** — [01 · 홈페이지 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-91) · [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [01 · 홈페이지 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1402) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420) · [22 · 캠페인 내비게이션 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1099)
 
 # 서비스 운영·사업 승인
 
@@ -514,6 +518,7 @@ OPERATOR · P0 · S0 출시 차단 · COMPLIANCE · BLOCKED · 외부 SP · GATE
 - **완료 조건** — 주체·책임·고지 승인 결과를 남겼거나 미추진 상태를 명시한다.
 - **차단 요인** — 사업자등록 미추진 방침. 무료 베타와 별도.
 - **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/U021/ (신규 검증 기록 위치)
+- **Figma 노드** — [12 · 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289) · [12 · 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501) · [12b · 크리에이터 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348) · [12b · 크리에이터 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388)
 - **이전 담당 기록** — BUSINESS
 
 ## U022 · Toss 라이브 상점 계약 및 환경 승인
@@ -536,6 +541,7 @@ OPERATOR · P0 · S0 출시 차단 · BILLING · BLOCKED · 외부 SP · GATED
 - **완료 조건** — 승인된 계약·환경/merchant 검증·철회 또는 롤백 증빙이 운영자에게 확보된다.
 - **차단 요인** — 유료 판매 승인 이전에는 진행하지 않는다.
 - **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/U022/ (신규 검증 기록 위치)
+- **Figma 노드** — [12 · 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-289) · [12 · 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1501) · [12b · 크리에이터 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348) · [12b · 크리에이터 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388)
 - **이전 담당 기록** — BUSINESS
 
 ## U012 · Instagram 앱·OAuth·심사·키

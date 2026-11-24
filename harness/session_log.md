@@ -642,3 +642,10 @@ USER requested all feasible tickets in order, keeping direct main push and ticke
 main 푸시 후 Vercel 운영 빌드를 시작하도록 변경했다. 운영 DB 대상으로 검증된 마이그레이션 지문이 일치해야 운영 사이트에 승격된다. 운영 ledger 41건과 신규 상품 조건 RPC 부재를 읽기 전용으로 재확인했으며 운영 DB에 변경을 적용하지 않았다.
 
 GitHub 소유자 승인 뒤 Vercel 프로젝트를 연결했다. Vercel API 기준 Production branch는 main이고 도메인 자동 할당이 켜져 있다. 분리된 Production 빌드는 승인 지문 미등록으로 중단했고 기존 운영 별칭은 유지됐다.
+
+## 2026-11-24 — Figma-first 작업 시작
+
+- 이전 Claude 작업은 별도 디자인 트리에 유지했다. 현재 기준은 AD ME Figma 원본 Page 1의 49개 프레임이다. 원본 보존 아래 Production Extensions에 캠페인용 편집 가능 프레임 13개를 추가했다.
+- 원본 히어로·로고·에디토리얼 자산, 라벤더 토큰, 홈·내비게이션·캠페인 목록·상세·초안·인증 페이지를 적용했다. 운영 데이터 흐름에서 표시할 수 있는 필드만 사용하고, 무료 공개 경로에서 체험 상품 목록을 제거했다.
+- 86개 첨부 작업에서 발견한 결제·가입 변형 4개를 추가했다. 기존 115개 공식 원장은 ID와 상태를 유지하고 참조 노드 및 현재 변경 경로를 추가했다.
+- 공개 도메인 상태, 운영 마이그레이션 41건·신규 상품 RPC 부재, Local AI 서비스 및 04:00 KST YouTube 완료 기록을 재확인했다. 운영 DB 복구와 서비스 출시는 별도 게이트다.
