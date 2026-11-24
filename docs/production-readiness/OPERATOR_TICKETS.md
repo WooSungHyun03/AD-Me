@@ -401,8 +401,9 @@ OPERATOR · P1 · S1 시각·사용성 검수 · UI · IN_PROGRESS · 외부 SP 
 - **검증** — 390px과 1440px에서 공개/로그인 상태, 주요 CTA와 로딩/빈/오류 화면을 비교한다. 키보드 포커스와 명암비의 개발자 회귀 결과를 인수한다.
 - **완료 조건** — 시안과 적용 범위가 확인되고 담당 개발자·프리뷰 URL·캡처·승인 결과가 하나의 기록으로 연결된다.
 - **차단 요인** — 밝은 UI 및 모션의 로컬 검증과 별도로 운영 디자인 확인 및 운영 릴리스 승인이 필요하다.
-- **증빙** — docs/design/visual-audit.md · harness/evidence/VISUAL-REDESIGN-20261123/verification.json · docs/production-readiness/OPERATOR_EXECUTION_20261124.md · docs/design/visual-review.md
+- **증빙** — docs/design/visual-audit.md · harness/evidence/VISUAL-REDESIGN-20261123/verification.json · docs/production-readiness/OPERATOR_EXECUTION_20261124.md · docs/design/visual-review.md · docs/production-readiness/FIGMA_RELEASE_20261124.md
 - **Figma 노드** — [01 · 홈페이지 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-91) · [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [01 · 홈페이지 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1402) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420) · [22 · 캠페인 내비게이션 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1099)
+- **검증 범위** — be-celeb.org의 공개 Figma 호환 릴리스를 배포·검증했다. 전체 화면 적용과 신규 main DB는 별도다.
 
 # 서비스 운영·사업 승인
 

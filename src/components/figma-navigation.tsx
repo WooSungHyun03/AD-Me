@@ -7,7 +7,7 @@ import { Menu } from "lucide-react";
 
 const pages = [
   { href: "/creators", label: "크리에이터 탐색" },
-  { href: "/#recommendation", label: "AI 추천" },
+  { href: "/recommendations", label: "AI 추천" },
   { href: "/jobs", label: "캠페인" },
   { href: "/pricing", label: "요금제" },
   { href: "/dashboard", label: "워크스페이스" },

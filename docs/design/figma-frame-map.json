@@ -66,11 +66,12 @@
       "w": 1440,
       "h": 1351,
       "product_routes": [
+        "/recommendations",
         "/#recommendation",
         "/brand/products/[id]/recommendations"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-145",
-      "web_status": "pending"
+      "web_status": "partial"
     },
     {
       "name": "05 · AI 추천 결과 / Desktop",
@@ -79,11 +80,12 @@
       "w": 1440,
       "h": 1281,
       "product_routes": [
+        "/recommendations",
         "/#recommendation",
         "/campaigns/[id]/recommendations"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163",
-      "web_status": "pending"
+      "web_status": "partial"
     },
     {
       "name": "06 · 광고 공고 / Desktop",
@@ -233,7 +235,7 @@
         "/admin"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343",
-      "web_status": "pending"
+      "web_status": "partial"
     },
     {
       "name": "16 · 로그인 / Desktop",
@@ -303,11 +305,12 @@
       "w": 390,
       "h": 1445,
       "product_routes": [
+        "/recommendations",
         "/#recommendation",
         "/brand/products/[id]/recommendations"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1429",
-      "web_status": "pending"
+      "web_status": "partial"
     },
     {
       "name": "05 · AI 추천 결과 / Mobile",
@@ -316,11 +319,12 @@
       "w": 390,
       "h": 1672,
       "product_routes": [
+        "/recommendations",
         "/#recommendation",
         "/campaigns/[id]/recommendations"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438",
-      "web_status": "pending"
+      "web_status": "partial"
     },
     {
       "name": "06 · 광고 공고 / Mobile",
@@ -470,7 +474,7 @@
         "/admin"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528",
-      "web_status": "pending"
+      "web_status": "partial"
     },
     {
       "name": "16 · 로그인 / Mobile",
@@ -506,7 +510,7 @@
         "/jobs/[id]"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2137",
-      "web_status": "pending",
+      "web_status": "partial",
       "extension": {
         "source": "11:2137",
         "id": "25:1063",
@@ -525,7 +529,7 @@
         "/jobs/[id]"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2160",
-      "web_status": "pending",
+      "web_status": "partial",
       "extension": {
         "source": "11:2160",
         "id": "25:1081",
@@ -568,7 +572,7 @@
         "/jobs/[id]"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2229",
-      "web_status": "pending",
+      "web_status": "partial",
       "extension": {
         "source": "11:2229",
         "id": "25:1072",
@@ -587,7 +591,7 @@
         "/jobs/[id]"
       ],
       "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2243",
-      "web_status": "pending",
+      "web_status": "partial",
       "extension": {
         "source": "11:2243",
         "id": "25:1090",

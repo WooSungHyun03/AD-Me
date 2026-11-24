@@ -33,6 +33,7 @@ export const PUBLIC_PAGES = [
   "/about",
   "/help",
   "/pricing",
+  "/recommendations",
   "/privacy",
   "/licenses",
   "/terms",

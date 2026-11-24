@@ -57,12 +57,14 @@ test("free YouTube campaign from draft to private two-role conversation", async 
     await thirdParty.goto(campaignPath);
     await expect(thirdParty.getByRole("heading", { name: "찾으시는 페이지가 없습니다." })).toBeVisible();
     await brand.getByRole("button", { name: "캠페인 공개", exact: true }).click();
+    await expect(brand.getByRole("heading", { name: "캠페인을 공개했습니다" })).toBeVisible();
     await expect(brand.getByRole("heading", { name: "지원자 검토" })).toBeVisible();
 
     await login(creator, creatorAccount);
     await creator.goto(campaignPath);
     await creator.getByLabel("지원 메시지").fill(application);
     await creator.getByRole("button", { name: "지원서 제출" }).click();
+    await expect(creator.getByRole("heading", { name: "지원서를 제출했습니다" })).toBeVisible();
     await expect(creator.getByRole("link", { name: "제출한 지원서 상태 보기" })).toBeVisible();
     await creator.reload();
     await expect(creator.getByRole("button", { name: "지원서 제출" })).toHaveCount(0);

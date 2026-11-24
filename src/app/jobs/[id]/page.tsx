@@ -10,8 +10,10 @@ import { jobExpiry, jobsSchema } from "../model";
 
 export default async function JobPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ completed?: string }>;
 }) {
   const id = z.uuid().safeParse((await params).id);
   if (!id.success) notFound();
@@ -29,9 +31,19 @@ export default async function JobPage({
   const b = row.brief;
   const open = row.status === "published";
   const requiresCredit = isDemoMode();
+  const { completed } = await searchParams;
+  const publishedNow = completed === "publish" && row.owned && open;
+  const appliedNow = completed === "apply" && row.applied;
   return (
     <section className="figma-width figma-campaign-detail">
       <Link href="/jobs">캠페인 목록</Link>
+      {(publishedNow || appliedNow) && (
+        <aside className="figma-campaign-summary figma-campaign-completion" role="status">
+          <h2>{publishedNow ? "캠페인을 공개했습니다" : "지원서를 제출했습니다"}</h2>
+          <p>{publishedNow ? "지원자는 워크스페이스에서 검토할 수 있어요." : "브랜드가 지원서를 검토하면 워크스페이스에 상태가 표시됩니다."}</p>
+          <Link className="button outline" href="/dashboard#workspace-collaboration">워크스페이스로 이동</Link>
+        </aside>
+      )}
       <div className="figma-campaign-layout">
         <div>
           <p className="figma-eyebrow">

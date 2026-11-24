@@ -28,21 +28,19 @@ export default async function Admin() {
     );
   }
   return (
-    <section className="wrap">
-      <span className="eyebrow">Operations / staff only</span>
+    <section className="figma-width figma-workspace">
+      <p className="figma-eyebrow">관리자 콘솔</p>
       <h1 className="page-title">서비스 운영 현황.</h1>
-      <div className="inline">
-        {role === "super" && <Link className="button outline small" href="/admin/reviews">
-          근거 검토함 ↗
-        </Link>}
-        <Link className="button outline small" href="/admin/intelligence">
-          수집·AI 운영 콘솔
-        </Link>
-        <Link className="button outline small" href="/admin/security">
-          OTP 다시 확인
-        </Link>
+      <p>권한이 있는 자료를 검색하고 검토할 수 있습니다.</p>
+      <nav className="figma-workspace-nav" aria-label="운영 메뉴">
+        <a href="#admin-overview">운영 검색</a>
+        {role === "super" && <Link href="/admin/reviews">근거 검토함</Link>}
+        <Link href="/admin/intelligence">수집·AI 운영 콘솔</Link>
+        <Link href="/admin/security">OTP 다시 확인</Link>
+      </nav>
+      <div className="figma-workspace-panel" id="admin-overview">
+        <AdminSearch role={role} />
       </div>
-      <AdminSearch role={role} />
     </section>
   );
 }

@@ -748,10 +748,10 @@ DEV-A · P0 · S0 출시 차단 · AI · TESTED · 8 SP · ACTIVE
 - **보안** — 민감한 사람 특성 추론과 원본 원고 유출을 차단한다. raw output을 UI에 곧바로 표시하지 않는다.
 - **검증** — 한국어 상품 5개에서 근거가 있는 구조만 생성, 입력 확인 전 지출/공개 없음, 타 계정 상품 차단, 관련 없는 후보와 가짜 채널 0, 모델 중단 때 수동 추천 유지.
 - **완료 조건** — 한국어 상품 5개에서 근거가 있는 구조만 생성, 입력 확인 전 지출/공개 없음, 타 계정 상품 차단, 관련 없는 후보와 가짜 채널 0, 모델 중단 때 수동 추천 유지.
-- **차단 요인** — 기본 collection OFF, policy_ref/retention 미설정. U001 승인·B D079 export/삭제/복구 검토, OPERATOR PR-003 실제 worker/model 수용, B D085 DB/app 호환 배포·복구/실제 URL 회귀가 남음. VERIFIED/DONE 아님.
-- **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-001/ (신규 검증 기록 위치) · harness/evidence/PR-001/PROMPT_FIX_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md · harness/evidence/PR-001/WORKFLOW_20261124.md · harness/evidence/PR-001/FIGMA_FALLBACK_20261124.md
+- **차단 요인** — 운영에는 신규 RPC와 일부 접근·큐 보안 의존성이 없다. 운영 스키마의 데이터 이관, 권한 전환, 유지 기간 및 운영 모델 연결을 확인한 뒤 적용한다.
+- **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-001/ (신규 검증 기록 위치) · harness/evidence/PR-001/PROMPT_FIX_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md · harness/evidence/PR-001/WORKFLOW_20261124.md · harness/evidence/PR-001/FIGMA_FALLBACK_20261124.md · docs/production-readiness/FIGMA_RELEASE_20261124.md
 - **Figma 노드** — [04 · AI 추천 조건 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-145) · [05 · AI 추천 결과 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163) · [04 · AI 추천 조건 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1429) · [05 · AI 추천 결과 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438)
-- **검증 범위** — 116-source 격리 소유 상품→기존 예산 큐→검토/확인·거부→명시적 검색. 실제 로컬 SQL/REST와 합성 모델 결과; desktop/mobile 각1 시나리오. 실제 모델/운영 수용은 미검증. Figma home의 현행/과거 앵커와 스트리밍 후 수동 추천 이동·keyless 실패/입력 보존 desktop/mobile2 검증. 인증 상품 DB 시나리오는 이번 미재실행.
+- **검증 범위** — 116-source 격리 소유 상품→기존 예산 큐→검토/확인·거부→명시적 검색. 실제 로컬 SQL/REST와 합성 모델 결과; desktop/mobile 각1 시나리오. 실제 모델/운영 수용은 미검증. Figma home의 현행/과거 앵커와 스트리밍 후 수동 추천 이동·keyless 실패/입력 보존 desktop/mobile2 검증. 인증 상품 DB 시나리오는 이번 미재실행. 운영 원장 41건을 재현한 격리 스키마에서 상품 조건 RPC, 예산 큐, 역할 권한, 삭제와 만료 및 레거시 초안 계약 9개를 재검증했다.
 
 ## PR-002 · 허용된 콘텐츠 태그의 저장·검토·공개 파이프라인
 

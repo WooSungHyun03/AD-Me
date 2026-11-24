@@ -345,8 +345,9 @@ DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TESTED · 5 SP · ACTIVE
 - **검증** — 날짜 순서·음수·예산 단위·필수 조건 검증 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 모집·제작·게시 기간, 현금/제품 제공, 단가 범위, 콘텐츠 수량·사용권·독점 조건을 구조화한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D041/README.md · harness/evidence/DEV-A-CONTINUE-20261120B/verification.json · harness/evidence/D041/ (이번 검증 기록 위치) · docs/design/visual-review.md
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D041/README.md · harness/evidence/DEV-A-CONTINUE-20261120B/verification.json · harness/evidence/D041/ (이번 검증 기록 위치) · docs/design/visual-review.md · docs/production-readiness/FIGMA_RELEASE_20261124.md
 - **Figma 노드** — [06 · 캠페인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-809) · [07 · 캠페인 상세 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870) · [08 · 캠페인 작성 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-921) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [06 · 캠페인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-840) · [07 · 캠페인 상세 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898) · [08 · 캠페인 작성 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-970) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510) · [18 · 캠페인 게시 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1063) · [18 · 캠페인 게시 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1072)
+- **검증 범위** — 격리 DB에서 무료 캠페인 등록·게시와 데스크톱·모바일 지원 동선을 검증했다. 운영의 무료 게시 계약은 스키마 전환에서 검증한다.
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D043 · 캠페인 상태·모집 탐색·지원자
@@ -391,8 +392,9 @@ DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TODO · 5 SP · ACTIVE
 - **검증** — 두 역할 E2E·동시 요청·DB 이력 원자성 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 제안/지원/수락/거절/취소/수정요청/완료와 중복·경합·참여자 권한을 검증한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D049/ (이번 검증 기록 위치) · docs/design/visual-review.md
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D049/ (이번 검증 기록 위치) · docs/design/visual-review.md · docs/production-readiness/FIGMA_RELEASE_20261124.md
 - **Figma 노드** — [06 · 캠페인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-809) · [07 · 캠페인 상세 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870) · [08 · 캠페인 작성 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-921) · [09 · 캠페인 지원 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1002) · [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [06 · 캠페인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-840) · [07 · 캠페인 상세 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898) · [08 · 캠페인 작성 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-970) · [09 · 캠페인 지원 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1039) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519) · [18 · 캠페인 게시 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1063) · [19 · 캠페인 지원 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1081) · [18 · 캠페인 게시 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1072) · [19 · 캠페인 지원 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1090)
+- **검증 범위** — 격리 DB에서 캠페인→지원→수락→두 브라우저 메시지 수신→새로고침→제3자 거부가 데스크톱·모바일에서 통과했다.
 - **이전 기록** — OPEN
 
 ## D051 · 메시지 페이지·첨부·스팸 방지
@@ -783,7 +785,7 @@ DEV-B · P0 · S0 출시 차단 · OBSERVABILITY · TODO · 5 SP · ACTIVE
 
 ## D087 · 백업·복원·성능·용량
 
-DEV-B · P0 · S0 출시 차단 · PERFORMANCE · IN_PROGRESS · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · PERFORMANCE · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 운영 스키마 차이를 안전하게 바꿀 수 있는 최신 복구 가능한 백업·파일 복원·RTO/RPO 검증이 남았다.
 - **재현·관찰** — 격리 백업을 PostgreSQL+Auth+Storage 대상에 복원하고 role·FK·object checksum·회복 시간을 대조한다.
@@ -799,8 +801,9 @@ DEV-B · P0 · S0 출시 차단 · PERFORMANCE · IN_PROGRESS · 5 SP · ACTIVE
 - **보안** — 실서비스 복원은 하지 말고 격리 환경 복원 증거·RPO/RTO 측정·부하 p95 기준을 남긴다.
 - **검증** — 격리 환경 복구 모의·성능 보고·자동 백업 비용 미발생 확인 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 무료 플랜의 백업 한계를 확인하고 최소 백업·복원 절차·대표 부하·검색/수집 용량 기준을 검증한다.
-- **차단 요인** — 외부 선행 U003, U018의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/AUTH_PROVIDER_EXECUTION.md · harness/evidence/D087/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
+- **차단 요인** — 운영과 같은 설정에서의 전체 복구 훈련 및 모니터링 수용 검증이 남았다.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/AUTH_PROVIDER_EXECUTION.md · harness/evidence/D087/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md · docs/production-readiness/FIGMA_RELEASE_20261124.md
+- **검증 범위** — 동일 CLI 스택에서 앱 데이터 225행·파일 1개를 백업하고 초기화·복구했다. 로그인·파일 소유자 접근·바이트 일치·삭제 재적용 성공. 운영 DB 새 백업은 별도로 보관한다.
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## D088 · 사용자 배포 후 출시 승인 검증
@@ -822,7 +825,8 @@ DEV-B · P0 · S0 출시 차단 · QA · TODO · 5 SP · ACTIVE
 - **검증** — 공개 URL E2E·실제 데이터 출처·운영 체크리스트 증빙; 배포 실행은 사용자 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 사용자가 배포한 URL에서 가입→추천→비교→광고 이력→제안→수락→대시보드와 보안·모바일을 확인한다.
 - **차단 요인** — 외부 선행 U004, U005, U006, U019의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D088/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D088/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md · docs/production-readiness/FIGMA_RELEASE_20261124.md
+- **검증 범위** — be-celeb.org에서 Figma 공개 화면을 1440px·390px Chromium으로 검수했다. 인증 후 운영 캠페인 E2E는 별도다.
 - **이전 기록** — OPEN
 
 ## D006 · 핵심 활성화·제품 이벤트 정의

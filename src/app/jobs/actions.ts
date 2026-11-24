@@ -77,11 +77,9 @@ export async function jobAction(_: string, form: FormData) {
   if (error) return message(error);
   revalidatePath("/jobs");
   revalidatePath("/jobs/" + data.data.job);
-  return data.data.action === "apply"
-    ? "지원서를 제출했습니다."
-    : data.data.action === "publish"
-      ? "캠페인을 공개했습니다."
-      : "캠페인을 마감했습니다.";
+  if (data.data.action !== "close")
+    redirect(`/jobs/${data.data.job}?completed=${data.data.action}`);
+  return "캠페인을 마감했습니다.";
 }
 
 export type SearchState = {
