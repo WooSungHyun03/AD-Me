@@ -1,6 +1,5 @@
 name: AD Me validation
-# Validation only. There is deliberately no deployment workflow: deploys and hosted DB migrations need user approval
-# (docs/handoff/RELEASE_MANIFEST.md checklist).
+# GitHub runs validation. Vercel builds main with a production schema check.
 on: [push, pull_request]
 permissions:
   contents: read
@@ -15,7 +14,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: python3 harness/secret_scan.py
-      - run: python3 scripts/check-deployment-hold.py
       - run: python3 harness/selftest.py
       - run: python3 -m unittest discover -s tests -p 'test_*.py'
       - run: python3 harness/validate_service_backlog.py

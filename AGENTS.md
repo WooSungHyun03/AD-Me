@@ -45,7 +45,8 @@ The latest user explicitly requested direct execution of all 20 external tickets
 - Log evidence before marking any ticket done. For historical T IDs only, loop.py complete/block remains available; current D/U state and external blockers belong in the handoff runtime ledger.
 
 ## Deployment gates
-- USER performs external GitHub/Vercel/Supabase configuration and hosted changes/deployments. Agents prepare reviewed artifacts and validate the resulting URLs. Do not push changes that trigger deployment without the user coordinating that deployment.
+- 2026-11-24 update: the user authorizes ordinary main pushes and the resulting Vercel production deployments. The production build requires the verified migration fingerprint. Hosted DB changes and credential administration follow the existing authorization rules.
+- Coordinate hosted database changes and release prerequisites separately from ordinary Git-triggered app deployments.
 - Agents execute local development/test commands. USER-only external actions have separate U tickets; provide clear console instructions, never assign manual source editing or package installation to the user.
 - Cloud OAuth, provider credentials and external configuration are USER work. Never claim deployed without checking an actual URL. Paid operation is deferred under the current no-business-registration scope.
 - Toss test checkout ONLY; production URL may be public but payments are TEST, demo records labeled.

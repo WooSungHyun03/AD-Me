@@ -25,3 +25,7 @@
 검사기 `scripts/check-domain-boundaries.mjs`는 정적 import/export 기준이다. 동적 import, 데이터 흐름, 복잡도·커버리지 측정은 추가 분석이 필요하다. 기존 직접 DB 접근 라우트 9개는 호환 범위로 기록했다. 변경 경로와 회귀 책임은 [파일 이동 매핑](FILE_MOVE_MAP.json)과 [티켓 영향표](REFACTOR_IMPACT.md)에 있다.
 
 격리 복구 훈련은 SQL 복원 뒤 Storage 파일 재업로드에서 `42P10`으로 실패했다. 운영 복원 조건에 이 경로의 수정과 재검증을 추가한다.
+
+## 자동 앱 배포 전환
+
+`main` 자동 빌드를 켜고 운영 DB의 검증 지문을 필수로 했다. 위의 중지 기록은 자동화 전 점검 시점의 상태다. 현재 운영 호환성 판정은 유지한다. [자동 배포 및 운영 DB 검증](RELEASE_CHECKLIST.md)

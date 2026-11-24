@@ -636,3 +636,7 @@ USER requested all feasible tickets in order, keeping direct main push and ticke
 - 운영자 24건 및 A/B 91건 재정합. Vitest 506, Python 43, 국소 데스크톱·모바일 Playwright 10, 상품 분석 실DB 보안 9, 로컬 새 Supabase 마이그레이션 116 적용. 넓은 30건 회귀의 초기 실패와 남은 계약 검증은 운영 실행 기록을 참조한다.
 - 프리뷰 준비 완료. 운영은 DB 스키마 호환 및 운영 백업·복구 승인 대기. 공개 도메인 라우팅과 PROD 배포를 변경하지 않았다.
 - 증빙은 `harness/evidence/OPERATOR-20261124/verification.json`, 후속 작업은 `harness/operator-20261124`와 공식 원장에 있다.
+
+## 2026-11-24 — main 자동 배포
+
+main 푸시 후 Vercel 운영 빌드를 시작하도록 변경했다. 운영 DB 대상으로 검증된 마이그레이션 지문이 일치해야 운영 사이트에 승격된다. 운영 ledger 41건과 신규 상품 조건 RPC 부재를 읽기 전용으로 재확인했으며 운영 DB에 변경을 적용하지 않았다.
