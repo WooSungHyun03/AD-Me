@@ -14,9 +14,10 @@
       "evidence": [
         "harness/evidence/D002/README.md",
         "harness/evidence/D002/VERIFY_20261121.md",
-        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json"
+        "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json",
+        "harness/evidence/D002/YOUTUBE_GUIDANCE_20261124.md"
       ],
-      "blocker": "USER release config/실제 URL/DEV-B D001 검토는 미완료. 사업자 없는 유료 운영/실제 성과/실제 Toss 승인을 단정하지 않는다.",
+      "blocker": "USER release config/실제 URL/DEV-B D001 검토는 미완료. 사업자 없는 유료 운영/실제 성과/실제 Toss 승인을 단정하지 않는다. 현행 YouTube 서비스 안내와 공식 공개 API/본인 등록 구분을 desktop/mobile2 검증. 레거시 플랫폼 기록/스키마 보존, D001·전체 운영 수용 별도. 기존 운영/선행 게이트와 상태는 유지한다.",
       "last_checked_at": "2026-11-21T04:39:38.253195+00:00"
     },
     "D003": {

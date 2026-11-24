@@ -1,4 +1,6 @@
 export const creatorPlatforms = ["instagram", "youtube", "tiktok"] as const;
+// Current marketplace scope; legacy records/filters retain their original values.
+export const marketplacePlatforms = ["youtube"] as const;
 
 export const platformLabels = {
   instagram: "Instagram",

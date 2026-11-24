@@ -1,7 +1,7 @@
 import { testProductTerms } from "@/lib/billing";
 import { getTestProducts } from "@/lib/test-products";
 import {
-  creatorPlatforms,
+  marketplacePlatforms,
   matchingFactors,
   platformLabels,
 } from "@/lib/service-catalog";
@@ -25,11 +25,12 @@ export default async function About() {
       </p>
       <h2>SNS 플랫폼</h2>
       <p>
-        {creatorPlatforms
+        {marketplacePlatforms
           .map((platform) => platformLabels[platform])
-          .join(", ")}
-        을 등록·검색 조건으로 선택할 수 있습니다. 외부 계정 연동과 지표 자동
-        수집은 준비 중입니다.
+          .join(", ")}{" "}
+        채널을 대상으로 탐색·추천·캠페인을 제공합니다. 공개 채널 정보는 공식
+        YouTube API를 사용하며, 본인 등록 프로필과 협업 가능 여부는 별도로
+        확인합니다. 다른 SNS의 신규 계정 연동은 지원하지 않습니다.
       </p>
       <h2>추천 점수</h2>
       <p>

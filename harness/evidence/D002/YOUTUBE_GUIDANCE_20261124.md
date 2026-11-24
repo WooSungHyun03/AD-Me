@@ -1,0 +1,5 @@
+# D002 · truthful current marketplace guidance
+
+Main's Figma marketplace is YouTube-only, but/about still listed Instagram/TikTok registration and said automatic data collection was being prepared despite existing official public YouTube updates. Separate the active marketplace platform list from legacy record/filter values; describe current YouTube discovery/recommendation/campaign scope, official public information and separate owner registration/availability. Do not remove old multi-platform records/schema or claim API-owned metrics establish consent/availability.
+
+Actual free-keyless desktop/mobile2 guidance cases PASS: current YouTube scope is stated and Instagram/TikTok are absent from this active guidance. Initial missing whitespace around a JSX interpolation was fixed in product text, not by weakening the assertion. Full517unit/shared batch PASS. D001 target-environment acceptance and full operating copy/checkout review remain outstanding, so current IMPLEMENTED whole-ticket status is preserved rather than claiming release completion.

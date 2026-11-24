@@ -105,13 +105,14 @@
         "harness/evidence/D002/README.md",
         "harness/evidence/D002/VERIFY_20261121.md",
         "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json",
-        "harness/evidence/D002/ (이번 검증 기록 위치)"
+        "harness/evidence/D002/ (이번 검증 기록 위치)",
+        "harness/evidence/D002/YOUTUBE_GUIDANCE_20261124.md"
       ],
       "status": "IMPLEMENTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": false,
-      "verified_scope": "새 문구와 Checkout 오류 라벨은 main 및 격리 검증 범위. 운영 호환 배포에 미반영.",
+      "verified_scope": "새 문구와 Checkout 오류 라벨은 main 및 격리 검증 범위. 운영 호환 배포에 미반영. 현행 YouTube 서비스 안내와 공식 공개 API/본인 등록 구분을 desktop/mobile2 검증. 레거시 플랫폼 기록/스키마 보존, D001·전체 운영 수용 별도.",
       "operator_refactor_review": {
         "decision": "KEEP"
       },
