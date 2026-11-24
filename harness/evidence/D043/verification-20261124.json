@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-24",
+  "ticket": "D043",
+  "baseline": "44b3dffba06bea1e12704da31f661f35c2b94e56",
+  "scope": "disposable local Auth/PostgREST/PostgreSQL; fictional profiles and channel ownership fixtures only",
+  "sha256": {
+    "src/app/api/campaigns/route.ts": "05d2cbefead2e30bcc0adccaa51cb7a27121e5d2baf1f5e37256e902077e4951",
+    "src/app/api/proposals/route.ts": "67e13bfcdf24850f6e102cd84a27eca8af699a6fc76723469e258e071a9c3712",
+    "src/app/jobs/actions.ts": "13b440505cbe04e318a6ad0a5ea2de731b69582b47f490e0538a4bd73e9ee182",
+    "src/app/jobs/model.ts": "2507b6fbbdb160c9bb8af3b449b7678bb6f992fd1d7161768a095c1cb4060ffe",
+    "src/app/jobs/page.tsx": "9c03d0c473a4cc008a51885bb19b7eeec5e3ab2a89e66a1440139db922254638",
+    "src/app/jobs/[id]/page.tsx": "13c197b41c2f3ebc9ccc9356a6be00c01019d9a86970a8425b4700b19fe07d02",
+    "supabase/migrations/20261124125948_campaign_recruitment_window.sql": "53c1a134a11cce6eeed8cae01fed998d9e226008336dee95dc69b1f5cb9693b1"
+  },
+  "results": {
+    "reproduction": "unit4 FAIL before; actual local future-window marketplace application accepted before121",
+    "unit": "94 files / 564 tests PASS",
+    "lint": "PASS after server-time helper correction; final added test lint PASS",
+    "typecheck": "PASS",
+    "build": "final Playwright webServer production build PASS; earlier fixture type failure preserved",
+    "browser": "final desktop/mobile6 PASS: recruitment2 + existing D0414",
+    "database": "node tests/local-recruitment-window.mjs PASS, including cleanup",
+    "upgrade": "node scripts/verify-local-recruitment-migration.mjs PASS:120→121 rollback/fault/ACL/trigger",
+    "migrations": "121 PASS",
+    "secrets": "source/client bundle/artifacts PASS",
+    "legacy_metadata_only_rows": "local deadline0/capacity0; hosted unverified",
+    "review": "DEV-A static SQL/DTO contract: no additional blocker or reservation"
+  },
+  "commands": [
+    "npm run lint",
+    "npm run typecheck",
+    "npm test",
+    "npm run test:e2e -- --config playwright.free-local.config.ts tests/local-free/recruitment-window.spec.ts tests/local-browser/campaign-terms.spec.ts",
+    "node tests/local-recruitment-window.mjs",
+    "node scripts/verify-local-recruitment-migration.mjs",
+    "python -X utf8 harness/migration_check.py",
+    "python -X utf8 harness/secret_scan.py --bundle --artifacts"
+  ],
+  "blockers": [
+    "Hosted schema121/backup/fingerprint/application acceptance",
+    "Actual channel verification and production two-role acceptance",
+    "Historical metadata-only recruitment audit on release target; no automatic backfill",
+    "D066 actual Toss TEST provider approval remains separate; no live payments"
+  ],
+  "prior_failure": "Unchanged broad catalogue GET405/400 remains unresolved in D001 evidence"
+}

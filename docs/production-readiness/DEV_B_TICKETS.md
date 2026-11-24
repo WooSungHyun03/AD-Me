@@ -352,7 +352,7 @@ DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TESTED · 5 SP · ACTIVE
 
 ## D043 · 캠페인 상태·모집 탐색·지원자
 
-DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TODO · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 브랜드 공고 초안·TEST 주문 계약이 격리에서 통과했다. 운영 유료 게시·지원과 승인된 채널 조건의 전체 순환은 미검증이다.
 - **재현·관찰** — 격리 브랜드 상품→공고→게시권→공개→인증 크리에이터 지원→마감/상태를 확인. 실제 Toss 승인 증거는 D066과 독립으로 기록한다.
@@ -368,8 +368,8 @@ DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TODO · 5 SP · ACTIVE
 - **보안** — 클라이언트 시간 조작이나 동시 요청으로 모집 인원을 초과하지 않는다.
 - **검증** — 마감 경계·동시 선정·다른 브랜드 접근 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 모집 종료·중복 지원·마감 후 지원·선정 인원·비공개 전환 규칙을 서버에서 강제한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D043/ (이번 검증 기록 위치) · docs/design/visual-review.md
+- **차단 요인** — 양 역할 free-beta actual local DB/RPC·API/UI 모집 기간/마감·중복 retry·1slot 선정경합·반대권한 및120→121 검증. D085 hosted121/지문·과거metadata검토/실제채널·운영계정 수용은 BLOCKED_EXTERNAL; D066 공급자 TEST 별도, 전체 DONE/VERIFIED 아님.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D043/ (이번 검증 기록 위치) · docs/design/visual-review.md · harness/evidence/D043/RECRUITMENT_WINDOW_20261124.md · harness/evidence/D043/verification-20261124.json
 - **Figma 노드** — [06 · 캠페인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-809) · [07 · 캠페인 상세 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870) · [08 · 캠페인 작성 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-921) · [09 · 캠페인 지원 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1002) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [06 · 캠페인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-840) · [07 · 캠페인 상세 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898) · [08 · 캠페인 작성 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-970) · [09 · 캠페인 지원 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1039) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510) · [18 · 캠페인 게시 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1063) · [19 · 캠페인 지원 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1081) · [18 · 캠페인 게시 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1072) · [19 · 캠페인 지원 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1090)
 - **이전 기록** — OPEN
 

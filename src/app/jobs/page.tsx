@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, ClipboardList } from "lucide-react";
 import { configured, supabase } from "@/lib/supabase";
-import { jobExpiry, jobsSchema } from "./model";
+import { jobAccepting, jobDeadline, jobExpiry, jobsSchema } from "./model";
 
 export const metadata = { title: "캠페인", alternates: { canonical: "/jobs" } };
 
@@ -40,11 +40,11 @@ export default async function CampaignBoard({
   const active = rows.filter(
     (row) =>
       (!category || row.brief.category === category) &&
-      (!open || row.status === "published"),
+      (!open || jobAccepting(row)),
   );
   if (sort)
     active.sort((a, b) =>
-      (a.expires_at ?? "9999").localeCompare(b.expires_at ?? "9999"),
+      (jobDeadline(a) ?? "9999").localeCompare(jobDeadline(b) ?? "9999"),
     );
 
   const totalPages = Math.max(1, Math.ceil(active.length / pageSize));
@@ -54,7 +54,7 @@ export default async function CampaignBoard({
       : 1;
   const page = Math.min(totalPages, Math.max(1, requestedPage));
   const featured =
-    page === 1 ? active.find((row) => row.status === "published") : undefined;
+    page === 1 ? active.find((row) => jobAccepting(row)) : undefined;
 
   return (
     <section className="figma-width figma-campaign-board">
@@ -153,8 +153,8 @@ export default async function CampaignBoard({
                     </div>
                     <div>
                       <strong>{currency.format(row.brief.budget_krw)}원</strong>
-                      {row.expires_at && (
-                        <p>{jobExpiry(row.expires_at)} 마감</p>
+                      {jobDeadline(row) && (
+                        <p>{jobExpiry(jobDeadline(row)!)} 마감</p>
                       )}
                       <Link
                         className="button outline"

@@ -98,6 +98,20 @@ it("preserves v1 input compatibility and rejects invalid nested terms before DB 
     expect((await POST(request({ ...brief, terms: bad }))).status).toBe(422);
   expect(db.insert).not.toHaveBeenCalled();
 });
+it("persists explicit recruitment columns without erasing absent legacy values", async () => {
+  const recruitment = {
+    recruit_until: "2027-01-10T09:00:00.000Z",
+    capacity: 2,
+  };
+  expect((await POST(request({ ...brief, ...recruitment }))).status).toBe(201);
+  expect(db.insert).toHaveBeenCalledWith(expect.objectContaining(recruitment));
+  expect(
+    (await PATCH(request({ id, brief: { ...brief, capacity: null } }))).status,
+  ).toBe(200);
+  expect(db.update).toHaveBeenCalledWith(
+    expect.objectContaining({ capacity: null }),
+  );
+});
 it("denies creator writes regardless of terms validity", async () => {
   db.role = "creator";
   expect((await POST(request({ ...brief, terms }))).status).toBe(403);

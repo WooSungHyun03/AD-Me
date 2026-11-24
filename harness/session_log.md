@@ -705,3 +705,9 @@ GitHub 소유자 승인 뒤 Vercel 프로젝트를 연결했다. Vercel API 기�
 
 - 설정 미연결/계정전체 로그인시각 우회 재현(route2 FAIL) 후 현재verified AMR/live session gate+기존PrivacyExport연결. CLI120 신규SQL의 quota account lock/actor 검사·private ACL, 기존티켓/consume/테이블/기록 보존. 실제localAuth/PostgREST 양역할·foreign/wrongtoken·oneuse race·expiry·감사보호·동시8중5·철회JWT RPC거부 및119→120 rollback/failure PASS.
 - D013과 같은 최종source 공통검사/productionbuild1회/영향desktop-mobile16 PASS, DEV-A 정적review 추가blocking/예약없음. D074 TESTED/runtimeLOCAL_VERIFIED. U001/D073·운영120/지문/실제요청처리 BLOCKED_EXTERNAL. 증빙 harness/evidence/D074/SESSION_EXPORT_20261124.md, 패킷 deliverables/d074-session-export-20261124/. 운영SQL/키/결제/승인 미실행.
+
+## 2026-11-24 — DEV-B D043 모집·지원 경계
+
+- main44b3dff 뒤 API모집columns미저장/SECDEF신규지원의기존window·capacity검사우회 재현(unit4FAIL/future실제지원성공). 신규121 privatepredicate/applicationtrigger+clock/lock로RPC·REST통합강제, 기존선정/상태/idempotentretry·레거시기록보존. board집계/accepting·조건요약/모집필터/최소마감/만석화면 및명시APIcolumns매핑.
+- 실제localSDK/DB 기간·일회중복·1slot경합·만석/마감·role/foreign/private·경계/기존retry 및120→121 fault/rollback/ACL PASS. source lint/typecheck/Vitest564/productionbuild·desktop-mobile6(신규2/기존D0414) PASS. fixturecleanup·초기타입·마감후사라진폼locator·Date.now lint 실패를수정재검증했고원시증거보존. DEV-A추가blocking/번호충돌없음.
+- D043 TESTED/runtimeLOCAL_VERIFIED, 운영121/지문·과거metadata·실제채널/계정수용은BLOCKED_EXTERNAL. 수동claim은합성fixture이며실제공급자승인아님. evidence harness/evidence/D043/RECRUITMENT_WINDOW_20261124.md, packet deliverables/d043-recruitment-window-20261124/. 운영DB/키/결제/외부승인없음.

@@ -430,9 +430,12 @@
     },
     "D043": {
       "owner": "DEV-B",
-      "status": "OPEN",
-      "evidence": [],
-      "blocker": null
+      "status": "LOCAL_VERIFIED",
+      "evidence": [
+        "harness/evidence/D043/RECRUITMENT_WINDOW_20261124.md"
+      ],
+      "blocker": "양 역할 free-beta actual local DB/RPC·API/UI 모집 기간/마감·중복 retry·1slot 선정경합·반대권한 및120→121 검증. D085 hosted121/지문·과거metadata검토/실제채널·운영계정 수용은 BLOCKED_EXTERNAL; D066 공급자 TEST 별도, 전체 DONE/VERIFIED 아님.",
+      "last_checked_at": "2026-11-24T13:15:15.959Z"
     },
     "D044": {
       "owner": "DEV-B",

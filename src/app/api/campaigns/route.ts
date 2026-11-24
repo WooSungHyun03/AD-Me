@@ -24,6 +24,10 @@ export const POST = apiRoute("campaigns.post", async (req) => {
       owner_id: c.user.id,
       brief,
       status: brief.status,
+      ...(brief.recruit_until !== undefined
+        ? { recruit_until: brief.recruit_until }
+        : {}),
+      ...(brief.capacity !== undefined ? { capacity: brief.capacity } : {}),
     })
     .select("id")
     .single();
@@ -40,7 +44,16 @@ export const PATCH = apiRoute("campaigns.patch", async (req) => {
   );
   const { data, error } = await c.db
     .from("campaigns")
-    .update({ brief: body.brief, status: body.brief.status })
+    .update({
+      brief: body.brief,
+      status: body.brief.status,
+      ...(body.brief.recruit_until !== undefined
+        ? { recruit_until: body.brief.recruit_until }
+        : {}),
+      ...(body.brief.capacity !== undefined
+        ? { capacity: body.brief.capacity }
+        : {}),
+    })
     .eq("id", body.id)
     .eq("owner_id", c.user.id)
     .select("id")

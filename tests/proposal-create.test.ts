@@ -65,3 +65,15 @@ it("rejects opposite roles before RPC and malformed RPC output after validation"
   state.rpc.mockResolvedValue({ data: { owner_id: "bad-shape" }, error: null });
   expect((await POST(req())).status).toBe(503);
 });
+it("returns a safe conflict for the central application window gate", async () => {
+  state.role = "creator";
+  state.rpc.mockResolvedValue({
+    data: null,
+    error: { code: "PT409", message: "RECRUITMENT_NOT_OPEN" },
+  });
+  const response = await POST(req({ ...body, kind: "application" }));
+  expect(response.status).toBe(409);
+  expect((await response.json()).error.message).toBe(
+    "현재 모집 기간 또는 모집 인원을 확인해주세요.",
+  );
+});
