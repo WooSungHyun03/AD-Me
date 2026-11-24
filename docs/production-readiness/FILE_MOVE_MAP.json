@@ -1,0 +1,59 @@
+{
+  "moves": [
+    {
+      "old": "src/lib/api.ts",
+      "new": "src/shared/server/http.ts",
+      "compatibility": "re-export retained"
+    },
+    {
+      "old": "src/lib/consent.ts",
+      "new": "src/domains/users/consent.ts",
+      "compatibility": "re-export retained"
+    },
+    {
+      "old": "src/lib/creator-public-profile.ts",
+      "new": "src/domains/creators/public-profile.ts",
+      "compatibility": "re-export retained"
+    },
+    {
+      "old": "src/lib/brand-profile.ts",
+      "new": "src/domains/brands/profile.ts",
+      "compatibility": "re-export retained"
+    },
+    {
+      "old": "src/lib/public-youtube-topics.ts",
+      "new": "src/domains/intelligence/youtube-topics.ts",
+      "compatibility": "re-export retained"
+    },
+    {
+      "old": "src/lib/video-insights.ts",
+      "new": "src/domains/intelligence/video-insights.ts",
+      "compatibility": "re-export retained"
+    },
+    {
+      "old": "src/lib/campaign-brief.ts",
+      "new": "src/domains/campaigns/brief.ts",
+      "compatibility": "re-export retained"
+    },
+    {
+      "old": "src/lib/conversation.ts",
+      "new": "src/domains/messaging/conversation.ts",
+      "compatibility": "re-export retained"
+    },
+    {
+      "old": "src/lib/billing-confirmation.ts",
+      "new": "src/domains/billing/confirmation.ts",
+      "compatibility": "re-export retained"
+    },
+    {
+      "old": "src/lib/admin-support.ts",
+      "new": "src/domains/operations/support.ts",
+      "compatibility": "re-export retained"
+    },
+    {
+      "old": "src/app/api/billing/orders/route.ts",
+      "new": "src/domains/billing/orders.server.ts",
+      "compatibility": "existing POST URL and handler export retained"
+    }
+  ]
+}

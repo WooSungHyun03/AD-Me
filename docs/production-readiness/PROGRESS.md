@@ -14,3 +14,7 @@
 - [개발자 A](DEV_A_TICKETS.md) · YouTube·추천·AI 호출 코드와 데이터 경계
 - [개발자 B](DEV_B_TICKETS.md) · 협업·결제·관리자, 디자인 구현과 릴리스 패킷
 - [운영자](OPERATOR_TICKETS.md) · Local AI 설치·운영, 운영 배포·키 등록, 웹디자인 시안·승인, 외부 조치
+
+## 2026-11-24 운영 개편
+
+[운영자 실행 기록](OPERATOR_EXECUTION_20261124.md) 및 [개발자 영향표](REFACTOR_IMPACT.md)를 추가했다. 개발자 티켓 91개를 검토했고 16개에 경로 또는 검증 범위를 추가했다. 운영 새 배포 검증은 대기 중이다.

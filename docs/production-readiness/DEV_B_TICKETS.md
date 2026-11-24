@@ -542,11 +542,11 @@ DEV-B · P0 · S0 출시 차단 · BILLING · IN_PROGRESS · 5 SP · ACTIVE
 - **현재 문제** — 주문 금액·소유권 방어 코드와 격리 증거가 있다. 실제 결제 성공 이후 네트워크 결과 유실과 대사까지는 미검증이다.
 - **재현·관찰** — 격리에서 금액 일치·소유권·연속 confirm·응답 유실을 검증. 동일 주문의 provider 결과와 재대조한다.
 - **화면** — /api/billing/orders · /api/billing/confirm
-- **관련 코드** — src/app/api/billing/orders/route.ts · src/app/api/billing/confirm/route.ts · supabase/functions/payment-confirm/index.ts
+- **관련 코드** — src/app/api/billing/orders/route.ts · src/domains/billing/orders.server.ts · src/app/api/billing/confirm/route.ts · supabase/functions/payment-confirm/index.ts
 - **DB·RPC** — products, orders, entitlements, credit_ledger, create_test_order, begin_test_cancel, active_hot_creators
 - **기대 동작** — 기존 서버 금액·소유권·원자적 권한 부여를 회귀하고 승인 중단 복구·위조 콜백을 검증한다.
 - **구현** — 서버 상품 가격/주문 소유권/고유 키/잠금/한 번만 entitlement 부여를 유지한다. 공급자 성공-DB 실패 복구 조회를 검증한다.
-- **변경 파일** — src/app/api/billing/orders/route.ts · src/app/api/billing/confirm/route.ts · supabase/functions/payment-confirm/index.ts
+- **변경 파일** — src/app/api/billing/orders/route.ts · src/domains/billing/orders.server.ts · src/app/api/billing/confirm/route.ts · supabase/functions/payment-confirm/index.ts
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D066
 - **영향** — /pricing · /billing · /jobs · /dashboard
@@ -554,7 +554,7 @@ DEV-B · P0 · S0 출시 차단 · BILLING · IN_PROGRESS · 5 SP · ACTIVE
 - **검증** — DB 회귀 및 실제 TEST 승인 후 재요청·금액 변조 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 기존 서버 금액·소유권·원자적 권한 부여를 회귀하고 승인 중단 복구·위조 콜백을 검증한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D067/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D067/ (이번 검증 기록 위치)
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D067/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D067/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
 - **이전 기록** — IN_PROGRESS
 
 ## D068 · TEST 취소·취소 후 권한 회수
@@ -652,11 +652,11 @@ DEV-B · P0 · S0 출시 차단 · SECURITY · TODO · 5 SP · ACTIVE
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. CSP·CSRF·보안 헤더·XSS·SSRF·외부 URL 검사·의존성 취약점을 검토한다.
 - **재현·관찰** — /settings · /api/uploads에서 먼저 보안 스캐너·악성 URL/입력·리다이렉트·파일 회귀을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: next.config.ts, src/lib/api.ts, src/lib/uploads.ts.
 - **화면** — /settings · /api/uploads
-- **관련 코드** — next.config.ts · src/lib/api.ts · src/lib/uploads.ts
+- **관련 코드** — next.config.ts · src/lib/api.ts · src/shared/server/http.ts · src/lib/uploads.ts
 - **DB·RPC** — creators, storage.objects, upload reference; signed URL
 - **기대 동작** — CSP·CSRF·보안 헤더·XSS·SSRF·외부 URL 검사·의존성 취약점을 검토한다.
 - **구현** — CSP의 SDK/임베드 허용 범위를 최소화하고 origin/redirect/URL fetch/DNS rebinding 경계를 점검한다.
-- **변경 파일** — next.config.ts · src/lib/api.ts · src/lib/uploads.ts
+- **변경 파일** — next.config.ts · src/lib/api.ts · src/shared/server/http.ts · src/lib/uploads.ts
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D076
 - **영향** — /settings · /api/uploads
@@ -664,7 +664,7 @@ DEV-B · P0 · S0 출시 차단 · SECURITY · TODO · 5 SP · ACTIVE
 - **검증** — 보안 스캐너·악성 URL/입력·리다이렉트·파일 회귀 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — CSP·CSRF·보안 헤더·XSS·SSRF·외부 URL 검사·의존성 취약점을 검토한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D077/ (이번 검증 기록 위치)
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D077/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
 - **이전 기록** — OPEN
 
 ## D078 · 비밀값·로그·키 교체 대응
@@ -674,11 +674,11 @@ DEV-B · P0 · S0 출시 차단 · SECURITY · TODO · 3 SP · ACTIVE
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 클라이언트 번들·저장소 이력·오류 로그 비밀값 검사를 자동화하고 사용자 키 교체 후 검증 절차를 제공한다.
 - **재현·관찰** — /settings · /admin · 권한 API에서 먼저 시크릿 스캔·마스킹·실패 로그·환경 분리 검사을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: harness/secret_scan.py, src/lib/api.ts, .gitignore.
 - **화면** — /settings · /admin · 권한 API
-- **관련 코드** — harness/secret_scan.py · src/lib/api.ts · .gitignore
+- **관련 코드** — harness/secret_scan.py · src/lib/api.ts · src/shared/server/http.ts · .gitignore
 - **DB·RPC** — profiles, ownership grants, auth sessions, Storage policies, private RPCs
 - **기대 동작** — 클라이언트 번들·저장소 이력·오류 로그 비밀값 검사를 자동화하고 사용자 키 교체 후 검증 절차를 제공한다.
 - **구현** — 현재와 Git 이력·빌드 번들·아티팩트·trace·로그를 검사한다. 키 교체는 U006, 개발자는 키 이름·버전 상태로 검증한다.
-- **변경 파일** — harness/secret_scan.py · src/lib/api.ts · .gitignore
+- **변경 파일** — harness/secret_scan.py · src/lib/api.ts · src/shared/server/http.ts · .gitignore
 - **신규 파일** — 기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정
 - **선행 티켓** — D003
 - **영향** — /settings · /admin · 권한 API
@@ -686,7 +686,7 @@ DEV-B · P0 · S0 출시 차단 · SECURITY · TODO · 3 SP · ACTIVE
 - **검증** — 시크릿 스캔·마스킹·실패 로그·환경 분리 검사 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 클라이언트 번들·저장소 이력·오류 로그 비밀값 검사를 자동화하고 사용자 키 교체 후 검증 절차를 제공한다.
 - **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D078/ (이번 검증 기록 위치)
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D078/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
 - **이전 기록** — OPEN
 
 ## D079 · 데이터 보존·삭제·복구 정책 실행
@@ -730,7 +730,7 @@ DEV-B · P0 · S0 출시 차단 · DEVOPS · TODO · 5 SP · ACTIVE
 - **검증** — 격리 DB 마이그레이션·롤백 모의·CI 실행; 외부 적용은 사용자 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — CI 검사·마이그레이션 순서·롤백/forward fix·환경 설정 목록·사용자 배포 체크리스트를 준비한다.
 - **차단 요인** — 운영 복구 백업과 적용 순서 승인. 원격 원장의 버전 명명 차이는 SQL 계약 대조가 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D085/ (이번 검증 기록 위치)
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D085/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
 - **이전 기록** — OPEN
 
 ## D086 · 관측·오류 추적·상태·비용 알림
@@ -752,7 +752,7 @@ DEV-B · P0 · S0 출시 차단 · OBSERVABILITY · TODO · 5 SP · ACTIVE
 - **검증** — 모의 장애·알림 전달·로그 마스킹·외부 설정 후 확인 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — PII 없는 요청 추적·오류 알림·health·가용성·API 한도·무료 리소스 한도를 관측한다.
 - **차단 요인** — 외부 선행 U018의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D086/ (이번 검증 기록 위치)
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D086/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
 - **이전 기록** — OPEN
 
 ## D087 · 백업·복원·성능·용량
@@ -774,7 +774,7 @@ DEV-B · P0 · S0 출시 차단 · PERFORMANCE · IN_PROGRESS · 5 SP · ACTIVE
 - **검증** — 격리 환경 복구 모의·성능 보고·자동 백업 비용 미발생 확인 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 무료 플랜의 백업 한계를 확인하고 최소 백업·복원 절차·대표 부하·검색/수집 용량 기준을 검증한다.
 - **차단 요인** — 외부 선행 U003, U018의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/AUTH_PROVIDER_EXECUTION.md · harness/evidence/D087/ (이번 검증 기록 위치)
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/AUTH_PROVIDER_EXECUTION.md · harness/evidence/D087/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## D088 · 사용자 배포 후 출시 승인 검증
@@ -796,7 +796,7 @@ DEV-B · P0 · S0 출시 차단 · QA · TODO · 5 SP · ACTIVE
 - **검증** — 공개 URL E2E·실제 데이터 출처·운영 체크리스트 증빙; 배포 실행은 사용자 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 사용자가 배포한 URL에서 가입→추천→비교→광고 이력→제안→수락→대시보드와 보안·모바일을 확인한다.
 - **차단 요인** — 외부 선행 U004, U005, U006, U019의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D088/ (이번 검증 기록 위치)
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D088/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
 - **이전 기록** — OPEN
 
 ## D006 · 핵심 활성화·제품 이벤트 정의

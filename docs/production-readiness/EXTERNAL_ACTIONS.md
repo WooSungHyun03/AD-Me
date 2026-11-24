@@ -27,3 +27,7 @@ U001–U020은 이전 ID를 유지했다. BUSINESS U021–U022는 유료 판매 
 | U022 | U021 후 Toss 계약·심사, 운영 상점 및 비공개 키 등록 | 상점·결제수단·운영 환경 승인 및 대사 책임 |
 
 [Toss 정식 상품 준비](https://docs.tosspayments.com/guides/v2/get-started/payment-products) · [Google 파생 지표 정책](https://developers.google.com/youtube/terms/derived-metrics-policy) · [개인정보 보호법](https://www.law.go.kr/LSW/lsLinkCommonInfo.do?lsJoLnkSeq=1033215151)
+
+## 2026-11-24 운영 작업 대조
+
+[운영자 24개 실행 기록](OPERATOR_EXECUTION_20261124.md)에 권한·증빙·잔여 승인 조건을 갱신했다. 실제 Toss TEST 결제 참여는 보류 상태이고 공개 유료 판매는 사업 조건과 공급자 승인을 따른다.

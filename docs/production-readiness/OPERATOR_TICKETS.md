@@ -46,7 +46,7 @@ OPERATOR · P1 · S1 주요 부족 · AI · IN_PROGRESS · 외부 SP · ACTIVE
 - **검증** — 30건 이상에서 p50/p95·실패율 보고, 대기상태가 복구·한도 초과에 수렴, 재실행 중복 없음, 일반 조회·채팅·ORDERS 영향 없음.
 - **완료 조건** — 30건 이상에서 p50/p95·실패율 보고, 대기상태가 복구·한도 초과에 수렴, 재실행 중복 없음, 일반 조회·채팅·ORDERS 영향 없음.
 - **차단 요인** — 공유 GPU와 기존 워커의 실행 상태를 확인한다. 재시작 시험은 격리 환경에서만 하고 운영 활성화는 안전 한도·관측·릴리스 승인 후에 한다.
-- **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-003/ (신규 검증 기록 위치) · harness/evidence/PR-003/TRANSPORT_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md
+- **증빙** — docs/production-readiness/MASTER_AUDIT.md · harness/evidence/PR-003/ (신규 검증 기록 위치) · harness/evidence/PR-003/TRANSPORT_20261123.md · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md · docs/production-readiness/OPERATOR_EXECUTION_20261124.md
 - **검증 범위** — 기존 격리 CPU 모델과 복구 시험 증빙을 인수한다. 운영 호스트 장애 복구와 최종 활성화는 별도로 확인한다.
 - **이전 담당 기록** — DEV-A
 
@@ -232,7 +232,7 @@ OPERATOR · P1 · S1 조건부 · OPERATIONS · VERIFIED · 외부 SP · ACTIVE
 - **검증** — 완료 확인자가 날짜·환경·설정명·해당 검증 결과를 기록한다.
 - **완료 조건** — ownership/DNS 기록을 유지한다. HTTPS 200, www 308, canonical 및 만료/연장 소유자를 확인한다.
 - **차단 요인** — 공개 도메인 TLS 및 www→apex 이동을 확인했다.
-- **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md
+- **증빙** — docs/handoff/COMPLETION_AUDIT_20261123.md · docs/production-readiness/EXTERNAL_ACTIONS.md · docs/production-readiness/OPERATOR_EXECUTION_20261124.md
 - **검증 범위** — 운영 DNS/TLS, www→apex 308, 홈 canonical
 - **이전 담당 기록** — USER
 - **이전 기록** — VERIFIED_CUSTOM_DOMAIN
@@ -381,7 +381,7 @@ OPERATOR · P1 · S1 조건부 · COMPLIANCE · BLOCKED · 외부 SP · GATED
 
 ## O001 · 웹디자인 시안·브랜드 기준 및 반영 승인
 
-OPERATOR · P1 · S1 시각·사용성 검수 · UI · TODO · 외부 SP · ACTIVE
+OPERATOR · P1 · S1 시각·사용성 검수 · UI · IN_PROGRESS · 외부 SP · ACTIVE
 
 - **현재 문제** — 기존 시각 감사와 화면 개선을 바탕으로 운영자가 변경할 디자인의 범위·우선순위·승인 기준을 명시해야 한다.
 - **재현·관찰** — 홈·탐색·채널 상세·공고·대시보드·요금제를 열어 현행 화면과 시안의 차이를 비교하고, 모바일 390px과 데스크톱 1440px에서 CTA·상태·가독성을 점검한다.
@@ -397,8 +397,8 @@ OPERATOR · P1 · S1 시각·사용성 검수 · UI · TODO · 외부 SP · ACTI
 - **보안** — 시안·캡처에 개인 QA 데이터와 비밀 설정을 넣지 않는다. TEST 고지, 스폰서 표식, 출처 문구, 권한 실패 안내를 확인한다.
 - **검증** — 390px과 1440px에서 공개/로그인 상태, 주요 CTA와 로딩/빈/오류 화면을 비교한다. 키보드 포커스와 명암비의 개발자 회귀 결과를 인수한다.
 - **완료 조건** — 시안과 적용 범위가 확인되고 담당 개발자·프리뷰 URL·캡처·승인 결과가 하나의 기록으로 연결된다.
-- **차단 요인** — 승인할 새 시안이나 변경 범위가 정해져야 한다. 기존 결함 및 접근성 회귀는 개발자가 병렬로 진행할 수 있다.
-- **증빙** — docs/design/visual-audit.md · harness/evidence/VISUAL-REDESIGN-20261123/verification.json
+- **차단 요인** — 밝은 UI 및 모션의 로컬 검증과 별도로 운영 디자인 확인 및 운영 릴리스 승인이 필요하다.
+- **증빙** — docs/design/visual-audit.md · harness/evidence/VISUAL-REDESIGN-20261123/verification.json · docs/production-readiness/OPERATOR_EXECUTION_20261124.md
 
 # 서비스 운영·사업 승인
 

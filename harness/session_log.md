@@ -628,3 +628,11 @@ USER requested all feasible tickets in order, keeping direct main push and ticke
 - D048 f8087d7 기존 worker operation 계약; PR-001083395d 소유 상품/버전·큐·확인/거부→명시 검색; D0755fc6838 private operation/legacy 호환; D0391519bad YouTube·부정/OR 거부. PR-001/D039 로컬 TESTED, 전체 VERIFIED/DONE 아님.
 - 최종504unit/43Python/lint/typecheck/build/영향 desktop-mobile6, 상품 SQL/REST9그룹·legacy draft, fresh0→116, 엄격113→116 원자 USER패킷 PASS. 전체 원격 CI/실제 provider·메일·Toss·운영 적용 미완료. Vitest 병렬 자원 경합 timeout은 maxWorkers4로 제한, 기존 assertion/5s timeout/isolation 유지.
 - A ACTIVE 미완료36 = TESTED23+추가 구현·통합·외부선행13(P0 9/P1 3/P2 1). 상세/증빙 harness/evidence/DEV-A-PRODUCT-CONDITIONS-20261124/. U001 미확정, collection OFF/정책·기간NULL 유지. main/A 자동 배포 차단 유지, 로컬 QA는 volume 보존 종료.
+
+## 2026-11-24 — 운영 Harness, 밝은 UI, 도메인 경계
+
+- 기준선 main `2a1764e3001f982668e5314bd0dce87811678fa7`. 코드 검증 SHA `2f5d1d14358e26ce66c21f4bd248d6c29ec06974`.
+- 밝은 디자인과 접근 가능한 홈 모션, 8개 도메인으로 일부 로직 이동, 구조화 로그 및 관리자 건강 상태 진단의 OTP 검증, Vercel 경로 누락 수정. 변경 파일은 `docs/production-readiness/FILE_MOVE_MAP.json`에 기록했다.
+- 운영자 24건 및 A/B 91건 재정합. Vitest 506, Python 43, 국소 데스크톱·모바일 Playwright 10, 상품 분석 실DB 보안 9, 로컬 새 Supabase 마이그레이션 116 적용. 넓은 30건 회귀의 초기 실패와 남은 계약 검증은 운영 실행 기록을 참조한다.
+- 프리뷰 준비 완료. 운영은 DB 스키마 호환 및 운영 백업·복구 승인 대기. 공개 도메인 라우팅과 PROD 배포를 변경하지 않았다.
+- 증빙은 `harness/evidence/OPERATOR-20261124/verification.json`, 후속 작업은 `harness/operator-20261124`와 공식 원장에 있다.

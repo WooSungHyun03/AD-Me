@@ -1,0 +1,572 @@
+{
+  "version": 1,
+  "notes": "별도 실행 추적용. 실제 저장소 ALL_TICKETS.json이 공식 원장. original_dependencies는 실제 원장에서 검증; GATED/ARCHIVED 자동 착수 금지. R14는 출시 판정 산출물이지 출시 승인 아님. U017도 현재 재검증 전 TODO.",
+  "tasks": [
+    {
+      "id": "PR-003",
+      "title": "Local AI 호스트·모델 가동 및 장애 복구 승인",
+      "source_status": "IN_PROGRESS",
+      "scope": "ACTIVE",
+      "priority": "P1",
+      "original_dependencies": [
+        "D048",
+        "D086"
+      ],
+      "acceptance": "30건 이상에서 p50/p95·실패율 보고, 대기상태가 복구·한도 초과에 수렴, 재실행 중복 없음, 일반 조회·채팅·ORDERS 영향 없음.",
+      "state": "TODO",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U016",
+      "title": "선택적 LLM 계정·키·비용 상한",
+      "source_status": "BLOCKED",
+      "scope": "GATED",
+      "priority": "P1",
+      "original_dependencies": [],
+      "acceptance": "외부 공급자를 추가하기로 한 경우에만 비용 상한·처리 조건·보존/이전을 검토한다.",
+      "state": "GATED",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U002",
+      "title": "GitHub 조직·저장소·앱 권한 설정",
+      "source_status": "BLOCKED",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [],
+      "acceptance": "GitHub 접근과 Vercel 앱 권한을 소유자가 검토한다. 자동 배포를 즉시 켜지 말고 D085에 승인·공개 순서·권한 증빙을 전달한다.",
+      "state": "TODO",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U003",
+      "title": "Supabase 환경·계정·리전·한도 설정",
+      "source_status": "BLOCKED",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [],
+      "acceptance": "운영·스테이징·TEST 프로젝트 식별 관계, 리전·한도·보존·복원 가능한 백업을 확인한다.",
+      "state": "TODO",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U004",
+      "title": "Supabase 외부 환경·DB 변경 적용",
+      "source_status": "BLOCKED",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [
+        "D085",
+        "D087"
+      ],
+      "acceptance": "D085/D087의 복제본 검증과 롤백 증거를 검토한 뒤 승인된 순서로 SQL·Storage·함수를 적용한다.",
+      "state": "TODO",
+      "deps": [
+        "R11"
+      ],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U005",
+      "title": "Vercel 프로젝트·Git 연결·배포 실행",
+      "source_status": "BLOCKED",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [
+        "U004"
+      ],
+      "acceptance": "D085 승인된 소스의 preview/production 분리, 빌드·도메인·롤백 이력을 확인한다.",
+      "state": "TODO",
+      "deps": [
+        "R13",
+        "U004"
+      ],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U008",
+      "title": "Auth 외부 콘솔 설정",
+      "source_status": "BLOCKED",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [],
+      "acceptance": "host별 Auth 허용 URL, 가입/복구 템플릿, 세션 정책, MFA 정책을 설정하고 콜백 성공·거부 로그를 확인한다.",
+      "state": "TODO",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U018",
+      "title": "관측·알림·백업 외부 계정 설정",
+      "source_status": "BLOCKED",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [],
+      "acceptance": "권한 있는 저장 위치, 암호화·보유 및 복원 훈련 계정, 연락 경보를 지정한다.",
+      "state": "TODO",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U017",
+      "title": "도메인·DNS·TLS·소유권",
+      "source_status": "VERIFIED",
+      "scope": "ACTIVE",
+      "priority": "P1",
+      "original_dependencies": [],
+      "acceptance": "ownership/DNS 기록을 유지한다. HTTPS 200, www 308, canonical 및 만료/연장 소유자를 확인한다.",
+      "state": "TODO",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U006",
+      "title": "환경변수·시크릿 등록과 교체",
+      "source_status": "BLOCKED",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [
+        "D003"
+      ],
+      "acceptance": "검토된 변수명·환경별 scope·회전 소유자만 기록한다. TEST 전용 등록 후 redacted 체크 결과를 공유한다.",
+      "state": "TODO",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U007",
+      "title": "SMTP 계정·키·발신 도메인 설정",
+      "source_status": "BLOCKED",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [],
+      "acceptance": "기존 설정의 DNS SPF/DKIM/DMARC, 발신자, 실제 수신 케이스를 확인한다. 앱 알림은 D053 별도 검증이다.",
+      "state": "TODO",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U009",
+      "title": "YouTube 프로젝트·API 키 발급/등록",
+      "source_status": "BLOCKED",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [],
+      "acceptance": "YouTube Data API 전용 제한, 무료 quota, 키 회전 주체 및 호출 결과를 값 없이 확인한다.",
+      "state": "TODO",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U015",
+      "title": "Toss TEST 계정·호환 키·등록",
+      "source_status": "BLOCKED",
+      "scope": "ACTIVE",
+      "priority": "P1",
+      "original_dependencies": [],
+      "acceptance": "같은 TEST 상점의 SDK v2 세트와 isolated 환경 등록을 확인한다. 키는 비공개 설정에만 넣는다.",
+      "state": "TODO",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U010",
+      "title": "YouTube 이용 정책·파생 지표 승인",
+      "source_status": "BLOCKED",
+      "scope": "GATED",
+      "priority": "P0",
+      "original_dependencies": [],
+      "acceptance": "프로젝트의 허용 목적, API 필드, 보존, 승인·심사 필요 여부를 검토해 처리 근거와 적용 범위를 명시한다.",
+      "state": "GATED",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U011",
+      "title": "웹 수집 대상의 허용 근거 확보",
+      "source_status": "BLOCKED",
+      "scope": "GATED",
+      "priority": "P1",
+      "original_dependencies": [],
+      "acceptance": "domain/path/필드/출처/권리/철회·삭제를 문서로 승인한다. 미승인 소스는 비활성이다.",
+      "state": "GATED",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "O001",
+      "title": "웹디자인 시안·브랜드 기준 및 반영 승인",
+      "source_status": "TODO",
+      "scope": "ACTIVE",
+      "priority": "P1",
+      "original_dependencies": [
+        "D081"
+      ],
+      "acceptance": "시안과 적용 범위가 확인되고 담당 개발자·프리뷰 URL·캡처·승인 결과가 하나의 기록으로 연결된다.",
+      "state": "TODO",
+      "deps": [
+        "R10",
+        "R11"
+      ],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U001",
+      "title": "서비스 운영 범위·정책·운영자 확정",
+      "source_status": "BLOCKED",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [],
+      "acceptance": "기존 공개 운영자 연락처의 수신, 권리 행사 절차, 보유기간·처리위탁·성인 범위를 결정하고 승인본에 날짜를 남긴다.",
+      "state": "TODO",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U014",
+      "title": "실제 크리에이터 시범 참여·운영 동의",
+      "source_status": "BLOCKED",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [],
+      "acceptance": "한 명 이상의 승인된 창작자와 브랜드 QA를 확보하여 채널 소유권·연락·삭제 조건을 동의 범위에서 확인한다.",
+      "state": "TODO",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U019",
+      "title": "실제 테스트 참여·브라우저 승인",
+      "source_status": "BLOCKED",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [
+        "U015"
+      ],
+      "acceptance": "필요할 때 실제 가입, 잠금/MFA, 운영자 QR 확인 및 격리 TEST 승인·취소를 수행하고 결과만 공유한다.",
+      "state": "TODO",
+      "deps": [
+        "U015",
+        "R11"
+      ],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U020",
+      "title": "공개 베타 출시·사고 연락·운영 책임",
+      "source_status": "BLOCKED",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [
+        "D088",
+        "U001",
+        "U014"
+      ],
+      "acceptance": "D088의 기술 증거를 검토하고 무료 베타와 유료 운영 각각의 책임자, 지원·장애 기준, GO/NO-GO를 기록한다.",
+      "state": "TODO",
+      "deps": [
+        "R13",
+        "U004",
+        "U005",
+        "U001",
+        "U014",
+        "U019",
+        "O001"
+      ],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U021",
+      "title": "유료 판매 사업 주체와 상품·환불 정책 승인",
+      "source_status": "BLOCKED",
+      "scope": "GATED",
+      "priority": "P0",
+      "original_dependencies": [
+        "U001"
+      ],
+      "acceptance": "주체·책임·고지 승인 결과를 남겼거나 미추진 상태를 명시한다.",
+      "state": "GATED",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U022",
+      "title": "Toss 라이브 상점 계약 및 환경 승인",
+      "source_status": "BLOCKED",
+      "scope": "GATED",
+      "priority": "P0",
+      "original_dependencies": [
+        "U021"
+      ],
+      "acceptance": "승인된 계약·환경/merchant 검증·철회 또는 롤백 증빙이 운영자에게 확보된다.",
+      "state": "GATED",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U012",
+      "title": "Instagram 앱·OAuth·심사·키",
+      "source_status": "BLOCKED",
+      "scope": "ARCHIVED",
+      "priority": "P2",
+      "original_dependencies": [],
+      "acceptance": "업무 범위 밖으로 유지하며 신규 연동하지 않는다.",
+      "state": "ARCHIVED",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "U013",
+      "title": "TikTok 앱·OAuth·심사·키",
+      "source_status": "BLOCKED",
+      "scope": "ARCHIVED",
+      "priority": "P2",
+      "original_dependencies": [],
+      "acceptance": "업무 범위 밖으로 유지하며 신규 연동하지 않는다.",
+      "state": "ARCHIVED",
+      "deps": [],
+      "kind": "operator",
+      "evidence": []
+    },
+    {
+      "id": "R01",
+      "title": "최신 main·운영/프리뷰 SHA·스키마·기존 원장 기준선 감사",
+      "kind": "refactor",
+      "source_status": "NEW",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [],
+      "state": "TODO",
+      "deps": [],
+      "acceptance": "baseline.json, routes.json, 기존 A/B 및 운영자 원장 스냅샷; 기존 변경 보호 및 검증 상태 구분",
+      "evidence": []
+    },
+    {
+      "id": "R02",
+      "title": "레퍼런스 브라우저 분석과 전 화면 시각 감사",
+      "kind": "refactor",
+      "source_status": "NEW",
+      "scope": "ACTIVE",
+      "priority": "P1",
+      "original_dependencies": [],
+      "state": "TODO",
+      "deps": [
+        "R01"
+      ],
+      "acceptance": "레퍼런스 3곳 및 전체 라우트/역할/상태별 스크린샷·문제·검증불가 기록",
+      "evidence": []
+    },
+    {
+      "id": "R03",
+      "title": "도메인 경계·의존성·공통 오류/로깅 설계 및 ADR",
+      "kind": "refactor",
+      "source_status": "NEW",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [],
+      "state": "TODO",
+      "deps": [
+        "R01"
+      ],
+      "acceptance": "실제 코드 import graph, 공개 계약, 파일 이동표, 도메인 소유권 및 점진 전환 계획",
+      "evidence": []
+    },
+    {
+      "id": "R04",
+      "title": "공통 플랫폼 및 도메인 경계 테스트 구축",
+      "kind": "refactor",
+      "source_status": "NEW",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [],
+      "state": "TODO",
+      "deps": [
+        "R03"
+      ],
+      "acceptance": "공통 logger, error mapping, context, auth, config, 검증 유틸; 금지 import 테스트 및 baseline 회귀",
+      "evidence": []
+    },
+    {
+      "id": "R05",
+      "title": "사용자·크리에이터·브랜드 도메인 리팩터링",
+      "kind": "refactor",
+      "source_status": "NEW",
+      "scope": "ACTIVE",
+      "priority": "P1",
+      "original_dependencies": [],
+      "state": "TODO",
+      "deps": [
+        "R04"
+      ],
+      "acceptance": "sign-up 등 액션은 도메인 컨트롤러; 호환 URL/DTO/권한, RLS 및 계약 테스트",
+      "evidence": []
+    },
+    {
+      "id": "R06",
+      "title": "YouTube·AI·검색/추천 도메인 리팩터링",
+      "kind": "refactor",
+      "source_status": "NEW",
+      "scope": "ACTIVE",
+      "priority": "P1",
+      "original_dependencies": [],
+      "state": "TODO",
+      "deps": [
+        "R04"
+      ],
+      "acceptance": "수집/추론 adapter, queue, provenance, 검색·매칭 계약과 오류/재시도 테스트",
+      "evidence": []
+    },
+    {
+      "id": "R07",
+      "title": "캠페인·지원·협업·메시지 도메인 리팩터링",
+      "kind": "refactor",
+      "source_status": "NEW",
+      "scope": "ACTIVE",
+      "priority": "P1",
+      "original_dependencies": [],
+      "state": "TODO",
+      "deps": [
+        "R04"
+      ],
+      "acceptance": "상태 머신, 권한/동시성, 채팅 재연결·미읽음, 기존 URL 계약 유지",
+      "evidence": []
+    },
+    {
+      "id": "R08",
+      "title": "결제·HOT·운영 도메인 리팩터링",
+      "kind": "refactor",
+      "source_status": "NEW",
+      "scope": "ACTIVE",
+      "priority": "P1",
+      "original_dependencies": [],
+      "state": "TODO",
+      "deps": [
+        "R04"
+      ],
+      "acceptance": "금액/이용권/취소/중복 방어, 관리자 최소권한, 통합 오류/로그 검증",
+      "evidence": []
+    },
+    {
+      "id": "R09",
+      "title": "밝은 디자인 시스템·동적 모션 실제 구현",
+      "kind": "refactor",
+      "source_status": "NEW",
+      "scope": "ACTIVE",
+      "priority": "P1",
+      "original_dependencies": [],
+      "state": "TODO",
+      "deps": [
+        "R02",
+        "R03"
+      ],
+      "acceptance": "화이트 기반 토큰, 컴포넌트, 접근성, 모션/정지/저감, 기존 로고, 데스크톱/모바일 시안",
+      "evidence": []
+    },
+    {
+      "id": "R10",
+      "title": "전체 UI/UX 전면 구현 및 페이지 순회",
+      "kind": "refactor",
+      "source_status": "NEW",
+      "scope": "ACTIVE",
+      "priority": "P1",
+      "original_dependencies": [],
+      "state": "TODO",
+      "deps": [
+        "R09",
+        "R05",
+        "R06",
+        "R07",
+        "R08"
+      ],
+      "acceptance": "공개/인증/브랜드/크리에이터/관리자 전체 라우트; before/after; CTA·빈/오류/로딩 검증",
+      "evidence": []
+    },
+    {
+      "id": "R11",
+      "title": "리팩터링 회귀·보안·시각 품질 게이트",
+      "kind": "refactor",
+      "source_status": "NEW",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [],
+      "state": "TODO",
+      "deps": [
+        "R10"
+      ],
+      "acceptance": "계약 비교, lint/typecheck/build/unit/integration/E2E/RLS/결제/AI/수집; 새 위반 및 P0/P1 0 또는 차단 명시",
+      "evidence": []
+    },
+    {
+      "id": "R12",
+      "title": "A/B 원장 및 생성기 계약 재정합",
+      "kind": "refactor",
+      "source_status": "NEW",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [],
+      "state": "TODO",
+      "deps": [
+        "R11"
+      ],
+      "acceptance": "기존 ID 전수, 파일/의존/수용 조건/증빙/소유자/SP 검토; canonical JSON과 재생성 세 문서 diff/validator",
+      "evidence": []
+    },
+    {
+      "id": "R13",
+      "title": "main 통합 및 승인된 프리뷰 검증",
+      "kind": "refactor",
+      "source_status": "NEW",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [],
+      "state": "TODO",
+      "deps": [
+        "R12"
+      ],
+      "acceptance": "원격 SHA, 배포/DB 호환, 프리뷰 및 운영자 승인; 미승인 운영 승격 금지",
+      "evidence": []
+    },
+    {
+      "id": "R14",
+      "title": "최종 운영 준비 및 출시 판정",
+      "kind": "refactor",
+      "source_status": "NEW",
+      "scope": "ACTIVE",
+      "priority": "P0",
+      "original_dependencies": [],
+      "state": "TODO",
+      "deps": [
+        "R13"
+      ],
+      "acceptance": "전 운영자 티켓 재검증, FREE_BETA/TEST/LIVE 구분, U020 GO/NO-GO 및 차단 근거",
+      "evidence": []
+    }
+  ]
+}

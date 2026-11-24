@@ -46,7 +46,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D002",
@@ -97,7 +100,10 @@
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": false,
-      "verified_scope": "새 문구와 Checkout 오류 라벨은 main 및 격리 검증 범위. 운영 호환 배포에 미반영."
+      "verified_scope": "새 문구와 Checkout 오류 라벨은 main 및 격리 검증 범위. 운영 호환 배포에 미반영.",
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D003",
@@ -141,13 +147,18 @@
         "harness/evidence/D003/README.md",
         "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
         "harness/evidence/D003/ (이번 검증 기록 위치)",
-        "harness/evidence/D003/CONFIG_20261123.md"
+        "harness/evidence/D003/CONFIG_20261123.md",
+        "docs/production-readiness/REFACTOR_IMPACT.md"
       ],
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": false,
-      "verified_scope": "2026-11-23 로컬: 앱·legacy mode·CLI·admin health의 동일 모드 해석, 충돌/잘못된 alias 무료 안전 모드와 값 없는 진단, optional TEST 키 진단29건. 운영 적용 미검증."
+      "verified_scope": "2026-11-23 로컬: 앱·legacy mode·CLI·admin health의 동일 모드 해석, 충돌/잘못된 alias 무료 안전 모드와 값 없는 진단, optional TEST 키 진단29건. 운영 적용 미검증.",
+      "operator_refactor_review": {
+        "decision": "UPDATE",
+        "acceptance_followup": "격리 DB 권한과 로그에 요청 ID만 노출되는지 재검증. Preview/Production 키의 DB 격리 확인 필요."
+      }
     },
     {
       "id": "D004",
@@ -162,6 +173,7 @@
       ],
       "code_files": [
         "src/lib/api.ts",
+        "src/shared/server/http.ts",
         "src/app/api/**/route.ts"
       ],
       "database": "API가 호출하는 기존 role/ownership RPC",
@@ -169,6 +181,7 @@
       "implementation": "기존 error.message 호환을 유지하며 code/requestId를 추가한다. 입력 실패·인증 실패·권한 실패·경합·한도·외부 장애를 구분한다.",
       "change_files": [
         "src/lib/api.ts",
+        "src/shared/server/http.ts",
         "src/app/api/**/route.ts"
       ],
       "new_files": [
@@ -189,13 +202,20 @@
         "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
         "harness/evidence/DEV-A-MAIN-20261120/verification.json",
         "harness/evidence/D004/ (이번 검증 기록 위치)",
-        "harness/evidence/D004/API_20261123.md"
+        "harness/evidence/D004/API_20261123.md",
+        "docs/production-readiness/REFACTOR_IMPACT.md"
       ],
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": false,
-      "verified_scope": "2026-11-23 로컬: UTF-8 실제 바이트·거짓 길이·분할 입력·미디어 위장 제한, immutable 응답·동적 문맥 보존·안전한 오류50건. DB/provider 역할 전체 및 운영 미검증."
+      "verified_scope": "2026-11-23 로컬: UTF-8 실제 바이트·거짓 길이·분할 입력·미디어 위장 제한, immutable 응답·동적 문맥 보존·안전한 오류50건. DB/provider 역할 전체 및 운영 미검증.",
+      "operator_refactor_review": {
+        "decision": "UPDATE",
+        "moved_implementations": {
+          "src/lib/api.ts": "src/shared/server/http.ts"
+        }
+      }
     },
     {
       "id": "D005",
@@ -243,7 +263,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D006",
@@ -286,7 +309,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D007",
@@ -336,7 +362,10 @@
       "status": "BLOCKED",
       "scope": "ACTIVE",
       "prior_status": "BLOCKED_EXTERNAL",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D008",
@@ -385,7 +414,10 @@
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D009",
@@ -439,7 +471,10 @@
       "status": "BLOCKED",
       "scope": "ACTIVE",
       "prior_status": "BLOCKED_EXTERNAL",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D010",
@@ -487,7 +522,10 @@
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "PARTIAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D011",
@@ -535,7 +573,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D012",
@@ -583,7 +624,10 @@
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D013",
@@ -633,7 +677,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D014",
@@ -688,7 +735,10 @@
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "IN_PROGRESS",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D015",
@@ -733,7 +783,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D016",
@@ -749,6 +802,7 @@
       "code_files": [
         "src/app/admin/page.tsx",
         "src/lib/api.ts",
+        "src/shared/server/http.ts",
         "src/proxy.ts"
       ],
       "database": "auth.users, auth.sessions, profiles, administrator_grants",
@@ -757,6 +811,7 @@
       "change_files": [
         "src/app/admin/page.tsx",
         "src/lib/api.ts",
+        "src/shared/server/http.ts",
         "src/proxy.ts"
       ],
       "new_files": [
@@ -779,13 +834,20 @@
         "harness/evidence/DEV-A-P0-CONTINUE/verification.json",
         "harness/evidence/DEV-A-MAIN-20261120/verification.json",
         "harness/evidence/D016/ (이번 검증 기록 위치)",
-        "harness/evidence/D016/REVALIDATE_20261123.md"
+        "harness/evidence/D016/REVALIDATE_20261123.md",
+        "docs/production-readiness/REFACTOR_IMPACT.md"
       ],
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": true,
-      "verified_scope": "현재107 격리 DB 직접 권한6그룹: MFA/초대/회수/자기승격/집계 definer와 public CREATE 경계. 합성 JWT이며 외부 U008/실제 운영 OTP 미검증."
+      "verified_scope": "현재107 격리 DB 직접 권한6그룹: MFA/초대/회수/자기승격/집계 definer와 public CREATE 경계. 합성 JWT이며 외부 U008/실제 운영 OTP 미검증.",
+      "operator_refactor_review": {
+        "decision": "UPDATE",
+        "moved_implementations": {
+          "src/lib/api.ts": "src/shared/server/http.ts"
+        }
+      }
     },
     {
       "id": "D017",
@@ -832,7 +894,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D018",
@@ -883,7 +948,10 @@
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D019",
@@ -935,7 +1003,10 @@
       "scope": "ACTIVE",
       "prior_status": "PARTIAL_VERIFIED",
       "reopened": true,
-      "verified_scope": "실제 공급자 호출 없는 TS20/Python8 계약: 응답·요청 상한, 공개/타 채널 귀속, 숨김/안전 정수, quota·rate·404·전송 실패. 정책·현재 키/소유권/운영 검증은 미완료."
+      "verified_scope": "실제 공급자 호출 없는 TS20/Python8 계약: 응답·요청 상한, 공개/타 채널 귀속, 숨김/안전 정수, quota·rate·404·전송 실패. 정책·현재 키/소유권/운영 검증은 미완료.",
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D020",
@@ -987,7 +1058,10 @@
       "status": "IN_PROGRESS",
       "scope": "GATED",
       "prior_status": "IN_PROGRESS",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D021",
@@ -1040,7 +1114,10 @@
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": false,
-      "verified_scope": "현 Python 워커 출력50→5 영상과 실제 격리107 DB 체크포인트 저장/복구7그룹, Python9건 통과. 운영 공급자·cron과 구분."
+      "verified_scope": "현 Python 워커 출력50→5 영상과 실제 격리107 DB 체크포인트 저장/복구7그룹, Python9건 통과. 운영 공급자·cron과 구분.",
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D022",
@@ -1089,7 +1166,10 @@
       "status": "BLOCKED",
       "scope": "ARCHIVED",
       "prior_status": "IN_PROGRESS",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "ARCHIVE"
+      }
     },
     {
       "id": "D023",
@@ -1135,7 +1215,10 @@
       "status": "BLOCKED",
       "scope": "ARCHIVED",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "ARCHIVE"
+      }
     },
     {
       "id": "D024",
@@ -1186,7 +1269,10 @@
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "PARTIAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D025",
@@ -1237,7 +1323,10 @@
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "PARTIAL_VERIFIED",
-      "reopened": true
+      "reopened": true,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D026",
@@ -1282,7 +1371,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D027",
@@ -1330,7 +1422,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D028",
@@ -1378,7 +1473,10 @@
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D029",
@@ -1431,7 +1529,10 @@
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": true,
-      "verified_scope": "현재107 격리 DB 실제 SQL/PostgREST8그룹 통과. 독립 가상 프로필 fixture로 변경; 기존 seed 부재 및 QA 관리자 초대 만료 실패를 수정 후 검증. 운영/출처 검토와 구분."
+      "verified_scope": "현재107 격리 DB 실제 SQL/PostgREST8그룹 통과. 독립 가상 프로필 fixture로 변경; 기존 seed 부재 및 QA 관리자 초대 만료 실패를 수정 후 검증. 운영/출처 검토와 구분.",
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D030",
@@ -1478,7 +1579,10 @@
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D031",
@@ -1526,7 +1630,10 @@
       "status": "TESTED",
       "scope": "GATED",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D032",
@@ -1572,7 +1679,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D033",
@@ -1625,7 +1735,10 @@
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,
-      "verified_scope": "로컬 계약10건 + 실제 격리 Postgres/PostgREST5개 그룹(가상67/적격63), 세 정렬 다중 페이지·필터·권한·철회 통과. 운영/대규모 성능/브라우저 최종 배치는 별도."
+      "verified_scope": "로컬 계약10건 + 실제 격리 Postgres/PostgREST5개 그룹(가상67/적격63), 세 정렬 다중 페이지·필터·권한·철회 통과. 운영/대규모 성능/브라우저 최종 배치는 별도.",
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D034",
@@ -1673,7 +1786,10 @@
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D035",
@@ -1721,7 +1837,10 @@
       "status": "TESTED",
       "scope": "GATED",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D036",
@@ -1767,7 +1886,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D037",
@@ -1821,7 +1943,10 @@
       "scope": "ACTIVE",
       "prior_status": "IN_PROGRESS",
       "reopened": false,
-      "verified_scope": "109-source 실제 로컬 Auth/PostgREST/SQL7그룹: 본인 저장/재실행·CAS·해지/삭제·한도. 새 후보 알림은 미구현/미검증."
+      "verified_scope": "109-source 실제 로컬 Auth/PostgREST/SQL7그룹: 본인 저장/재실행·CAS·해지/삭제·한도. 새 후보 알림은 미구현/미검증.",
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D038",
@@ -1868,7 +1993,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D039",
@@ -1916,13 +2044,18 @@
         "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json",
         "harness/evidence/D039/ (이번 검증 기록 위치)",
-        "harness/evidence/D039/YOUTUBE_SCOPE_20261124.md"
+        "harness/evidence/D039/YOUTUBE_SCOPE_20261124.md",
+        "docs/production-readiness/REFACTOR_IMPACT.md"
       ],
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "IN_PROGRESS",
       "reopened": false,
-      "verified_scope": "결정론적 YouTube 자연어 조건 제안6 단위/desktop-mobile2 시나리오 통과. 부정·제외·OR·비지원 플랫폼 차단, 명시 확인/취소 및 실제 URL/필터 반영. 실제 LLM/provider 검증과 구분."
+      "verified_scope": "결정론적 YouTube 자연어 조건 제안6 단위/desktop-mobile2 시나리오 통과. 부정·제외·OR·비지원 플랫폼 차단, 명시 확인/취소 및 실제 URL/필터 반영. 실제 LLM/provider 검증과 구분.",
+      "operator_refactor_review": {
+        "decision": "UPDATE",
+        "acceptance_followup": "상품 조건은 explicit proposal 계약과 실제 공개 채널 흐름 회귀로 확인한다."
+      }
     },
     {
       "id": "D040",
@@ -1967,7 +2100,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D041",
@@ -2016,7 +2152,10 @@
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D042",
@@ -2076,7 +2215,10 @@
       "scope": "ACTIVE",
       "prior_status": "IN_PROGRESS",
       "reopened": false,
-      "verified_scope": "112-source 본인 전용 불변 첨부/active pointer/재시도·CAS·복원·복제 분리. API9+복제5, 실제 로컬DB/Storage9그룹, desktop/mobile4 시나리오 통과. 실제 정책/저작권·물리 정리/운영 별도."
+      "verified_scope": "112-source 본인 전용 불변 첨부/active pointer/재시도·CAS·복원·복제 분리. API9+복제5, 실제 로컬DB/Storage9그룹, desktop/mobile4 시나리오 통과. 실제 정책/저작권·물리 정리/운영 별도.",
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D043",
@@ -2125,7 +2267,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D044",
@@ -2176,7 +2321,10 @@
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,
-      "verified_scope": "현재 추천 폼의 hard/soft/unknown과 scorer1.2 연결, 결측 가중치·보류 적격·안전 숫자·정렬·HOT 독립성 포함39개 합성 단위/action/DTO 테스트 통과. 운영 및 SQL snapshot-v1 통합과 구분."
+      "verified_scope": "현재 추천 폼의 hard/soft/unknown과 scorer1.2 연결, 결측 가중치·보류 적격·안전 숫자·정렬·HOT 독립성 포함39개 합성 단위/action/DTO 테스트 통과. 운영 및 SQL snapshot-v1 통합과 구분.",
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D045",
@@ -2229,7 +2377,10 @@
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D046",
@@ -2274,7 +2425,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D047",
@@ -2327,7 +2481,10 @@
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "IN_PROGRESS",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D048",
@@ -2377,13 +2534,18 @@
         "harness/evidence/D048/QUEUE_PROVENANCE_20261123.md",
         "harness/evidence/DEV-A-REMAINING-20261123/README.md",
         "harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md",
-        "harness/evidence/D048/OWNED_OPERATION_20261124.md"
+        "harness/evidence/D048/OWNED_OPERATION_20261124.md",
+        "docs/production-readiness/REFACTOR_IMPACT.md"
       ],
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "PARTIAL_VERIFIED",
       "reopened": true,
-      "verified_scope": "공통 호환 어댑터11건: 취소 무시 provider 절대 응답 제한/늦은 결과 폐기·한도 실패/안전 usage·schema·PII·명시 template. 실제 모델/worker 통합과 별도."
+      "verified_scope": "공통 호환 어댑터11건: 취소 무시 provider 절대 응답 제한/늦은 결과 폐기·한도 실패/안전 usage·schema·PII·명시 template. 실제 모델/worker 통합과 별도.",
+      "operator_refactor_review": {
+        "decision": "UPDATE",
+        "acceptance_followup": "워커 로그 계약과 로컬 추론 검증을 PR-003과 연결한다. 운영 대기열 복구는 D086에 남긴다."
+      }
     },
     {
       "id": "D049",
@@ -2430,7 +2592,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D050",
@@ -2478,7 +2643,10 @@
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "IN_PROGRESS",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D051",
@@ -2529,7 +2697,10 @@
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D052",
@@ -2577,7 +2748,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D053",
@@ -2624,7 +2798,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D054",
@@ -2673,7 +2850,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": true
+      "reopened": true,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D055",
@@ -2724,7 +2904,10 @@
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "IN_PROGRESS",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D056",
@@ -2771,7 +2954,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D057",
@@ -2821,7 +3007,10 @@
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D058",
@@ -2866,7 +3055,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D059",
@@ -2915,7 +3107,10 @@
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D060",
@@ -2964,7 +3159,10 @@
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D061",
@@ -3009,7 +3207,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D062",
@@ -3058,7 +3259,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D063",
@@ -3107,7 +3311,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D064",
@@ -3157,7 +3364,10 @@
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D065",
@@ -3208,7 +3418,10 @@
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D066",
@@ -3260,7 +3473,10 @@
       "status": "BLOCKED",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D067",
@@ -3276,6 +3492,7 @@
       ],
       "code_files": [
         "src/app/api/billing/orders/route.ts",
+        "src/domains/billing/orders.server.ts",
         "src/app/api/billing/confirm/route.ts",
         "supabase/functions/payment-confirm/index.ts"
       ],
@@ -3284,6 +3501,7 @@
       "implementation": "서버 상품 가격/주문 소유권/고유 키/잠금/한 번만 entitlement 부여를 유지한다. 공급자 성공-DB 실패 복구 조회를 검증한다.",
       "change_files": [
         "src/app/api/billing/orders/route.ts",
+        "src/domains/billing/orders.server.ts",
         "src/app/api/billing/confirm/route.ts",
         "supabase/functions/payment-confirm/index.ts"
       ],
@@ -3306,12 +3524,19 @@
         "harness/evidence/D067/INDEPENDENT_20261122.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json",
-        "harness/evidence/D067/ (이번 검증 기록 위치)"
+        "harness/evidence/D067/ (이번 검증 기록 위치)",
+        "docs/production-readiness/REFACTOR_IMPACT.md"
       ],
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "IN_PROGRESS",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "UPDATE",
+        "moved_implementations": {
+          "src/app/api/billing/orders/route.ts": "src/domains/billing/orders.server.ts"
+        }
+      }
     },
     {
       "id": "D068",
@@ -3359,7 +3584,10 @@
       "status": "BLOCKED",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D069",
@@ -3406,7 +3634,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D070",
@@ -3453,7 +3684,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D071",
@@ -3502,7 +3736,10 @@
       "status": "IN_PROGRESS",
       "scope": "GATED",
       "prior_status": "IN_PROGRESS",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D072",
@@ -3548,7 +3785,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D073",
@@ -3598,7 +3838,10 @@
       "status": "BLOCKED",
       "scope": "ACTIVE",
       "prior_status": "BLOCKED_EXTERNAL",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D074",
@@ -3643,7 +3886,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D075",
@@ -3661,7 +3907,8 @@
       "code_files": [
         "supabase/migrations",
         "tests/security.mjs",
-        "src/lib/api.ts"
+        "src/lib/api.ts",
+        "src/shared/server/http.ts"
       ],
       "database": "profiles, ownership grants, auth sessions, Storage policies, private RPCs",
       "expected": "직접 DB API·SECURITY DEFINER·검색 경로·공개 DTO·테넌트 경계를 검사하고 최소권한을 적용한다.",
@@ -3669,7 +3916,8 @@
       "change_files": [
         "supabase/migrations",
         "tests/security.mjs",
-        "src/lib/api.ts"
+        "src/lib/api.ts",
+        "src/shared/server/http.ts"
       ],
       "new_files": [
         "기존 파일 및 계약 테스트 우선. 새 파일이 필요하면 담당자가 범위 확정"
@@ -3695,13 +3943,21 @@
         "harness/evidence/D075/permissions-109-20261123.json",
         "harness/evidence/DEV-A-REMAINING-20261123/README.md",
         "harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md",
-        "harness/evidence/D075/PRODUCT_OPERATION_20261124.md"
+        "harness/evidence/D075/PRODUCT_OPERATION_20261124.md",
+        "docs/production-readiness/REFACTOR_IMPACT.md"
       ],
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": true,
-      "verified_scope": "109-source 로컬98 RLS테이블/371함수/4비공개버킷 메타데이터와 core7·brand7·creator-read8·정규화storage9 그룹 통과. 기본 저장·서비스HOT 통합 결함 전진 수정. 함수 전수 행위/운영은 미완료.116 추가 상품 queue/owner/삭제·만료/결정 CAS/기존 텍스트 호환9그룹,113→116 원자 패킷/비어 있지 않은 이력 보존 및 fresh0→116 통과."
+      "verified_scope": "109-source 로컬98 RLS테이블/371함수/4비공개버킷 메타데이터와 core7·brand7·creator-read8·정규화storage9 그룹 통과. 기본 저장·서비스HOT 통합 결함 전진 수정. 함수 전수 행위/운영은 미완료.116 추가 상품 queue/owner/삭제·만료/결정 CAS/기존 텍스트 호환9그룹,113→116 원자 패킷/비어 있지 않은 이력 보존 및 fresh0→116 통과.",
+      "operator_refactor_review": {
+        "decision": "UPDATE",
+        "moved_implementations": {
+          "src/lib/api.ts": "src/shared/server/http.ts"
+        },
+        "acceptance_followup": "브랜드 타인 접근 거부 및 관리자 AAL2 증거를 분리한다."
+      }
     },
     {
       "id": "D076",
@@ -3751,7 +4007,10 @@
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D077",
@@ -3768,6 +4027,7 @@
       "code_files": [
         "next.config.ts",
         "src/lib/api.ts",
+        "src/shared/server/http.ts",
         "src/lib/uploads.ts"
       ],
       "database": "creators, storage.objects, upload reference; signed URL",
@@ -3776,6 +4036,7 @@
       "change_files": [
         "next.config.ts",
         "src/lib/api.ts",
+        "src/shared/server/http.ts",
         "src/lib/uploads.ts"
       ],
       "new_files": [
@@ -3794,12 +4055,19 @@
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D077/ (이번 검증 기록 위치)"
+        "harness/evidence/D077/ (이번 검증 기록 위치)",
+        "docs/production-readiness/REFACTOR_IMPACT.md"
       ],
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "UPDATE",
+        "moved_implementations": {
+          "src/lib/api.ts": "src/shared/server/http.ts"
+        }
+      }
     },
     {
       "id": "D078",
@@ -3817,6 +4085,7 @@
       "code_files": [
         "harness/secret_scan.py",
         "src/lib/api.ts",
+        "src/shared/server/http.ts",
         ".gitignore"
       ],
       "database": "profiles, ownership grants, auth sessions, Storage policies, private RPCs",
@@ -3825,6 +4094,7 @@
       "change_files": [
         "harness/secret_scan.py",
         "src/lib/api.ts",
+        "src/shared/server/http.ts",
         ".gitignore"
       ],
       "new_files": [
@@ -3843,12 +4113,19 @@
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D078/ (이번 검증 기록 위치)"
+        "harness/evidence/D078/ (이번 검증 기록 위치)",
+        "docs/production-readiness/REFACTOR_IMPACT.md"
       ],
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "UPDATE",
+        "moved_implementations": {
+          "src/lib/api.ts": "src/shared/server/http.ts"
+        }
+      }
     },
     {
       "id": "D079",
@@ -3896,7 +4173,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D080",
@@ -3945,7 +4225,10 @@
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D081",
@@ -3991,13 +4274,18 @@
         "harness/evidence/D081/README.md",
         "harness/evidence/DEV-A-CONTINUE-20261120B/verification.json",
         "harness/evidence/D081/VERIFY_20261121.md",
-        "harness/evidence/D081/ (이번 검증 기록 위치)"
+        "harness/evidence/D081/ (이번 검증 기록 위치)",
+        "docs/production-readiness/REFACTOR_IMPACT.md"
       ],
       "status": "VERIFIED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": false,
-      "verified_scope": "현재 운영 공개 홈, 실제 공개 채널 10개, 로고·데이터 출처 브라우저 검증 범위."
+      "verified_scope": "현재 운영 공개 홈, 실제 공개 채널 10개, 로고·데이터 출처 브라우저 검증 범위.",
+      "operator_refactor_review": {
+        "decision": "UPDATE",
+        "acceptance_followup": "기존 공개 브라우저 통과는 해당 배포 SHA에서 보존한다. 밝은 테마로 바뀐 운영 배포의 재검증은 D088에서 수행한다."
+      }
     },
     {
       "id": "D082",
@@ -4043,12 +4331,17 @@
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/D082/VERIFY_NEXT_20261121.md",
         "harness/evidence/DEV-A-P0-NEXT-20261121/verification.json",
-        "harness/evidence/D082/ (이번 검증 기록 위치)"
+        "harness/evidence/D082/ (이번 검증 기록 위치)",
+        "docs/production-readiness/REFACTOR_IMPACT.md"
       ],
       "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "UPDATE",
+        "acceptance_followup": "밝은 공통 표면·홈 모션·모바일 가격 CTA를 격리 환경에서 검증한다."
+      }
     },
     {
       "id": "D083",
@@ -4098,7 +4391,10 @@
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "D084",
@@ -4150,12 +4446,17 @@
         "harness/evidence/D084/FRESH_113_20261123.md",
         "harness/evidence/DEV-A-REMAINING-20261123/README.md",
         "harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md",
-        "harness/evidence/DEV-A-PRODUCT-CONDITIONS-20261124/verification.json"
+        "harness/evidence/DEV-A-PRODUCT-CONDITIONS-20261124/verification.json",
+        "docs/production-readiness/REFACTOR_IMPACT.md"
       ],
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "IN_PROGRESS",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "UPDATE",
+        "acceptance_followup": "빈 로컬 DB의 116개 적용과 운영 업그레이드의 별도 증거를 요구한다."
+      }
     },
     {
       "id": "D085",
@@ -4202,12 +4503,17 @@
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D085/ (이번 검증 기록 위치)"
+        "harness/evidence/D085/ (이번 검증 기록 위치)",
+        "docs/production-readiness/REFACTOR_IMPACT.md"
       ],
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "UPDATE",
+        "acceptance_followup": "운영·프리뷰 격리, 백업·복구를 호환성 승인 전에 검증한다."
+      }
     },
     {
       "id": "D086",
@@ -4251,12 +4557,17 @@
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D086/ (이번 검증 기록 위치)"
+        "harness/evidence/D086/ (이번 검증 기록 위치)",
+        "docs/production-readiness/REFACTOR_IMPACT.md"
       ],
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "UPDATE",
+        "acceptance_followup": "실모델 재시작과 내구성 큐 재처리·임대 만료를 따로 검증한다."
+      }
     },
     {
       "id": "D087",
@@ -4302,12 +4613,17 @@
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
         "docs/AUTH_PROVIDER_EXECUTION.md",
-        "harness/evidence/D087/ (이번 검증 기록 위치)"
+        "harness/evidence/D087/ (이번 검증 기록 위치)",
+        "docs/production-readiness/REFACTOR_IMPACT.md"
       ],
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "PARTIAL_VERIFIED",
-      "reopened": true
+      "reopened": true,
+      "operator_refactor_review": {
+        "decision": "UPDATE",
+        "acceptance_followup": "운영 스키마/마이그레이션 번호 매핑·복구를 승인 전에 검증한다."
+      }
     },
     {
       "id": "D088",
@@ -4362,12 +4678,17 @@
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D088/ (이번 검증 기록 위치)"
+        "harness/evidence/D088/ (이번 검증 기록 위치)",
+        "docs/production-readiness/REFACTOR_IMPACT.md"
       ],
       "status": "TODO",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "UPDATE",
+        "acceptance_followup": "공개 URL의 역할별 흐름과 모바일, 새 밝은 화면 및 모션을 운영 적용 후 재확인한다."
+      }
     },
     {
       "id": "U001",
@@ -5098,7 +5419,8 @@
       "blockers": "공개 도메인 TLS 및 www→apex 이동을 확인했다.",
       "evidence": [
         "docs/handoff/COMPLETION_AUDIT_20261123.md",
-        "docs/production-readiness/EXTERNAL_ACTIONS.md"
+        "docs/production-readiness/EXTERNAL_ACTIONS.md",
+        "docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
       ],
       "status": "VERIFIED",
       "scope": "ACTIVE",
@@ -5302,7 +5624,10 @@
       "scope": "ACTIVE",
       "prior_status": null,
       "reopened": false,
-      "verified_scope": "116-source 격리 소유 상품→기존 예산 큐→검토/확인·거부→명시적 검색. 실제 로컬 SQL/REST와 합성 모델 결과; desktop/mobile 각1 시나리오. 실제 모델/운영 수용은 미검증."
+      "verified_scope": "116-source 격리 소유 상품→기존 예산 큐→검토/확인·거부→명시적 검색. 실제 로컬 SQL/REST와 합성 모델 결과; desktop/mobile 각1 시나리오. 실제 모델/운영 수용은 미검증.",
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "PR-002",
@@ -5359,7 +5684,10 @@
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": null,
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "PR-003",
@@ -5407,7 +5735,8 @@
         "harness/evidence/PR-003/ (신규 검증 기록 위치)",
         "harness/evidence/PR-003/TRANSPORT_20261123.md",
         "harness/evidence/DEV-A-REMAINING-20261123/README.md",
-        "harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md"
+        "harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md",
+        "docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
       ],
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
@@ -5471,7 +5800,10 @@
       "status": "BLOCKED",
       "scope": "GATED",
       "prior_status": null,
-      "reopened": false
+      "reopened": false,
+      "operator_refactor_review": {
+        "decision": "KEEP"
+      }
     },
     {
       "id": "U021",
@@ -5576,7 +5908,7 @@
       "owner": "OPERATOR",
       "execution_track": "WEB_DESIGN",
       "points": null,
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "reopened": false,
       "problem": "기존 시각 감사와 화면 개선을 바탕으로 운영자가 변경할 디자인의 범위·우선순위·승인 기준을 명시해야 한다.",
@@ -5611,11 +5943,13 @@
       "security": "시안·캡처에 개인 QA 데이터와 비밀 설정을 넣지 않는다. TEST 고지, 스폰서 표식, 출처 문구, 권한 실패 안내를 확인한다.",
       "tests": "390px과 1440px에서 공개/로그인 상태, 주요 CTA와 로딩/빈/오류 화면을 비교한다. 키보드 포커스와 명암비의 개발자 회귀 결과를 인수한다.",
       "acceptance": "시안과 적용 범위가 확인되고 담당 개발자·프리뷰 URL·캡처·승인 결과가 하나의 기록으로 연결된다.",
-      "blockers": "승인할 새 시안이나 변경 범위가 정해져야 한다. 기존 결함 및 접근성 회귀는 개발자가 병렬로 진행할 수 있다.",
+      "blockers": "밝은 UI 및 모션의 로컬 검증과 별도로 운영 디자인 확인 및 운영 릴리스 승인이 필요하다.",
       "evidence": [
         "docs/design/visual-audit.md",
-        "harness/evidence/VISUAL-REDESIGN-20261123/verification.json"
+        "harness/evidence/VISUAL-REDESIGN-20261123/verification.json",
+        "docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
       ]
     }
-  ]
+  ],
+  "operator_reconciliation_baseline": "2a1764e3001f982668e5314bd0dce87811678fa7"
 }

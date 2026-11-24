@@ -1,0 +1,290 @@
+{
+  "PR-003": {
+    "state": "IN_PROGRESS",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": [
+      "D048",
+      "D086"
+    ]
+  },
+  "U016": {
+    "state": "GATED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": []
+  },
+  "U002": {
+    "state": "BLOCKED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": []
+  },
+  "U003": {
+    "state": "BLOCKED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": []
+  },
+  "U004": {
+    "state": "BLOCKED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": [
+      "D085",
+      "D087"
+    ]
+  },
+  "U005": {
+    "state": "BLOCKED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": [
+      "U004"
+    ]
+  },
+  "U008": {
+    "state": "BLOCKED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": []
+  },
+  "U018": {
+    "state": "BLOCKED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": []
+  },
+  "U017": {
+    "state": "VERIFIED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": []
+  },
+  "U006": {
+    "state": "BLOCKED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": [
+      "D003"
+    ]
+  },
+  "U007": {
+    "state": "BLOCKED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": []
+  },
+  "U009": {
+    "state": "BLOCKED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": []
+  },
+  "U015": {
+    "state": "BLOCKED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": []
+  },
+  "U010": {
+    "state": "GATED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": []
+  },
+  "U011": {
+    "state": "GATED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": []
+  },
+  "O001": {
+    "state": "IN_PROGRESS",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": [
+      "D081"
+    ]
+  },
+  "U001": {
+    "state": "BLOCKED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": []
+  },
+  "U014": {
+    "state": "BLOCKED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": []
+  },
+  "U019": {
+    "state": "BLOCKED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": [
+      "U015"
+    ]
+  },
+  "U020": {
+    "state": "BLOCKED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": [
+      "D088",
+      "U001",
+      "U014"
+    ]
+  },
+  "U021": {
+    "state": "GATED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": [
+      "U001"
+    ]
+  },
+  "U022": {
+    "state": "GATED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": [
+      "U021"
+    ]
+  },
+  "U012": {
+    "state": "ARCHIVED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": []
+  },
+  "U013": {
+    "state": "ARCHIVED",
+    "evidence": [
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ],
+    "canonical_dependencies": []
+  },
+  "R01": {
+    "state": "VERIFIED",
+    "evidence": [
+      "../evidence/OPERATOR-20261124/verification.json",
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ]
+  },
+  "R03": {
+    "state": "VERIFIED",
+    "evidence": [
+      "../evidence/OPERATOR-20261124/verification.json",
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ]
+  },
+  "R04": {
+    "state": "VERIFIED",
+    "evidence": [
+      "../evidence/OPERATOR-20261124/verification.json",
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ]
+  },
+  "R09": {
+    "state": "VERIFIED",
+    "evidence": [
+      "../evidence/OPERATOR-20261124/verification.json",
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ]
+  },
+  "R12": {
+    "state": "VERIFIED",
+    "evidence": [
+      "../evidence/OPERATOR-20261124/verification.json",
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ]
+  },
+  "R02": {
+    "state": "IN_PROGRESS",
+    "evidence": [
+      "../evidence/OPERATOR-20261124/verification.json",
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ]
+  },
+  "R05": {
+    "state": "IN_PROGRESS",
+    "evidence": [
+      "../evidence/OPERATOR-20261124/verification.json",
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ]
+  },
+  "R06": {
+    "state": "IN_PROGRESS",
+    "evidence": [
+      "../evidence/OPERATOR-20261124/verification.json",
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ]
+  },
+  "R07": {
+    "state": "IN_PROGRESS",
+    "evidence": [
+      "../evidence/OPERATOR-20261124/verification.json",
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ]
+  },
+  "R08": {
+    "state": "IN_PROGRESS",
+    "evidence": [
+      "../evidence/OPERATOR-20261124/verification.json",
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ]
+  },
+  "R10": {
+    "state": "IN_PROGRESS",
+    "evidence": [
+      "../evidence/OPERATOR-20261124/verification.json",
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ]
+  },
+  "R11": {
+    "state": "IN_PROGRESS",
+    "evidence": [
+      "../evidence/OPERATOR-20261124/verification.json",
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ]
+  },
+  "R13": {
+    "state": "IN_PROGRESS",
+    "evidence": [
+      "../evidence/OPERATOR-20261124/verification.json",
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ]
+  },
+  "R14": {
+    "state": "IN_PROGRESS",
+    "evidence": [
+      "../evidence/OPERATOR-20261124/verification.json",
+      "../../docs/production-readiness/OPERATOR_EXECUTION_20261124.md"
+    ]
+  }
+}

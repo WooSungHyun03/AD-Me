@@ -1,0 +1,53 @@
+{
+  "date_kst": "2026-11-24",
+  "source": "2f5d1d14358e26ce66c21f4bd248d6c29ec06974",
+  "baseline_main": "2a1764e3001f982668e5314bd0dce87811678fa7",
+  "production": {
+    "deployment": "dpl_G3S8oSBWEEadE4dShsgjKHjKa854",
+    "migration_ledger_count": 41,
+    "latest_product_rpc_count": 0,
+    "release": "NO_GO"
+  },
+  "preview": {
+    "deployment": "dpl_GGbUBb2vL6ExAbVv5UQtVDBkH6EN",
+    "url": "https://ad-dginyfh7j-sunghyuns-projects-da008879.vercel.app",
+    "state": "READY",
+    "supabase": "disabled by preview-only placeholder settings"
+  },
+  "local": {
+    "migrations": 116,
+    "last_migration": "20261124022829",
+    "unit": 506,
+    "python": 43,
+    "focused_browser_pass": 10,
+    "initial_broader_browser": {
+      "passed": 10,
+      "failed": 20
+    },
+    "product_security_pass": 9,
+    "routes": 54,
+    "playwright_view_checks": 180,
+    "route_templates": 50,
+    "axe_focused_public_violations": 0,
+    "graph": {
+      "files": 315,
+      "cycles": 0,
+      "violations": 0
+    }
+  },
+  "model": {
+    "model": "qwen3:1.7b-q4_K_M",
+    "embed_dimensions": 768,
+    "samples": 30,
+    "success": 30,
+    "p50_ms": 1321,
+    "p95_ms": 2409,
+    "failure_rate": 0.0,
+    "simultaneous_requests": [
+      "success",
+      "MODEL_BUSY"
+    ],
+    "isolated_shutdown": "MODEL_UNAVAILABLE",
+    "isolated_restart": "success"
+  }
+}
