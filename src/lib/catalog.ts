@@ -268,7 +268,22 @@ const SIM_LABELS = {
   vibes: "분위기",
   platforms: "플랫폼",
 } as const;
-export function similarCreators(target: Creator, list: Creator[], n = 3) {
+// Only public tag fields are read, so the public catalog DTO and full fixtures both qualify.
+type SimilarInput = Pick<
+  Creator,
+  | "seed_id"
+  | "name"
+  | "categories"
+  | "formats"
+  | "vibes"
+  | "platforms"
+  | "is_demo"
+> & { published?: boolean; data_source?: string };
+export function similarCreators<T extends SimilarInput>(
+  target: T,
+  list: T[],
+  n = 3,
+) {
   return (
     list
       .filter(

@@ -8,7 +8,7 @@ import { MetricHistory } from "@/components/metric-history";
 import { PublicReviewRecords } from "@/components/public-review-records";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
-import { rank } from "@/lib/catalog";
+import { similarCreators } from "@/lib/catalog";
 import { publicCreators, publicCreator } from "@/lib/data";
 import { PublicProfileLinks } from "@/components/public-profile-links";
 import {
@@ -76,17 +76,9 @@ export default async function Detail({
       : [];
   const social = normalizeSocialLink(c.social_url);
   const portfolio = safeHttpsLink(c.portfolio_url);
-  const similar = rank(
-    {
-      category: c.categories[0],
-      vibes: c.vibes,
-      format: c.formats[0],
-      budget_krw: c.price_max_krw ?? 0, // 견적 미확인: no budget signal
-    },
-    creators,
-  )
-    .filter((r) => r.creatorId !== id)
-    .slice(0, 3);
+  // D032: similar profiles by shared public tags only (category 3 · format 2 · vibe/platform 1); demo and
+  // real profiles never mix and followers/price are not used.
+  const similar = similarCreators(c, creators);
   return (
     <section className="figma-width figma-creator-profile">
       <Link href="/creators" className="muted">
@@ -198,21 +190,38 @@ export default async function Detail({
           >
             자료 정정·이슈 신고
           </Link>
+          <Link
+            className="button outline small"
+            href={`/reports/new?creator=${encodeURIComponent(id)}&kind=deletion`}
+          >
+            이 프로필 삭제 요청
+          </Link>
           <h3 style={{ marginTop: 35 }}>비슷한 분위기의 크리에이터</h3>
-          {similar.map((r) => (
-            <Link
-              className="result"
-              key={r.creatorId}
-              href={`/creators/${r.creatorId}`}
-            >
-              <span>↗</span>
-              <div>
-                <strong>{r.creator.name}</strong>
-                <p style={{ margin: 0 }}>{r.matchedTags.join(" · ")}</p>
-              </div>
-              <span>{r.score}점</span>
-            </Link>
-          ))}
+          <p style={{ fontSize: 12, color: "var(--muted)" }}>
+            공개 프로필의 태그가 겹치는 정도로만 고르며, 분야(3) · 형식(2) ·
+            분위기·플랫폼(1) 가중치 순으로 정렬합니다.{" "}
+            {c.is_demo ? "가상 프로필끼리만" : "가상 프로필은 제외하고"}{" "}
+            보여주며, 팔로워·가격·인구통계는 기준에 쓰지 않습니다.
+          </p>
+          {!similar.length && <p>겹치는 태그가 있는 공개 프로필이 없습니다.</p>}
+          <div data-testid="similar">
+            {similar.map((r) => (
+              <Link
+                className="result"
+                key={r.creator.seed_id}
+                href={`/creators/${encodeURIComponent(r.creator.seed_id)}`}
+              >
+                <span>↗</span>
+                <div>
+                  <strong>{r.creator.name}</strong>
+                  <p style={{ margin: 0 }}>
+                    공통 태그: {r.reasons.join(" · ")}
+                  </p>
+                </div>
+                <span>{r.reasons.length}개 겹침</span>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </section>
