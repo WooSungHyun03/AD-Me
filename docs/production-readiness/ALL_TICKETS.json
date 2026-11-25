@@ -1686,13 +1686,14 @@
       "acceptance": "파일 크기·실제 MIME·경로·접근권한·삭제를 검증하고 권리 있는 파일만 업로드한다.",
       "points": 5,
       "owner": "DEV-B",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "운영 Storage 정책 적용·실환경 업로드 검증은 U004/U006 전까지 BLOCKED.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D027/ (이번 검증 기록 위치)"
+        "harness/evidence/D027/ (이번 검증 기록 위치)",
+        "harness/evidence/D027/20261125/README.md"
       ],
-      "status": "TODO",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,
@@ -1717,7 +1718,8 @@
           "label": "03 · 크리에이터 프로필 / Mobile",
           "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420"
         }
-      ]
+      ],
+      "verified_scope": "2026-11-25 main f2bcd3d 격리 로컬 빈 DB: 위장 HTML·SVG 거부, magic/확장자/5MB, 소유자 전용 짧은 서명 URL, 타 계정·익명 거부, 덮어쓰기·직접 쓰기 거부, 삭제·고아 sweep — REST PASS, E2E desktop/mobile 2/2. 운영 미검증."
     },
     {
       "id": "D028",

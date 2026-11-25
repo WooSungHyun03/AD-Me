@@ -33,7 +33,7 @@ test("private portfolio upload, download, isolation and delete", async ({
   page,
   browser,
   request,
-}) => {
+}, info) => {
   expect((await request.post("/api/uploads")).status()).toBe(401);
   const email = `adme-qa-d027ui-${randomUUID().slice(0, 8)}@example.com`,
     password = randomUUID() + "Aa!";
@@ -44,7 +44,9 @@ test("private portfolio upload, download, isolation and delete", async ({
   ).auth.signUp({
     email,
     password,
-    options: { data: { ...qaSignupConsent, role: "creator", name: "D027 크리에이터" } },
+    options: {
+      data: { ...qaSignupConsent, role: "creator", name: "D027 크리에이터" },
+    },
   });
   await login(page, email, password);
   await page.goto("/settings");
@@ -61,7 +63,9 @@ test("private portfolio upload, download, isolation and delete", async ({
   });
   await rights.check();
   await submit.click();
-  await expect(page.getByText("허용된 이미지·PDF 형식이 아닙니다")).toBeVisible();
+  await expect(
+    page.getByText("허용된 이미지·PDF 형식이 아닙니다"),
+  ).toBeVisible();
   // SVG is refused by extension.
   await file.setInputFiles({
     name: "logo.svg",
@@ -82,6 +86,10 @@ test("private portfolio upload, download, isolation and delete", async ({
     .getByTestId("upload-item")
     .filter({ hasText: "포트폴리오.png" });
   await expect(item).toBeVisible();
+  if (process.env.ADME_EVIDENCE_DIR)
+    await item.screenshot({
+      path: `${process.env.ADME_EVIDENCE_DIR}/upload-item-${info.project.name}.png`,
+    });
   const [download] = await Promise.all([
     page.waitForEvent("download"),
     item.getByRole("button", { name: "내려받기" }).click(),

@@ -1,0 +1,12 @@
+
+Running 2 tests using 1 worker
+
+[1/2] [desktop] › tests\e2e\uploads.spec.ts:32:1 › private portfolio upload, download, isolation and delete
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[2/2] [mobile] › tests\e2e\uploads.spec.ts:32:1 › private portfolio upload, download, isolation and delete
+  2 passed (18.6s)

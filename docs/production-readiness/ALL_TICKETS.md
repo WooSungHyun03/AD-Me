@@ -596,7 +596,7 @@ DEV-B · P0 · S0 출시 차단 · SECURITY · IN_PROGRESS · 5 SP · ACTIVE
 
 ## D027 · 안전한 이미지·포트폴리오 업로드
 
-DEV-B · P0 · S0 출시 차단 · SECURITY · TODO · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · SECURITY · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 파일 크기·실제 MIME·경로·접근권한·삭제를 검증하고 권리 있는 파일만 업로드한다.
 - **재현·관찰** — /settings · /api/uploads에서 먼저 위장 파일·다른 소유자 다운로드·고아 파일 정리 테스트을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/lib/uploads.ts, src/components/profile-form.tsx, supabase/migrations.
@@ -612,9 +612,10 @@ DEV-B · P0 · S0 출시 차단 · SECURITY · TODO · 5 SP · ACTIVE
 - **보안** — HTML/SVG 등 실행 가능 파일은 안전한 처리 전략 없으면 차단한다. private 파일을 public bucket으로 우회하지 않는다.
 - **검증** — 위장 파일·다른 소유자 다운로드·고아 파일 정리 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 파일 크기·실제 MIME·경로·접근권한·삭제를 검증하고 권리 있는 파일만 업로드한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D027/ (이번 검증 기록 위치)
+- **차단 요인** — 운영 Storage 정책 적용·실환경 업로드 검증은 U004/U006 전까지 BLOCKED.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D027/ (이번 검증 기록 위치) · harness/evidence/D027/20261125/README.md
 - **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420)
+- **검증 범위** — 2026-11-25 main f2bcd3d 격리 로컬 빈 DB: 위장 HTML·SVG 거부, magic/확장자/5MB, 소유자 전용 짧은 서명 URL, 타 계정·익명 거부, 덮어쓰기·직접 쓰기 거부, 삭제·고아 sweep — REST PASS, E2E desktop/mobile 2/2. 운영 미검증.
 - **이전 기록** — OPEN
 
 ## D028 · SNS 링크·공식 임베드·공유
