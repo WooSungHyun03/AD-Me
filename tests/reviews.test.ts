@@ -68,6 +68,59 @@ it("preserves legacy reports fields, defaults to an unverified claim and keeps o
     p_payload: { ...payload, evidenceKind: "claim" },
   });
 });
+it("routes D058 request kinds to the private request queue with a ticket number", async () => {
+  state.rpc.mockResolvedValue({
+    data: [
+      { id, ticket_no: "ADR-261126-00001", due_at: "2026-12-06T00:00:00Z" },
+    ],
+    error: null,
+  });
+  const res = await SUBMIT(
+    request("/api/reports", {
+      kind: "correction",
+      creatorId: "pub-ref",
+      reason: payload.reason,
+      sourceUrl: payload.sourceUrl,
+    }),
+  );
+  expect(res.status).toBe(201);
+  expect(await res.json()).toEqual({
+    ok: true,
+    id,
+    ticketNo: "ADR-261126-00001",
+    dueAt: "2026-12-06T00:00:00Z",
+  });
+  expect(state.rpc).toHaveBeenCalledExactlyOnceWith("submit_report", {
+    p_kind: "correction",
+    p_creator: "pub-ref",
+    p_reason: payload.reason,
+    p_source_url: payload.sourceUrl,
+    p_parent: null,
+  });
+  state.rpc.mockReset();
+  for (const bad of [
+    { kind: "appeal", reason: payload.reason },
+    { kind: "report", reason: payload.reason },
+    { kind: "correction", creatorId: "x", reason: payload.reason, extra: 1 },
+  ])
+    expect((await SUBMIT(request("/api/reports", bad))).status).toBe(422);
+  expect(state.rpc).not.toHaveBeenCalled();
+  state.rpc.mockResolvedValue({
+    data: null,
+    error: { code: "P0001", message: "duplicate_open" },
+  });
+  expect(
+    (
+      await SUBMIT(
+        request("/api/reports", {
+          kind: "deletion",
+          creatorId: "pub-ref",
+          reason: payload.reason,
+        }),
+      )
+    ).status,
+  ).toBe(409);
+});
 it("rejects score/publication injection and credential sources before persistence", async () => {
   for (const extra of [
     { riskScore: 100 },

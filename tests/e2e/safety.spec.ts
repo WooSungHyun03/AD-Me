@@ -151,32 +151,34 @@ test("admin temporary restriction, creator appeal, admin lift", async ({
   const b = await fresh("brand"),
     c = await fresh("creator");
   await proposal(b, c);
-  const ticket = (
+  // Unique per run: the shared admin list keeps restrictions from earlier runs.
+  const why = `사칭 확인 후 7일 연락 제한 ${randomUUID().slice(0, 6)}`;
+  const reportId = (
     await b.db.rpc("submit_report", {
       p_kind: "impersonation",
       p_creator: c.cid,
       p_reason: "다른 크리에이터를 사칭하고 있습니다.",
       p_source_url: "https://example.com/real-channel",
     })
-  ).data[0].ticket_no as string;
+  ).data[0].id as string;
   const ac = await browser.newContext();
   const ap = await ac.newPage();
   await login(ap, accounts.admin.email, accounts.admin.password);
   await verifyAdminOtp(ap, accounts.admin.totpSecret);
+  // D058/D062: the open report is found through the D060 operations search (reports scope).
   await ap.goto("/admin");
-  const item = ap.getByTestId("admin-report").filter({ hasText: ticket });
-  await expect(item).toContainText("사칭 신고");
-  await expect(item.getByRole("button", { name: "7일 연락 제한" })).toHaveCount(
-    0,
-  ); // only after a human starts review
-  await item.getByRole("button", { name: "검토 시작" }).click();
-  await item.getByLabel(/연락 제한 사유/).fill("사칭 확인 후 7일 연락 제한");
+  await ap.getByLabel("운영 검색 대상").selectOption("reports");
+  await ap.getByLabel("운영 검색어").fill(reportId);
+  await ap.getByLabel("조회 사유").fill("D062 사칭 신고 연락 제한 검토");
+  await ap.getByRole("button", { name: "운영 검색" }).click();
+  const item = ap.getByTestId("admin-record").filter({ hasText: reportId });
+  await item.getByLabel(/연락 제한 사유/).fill(why);
   await item.getByRole("button", { name: "7일 연락 제한" }).click();
   await expect(item.getByText("7일 연락 제한을 적용했습니다.")).toBeVisible();
 
   await login(page, c.email, c.password);
   const notice = page.getByTestId("restriction");
-  await expect(notice).toContainText("사칭 확인 후 7일 연락 제한");
+  await expect(notice).toContainText(why);
   await notice
     .getByLabel("이의신청 사유")
     .fill("공식 채널 링크로 본인임을 증명할 수 있습니다.");
@@ -184,17 +186,13 @@ test("admin temporary restriction, creator appeal, admin lift", async ({
   await expect(notice).toContainText("이의신청 접수됨");
 
   await ap.reload();
-  const r = ap
-    .getByTestId("admin-restriction")
-    .filter({ hasText: "사칭 확인 후 7일 연락 제한" });
+  const r = ap.getByTestId("admin-restriction").filter({ hasText: why });
   await expect(r).toContainText(
     "공식 채널 링크로 본인임을 증명할 수 있습니다.",
   );
   await r.getByRole("button", { name: "제한 해제" }).click();
   await expect(
-    ap
-      .getByTestId("admin-restriction")
-      .filter({ hasText: "사칭 확인 후 7일 연락 제한" }),
+    ap.getByTestId("admin-restriction").filter({ hasText: why }),
   ).toHaveCount(0);
   await page.reload();
   await expect(page.getByTestId("restriction")).toHaveCount(0);

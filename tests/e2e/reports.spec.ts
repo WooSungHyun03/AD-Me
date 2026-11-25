@@ -56,6 +56,7 @@ test("private request → admin answer → requester status and appeal", async (
     .getByLabel("확인 가능한 출처 URL")
     .fill("https://example.com/qa-correction");
   await page.getByRole("button", { name: "비공개로 요청하기" }).click();
+  await expect(page.getByRole("status")).toContainText("접수번호");
   const ticket = (await page.getByRole("status").innerText()).match(
     /ADR-\d{6}-\d{5}/,
   )![0];
@@ -69,17 +70,20 @@ test("private request → admin answer → requester status and appeal", async (
   const ap = await ac.newPage();
   await login(ap, accounts.admin.email, accounts.admin.password);
   await verifyAdminOtp(ap, accounts.admin.totpSecret);
+  // D058 requests are handled from the D060 operations search (reports scope) by request id.
+  const reportId = (await mine.getAttribute("data-report-id"))!;
   await ap.goto("/admin");
-  const item = ap.getByTestId("admin-report").filter({ hasText: ticket });
-  await expect(item).toContainText("정보 정정");
-  await item.getByRole("button", { name: "처리 완료" }).click();
-  await expect(item.getByRole("alert")).toContainText("답변");
+  await ap.getByLabel("운영 검색 대상").selectOption("reports");
+  await ap.getByLabel("운영 검색어").fill(reportId);
+  await ap.getByLabel("조회 사유").fill("D058 정정 요청 처리 검증");
+  await ap.getByRole("button", { name: "운영 검색" }).click();
+  const item = ap.getByTestId("admin-record").filter({ hasText: reportId });
+  await expect(item).toContainText("pending");
   await item
-    .getByLabel("요청자에게 보낼 답변")
+    .getByLabel("신고 검토 사유")
     .fill("확인 후 분야 표기를 정정했습니다.");
-  await item.getByRole("button", { name: "처리 완료" }).click();
-  await expect(item.getByText("처리 완료", { exact: true })).toBeVisible();
-  await expect(item.getByRole("button", { name: "처리 완료" })).toHaveCount(0);
+  await item.getByRole("button", { name: "검토 완료" }).click();
+  await expect(item).toContainText("resolved");
 
   await page.reload();
   await expect(

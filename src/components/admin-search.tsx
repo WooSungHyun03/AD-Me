@@ -9,6 +9,7 @@ import {
 import type { z } from "zod";
 import { Moderate } from "./moderate";
 import { AdminReview } from "./admin-review";
+import { AdminRestrict } from "./safety";
 const subscribe = () => () => {};
 export function AdminSearch({ role }: { role: string }) {
   const interactive = useSyncExternalStore(
@@ -182,6 +183,13 @@ export function AdminSearch({ role }: { role: string }) {
               {role === "super" && page.kind === "reports" && (
                 <AdminReview id={r.id} onChanged={() => void search()} />
               )}
+              {/* D062: temporary contact restriction for a report under review; restrict_contact
+                  re-checks the admin, the open status and that the profile has an account. */}
+              {role === "super" &&
+                page.kind === "reports" &&
+                ["pending", "in_review"].includes(r.status) && (
+                  <AdminRestrict reportId={r.id} />
+                )}
             </article>
           ))}
           {page.nextCursor && (
