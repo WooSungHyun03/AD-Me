@@ -77,4 +77,12 @@ it("D037 alert text states the count and never claims a proposal", async () => {
       due_at: "2027-03-01T15:00:00.000Z", // KST midnight crosses the date
     }),
   ).toBe("게시 마감이 24시간 안에 다가옵니다 · 3월 2일 00:00 (KST)");
+  expect(
+    notificationText({
+      kind: "deadline",
+      status: "recruitment",
+      new_count: null,
+      due_at: "2027-03-01T03:30:00.000Z",
+    }),
+  ).toBe("모집 마감이 24시간 안에 다가옵니다 · 3월 1일 12:30 (KST)");
 });

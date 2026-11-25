@@ -38,7 +38,9 @@ export default async function Notifications() {
                 href={
                   n.proposal_id
                     ? `/dashboard#proposal-${n.proposal_id}`
-                    : "/saved-searches"
+                    : n.campaign_id
+                      ? `/campaigns/${n.campaign_id}`
+                      : "/saved-searches"
                 }
               >
                 {notificationText(n)}

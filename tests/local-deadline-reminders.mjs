@@ -145,6 +145,34 @@ try {
   await new Promise((r) => holder.on("exit", r));
   assert.equal(scan(), 2);
   groups++;
+  // 10. Recruitment close (earlier of terms end and recruit_until) reminds the campaign owner only.
+  const recruitment = (user = null) =>
+    sql(`begin; ${user ? `set local role authenticated; select set_config('request.jwt.claims','{"sub":"${user}","role":"authenticated"}',true);` : ""}
+      select coalesce(string_agg(to_char(due_at at time zone 'UTC','HH24'),',' order by due_at),'') from public.notifications
+      where campaign_id='${campaign}' and kind='deadline' and status='recruitment'; rollback;`)
+      .split("\n")
+      .at(-2);
+  const recruit = (end, until = "null") =>
+    sql(`set session_replication_role=replica; update public.campaigns
+      set brief=jsonb_set(brief,'{terms,recruitment,end}',to_jsonb('${end}'::text)),recruit_until=${until} where id='${campaign}';`);
+  recruit(at(12));
+  scan();
+  assert.equal(recruitment(), "12");
+  recruit(at(12), `'${at(6)}'`); // an earlier recruit_until is the effective close
+  scan();
+  scan();
+  assert.equal(recruitment(), "06,12");
+  assert.deepEqual(
+    [recruitment(brand), recruitment(creator), recruitment(other)],
+    ["06,12", "", ""],
+  );
+  sql(
+    `set session_replication_role=replica; update public.campaigns set status='closed' where id='${campaign}';`,
+  );
+  recruit(at(20));
+  scan();
+  assert.equal(recruitment(), "06,12", "closed campaigns get no reminder");
+  groups++;
   // 9. Deleting the collaboration removes its reminders.
   // Normal role: replica mode would also skip the FK cascade under test.
   sql(`delete from public.proposals where id='${proposal}';`);

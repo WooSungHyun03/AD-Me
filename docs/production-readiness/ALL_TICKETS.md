@@ -1253,7 +1253,7 @@ DEV-B · P0 · S0 출시 차단 · MARKETPLACE · IN_PROGRESS · 5 SP · ACTIVE
 
 ## D055 · 일정·마일스톤·지연 알림
 
-DEV-A · P1 · S1 주요 부족 · MARKETPLACE · IN_PROGRESS · 5 SP · ACTIVE
+DEV-A · P1 · S1 주요 부족 · MARKETPLACE · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 IN_PROGRESS이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 캠페인·협업별 마감·타임존·캘린더·리마인더를 제공한다.
 - **재현·관찰** — /dashboard에서 먼저 시간 경계·일정 변경·중복 알림 테스트을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/app/dashboard/page.tsx, src/lib/schedules.ts.
@@ -1269,8 +1269,8 @@ DEV-A · P1 · S1 주요 부족 · MARKETPLACE · IN_PROGRESS · 5 SP · ACTIVE
 - **보안** — 외부 calendar 연동 없이 내부 달력과 기한 필터부터 완주한다.
 - **검증** — 시간 경계·일정 변경·중복 알림 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 캠페인·협업별 마감·타임존·캘린더·리마인더를 제공한다.
-- **차단 요인** — 기존 private calendar/일정 계약과 B D052 milestone/지연 event cursor·outbox·opt-in·중복·해지·삭제 통합 필요. 운영 알림 전달은 미검증. 2026-11-25: 진행 중 협업의 제작·게시 마감 24시간 전 인앱 리마인더(양측 1회, 기한 변경 시 재알림, 중복·동시 실행 방지, KST 표시) 구현 — 복제 DB 9그룹·브라우저 desktop/mobile PASS. 남음: 모집 마감(캠페인 단위)·기한 필터, 이메일 D053, 운영 마이그레이션 승인. 2026-11-25: 기한 변경 이력(추가 전용, 트리거 기록, 소유자·협업 당사자만 열람, KST 표시) 구현 — 복제 DB 6그룹·브라우저 desktop/mobile PASS. 남음: 모집 마감 리마인더·기한 필터·이메일, 운영 마이그레이션 승인(#27).
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D055/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D055/ (이번 검증 기록 위치) · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md · harness/evidence/D055/REMINDERS_20261125.md · harness/evidence/D055/HISTORY_20261125.md
+- **차단 요인** — 기존 private calendar/일정 계약과 B D052 milestone/지연 event cursor·outbox·opt-in·중복·해지·삭제 통합 필요. 운영 알림 전달은 미검증. 2026-11-25: 진행 중 협업의 제작·게시 마감 24시간 전 인앱 리마인더(양측 1회, 기한 변경 시 재알림, 중복·동시 실행 방지, KST 표시) 구현 — 복제 DB 9그룹·브라우저 desktop/mobile PASS. 남음: 모집 마감(캠페인 단위)·기한 필터, 이메일 D053, 운영 마이그레이션 승인. 2026-11-25: 기한 변경 이력(추가 전용, 트리거 기록, 소유자·협업 당사자만 열람, KST 표시) 구현 — 복제 DB 6그룹·브라우저 desktop/mobile PASS. 남음: 모집 마감 리마인더·기한 필터·이메일, 운영 마이그레이션 승인(#27). 2026-11-25: 브랜드 모집 마감 24시간 전 리마인더(recruit_until·terms 중 이른 시각, 소유자만, 마감·비공개·데모 제외) 구현 — 복제 DB 10그룹·mutation·브라우저 6/6 PASS. 캠페인·협업 마감, KST, 캘린더, 리마인더, 변경 이력 로컬 수용. 남음: 이메일(D053/U007), 운영 마이그레이션 승인(#24·#27·#28).
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D055/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D055/ (이번 검증 기록 위치) · harness/evidence/DEV-A-REMAINING-20261123/README.md · harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md · harness/evidence/D055/REMINDERS_20261125.md · harness/evidence/D055/HISTORY_20261125.md · harness/evidence/D055/RECRUITMENT_20261125.md
 - **Figma 노드** — [07 · 캠페인 상세 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870) · [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [07 · 캠페인 상세 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519)
 - **이전 기록** — IN_PROGRESS
 

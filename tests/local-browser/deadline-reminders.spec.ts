@@ -29,7 +29,7 @@ test("D055 an active collaboration's upcoming deadline appears in the inbox in K
     ],
     recruitment: {
       start: minute(now - 300 * hour),
-      end: minute(now - 250 * hour),
+      end: minute(now + 3 * hour), // recruitment closes soon: brand-only reminder
     },
     production: {
       start: minute(now - 200 * hour),
@@ -48,8 +48,15 @@ test("D055 an active collaboration's upcoming deadline appears in the inbox in K
         from public.campaigns where not is_demo order by created_at limit 1;
       insert into public.proposals(id,campaign_id,creator_id,brand_id,creator_user_id,kind,status,brief)
         values('${proposal}','${campaign}','user-${creator}','${accounts.brand.id}','${creator}','proposal','accepted','가상 D055 일정 리마인더 화면 검증');`);
-    expect(sql("select adme_ops.scan_deadline_reminders();")).toBe("2");
-    expect(sql("select adme_ops.scan_deadline_reminders();")).toBe("0");
+    // Other local campaigns may also be due; count only this fixture's rows.
+    const mine = () =>
+      sql(
+        `select count(*) from public.notifications where proposal_id='${proposal}' or campaign_id='${campaign}';`,
+      );
+    sql("select adme_ops.scan_deadline_reminders();");
+    expect(mine()).toBe("3"); // production: brand + creator, recruitment: brand
+    sql("select adme_ops.scan_deadline_reminders();");
+    expect(mine()).toBe("3");
     await page.goto("/login");
     await page.getByLabel("이메일", { exact: true }).fill(accounts.brand.email);
     await page
@@ -58,14 +65,15 @@ test("D055 an active collaboration's upcoming deadline appears in the inbox in K
     await page.getByRole("button", { name: "로그인", exact: true }).click();
     await expect(page).toHaveURL(/dashboard/);
     await page.goto("/notifications");
-    const due = new Intl.DateTimeFormat("ko-KR", {
+    const fmt = new Intl.DateTimeFormat("ko-KR", {
       timeZone: "Asia/Seoul",
       month: "long",
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
       hourCycle: "h23",
-    }).format(new Date(terms.production.end));
+    });
+    const due = fmt.format(new Date(terms.production.end));
     const alert = page.getByTestId("notification").filter({
       hasText: `제작 마감이 24시간 안에 다가옵니다 · ${due} (KST)`,
     });
@@ -74,6 +82,14 @@ test("D055 an active collaboration's upcoming deadline appears in the inbox in K
     await expect(alert.getByRole("link")).toHaveAttribute(
       "href",
       `/dashboard#proposal-${proposal}`,
+    );
+    const recruit = page.getByTestId("notification").filter({
+      hasText: `모집 마감이 24시간 안에 다가옵니다 · ${fmt.format(new Date(terms.recruitment.end))} (KST)`,
+    });
+    await expect(recruit).toHaveCount(1);
+    await expect(recruit.getByRole("link")).toHaveAttribute(
+      "href",
+      `/campaigns/${campaign}`,
     );
     expect(
       await page.evaluate(
@@ -84,7 +100,7 @@ test("D055 an active collaboration's upcoming deadline appears in the inbox in K
       path: `output/playwright/d055-deadline-${info.project.name}.png`,
     });
   } finally {
-    sql(`delete from public.notifications where proposal_id='${proposal}';
+    sql(`delete from public.notifications where proposal_id='${proposal}' or campaign_id='${campaign}';
       set session_replication_role=replica;
       delete from public.proposals where id='${proposal}';
       delete from public.campaigns where id='${campaign}';

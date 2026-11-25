@@ -2,6 +2,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 export type Notification = {
   id: number;
   proposal_id: string | null;
+  campaign_id: string | null;
   kind: "status" | "message" | "deliverable" | "saved_search" | "deadline";
   new_count: number | null;
   due_at: string | null;
@@ -32,7 +33,7 @@ export const notificationText = (
   },
 ) =>
   n.kind === "deadline"
-    ? `${n.status === "posting" ? "게시" : "제작"} 마감이 24시간 안에 다가옵니다 · ${kst.format(new Date(n.due_at!))} (KST)`
+    ? `${{ recruitment: "모집", production: "제작", posting: "게시" }[n.status ?? ""] ?? "일정"} 마감이 24시간 안에 다가옵니다 · ${kst.format(new Date(n.due_at!))} (KST)`
     : n.kind === "saved_search"
       ? `저장 검색 조건에 새로 맞는 크리에이터 ${n.new_count}명이 있습니다`
       : n.kind === "message"
@@ -45,7 +46,9 @@ export async function loadNotifications(db: SupabaseClient, limit = 30) {
   const [items, unread, cursor] = await Promise.all([
     db
       .from("notifications")
-      .select("id,proposal_id,kind,status,new_count,due_at,created_at")
+      .select(
+        "id,proposal_id,campaign_id,kind,status,new_count,due_at,created_at",
+      )
       .order("id", { ascending: false })
       .limit(limit),
     db.rpc("notification_unread"),
