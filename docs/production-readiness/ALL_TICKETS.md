@@ -1216,7 +1216,7 @@ DEV-B · P0 · S0 출시 차단 · CHAT · TESTED · 5 SP · ACTIVE
 
 ## D053 · 이메일 알림 outbox·수신 설정
 
-DEV-B · P1 · S1 주요 부족 · CHAT · TODO · 5 SP · ACTIVE
+DEV-B · P1 · S1 주요 부족 · CHAT · IN_PROGRESS · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 인증 메일과 서비스/마케팅 메일을 구분하고 발송 재시도·동의·수신거부를 관리한다.
 - **재현·관찰** — /dashboard · /api/messages에서 먼저 중복 발송·실패·해지·설정 후 실제 배달 확인을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/lib/notifications, supabase/migrations.
@@ -1232,8 +1232,8 @@ DEV-B · P1 · S1 주요 부족 · CHAT · TODO · 5 SP · ACTIVE
 - **보안** — SMTP 인증메일 설정과 앱 알림메일 발송 어댑터는 별도임을 문서화하고 공급자 설정 전 실제 발송 성공을 주장하지 않는다.
 - **검증** — 중복 발송·실패·해지·설정 후 실제 배달 확인 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 인증 메일과 서비스/마케팅 메일을 구분하고 발송 재시도·동의·수신거부를 관리한다.
-- **차단 요인** — 외부 선행 U007의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D053/ (이번 검증 기록 위치)
+- **차단 요인** — 2026-11-26: 격리 계약·권한 검증 통과(증빙 참조). 실제 메일 공급자 설정과 배달 확인(U007)이 남아 있어 완료 표시하지 않는다.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D053/ (이번 검증 기록 위치) · harness/evidence/D053/20261126/README.md
 - **Figma 노드** — [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510)
 - **이전 기록** — OPEN
 
