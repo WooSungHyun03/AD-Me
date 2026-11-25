@@ -2,12 +2,21 @@ import { test, expect } from "@playwright/test";
 
 test("legacy studio routes lead to the active creator and campaign flows", async ({
   page,
+  isMobile,
 }) => {
   await page.goto("/tools");
   await expect(page).toHaveURL(/\/creators$/);
+  if (isMobile)
+    await page.locator("summary").getByText("탐색", { exact: true }).click();
+  const navigation = page.getByRole("navigation", {
+    name: isMobile ? "모바일 전체 메뉴" : "메인 메뉴",
+    exact: true,
+  });
+  await expect(navigation).toBeVisible();
   await expect(
-    page.getByRole("navigation", { name: "메인 메뉴" }),
-  ).not.toContainText("AI 스튜디오");
+    navigation.getByRole("link", { name: "크리에이터 탐색" }),
+  ).toHaveAttribute("href", "/creators");
+  await expect(navigation).not.toContainText("AI 스튜디오");
   await page.goto("/tools/local");
   await expect(page).toHaveURL(/\/login\?next=.*campaigns|\/campaigns\/new/);
 });
