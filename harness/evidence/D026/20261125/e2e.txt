@@ -1,0 +1,6 @@
+
+Running 2 tests using 1 worker
+
+[1/2] [desktop] › tests\e2e\profile-fields.spec.ts:20:1 › creator saves multi-tag profile with unknown quote and availability
+[2/2] [mobile] › tests\e2e\profile-fields.spec.ts:20:1 › creator saves multi-tag profile with unknown quote and availability
+  2 passed (13.3s)

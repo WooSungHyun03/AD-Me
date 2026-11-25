@@ -4,6 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 const env = Object.fromEntries(
   readFileSync(".env.local", "utf8")
     .trim()
@@ -39,24 +40,28 @@ const uid = su.user.id,
 const profile = {
   name: "D026 검증",
   bio: "",
-  handle: "self_reported",
+  social_url: "",
+  portfolio_url: "",
+  owner_consent: false,
   categories: ["뷰티"],
   vibes: ["자연스러움"],
   formats: ["숏폼"],
   platforms: ["youtube"],
   price_min_krw: null,
   price_max_krw: null,
-  followers: 0,
   is_available: null,
-  is_demo: false,
 };
+// Saves go through the versioned publication transaction, exactly like POST /api/profile
+// (direct published writes are refused by the D073 publication guard).
+const policy = JSON.parse(readFileSync("src/lib/policy-document.json", "utf8"));
 const save = (p, published = true) =>
-  me
-    .from("creators")
-    .upsert(
-      { id, owner_id: uid, published, profile: { ...profile, ...p } },
-      { onConflict: "id" },
-    );
+  me.rpc("save_publication", {
+    p_scope: "creator",
+    p_data: { ...profile, ...p, published },
+    p_version: policy.version,
+    p_hash: policy.documentHash,
+    p_key: randomUUID(),
+  });
 
 assert.equal(
   (await save({})).error,
@@ -85,29 +90,40 @@ assert.ok(
   "owner cannot set lock",
 );
 
+// Operator restriction (D059 moderation_status). The audited admin RPC needs an MFA session and is
+// covered by DEV-A suites; here an owner-SQL fixture applies it so the owner-side guarantees are tested.
+const ownerSql = (q) =>
+  execFileSync(
+    "docker",
+    [
+      "exec",
+      "-i",
+      "supabase_db_AD-Me",
+      "psql",
+      "-U",
+      "postgres",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-Atq",
+    ],
+    { input: q, encoding: "utf8" },
+  ).trim();
+const visible = async () =>
+  (await me.rpc("creator_public_one", { p_ref: id })).data !== null;
 assert.equal(
-  (
-    await admin.rpc("moderate_entity", {
-      p_kind: "creator",
-      p_id: id,
-      p_published: false,
-    })
-  ).error,
-  null,
+  await visible(),
+  true,
+  "published unknown-quote profile is public",
 );
-const row = async () =>
-  (
-    await admin
-      .from("creators")
-      .select("published,moderation_locked")
-      .eq("id", id)
-      .single()
-  ).data;
-assert.deepEqual(await row(), { published: false, moderation_locked: true });
-assert.match(
-  (await save({}, true)).error?.message ?? "",
-  /locked by moderation/,
-  "owner cannot re-publish locked profile",
+ownerSql(
+  `update public.creators set moderation_status='restricted', published=false where id='${id}'`,
+);
+assert.equal(await visible(), false, "restricted profile hidden");
+const republish = await save({}, true);
+assert.equal(
+  await visible(),
+  false,
+  `owner re-publish cannot expose a restricted profile (${republish.error?.message ?? "accepted, still hidden"})`,
 );
 assert.equal(
   (await save({ bio: "수정은 가능" }, false)).error,
@@ -115,27 +131,24 @@ assert.equal(
   "owner may still edit privately",
 );
 assert.ok(
-  (await me.from("creators").update({ moderation_locked: false }).eq("id", id))
-    .error,
-  "owner cannot lift lock",
-);
-assert.equal(
   (
-    await admin.rpc("moderate_entity", {
-      p_kind: "creator",
-      p_id: id,
-      p_published: true,
-    })
+    await me
+      .from("creators")
+      .update({ moderation_status: "allowed" })
+      .eq("id", id)
   ).error,
-  null,
+  "owner cannot lift the restriction",
 );
-assert.deepEqual(await row(), { published: true, moderation_locked: false });
+ownerSql(
+  `update public.creators set moderation_status='allowed' where id='${id}'`,
+);
 assert.equal(
   (await save({}, true)).error,
   null,
-  "re-publish allowed after admin unlock",
+  "re-publish allowed after operator lift",
 );
+assert.equal(await visible(), true, "lifted profile public again");
 await me.from("creators").delete().eq("id", id);
 console.log(
-  "PASS: D026 profile fields — null quote/availability, half-null & range & platform rejection, moderation lock not liftable by owner, admin unlock.",
+  "PASS: D026 profile fields — null quote/availability saved via publication RPC, half-null & range & platform & availability rejection, owner cannot set/lift moderation, restricted profile stays hidden on re-publish, operator lift restores.",
 );

@@ -259,7 +259,7 @@ DEV-B · P0 · S0 출시 차단 · YOUTUBE · IN_PROGRESS · 8 SP · ACTIVE
 
 ## D026 · 크리에이터 프로필 편집 확장
 
-DEV-B · P0 · S0 출시 차단 · SECURITY · IN_PROGRESS · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · SECURITY · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 분야·분위기·형식·플랫폼 다중 선택, 견적 범위·가용성·견적 미확인을 구분한다.
 - **재현·관찰** — /api/profile에서 먼저 CRUD·미입력·권한·모바일 폼 테스트을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/components/profile-form.tsx, src/app/api/profile/route.ts.
@@ -275,9 +275,10 @@ DEV-B · P0 · S0 출시 차단 · SECURITY · IN_PROGRESS · 5 SP · ACTIVE
 - **보안** — 클라이언트에서 숨긴 필드도 서버 Zod·DB 제약으로 검증한다.
 - **검증** — CRUD·미입력·권한·모바일 폼 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 분야·분위기·형식·플랫폼 다중 선택, 견적 범위·가용성·견적 미확인을 구분한다.
-- **차단 요인** — 2026-11-25: 공개 카탈로그 DTO가 견적·협업 의사 null을 허용하도록 수정(한 행이 전체 카탈로그·캠페인 화면을 500으로 만들던 결함). 프로필 폼 다중 선택·profile-fields REST/E2E 갱신은 남음.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D026/ (이번 검증 기록 위치) · harness/evidence/D085/20261125/README.md
+- **차단 요인** — 운영 적용·실계정 검증은 운영자 게이트. 레거시 moderation_locked 가드의 정의자 경로 미동작은 D059/D075와 정리 필요(노출은 moderation_status로 차단 확인).
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D026/ (이번 검증 기록 위치) · harness/evidence/D085/20261125/README.md · harness/evidence/D026/20261125/README.md
 - **Figma 노드** — [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519)
+- **검증 범위** — 2026-11-25 main 077bab2 격리 로컬: 다중 taxonomy, 견적 미확인 null·협업 의사 미확인 null 저장/표시, 서버·DB 검증(반쪽·역전 견적, 허용 외 플랫폼, 비불리언 의사 거부), 운영 제한 프로필 재공개 시 비노출 — REST PASS, E2E desktop/mobile 2/2, 공개 DTO 단위 7/7. 운영 미검증.
 - **이전 기록** — OPEN
 
 ## D027 · 안전한 이미지·포트폴리오 업로드

@@ -16,11 +16,28 @@ type Profile = {
   vibes?: string[];
   formats?: string[];
   platforms?: string[];
-  price_min_krw?: number;
-  price_max_krw?: number;
-  is_available?: boolean;
+  // D026: null = 견적 미확인 / 협업 의사 미확인 (never coerced to 0 or "available").
+  price_min_krw?: number | null;
+  price_max_krw?: number | null;
+  is_available?: boolean | null;
   published?: boolean;
 };
+const FORMATS = [
+  "숏폼",
+  "제품 리뷰",
+  "브이로그",
+  "언박싱",
+  "튜토리얼",
+  "PPL",
+  "화보",
+];
+// D026: multi-select taxonomy (server Zod enforces the same limits and allowed values).
+const GROUPS = [
+  ["categories", "분야 (최대 5)", categories],
+  ["vibes", "분위기 (최대 8)", vibes],
+  ["formats", "광고 형식", FORMATS],
+  ["platforms", "플랫폼", creatorPlatforms],
+] as const;
 export function ProfileForm({ initial = {} }: { initial?: Profile }) {
   const [published, setPublished] = usePublicationChoice(
     initial.published ?? false,
@@ -30,7 +47,8 @@ export function ProfileForm({ initial = {} }: { initial?: Profile }) {
   );
   const intent = useRef<ReturnType<typeof publicationIntent> | null>(null);
   const [message, setMessage] = useState(""),
-    [pending, setPending] = useState(false);
+    [pending, setPending] = useState(false),
+    [priceUnknown, setPriceUnknown] = useState(initial.price_min_krw === null);
   return (
     <form
       className="form-stack"
@@ -43,15 +61,18 @@ export function ProfileForm({ initial = {} }: { initial?: Profile }) {
           bio: String(f.get("bio") ?? ""),
           social_url: String(f.get("social_url") ?? ""),
           portfolio_url: String(f.get("portfolio_url") ?? ""),
-          categories: [f.get("category")],
-          vibes: [f.get("vibe")],
-          formats: [f.get("format")],
-          platforms: [f.get("platform")],
-          price_min_krw: Number(f.get("price_min_krw")),
-          price_max_krw: Number(f.get("price_max_krw")),
+          categories: f.getAll("categories").map(String),
+          vibes: f.getAll("vibes").map(String),
+          formats: f.getAll("formats").map(String),
+          platforms: f.getAll("platforms").map(String),
+          price_min_krw: priceUnknown ? null : Number(f.get("price_min_krw")),
+          price_max_krw: priceUnknown ? null : Number(f.get("price_max_krw")),
           published: f.get("published") === "on",
           owner_consent: f.get("owner_consent") === "on",
-          is_available: f.get("is_available") === "on",
+          is_available:
+            f.get("availability") === "unknown"
+              ? null
+              : f.get("availability") === "yes",
         };
         intent.current = publicationIntent(intent.current, body);
         try {
@@ -131,93 +152,77 @@ export function ProfileForm({ initial = {} }: { initial?: Profile }) {
         />
         입력한 링크·콘텐츠의 권리가 있으며 공개에 동의합니다.
       </label>
-      <div className="form-grid">
-        <label className="field">
-          분야
-          <select
-            aria-label="분야"
-            name="category"
-            defaultValue={initial.categories?.[0]}
-          >
-            {categories.map((c) => (
-              <option key={c}>{c}</option>
+      {GROUPS.map(([name, legend, options]) => (
+        <fieldset key={name} className="field">
+          <legend>{legend}</legend>
+          <div className="tags">
+            {options.map((o, i) => (
+              <label key={o} className="inline">
+                <input
+                  type="checkbox"
+                  name={name}
+                  value={o}
+                  defaultChecked={
+                    // Empty arrays (deleted profiles) fall back to one default pick.
+                    initial[name]?.length ? initial[name]!.includes(o) : i === 0
+                  }
+                />
+                {o}
+              </label>
             ))}
-          </select>
-        </label>
-        <label className="field">
-          분위기
-          <select
-            aria-label="분위기"
-            name="vibe"
-            defaultValue={initial.vibes?.[0]}
-          >
-            {vibes.map((c) => (
-              <option key={c}>{c}</option>
-            ))}
-          </select>
-        </label>
-        <label className="field">
-          광고 형식
-          <select
-            aria-label="광고 형식"
-            name="format"
-            defaultValue={initial.formats?.[0]}
-          >
-            {[
-              "숏폼",
-              "제품 리뷰",
-              "브이로그",
-              "언박싱",
-              "튜토리얼",
-              "PPL",
-              "화보",
-            ].map((c) => (
-              <option key={c}>{c}</option>
-            ))}
-          </select>
-        </label>
-        <label className="field">
-          플랫폼
-          <select
-            aria-label="플랫폼"
-            name="platform"
-            defaultValue={initial.platforms?.[0]}
-          >
-            {creatorPlatforms.map((c) => (
-              <option key={c}>{c}</option>
-            ))}
-          </select>
-        </label>
-        <label className="field">
-          최소 견적
-          <input
-            type="number"
-            name="price_min_krw"
-            required
-            min="0"
-            max="100000000"
-            defaultValue={initial.price_min_krw ?? 200000}
-          />
-        </label>
-        <label className="field">
-          최대 견적
-          <input
-            type="number"
-            name="price_max_krw"
-            required
-            min="0"
-            max="100000000"
-            defaultValue={initial.price_max_krw ?? 500000}
-          />
-        </label>
-      </div>
+          </div>
+        </fieldset>
+      ))}
       <label className="inline">
         <input
           type="checkbox"
-          name="is_available"
-          defaultChecked={initial.is_available ?? true}
+          checked={priceUnknown}
+          onChange={(e) => setPriceUnknown(e.target.checked)}
         />
-        협업 가능
+        견적 미확인 (협의 후 결정)
+      </label>
+      {!priceUnknown && (
+        <div className="form-grid">
+          <label className="field">
+            최소 견적
+            <input
+              type="number"
+              name="price_min_krw"
+              required
+              min="0"
+              max="100000000"
+              defaultValue={initial.price_min_krw ?? 200000}
+            />
+          </label>
+          <label className="field">
+            최대 견적
+            <input
+              type="number"
+              name="price_max_krw"
+              required
+              min="0"
+              max="100000000"
+              defaultValue={initial.price_max_krw ?? 500000}
+            />
+          </label>
+        </div>
+      )}
+      <label className="field">
+        협업 의사
+        <select
+          name="availability"
+          defaultValue={
+            initial.is_available === null
+              ? "unknown"
+              : initial.is_available === false
+                ? "no"
+                : "yes"
+          }
+        >
+          <option value="yes">협업 가능</option>
+          <option value="no">현재 일정 어려움</option>
+          <option value="unknown">미정</option>
+        </select>
       </label>
       <label className="inline">
         <input

@@ -1,0 +1,1 @@
+PASS: D026 profile fields — null quote/availability saved via publication RPC, half-null & range & platform & availability rejection, owner cannot set/lift moderation, restricted profile stays hidden on re-publish, operator lift restores.
