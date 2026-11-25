@@ -5,7 +5,7 @@ test("D033 unconfigured free service keeps directory usable without fictional re
   const response = await page.goto("/creators");
   expect(response?.status()).toBe(200);
   await expect(
-    page.getByRole("heading", { name: "YouTube 크리에이터 탐색" }),
+    page.getByRole("heading", { name: "공개 YouTube 채널" }),
   ).toBeVisible();
   await expect(
     page.getByText("공개 채널을 불러오지 못했습니다.", { exact: false }),

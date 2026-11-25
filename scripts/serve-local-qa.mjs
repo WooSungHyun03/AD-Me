@@ -28,7 +28,8 @@ const env = {
   ADME_FEATURE_INGESTION: "on",
   ADME_FEATURE_LLM: "on",
 };
-const servers = startLocalTls();
+// The marked runtime names its own API port; never proxy to another checkout's stack.
+const servers = startLocalTls(Number(new URL(runtime.API_URL).port));
 // Build does not contact the Auth API except prerendered public data routes, which read request cookies.
 const build = spawnSync(
   process.execPath,

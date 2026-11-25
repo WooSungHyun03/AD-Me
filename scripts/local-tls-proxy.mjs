@@ -2,7 +2,7 @@
 import https from "node:https";
 import http from "node:http";
 import { readFileSync } from "node:fs";
-export function startLocalTls() {
+export function startLocalTls(apiPort = 54321) {
   const tls = {
     key: readFileSync("output/dev-a-db/tls.local.key"),
     cert: readFileSync("output/dev-a-db/tls.local.crt"),
@@ -10,7 +10,7 @@ export function startLocalTls() {
   const servers = [];
   for (const [port, target] of [
     [3143, 3102],
-    [54325, 54321],
+    [54325, apiPort],
   ]) {
     const server = https.createServer(tls, (request, response) => {
       const upstream = http.request(

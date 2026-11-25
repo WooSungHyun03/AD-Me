@@ -321,12 +321,13 @@ export function Catalog({
         </aside>
         <div>
           <p style={{ fontSize: 13 }} role="status" data-testid="catalog-count">
-            {remote && !remoteState.loaded ? (
+            {/* Invalid filters never search, so they must not wait for a load or show a stale total. */}
+            {remote && !invalid && !remoteState.loaded ? (
               "검색 결과를 확인하고 있습니다."
             ) : (
               <>
                 <strong style={{ color: "#111312" }}>
-                  {remote ? remoteState.page.total : list.length}명
+                  {remote && !invalid ? remoteState.page.total : list.length}명
                 </strong>
                 의 크리에이터
               </>

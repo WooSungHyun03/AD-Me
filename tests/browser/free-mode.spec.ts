@@ -68,7 +68,6 @@ test("mail disabled pages and SPA controls remain usable without keys", async ({
 
   await page.goto("/tools");
   await expect(page).toHaveURL(/\/creators$/);
-  await expect(
-    page.getByRole("navigation", { name: "메인 메뉴" }),
-  ).not.toContainText("AI 스튜디오");
+  // Desktop and mobile menus both live in the banner; mobile hides the desktop nav.
+  await expect(page.getByRole("banner")).not.toContainText("AI 스튜디오");
 });

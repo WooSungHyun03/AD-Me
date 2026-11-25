@@ -5906,7 +5906,7 @@
       "acceptance": "기존 6개 E2E를 가입·삭제·수집·정정·권한·모바일·결측·동시성까지 확장한다. 외부 연동은 실제/계약 테스트를 구분한다.",
       "points": 8,
       "owner": "DEV-A",
-      "blockers": "최종 로컬504unit/43Python/lint/typecheck/build/영향 desktop-mobile6/fresh0→116/113→116 원자 패킷 통과. 전체 E2E 및 B D049/D075 전수, 실제 provider/메일/Toss TEST·복구·운영 적용과 최신 remote CI는 별도 미완료.",
+      "blockers": "최종 로컬504unit/43Python/lint/typecheck/build/영향 desktop-mobile6/fresh0→116/113→116 원자 패킷 통과. 전체 E2E 및 B D049/D075 전수, 실제 provider/메일/Toss TEST·복구·운영 적용과 최신 remote CI는 별도 미완료. 2026-11-25 keyless E2E 9건 실패(오래된 스펙 3종·잘못된 설정) 정리 및 잘못된 범위 URL에서 결과 수 무한 로딩(D034 UI) 수정 — keyless 18/18, DB catalog-filters 6/6 PASS. 소유자 env E2E·실제 연동·원격 CI 미완료.",
       "evidence": [
         "docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
@@ -5919,7 +5919,8 @@
         "harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md",
         "harness/evidence/DEV-A-PRODUCT-CONDITIONS-20261124/verification.json",
         "docs/production-readiness/REFACTOR_IMPACT.md",
-        "harness/evidence/DEV-A-MAIN-FOLLOWUP-20261124/verification.json"
+        "harness/evidence/DEV-A-MAIN-FOLLOWUP-20261124/verification.json",
+        "harness/evidence/D084/E2E_KEYLESS_20261125.md"
       ],
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
