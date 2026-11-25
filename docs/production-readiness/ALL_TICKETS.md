@@ -1339,8 +1339,8 @@ DEV-B · P0 · S0 출시 차단 · ADMIN · TODO · 5 SP · ACTIVE
 - **보안** — 신고가 공개돼 개인정보/명예 훼손의 새 통로가 되지 않는다.
 - **검증** — 익명 남용·상태 전이·삭제 후 재수집 차단 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 접수번호·처리 기한·임시 조치·답변·재심·처리 로그와 요청자 확인을 제공한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D058/ (이번 검증 기록 위치)
+- **차단 요인** — 2026-11-25: 사용자 접수가 D057 review_submit(issue)로만 연결돼 D058 요청 유형·접수번호·기한 흐름의 진입점이 끊김(레거시 submit_report·reports 큐·D060 관리자 검색은 유지). 공존 계약 제안 docs/handoff/D058_D057_REPORT_CONTRACT_20261125.md — DEV-A 합의 후 구현.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D058/ (이번 검증 기록 위치) · docs/handoff/D058_D057_REPORT_CONTRACT_20261125.md
 - **Figma 노드** — [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
 - **이전 기록** — OPEN
 
