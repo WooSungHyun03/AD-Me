@@ -1,0 +1,939 @@
+Resetting local database...
+Recreating database...
+Initialising schema...
+Seeding globals from roles.sql...
+Applying migration 202611190001_core.sql...
+Applying migration 202611190002_operations.sql...
+Applying migration 202611190003_json_contracts.sql...
+Applying migration 202611190004_admin_security.sql...
+Applying migration 202611190005_moderation_locks.sql...
+Applying migration 202611190006_brand_profiles.sql...
+Applying migration 202611190007_brand_projection.sql...
+Applying migration 202611200001_intelligence.sql...
+Applying migration 202611200002_intelligence_cron.sql...
+Applying migration 202611200003_intelligence_settings_safe_update.sql...
+Applying migration 202611200004_youtube_ownership.sql...
+Applying migration 202611200005_private_operations_functions.sql...
+Applying migration 202611200006_ops_mfa.sql...
+Applying migration 202611200007_rate_limits.sql...
+Applying migration 202611200008_youtube_moderation.sql...
+Applying migration 202611200010_message_policy.sql...
+Applying migration 202611200011_draft_read_limits.sql...
+Applying migration 202611200012_campaign_terms.sql...
+Applying migration 202611200013_creator_identity.sql...
+Applying migration 202611200014_creator_read_boundary.sql...
+Applying migration 202611200015_creator_catalog_quota.sql...
+Applying migration 202611200016_creator_boundary_activation.sql...
+Applying migration 202611200017_proposal_visibility.sql...
+Applying migration 202611200018_conversations.sql...
+Applying migration 202611200019_review_workflow.sql...
+Applying migration 202611200020_review_public_boundary.sql...
+Applying migration 202611200021_ad_history.sql...
+Applying migration 202611200022_review_withdraw_quota.sql...
+Applying migration 202611200023_ad_evidence_gate.sql...
+Applying migration 202611200024_latest_response_consent.sql...
+Applying migration 202611200025_deliverable_versions.sql...
+Applying migration 202611200026_recommendation_snapshots.sql...
+Applying migration 202611200027_recommendation_campaign_delete.sql...
+Applying migration 202611200028_recommendation_read_budget.sql...
+Applying migration 202611210035_home_catalog.sql...
+Applying migration 202611210036_test_billing_boundary.sql...
+Applying migration 202611210037_filtered_catalog.sql...
+Applying migration 202611210038_auth_request_budget.sql...
+Applying migration 202611210039_private_images.sql...
+Applying migration 202611210040_brand_logo_projection.sql...
+Applying migration 202611210041_public_creator_references.sql...
+Applying migration 202611210042_normalized_public_read.sql...
+Applying migration 202611210043_image_transport_limit.sql...
+Applying migration 202611210044_service_budget_usage.sql...
+Applying migration 202611210045_reference_precedence.sql...
+Applying migration 202611210046_filter_reference_epoch.sql...
+Applying migration 202611210047_consent_versions.sql...
+Applying migration 202611210048_sensitive_boundaries.sql...
+Applying migration 202611210049_ingestion_recovery.sql...
+Applying migration 202611210050_source_budget_public_refs.sql...
+Applying migration 202611210051_brand_public_text.sql...
+Applying migration 202611210052_checkpoint_quota_reservation.sql...
+Applying migration 202611210053_withdraw_channel_consent.sql...
+Applying migration 202611210054_consent_rollout_boundary.sql...
+Applying migration 202611210055_publication_transactions.sql...
+Applying migration 202611210056_publication_guard_record.sql...
+Applying migration 202611210057_global_withdrawal_receipts.sql...
+Applying migration 202611210058_deletion_quarantine.sql...
+Applying migration 202611210059_deletion_private_helpers.sql...
+Applying migration 202611210060_deletion_owned_jobs.sql...
+Applying migration 202611220061_ad_timeline.sql...
+Applying migration 202611220062_metric_history.sql...
+Applying migration 202611220063_ad_cursor_reference.sql...
+Applying migration 202611220064_metric_filters.sql...
+Applying migration 202611220065_admin_support.sql...
+Applying migration 202611220066_metric_metadata_guard.sql...
+Applying migration 202611220067_history_permission.sql...
+Applying migration 202611220068_saved_searches.sql...
+Applying migration 20261122115249_youtube_marketplace.sql...
+Applying migration 20261122115930_marketplace_chat.sql...
+Applying migration 20261122224757_featured_youtube_directory.sql...
+Applying migration 20261122231018_youtube_profile_details.sql...
+Applying migration 20261122231403_youtube_profile_contact.sql...
+Applying migration 20261122231628_youtube_profile_claim_sync.sql...
+Applying migration 202611230075_main_integration_guards.sql...
+Applying migration 202611230076_worker_integration.sql...
+Applying migration 202611230077_worker_budget_compatibility.sql...
+Applying migration 20261123055918_youtube_directory_topic_projection.sql...
+Applying migration 20261123100004_claims.sql...
+Applying migration 20261123100005_profile_fields.sql...
+Applying migration 20261123100006_creator_search.sql...
+Applying migration 20261123100007_campaign_recruiting.sql...
+Applying migration 20261123100008_saved_lists.sql...
+Applying migration 20261123100009_proposal_events.sql...
+Applying migration 20261123100010_notifications.sql...
+Applying migration 20261123100011_report_queue.sql...
+Applying migration 20261123100012_privacy_exports.sql...
+Applying migration 20261123100013_private_uploads.sql...
+Applying migration 20261123100014_safety_blocks.sql...
+Applying migration 20261123100015_retention_tombstones.sql...
+Applying migration 20261123100016_ops_stats.sql...
+Applying migration 20261123100017_product_events.sql...
+Applying migration 20261123100018_preferences_consent.sql...
+Applying migration 20261123100019_notes_compare.sql...
+Applying migration 20261123100020_matching_feedback.sql...
+Applying migration 20261123100021_ai_usage.sql...
+Applying migration 20261123100022_email_outbox_delivery.sql...
+Applying migration 20261123100023_selection_review.sql...
+Applying migration 20261123100024_ops_metrics_inquiries.sql...
+Applying migration 20261123100025_usage_ledger.sql...
+Applying migration 20261123100026_promotion_slots.sql...
+Applying migration 20261123100027_test_cancellation.sql...
+Applying migration 20261123100028_reconcile_marketplace.sql...
+Applying migration 20261123100029_archived_report_appeal.sql...
+Applying migration 20261123110001_youtube_public_boundary.sql...
+Applying migration 20261123112401_youtube_directory_pagination.sql...
+Applying migration 20261123113123_youtube_directory_cursor_integer.sql...
+Applying migration 20261123114341_saved_catalog_list_compatibility.sql...
+Applying migration 20261123114636_promotion_public_reference_boundary.sql...
+Applying migration 20261123121526_campaign_brief_file_versions.sql...
+Applying migration 20261123122650_brief_upload_attestation_snapshot.sql...
+Applying migration 20261123123531_brief_account_budget.sql...
+Applying migration 20261123125600_policy_aware_recommendation_snapshots.sql...
+Applying migration 20261124020115_owned_product_condition_workflow.sql...
+Applying migration 20261124021507_validate_minimized_product_source.sql...
+Applying migration 20261124022829_explicit_product_job_operation.sql...
+Applying migration 20261124073053_free_campaign_marketplace.sql...
+Applying migration 20261124074917_test_entitlement_grant_boundary.sql...
+Applying migration 20261124080724_demo_catalog_boundary.sql...
+Applying migration 20261124124402_privacy_session_reauthentication.sql...
+Applying migration 20261124125948_campaign_recruitment_window.sql...
+Applying migration 20261124133155_proposal_transition_requests.sql...
+Applying migration 20261124133707_proposal_acceptance_eligibility.sql...
+Applying migration 20261125120000_report_review_queue_contract.sql...
+Applying migration 20261125130000_d036_saved_list_public_refs.sql...
+Applying migration 20261125150000_d037_saved_search_alerts.sql...
+Applying migration 20261125160000_d038_saved_list_import_refs.sql...
+Applying migration 20261125170000_d055_deadline_reminders.sql...
+Applying migration 20261125180000_d062_contact_guard_definer_paths.sql...
+Applying migration 20261125190000_d049_owner_registration_claim.sql...
+Applying migration 20261125200000_d055_schedule_change_history.sql...
+Applying migration 20261125210000_d055_recruitment_reminder.sql...
+Applying migration 20261125220000_d025_claim_publication_guard.sql...
+Applying migration 20261125230000_d062_contact_rate_definer_paths.sql...
+Applying migration 20261125240000_d058_report_public_reference.sql...
+Applying migration 20261126100000_d061_d046_public_ref_gateways.sql...
+Applying migration 20261126110000_d025_collected_profile_provenance.sql...
+Seeding data from supabase/seed.sql...
+Restarting containers...
+Finished supabase db reset on branch devb/p0-20261125.
+{"target":"local","version":"","message":"Reset local database."}
+A new version of Supabase CLI is available: v3.4.0 (currently installed v2.122.1)
+We recommend updating regularly for new features and bug fixes: https://supabase.com/docs/guides/cli/getting-started#updating-the-supabase-cli
+PASS: 137 migrations — naming/order, RLS, definer search_path, contract phases, manifest complete
+Enabled the fictional consent policy in the disposable CI database.
+QA admin provisioned (credentials stay in the ignored local file).
+BEGIN
+INSERT 0 1
+UPDATE 1
+ set_test_billing 
+------------------
+ 
+(1 row)
+
+ set_demo_catalog 
+------------------
+ 
+(1 row)
+
+UPDATE 1
+INSERT 0 10
+COMMIT
+
+Running 118 tests using 1 worker
+
+[1/118] [desktop] › tests\e2e\ai-studio.spec.ts:3:1 › legacy studio routes lead to the active creator and campaign flows
+[2/118] [desktop] › tests\e2e\ai-studio.spec.ts:24:1 › the draft adapter still validates API input and returns its format
+[3/118] [desktop] › tests\e2e\analytics.spec.ts:12:1 › analytics: opt-out toggle persists after reload
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:33:29.381Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/settings","kind":"render","method":"GET","path":"/settings","request_id":"6c0f259b-2860-44ea-b9b9-49dc82100fa8"}
+
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:33:30.439Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/settings","kind":"render","method":"GET","path":"/settings","request_id":"c45ad058-ae93-4b21-8c08-66b99abbdcc0"}
+
+[4/118] [desktop] › tests\e2e\auth-recovery.spec.ts:3:1 › recovery entry points require a real email proof and preserve privacy headers
+[5/118] [desktop] › tests\e2e\auth-recovery.spec.ts:38:1 › opening confirmation does not consume proof; invalid recovery cannot change credentials
+[6/118] [desktop] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys
+[WebServer] api_error {
+[WebServer]   timestamp: '2026-11-25T20:33:40.010Z',
+[WebServer]   requestId: '0ab086ed-73b9-4621-b440-c4a5462064dd',
+[WebServer]   domain: 'billing',
+[WebServer]   operation: 'src/app/api/billing/cancel/route.ts.POST',
+[WebServer]   level: 'error',
+[WebServer]   duration: 544,
+[WebServer]   errorCode: 'SERVICE_UNAVAILABLE',
+[WebServer]   retryable: true
+[WebServer] }
+
+[7/118] [desktop] › tests\e2e\billing-fail.spec.ts:3:1 › billing fail page distinguishes cancel and does not render untrusted provider messages
+[8/118] [desktop] › tests\e2e\claims.spec.ts:33:1 › collected profile: unverified label, claim code once, admin approves only with matching code
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[9/118] [desktop] › tests\e2e\compare.spec.ts:12:1 › compare: private note, link share without notes, CSV, revoke
+[10/118] [desktop] › tests\e2e\consent.spec.ts:12:1 › consent: no pre-checked marketing; preferences persist and can be withdrawn
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:34:10.711Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/settings","kind":"render","method":"GET","path":"/settings","request_id":"db691cd6-9481-405d-b5bf-ef6310c74656"}
+
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:34:11.869Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/settings","kind":"render","method":"GET","path":"/settings","request_id":"a1cad93a-24c7-486a-8f97-41f9e910142d"}
+
+[11/118] [desktop] › tests\e2e\csp.spec.ts:32:1 › pages, auth and realtime run without CSP violations; Toss allowed, others blocked
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[12/118] [desktop] › tests\e2e\csv-import.spec.ts:14:1 › csv import: preview, partial commit, export round-trip, other account blocked
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:34:20.256Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"c2869561-4a76-4b43-b92c-755e530b82ac"}
+
+[13/118] [desktop] › tests\e2e\entitlements.spec.ts:38:1 › admin manual grant needs a reason; member sees it; revoke removes it
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:34:41.043Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"1a2bab6f-fbdf-4978-be75-da002ac16c93"}
+
+[14/118] [desktop] › tests\e2e\fees.spec.ts:3:1 › fee simulator is assumption-only and local
+[15/118] [desktop] › tests\e2e\free-campaign-journey.spec.ts:18:1 › free YouTube campaign from draft to private two-role conversation
+[16/118] [desktop] › tests\e2e\health.spec.ts:13:1 › health: anonymous and non-admin get status only; admin gets details
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[17/118] [desktop] › tests\e2e\help.spec.ts:34:1 › help + contact: anonymous and member inquiries, admin answers, metrics with definitions
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[18/118] [desktop] › tests\e2e\intelligence.spec.ts:27:1 › operations console checks sessions and permissions on desktop and mobile
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[19/118] [desktop] › tests\e2e\intelligence.spec.ts:67:1 › brand draft completes through isolated fixture lease/finish RPCs (no provider)
+[20/118] [desktop] › tests\e2e\intelligence.spec.ts:99:1 › unverified YouTube candidates remain private and creators can unlink a claim
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[21/118] [desktop] › tests\e2e\light-surface.spec.ts:3:1 › light public surfaces and candidate entry points fit each viewport
+[22/118] [desktop] › tests\e2e\light-surface.spec.ts:38:1 › ambient motion can be paused and respects reduced motion
+[23/118] [desktop] › tests\e2e\lists.spec.ts:27:1 › candidate groups and campaign shortlist
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[24/118] [desktop] › tests\e2e\lists.spec.ts:114:1 › public reference add, retry, denial and shortlist display
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:35:55.632Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"4fb1fe3b-1cec-40e2-8f33-a96bbfdcf7ed"}
+
+[25/118] [desktop] › tests\e2e\lists.spec.ts:194:1 › dashboard shows default-list favourites by public reference
+[26/118] [desktop] › tests\e2e\marketplace.spec.ts:5:1 › brand product and private YouTube draft use the persisted TEST catalogue
+[27/118] [desktop] › tests\e2e\match-feedback.spec.ts:14:1 › matching feedback: owner rates with reason, others blocked, admin sees honest summary
+[28/118] [desktop] › tests\e2e\matching-policy.spec.ts:20:1 › hard category/budget policy is saved and applied
+[29/118] [desktop] › tests\e2e\notifications.spec.ts:29:1 › unread badge updates live in two tabs; read cursor persists after re-login
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[30/118] [desktop] › tests\e2e\notifications.spec.ts:133:1 › polling fallback updates the badge when realtime is blocked
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:36:42.924Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"c8c96605-c2ae-4866-afc4-ce9bad9b4940"}
+
+[31/118] [desktop] › tests\e2e\notifications.spec.ts:188:1 › notification API requires login and stays private
+[32/118] [desktop] › tests\e2e\pipeline.spec.ts:33:3 › pipeline counts match rows and CSV (brand)
+[33/118] [desktop] › tests\e2e\pipeline.spec.ts:33:3 › pipeline counts match rows and CSV (creator)
+[34/118] [desktop] › tests\e2e\premium-visual.spec.ts:51:1 › job posting pass and all primary pricing actions have visible, readable targets
+[35/118] [desktop] › tests\e2e\premium-visual.spec.ts:101:1 › home navigation links reach the discovery and recommendation sections
+[36/118] [desktop] › tests\e2e\premium-visual.spec.ts:120:1 › official topic and sort persist in the public directory results
+[37/118] [desktop] › tests\e2e\privacy-export.spec.ts:29:1 › own-data export excludes the counterparty and is logged
+[38/118] [desktop] › tests\e2e\profile-fields.spec.ts:20:1 › creator saves multi-tag profile with unknown quote and availability
+[39/118] [desktop] › tests\e2e\promotion.spec.ts:30:1 › HOT slot is a labelled ad, organic results unchanged, owner sees exposure history
+[40/118] [desktop] › tests\e2e\proposal-cancel.spec.ts:28:1 › creator cancels a pending application; history is shown to both sides
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:38:18.682Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"ef267ba6-5da2-44b7-8f88-71a318b30437"}
+
+[41/118] [desktop] › tests\e2e\recruiting.spec.ts:22:1 › brand sets recruiting deadline and capacity; past deadline is refused
+[42/118] [desktop] › tests\e2e\reports.spec.ts:30:1 › private request → admin answer → requester status and appeal
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[43/118] [desktop] › tests\e2e\retention.spec.ts:26:1 › privacy notice lists retention periods without horizontal scroll
+  1) [desktop] › tests\e2e\retention.spec.ts:26:1 › privacy notice lists retention periods without horizontal scroll 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByTestId('retention-table')
+    Expected substring: "종료(거절·취소·완료) 후 3년"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByTestId('retention-table') with timeout 5000ms
+      - waiting for getByTestId('retention-table')
+
+
+      29 |   await page.goto("/privacy");
+      30 |   const table = page.getByTestId("retention-table");
+    > 31 |   await expect(table).toContainText("종료(거절·취소·완료) 후 3년");
+         |                       ^
+      32 |   await expect(table).toContainText("복구 시 삭제 표시를 다시 적용");
+      33 |   expect(
+      34 |     await page.evaluate(
+        at C:\projects\AD-Me-devb-1125\tests\e2e\retention.spec.ts:31:23
+
+    Error Context: test-results\retention-privacy-notice-l-f5f37-s-without-horizontal-scroll-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\retention-privacy-notice-l-f5f37-s-without-horizontal-scroll-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\retention-privacy-notice-l-f5f37-s-without-horizontal-scroll-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[44/118] [desktop] › tests\e2e\retention.spec.ts:40:1 › retention controls: non-admin refused, admin runs job and re-apply
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:39:09.017Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"b28055bb-70e1-4ee8-8e89-b09f7a2ef1fd"}
+
+[45/118] [desktop] › tests\e2e\safety.spec.ts:108:1 › block from collaboration, brand cannot message, unblock in settings
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:39:16.442Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/admin","kind":"render","method":"GET","path":"/admin","request_id":"7a6ef551-a58c-4169-9e4d-576c411b6f96"}
+
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:39:23.464Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"dc7a15ae-767c-4b15-ac15-a92782143d8e"}
+
+[46/118] [desktop] › tests\e2e\safety.spec.ts:147:1 › admin temporary restriction, creator appeal, admin lift
+[47/118] [desktop] › tests\e2e\selection-review.spec.ts:38:1 › selection review: checklist + approval required before accepting; memo stays private
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:39:47.845Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/campaigns/[id]","kind":"render","method":"GET","path":"/campaigns/e7fb82e5-f105-484f-8dc5-a03d033b3135","request_id":"239e14b6-6b34-4a5d-b8e0-76f6e32ea8a6"}
+
+[48/118] [desktop] › tests\e2e\seo.spec.ts:23:1 › indexing boundary and access control
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[49/118] [desktop] › tests\e2e\service.spec.ts:25:1 › public discovery, filters, comparison, history, drafts and responsive layout
+[WebServer] [browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[WebServer] 
+[WebServer] - A server/client branch `if (typeof window !== 'undefined')`.
+[WebServer] - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+[WebServer] - Date formatting in a user's locale which doesn't match the server.
+[WebServer] - External changing data without sending a snapshot of it along with the HTML.
+[WebServer] - Invalid HTML tag nesting.
+[WebServer] 
+[WebServer] It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+[WebServer] 
+[WebServer] https://react.dev/link/hydration-mismatch
+[WebServer] 
+[WebServer]   ...
+[WebServer]     <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+[WebServer]       <HTTPAccessFallbackErrorBoundary pathname="/" notFound={{...}} forbidden={undefined} unauthorized={undefined} ...>
+[WebServer]         <RedirectBoundary>
+[WebServer]           <RedirectErrorBoundary router={{...}}>
+[WebServer]             <InnerLayoutRouter url="/" tree={[...]} params={{}} renderTree={{...}} segmentPath={[...]} ...>
+[WebServer]               <SegmentViewNode type="page" pagePath="page.tsx">
+[WebServer]                 <SegmentTrieNode>
+[WebServer]                 <Home>
+[WebServer]                   <section>
+[WebServer]                   <section>
+[WebServer]                   <section>
+[WebServer]                   <section className="figma-reco..." id="recommenda...">
+[WebServer]                     <div className="figma-widt..." id="recommend">
+[WebServer]                       <div>
+[WebServer]                       <RecommendationBrief>
+[WebServer]                         <div className="brief-work...">
+[WebServer]                           <form action={function bound dispatchActionState} onReset={function onReset} ...>
+[WebServer]                             <label className="field">
+[WebServer]                               <input
+[WebServer]                                 name="product"
+[WebServer]                                 value=""
+[WebServer]                                 onChange={function update}
+[WebServer]                                 required={true}
+[WebServer]                                 minLength={2}
+[WebServer]                                 maxLength={120}
+[WebServer]                                 placeholder="예: 저당 단백질 스낵"
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             <label className="field">
+[WebServer]                               <input
+[WebServer]                                 name="audience"
+[WebServer]                                 value=""
+[WebServer]                                 onChange={function update}
+[WebServer]                                 required={true}
+[WebServer]                                 minLength={2}
+[WebServer]                                 maxLength={160}
+[WebServer]                                 placeholder="예: 운동을 즐기는 20~30대"
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             <label>
+[WebServer]                             <label className="field">
+[WebServer]                               <input
+[WebServer]                                 name="budget"
+[WebServer]                                 value=""
+[WebServer]                                 onChange={function update}
+[WebServer]                                 required={true}
+[WebServer]                                 type="number"
+[WebServer]                                 min={10000}
+[WebServer]                                 max={100000000}
+[WebServer]                                 inputMode="numeric"
+[WebServer]                                 placeholder="1000000"
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             <label className="field brie...">
+[WebServer]                               <input
+[WebServer]                                 name="preference"
+[WebServer]                                 value=""
+[WebServer]                                 onChange={function update}
+[WebServer]                                 maxLength={120}
+[WebServer]                                 placeholder="예: 자연스러움, 전문적"
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             ...
+[WebServer]                   ...
+[WebServer]               ...
+[WebServer]             ...
+[WebServer]  
+
+[50/118] [desktop] › tests\e2e\service.spec.ts:93:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation
+[WebServer] api_error {
+[WebServer]   timestamp: '2026-11-25T20:40:32.050Z',
+[WebServer]   requestId: '24c33069-edf0-47c7-8a59-a2579dc02fab',
+[WebServer]   domain: 'billing',
+[WebServer]   operation: 'billing.confirm.post',
+[WebServer]   level: 'error',
+[WebServer]   duration: 325,
+[WebServer]   errorCode: 'SERVICE_UNAVAILABLE',
+[WebServer]   retryable: true
+[WebServer] }
+
+[51/118] [desktop] › tests\e2e\service.spec.ts:258:1 › public application, shortlist persistence, account settings and administrator operations
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[52/118] [desktop] › tests\e2e\similar.spec.ts:6:1 › similar profiles and deletion request entry
+[53/118] [desktop] › tests\e2e\unsubscribe.spec.ts:35:1 › unsubscribe: GET is inert, button and one-click POST turn mail off, bad token refused
+[54/118] [desktop] › tests\e2e\uploads.spec.ts:32:1 › private portfolio upload, download, isolation and delete
+[55/118] [desktop] › tests\e2e\youtube-profile.spec.ts:11:3 › official YouTube data and media render for UCfpaSruWW3S4dibonKXENjA
+[56/118] [desktop] › tests\e2e\youtube-profile.spec.ts:11:3 › official YouTube data and media render for UCT-_4GqC-yLY1xtTHhwY0hA
+[57/118] [desktop] › tests\e2e\youtube-profile.spec.ts:11:3 › official YouTube data and media render for UC9kmlDcqksaOnCkC_qzGacA
+[58/118] [desktop] › tests\e2e\youtube-profile.spec.ts:90:1 › a signed-in user can save and remove a YouTube channel
+[59/118] [desktop] › tests\e2e\youtube-profile.spec.ts:123:1 › the homepage brief filters the public directory by official topic
+[60/118] [mobile] › tests\e2e\ai-studio.spec.ts:3:1 › legacy studio routes lead to the active creator and campaign flows
+[61/118] [mobile] › tests\e2e\ai-studio.spec.ts:24:1 › the draft adapter still validates API input and returns its format
+[62/118] [mobile] › tests\e2e\analytics.spec.ts:12:1 › analytics: opt-out toggle persists after reload
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:41:45.695Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/settings","kind":"render","method":"GET","path":"/settings","request_id":"07664e2d-4223-4471-a051-6e5a572e3e2c"}
+
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:41:46.777Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/settings","kind":"render","method":"GET","path":"/settings","request_id":"4ed9ef2a-dd06-46a5-9bf1-0a4b87600e79"}
+
+[63/118] [mobile] › tests\e2e\auth-recovery.spec.ts:3:1 › recovery entry points require a real email proof and preserve privacy headers
+[64/118] [mobile] › tests\e2e\auth-recovery.spec.ts:38:1 › opening confirmation does not consume proof; invalid recovery cannot change credentials
+[65/118] [mobile] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys
+[WebServer] api_error {
+[WebServer]   timestamp: '2026-11-25T20:41:56.465Z',
+[WebServer]   requestId: '1355eadc-9e71-4f1d-bf78-d321abc7a82e',
+[WebServer]   domain: 'billing',
+[WebServer]   operation: 'src/app/api/billing/cancel/route.ts.POST',
+[WebServer]   level: 'error',
+[WebServer]   duration: 87,
+[WebServer]   errorCode: 'SERVICE_UNAVAILABLE',
+[WebServer]   retryable: true
+[WebServer] }
+
+[66/118] [mobile] › tests\e2e\billing-fail.spec.ts:3:1 › billing fail page distinguishes cancel and does not render untrusted provider messages
+[67/118] [mobile] › tests\e2e\claims.spec.ts:33:1 › collected profile: unverified label, claim code once, admin approves only with matching code
+[68/118] [mobile] › tests\e2e\compare.spec.ts:12:1 › compare: private note, link share without notes, CSV, revoke
+[69/118] [mobile] › tests\e2e\consent.spec.ts:12:1 › consent: no pre-checked marketing; preferences persist and can be withdrawn
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:42:25.932Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/settings","kind":"render","method":"GET","path":"/settings","request_id":"25715193-998b-4c81-85c5-30bd34856ef9"}
+
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:42:27.102Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/settings","kind":"render","method":"GET","path":"/settings","request_id":"9fe25a38-7d11-44f3-8472-0097179532e0"}
+
+[70/118] [mobile] › tests\e2e\csp.spec.ts:32:1 › pages, auth and realtime run without CSP violations; Toss allowed, others blocked
+[71/118] [mobile] › tests\e2e\csv-import.spec.ts:14:1 › csv import: preview, partial commit, export round-trip, other account blocked
+[72/118] [mobile] › tests\e2e\entitlements.spec.ts:38:1 › admin manual grant needs a reason; member sees it; revoke removes it
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:42:54.465Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"ba6bb059-8a2b-4022-bd71-db96a532a68c"}
+
+[73/118] [mobile] › tests\e2e\fees.spec.ts:3:1 › fee simulator is assumption-only and local
+[74/118] [mobile] › tests\e2e\free-campaign-journey.spec.ts:18:1 › free YouTube campaign from draft to private two-role conversation
+[75/118] [mobile] › tests\e2e\health.spec.ts:13:1 › health: anonymous and non-admin get status only; admin gets details
+[76/118] [mobile] › tests\e2e\help.spec.ts:34:1 › help + contact: anonymous and member inquiries, admin answers, metrics with definitions
+[77/118] [mobile] › tests\e2e\intelligence.spec.ts:27:1 › operations console checks sessions and permissions on desktop and mobile
+[78/118] [mobile] › tests\e2e\intelligence.spec.ts:67:1 › brand draft completes through isolated fixture lease/finish RPCs (no provider)
+[79/118] [mobile] › tests\e2e\intelligence.spec.ts:99:1 › unverified YouTube candidates remain private and creators can unlink a claim
+[80/118] [mobile] › tests\e2e\light-surface.spec.ts:3:1 › light public surfaces and candidate entry points fit each viewport
+[81/118] [mobile] › tests\e2e\light-surface.spec.ts:38:1 › ambient motion can be paused and respects reduced motion
+[82/118] [mobile] › tests\e2e\lists.spec.ts:27:1 › candidate groups and campaign shortlist
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:43:59.137Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/creators/[id]","kind":"render","method":"GET","path":"/creators/creator-001","request_id":"0cc4b292-2029-4aba-a7d9-f48267c9bc96"}
+
+[83/118] [mobile] › tests\e2e\lists.spec.ts:114:1 › public reference add, retry, denial and shortlist display
+[84/118] [mobile] › tests\e2e\lists.spec.ts:194:1 › dashboard shows default-list favourites by public reference
+[85/118] [mobile] › tests\e2e\marketplace.spec.ts:5:1 › brand product and private YouTube draft use the persisted TEST catalogue
+[86/118] [mobile] › tests\e2e\match-feedback.spec.ts:14:1 › matching feedback: owner rates with reason, others blocked, admin sees honest summary
+[87/118] [mobile] › tests\e2e\matching-policy.spec.ts:20:1 › hard category/budget policy is saved and applied
+[88/118] [mobile] › tests\e2e\notifications.spec.ts:29:1 › unread badge updates live in two tabs; read cursor persists after re-login
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[89/118] [mobile] › tests\e2e\notifications.spec.ts:133:1 › polling fallback updates the badge when realtime is blocked
+[WebServer] {"t":"2026-11-25T20:44:54.288Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"2290c74f-3a67-4bf6-940c-f480c98810d0"}
+
+[90/118] [mobile] › tests\e2e\notifications.spec.ts:188:1 › notification API requires login and stays private
+[91/118] [mobile] › tests\e2e\pipeline.spec.ts:33:3 › pipeline counts match rows and CSV (brand)
+[92/118] [mobile] › tests\e2e\pipeline.spec.ts:33:3 › pipeline counts match rows and CSV (creator)
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:45:46.885Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"e546bcfc-14cc-4ec3-9ea2-38dd970223b4"}
+
+[93/118] [mobile] › tests\e2e\premium-visual.spec.ts:51:1 › job posting pass and all primary pricing actions have visible, readable targets
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:46:04.282Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"89f1025a-da0b-412f-8269-51de3afd2534"}
+
+[94/118] [mobile] › tests\e2e\premium-visual.spec.ts:101:1 › home navigation links reach the discovery and recommendation sections
+[95/118] [mobile] › tests\e2e\premium-visual.spec.ts:120:1 › official topic and sort persist in the public directory results
+[96/118] [mobile] › tests\e2e\privacy-export.spec.ts:29:1 › own-data export excludes the counterparty and is logged
+[97/118] [mobile] › tests\e2e\profile-fields.spec.ts:20:1 › creator saves multi-tag profile with unknown quote and availability
+[98/118] [mobile] › tests\e2e\promotion.spec.ts:30:1 › HOT slot is a labelled ad, organic results unchanged, owner sees exposure history
+[99/118] [mobile] › tests\e2e\proposal-cancel.spec.ts:28:1 › creator cancels a pending application; history is shown to both sides
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:46:30.121Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"d2d61c92-9724-4052-a39b-b16dceaca531"}
+
+[100/118] [mobile] › tests\e2e\recruiting.spec.ts:22:1 › brand sets recruiting deadline and capacity; past deadline is refused
+[101/118] [mobile] › tests\e2e\reports.spec.ts:30:1 › private request → admin answer → requester status and appeal
+[102/118] [mobile] › tests\e2e\retention.spec.ts:26:1 › privacy notice lists retention periods without horizontal scroll
+  2) [mobile] › tests\e2e\retention.spec.ts:26:1 › privacy notice lists retention periods without horizontal scroll 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByTestId('retention-table')
+    Expected substring: "종료(거절·취소·완료) 후 3년"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByTestId('retention-table') with timeout 5000ms
+      - waiting for getByTestId('retention-table')
+
+
+      29 |   await page.goto("/privacy");
+      30 |   const table = page.getByTestId("retention-table");
+    > 31 |   await expect(table).toContainText("종료(거절·취소·완료) 후 3년");
+         |                       ^
+      32 |   await expect(table).toContainText("복구 시 삭제 표시를 다시 적용");
+      33 |   expect(
+      34 |     await page.evaluate(
+        at C:\projects\AD-Me-devb-1125\tests\e2e\retention.spec.ts:31:23
+
+    Error Context: test-results\retention-privacy-notice-l-f5f37-s-without-horizontal-scroll-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\retention-privacy-notice-l-f5f37-s-without-horizontal-scroll-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\retention-privacy-notice-l-f5f37-s-without-horizontal-scroll-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[103/118] [mobile] › tests\e2e\retention.spec.ts:40:1 › retention controls: non-admin refused, admin runs job and re-apply
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:47:17.805Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"b23b7f7a-18ae-4391-8248-9dfc9818d853"}
+
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:47:25.896Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/admin","kind":"render","method":"GET","path":"/admin","request_id":"24372e16-dd73-4fbe-9be2-35525ddf37f8"}
+
+[104/118] [mobile] › tests\e2e\safety.spec.ts:108:1 › block from collaboration, brand cannot message, unblock in settings
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:47:32.732Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"bd1ef907-5be9-4f2f-91a4-56de46c555e7"}
+
+[105/118] [mobile] › tests\e2e\safety.spec.ts:147:1 › admin temporary restriction, creator appeal, admin lift
+[106/118] [mobile] › tests\e2e\selection-review.spec.ts:38:1 › selection review: checklist + approval required before accepting; memo stays private
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:47:54.346Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"3c729227-11c5-4dea-956c-a3c56500a3d2"}
+
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:47:57.139Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/campaigns/[id]","kind":"render","method":"GET","path":"/campaigns/fdc8a850-cfa4-4a64-b095-652daf5b60e7","request_id":"906f998a-faea-4a3f-8f3f-fe13b7491f60"}
+
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T20:48:02.974Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"de2f1af4-e06b-4a61-81d4-b9e344eff5fc"}
+
+[107/118] [mobile] › tests\e2e\seo.spec.ts:23:1 › indexing boundary and access control
+[108/118] [mobile] › tests\e2e\service.spec.ts:25:1 › public discovery, filters, comparison, history, drafts and responsive layout
+[WebServer] [browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[WebServer] 
+[WebServer] - A server/client branch `if (typeof window !== 'undefined')`.
+[WebServer] - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+[WebServer] - Date formatting in a user's locale which doesn't match the server.
+[WebServer] - External changing data without sending a snapshot of it along with the HTML.
+[WebServer] - Invalid HTML tag nesting.
+[WebServer] 
+[WebServer] It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+[WebServer] 
+[WebServer] https://react.dev/link/hydration-mismatch
+[WebServer] 
+[WebServer]   ...
+[WebServer]     <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+[WebServer]       <HTTPAccessFallbackErrorBoundary pathname="/" notFound={{...}} forbidden={undefined} unauthorized={undefined} ...>
+[WebServer]         <RedirectBoundary>
+[WebServer]           <RedirectErrorBoundary router={{...}}>
+[WebServer]             <InnerLayoutRouter url="/" tree={[...]} params={{}} renderTree={{...}} segmentPath={[...]} ...>
+[WebServer]               <SegmentViewNode type="page" pagePath="page.tsx">
+[WebServer]                 <SegmentTrieNode>
+[WebServer]                 <Home>
+[WebServer]                   <section>
+[WebServer]                   <section>
+[WebServer]                   <section>
+[WebServer]                   <section className="figma-reco..." id="recommenda...">
+[WebServer]                     <div className="figma-widt..." id="recommend">
+[WebServer]                       <div>
+[WebServer]                       <RecommendationBrief>
+[WebServer]                         <div className="brief-work...">
+[WebServer]                           <form action={function bound dispatchActionState} onReset={function onReset} ...>
+[WebServer]                             <label className="field">
+[WebServer]                               <input
+[WebServer]                                 name="product"
+[WebServer]                                 value=""
+[WebServer]                                 onChange={function update}
+[WebServer]                                 required={true}
+[WebServer]                                 minLength={2}
+[WebServer]                                 maxLength={120}
+[WebServer]                                 placeholder="예: 저당 단백질 스낵"
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             <label className="field">
+[WebServer]                               <input
+[WebServer]                                 name="audience"
+[WebServer]                                 value=""
+[WebServer]                                 onChange={function update}
+[WebServer]                                 required={true}
+[WebServer]                                 minLength={2}
+[WebServer]                                 maxLength={160}
+[WebServer]                                 placeholder="예: 운동을 즐기는 20~30대"
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             <label>
+[WebServer]                             <label className="field">
+[WebServer]                               <input
+[WebServer]                                 name="budget"
+[WebServer]                                 value=""
+[WebServer]                                 onChange={function update}
+[WebServer]                                 required={true}
+[WebServer]                                 type="number"
+[WebServer]                                 min={10000}
+[WebServer]                                 max={100000000}
+[WebServer]                                 inputMode="numeric"
+[WebServer]                                 placeholder="1000000"
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             <label className="field brie...">
+[WebServer]                               <input
+[WebServer]                                 name="preference"
+[WebServer]                                 value=""
+[WebServer]                                 onChange={function update}
+[WebServer]                                 maxLength={120}
+[WebServer]                                 placeholder="예: 자연스러움, 전문적"
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             ...
+[WebServer]                   ...
+[WebServer]               ...
+[WebServer]             ...
+[WebServer]  
+
+[109/118] [mobile] › tests\e2e\service.spec.ts:93:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation
+[WebServer] api_error {
+[WebServer]   timestamp: '2026-11-25T20:48:41.744Z',
+[WebServer]   requestId: '8d03fbba-49d8-469f-b84d-19bc76a3886c',
+[WebServer]   domain: 'billing',
+[WebServer]   operation: 'billing.confirm.post',
+[WebServer]   level: 'error',
+[WebServer]   duration: 367,
+[WebServer]   errorCode: 'SERVICE_UNAVAILABLE',
+[WebServer]   retryable: true
+[WebServer] }
+
+[110/118] [mobile] › tests\e2e\service.spec.ts:258:1 › public application, shortlist persistence, account settings and administrator operations
+[111/118] [mobile] › tests\e2e\similar.spec.ts:6:1 › similar profiles and deletion request entry
+[112/118] [mobile] › tests\e2e\unsubscribe.spec.ts:35:1 › unsubscribe: GET is inert, button and one-click POST turn mail off, bad token refused
+[113/118] [mobile] › tests\e2e\uploads.spec.ts:32:1 › private portfolio upload, download, isolation and delete
+[114/118] [mobile] › tests\e2e\youtube-profile.spec.ts:11:3 › official YouTube data and media render for UCfpaSruWW3S4dibonKXENjA
+[115/118] [mobile] › tests\e2e\youtube-profile.spec.ts:11:3 › official YouTube data and media render for UCT-_4GqC-yLY1xtTHhwY0hA
+[116/118] [mobile] › tests\e2e\youtube-profile.spec.ts:11:3 › official YouTube data and media render for UC9kmlDcqksaOnCkC_qzGacA
+[117/118] [mobile] › tests\e2e\youtube-profile.spec.ts:90:1 › a signed-in user can save and remove a YouTube channel
+[118/118] [mobile] › tests\e2e\youtube-profile.spec.ts:123:1 › the homepage brief filters the public directory by official topic
+  2 failed
+    [desktop] › tests\e2e\retention.spec.ts:26:1 › privacy notice lists retention periods without horizontal scroll 
+    [mobile] › tests\e2e\retention.spec.ts:26:1 › privacy notice lists retention periods without horizontal scroll 
+  4 skipped
+  112 passed (16.6m)
+== security
+PASS: direct Supabase RLS isolation, privilege escalation, forged entitlement, cross-owner order/message access, invalid transitions, admin moderation + audit. No provider payment simulated.
+== claims
+PASS: D025 claims — role gate, demo not claimable, duplicate, hidden code hash, no REST ownership, no pre-claim proposal, expiry, single approval, audit.
+== profile-fields
+PASS: D026 profile fields — null quote/availability saved via publication RPC, half-null & range & platform & availability rejection, owner cannot set/lift moderation, restricted profile stays hidden on re-publish, operator lift restores.
+== search
+PASS: D033 search — 56 rows paged by name/followers/price without dupes or gaps, no owner fields, owner draft hidden, demo excluded in free_beta, limit clamp 49, sort allowlist, literal LIKE, count matches.
+== recruiting
+PASS: D043 recruiting — past-deadline publish refused, deadline boundary (DB clock), duplicate application, concurrent selection capped at 1, full/closed refuse applications, private only without active proposals, invalid transitions, capacity >= selected, other brand denied.
+== lists
+PASS: D036 lists — default list idempotent/locked, group CRUD, unique name & member, other user denied (read/update/delete/insert/spoof), shortlist only on own campaign, one per campaign, link immutable, cascades.
+== lists-public-refs
+PASS: D036 public-ref lists — 21 checks
+ - public reference is opaque
+ - legacy direct insert with public ref fails
+ - owner adds by public ref
+ - retry is idempotent
+ - exactly one stored row with the internal ID
+ - concurrent retries never error
+ - owner DTO exposes public reference only
+ - other DTO excludes my lists
+ - other account cannot add to my list
+ - other account cannot remove from my list
+ - unknown reference denied
+ - anon cannot execute add_saved_list_item
+ - anon cannot execute remove_saved_list_item
+ - anon cannot execute my_saved_lists
+ - campaign shortlist add
+ - other brand cannot add to my campaign shortlist
+ - hidden creator keeps row without name
+ - hidden creator cannot be added
+ - hidden creator denied for a new list
+ - owner removes hidden item by ref
+ - repeat remove reports nothing removed
+== contact-guard
+PASS: D062 contact guard — 6 checks
+ - baseline message allowed
+ - restricted user cannot message through conversation_send
+ - lifted restriction allows messages again
+ - blocked counterpart cannot message
+ - blocker cannot message the blocked user either
+ - blocked counterpart cannot open a new proposal through the RPC
+== proposals
+PASS: D049 proposals — duplicate pair, role-gated accept/reject/cancel, concurrent accept vs reject (one wins, one event), application full path with deliverable gate and revision, final states, cancelled closes messaging, hidden creator blocked atomically, events participant-only and unforgeable, no direct status update.
+== notifications
+PASS: D052 notifications — one per source event, sender not notified, exact unread, partial/monotonic/clamped cursor, concurrent marks keep max, cross-account read/forge/delete/cursor denied, anon denied, realtime own=4 other=0.
+== reports
+PASS: D058 reports — anon/malformed/direct insert refused, ticket + 10/7-day deadlines, duplicate open, 5/day limit, requester-only visibility, interim hide, answer required, closed final, status log, deletion scrubs + suppresses (id/handle/url/republish blocked), appeal once by requester only and by a different admin, owner identity verified.
+== privacy
+PASS: D074 privacy export — anon/other-account denied, hash unreadable, one-time, expiry, re-auth, 5/day, own-only access log
+== uploads
+(node:44976) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/projects/AD-Me-devb-1125/src/lib/uploads.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\C:\projects\AD-Me-devb-1125\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: D027 uploads — direct writes refused (both buckets), type/size enforced, owner-only sign, expiry, no overwrite, delete, sweep
+== safety
+PASS: D062 safety — block closes requests & stops messages/proposals/accept/notifications, no probing, sender/recipient(multi-account)/application limits, no auto-sanction, temporary admin restriction + appeal + lift
+== retention
+PASS: D079 retention — tombstones on 3 deletion paths (ids+hashes only), ledger reapply after simulated restore, idempotent retry, owner re-register kept, retention job + run log, user access denied
+== ops
+PASS: D086 ops_stats — anon/brand/creator denied, admin+service allowed, counts/sizes only
+== analytics
+PASS: D006 events — client writes/forgery denied, explore & shortlist deduped, no raw ids/emails, admin-only funnel, opt-out & deletion erase
+== consent
+PASS: D015 consent — defaults (marketing off), direct writes denied, server version/time + log, audience = consenters, withdrawal cancels queued, service switch separate
+== notes
+PASS: D040 notes/compare — notes owner-only (admin too), separate from messages, 2–3 size, server-minted revocable token, shared view = title+ids
+== feedback
+PASS: D046 feedback — client writes denied (owner too), reason/verdict check, rater-only read, admin-only dataset without rater/campaign ids, campaign-grouped split, accept label
+== ai-usage
+PASS: D048 ai_usage — client reserve/record/write denied, per-user cap 3/10 and global cap under concurrency, tokens recorded, own-row read, counts only
+== email-outbox
+PASS: D053 outbox — client roles denied, event+recipient+channel unique, trigger template v1, skip-locked claims, backoff→dead after 5, lease recovery, consent re-check at send, unsubscribe token (forged/other-user refused, consent log, queue cancelled)
+== selection-review
+PASS: D061 selection review — checklist brand-only/own-only/cap 10, gate refuses accept without approval (RPC and direct), approval needs every current item (new item re-opens), owner-only RPC writes, nobody else reads, memo not public
+== ops-metrics
+PASS: D063 ops metrics — admin-only counts, reserved-domain test accounts + demo excluded, PII-free error counts, inquiries server-only with limits, owner/admin read, admin answer audited
+== usage-ledger
+PASS: D069 usage ledger — 10 concurrent reserves → 6 ok/never negative, same key charged once, finalize/release idempotent, stale sweep, DB-clock expiry (no refund/extension/revival), admin grant needs role+reason, revoke recovers + cancels order
+== promotions
+PASS: D070 promotion slots — service-only minimal DTO (≤3), old RPC closed, organic order unchanged, impressions counted only on serve and owner/admin-readable, unpublished/expired/revoked not served
+== test-cancel
+PASS test-cancel
+pg_dump: warning: there are circular foreign-key constraints on this table:
+pg_dump: detail: reports
+pg_dump: hint: You might not be able to restore the dump without using --disable-triggers or temporarily dropping the constraints.
+pg_dump: hint: Consider using a full dump instead of a --data-only dump to avoid this problem.
+pg_dump: warning: there are circular foreign-key constraints on this table:
+pg_dump: detail: jobs
+pg_dump: hint: You might not be able to restore the dump without using --disable-triggers or temporarily dropping the constraints.
+pg_dump: hint: Consider using a full dump instead of a --data-only dump to avoid this problem.
+pg_dump: warning: there are circular foreign-key constraints among these tables:
+pg_dump: detail: rooms
+pg_dump: detail: submissions
+pg_dump: hint: You might not be able to restore the dump without using --disable-triggers or temporarily dropping the constraints.
+pg_dump: hint: Consider using a full dump instead of a --data-only dump to avoid this problem.
+node:internal/child_process:1160
+    result.error = new ErrnoException(result.error, 'spawnSync ' + options.file);
+                   ^
+
+<ref *1> Error: spawnSync npx ENOENT
+    at Object.spawnSync (node:internal/child_process:1160:20)
+    at spawnSync (node:child_process:928:24)
+    at execFileSync (node:child_process:971:15)
+    at file:///C:/projects/AD-Me-devb-1125/harness/restore_drill.mjs:205:1
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'spawnSync npx',
+  path: 'npx',
+  spawnargs: [
+    '--yes',
+    'supabase@2.122.1',
+    'db',
+    'reset',
+    '--local',
+    '--no-seed',
+    '--workdir',
+    'C:\\projects\\AD-Me-devb-1125'
+  ],
+  error: [Circular *1],
+  status: null,
+  signal: null,
+  output: null,
+  pid: 0,
+  stdout: undefined,
+  stderr: undefined
+}
+
+Node.js v24.19.0
+FAIL: one or more browser, database permission or recovery checks failed
+exit=1
