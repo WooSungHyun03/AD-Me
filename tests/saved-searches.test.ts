@@ -69,4 +69,12 @@ it("D037 alert text states the count and never claims a proposal", async () => {
   expect(
     notificationText({ kind: "message", status: null, new_count: null }),
   ).toBe("새 메시지가 도착했습니다");
+  expect(
+    notificationText({
+      kind: "deadline",
+      status: "posting",
+      new_count: null,
+      due_at: "2027-03-01T15:00:00.000Z", // KST midnight crosses the date
+    }),
+  ).toBe("게시 마감이 24시간 안에 다가옵니다 · 3월 2일 00:00 (KST)");
 });

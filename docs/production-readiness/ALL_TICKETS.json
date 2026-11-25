@@ -3846,7 +3846,7 @@
       "acceptance": "캠페인·협업별 마감·타임존·캘린더·리마인더를 제공한다.",
       "points": 5,
       "owner": "DEV-A",
-      "blockers": "기존 private calendar/일정 계약과 B D052 milestone/지연 event cursor·outbox·opt-in·중복·해지·삭제 통합 필요. 운영 알림 전달은 미검증.",
+      "blockers": "기존 private calendar/일정 계약과 B D052 milestone/지연 event cursor·outbox·opt-in·중복·해지·삭제 통합 필요. 운영 알림 전달은 미검증. 2026-11-25: 진행 중 협업의 제작·게시 마감 24시간 전 인앱 리마인더(양측 1회, 기한 변경 시 재알림, 중복·동시 실행 방지, KST 표시) 구현 — 복제 DB 9그룹·브라우저 desktop/mobile PASS. 남음: 모집 마감(캠페인 단위)·기한 필터, 이메일 D053, 운영 마이그레이션 승인.",
       "evidence": [
         "docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
@@ -3855,7 +3855,8 @@
         "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json",
         "harness/evidence/D055/ (이번 검증 기록 위치)",
         "harness/evidence/DEV-A-REMAINING-20261123/README.md",
-        "harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md"
+        "harness/evidence/DEV-A-REMAINING-20261123/REMAINING_GATES.md",
+        "harness/evidence/D055/REMINDERS_20261125.md"
       ],
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
