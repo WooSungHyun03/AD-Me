@@ -33,7 +33,7 @@ export const PROMPT_VERSION: Record<Kind, string> = {
   brief: "brief-v1",
   summary: "summary-v1",
 };
-export const TEMPLATE_VERSION = "template-v2";
+export const TEMPLATE_VERSION = "template-v3"; // v3: contact details redacted in template output
 export const LIMITS = {
   userDaily: 20,
   globalDaily: 300,
@@ -174,7 +174,13 @@ export async function generate(
     .filter((k) => input[k])
     .map((k) => FIELD_LABEL[k]);
   const fallback = (reason: string): Result => {
-    const text = template(kind, input);
+    // Templates echo input verbatim, so they get the same contact redaction as the provider path.
+    const text = template(
+      kind,
+      Object.fromEntries(
+        Object.entries(input).map(([k, v]) => [k, v && redact(v)]),
+      ),
+    );
     return {
       kind,
       text,

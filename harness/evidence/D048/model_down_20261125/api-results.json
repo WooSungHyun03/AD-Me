@@ -1,0 +1,26 @@
+[
+ {
+  "label": "desktop",
+  "anonDraft": 200,
+  "crossSite": 403,
+  "draftStatus": 200,
+  "draft": {
+   "method": "template",
+   "version": "template-v3",
+   "fallback_reason": "LLM 공급자 미연결",
+   "text": "[규칙 기반 요약 · 원문 앞부분 발췌]\n\n가상 캠페인 요약입니다.  두 번째 문장입니다.  연락처 [이메일] [전화번호]\n\n원문 전체를 확인한 뒤 사용하세요."
+  }
+ },
+ {
+  "label": "mobile",
+  "anonDraft": 200,
+  "crossSite": 403,
+  "draftStatus": 200,
+  "draft": {
+   "method": "template",
+   "version": "template-v3",
+   "fallback_reason": "LLM 공급자 미연결",
+   "text": "[규칙 기반 요약 · 원문 앞부분 발췌]\n\n가상 캠페인 요약입니다.  두 번째 문장입니다.  연락처 [이메일] [전화번호]\n\n원문 전체를 확인한 뒤 사용하세요."
+  }
+ }
+]

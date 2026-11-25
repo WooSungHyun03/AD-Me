@@ -36,6 +36,6 @@ test("the draft adapter still validates API input and returns its format", async
   expect(await r.json()).toMatchObject({
     method: "template",
     fallback_reason: "LLM 공급자 미연결",
-    version: "template-v2",
+    version: "template-v3",
   });
 });

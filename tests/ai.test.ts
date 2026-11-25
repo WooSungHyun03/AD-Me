@@ -130,6 +130,23 @@ describe("AI draft adapter (D048)", () => {
       expect(PROMPT_VERSION[k]).toMatch(/-v\d+$/);
     }
   });
+  it("template fallback never echoes contact details, even when a sentence split cuts through them", async () => {
+    for (const k of KINDS) {
+      const r = ok(
+        await generate(
+          k,
+          k === "summary"
+            ? {
+                text: "가상 요약입니다. 연락처 qa@example.test 010-1234-5678 https://evil.example/x 입니다.",
+              }
+            : { ...input, product: "가상 상품 qa@example.test 010-1234-5678" },
+          { provider: null },
+        ),
+      );
+      expect(r.method).toBe("template");
+      expect(r.text).not.toMatch(/qa@|example\.|1234|5678|evil/);
+    }
+  });
   it("rejects bad input per schema", async () => {
     expect(
       await generate(
