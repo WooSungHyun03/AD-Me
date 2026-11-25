@@ -6,6 +6,8 @@ import { featuredYoutube } from "@/lib/featured-youtube";
 import { logout } from "@/app/actions";
 import { DealControls, ReadButton } from "@/components/deal-controls";
 import { Conversation } from "@/components/conversation";
+import { NotificationBadge } from "@/components/notifications";
+import { loadNotifications } from "@/lib/notifications";
 import { canTransition } from "@/lib/schemas";
 import { isDemoMode } from "@/lib/mode";
 export default async function Dashboard() {
@@ -55,6 +57,13 @@ export default async function Dashboard() {
       .select("proposal_id,last_read_at")
       .eq("user_id", user.id),
   ]);
+  // D052: in-app notification count (live badge) and per-proposal new-notification markers.
+  // A failed read degrades to no markers; the badge keeps polling the server.
+  const notes = await loadNotifications(db, 200).catch(() => null);
+  const newBy = new Map<string, number>();
+  for (const n of notes?.items ?? [])
+    if (n.id > notes!.lastReadId)
+      newBy.set(n.proposal_id, (newBy.get(n.proposal_id) ?? 0) + 1);
   const publicChannels = savedChannels?.length
     ? await featuredYoutube("", null, 50)
     : null;
@@ -129,6 +138,7 @@ export default async function Dashboard() {
               광고 이력 제출
             </Link>
           )}
+          <NotificationBadge userId={user.id} initial={notes?.unread ?? 0} />
           <Link className="button outline small" href="/reports">
             자료 검토·내 입장
           </Link>
@@ -214,6 +224,9 @@ export default async function Dashboard() {
             key={p.id}
           >
             <span className="badge lime">{status[p.status]}</span>
+            {(newBy.get(p.id) ?? 0) > 0 && (
+              <span className="badge">새 알림 {newBy.get(p.id)}</span>
+            )}
             <ReadButton proposalId={p.id} unread={unread.get(p.id) ?? 0} />
             <h3 style={{ marginTop: 18 }}>
               {p.kind === "application" ? "캠페인 지원" : "브랜드 제안"}

@@ -1,0 +1,1 @@
+PASS: D052 notifications — one per source event, sender not notified, exact unread, partial/monotonic/clamped cursor, concurrent marks keep max, cross-account read/forge/delete/cursor denied, anon denied, realtime own=4 other=0.

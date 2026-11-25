@@ -1,0 +1,137 @@
+
+Running 6 tests using 1 worker
+
+[1/6] [desktop] › tests\e2e\notifications.spec.ts:29:1 › unread badge updates live in two tabs; read cursor persists after re-login
+  1) [desktop] › tests\e2e\notifications.spec.ts:29:1 › unread badge updates live in two tabs; read cursor persists after re-login 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      50 |   const { id } = await made.json();
+      51 |   // Start from zero: clear older notifications.
+    > 52 |   expect((await page.request.post("/api/read", { data: {} })).ok()).toBe(true);
+         |                                                                     ^
+      53 |   const inbox = await page.context().newPage();
+      54 |   await inbox.goto("/notifications");
+      55 |   await page.goto("/dashboard");
+        at C:\projects\AD-Me-devb-1125\tests\e2e\notifications.spec.ts:52:69
+
+    Error Context: test-results\notifications-unread-badge-4ad5f-sor-persists-after-re-login-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\notifications-unread-badge-4ad5f-sor-persists-after-re-login-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\notifications-unread-badge-4ad5f-sor-persists-after-re-login-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[2/6] [desktop] › tests\e2e\notifications.spec.ts:114:1 › polling fallback updates the badge when realtime is blocked
+  2) [desktop] › tests\e2e\notifications.spec.ts:114:1 › polling fallback updates the badge when realtime is blocked 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByTestId('unread-count')
+    Expected: "새 알림 없음"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveText" getByTestId('unread-count') with timeout 5000ms
+      - waiting for getByTestId('unread-count')
+
+
+      139 |   await page.request.post("/api/read", { data: {} });
+      140 |   await page.goto("/dashboard");
+    > 141 |   await expect(page.getByTestId("unread-count")).toHaveText("새 알림 없음");
+          |                                                  ^
+      142 |   const cc = await browser.newContext();
+      143 |   const cp = await cc.newPage();
+      144 |   await login(cp, "creator");
+        at C:\projects\AD-Me-devb-1125\tests\e2e\notifications.spec.ts:141:50
+
+    Error Context: test-results\notifications-polling-fall-8fbd4-ge-when-realtime-is-blocked-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\notifications-polling-fall-8fbd4-ge-when-realtime-is-blocked-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\notifications-polling-fall-8fbd4-ge-when-realtime-is-blocked-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[3/6] [desktop] › tests\e2e\notifications.spec.ts:169:1 › notification API requires login and stays private
+[4/6] [mobile] › tests\e2e\notifications.spec.ts:29:1 › unread badge updates live in two tabs; read cursor persists after re-login
+  3) [mobile] › tests\e2e\notifications.spec.ts:29:1 › unread badge updates live in two tabs; read cursor persists after re-login 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      50 |   const { id } = await made.json();
+      51 |   // Start from zero: clear older notifications.
+    > 52 |   expect((await page.request.post("/api/read", { data: {} })).ok()).toBe(true);
+         |                                                                     ^
+      53 |   const inbox = await page.context().newPage();
+      54 |   await inbox.goto("/notifications");
+      55 |   await page.goto("/dashboard");
+        at C:\projects\AD-Me-devb-1125\tests\e2e\notifications.spec.ts:52:69
+
+    Error Context: test-results\notifications-unread-badge-4ad5f-sor-persists-after-re-login-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\notifications-unread-badge-4ad5f-sor-persists-after-re-login-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\notifications-unread-badge-4ad5f-sor-persists-after-re-login-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[5/6] [mobile] › tests\e2e\notifications.spec.ts:114:1 › polling fallback updates the badge when realtime is blocked
+  4) [mobile] › tests\e2e\notifications.spec.ts:114:1 › polling fallback updates the badge when realtime is blocked 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByTestId('unread-count')
+    Expected: "새 알림 없음"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveText" getByTestId('unread-count') with timeout 5000ms
+      - waiting for getByTestId('unread-count')
+
+
+      139 |   await page.request.post("/api/read", { data: {} });
+      140 |   await page.goto("/dashboard");
+    > 141 |   await expect(page.getByTestId("unread-count")).toHaveText("새 알림 없음");
+          |                                                  ^
+      142 |   const cc = await browser.newContext();
+      143 |   const cp = await cc.newPage();
+      144 |   await login(cp, "creator");
+        at C:\projects\AD-Me-devb-1125\tests\e2e\notifications.spec.ts:141:50
+
+    Error Context: test-results\notifications-polling-fall-8fbd4-ge-when-realtime-is-blocked-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\notifications-polling-fall-8fbd4-ge-when-realtime-is-blocked-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\notifications-polling-fall-8fbd4-ge-when-realtime-is-blocked-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[6/6] [mobile] › tests\e2e\notifications.spec.ts:169:1 › notification API requires login and stays private
+  4 failed
+    [desktop] › tests\e2e\notifications.spec.ts:29:1 › unread badge updates live in two tabs; read cursor persists after re-login 
+    [desktop] › tests\e2e\notifications.spec.ts:114:1 › polling fallback updates the badge when realtime is blocked 
+    [mobile] › tests\e2e\notifications.spec.ts:29:1 › unread badge updates live in two tabs; read cursor persists after re-login 
+    [mobile] › tests\e2e\notifications.spec.ts:114:1 › polling fallback updates the badge when realtime is blocked 
+  2 passed (34.6s)

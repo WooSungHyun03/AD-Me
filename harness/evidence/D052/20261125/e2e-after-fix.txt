@@ -1,0 +1,10 @@
+
+Running 6 tests using 1 worker
+
+[1/6] [desktop] › tests\e2e\notifications.spec.ts:29:1 › unread badge updates live in two tabs; read cursor persists after re-login
+[2/6] [desktop] › tests\e2e\notifications.spec.ts:133:1 › polling fallback updates the badge when realtime is blocked
+[3/6] [desktop] › tests\e2e\notifications.spec.ts:188:1 › notification API requires login and stays private
+[4/6] [mobile] › tests\e2e\notifications.spec.ts:29:1 › unread badge updates live in two tabs; read cursor persists after re-login
+[5/6] [mobile] › tests\e2e\notifications.spec.ts:133:1 › polling fallback updates the badge when realtime is blocked
+[6/6] [mobile] › tests\e2e\notifications.spec.ts:188:1 › notification API requires login and stays private
+  6 passed (1.7m)

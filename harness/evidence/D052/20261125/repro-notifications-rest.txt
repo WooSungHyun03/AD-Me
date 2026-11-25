@@ -1,0 +1,31 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ {
++   code: '42501',
++   details: null,
++   hint: null,
++   message: 'versioned publication transaction required'
++ }
+- null
+
+    at file:///C:/projects/AD-Me-devb-1125/tests/notifications.mjs:48:8
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: {
+    code: '42501',
+    details: null,
+    hint: null,
+    message: 'versioned publication transaction required'
+  },
+  expected: null,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

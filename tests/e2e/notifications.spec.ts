@@ -29,7 +29,14 @@ const LIVE = { timeout: 10_000 }; // below the 30s poll interval, so passing pro
 test("unread badge updates live in two tabs; read cursor persists after re-login", async ({
   page,
   browser,
-}) => {
+}, info) => {
+  const shot = async (p: typeof page, name: string) => {
+    if (process.env.ADME_EVIDENCE_DIR)
+      await p.screenshot({
+        path: `${process.env.ADME_EVIDENCE_DIR}/${name}-${info.project.name}.png`,
+        fullPage: true,
+      });
+  };
   await login(page, "brand");
   const unique = randomUUID().slice(0, 8);
   const made = await page.request.post("/api/campaigns", {
@@ -97,6 +104,8 @@ test("unread badge updates live in two tabs; read cursor persists after re-login
       .filter({ hasText: `QA 알림 지원 ${unique}` })
       .getByText("새 알림 1"),
   ).toBeVisible();
+  await shot(page, "dashboard");
+  await shot(inbox, "inbox");
   await inbox.getByRole("button", { name: "모두 읽음으로 표시" }).click();
   await expect(badgeB).toHaveText("새 알림 없음");
   await expect(inbox.getByTestId("notification").first()).toHaveAttribute(
@@ -108,6 +117,16 @@ test("unread badge updates live in two tabs; read cursor persists after re-login
   await page.getByRole("button", { name: "로그아웃" }).click();
   await login(page, "brand");
   await expect(page.getByTestId("unread-count")).toHaveText("새 알림 없음");
+  // A stale tab/retry sending an older cursor never resurrects read notifications.
+  expect(
+    (await page.request.post("/api/read", { data: { upto: 1 } })).ok(),
+  ).toBe(true);
+  await page.reload();
+  await expect(page.getByTestId("unread-count")).toHaveText("새 알림 없음");
+  // Unknown fields are rejected rather than silently treated as "read all".
+  expect(
+    (await page.request.post("/api/read", { data: { upto: "all" } })).status(),
+  ).toBe(422);
   await cc.close();
 });
 

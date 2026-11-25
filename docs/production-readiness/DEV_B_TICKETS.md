@@ -423,7 +423,7 @@ DEV-B · P0 · S0 출시 차단 · CHAT · TESTED · 5 SP · ACTIVE
 
 ## D052 · 미읽음·인앱 알림·실시간 갱신
 
-DEV-B · P0 · S0 출시 차단 · CHAT · TODO · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · CHAT · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 미읽음·채팅 컴포넌트가 있으나 운영의 두 역할 실시간 수신과 reconnect가 완주되지 않았다.
 - **재현·관찰** — 두 브라우저 세션과 제3자 계정으로 권한 분리, 새 메시지·미읽음, 중복·재접속을 검증한다.
@@ -439,9 +439,10 @@ DEV-B · P0 · S0 출시 차단 · CHAT · TODO · 5 SP · ACTIVE
 - **보안** — realtime은 갱신 신호이고 권한 검사는 서버/DB에서 다시 수행한다. polling fallback을 제공한다.
 - **검증** — 복수 탭·중복 이벤트·다른 계정 구독·재로그인 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 단순 읽음 버튼을 넘어 이벤트·미읽음 수·읽음 커서·알림함을 구현한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D052/ (이번 검증 기록 위치)
+- **차단 요인** — 운영 앱 배포와 실환경 두 역할 실시간 수신 검증은 운영자 승인(U005·U019) 전까지 BLOCKED. null 견적 공개 프로필이 캠페인 상세 카탈로그를 깨는 D026/D033 교차 이슈를 DEV-A에 인계.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D052/ (이번 검증 기록 위치) · harness/evidence/D052/20261125/README.md
 - **Figma 노드** — [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519)
+- **검증 범위** — 2026-11-25 origin/main d5a9b9b 격리 로컬 복제본: /api/read 커서·대시보드 배지 복원, REST(원천 1건·정확한 미읽음·단조 커서·타 계정/anon 거부·realtime 본인4/타인0)와 E2E desktop/mobile 6/6(2탭 실시간·재로그인·오래된 커서 재전송·polling fallback). 운영 미검증.
 - **이전 기록** — OPEN
 
 ## D054 · 결과물 버전·수정 요청·승인
