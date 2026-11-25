@@ -80,3 +80,15 @@ Base: origin/main `59f7eba`. 환경: 격리 로컬 Supabase만. 운영 DB 적용
 | billing-cancel, promotion, safety, service:88/255 | 취소 오류 문구 대응, HOT 슬롯 API, 차단 메시지 문구, 캠페인 저장·수락 흐름 | D068·D070·D062·D041/D049 |
 | DB 스위트 18종 | 대부분 직접 게시 insert 등 낡은 픽스처 | 각 티켓에서 갱신 |
 - `consent` E2E 1회 실패는 중단된 이전 실행이 공용 QA 계정 메일 설정을 꺼둔 상태 오염. 빈 DB 재실행에서는 PASS.
+
+## 2026-11-25 최종 빈 DB 재실행 (`ci-db-final.txt`, base `e152d15`)
+- 마이그레이션 129개 PASS. E2E **96 통과 / 18 실패 / 4 건너뜀**(84 → 96). DB 권한 스위트 **11/27 PASS**(+ security·profile-fields·contact-guard).
+- 이후 같은 날 해결:
+  - `351b51c` D049 새 크리에이터 수락 불가 → `service.spec.ts` 6/6.
+  - D062 차단, D070 HOT, D067 승인 사유, D054 golden path, D026 프로필.
+- 남은 E2E 실패:
+  - claims(D025·DTO 계약)
+  - reports·similar·safety 관리자 제한(D058 계약, `docs/handoff/D058_D057_REPORT_CONTRACT_20261125.md`)
+  - selection-review(D061)·match-feedback(D046) 공개 참조 읽기 게이트웨이
+  - retention 보존 표(D079 정책 문서)
+- 남은 DB 스위트(낡은 직접 insert·서비스 키 관리자 호출): claims, recruiting, proposals, reports, privacy, safety, retention, ops, analytics, feedback, email-outbox, selection-review, ops-metrics, usage-ledger, promotions, test-cancel.
