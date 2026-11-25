@@ -4977,13 +4977,14 @@
       "acceptance": "TEST 프로모션만 별도 슬롯에서 기간·소유권·노출 이력을 표시한다. 실서비스 유료 HOT은 비활성이다.",
       "points": 3,
       "owner": "DEV-B",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "실서비스 유료 HOT은 비활성(TEST 결제 플래그). 실제 TEST 결제 연동은 D066~D068 게이트.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D070/ (이번 검증 기록 위치)"
+        "harness/evidence/D070/ (이번 검증 기록 위치)",
+        "harness/evidence/D070/20261126/README.md"
       ],
-      "status": "TODO",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,
@@ -5016,7 +5017,8 @@
           "label": "12b · 크리에이터 결제 / Mobile",
           "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388"
         }
-      ]
+      ],
+      "verified_scope": "2026-11-26 main 252dfdd 격리 빈 DB: promotion.spec.ts desktop/mobile PASS, promotions REST PASS. 서비스 전용 최소 DTO(3개 이하), 구 RPC 차단, 일반 정렬 불변, 노출 시에만 집계, 소유자·관리자만 이력 조회, 비공개·만료·회수 건 미노출. E2E: \"광고 · TEST HOT\" 표시 슬롯, 일반 결과 불변, 소유자 기간과 노출 이력."
     },
     {
       "id": "D071",

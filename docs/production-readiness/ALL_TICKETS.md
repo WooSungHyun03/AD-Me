@@ -1605,7 +1605,7 @@ DEV-B · P0 · S0 출시 차단 · BILLING · TESTED · 5 SP · ACTIVE
 
 ## D070 · HOT 독립 슬롯·광고 고지
 
-DEV-B · P0 · S0 출시 차단 · BILLING · TODO · 3 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · BILLING · TESTED · 3 SP · ACTIVE
 
 - **현재 문제** — 운영에 별도 슬롯 RPC 이름이 있지만 승인·활성·만료·비인증/환불 제외 전체는 확인하지 못했다.
 - **재현·관찰** — 격리 TEST 창구에서 검증 채널만 HOT 자격을 얻고, 종료 시 스폰서 노출 종료와 organic 순서 유지 확인.
@@ -1621,9 +1621,10 @@ DEV-B · P0 · S0 출시 차단 · BILLING · TODO · 3 SP · ACTIVE
 - **보안** — HOT 사용자가 순위 입력/가중치를 변경할 수 없다.
 - **검증** — 만료·일반 추천 순위 불변·광고 표시 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — TEST 프로모션만 별도 슬롯에서 기간·소유권·노출 이력을 표시한다. 실서비스 유료 HOT은 비활성이다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D070/ (이번 검증 기록 위치)
+- **차단 요인** — 실서비스 유료 HOT은 비활성(TEST 결제 플래그). 실제 TEST 결제 연동은 D066~D068 게이트.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D070/ (이번 검증 기록 위치) · harness/evidence/D070/20261126/README.md
 - **Figma 노드** — [11 · 요금제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271) · [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [11 · 요금제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519) · [12b · 크리에이터 결제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2348) · [12b · 크리에이터 결제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2388)
+- **검증 범위** — 2026-11-26 main 252dfdd 격리 빈 DB: promotion.spec.ts desktop/mobile PASS, promotions REST PASS. 서비스 전용 최소 DTO(3개 이하), 구 RPC 차단, 일반 정렬 불변, 노출 시에만 집계, 소유자·관리자만 이력 조회, 비공개·만료·회수 건 미노출. E2E: "광고 · TEST HOT" 표시 슬롯, 일반 결과 불변, 소유자 기간과 노출 이력.
 - **이전 기록** — OPEN
 
 ## D071 · 무료 Agency 팀·초대·테넌트
