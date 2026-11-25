@@ -8,7 +8,16 @@ import {
   parseInput,
   requireContext,
 } from "@/lib/api";
-import { campaignSchema } from "@/lib/schemas";
+import { campaignSchema, recruitingErrors } from "@/lib/schemas";
+
+function failCampaignWrite(
+  error: { code: string; message: string },
+  fallback: string,
+): never {
+  if (error.code === "P0001" && Object.hasOwn(recruitingErrors, error.message))
+    fail(recruitingErrors[error.message], 422);
+  return failDatabase(error, fallback);
+}
 export const POST = apiRoute("campaigns.post", async (req) => {
   const c = await requireContext();
   if (c.role !== "brand")
@@ -31,7 +40,7 @@ export const POST = apiRoute("campaigns.post", async (req) => {
     })
     .select("id")
     .single();
-  if (error) failDatabase(error, "캠페인을 저장하지 못했습니다.");
+  if (error) failCampaignWrite(error, "캠페인을 저장하지 못했습니다.");
   return NextResponse.json(data, { status: 201 });
 });
 export const PATCH = apiRoute("campaigns.patch", async (req) => {
@@ -58,7 +67,7 @@ export const PATCH = apiRoute("campaigns.patch", async (req) => {
     .eq("owner_id", c.user.id)
     .select("id")
     .maybeSingle();
-  if (error) failDatabase(error, "수정할 수 없습니다.");
+  if (error) failCampaignWrite(error, "수정할 수 없습니다.");
   if (!data) fail("수정할 수 없습니다.", 403);
   return NextResponse.json(data);
 });

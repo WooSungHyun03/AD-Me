@@ -8,6 +8,7 @@ export default async function Campaigns() {
     id: string;
     brief: (typeof campaigns)[number];
     is_demo?: boolean;
+    capacity?: number | null;
   }[] = campaigns
     .filter((c) => demo && c.status === "published")
     .map((c) => ({ id: c.seed_id, brief: c, is_demo: true }));
@@ -15,7 +16,7 @@ export default async function Campaigns() {
     const db = await supabase();
     let query = db
       .from("campaigns")
-      .select("id,brief,is_demo")
+      .select("id,brief,is_demo,capacity")
       .eq("status", "published")
       .eq("moderation_status", "allowed");
     if (!demo) query = query.eq("is_demo", false);
@@ -51,6 +52,7 @@ export default async function Campaigns() {
           <div>
             <strong>{(c.brief.budget_krw / 10000).toLocaleString()}만원</strong>
             <p style={{ fontSize: 12 }}>총 예산</p>
+            {c.capacity != null && <p>선정 {c.capacity}명</p>}
           </div>
         </Link>
       ))}

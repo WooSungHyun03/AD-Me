@@ -12,6 +12,7 @@ import { Button } from "./ui/button";
 import { ZodError } from "zod";
 import {
   campaignTermsFromForm,
+  utcToKstInput,
   type CampaignTerms,
 } from "@/lib/campaign-brief";
 import { CampaignTermsFields } from "./campaign-terms-fields";
@@ -26,6 +27,8 @@ type CampaignInput = {
   goal: string;
   format: string;
   status: string;
+  recruit_until?: string | null;
+  capacity?: number | null;
   terms?: CampaignTerms;
   policy?: Partial<Policy>;
 };
@@ -46,6 +49,8 @@ export function CampaignForm({
     [pending, setPending] = useState(false);
   const router = useRouter();
   const [structured, setStructured] = useState(!id || Boolean(initial?.terms));
+  const currentDeadline = initial?.recruit_until ?? null;
+  const deadlineInput = currentDeadline ? utcToKstInput(currentDeadline) : "";
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setPending(true);
@@ -53,7 +58,14 @@ export function CampaignForm({
     const form = new FormData(e.currentTarget);
     const d = Object.fromEntries(form);
     try {
+      const deadline = String(d.recruit_until ?? "");
       const brief = {
+        recruit_until: !deadline
+          ? null
+          : deadline === deadlineInput
+            ? currentDeadline
+            : new Date(deadline + "+09:00").toISOString(),
+        capacity: d.capacity ? Number(d.capacity) : null,
         ...Object.fromEntries(
           [
             "title",
@@ -200,6 +212,25 @@ export function CampaignForm({
             <option value="published">공개 모집</option>
             <option value="closed">모집 마감</option>
           </select>
+        </label>
+        <label className="field">
+          모집 마감 일시 (선택, KST)
+          <input
+            name="recruit_until"
+            type="datetime-local"
+            defaultValue={deadlineInput}
+          />
+        </label>
+        <label className="field">
+          선정 인원 (선택, 1~100)
+          <input
+            name="capacity"
+            type="number"
+            min={1}
+            max={100}
+            step={1}
+            defaultValue={initial?.capacity ?? ""}
+          />
         </label>
       </div>
       <fieldset style={{ marginTop: 24 }}>

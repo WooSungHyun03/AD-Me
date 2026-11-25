@@ -28,6 +28,10 @@ export default async function Campaign({
     | undefined = demo ? campaigns.find((c) => c.seed_id === id) : undefined;
   let isDemo = true,
     ownerId: string | null = null;
+  let capacity: number | null = null;
+  let selected: number | null = null;
+  let deadline: string | null = null;
+  let closed = false;
   let people: { id: string; name: string }[] = [];
   const user = await currentUser();
   if (configured()) {
@@ -41,6 +45,13 @@ export default async function Campaign({
       brief = data.brief;
       isDemo = data.is_demo;
       ownerId = data.owner_id;
+      capacity = data.capacity;
+      deadline = data.recruit_until;
+      closed = data.status === "closed";
+      if (user?.id === ownerId && capacity != null) {
+        const result = await db.rpc("campaign_selected", { p_campaign: id });
+        if (typeof result.data === "number") selected = result.data;
+      }
     } else if (!demo || !id.startsWith("campaign-")) notFound();
     if (user && data) {
       people = await readCreatorProposalChoices(db, data.id);
@@ -68,7 +79,31 @@ export default async function Campaign({
               <strong>{(brief.budget_krw / 10000).toLocaleString()}만원</strong>
               <span>총 예산</span>
             </div>
+            {capacity != null && (
+              <div>
+                <strong>
+                  {selected == null
+                    ? `${capacity}명`
+                    : `${selected}/${capacity}명`}
+                </strong>
+                <span>선정 인원</span>
+              </div>
+            )}
           </div>
+          {deadline && (
+            <p>
+              모집 마감{" "}
+              <time dateTime={deadline}>
+                {new Intl.DateTimeFormat("ko-KR", {
+                  timeZone: "Asia/Seoul",
+                  dateStyle: "medium",
+                  timeStyle: "short",
+                }).format(new Date(deadline))}{" "}
+                KST
+              </time>
+            </p>
+          )}
+          {closed && <p>모집이 마감되었습니다.</p>}
           {ownerId === user?.id && !isDemo && (
             <div className="actions">
               <Link
@@ -201,7 +236,7 @@ export default async function Campaign({
               가상 캠페인입니다. 실제 제안·지원은 로그인 후 본인 캠페인과 실제
               등록된 크리에이터 계정으로 진행하세요.
             </div>
-          ) : (
+          ) : !closed ? (
             <ProposalForm
               campaignId={id}
               creators={people}
@@ -213,7 +248,7 @@ export default async function Campaign({
               }
               kind={ownerId === user?.id ? "proposal" : "application"}
             />
-          )}
+          ) : null}
         </div>
       </div>
     </section>
