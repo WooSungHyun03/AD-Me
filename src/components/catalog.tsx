@@ -388,7 +388,9 @@ export function Catalog({
                       : "팔로워 미확보"}
                   </span>
                   <strong>
-                    {(c.price_min_krw / 10000).toLocaleString()}만원~
+                    {c.price_min_krw === null
+                      ? "견적 미확인"
+                      : `${(c.price_min_krw / 10000).toLocaleString()}만원~`}
                   </strong>
                 </div>
                 <label

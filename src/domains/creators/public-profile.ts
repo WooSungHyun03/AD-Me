@@ -12,9 +12,10 @@ export type PublicCatalogCreator = Omit<
   | "is_available"
 > & {
   followers: number | null;
-  price_min_krw: number;
-  price_max_krw: number;
-  is_available: boolean;
+  // D026: null = 견적 미확인 (both null together); never coerced to 0.
+  price_min_krw: number | null;
+  price_max_krw: number | null;
+  is_available: boolean | null; // D026: null = 협업 의사 미확인
 };
 // Contract of the database allowlist, never a raw legacy profile. Unknown keys
 // fail closed so a future SQL change cannot silently reintroduce private fields.
@@ -28,11 +29,11 @@ export const publicCatalogCreatorSchema = z
     vibes: z.array(z.string().max(50)).max(8),
     formats: z.array(z.string().max(50)).max(8),
     platforms: z.array(z.string().max(50)).max(5),
-    price_min_krw: z.number().int().min(0).max(100000000),
-    price_max_krw: z.number().int().min(0).max(100000000),
+    price_min_krw: z.number().int().min(0).max(100000000).nullable(),
+    price_max_krw: z.number().int().min(0).max(100000000).nullable(),
     followers: z.number().int().min(0).max(10000000000).nullable(),
     metrics_source: z.enum(["synthetic_demo_not_verified", "unavailable"]),
-    is_available: z.boolean(),
+    is_available: z.boolean().nullable(),
     is_demo: z.boolean(),
     data_source: z.enum([
       "generated fictional test fixture",
@@ -50,7 +51,8 @@ export const publicCatalogCreatorSchema = z
       (!p.is_demo && p.followers !== null) ||
       (p.metrics_source === "unavailable" && p.followers !== null) ||
       p.source_url !== (p.social_url ?? null) ||
-      p.price_max_krw < p.price_min_krw
+      (p.price_min_krw === null) !== (p.price_max_krw === null) ||
+      (p.price_min_krw !== null && p.price_max_krw! < p.price_min_krw)
     )
       ctx.addIssue({
         code: "custom",
@@ -79,10 +81,10 @@ const profile = z.object({
   vibes: tags(8),
   formats: tags(8),
   platforms: tags(5),
-  price_min_krw: z.number().int().min(0).max(100000000),
-  price_max_krw: z.number().int().min(0).max(100000000),
+  price_min_krw: z.number().int().min(0).max(100000000).nullable(),
+  price_max_krw: z.number().int().min(0).max(100000000).nullable(),
   followers: z.number().int().min(0).max(10000000000).nullable().optional(),
-  is_available: z.boolean(),
+  is_available: z.boolean().nullable(),
   is_demo: z.boolean(),
   metrics_source: z.string().max(80).optional(),
   owner_consent: z.boolean().optional(),
@@ -103,7 +105,13 @@ export function projectPublicCreator(
   const row = rowSchema.safeParse(input);
   if (!row.success || !row.data.published) return null;
   const parsed = profile.safeParse(row.data.profile);
-  if (!parsed.success || parsed.data.price_min_krw > parsed.data.price_max_krw)
+  if (
+    !parsed.success ||
+    (parsed.data.price_min_krw === null) !==
+      (parsed.data.price_max_krw === null) ||
+    (parsed.data.price_min_krw !== null &&
+      parsed.data.price_min_krw > parsed.data.price_max_krw!)
+  )
     return null;
   const p = parsed.data;
   const social =

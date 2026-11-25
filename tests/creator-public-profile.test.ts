@@ -133,3 +133,75 @@ it("preserves all 48 labeled fixtures and recommendation scores while removing p
     })),
   );
 });
+it("keeps an unknown quote (null/null) as 견적 미확인 instead of dropping the catalog (D026)", async () => {
+  const { publicCatalogCreatorSchema } =
+    await import("@/domains/creators/public-profile");
+  const unknown = projectPublicCreator(
+    row({ price_min_krw: null, price_max_krw: null, is_demo: false }),
+  );
+  expect(unknown?.price_min_krw).toBeNull();
+  expect(unknown?.price_max_krw).toBeNull();
+  // Half-known or inverted quotes stay invalid.
+  expect(
+    projectPublicCreator(row({ price_min_krw: null, price_max_krw: 1000 })),
+  ).toBeNull();
+  expect(
+    projectPublicCreator(row({ price_min_krw: 2000, price_max_krw: 1000 })),
+  ).toBeNull();
+  // The DB window row for the same creator parses (one such row used to 500 every campaign page).
+  const dbRow = {
+    seed_id: "c-unknown-quote",
+    name: "견적 미확인",
+    handle: "self_reported",
+    bio: "",
+    categories: ["뷰티"],
+    vibes: [],
+    formats: ["숏폼"],
+    platforms: ["youtube"],
+    price_min_krw: null,
+    price_max_krw: null,
+    followers: null,
+    metrics_source: "unavailable",
+    is_available: true,
+    is_demo: false,
+    data_source: "owner_registration",
+    source_url: null,
+    portrait_asset: null,
+    image_placeholder: "initials",
+    published: true,
+  };
+  expect(publicCatalogCreatorSchema.safeParse(dbRow).success).toBe(true);
+  expect(
+    publicCatalogCreatorSchema.safeParse({ ...dbRow, price_max_krw: 5 })
+      .success,
+  ).toBe(false);
+});
+it("keeps unknown collaboration intent (null) instead of failing the catalog (D026)", async () => {
+  const { publicCatalogCreatorSchema } =
+    await import("@/domains/creators/public-profile");
+  expect(
+    projectPublicCreator(row({ is_available: null }))?.is_available,
+  ).toBeNull();
+  const base = {
+    seed_id: "c-unknown-intent",
+    name: "의사 미확인",
+    handle: "qa",
+    bio: "",
+    categories: [],
+    vibes: [],
+    formats: [],
+    platforms: ["youtube"],
+    price_min_krw: 0,
+    price_max_krw: 0,
+    followers: null,
+    metrics_source: "unavailable",
+    is_available: null,
+    is_demo: false,
+    data_source: "owner_registration",
+    source_url: null,
+    portrait_asset: null,
+    image_placeholder: "initials",
+    published: true,
+  };
+  expect(publicCatalogCreatorSchema.safeParse(base).success).toBe(true);
+});
