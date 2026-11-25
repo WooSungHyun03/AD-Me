@@ -343,7 +343,7 @@ try {
 } finally {
   await cleanImageFixtures(Object.values(ids));
   sql(
-    `delete from adme_messaging.blocks where proposal_id='${room}';delete from public.audit_log where actor_id in('${ids.brand}','${ids.creator}','${ids.other}');delete from public.messages where proposal_id='${room}';delete from public.proposals where id='${room}';delete from public.campaigns where id='${campaign}';delete from public.saved_creators where owner_id='${ids.brand}';delete from public.creators where id='${creatorId}';delete from adme_creator.publication_policies where policy_version='local-policy-only';delete from adme_ops.rate_windows where subject in('${ids.brand}','${ids.creator}','${ids.other}');delete from auth.users where id in('${ids.brand}','${ids.creator}','${ids.other}');`,
+    `delete from adme_creator.metric_observations where identity_id='${identity}';delete from adme_creator.identities where id='${identity}';delete from adme_messaging.blocks where proposal_id='${room}';delete from public.audit_log where actor_id in('${ids.brand}','${ids.creator}','${ids.other}');delete from public.messages where proposal_id='${room}';delete from public.proposals where id='${room}';delete from public.campaigns where id='${campaign}';delete from public.creators where id='${creatorId}';delete from adme_creator.publication_policies where policy_version='local-policy-only';delete from adme_ops.rate_windows where subject in('${ids.brand}','${ids.creator}','${ids.other}');delete from auth.users where id in('${ids.brand}','${ids.creator}','${ids.other}');`,
   );
 }
 writeFileSync(

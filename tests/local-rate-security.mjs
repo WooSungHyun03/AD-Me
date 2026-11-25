@@ -29,7 +29,7 @@ function clear(scope) {
   sql(`delete from adme_ops.rate_windows where scope='${scope}';`);
 }
 try {
-  sql(`insert into public.creators(id,published,profile) select '${creator}',true,profile from public.creators limit 1;
+  sql(`insert into public.creators(id,owner_id,claim_status,published,profile) select '${creator}','${accounts.creator.id}','verified',true,profile from public.creators limit 1;
     insert into public.campaigns(id,owner_id,brief) select '${campaign}','${accounts.brand.id}',brief from public.campaigns limit 1;
     insert into public.proposals(id,campaign_id,creator_id,brand_id,creator_user_id,kind,brief)
     values('${proposal}','${campaign}','${creator}','${accounts.brand.id}','${accounts.creator.id}','proposal','Local fictional rate fixture');
@@ -168,13 +168,17 @@ try {
     async () => {
       clear("report_hour");
       clear("report_day");
+      // Reports are created only through submit_report since the report queue; distinct targets isolate the quota.
+      const targets = sql(
+        "select string_agg(id,',') from (select id from public.creators where published order by id limit 8) x;",
+      ).split(",");
       const replies = await Promise.all(
-        Array.from({ length: 8 }, () =>
-          brand.from("reports").insert({
-            reporter_id: accounts.brand.id,
-            creator_id: creator,
-            reason: "Local fixture report, no real allegation",
-            source_url: "https://example.test/evidence",
+        targets.map((target) =>
+          brand.rpc("submit_report", {
+            p_kind: "report",
+            p_creator: target,
+            p_reason: "Local fixture report, no real allegation",
+            p_source_url: "https://example.test/evidence",
           }),
         ),
       );
@@ -394,7 +398,7 @@ try {
 } finally {
   cleanDeliveryFixtures([proposal]);
   sql(
-    `delete from public.messages where proposal_id='${proposal}'; delete from public.reports where creator_id='${creator}'; delete from public.proposals where id='${proposal}'; delete from public.campaigns where id='${campaign}'; delete from public.creators where id='${creator}'; delete from adme_ops.jobs; delete from adme_ops.rate_windows; update adme_ops.settings set worker_hash=null where singleton=true; update adme_ops.resource_controls set ingestion_enabled=true,llm_enabled=true where singleton=true;`,
+    `delete from public.messages where proposal_id='${proposal}'; delete from public.reports where creator_id='${creator}' or reporter_id='${accounts.brand.id}'; delete from public.proposals where id='${proposal}'; delete from public.campaigns where id='${campaign}'; delete from public.creators where id='${creator}'; delete from adme_ops.jobs; delete from adme_ops.rate_windows; update adme_ops.settings set worker_hash=null where singleton=true; update adme_ops.resource_controls set ingestion_enabled=true,llm_enabled=true where singleton=true;`,
   );
 }
 writeFileSync(
