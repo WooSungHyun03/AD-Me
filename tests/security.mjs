@@ -1,6 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
+import { qaSignupConsent } from "./support/consent-fixture.mjs";
+import { totp } from "./support/local-qa.mjs";
 const e = Object.fromEntries(
   readFileSync(".env.local", "utf8")
     .split("\n")
@@ -72,25 +74,29 @@ assert.ok(
     })
   ).error,
 );
-const { data: orders } = await brand.from("orders").select("id,sku,amount,status");
+const { data: orders } = await brand
+  .from("orders")
+  .select("id,sku,amount,status");
 const { data: prices } = await brand.from("products").select("sku,amount");
 const price = Object.fromEntries(prices.map((p) => [p.sku, p.amount]));
 assert.ok(orders.length);
 // Server-priced (client amount ignored, e.g. marketplace job_post amount:1) and never paid.
-assert.ok(orders.every((o) => o.amount === price[o.sku] && o.status === "pending"));
+assert.ok(
+  orders.every((o) => o.amount === price[o.sku] && o.status === "pending"),
+);
 assert.equal((await brand.from("entitlements").select("*")).data.length, 0);
 assert.equal(
   (await other.from("orders").select("*").eq("owner_id", a.brand.id)).data
     .length,
   0,
 );
+// Reuses the E2E two-role proposal; any status works (pending is the stronger case for the accept below).
 const { data: p } = await brand
   .from("proposals")
-  .select("*")
-  .eq("status", "completed")
+  .select("id")
   .limit(1)
-  .single();
-assert.ok(p);
+  .maybeSingle();
+assert.ok(p, "needs a brand proposal from the E2E fixture");
 assert.equal(
   (await other.from("messages").select("*").eq("proposal_id", p.id)).data
     .length,
@@ -103,14 +109,12 @@ assert.ok(
 // Reports: direct insert is closed; requests go through submit_report (fresh account: 5/day limit).
 assert.ok(
   (
-    await creator
-      .from("reports")
-      .insert({
-        reporter_id: a.creator.id,
-        creator_id: "creator-001",
-        reason: "직접 삽입 시도입니다. 거부되어야 합니다.",
-        source_url: "https://example.com/x",
-      })
+    await creator.from("reports").insert({
+      reporter_id: a.creator.id,
+      creator_id: "creator-001",
+      reason: "직접 삽입 시도입니다. 거부되어야 합니다.",
+      source_url: "https://example.com/x",
+    })
   ).error,
 );
 const reporter = createClient(
@@ -118,17 +122,55 @@ const reporter = createClient(
   e.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   { auth: { persistSession: false } },
 );
+// Restored after merge 50f6aa7 dropped the request fixture (r was undefined).
 assert.equal(
   (
-    await admin.rpc("admin_review_report", {
-      p_id: r.id,
-      p_status: "reviewed",
-      p_reason: "QA 정정 검토 테스트",
-      p_request: crypto.randomUUID(),
+    await reporter.auth.signUp({
+      email: `adme-qa-sec-${Date.now()}@example.com`,
+      password: `Sec-${Date.now()}-Aa!`,
+      options: { data: { ...qaSignupConsent, role: "brand", name: "QA" } },
     })
   ).error,
   null,
 );
+const { data: rr, error: re } = await reporter.rpc("submit_report", {
+  p_kind: "correction",
+  p_creator: "creator-001",
+  p_reason: "QA 정정 검토 테스트입니다. 가상 데이터 검증.",
+  p_source_url: "https://example.com/qa-source",
+});
+assert.equal(re, null);
+const r = rr[0];
+assert.ok(
+  (
+    await brand.rpc("admin_review_report", {
+      p_id: r.id,
+      p_status: "reviewed",
+      p_reason: "브랜드는 처리 불가",
+      p_request: crypto.randomUUID(),
+    })
+  ).error,
+);
+const review = () =>
+  admin.rpc("admin_review_report", {
+    p_id: r.id,
+    p_status: "reviewed",
+    p_reason: "QA 정정 검토 테스트",
+    p_request: crypto.randomUUID(),
+  });
+// Admin moderation requires a fresh TOTP (aal2) session; password-only is denied.
+assert.ok((await review()).error, "password-only admin is denied");
+const { data: factors } = await admin.auth.mfa.listFactors();
+assert.equal(
+  (
+    await admin.auth.mfa.challengeAndVerify({
+      factorId: factors.totp.find((f) => f.status === "verified").id,
+      code: totp(a.admin.totpSecret),
+    })
+  ).error,
+  null,
+);
+assert.equal((await review()).error, null);
 assert.equal(
   (await reporter.from("reports").select("status").eq("id", r.id).single()).data
     .status,
@@ -143,13 +185,11 @@ assert.ok(
   (await admin.from("audit_log").select("id").eq("entity_id", r.id)).data
     .length,
 );
-const malformed = await brand
-  .from("campaigns")
-  .insert({
-    owner_id: a.brand.id,
-    brief: { title: { invalid: "object" } },
-    status: "published",
-  });
+const malformed = await brand.from("campaigns").insert({
+  owner_id: a.brand.id,
+  brief: { title: { invalid: "object" } },
+  status: "published",
+});
 assert.ok(malformed.error);
 assert.equal((await brand.from("campaigns").delete().eq("id", id)).error, null);
 console.log(
