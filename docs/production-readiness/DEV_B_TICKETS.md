@@ -984,7 +984,7 @@ DEV-B · P1 · S1 주요 부족 · MATCHING · TESTED · 5 SP · ACTIVE
 
 ## D050 · 협업 조건 변경·합의 이력
 
-DEV-B · P1 · S1 주요 부족 · MARKETPLACE · IN_PROGRESS · 5 SP · ACTIVE
+DEV-B · P1 · S1 주요 부족 · MARKETPLACE · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 IN_PROGRESS이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 예산·산출물·일정 수정안을 버전으로 남기고 양측 확인 전 확정으로 표시하지 않는다.
 - **재현·관찰** — /api/proposals에서 먼저 이전 합의 보존·동시 수정·권한 테스트을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/components/deal-controls.tsx, src/app/api/proposals/route.ts.
@@ -1000,9 +1000,10 @@ DEV-B · P1 · S1 주요 부족 · MARKETPLACE · IN_PROGRESS · 5 SP · ACTIVE
 - **보안** — 한쪽이 금액을 바꿔도 양측 승인 전 확정 상태가 되지 않는다.
 - **검증** — 이전 합의 보존·동시 수정·권한 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 예산·산출물·일정 수정안을 버전으로 남기고 양측 확인 전 확정으로 표시하지 않는다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D050/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D050/ (이번 검증 기록 위치)
+- **차단 요인** — 운영 적용(U004)은 운영자 게이트. 합의 변경 알림 연동은 범위 밖.
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D050/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D050/ (이번 검증 기록 위치) · harness/evidence/D050/20261126/README.md
 - **Figma 노드** — [07 · 캠페인 상세 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870) · [09 · 캠페인 지원 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1002) · [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [07 · 캠페인 상세 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898) · [09 · 캠페인 지원 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1039) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483)
+- **검증 범위** — 2026-11-26 main 격리 로컬: agreement_offers/events + RPC(20261126120000), 상대 동의 전 미확정·기존 합의 보존·기대 버전·멱등 키·동시 제안 단일 반영·외부인/직접 쓰기 거부·종료 협업 읽기 전용, agreements REST PASS, E2E desktop/mobile 2/2.
 - **이전 기록** — IN_PROGRESS
 
 ## D053 · 이메일 알림 outbox·수신 설정
