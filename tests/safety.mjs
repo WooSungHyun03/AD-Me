@@ -7,6 +7,8 @@ import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import assert from "node:assert/strict";
+import { elevateAdmin } from "./support/admin-mfa.mjs";
+import { publishCreator } from "./support/creator-publication.mjs";
 const env = Object.fromEntries(
   readFileSync(".env.local", "utf8")
     .trim()
@@ -47,6 +49,7 @@ assert.equal(
   ).error,
   null,
 );
+await elevateAdmin(admin, accounts.admin);
 const err = (r) => r.error?.message ?? "";
 const user = async (role) => {
   const db = client();
@@ -58,11 +61,7 @@ const user = async (role) => {
   assert.equal(r.error, null);
   const id = r.data.user.id;
   if (role === "creator") {
-    const ins = await db.from("creators").insert({
-      id: `user-${id}`,
-      owner_id: id,
-      published: true,
-      profile: {
+    const ins = await publishCreator(db, {
         name: "D062 크리에이터",
         bio: "",
         handle: "self_reported",
@@ -75,8 +74,7 @@ const user = async (role) => {
         followers: 0,
         is_available: true,
         is_demo: false,
-      },
-    });
+      });
     assert.equal(ins.error, null);
   }
   return { db, id, cid: `user-${id}` };
@@ -104,19 +102,18 @@ const campaign = async (b) =>
       .select("id")
       .single()
   ).data.id;
+// Requests are created through the same RPC as POST /api/proposals (direct inserts are not the contract).
+const createRequest = async (db, campaign, creator, kind, brief) => {
+  const r = await db.rpc("create_creator_proposal", {
+    p_campaign: campaign,
+    p_creator: creator,
+    p_kind: kind,
+    p_brief: brief,
+  });
+  return { ...r, data: r.data ? { id: r.data } : null };
+};
 const propose = (b, c, camp) =>
-  b.db
-    .from("proposals")
-    .insert({
-      campaign_id: camp,
-      creator_id: c.cid,
-      brand_id: b.id,
-      creator_user_id: c.id,
-      kind: "proposal",
-      brief: "D062 안전 검증용 제안입니다.",
-    })
-    .select("id")
-    .single();
+  createRequest(b.db, camp, c.cid, "proposal", "D062 안전 검증용 제안입니다.");
 const say = (u, pid, body = "안녕하세요") =>
   u.db
     .from("messages")
@@ -228,7 +225,13 @@ assert.equal(
 const B3 = await user("brand"),
   C3 = await user("creator");
 const pid3 = (await propose(B3, C3, await campaign(B3))).data.id;
-for (let i = 0; i < 30; i++)
+// The platform-wide message quota (20/min, PT429) applies first; the D062 sender cap (30/10 min)
+// is reached across two minute windows.
+for (let i = 0; i < 20; i++)
+  assert.equal((await say(B3, pid3, `m${i}`)).error, null);
+assert.match(err(await say(B3, pid3, "21")), /request limit reached/);
+await new Promise((r) => setTimeout(r, 61_000 - (Date.now() % 60_000)));
+for (let i = 20; i < 30; i++)
   assert.equal((await say(B3, pid3, `m${i}`)).error, null);
 assert.match(err(await say(B3, pid3, "31")), /rate_limited/);
 assert.equal((await say(C3, pid3, "답장")).error, null, "limit is per sender");
@@ -251,16 +254,7 @@ for (let i = 0; i < 11; i++) {
   const camp = await campaign(popular);
   assert.equal(
     (
-      await C6.db
-        .from("proposals")
-        .insert({
-          campaign_id: camp,
-          creator_id: C6.cid,
-          brand_id: popular.id,
-          creator_user_id: C6.id,
-          kind: "application",
-          brief: "인기 캠페인 지원 검증입니다.",
-        })
+      await createRequest(C6.db, camp, C6.cid, "application", "인기 캠페인 지원 검증입니다.")
     ).error,
     null,
     `application to popular brand ${i}`,
@@ -273,14 +267,7 @@ const camps = [];
 for (let i = 0; i < 21; i++)
   camps.push([owners[i % 3], await campaign(owners[i % 3])]);
 const apply = ([o, camp]) =>
-  C5.db.from("proposals").insert({
-    campaign_id: camp,
-    creator_id: C5.cid,
-    brand_id: o.id,
-    creator_user_id: C5.id,
-    kind: "application",
-    brief: "D062 지원 속도 제한 검증입니다.",
-  });
+  createRequest(C5.db, camp, C5.cid, "application", "D062 지원 속도 제한 검증입니다.");
 for (let i = 0; i < 20; i++)
   assert.equal((await apply(camps[i])).error, null, `application ${i}`);
 assert.match(err(await apply(camps[20])), /rate_limited/);
@@ -376,7 +363,7 @@ const rid = (
 ).data;
 assert.match(
   err(await say(C, pid3)),
-  /forbidden|row-level|blocked|contact_restricted/,
+  /forbidden|row-level|insufficient_privilege|blocked|contact_restricted/,
 ); // not a participant of pid3
 const pidC = (
   await C.db
@@ -396,14 +383,7 @@ const Bx = await user("brand");
 const campX = await campaign(Bx);
 assert.match(
   err(
-    await C.db.from("proposals").insert({
-      campaign_id: campX,
-      creator_id: C.cid,
-      brand_id: Bx.id,
-      creator_user_id: C.id,
-      kind: "application",
-      brief: "제한 중 지원 시도입니다.",
-    }),
+    await createRequest(C.db, campX, C.cid, "application", "제한 중 지원 시도입니다."),
   ),
   /contact_restricted/,
 );
