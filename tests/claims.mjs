@@ -4,6 +4,8 @@ import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import assert from "node:assert/strict";
+import { ownerSql, lit, jsonLit } from "./support/owner-sql.mjs";
+import { elevateAdmin } from "./support/admin-mfa.mjs";
 const e = Object.fromEntries(
   readFileSync(".env.local", "utf8").trim().split("\n").map((l) => [l.slice(0, l.indexOf("=")), l.slice(l.indexOf("=") + 1)]),
 );
@@ -31,9 +33,11 @@ const profile = {
   price_min_krw: 0, price_max_krw: 0, followers: 0, is_available: false, is_demo: false,
   data_source: "youtube_data_api", metrics_source: "youtube_data_api",
 };
-assert.equal((await svc.from("creators").insert({ id: collected, published: true, profile })).error, null);
+// Collected (ownerless) profiles are published by the ingestion pipeline, not a user consent
+// transaction; the D073 guard refuses service-key publication, so the fixture uses owner SQL.
+ownerSql(`insert into public.creators(id,published,profile) values(${lit(collected)},true,${jsonLit(profile)})`);
 try {
-  const brand = await as(a.brand), admin = await as(a.admin);
+  const brand = await as(a.brand), admin = await elevateAdmin(await as(a.admin), a.admin);
   const A = await newCreator(), B = await newCreator();
   const row = async () => (await svc.from("creators").select("owner_id,claim_status").eq("id", collected).single()).data;
   assert.equal((await row()).claim_status, "unclaimed");
