@@ -23,8 +23,8 @@
 
 - 전체 순서 실행(`252dfdd`, 새 DB): 10 failed / 4 skipped.
   - retention ×2: CI와 같다.
-  - notifications:29·133, pipeline:33 ×2 (desktop·mobile): 로그인 후 `/login`에 머무른다. CI에는 없다. 로컬 스택의 인증 요청 한도나 세션 문제로 보이며 원인은 확정하지 못했다.
-  - service:93 ×2: 로컬에 Toss TEST 시크릿이 없어 "승인 서버 응답을 확인하지 못했습니다"가 나온다. 환경 차이다.
+  - notifications:29·133, pipeline:33 ×2 (desktop·mobile): 로그인 후 `/login`에 머무른다. 원인은 D076 로그인 한도(`요청이 많습니다. 15초 후…`)로 확정했다. `AUTH_BUDGET_20261126.md`에서 해결했다.
+  - service:93 ×2: "승인 서버 응답을 확인하지 못했습니다". 처음에는 Toss 키 부재로 추정했다. 한도 수정 뒤 재실행에서는 통과해, 해당 추정은 철회한다(원인 미확정, 재발 시 재조사).
 - 단독 실행: similar, match-feedback, reports, safety 통과.
   - selection-review는 단독 실행 시 `creators.owner_id = accounts.creator.id` 행이 없어 FK 오류가 난다. 앞선 spec이 만든 행에 의존하는 **순서 의존성**이다. 전체 실행과 CI에서는 통과한다. DEV-B에 fixture 자립화를 권고한다.
 
