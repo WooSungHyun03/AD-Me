@@ -8,7 +8,7 @@ import { REASONS, SHOWN } from "@/lib/matching-eval";
 import { storageAdmin } from "@/lib/uploads";
 // D046: rating a shown recommendation. Rank, score and scorer version are recomputed here, never taken
 // from the client, so a rating always refers to what the server actually displayed.
- async function handlePOST(req: Request) {
+async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -35,25 +35,25 @@ import { storageAdmin } from "@/lib/uploads";
   );
   const i = shown.findIndex((r) => r.creatorId === p.data.creatorId);
   if (i < 0) return fail("현재 추천 목록에 없는 크리에이터입니다.", 409);
-  // Server-only write (the table grants no client insert/update); ownership was checked above via RLS read.
+  // Server-only write (the table grants no client insert/update); ownership was checked above via RLS read
+  // and again in the service-only RPC, which resolves the public reference to the internal creator id.
   const admin = storageAdmin();
   if (!admin) return fail("서버 키가 설정되지 않았습니다.", 503);
-  const { error } = await admin.from("matching_feedback").upsert(
-    {
-      campaign_id: p.data.campaignId,
-      creator_id: p.data.creatorId,
-      rater_id: c.user.id,
-      model_version: shown[i].version,
-      rank_position: i + 1,
-      score: shown[i].score,
-      verdict: p.data.verdict,
-      reason: p.data.reason,
-      updated_at: new Date().toISOString(),
-    },
-    { onConflict: "campaign_id,creator_id,rater_id" },
-  );
+  const { error } = await admin.rpc("rate_recommendation", {
+    p_rater: c.user.id,
+    p_campaign: p.data.campaignId,
+    p_creator: p.data.creatorId,
+    p_version: shown[i].version,
+    p_rank: i + 1,
+    p_score: shown[i].score,
+    p_verdict: p.data.verdict,
+    p_reason: p.data.reason,
+  });
   if (error) return fail("평가를 저장하지 못했습니다.", 400);
   return NextResponse.json({ ok: true, rank_position: i + 1 });
 }
 
-export const POST=compatibleApiRoute("src/app/api/matching-feedback/route.ts.POST",handlePOST);
+export const POST = compatibleApiRoute(
+  "src/app/api/matching-feedback/route.ts.POST",
+  handlePOST,
+);
