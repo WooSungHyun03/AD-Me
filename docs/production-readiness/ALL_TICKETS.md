@@ -1779,7 +1779,7 @@ DEV-B · P0 · S0 출시 차단 · SECURITY · TODO · 5 SP · ACTIVE
 
 ## D078 · 비밀값·로그·키 교체 대응
 
-DEV-B · P0 · S0 출시 차단 · SECURITY · TODO · 3 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · SECURITY · TESTED · 3 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 클라이언트 번들·저장소 이력·오류 로그 비밀값 검사를 자동화하고 사용자 키 교체 후 검증 절차를 제공한다.
 - **재현·관찰** — /settings · /admin · 권한 API에서 먼저 시크릿 스캔·마스킹·실패 로그·환경 분리 검사을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: harness/secret_scan.py, src/lib/api.ts, .gitignore.
@@ -1795,8 +1795,8 @@ DEV-B · P0 · S0 출시 차단 · SECURITY · TODO · 3 SP · ACTIVE
 - **보안** — .env.local/.accounts.local.json/.vercel 토큰과 인증된 trace를 공개 산출물에 포함하지 않는다.
 - **검증** — 시크릿 스캔·마스킹·실패 로그·환경 분리 검사 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 클라이언트 번들·저장소 이력·오류 로그 비밀값 검사를 자동화하고 사용자 키 교체 후 검증 절차를 제공한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D078/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
+- **차단 요인** — 2026-11-25 로컬 범위만 TESTED: 스캐너 로캘 무관 UTF-8·비UTF-8 파일 검사와 webhook/LLM/GitHub PAT/DB URL 패턴, 로그 mask 깊이 초과 원문·토큰/필드명/서버 env 값·api_error operation·이메일 공급자 오류 redaction 회귀 테스트, 키 교체 후 검증 절차(docs/operations/KEY_ROTATION.md). 운영 키 교체·환경변수 등록·이전 키 401·배포 런타임 로그 검사는 운영자 U006 게이트로 BLOCKED_EXTERNAL이며 전체 DONE/VERIFIED 아님.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D078/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md · harness/evidence/D078/20261125/README.md · docs/operations/KEY_ROTATION.md
 - **이전 기록** — OPEN
 
 ## D079 · 데이터 보존·삭제·복구 정책 실행

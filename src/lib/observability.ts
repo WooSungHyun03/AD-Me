@@ -3,6 +3,24 @@ import { randomUUID } from "node:crypto";
 
 // Masks anything that identifies a person or grants access before it leaves the process.
 const MASKS: [RegExp, string][] = [
+  // D078: provider tokens, private keys, DB connection passwords and webhook URLs (secret in the path).
+  [
+    /-----BEGIN [A-Z ]*PRIVATE KEY-----[\s\S]*?(?:-----END [A-Z ]*PRIVATE KEY-----|$)/g,
+    "[private-key]",
+  ],
+  [/\bBearer\s+[A-Za-z0-9._~+/=-]{8,}/gi, "Bearer [token]"],
+  [
+    /\b(?:gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|vercel_[A-Za-z0-9]{16,}|sk-(?:ant-|proj-)?[A-Za-z0-9_-]{20,})/g,
+    "[key]",
+  ],
+  [
+    /\b((?:postgres(?:ql)?|mysql|redis|mongodb(?:\+srv)?):\/\/[^:/\s@]+:)[^@\s/]+@/gi,
+    "$1[redacted]@",
+  ],
+  [
+    /https:\/\/(?:hooks\.slack\.com\/services|(?:canary\.|ptb\.)?discord(?:app)?\.com\/api\/webhooks)\/[^\s"']+/gi,
+    "[webhook]",
+  ],
   [/eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/g, "[jwt]"],
   [
     /\b(?:sb_secret|sb_publishable|test_sk|test_gsk|test_ck|live_sk|live_ck)_[A-Za-z0-9_-]+/g,
@@ -19,21 +37,44 @@ const MASKS: [RegExp, string][] = [
   ],
 ];
 const SECRET_FIELDS =
-  /pass(word)?|token|secret|authorization|cookie|api[-_]?key|email|phone|body|brief|reason/i;
+  /pass(word)?|token|secret|authorization|cookie|api[-_]?key|credential|private[-_]?key|connection[-_]?string|dsn|jwt|email|phone|body|brief|reason/i;
+// D078: `serviceRoleKey`, `service_role_key`, `SUPABASE_SERVICE_ROLE_KEY`; a bare `key` (alert dedupe key) stays readable.
+const KEY_FIELD = /(?:[a-z0-9]Key|[-_]key|[-_]KEY)$/;
+// Exact values of configured server-only variables are masked even when no pattern recognises them.
+const SERVER_ENV_NAME = /KEY|SECRET|TOKEN|PASSWORD|WEBHOOK|DATABASE_URL|DSN/;
+function serverEnvValues() {
+  return Object.entries(process.env)
+    .filter(
+      ([name, value]) =>
+        !name.startsWith("NEXT_PUBLIC_") &&
+        SERVER_ENV_NAME.test(name) &&
+        typeof value === "string" &&
+        value.length >= 12,
+    )
+    .map(([, value]) => value as string)
+    .sort((a, b) => b.length - a.length);
+}
 
 export function mask(value: unknown, depth = 0): unknown {
   if (typeof value === "string")
-    return MASKS.reduce((s, [re, to]) => s.replace(re, to), value).slice(
-      0,
-      500,
-    );
-  if (depth > 4 || value === null || typeof value !== "object") return value;
+    return MASKS.reduce(
+      (s, [re, to]) => s.replace(re, to),
+      serverEnvValues().reduce(
+        (s, v) => s.split(v).join("[server-env]"),
+        value,
+      ),
+    ).slice(0, 500);
+  if (value === null || typeof value !== "object") return value;
+  // Never serialise an object the field filter has not inspected.
+  if (depth > 4) return "[truncated]";
   if (Array.isArray(value))
     return value.slice(0, 20).map((v) => mask(v, depth + 1));
   return Object.fromEntries(
     Object.entries(value).map(([k, v]) => [
       k,
-      SECRET_FIELDS.test(k) ? "[redacted]" : mask(v, depth + 1),
+      SECRET_FIELDS.test(k) || KEY_FIELD.test(k)
+        ? "[redacted]"
+        : mask(v, depth + 1),
     ]),
   );
 }

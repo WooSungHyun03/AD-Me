@@ -28,6 +28,13 @@ patterns = {
     "google api key": r"AIza[0-9A-Za-z_-]{35}",
     "private key": r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----",
     "vercel token": r"\bvercel_[A-Za-z0-9]{20,}",
+    # D078 additions: fine-grained GitHub PATs, LLM provider keys, webhook URLs (secret in the path) and
+    # DB connection strings whose password is not the public local-stack default `postgres`.
+    "github fine-grained token": r"\bgithub_pat_[A-Za-z0-9_]{40,}",
+    "llm provider key": r"\bsk-(?:ant|proj)-[A-Za-z0-9_-]{20,}",
+    "webhook url": r"https://(?:hooks\.slack\.com/services/T[A-Za-z0-9]+/B[A-Za-z0-9]+/[A-Za-z0-9]{16,}"
+    r"|(?:canary\.|ptb\.)?discord(?:app)?\.com/api/webhooks/\d+/[A-Za-z0-9_-]{30,})",
+    "database url with password": r"\b(?:postgres(?:ql)?|mysql|mongodb(?:\+srv)?)://[^:/\s@]+:(?!postgres@)[^@\s/]{6,}@",
 }
 JWT = re.compile(r"eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+")
 PRIVATE_FILES = (".vercel/", ".accounts.", ".auth/")
@@ -38,7 +45,7 @@ def env_file():
     if not p.exists():
         return {}
     out = {}
-    for line in p.read_text().splitlines():
+    for line in p.read_text(encoding="utf-8", errors="ignore").splitlines():
         if "=" in line and not line.lstrip().startswith("#"):
             k, v = line.split("=", 1)
             out[k.strip()] = v.strip()
@@ -70,6 +77,12 @@ def scan_text(text, where, findings):
             findings.append((where, f"value of server-only {name}"))
 
 
+def text_of(data):
+    # D078: decode as UTF-8 regardless of the OS locale (cp949 on Korean Windows silently skipped every file
+    # containing Hangul) and keep scanning past stray non-UTF-8 bytes instead of skipping the whole file.
+    return data.decode("utf-8", "ignore")
+
+
 def private_path(path):
     return path.startswith(PRIVATE_FILES) or (
         path.split("/")[-1].startswith(".env") and path.split("/")[-1] not in (".env.example", ".env.test.example")
@@ -89,8 +102,8 @@ def scan_worktree(findings):
             findings.append((path, "private environment/account file is not ignored"))
             continue
         try:
-            scan_text((root / path).read_text(), path, findings)
-        except (UnicodeError, IsADirectoryError, FileNotFoundError):
+            scan_text(text_of((root / path).read_bytes()), path, findings)
+        except (IsADirectoryError, FileNotFoundError, PermissionError):
             pass
     return f"{len(paths)} tracked/untracked files"
 
@@ -119,10 +132,7 @@ def scan_history(findings):
         name = blobs[sha]
         if private_path(name):
             findings.append((f"history:{name}", "private environment/account file was committed"))
-        try:
-            scan_text(body.decode(), f"history:{name}@{sha[:8]}", findings)
-        except UnicodeError:
-            pass
+        scan_text(text_of(body), f"history:{name}@{sha[:8]}", findings)
     return f"{n} history blobs"
 
 
@@ -140,12 +150,12 @@ def scan_tree(base, findings, label):
                 with zipfile.ZipFile(p) as z:
                     for entry in z.namelist():
                         n += 1
-                        scan_text(z.read(entry).decode("utf-8", "ignore"), f"{rel}!{entry}", findings)
+                        scan_text(text_of(z.read(entry)), f"{rel}!{entry}", findings)
             except zipfile.BadZipFile:
                 pass
             continue
         n += 1
-        scan_text(p.read_bytes().decode("utf-8", "ignore"), rel, findings)
+        scan_text(text_of(p.read_bytes()), rel, findings)
     return f"{label}: {n} files"
 
 
@@ -160,7 +170,7 @@ def scan_artifacts(findings):
 
 def scan_logs(files, findings):
     for f in files:
-        scan_text(pathlib.Path(f).read_text(errors="ignore"), f, findings)
+        scan_text(text_of(pathlib.Path(f).read_bytes()), f, findings)
     return f"{len(files)} log files"
 
 

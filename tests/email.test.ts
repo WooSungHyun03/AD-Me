@@ -84,4 +84,19 @@ describe("notification email (D053)", () => {
       ["finish_email", { p_id: 2, p_ok: false, p_error: "smtp_421" }],
     ]);
   });
+  it("D078: stored provider errors never keep addresses or credentials", async () => {
+    const { svc, calls } = stub([row({ id: 3 })]);
+    const key = ["Bearer ", "Z".repeat(30)].join("");
+    const sender: Sender = {
+      name: "fake",
+      send: async () => {
+        throw new Error(`rejected to=kim@example.com auth ${key}`);
+      },
+    };
+    await runOutbox(svc, sender, "https://app.test");
+    const stored = JSON.stringify(calls.slice(1));
+    expect(stored).not.toContain("kim@example.com");
+    expect(stored).not.toContain("Z".repeat(30));
+    expect(stored).toContain("[email]");
+  });
 });

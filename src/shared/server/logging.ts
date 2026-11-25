@@ -1,4 +1,5 @@
 import "server-only";
+import { mask } from "@/lib/observability";
 
 export function logApiFailure(
   operation: string,
@@ -6,15 +7,17 @@ export function logApiFailure(
   requestId: string,
   elapsed: number,
 ) {
-  const parts = operation.split(".");
-  const domain = operation.startsWith("src/app/api/")
-    ? operation.split("/")[3]
+  // D078: route labels are code constants, but they still pass the shared redaction before reaching logs.
+  const label = String(mask(operation)).slice(0, 120);
+  const parts = label.split(".");
+  const domain = label.startsWith("src/app/api/")
+    ? label.split("/")[3]
     : parts[0];
   console.error("api_error", {
     timestamp: new Date().toISOString(),
     requestId,
     domain,
-    operation,
+    operation: label,
     level: "error",
     duration: Math.round(elapsed),
     errorCode,

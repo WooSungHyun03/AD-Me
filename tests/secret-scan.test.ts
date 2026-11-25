@@ -9,20 +9,22 @@ import {
   writeFileSync,
   existsSync,
 } from "node:fs";
-const run = (...args: string[]) => {
+const runWith = (env: Record<string, string>, ...args: string[]) => {
   try {
     return {
       code: 0,
-      out: execFileSync(process.platform === "win32" ? "python" : "python3", [
-        "harness/secret_scan.py",
-        ...args,
-      ]).toString(),
+      out: execFileSync(
+        process.platform === "win32" ? "python" : "python3",
+        ["harness/secret_scan.py", ...args],
+        { env: { ...process.env, ...env } },
+      ).toString(),
     };
   } catch (e) {
     const err = e as { status: number; stdout: Buffer };
     return { code: err.status, out: err.stdout.toString() };
   }
 };
+const run = (...args: string[]) => runWith({}, ...args);
 const fakeToss = ["test", "sk", "Q".repeat(24)].join("_");
 const b64 = (o: object) => Buffer.from(JSON.stringify(o)).toString("base64url");
 const fakeServiceJwt = `${b64({ alg: "HS256" })}.${b64({ role: ["service", "role"].join("_") })}.sig`;
@@ -68,6 +70,8 @@ const created = [
   "test-results/d078-fake",
   "harness/evidence/D078-fake",
   "d078-untracked.txt",
+  "d078-hangul.txt",
+  "d078-patterns.txt",
   "test-results/d078.log",
 ];
 afterAll(() =>
@@ -85,6 +89,48 @@ describe("D078 secret scanner", () => {
     expect(r.out).toContain("d078-untracked.txt: toss secret key");
     expect(r.out).not.toContain(fakeToss);
     rmSync("d078-untracked.txt");
+  });
+  it("D078: scans Hangul and non-UTF-8 files even under a legacy (cp949) locale", () => {
+    writeFileSync(
+      "d078-hangul.txt",
+      Buffer.concat([
+        Buffer.from("한국어 메모\n"),
+        Buffer.from([0xff, 0xfe, 0x0a]),
+        Buffer.from(`TOSS=${fakeToss}\n`),
+      ]),
+    );
+    // PYTHONUTF8=0 reproduces the Korean-Windows default where files used to be skipped silently.
+    const r = runWith({ PYTHONUTF8: "0" });
+    expect(r.code).toBe(1);
+    expect(r.out).toContain("d078-hangul.txt: toss secret key");
+    expect(r.out).not.toContain(fakeToss);
+    rmSync("d078-hangul.txt");
+  });
+  it("D078: catches webhook URLs, provider keys and DB passwords but not the local default", () => {
+    const lines = [
+      ["https://hooks.slack.com/services/", "T0AB/B0CD/", "x".repeat(24)],
+      ["https://discord.com/api/webhooks/", "1234/", "y".repeat(40)],
+      ["sk-", "ant-", "z".repeat(30)],
+      ["github", "_pat_", "w".repeat(48)],
+      ["postgres", "ql://app_user:", "Str0ngPassw0rd", "@db.example.co/app"],
+    ].map((p) => p.join(""));
+    writeFileSync("d078-patterns.txt", lines.join("\n"));
+    const r = run();
+    expect(r.code).toBe(1);
+    for (const kind of [
+      "webhook url",
+      "llm provider key",
+      "github fine-grained token",
+      "database url with password",
+    ])
+      expect(r.out).toContain(`d078-patterns.txt: ${kind}`);
+    for (const value of lines) expect(r.out).not.toContain(value);
+    writeFileSync(
+      "d078-patterns.txt",
+      ["postgres", "ql://postgres:postgres@127.0.0.1:54322/postgres"].join(""),
+    );
+    expect(run().code).toBe(0);
+    rmSync("d078-patterns.txt");
   });
   it("catches service-role tokens and server env values inside trace zips; flags traces in evidence", () => {
     mkdirSync("test-results/d078-fake", { recursive: true });

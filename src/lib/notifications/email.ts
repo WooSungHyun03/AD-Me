@@ -1,6 +1,7 @@
 // D053: app notification email (service/marketing). NOT the Supabase Auth emails (signup confirm, password
 // reset) — those are sent by Supabase Auth through its own SMTP setting and are never queued here.
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { mask } from "@/lib/observability";
 
 export const MAX_ATTEMPTS = 5; // mirrored in finish_email(): the 5th failure is dead-lettered
 type Template = { subject: string; body: string };
@@ -99,7 +100,11 @@ export async function runOutbox(
       await sender.send(render(row, appUrl));
       ok = true;
     } catch (e) {
-      err = String((e as Error)?.message ?? "send_error").slice(0, 200); // error code only, no addresses
+      // D078: provider text can echo the recipient or credential; store it only after the shared redaction.
+      err = String(mask(String((e as Error)?.message ?? "send_error"))).slice(
+        0,
+        200,
+      );
     }
     await svc.rpc("finish_email", { p_id: row.id, p_ok: ok, p_error: err });
     if (ok) sent++;
