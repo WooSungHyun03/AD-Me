@@ -192,7 +192,7 @@ DEV-B · P0 · S0 출시 차단 · AUTH · TESTED · 3 SP · ACTIVE
 
 ## D017 · 플랫폼별 수집 허용 목록·데이터 계약
 
-DEV-B · P0 · S0 출시 차단 · COMPLIANCE · TODO · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · COMPLIANCE · IN_PROGRESS · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 필드·목적·근거·약관 버전·보존기간·갱신주기·재배포 범위를 공급원별로 정의한다.
 - **재현·관찰** — /about · /privacy · /licenses에서 먼저 승인 없는 공급원 실행 거부·정책 검토표을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: docs/data-sources, src/lib/ingestion/policy.ts.
@@ -208,8 +208,8 @@ DEV-B · P0 · S0 출시 차단 · COMPLIANCE · TODO · 5 SP · ACTIVE
 - **보안** — 정책 미승인/만료 공급원은 fetch 이전에 중단한다.
 - **검증** — 승인 없는 공급원 실행 거부·정책 검토표 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 필드·목적·근거·약관 버전·보존기간·갱신주기·재배포 범위를 공급원별로 정의한다.
-- **차단 요인** — 외부 선행 U001의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D017/ (이번 검증 기록 위치)
+- **차단 요인** — 2026-11-26: 격리 계약·권한 검증 통과(증빙 참조). YouTube 등 외부 공급원 정책이 U001 검토 대기(status pending, terms_version 미기록)라 실제 수집 허용 근거가 없다. 완료 표시하지 않는다.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D017/ (이번 검증 기록 위치) · harness/evidence/D017/20261126/README.md
 - **이전 기록** — OPEN
 
 ## D024 · 실제 데이터 파일럿 품질 게이트
