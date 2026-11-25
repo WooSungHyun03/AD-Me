@@ -10,9 +10,13 @@ export function localRuntime() {
       "",
     ),
   );
+  // Any loopback port, so an isolated replica can run beside another local stack.
   if (
-    runtime.API_URL !== "http://127.0.0.1:54321" ||
-    !runtime.DB_URL?.includes("@127.0.0.1:54322/")
+    !/^http:\/\/127\.0\.0\.1:\d+$/.test(runtime.API_URL ?? "") ||
+    !/@127\.0\.0\.1:\d+\//.test(runtime.DB_URL ?? "") ||
+    !/^supabase_db_[A-Za-z0-9_-]+$/.test(
+      runtime.DB_CONTAINER ?? "supabase_db_dev-a-db",
+    )
   )
     throw new Error("Local QA refuses non-loopback infrastructure");
   return runtime;
@@ -32,7 +36,7 @@ export function sql(statement) {
     [
       "exec",
       "-i",
-      "supabase_db_dev-a-db",
+      localRuntime().DB_CONTAINER ?? "supabase_db_dev-a-db",
       "psql",
       "-U",
       "postgres",

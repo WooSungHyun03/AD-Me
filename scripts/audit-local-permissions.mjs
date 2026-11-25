@@ -71,6 +71,60 @@ assert.equal(
   buckets.find((b) => b.id === "adme-private-images")?.size,
   4194304,
 );
+// D075: anon-callable SECURITY DEFINER functions reviewed 2026-11-25 on main 42e1143.
+// Public read DTOs, boolean gates, token-gated worker leases (verify_worker sha256),
+// and owner-consented business contacts ("방문자가 볼 수 있도록" consent). New entries need review.
+const reviewedAnonDefiners = new Set([
+  "adme_consent.current_policy()",
+  "adme_creator.catalog_page(text,integer)",
+  "adme_creator.filtered_page(jsonb,text,integer,boolean)",
+  "adme_creator.home_summary(boolean)",
+  "adme_creator.metric_history(text,integer)",
+  "adme_creator.normalized_public(text)",
+  "adme_creator.public_one(text)",
+  "adme_creator.read_boundary_enabled()",
+  "adme_ops.creator_youtube_channel(text)",
+  "adme_ops.featured_youtube(text,text,integer)",
+  "adme_ops.marketplace_board(uuid)",
+  "adme_ops.marketplace_visible(uuid)",
+  "adme_ops.ops_public_channels(text)",
+  "adme_ops.ops_worker_claim(text)",
+  "adme_ops.ops_worker_finish(text,uuid,uuid,jsonb,text,integer)",
+  "adme_ops.public_youtube_contact(text)",
+  "adme_ops.worker_checkpoint(text,uuid,uuid,jsonb,jsonb)",
+  "adme_ops.worker_heartbeat(text,uuid,uuid)",
+  "adme_ops.youtube_directory_page(jsonb,text,integer)",
+  "adme_privacy.enforce_actor()",
+  "adme_privacy.request_allowed()",
+  "adme_privacy.storage_active(text,text)",
+  "adme_release.billing_enabled()",
+  "adme_release.demo_catalog_enabled()",
+  "adme_review.ad_page(text,text,text,date,date,jsonb,integer)",
+  "adme_review.public_records(text,text)",
+  "auth_shared_budget(text)",
+  "brand_logo_available(uuid)",
+  "count_creators(text,text,text,text,numeric,boolean,numeric,numeric,boolean)",
+  "deletion_intake_status()",
+  "is_admin()",
+  "my_role()",
+  "search_creators(text,text,text,text,numeric,boolean,numeric,numeric,boolean,text,text,text,integer)",
+  "shared_compare(text)",
+  "unsubscribe_email(text)",
+]);
+const unreviewed = functions
+  .filter((f) => f.definer && f.anon_execute)
+  .map((f) => f.signature)
+  .filter((s) => !reviewedAnonDefiners.has(s));
+assert.deepEqual(unreviewed, [], "Unreviewed anon SECURITY DEFINER");
+// Self role promotion: clients may edit only display fields of their own profile.
+for (const column of ["role", "id", "service_email"])
+  assert.equal(
+    sql(
+      `select has_column_privilege('authenticated','public.profiles','${column}','update');`,
+    ),
+    "f",
+    `authenticated can update profiles.${column}`,
+  );
 writeFileSync(
   (() => {
     const path = process.argv[2];

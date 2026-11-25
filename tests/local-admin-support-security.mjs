@@ -44,7 +44,7 @@ try {
       `insert into auth.users(id,raw_user_meta_data)values('${uid}','{"role":"brand","name":"가상 운영 검색","email":"PRIVATE_SUPPORT_CANARY"}');`,
     );
   sql(
-    `select adme_ops.provision_staff('${supportId}','support','FICTIONAL LOCAL SUPPORT QA',now()+interval'1 hour');insert into public.reports(id,reporter_id,creator_id,reason,source_url)values('${report}','${id}','creator-001','PRIVATE_REPORT_CANARY not public','https://example.test/fictional-support');`,
+    `select adme_ops.provision_staff('${supportId}','support','FICTIONAL LOCAL SUPPORT QA',now()+interval'1 hour');insert into public.reports(id,reporter_id,creator_id,reason,source_url,ticket_no,due_at)values('${report}','${id}','creator-001','PRIVATE_REPORT_CANARY not public','https://example.test/fictional-support','ADR-QA-'||left('${report}',8),now()+interval'7 days');`,
   );
   await check(
     "normal, anonymous and stale MFA denied; delegated support limited to support scope",
