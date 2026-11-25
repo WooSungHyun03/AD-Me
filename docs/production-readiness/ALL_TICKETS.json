@@ -5269,7 +5269,7 @@
       "acceptance": "직접 DB API·SECURITY DEFINER·검색 경로·공개 DTO·테넌트 경계를 검사하고 최소권한을 적용한다.",
       "points": 8,
       "owner": "DEV-A",
-      "blockers": "기본 즐겨찾기/CSV/서비스 슬롯과 실제 로컬 Storage·역할 회귀 완료. B D036/D038 named-list/import 공개DTO 계약 및 B D049 전체 경로, 운영 DB/앱 적용과 실환경 권한 전수 검증 필요. 2026-11-25: 관리자 '검토 완료'(admin_review_report reviewed)가 reports_status_check로 실패하고 review_report 4인자 경로가 요청ID/지원감사 없이 in_review 전환을 허용 — D057(A)/D060(B) 계약 합의와 신규 마이그레이션 필요. 2026-11-25 전체 로컬 권한 스위트 38개 중 33개/186건 PASS(관리자 지원 회귀1, 업그레이드4는 패킷DB 필요). submit_report duplicate_open 동시성 경합(동일 대상 열린 신고 5건) — 마이그레이션·D057/D060 합의 필요. 2026-11-25 *-upgrade 스위트 4개는 2026-11-20 과거 패킷(23/24·30·31 마이그레이션) 업그레이드 검증이며 패킷 DB 준비 스크립트가 Windows 경로(C:/projects/AD-Me, cmd.exe)에 고정 — macOS 실행 BLOCKED, 현재 main 권한 커버리지 아님. 운영자: 20261125120000 운영 적용 및 지문 13fc6e60… 승인 전까지 운영 배포 보류.",
+      "blockers": "기본 즐겨찾기/CSV/서비스 슬롯과 실제 로컬 Storage·역할 회귀 완료. B D036/D038 named-list/import 공개DTO 계약 및 B D049 전체 경로, 운영 DB/앱 적용과 실환경 권한 전수 검증 필요. 2026-11-25: 관리자 '검토 완료'(admin_review_report reviewed)가 reports_status_check로 실패하고 review_report 4인자 경로가 요청ID/지원감사 없이 in_review 전환을 허용 — D057(A)/D060(B) 계약 합의와 신규 마이그레이션 필요. 2026-11-25 전체 로컬 권한 스위트 38개 중 33개/186건 PASS(관리자 지원 회귀1, 업그레이드4는 패킷DB 필요). submit_report duplicate_open 동시성 경합(동일 대상 열린 신고 5건) — 마이그레이션·D057/D060 합의 필요. 2026-11-25 *-upgrade 스위트 4개는 2026-11-20 과거 패킷(23/24·30·31 마이그레이션) 업그레이드 검증이며 패킷 DB 준비 스크립트가 Windows 경로(C:/projects/AD-Me, cmd.exe)에 고정 — macOS 실행 BLOCKED, 현재 main 권한 커버리지 아님. 운영자: 20261125120000 운영 적용 및 지문 13fc6e60… 승인 전까지 운영 배포 보류. 2026-11-25 TESTED 근거: 로컬 수락 범위(정의자·search_path·권한 감사 가드, 역할 행렬 34/38 스위트, 관리자·중복 신고 회귀 수정) 충족. 남은 것은 B D036/D038 미구현 기능 검토(감사 가드가 신규 anon definer 차단), 운영 적용·실환경 검증 — VERIFIED 아님.",
       "evidence": [
         "docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
@@ -5288,7 +5288,7 @@
         "harness/evidence/D075/SUITES_20261125.md",
         "harness/evidence/D075/REPORT_FIX_20261125.md"
       ],
-      "status": "IN_PROGRESS",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": true,
