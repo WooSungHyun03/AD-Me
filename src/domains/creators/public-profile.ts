@@ -35,9 +35,11 @@ export const publicCatalogCreatorSchema = z
     metrics_source: z.enum(["synthetic_demo_not_verified", "unavailable"]),
     is_available: z.boolean().nullable(),
     is_demo: z.boolean(),
+    // D025: collected (ownerless) profiles are never shown as owner registrations.
     data_source: z.enum([
       "generated fictional test fixture",
       "owner_registration",
+      "collected_unverified",
     ]),
     source_url: z.string().max(2000).nullable(),
     portrait_asset: z.null(),

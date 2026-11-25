@@ -205,3 +205,37 @@ it("keeps unknown collaboration intent (null) instead of failing the catalog (D0
   };
   expect(publicCatalogCreatorSchema.safeParse(base).success).toBe(true);
 });
+
+it("parses collected (ownerless) profiles as collected_unverified with unknown quote and intent (D025)", async () => {
+  const { publicCatalogCreatorSchema } =
+    await import("@/domains/creators/public-profile");
+  const collected = {
+    seed_id: "c-collected",
+    name: "수집 채널",
+    handle: "qa",
+    bio: "",
+    categories: ["뷰티"],
+    vibes: [],
+    formats: [],
+    platforms: ["youtube"],
+    price_min_krw: null,
+    price_max_krw: null,
+    followers: null,
+    metrics_source: "unavailable",
+    is_available: null,
+    is_demo: false,
+    data_source: "collected_unverified",
+    source_url: null,
+    portrait_asset: null,
+    image_placeholder: "initials",
+    published: true,
+  };
+  expect(publicCatalogCreatorSchema.safeParse(collected).success).toBe(true);
+  // Any other provenance label is still refused (no free-form source strings reach the UI).
+  expect(
+    publicCatalogCreatorSchema.safeParse({
+      ...collected,
+      data_source: "youtube_data_api",
+    }).success,
+  ).toBe(false);
+});

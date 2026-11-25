@@ -28,6 +28,7 @@ export const recommendationResultSchema = z
     sourceType: z.enum([
       "generated fictional test fixture",
       "owner_registration",
+      "collected_unverified",
     ]),
     sourceUrl: z
       .string()

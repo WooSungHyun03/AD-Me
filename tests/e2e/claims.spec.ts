@@ -5,6 +5,7 @@ import { test, expect, type Page } from "@playwright/test";
 import { createClient } from "@supabase/supabase-js";
 import { randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
+import { ownerSql } from "../support/local-db-fixture";
 
 const env = Object.fromEntries(
   readFileSync(".env.local", "utf8")
@@ -38,26 +39,27 @@ test("collected profile: unverified label, claim code once, admin approves only 
     opts,
   );
   const id = `yt-e2e-${randomUUID().slice(0, 8)}`;
-  await svc.from("creators").insert({
-    id,
-    published: true,
-    profile: {
-      name: "수집 채널 검증",
-      handle: "qa",
-      bio: "공개 API로 수집된 검증용 프로필",
-      categories: ["뷰티"],
-      vibes: [],
-      formats: [],
-      platforms: ["youtube"],
-      price_min_krw: 0,
-      price_max_krw: 0,
-      followers: 0,
-      is_available: false,
-      is_demo: false,
-      data_source: "youtube_data_api",
-      metrics_source: "youtube_data_api",
-    },
-  });
+  // Collected profiles come from the ingestion writer, not a user consent transaction; the D073 guard
+  // refuses service-key publication, so the fixture is written as the database owner.
+  const collected = {
+    name: "수집 채널 검증",
+    handle: "qa",
+    bio: "공개 API로 수집된 검증용 프로필",
+    categories: ["뷰티"],
+    vibes: [],
+    formats: [],
+    platforms: ["youtube"],
+    price_min_krw: 0,
+    price_max_krw: 0,
+    followers: 0,
+    is_available: false,
+    is_demo: false,
+    data_source: "youtube_data_api",
+    metrics_source: "youtube_data_api",
+  };
+  ownerSql(
+    `insert into public.creators(id,published,profile) values('${id}',true,'${JSON.stringify(collected).replace(/'/g, "''")}'::jsonb)`,
+  );
   const email = `adme-qa-claimui-${randomUUID().slice(0, 8)}@example.com`;
   const password = randomUUID() + "Aa!";
   await createClient(
@@ -82,7 +84,9 @@ test("collected profile: unverified label, claim code once, admin approves only 
     await login(page, email, password);
     await page.goto(`/creators/${id}`);
     await page.getByRole("button", { name: /소유 확인 요청/ }).click();
-    const status = page.locator("p[role=status]");
+    const status = page
+      .locator("p[role=status]")
+      .filter({ hasText: "확인 코드" });
     await expect(status).toContainText("ADME-");
     const code = (await status.innerText()).match(/ADME-[0-9A-F]{10}/)![0];
     await page.getByRole("button", { name: /소유 확인 요청/ }).click();
@@ -102,9 +106,7 @@ test("collected profile: unverified label, claim code once, admin approves only 
     await expect(page.locator("article", { hasText: id })).toHaveCount(0);
 
     await page.goto(`/creators/${id}`);
-    await expect(
-      page.getByText("본인 연결 프로필 · 외부 지표 검증 전"),
-    ).toBeVisible();
+    await expect(page.getByText("본인 등록 · 외부 검증 전")).toBeVisible();
   } finally {
     await svc.from("audit_log").delete().eq("entity_id", id);
     await svc.from("creators").delete().eq("id", id);

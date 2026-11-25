@@ -179,7 +179,9 @@ export default async function RecommendationHistory({
                   <p>
                     {r.sourceType === "owner_registration"
                       ? "본인 등록 · 외부 검증 미확인"
-                      : "가상 테스트 자료"}{" "}
+                      : r.sourceType === "collected_unverified"
+                        ? "수집 프로필 · 미인증"
+                        : "가상 테스트 자료"}{" "}
                     · 출처 버전 {r.sourceVersion.slice(0, 8)}
                   </p>
                   {r.sourceUrl && (

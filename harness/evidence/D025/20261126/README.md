@@ -19,3 +19,39 @@
 ## 남은 것
 - claims E2E: 공개 DTO에 소유·청구 상태가 없다(DEV-A DTO 계약).
 - 실제 채널 소유 증명: U014 외부 선행.
+
+## 후속 (같은 날) — 수집 프로필 출처 표시와 청구 UI
+### 재현
+- 공개 DTO(`catalog_dto_legacy_ref`)가 데모가 아닌 모든 행을 `data_source='owner_registration'`으로 내보냈다. 수집 값인 견적(0/0)과 협업 가능 여부(false)도 그대로 전달했다.
+- 그래서 소유자 없는 수집 채널이 "본인 등록"과 본인이 적은 견적으로 보였다. 거짓 출처 표시다.
+- claims E2E는 프로필 화면에서 "미인증 · 협업 의사 미확인"을 찾지 못했다.
+  - 서비스 키 게시 insert가 D073 가드에 거부됐는데 스펙은 그 오류를 확인하지 않았다.
+  - 프로필 화면에 청구 버튼이 없었다.
+
+### 변경
+- `supabase/migrations/20261126110000_d025_collected_profile_provenance.sql`:
+  - 소유자 없는 비데모 행은 `collected_unverified`로 내보내고, 견적과 협업 의사는 null(미확인)로 둔다. 소유자가 있는 행은 그대로다.
+  - `start_claim`이 공개 참조를 해석한다.
+- 앱:
+  - zod enum(`public-profile`, `recommendation-snapshots`)에 `collected_unverified`를 추가했다. 마이그레이션과 같은 배포에 포함한다.
+  - 프로필 상세는 "미인증 · 협업 의사 미확인"을 표시하고, "협업 캠페인 만들기"를 숨긴다.
+  - 로그인한 사용자에게 "소유 확인 요청"(`ClaimButton`)을 보여 준다.
+  - 추천 스냅샷에는 "수집 프로필 · 미인증"으로 표시한다.
+- `tests/e2e/claims.spec.ts`:
+  - 수집 프로필 픽스처를 owner SQL로 만든다.
+  - 승인 후 문구는 현재 DEV-A 라벨("본인 등록 · 외부 검증 전")을 쓴다.
+  - 상태 locator는 확인 코드 문구로 범위를 좁혔다.
+
+### 결과
+- `npx playwright test tests/e2e/claims.spec.ts`: desktop·mobile 2/2.
+  - 미인증 라벨
+  - 익명에게 청구·캠페인 버튼 없음
+  - 코드 1회 표시와 중복 거부
+  - 관리자 잘못된 코드 거부 → 올바른 코드로 승인
+  - 본인 등록 표시
+- `node tests/claims.mjs` PASS.
+- vitest 586/586: DTO에 D025 케이스를 추가했다. Windows `asset-provenance` 기존 결함 스위트는 제외했다.
+
+### 남은 것
+- DEV-A 알림: 공개 DTO enum에 값 1개를 추가하는 변경이다. 소유 경계(D020/D075)는 바뀌지 않는다.
+- 실제 채널 소유 증명은 U014, 운영 적용은 U004다.

@@ -1,6 +1,7 @@
 import { configured, currentUser, supabase } from "@/lib/supabase";
 import { readSavedLists } from "@/lib/saved-lists";
 import { AddToList } from "@/components/lists";
+import { ClaimButton } from "@/components/claim";
 import { youtubeChannelId } from "@/lib/featured-youtube";
 import { PublicAdHistory } from "@/components/public-ad-history";
 import { NormalizedPublic } from "@/components/normalized-public";
@@ -79,6 +80,15 @@ export default async function Detail({
   // D032: similar profiles by shared public tags only (category 3 · format 2 · vibe/platform 1); demo and
   // real profiles never mix and followers/price are not used.
   const similar = similarCreators(c, creators);
+  // D025: collected (ownerless) profiles are unverified and cannot receive proposals until an
+  // ownership claim is approved; a signed-in creator may start that claim here.
+  const collected = c.data_source === "collected_unverified";
+  const viewer = collected && configured() ? await currentUser() : null;
+  const sourceLabel = c.is_demo
+    ? "가상 프로필 · DEMO"
+    : collected
+      ? "미인증 · 협업 의사 미확인"
+      : "본인 등록 · 외부 검증 전";
   return (
     <section className="figma-width figma-creator-profile">
       <Link href="/creators" className="muted">
@@ -89,15 +99,21 @@ export default async function Detail({
           <div className="creator-visual" style={{ height: 340 }}>
             {c.name.slice(1)}
           </div>
-          <p style={{ fontSize: 12, marginTop: 12 }}>
-            {c.is_demo ? "가상 프로필 · DEMO" : "본인 등록 · 외부 검증 전"}
-          </p>
-          <Link
-            className="button primary"
-            href={`/campaigns/new?creator=${id}`}
-          >
-            협업 캠페인 만들기 ↗
-          </Link>
+          <p style={{ fontSize: 12, marginTop: 12 }}>{sourceLabel}</p>
+          {collected ? (
+            <div className="notice" style={{ fontSize: 13 }}>
+              공개 채널 정보로 만든 프로필입니다. 채널 소유자가 확인되기 전에는
+              제안을 받을 수 없습니다.
+              {viewer && <ClaimButton creatorId={c.seed_id} />}
+            </div>
+          ) : (
+            <Link
+              className="button primary"
+              href={`/campaigns/new?creator=${id}`}
+            >
+              협업 캠페인 만들기 ↗
+            </Link>
+          )}
           <AddToList creatorId={c.seed_id} lists={groups} />
         </aside>
         <div>
@@ -110,7 +126,7 @@ export default async function Detail({
                   : "협업 일정 확인 필요"}
             </span>
             <span className="badge">
-              {c.is_demo ? "가상 프로필" : "본인 등록"}
+              {c.is_demo ? "가상 프로필" : collected ? "미인증" : "본인 등록"}
             </span>
           </div>
           <h1 className="page-title">{c.name}</h1>
@@ -144,7 +160,11 @@ export default async function Detail({
                   : `${c.price_min_krw.toLocaleString()}원~`}
               </strong>
               <span>
-                {c.is_demo ? "가상 최소 견적" : "본인 등록 최소 견적"}
+                {c.is_demo
+                  ? "가상 최소 견적"
+                  : collected
+                    ? "최소 견적"
+                    : "본인 등록 최소 견적"}
               </span>
             </div>
             <div>
