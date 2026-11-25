@@ -103,16 +103,17 @@ export function ensureCreatorProfile(ownerId) {
   sql(
     `insert into public.creators(id,owner_id,published,profile) select '${id}','${ownerId}',true,profile||'{"is_demo":false,"name":"가상 QA 크리에이터"}'::jsonb from public.creators where profile->>'is_demo'='true' order by id limit 1 on conflict(id) do update set published=true,moderation_status='allowed',profile=excluded.profile;`,
   );
-  return { id, prior: prior || null };
+  // Proposals the spec creates against this profile are removed on drop, whichever path restores it.
+  return { id, prior: prior || null, since: sql("select now();") };
 }
 export function dropCreatorProfile(own) {
   if (!own) return;
+  sql(
+    `delete from public.proposals where creator_id='${own.id}' and created_at>='${own.since}';`,
+  );
   if (own.prior)
     sql(
       `update public.creators c set published=(p->>'published')::boolean,moderation_status=p->>'moderation_status',profile=p->'profile' from (select '${own.prior.replaceAll("'", "''")}'::jsonb p) x where c.id='${own.id}';`,
     );
-  else
-    sql(
-      `delete from public.proposals where creator_id='${own.id}'; delete from public.creators where id='${own.id}';`,
-    );
+  else sql(`delete from public.creators where id='${own.id}';`);
 }

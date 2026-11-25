@@ -64,7 +64,7 @@ export default async function Dashboard() {
   const notes = await loadNotifications(db, 200).catch(() => null);
   const newBy = new Map<string, number>();
   for (const n of notes?.items ?? [])
-    if (n.id > notes!.lastReadId)
+    if (n.id > notes!.lastReadId && n.proposal_id)
       newBy.set(n.proposal_id, (newBy.get(n.proposal_id) ?? 0) + 1);
   const saved = savedLists?.find((l) => l.is_default)?.items ?? [];
   const publicChannels = savedChannels?.length

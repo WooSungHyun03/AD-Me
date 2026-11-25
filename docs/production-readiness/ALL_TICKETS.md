@@ -830,7 +830,7 @@ DEV-B · P0 · S0 출시 차단 · MATCHING · TESTED · 5 SP · ACTIVE
 
 ## D037 · 저장 검색·신규 후보 알림
 
-DEV-A · P1 · S1 주요 부족 · MATCHING · IN_PROGRESS · 5 SP · ACTIVE
+DEV-A · P1 · S1 주요 부족 · MATCHING · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 운영 /saved-searches가 404이며 새 후보 알림의 실제 운영 발송이 확인되지 않았다.
 - **재현·관찰** — 브랜드 계정으로 /saved-searches 진입 후 별도 배포에서 저장/재실행과 알림 동의에 따른 outbox를 확인한다.
@@ -846,8 +846,8 @@ DEV-A · P1 · S1 주요 부족 · MATCHING · IN_PROGRESS · 5 SP · ACTIVE
 - **보안** — 동일 후보 갱신이 매번 새 알림을 만들지 않는다.
 - **검증** — 조건 변경·중복 알림·해지·삭제 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 검색 조건 버전을 저장하고 동의한 사용자에게 신규 후보 요약을 제공한다.
-- **차단 요인** — D052와 후보 신규성 cursor/outbox·opt-in·중복/해지/삭제 통합 필요. 이메일은 D053 이후, 운영 적용 별도.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D037/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D037/ (이번 검증 기록 위치) · harness/evidence/D037/REVALIDATE_20261123.md
+- **차단 요인** — 2026-11-25 로컬 TESTED: 저장 검색 새 후보 인앱 알림(opt-in·조건 버전 baseline·중복 방지·해지·삭제·동시 실행 잠금·이메일 제외) 구현, 복제 DB 8그룹·브라우저 desktop/mobile PASS. 운영 마이그레이션 20261125150000 적용·지문 승인(운영자), 이메일 알림은 D053/U007 이후.
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D037/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D037/ (이번 검증 기록 위치) · harness/evidence/D037/REVALIDATE_20261123.md · harness/evidence/D037/ALERTS_20261125.md
 - **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510)
 - **검증 범위** — 109-source 실제 로컬 Auth/PostgREST/SQL7그룹: 본인 저장/재실행·CAS·해지/삭제·한도. 새 후보 알림은 미구현/미검증.
 - **이전 기록** — IN_PROGRESS
@@ -1197,8 +1197,8 @@ DEV-B · P0 · S0 출시 차단 · CHAT · TESTED · 5 SP · ACTIVE
 - **보안** — realtime은 갱신 신호이고 권한 검사는 서버/DB에서 다시 수행한다. polling fallback을 제공한다.
 - **검증** — 복수 탭·중복 이벤트·다른 계정 구독·재로그인 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 단순 읽음 버튼을 넘어 이벤트·미읽음 수·읽음 커서·알림함을 구현한다.
-- **차단 요인** — 운영 앱 배포와 실환경 두 역할 실시간 수신 검증은 운영자 승인(U005·U019) 전까지 BLOCKED. null 견적 공개 프로필이 캠페인 상세 카탈로그를 깨는 D026/D033 교차 이슈를 DEV-A에 인계.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D052/ (이번 검증 기록 위치) · harness/evidence/D052/20261125/README.md
+- **차단 요인** — 운영 앱 배포와 실환경 두 역할 실시간 수신 검증은 운영자 승인(U005·U019) 전까지 BLOCKED. null 견적 공개 프로필이 캠페인 상세 카탈로그를 깨는 D026/D033 교차 이슈를 DEV-A에 인계. 2026-11-25 DEV-A D037이 notifications를 additive 확장(kind saved_search, proposal_id nullable, saved_search_id/new_count, 서비스 이메일 트리거 제외) — 기존 제안 알림 계약 불변, DEV-B 확인 요청.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D052/ (이번 검증 기록 위치) · harness/evidence/D052/20261125/README.md · harness/evidence/D037/ALERTS_20261125.md
 - **Figma 노드** — [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519)
 - **검증 범위** — 2026-11-25 origin/main d5a9b9b 격리 로컬 복제본: /api/read 커서·대시보드 배지 복원, REST(원천 1건·정확한 미읽음·단조 커서·타 계정/anon 거부·realtime 본인4/타인0)와 E2E desktop/mobile 6/6(2탭 실시간·재로그인·오래된 커서 재전송·polling fallback). 운영 미검증.
 - **이전 기록** — OPEN

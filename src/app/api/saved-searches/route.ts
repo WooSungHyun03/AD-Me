@@ -9,6 +9,7 @@ import {
   savedSearchInput,
   savedSearchDelete,
   savedSearchList,
+  savedSearchAlerts,
 } from "@/lib/saved-searches";
 export const GET = apiRoute("saved-searches.list", async () => {
   const c = await requireContext(),
@@ -45,6 +46,24 @@ export const DELETE = apiRoute("saved-searches.delete", async (req) => {
   });
   if (r.error)
     failDatabase(r.error, "삭제하지 못했습니다. 목록을 새로 확인해주세요.");
+  return Response.json(
+    { ok: true },
+    { headers: { "Cache-Control": "private, no-store" } },
+  );
+});
+export const PATCH = apiRoute("saved-searches.alerts", async (req) => {
+  const c = await requireContext(),
+    p = await parseBody(req, savedSearchAlerts, "알림 설정을 확인해주세요.");
+  const r = await c.db.rpc("saved_search_alerts", {
+    p_id: p.id,
+    p_expected: p.expected,
+    p_notify: p.notify,
+  });
+  if (r.error)
+    failDatabase(
+      r.error,
+      "알림 설정을 바꾸지 못했습니다. 목록을 새로 확인해주세요.",
+    );
   return Response.json(
     { ok: true },
     { headers: { "Cache-Control": "private, no-store" } },

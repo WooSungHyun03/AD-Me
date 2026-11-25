@@ -801,7 +801,7 @@ DEV-A · P1 · S1 주요 부족 · YOUTUBE · TESTED · 5 SP · ACTIVE
 
 ## D037 · 저장 검색·신규 후보 알림
 
-DEV-A · P1 · S1 주요 부족 · MATCHING · IN_PROGRESS · 5 SP · ACTIVE
+DEV-A · P1 · S1 주요 부족 · MATCHING · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 운영 /saved-searches가 404이며 새 후보 알림의 실제 운영 발송이 확인되지 않았다.
 - **재현·관찰** — 브랜드 계정으로 /saved-searches 진입 후 별도 배포에서 저장/재실행과 알림 동의에 따른 outbox를 확인한다.
@@ -817,8 +817,8 @@ DEV-A · P1 · S1 주요 부족 · MATCHING · IN_PROGRESS · 5 SP · ACTIVE
 - **보안** — 동일 후보 갱신이 매번 새 알림을 만들지 않는다.
 - **검증** — 조건 변경·중복 알림·해지·삭제 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 검색 조건 버전을 저장하고 동의한 사용자에게 신규 후보 요약을 제공한다.
-- **차단 요인** — D052와 후보 신규성 cursor/outbox·opt-in·중복/해지/삭제 통합 필요. 이메일은 D053 이후, 운영 적용 별도.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D037/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D037/ (이번 검증 기록 위치) · harness/evidence/D037/REVALIDATE_20261123.md
+- **차단 요인** — 2026-11-25 로컬 TESTED: 저장 검색 새 후보 인앱 알림(opt-in·조건 버전 baseline·중복 방지·해지·삭제·동시 실행 잠금·이메일 제외) 구현, 복제 DB 8그룹·브라우저 desktop/mobile PASS. 운영 마이그레이션 20261125150000 적용·지문 승인(운영자), 이메일 알림은 D053/U007 이후.
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D037/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D037/ (이번 검증 기록 위치) · harness/evidence/D037/REVALIDATE_20261123.md · harness/evidence/D037/ALERTS_20261125.md
 - **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510)
 - **검증 범위** — 109-source 실제 로컬 Auth/PostgREST/SQL7그룹: 본인 저장/재실행·CAS·해지/삭제·한도. 새 후보 알림은 미구현/미검증.
 - **이전 기록** — IN_PROGRESS

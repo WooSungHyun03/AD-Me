@@ -34,7 +34,13 @@ export default async function Notifications() {
               }}
             >
               {n.id > lastReadId && <span className="badge lime">새 알림</span>}{" "}
-              <Link href={`/dashboard#proposal-${n.proposal_id}`}>
+              <Link
+                href={
+                  n.proposal_id
+                    ? `/dashboard#proposal-${n.proposal_id}`
+                    : "/saved-searches"
+                }
+              >
                 {notificationText(n)}
               </Link>
               <br />

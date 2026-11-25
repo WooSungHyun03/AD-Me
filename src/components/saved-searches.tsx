@@ -55,8 +55,10 @@ export function SavedSearches({ filters }: { filters: CreatorFilters }) {
   return (
     <div className="panel">
       <p>
-        계정당 최대20개입니다. 현재는 조건 저장과 다시 열기를 제공합니다. 신규
-        후보 알림은 아직 제공하지 않습니다.
+        계정당 최대 20개입니다. 새 후보 알림을 켠 검색은 15분마다 다시 확인해,
+        켠 뒤 새로 조건에 맞게 된 크리에이터가 있으면 알림함에 알려드립니다.
+        이미 맞던 크리에이터는 알리지 않으며 이메일 알림은 아직 제공하지
+        않습니다.
       </p>
       <form
         onSubmit={(e) => {
@@ -111,6 +113,21 @@ export function SavedSearches({ filters }: { filters: CreatorFilters }) {
             <span>
               조건 v{item.filterVersion} · 수정 {item.revision}
             </span>{" "}
+            <label>
+              <input
+                type="checkbox"
+                checked={item.notify}
+                disabled={pending}
+                onChange={(e) =>
+                  void mutate("PATCH", {
+                    id: item.id,
+                    expected: item.revision,
+                    notify: e.target.checked,
+                  })
+                }
+              />{" "}
+              새 후보 알림
+            </label>{" "}
             <button
               className="button outline small"
               disabled={pending}

@@ -2381,7 +2381,7 @@
       "acceptance": "검색 조건 버전을 저장하고 동의한 사용자에게 신규 후보 요약을 제공한다.",
       "points": 5,
       "owner": "DEV-A",
-      "blockers": "D052와 후보 신규성 cursor/outbox·opt-in·중복/해지/삭제 통합 필요. 이메일은 D053 이후, 운영 적용 별도.",
+      "blockers": "2026-11-25 로컬 TESTED: 저장 검색 새 후보 인앱 알림(opt-in·조건 버전 baseline·중복 방지·해지·삭제·동시 실행 잠금·이메일 제외) 구현, 복제 DB 8그룹·브라우저 desktop/mobile PASS. 운영 마이그레이션 20261125150000 적용·지문 승인(운영자), 이메일 알림은 D053/U007 이후.",
       "evidence": [
         "docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
@@ -2389,9 +2389,10 @@
         "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json",
         "harness/evidence/D037/ (이번 검증 기록 위치)",
-        "harness/evidence/D037/REVALIDATE_20261123.md"
+        "harness/evidence/D037/REVALIDATE_20261123.md",
+        "harness/evidence/D037/ALERTS_20261125.md"
       ],
-      "status": "IN_PROGRESS",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "IN_PROGRESS",
       "reopened": false,
@@ -3605,12 +3606,13 @@
       "acceptance": "단순 읽음 버튼을 넘어 이벤트·미읽음 수·읽음 커서·알림함을 구현한다.",
       "points": 5,
       "owner": "DEV-B",
-      "blockers": "운영 앱 배포와 실환경 두 역할 실시간 수신 검증은 운영자 승인(U005·U019) 전까지 BLOCKED. null 견적 공개 프로필이 캠페인 상세 카탈로그를 깨는 D026/D033 교차 이슈를 DEV-A에 인계.",
+      "blockers": "운영 앱 배포와 실환경 두 역할 실시간 수신 검증은 운영자 승인(U005·U019) 전까지 BLOCKED. null 견적 공개 프로필이 캠페인 상세 카탈로그를 깨는 D026/D033 교차 이슈를 DEV-A에 인계. 2026-11-25 DEV-A D037이 notifications를 additive 확장(kind saved_search, proposal_id nullable, saved_search_id/new_count, 서비스 이메일 트리거 제외) — 기존 제안 알림 계약 불변, DEV-B 확인 요청.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/D052/ (이번 검증 기록 위치)",
-        "harness/evidence/D052/20261125/README.md"
+        "harness/evidence/D052/20261125/README.md",
+        "harness/evidence/D037/ALERTS_20261125.md"
       ],
       "status": "TESTED",
       "scope": "ACTIVE",

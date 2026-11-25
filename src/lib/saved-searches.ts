@@ -10,6 +10,10 @@ export const savedSearchDelete = savedSearchInput.pick({
   id: true,
   expected: true,
 });
+// Opt-in for in-app new-candidate alerts is its own revisioned call, never part of a condition save.
+export const savedSearchAlerts = savedSearchInput
+  .pick({ id: true, expected: true })
+  .extend({ notify: z.boolean() });
 export const savedSearchList = z
   .array(
     z.strictObject({
@@ -18,6 +22,7 @@ export const savedSearchList = z
       filterVersion: z.literal(1),
       filters: creatorFilterSchema,
       revision: z.number().int().positive(),
+      notify: z.boolean(),
     }),
   )
   .max(20);
