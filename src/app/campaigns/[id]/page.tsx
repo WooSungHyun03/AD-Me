@@ -5,7 +5,11 @@ import { configured, supabase, currentUser } from "@/lib/supabase";
 import { publicCreators } from "@/lib/data";
 import { readCreatorProposalChoices } from "@/lib/creator-catalog-read";
 import { ProposalForm } from "@/components/proposal-form";
-import { CampaignTermsSummary } from "@/components/campaign-terms-summary";
+import {
+  CampaignTermsSummary,
+  ScheduleHistory,
+  type ScheduleChange,
+} from "@/components/campaign-terms-summary";
 import type { CampaignTerms } from "@/lib/campaign-brief";
 import { isDemoMode } from "@/lib/mode";
 import { readSavedLists, itemLabel, type SavedList } from "@/lib/saved-lists";
@@ -37,6 +41,7 @@ export default async function Campaign({
   let people: { id: string; name: string }[] = [];
   // D036: the owner's campaign shortlist (one per campaign, created on first add).
   let shortlist: SavedList | null = null;
+  let scheduleChanges: ScheduleChange[] = [];
   const user = await currentUser();
   if (configured()) {
     const db = await supabase();
@@ -62,6 +67,14 @@ export default async function Campaign({
     } else if (!demo || !id.startsWith("campaign-")) notFound();
     if (user && data) {
       people = await readCreatorProposalChoices(db, data.id);
+      // RLS returns rows only to the owner and parties of this campaign's proposals.
+      const history = await db
+        .from("campaign_schedule_changes")
+        .select("changed_at,previous,next")
+        .eq("campaign_id", data.id)
+        .order("changed_at", { ascending: false })
+        .limit(20);
+      scheduleChanges = (history.data ?? []) as ScheduleChange[];
     }
   }
   if (!brief) notFound();
@@ -136,6 +149,7 @@ export default async function Campaign({
           <h3>캠페인 목표</h3>
           <p>{brief.goal}</p>
           <CampaignTermsSummary terms={brief.terms} />
+          <ScheduleHistory changes={scheduleChanges} />
           {ownerId === user?.id && !isDemo && brief.terms && (
             <p>
               <a

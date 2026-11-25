@@ -9,7 +9,10 @@ const accounts = JSON.parse(
     process.env.ADME_ACCOUNTS_FILE || ".accounts.local.json",
     "utf8",
   ),
-) as Record<string, { email: string; password: string; id: string }>;
+) as Record<
+  string,
+  { email: string; password: string; id: string; totpSecret: string }
+>;
 async function login(page: Page, role: string) {
   await page.goto("/login");
   await page.getByLabel("이메일", { exact: true }).fill(accounts[role].email);

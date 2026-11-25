@@ -78,3 +78,46 @@ export function CampaignTermsSummary({ terms }: { terms: unknown }) {
     </section>
   );
 }
+type Window = { start: string; end: string };
+type Windows = Partial<
+  Record<"recruitment" | "production" | "posting", Window>
+>;
+export type ScheduleChange = {
+  changed_at: string;
+  previous: Windows;
+  next: Windows;
+};
+const phases = [
+  ["recruitment", "모집 기간"],
+  ["production", "제작 기간"],
+  ["posting", "게시 기간"],
+] as const;
+// D055: rows come from the append-only DB history (RLS: owner and proposal parties only).
+export function ScheduleHistory({ changes }: { changes: ScheduleChange[] }) {
+  if (!changes.length) return null;
+  const range = (w?: Window) =>
+    w ? `${date(w.start)} ~ ${date(w.end)}` : "없음";
+  return (
+    <section aria-label="일정 변경 이력" style={{ overflowWrap: "anywhere" }}>
+      <h3>일정 변경 이력</h3>
+      <ol>
+        {changes.map((c, i) => (
+          <li key={i} className="terms-summary-row">
+            <time dateTime={c.changed_at}>{date(c.changed_at)} 변경</time>
+            {phases
+              .filter(
+                ([k]) =>
+                  c.previous[k]?.start !== c.next[k]?.start ||
+                  c.previous[k]?.end !== c.next[k]?.end,
+              )
+              .map(([k, label]) => (
+                <p key={k}>
+                  {label}: {range(c.previous[k])} → {range(c.next[k])}
+                </p>
+              ))}
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}

@@ -15,7 +15,7 @@ The D088 evidence records checks performed against the hosted database and produ
 
 Prepared from main for operator review (U004 DB, U005 app). **Nothing here has been applied to the hosted database by DEV-B.** Local results and hosted state are recorded separately.
 
-- Repository: 128 migrations. The last version mapped to the hosted ledger is `20261123100029` ([D088 mapping](../../harness/evidence/D088/README.md)); the hosted ledger has 41 rows with different historical version names, and the 2026-11-24 read-only check found the product-condition RPC (`20261124020115`) absent. The 24 files below are therefore treated as pending until the operator confirms each body/grant/call contract against the restored backup.
+- Repository: 131 migrations. The last version mapped to the hosted ledger is `20261123100029` ([D088 mapping](../../harness/evidence/D088/README.md)); the hosted ledger has 41 rows with different historical version names, and the 2026-11-24 read-only check found the product-condition RPC (`20261124020115`) absent. The 27 files below are therefore treated as pending until the operator confirms each body/grant/call contract against the restored backup.
 - Apply strictly in version order, in one reviewed batch per group, after a fresh backup and a restore-upgrade rehearsal (`RELEASE_BASELINE.md` 2026-11-25). No row below is phase `contract`; rollback is forward fix (old app keeps working against expand/switch objects).
 - Then register the fingerprint of the exact commit with `node scripts/production-schema.mjs --fingerprint` as `ADME_PRODUCTION_SCHEMA_SHA256`; until then `vercel.json` skips/blocks production builds. A locally computed fingerprint is not approval.
 - `20261125120000` contains a STOP guard: it aborts if the hosted `submit_report` body differs from main. Treat an abort as "do not continue", not as a retry.
@@ -46,6 +46,10 @@ Prepared from main for operator review (U004 DB, U005 app). **Nothing here has b
 | 22 | `20261125150000` | expand/switch | DEV-A | `20261125150000_d037_saved_search_alerts.sql` |
 | 23 | `20261125160000` | expand | DEV-B | `20261125160000_d038_saved_list_import_refs.sql` |
 | 24 | `20261125170000` | expand/switch | DEV-A | `20261125170000_d055_deadline_reminders.sql` |
+| 25 | `20261125180000` | switch | DEV-B | `20261125180000_d062_contact_guard_definer_paths.sql` |
+| 26 | `20261125190000` | switch/backfill | DEV-B | `20261125190000_d049_owner_registration_claim.sql` |
+| `20261125200000` | expand | DEV-A D055: `20261125200000_d055_schedule_change_history.sql` | Append-only `campaign_schedule_changes` (previous/next recruitment·production·posting windows, actor, time) written by service-only trigger `adme_ops.record_schedule_change` on any `campaigns.brief` update that changes the windows (compensation/deliverables ignored; first structuring of a legacy campaign not recorded). RLS select: campaign owner or a party of its proposals; no client writes. Local only; hosted application requires operator approval. |
+| 27 | `20261125200000` | expand | DEV-A | `20261125200000_d055_schedule_change_history.sql` |
 
 ### CI gate (2026-11-25)
 - Every main commit from `1d31c9b` to `59f7eba` failed GitHub validation. The `checks` job failed on `migration_check` because `20261125120000` had no manifest row, which also skipped the DB job; before that, `tests/ci-db.sh` failed. A red `checks` job hides DB/E2E regressions, so run `python3 harness/migration_check.py` before pushing any SQL.
