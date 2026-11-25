@@ -78,7 +78,8 @@ afterAll(() =>
   created.forEach((p) => rmSync(p, { recursive: true, force: true })),
 );
 
-describe("D078 secret scanner", () => {
+// Each case scans the whole repository (~4 s locally, slower on CI runners), so 5 s default is too tight.
+describe("D078 secret scanner", { timeout: 60_000 }, () => {
   it("passes on the clean repository", () => {
     expect(run().code).toBe(0);
   });
