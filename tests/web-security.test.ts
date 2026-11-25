@@ -71,6 +71,17 @@ describe("D077 web boundary", () => {
         /: (process\.env\.NEXT_PUBLIC_SUPABASE_URL \+ "\/functions\/v1\/[a-z-]+"|url)$/,
       );
     }
+    // D077 (2026-11-25): the fetch scan above cannot see raw socket/HTTP clients. Only the
+    // approved-web ingester (host/path allowlist, public IPv4 only, pinned DNS, no redirects;
+    // tests/approved-web.test.ts) may open them; anything else would bypass the SSRF review.
+    const raw = server.filter((f) =>
+      /from "(node:)?(https?|http2|tls|dgram)"|from "(undici|axios|got|node-fetch)"|\b(?:connect|createConnection)\s*\(|import\s*\{[^}]*\b(?:connect|createConnection|Socket)\b[^}]*\}\s*from "node:net"/.test(
+        readFileSync(f, "utf8"),
+      ),
+    );
+    expect(raw.map((f) => f.replaceAll("\\", "/"))).toEqual([
+      "src/lib/ingestion/web.ts",
+    ]);
     // The only dynamic `url` is the YouTube client, built on a constant API origin.
     expect(readFileSync("src/lib/ingestion/youtube.ts", "utf8")).toMatch(
       /const API = "https:\/\/www\.googleapis\.com\/youtube\/v3";[\s\S]*new URL\(`\$\{API\}\//,

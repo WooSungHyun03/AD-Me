@@ -677,7 +677,7 @@ DEV-B · P0 · S0 출시 차단 · PRIVACY · TESTED · 5 SP · ACTIVE
 
 ## D077 · 웹 보안·외부 URL·파일 경계
 
-DEV-B · P0 · S0 출시 차단 · SECURITY · TODO · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · SECURITY · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. CSP·CSRF·보안 헤더·XSS·SSRF·외부 URL 검사·의존성 취약점을 검토한다.
 - **재현·관찰** — /settings · /api/uploads에서 먼저 보안 스캐너·악성 URL/입력·리다이렉트·파일 회귀을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: next.config.ts, src/lib/api.ts, src/lib/uploads.ts.
@@ -693,8 +693,9 @@ DEV-B · P0 · S0 출시 차단 · SECURITY · TODO · 5 SP · ACTIVE
 - **보안** — CSP 수정으로 Toss/인증 기능이 깨지지 않는지 격리 TEST 환경에서도 확인한다.
 - **검증** — 보안 스캐너·악성 URL/입력·리다이렉트·파일 회귀 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — CSP·CSRF·보안 헤더·XSS·SSRF·외부 URL 검사·의존성 취약점을 검토한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D077/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
+- **차단 요인** — Toss 실제 결제창 CSP 확인은 U015/U006, 운영 응답 헤더는 D088.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D077/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md · harness/evidence/D077/20261125/README.md
+- **검증 범위** — 2026-11-25 main 32ca3d1 격리 로컬: CSP·헤더·CSRF·리다이렉트·XSS·SSRF(승인 web 수집기만 원시 HTTP 허용 가드 추가, 변이 확인)·npm audit 0·CSP E2E desktop/mobile PASS. 운영 헤더·Toss 결제창 미검증.
 - **이전 기록** — OPEN
 
 ## D078 · 비밀값·로그·키 교체 대응
