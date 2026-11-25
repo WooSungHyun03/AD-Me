@@ -16,6 +16,8 @@
 |---|---|---|
 | `assets/brand/ad-me-logo.png`, `public/brand/ad-me-logo.png` | 프로젝트 제공 원본. 두 파일의 SHA-256 동일 | 프로젝트 브랜드 표시용. 제3자의 재사용 허락 범위는 확인 필요 |
 | `public/brand/ad-me-logo-trimmed.png`, `ad-me-symbol.png`, `ad-me-wordmark.png` | 제공 로고의 표시용 크롭 | 원본과 동일한 검토 범위. 별도 일반 사용 라이선스 부여 기록 없음 |
+| `public/brand/figma/logo.png` | Figma 원본 로고(SHARED_CONTRACT 지정), 2026-11-24 `59306d6` 반입. 제공 원본과 별도 파일 | 프로젝트 브랜드 표시용. 일반 재사용 라이선스 부여 기록 없음 |
+| `public/brand/figma/hero.png`, `public/brand/figma/editorial.png`, `public/brand/figma/creator-editorial.png` | Figma 시안에서 2026-11-24 `59306d6` 반입한 인물 사진형 이미지. 촬영·스톡·생성 여부, 저작권자, 초상권 동의 기록 없음 | RIGHTS_UNVERIFIED · 출시 차단. 권리 근거(라이선스·모델 릴리스 또는 생성 도구 약관과 실존 인물 아님 확인)를 기록하거나 교체 |
 | `fixtures/*.demo.json`, `supabase/seed.sql`의 시연 자료 | 프로젝트가 만든 가상 자료 | DEMO 표시와 가상 인물·캠페인·이력 구분을 유지 |
 | 아이콘과 글꼴 | Lucide 의존성, 로컬 시스템 글꼴 스택 | Lucide는 잠금 버전의 고지 확인 필요. 외부 웹폰트 파일은 번들에서 식별되지 않음 |
 | 크리에이터 SNS 및 포트폴리오 | 이용자가 제출하는 원본 링크 | 동의 받은 공개 링크만 표시. 외부 콘텐츠 복사·재배포는 별도 허가 확인 |

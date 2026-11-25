@@ -158,8 +158,8 @@ DEV-A · P0 · S0 출시 차단 · COMPLIANCE · BLOCKED · 2 SP · ACTIVE
 - **보안** — 라이선스 파일 없는 외부 자산은 출시 차단 또는 교체 대상으로 남긴다.
 - **검증** — lockfile·자산·라이선스 대조 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 패키지·이미지·로고·외부 데이터의 사용 권한과 재배포 조건을 기록한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D007/README.md · harness/evidence/DEV-A-P0-CONTINUE/verification.json · harness/evidence/D007/VERIFY_20261121.md · harness/evidence/D007/ (이번 검증 기록 위치)
+- **차단 요인** — 운영 확인과 격리 재실행이 필요하다. 2026-11-25: 잠금 506개 일치·고지 감사 gap3 유지. Figma 반입 인물 이미지 3개(hero/editorial/creator-editorial)의 출처·저작권·초상권 근거 없음 — 권리 기록 또는 교체 전 출시 차단(운영자/O001).
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D007/README.md · harness/evidence/DEV-A-P0-CONTINUE/verification.json · harness/evidence/D007/VERIFY_20261121.md · harness/evidence/D007/ (이번 검증 기록 위치) · harness/evidence/D007/ASSETS_20261125.md
 - **이전 기록** — BLOCKED_EXTERNAL
 
 ## D008 · 기능 플래그·단계별 공개
