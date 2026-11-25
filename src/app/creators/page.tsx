@@ -8,7 +8,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { getConfig } from "@/lib/config";
 import { Catalog } from "@/components/catalog";
-import { promotionSlots } from "@/lib/promotions";
+import { PromotionSlot } from "@/components/promotion-slot";
 import { configured, currentUser, supabase } from "@/lib/supabase";
 import { publicCreators } from "@/lib/data";
 import { readMySavedCreatorCatalog } from "@/lib/creator-catalog-read";
@@ -86,10 +86,7 @@ async function CreatorResults({ params }: { params: URLSearchParams }) {
       /* Missing configuration/RPC and invalid cursors remain visible and recoverable. */
     }
   }
-  const hot =
-    getConfig().features.testBilling === "enabled"
-      ? await promotionSlots(false)
-      : [];
+  const showHot = getConfig().features.testBilling === "enabled";
   let initialSaved: string[] = [];
   const user = await currentUser();
   if (user) {
@@ -182,24 +179,8 @@ async function CreatorResults({ params }: { params: URLSearchParams }) {
         <p>
           <Link href="/creators/youtube">소유권 확인 채널 검색</Link>
         </p>
-        {hot.length > 0 && (
-          <section className="panel" style={{ marginBottom: 24 }}>
-            <span className="badge lime">스폰서 · HOT</span>
-            <h3 style={{ marginTop: 15 }}>지금 주목할 크리에이터</h3>
-            <p>스폰서 노출이며 일반 추천 순위에 영향을 주지 않습니다.</p>
-            <div className="inline">
-              {hot.map((h) => (
-                <Link
-                  className="button outline"
-                  href={`/creators/${h.creator_id}`}
-                  key={h.creator_id}
-                >
-                  {h.name} ↗
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+        {/* D070: labelled TEST ad slot apart from organic results; each render records one impression. */}
+        {showHot && <PromotionSlot />}
         {
           <Suspense fallback={<p role="status">검색을 준비하고 있습니다.</p>}>
             <Catalog

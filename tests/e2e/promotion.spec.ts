@@ -2,6 +2,7 @@
 import { test, expect, type Page } from "@playwright/test";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
+import { randomUUID } from "node:crypto";
 const accounts = JSON.parse(readFileSync(".accounts.local.json", "utf8"));
 const sql = (q: string) =>
   execFileSync(
@@ -37,6 +38,17 @@ test("HOT slot is a labelled ad, organic results unchanged, owner sees exposure 
   sql(`update creators set published = true where id = '${cid}'`);
   // Browser-facing DTOs carry the opaque public reference, never the internal user-<uuid> ID.
   const ref = sql(`select adme_creator.public_reference('${cid}')`);
+  // D070 slots require an owner-verified creator with a consented, reviewed and fresh YouTube
+  // channel claim (serve_promotion_slots). Local-only fixture, removed in finally.
+  const wasClaim = sql(`select claim_status from creators where id = '${cid}'`);
+  const channel = `UC${randomUUID().replaceAll("-", "").slice(0, 22)}`;
+  sql(
+    `update creators set claim_status = 'verified' where id = '${cid}';
+     insert into adme_ops.channels(channel_id,title,review,source_policy,fetched_at,expires_at)
+       values('${channel}','D070 QA 채널','accepted','ci-source-fixture',now(),now()+interval '1 day');
+     insert into adme_ops.channel_claims(channel_id,owner_id,verified_at,consent_at)
+       values('${channel}','${accounts.creator.id}',now(),now());`,
+  );
   try {
     const organic = async () => {
       const r = await page.request.get("/api/creators?sort=followers");
@@ -90,7 +102,8 @@ test("HOT slot is a labelled ad, organic results unchanged, owner sees exposure 
     );
   } finally {
     sql(
-      `update creators set published = ${was === "t"} where id = '${cid}'; delete from entitlements where grant_note = '${note}'`,
+      `update creators set published = ${was === "t"}, claim_status = '${wasClaim}' where id = '${cid}'; delete from entitlements where grant_note = '${note}';
+       delete from adme_ops.channel_claims where channel_id = '${channel}'; delete from adme_ops.channels where channel_id = '${channel}';`,
     );
   }
 });

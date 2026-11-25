@@ -1,0 +1,9 @@
+
+Running 2 tests using 1 worker
+
+[1/2] [desktop] › tests\e2e\promotion.spec.ts:30:1 › HOT slot is a labelled ad, organic results unchanged, owner sees exposure history
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[2/2] [mobile] › tests\e2e\promotion.spec.ts:30:1 › HOT slot is a labelled ad, organic results unchanged, owner sees exposure history
+  2 passed (14.3s)

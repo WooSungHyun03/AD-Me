@@ -1,0 +1,31 @@
+
+Running 2 tests using 1 worker
+
+[1/2] [desktop] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] api_error {
+[WebServer]   timestamp: '2026-11-25T13:15:11.475Z',
+[WebServer]   requestId: '09b98096-398e-43c0-b165-cc736fe68912',
+[WebServer]   domain: 'billing',
+[WebServer]   operation: 'src/app/api/billing/cancel/route.ts.POST',
+[WebServer]   level: 'error',
+[WebServer]   duration: 4765,
+[WebServer]   errorCode: 'SERVICE_UNAVAILABLE',
+[WebServer]   retryable: true
+[WebServer] }
+
+[2/2] [mobile] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys
+[WebServer] api_error {
+[WebServer]   timestamp: '2026-11-25T13:15:20.299Z',
+[WebServer]   requestId: '2f6b0801-e505-44ff-bef1-237305e38b79',
+[WebServer]   domain: 'billing',
+[WebServer]   operation: 'src/app/api/billing/cancel/route.ts.POST',
+[WebServer]   level: 'error',
+[WebServer]   duration: 5091,
+[WebServer]   errorCode: 'SERVICE_UNAVAILABLE',
+[WebServer]   retryable: true
+[WebServer] }
+
+  2 passed (22.2s)
