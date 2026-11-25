@@ -3776,7 +3776,7 @@
       "acceptance": "링크 제출을 버전·검토 의견·승인 근거·광고 표시 체크로 확장한다.",
       "points": 5,
       "owner": "DEV-B",
-      "blockers": "2026-11-25: main에서 두 역할 golden path(제출 버전 1 → 검토 대기 → 브랜드 승인 → 완료) desktop/mobile 2/2. 수정 요청·구버전 승인 409 세부 수용(local-browser deliverables.spec) 재실행과 운영 delivery_transition 적용(U004) 남음.",
+      "blockers": "운영 delivery_transition 적용(U004)은 운영자 게이트. playwright.local deliverables.spec(TLS·프로덕션 빌드 환경)은 미실행 — 같은 규칙을 DB 스위트·golden path로 확인.",
       "evidence": [
         "docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
@@ -3784,9 +3784,10 @@
         "harness/evidence/D054/README.md",
         "harness/evidence/D054/verification.json",
         "harness/evidence/D054/ (이번 검증 기록 위치)",
-        "harness/evidence/D054/20261125/README.md"
+        "harness/evidence/D054/20261125/README.md",
+        "harness/evidence/D054/20261126/README.md"
       ],
-      "status": "IN_PROGRESS",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": true,
@@ -3827,7 +3828,8 @@
           "label": "14 · 크리에이터 대시보드 / Mobile",
           "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519"
         }
-      ]
+      ],
+      "verified_scope": "2026-11-26 main 격리 로컬: local-delivery-security 10/10(중복 수정 요청·구버전 승인 차단·확정 불변·참여자 권한·광고 표시 확인), service golden path desktop/mobile PASS(빈 DB), proposals REST 수정 요청 경로 PASS."
     },
     {
       "id": "D055",

@@ -1,0 +1,10 @@
+PASS anon/foreign room access, forged roles, private tables and unmetered DTO execution are denied
+PASS 12 concurrent same-key uploads create one snapshot, declaration and quota reservation
+PASS versioned submit and duplicate revision requests preserve one review event; revised version cannot be resubmitted unchanged
+PASS new snapshot replaces active version and stale first-version approval cannot finalize it
+PASS approval requires grounds and explicit advertising check, concurrent retries finalize exactly once
+PASS finalized snapshots/declarations/events are immutable and new uploads cannot change a completed room
+PASS legacy raw deliveries are captured but cannot submit/approve unchecked; explicit declaration adopts the room
+PASS blocked/moderated conversations deny new version mutations while retaining participant history
+PASS bounded version cursor has no gaps/duplicates even for equal submission timestamps
+PASS boundary cannot reopen and activation is owner-only with first-release evidence preserved
