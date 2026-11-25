@@ -1,5 +1,6 @@
 import { expect, it, vi } from "vitest";
 import {
+  extractPublicFields,
   fetchApprovedWeb,
   isPublicWebAddress,
   robotsPermit,
@@ -116,4 +117,61 @@ it("refuses redirection, access walls and robots denial without a third request"
     fetchApprovedWeb("https://example.org/public", policy, p),
   ).rejects.toThrow("ROBOTS");
   expect(p.download).toHaveBeenCalledTimes(1);
+});
+
+it("returns only minimal public fields, never raw HTML or contact details", async () => {
+  const p = ports();
+  p.download.mockImplementation(async (u: URL) => ({
+    status: 200,
+    contentType: u.pathname === "/robots.txt" ? "text/plain" : "text/html",
+    body:
+      u.pathname === "/robots.txt"
+        ? "User-agent: *\nDisallow: /private\n"
+        : `<html><head><title> 가상 &amp; 브랜드
+           소개 </title>
+           <meta content="문의 owner@example.org · 010-1234-5678 · https://x.test/a" name="description">
+           <link rel="canonical" href="https://example.org/public/about">
+           <script>secret()</script></head><body>owner@example.org</body></html>`,
+  }));
+  const result = await fetchApprovedWeb(
+    "https://example.org/public/about",
+    policy,
+    p,
+    Date.parse("2026-01-01T00:00:00Z"),
+  );
+  expect(result).toEqual({
+    fields: {
+      title: "가상 & 브랜드 소개",
+      description: "문의 [이메일] · [전화번호] · [링크]",
+      canonical: "https://example.org/public/about",
+    },
+    sourceUrl: "https://example.org/public/about",
+    policyVersion: "fixture1",
+    reviewRef: "fictional-review",
+  });
+  expect(JSON.stringify(result)).not.toMatch(/owner@|secret\(|<html|<script/);
+});
+
+it("drops off-policy canonicals and caps field length", () => {
+  const p = { ...policy } as Parameters<typeof extractPublicFields>[1];
+  for (const href of [
+    "https://evil.example/public/x",
+    "https://example.org/private/x",
+    "http://example.org/public/x",
+    "https://example.org/public/x?track=1",
+    "javascript:alert(1)",
+  ])
+    expect(
+      extractPublicFields(`<link href='${href}' rel='canonical'>`, p).canonical,
+    ).toBeNull();
+  const long = extractPublicFields(
+    `<title>${"가".repeat(500)}</title><meta property="og:description" content="${"나".repeat(900)}">`,
+    p,
+  );
+  expect([long.title?.length, long.description?.length]).toEqual([200, 500]);
+  expect(extractPublicFields("<p>no head</p>", p)).toEqual({
+    title: null,
+    description: null,
+    canonical: null,
+  });
 });

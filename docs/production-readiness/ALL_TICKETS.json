@@ -1249,14 +1249,15 @@
       "acceptance": "허용 목록 도메인에서 약관·권리·robots 검토 후 최소 업무 정보를 수집한다. 로그인·CAPTCHA 우회는 하지 않는다.",
       "points": 8,
       "owner": "DEV-A",
-      "blockers": "외부 선행 U011의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.",
+      "blockers": "외부 선행 U011의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다. 2026-11-26: 격리 계약 — 수집 경계가 원문 HTML 대신 최소 필드(제목·설명·정책 내 canonical)만 반환, 연락처 가림·길이 제한·정책 밖 링크 제거. 단위 9/9·mutation PASS. 실제 허용 소스(U011)·D017·지속 쿼터 연결·실제 샘플은 미완료.",
       "evidence": [
         "docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/D020/INDEPENDENT_20261122.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/README.md",
         "harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json",
-        "harness/evidence/D020/ (이번 검증 기록 위치)"
+        "harness/evidence/D020/ (이번 검증 기록 위치)",
+        "harness/evidence/D020/MINIMAL_FIELDS_20261126.md"
       ],
       "status": "IN_PROGRESS",
       "scope": "GATED",

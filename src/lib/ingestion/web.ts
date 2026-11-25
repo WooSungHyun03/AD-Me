@@ -3,6 +3,7 @@ import { isIP } from "node:net";
 import { lookup } from "node:dns/promises";
 import { request } from "node:https";
 import { z } from "zod";
+import { redact } from "@/lib/ai";
 
 const policySchema = z.strictObject({
   approved: z.literal(true),
@@ -157,6 +158,58 @@ export async function pinnedWebDownload(
     req.end();
   });
 }
+const entities: Record<string, string> = {
+  amp: "&",
+  lt: "<",
+  gt: ">",
+  quot: '"',
+  "#39": "'",
+  apos: "'",
+  nbsp: " ",
+};
+const text = (raw: string | undefined, max: number) => {
+  if (!raw) return null;
+  const v = redact(
+    raw
+      .replace(/<[^>]*>/g, " ")
+      .replace(/&(amp|lt|gt|quot|#39|apos|nbsp);/g, (_, e) => entities[e])
+      .replace(/\s+/g, " ")
+      .trim(),
+  ).slice(0, max);
+  return v || null;
+};
+const attr = (tag: string | undefined, name: string) =>
+  tag
+    ?.match(new RegExp(`\\s${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)')`, "i"))
+    ?.slice(1)
+    .find((x) => x !== undefined);
+// D020: keep only minimal business fields (title, description, approved canonical). Raw HTML, contact
+// details and off-policy links never leave this boundary.
+export function extractPublicFields(html: string, p: ApprovedWebPolicy) {
+  const head = html.slice(0, 262144);
+  const meta = [...head.matchAll(/<meta\b[^>]*>/gi)].map((m) => m[0]);
+  const link = [...head.matchAll(/<link\b[^>]*>/gi)].map((m) => m[0]);
+  const description = meta.find((t) =>
+    /^(description|og:description)$/i.test(
+      attr(t, "name") ?? attr(t, "property") ?? "",
+    ),
+  );
+  const canonicalHref = attr(
+    link.find((t) => /^canonical$/i.test(attr(t, "rel") ?? "")),
+    "href",
+  );
+  let canonical: string | null = null;
+  try {
+    if (canonicalHref) canonical = approvedUrl(canonicalHref, p).href;
+  } catch {
+    canonical = null;
+  }
+  return {
+    title: text(head.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1], 200),
+    description: text(attr(description, "content"), 500),
+    canonical,
+  };
+}
 export async function fetchApprovedWeb(
   raw: string,
   policy: unknown,
@@ -206,7 +259,7 @@ export async function fetchApprovedWeb(
   )
     throw Error("WEB_CONTENT_NOT_ALLOWED");
   return {
-    html: page.body,
+    fields: extractPublicFields(page.body, p),
     sourceUrl: url.href,
     policyVersion: p.version,
     reviewRef: p.reviewRef,

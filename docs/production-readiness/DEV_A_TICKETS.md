@@ -935,8 +935,8 @@ DEV-A · P1 · S1 주요 부족 · COMPLIANCE · IN_PROGRESS · 8 SP · GATED
 - **보안** — 내부 IP/메타데이터 주소·로그인 벽·CAPTCHA·허가 없는 도메인은 수집하지 않는다.
 - **검증** — 허용되지 않은 도메인 차단·robots·속도 제한·HTML fixture·실제 허용 샘플 검사 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 허용 목록 도메인에서 약관·권리·robots 검토 후 최소 업무 정보를 수집한다. 로그인·CAPTCHA 우회는 하지 않는다.
-- **차단 요인** — 외부 선행 U011의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D020/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D020/ (이번 검증 기록 위치)
+- **차단 요인** — 외부 선행 U011의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다. 2026-11-26: 격리 계약 — 수집 경계가 원문 HTML 대신 최소 필드(제목·설명·정책 내 canonical)만 반환, 연락처 가림·길이 제한·정책 밖 링크 제거. 단위 9/9·mutation PASS. 실제 허용 소스(U011)·D017·지속 쿼터 연결·실제 샘플은 미완료.
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D020/INDEPENDENT_20261122.md · harness/evidence/DEV-A-INDEPENDENT-20261122/README.md · harness/evidence/DEV-A-INDEPENDENT-20261122/verification.json · harness/evidence/D020/ (이번 검증 기록 위치) · harness/evidence/D020/MINIMAL_FIELDS_20261126.md
 - **이전 기록** — IN_PROGRESS
 
 ## D031 · 실제 성과 그래프·지표 정의
