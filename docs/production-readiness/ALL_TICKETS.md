@@ -120,7 +120,7 @@ DEV-B · P0 · S0 출시 차단 · DATABASE · TESTED · 5 SP · ACTIVE
 
 ## D006 · 핵심 활성화·제품 이벤트 정의
 
-DEV-B · P1 · S1 주요 부족 · PRODUCT · TODO · 3 SP · ACTIVE
+DEV-B · P1 · S1 주요 부족 · PRODUCT · TESTED · 3 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 가입→탐색→후보 저장→제안→수락 퍼널을 개인정보 최소화 이벤트로 기록한다.
 - **재현·관찰** — /admin에서 먼저 중복 이벤트·동의·관리자 집계 검증을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/lib/analytics.ts, src/app/admin/page.tsx.
@@ -136,8 +136,9 @@ DEV-B · P1 · S1 주요 부족 · PRODUCT · TODO · 3 SP · ACTIVE
 - **보안** — 이벤트 재전송은 unique key로 한 번만 집계한다.
 - **검증** — 중복 이벤트·동의·관리자 집계 검증 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 가입→탐색→후보 저장→제안→수락 퍼널을 개인정보 최소화 이벤트로 기록한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D006/ (이번 검증 기록 위치)
+- **차단 요인** — 운영 데이터 퍼널 확인은 운영 적용(U004) 후.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D006/ (이번 검증 기록 위치) · harness/evidence/D006/20261126/README.md
+- **검증 범위** — 2026-11-26 main 252dfdd 격리 빈 DB: analytics.spec.ts desktop/mobile PASS, analytics REST PASS. 클라이언트 쓰기와 위조 거부, explore·shortlist 중복 제거(하루 1회), 원시 ID·이메일 미저장(가명 subject), 관리자 전용 퍼널, 수신 거부와 삭제 시 이벤트 삭제. E2E: 수신 거부 토글 유지.
 - **이전 기록** — OPEN
 
 ## D007 · 라이선스·의존성·출처 목록
