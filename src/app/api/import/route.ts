@@ -10,9 +10,10 @@ import {
   type ImportRow,
 } from "@/lib/csv";
 import { isDemoMode } from "@/lib/mode";
+import { readSavedLists } from "@/lib/saved-lists";
 // D038: shortlist CSV import in two steps. "preview" validates and writes nothing; "commit" re-validates the
 // same file on the server and inserts only valid rows. Rows never trigger external fetches.
- async function handlePOST(req: Request) {
+async function handlePOST(req: Request) {
   if (!safeOrigin(req)) return fail("허용되지 않은 요청입니다.", 403);
   const c = await context();
   if (!c) return fail("로그인이 필요합니다.", 401);
@@ -33,19 +34,27 @@ import { isDemoMode } from "@/lib/mode";
   if (!list) return fail("그룹을 찾을 수 없습니다.", 404);
   const parsed = readImport(p.data.csv);
   if ("error" in parsed) return fail(parsed.error, 422);
-  const ids = parsed.rows.filter((r) => !r.error).map((r) => r.id);
-  let q = c.db
-    .from("creators")
-    .select("id,profile,owner_id")
-    .eq("published", true)
-    .in("id", ids.length ? ids : ["-"]);
-  if (!isDemoMode()) q = q.eq("profile->>is_demo", "false");
-  const [{ data: people }, { data: existing }] = await Promise.all([
-    q,
-    c.db.from("saved_list_items").select("creator_id").eq("list_id", list.id),
-  ]);
-  const byId = new Map((people ?? []).map((x) => [x.id, x]));
-  const inList = new Set((existing ?? []).map((x) => x.creator_id));
+  // D038: resolve rows through the public catalog DTO (brands cannot read public.creators
+  // under the D075 read boundary). Unknown, hidden or demo-in-free-mode rows are errors.
+  const ids = [
+    ...new Set(parsed.rows.filter((r) => !r.error).map((r) => r.id)),
+  ];
+  const lookup = async (id: string) => {
+    const { data } = await c.db.rpc("creator_public_one", { p_ref: id });
+    const dto = data as { seed_id?: string; is_demo?: boolean } | null;
+    return dto?.seed_id && (isDemoMode() || dto.is_demo === false)
+      ? ([id, { seed_id: dto.seed_id, is_demo: dto.is_demo === true }] as const)
+      : null;
+  };
+  // Bounded fan-out: at most 25 lookups in flight per request.
+  const people: Awaited<ReturnType<typeof lookup>>[] = [];
+  for (let i = 0; i < ids.length; i += 25)
+    people.push(...(await Promise.all(ids.slice(i, i + 25).map(lookup))));
+  const lists = await readSavedLists(c.db);
+  const byId = new Map(people.filter((x) => x !== null));
+  const inList = new Set(
+    lists?.find((l) => l.id === list.id)?.items.map((i) => i.ref) ?? [],
+  );
   const rows: ImportRow[] = parsed.rows.map((r) => {
     if (r.error)
       return { line: r.line, id: r.id, status: "error", message: r.error };
@@ -57,7 +66,11 @@ import { isDemoMode } from "@/lib/mode";
         status: "error",
         message: "공개된 AD Me 프로필이 아닙니다.",
       };
-    const actual = provenance(person.profile, person.owner_id).label;
+    // Public catalog rows are either fictional DEMO or owner-registered profiles.
+    const actual = provenance(
+      { is_demo: person.is_demo },
+      person.is_demo ? null : "owner",
+    ).label;
     if (actual !== r.source)
       return {
         line: r.line,
@@ -65,7 +78,7 @@ import { isDemoMode } from "@/lib/mode";
         status: "error",
         message: `출처가 다릅니다(실제: ${actual}).`,
       };
-    if (inList.has(r.id))
+    if (inList.has(person.seed_id))
       return {
         line: r.line,
         id: r.id,
@@ -76,14 +89,11 @@ import { isDemoMode } from "@/lib/mode";
   });
   const ok = rows.filter((r) => r.status === "ok");
   if (p.data.action === "commit" && ok.length) {
-    const { error } = await c.db.from("saved_list_items").upsert(
-      ok.map((r) => ({
-        list_id: list.id,
-        creator_id: r.id,
-        owner_id: c.user.id,
-      })),
-      { onConflict: "list_id,creator_id", ignoreDuplicates: true },
-    );
+    // One transaction for all valid rows; a repeated commit adds nothing new.
+    const { error } = await c.db.rpc("import_saved_list_items", {
+      p_list: list.id,
+      p_refs: [...new Set(ok.map((r) => byId.get(r.id)!.seed_id))],
+    });
     if (error)
       return fail(
         "가져오기를 저장하지 못했습니다. 아무 행도 추가되지 않았습니다.",
@@ -101,7 +111,7 @@ import { isDemoMode } from "@/lib/mode";
   });
 }
 // Template: the export's columns; only ID and 출처 are read back.
- function handleGET() {
+function handleGET() {
   return new Response(
     toCsv([
       ["ID", "이름", "출처", "메모(가져오지 않음)"],
@@ -118,5 +128,11 @@ import { isDemoMode } from "@/lib/mode";
   );
 }
 
-export const POST=compatibleApiRoute("src/app/api/import/route.ts.POST",handlePOST);
-export const GET=compatibleApiRoute("src/app/api/import/route.ts.GET",handleGET);
+export const POST = compatibleApiRoute(
+  "src/app/api/import/route.ts.POST",
+  handlePOST,
+);
+export const GET = compatibleApiRoute(
+  "src/app/api/import/route.ts.GET",
+  handleGET,
+);
