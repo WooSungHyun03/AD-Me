@@ -3759,16 +3759,17 @@
       "acceptance": "링크 제출을 버전·검토 의견·승인 근거·광고 표시 체크로 확장한다.",
       "points": 5,
       "owner": "DEV-B",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "2026-11-25: main에서 두 역할 golden path(제출 버전 1 → 검토 대기 → 브랜드 승인 → 완료) desktop/mobile 2/2. 수정 요청·구버전 승인 409 세부 수용(local-browser deliverables.spec) 재실행과 운영 delivery_transition 적용(U004) 남음.",
       "evidence": [
         "docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/D054/PLAN_20261120.md",
         "harness/evidence/D054/README.md",
         "harness/evidence/D054/verification.json",
-        "harness/evidence/D054/ (이번 검증 기록 위치)"
+        "harness/evidence/D054/ (이번 검증 기록 위치)",
+        "harness/evidence/D054/20261125/README.md"
       ],
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": true,

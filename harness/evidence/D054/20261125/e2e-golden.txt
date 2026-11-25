@@ -1,0 +1,179 @@
+
+Running 2 tests using 1 worker
+
+[1/2] [desktop] › tests\e2e\service.spec.ts:89:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] api_error {
+[WebServer]   timestamp: '2026-11-25T13:27:59.464Z',
+[WebServer]   requestId: '1eba4209-a10e-4559-985f-cea19f0d75df',
+[WebServer]   domain: 'billing',
+[WebServer]   operation: 'billing.confirm.post',
+[WebServer]   level: 'error',
+[WebServer]   duration: 191,
+[WebServer]   errorCode: 'SERVICE_UNAVAILABLE',
+[WebServer]   retryable: true
+[WebServer] }
+
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T13:28:04.898Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"a95d20b4-e349-4f62-9490-3f8f3bdd5f16"}
+
+[2/2] [mobile] › tests\e2e\service.spec.ts:89:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation
+[WebServer] [browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[WebServer] 
+[WebServer] - A server/client branch `if (typeof window !== 'undefined')`.
+[WebServer] - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+[WebServer] - Date formatting in a user's locale which doesn't match the server.
+[WebServer] - External changing data without sending a snapshot of it along with the HTML.
+[WebServer] - Invalid HTML tag nesting.
+[WebServer] 
+[WebServer] It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+[WebServer] 
+[WebServer] https://react.dev/link/hydration-mismatch
+[WebServer] 
+[WebServer]   ...
+[WebServer]     <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>
+[WebServer]       <RedirectBoundary>
+[WebServer]         <RedirectErrorBoundary router={{...}}>
+[WebServer]           <InnerLayoutRouter url="/dashboard" tree={[...]} params={{}} renderTree={{...}} segmentPath={[...]} ...>
+[WebServer]             <SegmentViewNode type="page" pagePath="dashboard/...">
+[WebServer]               <SegmentTrieNode>
+[WebServer]               <Dashboard>
+[WebServer]                 <section className="figma-widt...">
+[WebServer]                   <LiveMessages>
+[WebServer]                   <div>
+[WebServer]                   <nav>
+[WebServer]                   <ul>
+[WebServer]                   <div>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <div>
+[WebServer]                   <nav>
+[WebServer]                   <p>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article className="panel" id="proposal-d..." data-proposal-id="dd87a89f-c..." style={{...}}>
+[WebServer]                     <span>
+[WebServer]                     <ReadButton>
+[WebServer]                     <h3>
+[WebServer]                     <p>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <div>
+[WebServer]                     <section style={{marginTop:24}}>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <Conversation>
+[WebServer]                       <ChatSafety id="dd87a89f-c...">
+[WebServer]                         <details className="ops-row">
+[WebServer]                           <summary>
+[WebServer]                           <form className="form ops-form" onSubmit={function submit}>
+[WebServer]                             <label>
+[WebServer]                               <textarea
+[WebServer]                                 name="reason"
+[WebServer]                                 maxLength={500}
+[WebServer]                                 rows={2}
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             ...
+[WebServer]                     ...
+[WebServer]                   ...
+[WebServer]             ...
+[WebServer]           ...
+[WebServer]  
+
+[WebServer] api_error {
+[WebServer]   timestamp: '2026-11-25T13:28:18.375Z',
+[WebServer]   requestId: '39e3e49d-88fb-46c3-b520-5c6290f495e8',
+[WebServer]   domain: 'billing',
+[WebServer]   operation: 'billing.confirm.post',
+[WebServer]   level: 'error',
+[WebServer]   duration: 97,
+[WebServer]   errorCode: 'SERVICE_UNAVAILABLE',
+[WebServer]   retryable: true
+[WebServer] }
+
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T13:28:21.323Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"9f0e9da7-ed88-4d69-b534-738594d81579"}
+
+  2 passed (39.6s)

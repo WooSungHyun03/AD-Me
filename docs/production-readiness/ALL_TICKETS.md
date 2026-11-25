@@ -1229,7 +1229,7 @@ DEV-B · P1 · S1 주요 부족 · CHAT · TODO · 5 SP · ACTIVE
 
 ## D054 · 결과물 버전·수정 요청·승인
 
-DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TODO · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · MARKETPLACE · IN_PROGRESS · 5 SP · ACTIVE
 
 - **현재 문제** — 운영에는 delivery_transition RPC가 없어 최신 결과물 버전 전이를 그대로 승격할 수 없다.
 - **재현·관찰** — 운영 RPC 존재 여부와 staging 복제본을 대조. 승인·중복·오래된 revision·거부·수정 요청을 검증한다.
@@ -1245,8 +1245,8 @@ DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TODO · 5 SP · ACTIVE
 - **보안** — 구버전 승인이 새 제출본을 완료 처리하지 않는다.
 - **검증** — 수정 중복·확정 버전 불변·참여자별 승인 권한 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 링크 제출을 버전·검토 의견·승인 근거·광고 표시 체크로 확장한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D054/PLAN_20261120.md · harness/evidence/D054/README.md · harness/evidence/D054/verification.json · harness/evidence/D054/ (이번 검증 기록 위치)
+- **차단 요인** — 2026-11-25: main에서 두 역할 golden path(제출 버전 1 → 검토 대기 → 브랜드 승인 → 완료) desktop/mobile 2/2. 수정 요청·구버전 승인 409 세부 수용(local-browser deliverables.spec) 재실행과 운영 delivery_transition 적용(U004) 남음.
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D054/PLAN_20261120.md · harness/evidence/D054/README.md · harness/evidence/D054/verification.json · harness/evidence/D054/ (이번 검증 기록 위치) · harness/evidence/D054/20261125/README.md
 - **Figma 노드** — [07 · 캠페인 상세 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-870) · [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [07 · 캠페인 상세 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-898) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519)
 - **이전 기록** — LOCAL_VERIFIED
 

@@ -218,36 +218,36 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
   });
   // D004 error contract: a role/product mismatch is a permission failure (403), like proposals.
   expect(wrongRole.status()).toBe(403);
-  const liveDeal = page
-    .locator("article")
-    .filter({ hasText: "QA 검증용 비건 토너 협업을 제안합니다." })
-    .first();
-  await liveDeal.getByText(/메시지·결과물/).click();
+  // D051/D054: messages and versioned deliverables live on the collaboration pages.
+  const pid = await deal.getAttribute("data-proposal-id");
+  expect(pid).toMatch(/^[0-9a-f-]{36}$/);
   const liveBody = "QA 결과물 초안 " + unique;
-  await deal.getByText(/메시지·결과물/).click();
-  await deal.getByLabel("메시지", { exact: true }).fill(liveBody);
-  await deal.getByLabel("종류", { exact: true }).selectOption("deliverable");
-  await deal
+  await cp.goto(`/collaborations/${pid}/deliverables`);
+  await cp.getByLabel("결과물 설명", { exact: true }).fill(liveBody);
+  await cp
     .getByLabel("결과물 HTTPS 링크")
     .fill("https://example.com/qa-deliverable");
-  await deal.getByRole("button", { name: "메시지 저장" }).click();
-  await expect(deal.getByRole("status")).toContainText("저장되었습니다");
-  await expect(liveDeal.getByText(liveBody, { exact: true })).toBeVisible({
-    timeout: 15000,
-  });
-  const markRead = liveDeal.getByRole("button", { name: /안 읽은 메시지 1개/ });
-  await expect(markRead).toBeVisible();
-  await markRead.click();
-  await expect(markRead).toHaveCount(0);
-  await deal.getByRole("button", { name: "결과물 제출 완료" }).click();
-  await expect(deal.getByText("검토 대기", { exact: true })).toBeVisible();
-  await page.reload();
-  const brandDeal = page
-    .locator("article")
-    .filter({ hasText: "QA 검증용 비건 토너 협업을 제안합니다." })
-    .first();
-  await brandDeal.getByRole("button", { name: "검토 승인" }).click();
-  await expect(brandDeal.getByText("완료", { exact: true })).toBeVisible();
+  await cp.locator('input[name="confirmed"]').check();
+  await cp.getByRole("button", { name: "새 제출본 저장" }).click();
+  await expect(cp.getByTestId("active-submission")).toContainText("버전 1");
+  await cp.getByRole("button", { name: "현재 버전 제출 완료" }).click();
+  await expect(cp.getByText("검토 대기", { exact: true })).toBeVisible();
+  await page.goto(`/collaborations/${pid}/deliverables`);
+  await expect(page.getByTestId("active-submission")).toContainText(liveBody);
+  await page
+    .getByLabel("검토 의견·승인 근거")
+    .fill("QA 결과물과 광고 표시를 확인하고 승인합니다.");
+  await page
+    .getByLabel("현재 제출본의 광고 표시를 확인했습니다.", { exact: true })
+    .check();
+  await page.getByRole("button", { name: "현재 버전 검토 승인" }).click();
+  await expect(page.getByText("완료", { exact: true })).toBeVisible();
+  await page.goto("/dashboard");
+  await expect(
+    page
+      .locator(`article[data-proposal-id="${pid}"]`)
+      .getByText("완료", { exact: true }),
+  ).toBeVisible();
   await creator.close();
 });
 
