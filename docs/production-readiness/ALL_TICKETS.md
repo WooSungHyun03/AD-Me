@@ -1444,7 +1444,7 @@ DEV-B · P0 · S0 출시 차단 · CHAT · TESTED · 5 SP · ACTIVE
 
 ## D063 · 통계·도움말·문의 운영
 
-DEV-B · P1 · S1 주요 부족 · UX · TODO · 3 SP · ACTIVE
+DEV-B · P1 · S1 주요 부족 · UX · TESTED · 3 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 실제 이용량·오류·신고 처리량과 사용법·데이터 한계·문의 접점을 제공한다.
 - **재현·관찰** — /admin · /about에서 먼저 가상 통계 제외·PII 없는 집계·문의 접수 확인을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/app/admin/page.tsx, src/app/about/page.tsx, src/app/help.
@@ -1460,9 +1460,10 @@ DEV-B · P1 · S1 주요 부족 · UX · TODO · 3 SP · ACTIVE
 - **보안** — 가상 이벤트/테스트 계정은 실서비스 운영 지표에서 제외한다.
 - **검증** — 가상 통계 제외·PII 없는 집계·문의 접수 확인 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 실제 이용량·오류·신고 처리량과 사용법·데이터 한계·문의 접점을 제공한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D063/ (이번 검증 기록 위치)
+- **차단 요인** — 운영 지표 실측은 운영 적용(U004) 후.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D063/ (이번 검증 기록 위치) · harness/evidence/D063/20261126/README.md
 - **Figma 노드** — [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
+- **검증 범위** — 2026-11-26 main 252dfdd 격리 빈 DB: help.spec.ts desktop/mobile PASS, ops-metrics REST PASS. 관리자 전용 집계, 예약 도메인 테스트 계정과 데모 제외, PII 없는 오류 집계, 문의는 서버 전용 저장과 한도, 소유자·관리자만 조회, 관리자 답변 감사. E2E: 도움말·데이터 한계, 익명(회신 메일)·회원 문의, 관리자 답변, 정의가 붙은 기간별 지표.
 - **이전 기록** — OPEN
 
 ## D064 · 콘텐츠·계정 운영 runbook

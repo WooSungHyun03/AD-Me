@@ -4418,13 +4418,14 @@
       "acceptance": "실제 이용량·오류·신고 처리량과 사용법·데이터 한계·문의 접점을 제공한다.",
       "points": 3,
       "owner": "DEV-B",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "운영 지표 실측은 운영 적용(U004) 후.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D063/ (이번 검증 기록 위치)"
+        "harness/evidence/D063/ (이번 검증 기록 위치)",
+        "harness/evidence/D063/20261126/README.md"
       ],
-      "status": "TODO",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,
@@ -4441,7 +4442,8 @@
           "label": "15 · 관리자 / Mobile",
           "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528"
         }
-      ]
+      ],
+      "verified_scope": "2026-11-26 main 252dfdd 격리 빈 DB: help.spec.ts desktop/mobile PASS, ops-metrics REST PASS. 관리자 전용 집계, 예약 도메인 테스트 계정과 데모 제외, PII 없는 오류 집계, 문의는 서버 전용 저장과 한도, 소유자·관리자만 조회, 관리자 답변 감사. E2E: 도움말·데이터 한계, 익명(회신 메일)·회원 문의, 관리자 답변, 정의가 붙은 기간별 지표."
     },
     {
       "id": "D064",
