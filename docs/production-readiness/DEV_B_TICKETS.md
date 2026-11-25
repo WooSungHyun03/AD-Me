@@ -236,7 +236,7 @@ DEV-B · P0 · S0 출시 차단 · YOUTUBE · IN_PROGRESS · 5 SP · ACTIVE
 
 ## D025 · 미청구 프로필과 본인 프로필 청구
 
-DEV-B · P0 · S0 출시 차단 · YOUTUBE · IN_PROGRESS · 8 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · YOUTUBE · TESTED · 8 SP · ACTIVE
 
 - **현재 문제** — 공개 채널과 AD Me 소유권 확인을 구분하지만 새 실제 참여자의 동의·해제 전체는 미검증이다.
 - **재현·관찰** — QA creator의 /settings/youtube를 열고, 사용자 승인 테스트 채널로 소유권 증명·철회 후 공개 DTO/지원권 차단을 비교한다.
@@ -252,9 +252,10 @@ DEV-B · P0 · S0 출시 차단 · YOUTUBE · IN_PROGRESS · 8 SP · ACTIVE
 - **보안** — 수집 프로필의 owner_id를 로그인한 사람에게 자동 귀속하지 않는다. claim 전 제안 수신/수락을 금지한다.
 - **검증** — 타인 계정 청구·중복 청구·증명 만료 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 수집 프로필은 미인증·협업 의사 미확인으로 표시하고 소유 증명 후에만 수정·제안 수신을 허용한다.
-- **차단 요인** — 2026-11-26: D073 게시 가드가 소유자 NULL 비교로 수집 프로필 start_claim·관리자 승인을 막던 결함 수정(20261125220000), claims REST PASS. 남은 것: 공개 DTO 소유·청구 상태(DEV-A DTO 계약)와 claims E2E, 실제 소유 증명 U014, 운영 적용 U004.
+- **차단 요인** — 실제 채널 소유 증명 증거(U014)와 운영 적용(U004)은 외부·운영자 게이트.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/implementation-progress.md · harness/evidence/D025/ (이번 검증 기록 위치) · harness/evidence/D025/20261126/README.md
 - **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420) · [17b · 크리에이터 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416) · [17b · 크리에이터 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444)
+- **검증 범위** — 2026-11-26 main 격리 로컬: 수집 프로필 collected_unverified 표시(견적·협업 의사 미확인), 캠페인 CTA 숨김, 소유 확인 요청 1회 코드·중복 거부, 관리자 코드 불일치 거부·일치 승인, 청구 전 제안 불가(20261125220000·20261126110000), claims REST PASS, claims E2E desktop/mobile 2/2.
 - **이전 기록** — PARTIAL_VERIFIED
 
 ## D026 · 크리에이터 프로필 편집 확장
@@ -951,7 +952,7 @@ DEV-B · P1 · S1 주요 부족 · UX · TODO · 5 SP · ACTIVE
 
 ## D046 · 추천 피드백·평가 데이터셋
 
-DEV-B · P1 · S1 주요 부족 · MATCHING · TODO · 5 SP · ACTIVE
+DEV-B · P1 · S1 주요 부족 · MATCHING · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 적합/부적합 사유·수락 결과를 저장하고 데이터 희소성·특정 규모 편향을 검토한다.
 - **재현·관찰** — /matches에서 먼저 평가 기준·회귀 비교·개인정보 최소화·오프라인 평가을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/app/matches/page.tsx, src/app/api/matching-feedback.
@@ -967,9 +968,10 @@ DEV-B · P1 · S1 주요 부족 · MATCHING · TODO · 5 SP · ACTIVE
 - **보안** — 맞음 클릭만으로 모델 성능이 증명됐다고 보고하지 않는다.
 - **검증** — 평가 기준·회귀 비교·개인정보 최소화·오프라인 평가 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 적합/부적합 사유·수락 결과를 저장하고 데이터 희소성·특정 규모 편향을 검토한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D046/ (이번 검증 기록 위치)
+- **차단 요인** — 운영 적용(U004)은 운영자 게이트.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D046/ (이번 검증 기록 위치) · harness/evidence/D046/20261126/README.md
 - **Figma 노드** — [05 · AI 추천 결과 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-163) · [05 · AI 추천 결과 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1438)
+- **검증 범위** — 2026-11-26 main 격리 로컬: 서버 재계산 순위·점수로 rate_recommendation(공개 참조 해석) 저장, 평가자 전용 조회, 목록 밖·잘못된 사유 거부, feedback REST PASS, match-feedback E2E desktop/mobile 2/2.
 - **이전 기록** — OPEN
 
 ## D050 · 협업 조건 변경·합의 이력
@@ -1066,7 +1068,7 @@ DEV-B · P1 · S1 주요 부족 · ADMIN · TESTED · 5 SP · ACTIVE
 
 ## D061 · 안전성 체크리스트·선정 승인
 
-DEV-B · P1 · S1 주요 부족 · MARKETPLACE · TODO · 3 SP · ACTIVE
+DEV-B · P1 · S1 주요 부족 · MARKETPLACE · TESTED · 3 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 브랜드별 체크 항목·검토 메모·수동 승인 게이트를 비공개로 보관한다.
 - **재현·관찰** — /campaigns/[id]에서 먼저 공개 프로필 누출·승인 전 선정·권한 테스트을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/app/api/notes, src/app/campaigns/[id]/page.tsx.
@@ -1082,9 +1084,10 @@ DEV-B · P1 · S1 주요 부족 · MARKETPLACE · TODO · 3 SP · ACTIVE
 - **보안** — 검토 메모를 크리에이터 공개 평판 데이터로 재활용하지 않는다.
 - **검증** — 공개 프로필 누출·승인 전 선정·권한 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 브랜드별 체크 항목·검토 메모·수동 승인 게이트를 비공개로 보관한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D061/ (이번 검증 기록 위치)
+- **차단 요인** — 운영 적용(U004)은 운영자 게이트.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D061/ (이번 검증 기록 위치) · harness/evidence/D061/20261126/README.md
 - **Figma 노드** — [09 · 캠페인 지원 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1002) · [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [09 · 캠페인 지원 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1039) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
+- **검증 범위** — 2026-11-26 main 격리 로컬: 공개 참조 게이트웨이(20261126100000)로 선정 검토 섹션 복원, 체크리스트·메모·승인, 미승인 선정 409 안내, 메모 비공개, selection-review REST PASS, E2E desktop/mobile 2/2.
 - **이전 기록** — OPEN
 
 ## D063 · 통계·도움말·문의 운영
