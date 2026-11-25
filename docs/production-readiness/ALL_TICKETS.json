@@ -2612,13 +2612,14 @@
       "acceptance": "공개 메시지와 비공개 메모를 분리하고 2~3인 비교·출처·공유 범위를 저장한다.",
       "points": 5,
       "owner": "DEV-B",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "운영 적용(U004) 후 확인.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D040/ (이번 검증 기록 위치)"
+        "harness/evidence/D040/ (이번 검증 기록 위치)",
+        "harness/evidence/D040/20261126/README.md"
       ],
-      "status": "TODO",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,
@@ -2635,7 +2636,8 @@
           "label": "02 · 크리에이터 탐색 / Mobile",
           "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411"
         }
-      ]
+      ],
+      "verified_scope": "2026-11-26 main 252dfdd 격리 빈 DB: compare.spec.ts desktop/mobile PASS, notes REST PASS. 비공개 메모는 소유자만 보고, 공유 비교 링크는 공개 필드만 보이며 철회할 수 있다. CSV 비교. REST notes: 소유자 외 접근 차단."
     },
     {
       "id": "D041",

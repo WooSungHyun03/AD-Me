@@ -905,7 +905,7 @@ DEV-A · P0 · S0 출시 차단 · MATCHING · TESTED · 5 SP · ACTIVE
 
 ## D040 · 개인 CRM 메모·후보 비교 리포트
 
-DEV-B · P1 · S1 주요 부족 · UX · TODO · 5 SP · ACTIVE
+DEV-B · P1 · S1 주요 부족 · UX · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 공개 메시지와 비공개 메모를 분리하고 2~3인 비교·출처·공유 범위를 저장한다.
 - **재현·관찰** — /compare에서 먼저 상대방 메모 접근 차단·비공개 공유·CSV 비교 결과을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/app/compare/page.tsx, src/app/api/notes.
@@ -921,9 +921,10 @@ DEV-B · P1 · S1 주요 부족 · UX · TODO · 5 SP · ACTIVE
 - **보안** — 비교 공유 링크를 통해 비공개 메모·campaign 금액이 노출되지 않는다.
 - **검증** — 상대방 메모 접근 차단·비공개 공유·CSV 비교 결과 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 공개 메시지와 비공개 메모를 분리하고 2~3인 비교·출처·공유 범위를 저장한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D040/ (이번 검증 기록 위치)
+- **차단 요인** — 운영 적용(U004) 후 확인.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D040/ (이번 검증 기록 위치) · harness/evidence/D040/20261126/README.md
 - **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411)
+- **검증 범위** — 2026-11-26 main 252dfdd 격리 빈 DB: compare.spec.ts desktop/mobile PASS, notes REST PASS. 비공개 메모는 소유자만 보고, 공유 비교 링크는 공개 필드만 보이며 철회할 수 있다. CSV 비교. REST notes: 소유자 외 접근 차단.
 - **이전 기록** — OPEN
 
 ## D041 · 캠페인 기간·예산·산출물 계약
