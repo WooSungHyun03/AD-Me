@@ -30,6 +30,10 @@ export const POST = apiRoute("proposals.post", async (req) => {
   if (error?.code === "23505") fail("이미 지원하거나 제안했습니다.", 409);
   if (error?.code === "PT409" && error.message === "RECRUITMENT_NOT_OPEN")
     fail("현재 모집 기간 또는 모집 인원을 확인해주세요.", 409);
+  // D062: block/restriction reasons from the contact guard get the shared user wording
+  // (same text whoever blocked whom, so the block itself is not revealed).
+  if (error && /^(blocked|contact_restricted)$/.test(error.message))
+    fail(recruitingError(error.message)!, 403);
   if (error) failDatabase(error, "지원·제안을 저장하지 못했습니다.");
   const id = z.uuid().safeParse(data);
   if (!id.success) fail("지원·제안 응답을 확인하지 못했습니다.", 503);

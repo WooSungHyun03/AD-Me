@@ -22,7 +22,7 @@ ADME_E2E_ISOLATED_YOUTUBE=1 ADME_FEATURE_INGESTION=on ADME_FEATURE_LLM=on ADME_F
   MAILPIT_URL="${MAILPIT_URL:-http://127.0.0.1:54324}" npx playwright test --reporter=line || status=1
 # Some direct-REST tests reuse browser fixtures. Run the checks and recovery
 # drill even when a browser assertion fails, and propagate all failures.
-for t in security claims profile-fields search recruiting lists lists-public-refs proposals notifications reports privacy uploads safety retention ops analytics consent notes feedback ai-usage email-outbox selection-review ops-metrics usage-ledger promotions test-cancel; do
+for t in security claims profile-fields search recruiting lists lists-public-refs contact-guard proposals notifications reports privacy uploads safety retention ops analytics consent notes feedback ai-usage email-outbox selection-review ops-metrics usage-ledger promotions test-cancel; do
   echo "== $t"
   node "tests/$t.mjs" || status=1
 done

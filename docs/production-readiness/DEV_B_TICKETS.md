@@ -494,7 +494,7 @@ DEV-B · P0 · S0 출시 차단 · ADMIN · TODO · 5 SP · ACTIVE
 
 ## D062 · 사용자 차단·사칭·악용 대응
 
-DEV-B · P0 · S0 출시 차단 · CHAT · TODO · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · CHAT · IN_PROGRESS · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 차단 관계·신고 누적·스팸·사칭 검토 및 연락 제한을 적용한다.
 - **재현·관찰** — /api/messages · /api/reports에서 먼저 차단 후 메시지·다계정 속도 제한·부당 자동제재 방지을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/app/api/messages/route.ts, src/app/api/reports/route.ts, supabase/migrations.
@@ -510,8 +510,8 @@ DEV-B · P0 · S0 출시 차단 · CHAT · TODO · 5 SP · ACTIVE
 - **보안** — 신고 수만으로 자동 영구 제재하지 않는다.
 - **검증** — 차단 후 메시지·다계정 속도 제한·부당 자동제재 방지 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 차단 관계·신고 누적·스팸·사칭 검토 및 연락 제한을 적용한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D062/ (이번 검증 기록 위치)
+- **차단 요인** — 2026-11-25: 정의자 경로(conversation_send·create_creator_proposal)에서 차단·연락 제한이 우회되던 결함 수정(20261125180000, contact-guard 6/6, 차단 E2E 2/2). 관리자 제한 UI 흐름은 D058/D057 신고 큐 계약, tests/safety.mjs 재작성, 운영 적용 U004 남음.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D062/ (이번 검증 기록 위치) · harness/evidence/D062/20261125/README.md
 - **Figma 노드** — [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
 - **이전 기록** — OPEN
 

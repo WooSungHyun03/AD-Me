@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
+import { recruitingError } from "@/lib/schemas";
 import {
   apiRoute,
   fail,
@@ -52,6 +53,10 @@ export const POST = apiRoute("messages.post", async (req) => {
     p_kind: p.kind,
     p_url: p.url || null,
   });
+  // D062: block/restriction reasons from the contact guard get the shared user wording
+  // (same text whoever blocked whom, so the block itself is not revealed).
+  if (error && /^(blocked|contact_restricted)$/.test(error.message))
+    fail(recruitingError(error.message)!, 403);
   if (error) failDatabase(error, "메시지를 저장하지 못했습니다.");
   if (!z.uuid().safeParse(data).success)
     fail("메시지 응답을 확인하지 못했습니다.", 503);

@@ -1,0 +1,7 @@
+PASS: D062 contact guard — 6 checks
+ - baseline message allowed
+ - restricted user cannot message through conversation_send
+ - lifted restriction allows messages again
+ - blocked counterpart cannot message
+ - blocker cannot message the blocked user either
+ - blocked counterpart cannot open a new proposal through the RPC
