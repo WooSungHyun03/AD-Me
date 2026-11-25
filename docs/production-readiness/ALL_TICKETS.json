@@ -99,7 +99,7 @@
       "acceptance": "현재 제공 기능만 안내하고 AI 크레딧 수량·가격 등 문서와 코드의 불일치를 제거한다.",
       "points": 2,
       "owner": "DEV-A",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "로컬 복제 DB·desktop/mobile 범위만 TESTED. 운영 /pricing 배포 후 대조, D001 독립 운영 환경 수용, 전체 i18n 문구 검수는 남음.",
       "evidence": [
         "docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
@@ -107,13 +107,14 @@
         "harness/evidence/D002/VERIFY_20261121.md",
         "harness/evidence/DEV-A-P0-FINISH-20261121/verification.json",
         "harness/evidence/D002/ (이번 검증 기록 위치)",
-        "harness/evidence/D002/YOUTUBE_GUIDANCE_20261124.md"
+        "harness/evidence/D002/YOUTUBE_GUIDANCE_20261124.md",
+        "harness/evidence/D002/VERIFY_20261125.md"
       ],
-      "status": "IMPLEMENTED",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": false,
-      "verified_scope": "새 문구와 Checkout 오류 라벨은 main 및 격리 검증 범위. 운영 호환 배포에 미반영. 현행 YouTube 서비스 안내와 공식 공개 API/본인 등록 구분을 desktop/mobile2 검증. 레거시 플랫폼 기록/스키마 보존, D001·전체 운영 수용 별도.",
+      "verified_scope": "2026-11-25: freeFeatures 단일 출처, /pricing 동적 렌더, PRD 7개 TEST 상품·가격 일치를 로컬 복제 DB(역할별 성공·거부·재시도)와 desktop/mobile에서 확인. 운영 미검증.",
       "operator_refactor_review": {
         "decision": "KEEP"
       },

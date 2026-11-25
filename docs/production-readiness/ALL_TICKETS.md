@@ -27,7 +27,7 @@ DEV-B · P0 · S0 출시 차단 · UX · TESTED · 3 SP · ACTIVE
 
 ## D002 · 운영 정책·요금·기능 설명 일치
 
-DEV-A · P0 · S0 출시 차단 · UX · IMPLEMENTED · 2 SP · ACTIVE
+DEV-A · P0 · S0 출시 차단 · UX · TESTED · 2 SP · ACTIVE
 
 - **현재 문제** — 요금제·도움말·공고·결제 CTA에 내부 TEST/공급자 오류가 섞였다. 이번 main은 1차 정리했고 운영 배포·전체 i18n 검수는 남았다.
 - **재현·관찰** — 운영 /pricing과 main Checkout을 비교한다. 실패 응답에 공급자 세부 정보가 사용자 경고로 렌더링되지 않는지 확인한다.
@@ -43,10 +43,10 @@ DEV-A · P0 · S0 출시 차단 · UX · IMPLEMENTED · 2 SP · ACTIVE
 - **보안** — 화면·FAQ·서버 주문 금액의 스냅샷이 동일해야 한다.
 - **검증** — 화면·상품 설정·문서 대조 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 현재 제공 기능만 안내하고 AI 크레딧 수량·가격 등 문서와 코드의 불일치를 제거한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D002/README.md · harness/evidence/D002/VERIFY_20261121.md · harness/evidence/DEV-A-P0-FINISH-20261121/verification.json · harness/evidence/D002/ (이번 검증 기록 위치) · harness/evidence/D002/YOUTUBE_GUIDANCE_20261124.md
+- **차단 요인** — 로컬 복제 DB·desktop/mobile 범위만 TESTED. 운영 /pricing 배포 후 대조, D001 독립 운영 환경 수용, 전체 i18n 문구 검수는 남음.
+- **증빙** — docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D002/README.md · harness/evidence/D002/VERIFY_20261121.md · harness/evidence/DEV-A-P0-FINISH-20261121/verification.json · harness/evidence/D002/ (이번 검증 기록 위치) · harness/evidence/D002/YOUTUBE_GUIDANCE_20261124.md · harness/evidence/D002/VERIFY_20261125.md
 - **Figma 노드** — [11 · 요금제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271) · [11 · 요금제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492)
-- **검증 범위** — 새 문구와 Checkout 오류 라벨은 main 및 격리 검증 범위. 운영 호환 배포에 미반영. 현행 YouTube 서비스 안내와 공식 공개 API/본인 등록 구분을 desktop/mobile2 검증. 레거시 플랫폼 기록/스키마 보존, D001·전체 운영 수용 별도.
+- **검증 범위** — 2026-11-25: freeFeatures 단일 출처, /pricing 동적 렌더, PRD 7개 TEST 상품·가격 일치를 로컬 복제 DB(역할별 성공·거부·재시도)와 desktop/mobile에서 확인. 운영 미검증.
 - **이전 기록** — LOCAL_VERIFIED
 
 ## D003 · 환경 설정 스키마·누락 진단

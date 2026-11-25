@@ -3,6 +3,7 @@ import { ArrowUpRight, Check } from "lucide-react";
 import { Checkout } from "@/components/checkout";
 import { FeeSimulator } from "@/components/fee-simulator";
 import {
+  freeFeatures,
   testProductDescriptions,
   testProductTerms,
   type TestProduct,
@@ -25,15 +26,11 @@ export function PricingPlans({ test }: { test: TestCatalog }) {
               <strong>0원</strong>
             </div>
             <ul>
-              <li>
-                <Check aria-hidden="true" size={16} /> YouTube 채널 탐색
-              </li>
-              <li>
-                <Check aria-hidden="true" size={16} /> 캠페인 초안과 기본 추천
-              </li>
-              <li>
-                <Check aria-hidden="true" size={16} /> 협업 제안과 진행 관리
-              </li>
+              {freeFeatures.map((feature) => (
+                <li key={feature}>
+                  <Check aria-hidden="true" size={16} /> {feature}
+                </li>
+              ))}
             </ul>
             <Link className="button primary" href="/signup">
               무료로 시작하기 <ArrowUpRight aria-hidden="true" size={16} />

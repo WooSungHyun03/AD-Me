@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 export const freeFeatures = [
-  "크리에이터 탐색·필터",
-  "캠페인 브리프·기본 추천",
-  "협업 제안·진행 관리",
+  "YouTube 채널 탐색",
+  "캠페인 초안과 기본 추천",
+  "협업 제안과 진행 관리",
 ] as const;
 
 export const testSkus = [
