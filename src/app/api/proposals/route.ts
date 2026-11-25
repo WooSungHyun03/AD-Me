@@ -96,7 +96,8 @@ export const PATCH = apiRoute("proposals.patch", async (req) => {
       p_expected: decision.expectedStatus,
       p_key: decision.requestKey,
     });
-    if (error?.code === "P0001") {
+    // Gate refusals (recruiting P0001, selection review 23514) carry a stable message.
+    if (error) {
       const message = recruitingError(error.message);
       if (message) fail(message, 409);
     }
@@ -161,7 +162,8 @@ export const PATCH = apiRoute("proposals.patch", async (req) => {
     fail("접근할 수 없습니다.", 403);
   if (error?.code === "P0001" && error.message === "invalid transition")
     fail("상태 변경이 충돌했습니다. 새로고침 후 다시 시도해주세요.", 409);
-  if (error?.code === "P0001") {
+  // Gate refusals (recruiting P0001, selection review 23514) carry a stable message.
+  if (error) {
     const message = recruitingError(error.message);
     if (message) fail(message, 409);
   }

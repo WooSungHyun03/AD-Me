@@ -14,6 +14,20 @@ import type { CampaignTerms } from "@/lib/campaign-brief";
 import { isDemoMode } from "@/lib/mode";
 import { readSavedLists, itemLabel, type SavedList } from "@/lib/saved-lists";
 import { RemoveItem, ShortlistButton } from "@/components/lists";
+import { ChecklistEditor, ReviewForm } from "@/components/selection-review";
+import { MatchFeedback } from "@/components/match-feedback";
+import { SHOWN, type Verdict } from "@/lib/matching-eval";
+
+// D061: brand-private selection review state per candidate, addressed by public reference.
+type ReviewCandidate = {
+  ref: string;
+  name: string;
+  applicant: boolean;
+  checked: string[];
+  memo: string;
+  approved: boolean;
+  reviewed_at: string | null;
+};
 export default async function Campaign({
   params,
   searchParams,
@@ -42,6 +56,11 @@ export default async function Campaign({
   // D036: the owner's campaign shortlist (one per campaign, created on first add).
   let shortlist: SavedList | null = null;
   let scheduleChanges: ScheduleChange[] = [];
+  let review: {
+    items: { id: string; label: string }[];
+    candidates: ReviewCandidate[];
+  } | null = null;
+  let feedback: { ref: string; verdict: Verdict; reason: string }[] = [];
   const user = await currentUser();
   if (configured()) {
     const db = await supabase();
@@ -60,6 +79,24 @@ export default async function Campaign({
       if (user?.id === ownerId && !isDemo)
         shortlist =
           (await readSavedLists(db))?.find((l) => l.campaign_id === id) ?? null;
+      if (user?.id === ownerId && !isDemo) {
+        // D061/D046: owner-only gateways return candidates and ratings under public references.
+        const [items, candidates, rated] = await Promise.all([
+          db
+            .from("review_checklist_items")
+            .select("id,label")
+            .order("position")
+            .order("created_at"),
+          db.rpc("campaign_selection_reviews", { p_campaign: id }),
+          db.rpc("my_recommendation_feedback", { p_campaign: id }),
+        ]);
+        if (!items.error && !candidates.error)
+          review = {
+            items: items.data ?? [],
+            candidates: (candidates.data ?? []) as ReviewCandidate[],
+          };
+        feedback = (rated.data ?? []) as typeof feedback;
+      }
       if (user?.id === ownerId && capacity != null) {
         const result = await db.rpc("campaign_selected", { p_campaign: id });
         if (typeof result.data === "number") selected = result.data;
@@ -79,7 +116,7 @@ export default async function Campaign({
   }
   if (!brief) notFound();
   const catalog = await publicCreators();
-  const results = rank(brief, catalog).slice(0, 6);
+  const results = rank(brief, catalog).slice(0, SHOWN);
   return (
     <section className="wrap">
       <Link href="/campaigns" className="muted">
@@ -174,6 +211,40 @@ export default async function Campaign({
           </div>
         </div>
         <div>
+          {review && (
+            <section
+              className="panel"
+              style={{ marginBottom: 28 }}
+              data-testid="selection-review"
+            >
+              <h3 style={{ marginTop: 0 }}>선정 검토 (비공개)</h3>
+              <p style={{ fontSize: 13 }}>
+                브랜드 내부 검토용입니다. 크리에이터·다른 브랜드·공개 프로필에
+                표시되지 않으며 평판 정보로 쓰이지 않습니다.{" "}
+                {review.items.length
+                  ? "체크 항목이 있으면 모든 항목 확인과 승인 후에만 지원자를 선정(수락)할 수 있습니다."
+                  : "체크 항목을 추가하면 선정 전 승인이 필수가 됩니다."}
+              </p>
+              <ChecklistEditor items={review.items} />
+              {!review.candidates.length && (
+                <p className="empty">
+                  지원자나 캠페인 후보가 생기면 여기에서 검토합니다.
+                </p>
+              )}
+              {review.candidates.map((x) => (
+                <ReviewForm
+                  key={x.ref}
+                  campaignId={id}
+                  creatorId={x.ref}
+                  name={x.applicant ? `${x.name} · 지원자` : x.name}
+                  items={review!.items}
+                  review={
+                    x.reviewed_at || x.memo || x.checked.length ? x : undefined
+                  }
+                />
+              ))}
+            </section>
+          )}
           <h2>브랜드에 어울리는 발견.</h2>
           <p style={{ fontSize: 13 }}>
             추천 정책: 분야{" "}
@@ -279,6 +350,14 @@ export default async function Campaign({
                     scorer {r.version} · 출처는 프로필에서 확인
                   </p>
                 </details>
+                {review && (
+                  <MatchFeedback
+                    campaignId={id}
+                    creatorId={r.creatorId}
+                    name={r.creator.name}
+                    current={feedback.find((f) => f.ref === r.creatorId)}
+                  />
+                )}
                 {configured() &&
                   ownerId === user?.id &&
                   !isDemo &&
