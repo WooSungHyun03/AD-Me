@@ -863,7 +863,7 @@ DEV-B · P1 · S1 주요 부족 · PRODUCT · TESTED · 3 SP · ACTIVE
 
 ## D015 · 계정 설정·관심 분야·알림 동의
 
-DEV-B · P1 · S1 주요 부족 · UX · TODO · 3 SP · ACTIVE
+DEV-B · P1 · S1 주요 부족 · UX · TESTED · 3 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 서비스 알림·선택적 마케팅·관심 분야를 분리하여 변경 기록을 저장한다.
 - **재현·관찰** — /api/account에서 먼저 동의 철회·기본값·메일 발송 대상 테스트을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/components/account-form.tsx, src/app/api/account/route.ts.
@@ -879,9 +879,10 @@ DEV-B · P1 · S1 주요 부족 · UX · TODO · 3 SP · ACTIVE
 - **보안** — 가입 체크박스 사전 선택으로 마케팅 동의를 받지 않는다.
 - **검증** — 동의 철회·기본값·메일 발송 대상 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 서비스 알림·선택적 마케팅·관심 분야를 분리하여 변경 기록을 저장한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D015/ (이번 검증 기록 위치)
+- **차단 요인** — 실제 메일 발송 대상 확인은 U007(메일 공급자) 이후.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D015/ (이번 검증 기록 위치) · harness/evidence/D015/20261126/README.md
 - **Figma 노드** — [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519)
+- **검증 범위** — 2026-11-26 main 252dfdd 격리 빈 DB: consent.spec.ts desktop/mobile PASS, consent REST PASS. 마케팅 기본 미체크, 서비스·마케팅·관심 분야를 따로 저장하고 유지·철회 가능. REST consent: 변경 기록과 철회.
 - **이전 기록** — OPEN
 
 ## D032 · 유사 프로필·신고·정정 진입
