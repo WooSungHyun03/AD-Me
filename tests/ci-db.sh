@@ -17,12 +17,18 @@ node tests/support/prepare-ci-consent.mjs
 node tests/provision.mjs > /dev/null
 node tests/provision-admin.mjs
 docker exec -i supabase_db_AD-Me psql -U postgres -v ON_ERROR_STOP=1 < tests/setup-isolated-youtube.sql
+status=0
 ADME_E2E_ISOLATED_YOUTUBE=1 ADME_FEATURE_INGESTION=on ADME_FEATURE_LLM=on ADME_FEATURE_TEST_BILLING=on \
-  MAILPIT_URL="${MAILPIT_URL:-http://127.0.0.1:54324}" npx playwright test --reporter=line
-# security/search reuse rows the E2E run created, so they go after it.
+  MAILPIT_URL="${MAILPIT_URL:-http://127.0.0.1:54324}" npx playwright test --reporter=line || status=1
+# Some direct-REST tests reuse browser fixtures. Run the checks and recovery
+# drill even when a browser assertion fails, and propagate all failures.
 for t in security claims profile-fields search recruiting lists proposals notifications reports privacy uploads safety retention ops analytics consent notes feedback ai-usage email-outbox selection-review ops-metrics usage-ledger promotions test-cancel; do
-  echo "== $t"; node "tests/$t.mjs"
+  echo "== $t"
+  node "tests/$t.mjs" || status=1
 done
-# Backup → wipe → restore drill (resets the disposable DB, so it runs last).
-node harness/restore_drill.mjs
+node harness/restore_drill.mjs || status=1
+if (( status != 0 )); then
+  echo "FAIL: one or more browser, database permission or recovery checks failed"
+  exit "$status"
+fi
 echo "PASS: migrations from scratch + E2E + DB permission tests + restore drill"

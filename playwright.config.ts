@@ -8,6 +8,7 @@ export default defineConfig({
   use: {
     baseURL: process.env.BASE_URL || "http://localhost:3000",
     trace: "retain-on-failure",
+    actionTimeout: process.env.CI ? 15000 : 0,
   },
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"] } },

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { currentUser, supabase } from "@/lib/supabase";
-import { AccountForm } from "@/components/account-form";
+import { AccountForm, PreferencesForm } from "@/components/account-form";
 import { ProfileForm } from "@/components/profile-form";
 import { BrandAccountForm } from "@/components/brand-account-form";
 import { ConsentSettings } from "@/components/consent-settings";
@@ -9,6 +9,8 @@ import { AccountDeletionForm } from "@/components/account-deletion-form";
 import { EmailForm } from "@/components/account-auth-forms";
 import { PrivacyExport } from "@/components/privacy-panel";
 import { getConfig } from "@/lib/config";
+import { categories } from "@/lib/catalog";
+import { PURPOSES } from "@/lib/consent";
 export const dynamic = "force-dynamic";
 export default async function Settings() {
   const user = await currentUser();
@@ -17,7 +19,9 @@ export default async function Settings() {
   const intake = await db.rpc("deletion_intake_status");
   const { data: profile } = await db
     .from("profiles")
-    .select("name,role")
+    .select(
+      "name,role,analytics_opt_out,service_email,marketing_email,marketing_at,interests",
+    )
     .eq("id", user.id)
     .single();
   const { data: creator } = await db
@@ -38,7 +42,7 @@ export default async function Settings() {
       </p>
       <AccountForm
         name={profile?.name ?? ""}
-        optOut={Boolean(user.user_metadata.email_opt_out)}
+        optOut={profile?.analytics_opt_out ?? false}
       />
       {profile?.role === "creator" ? (
         <>
@@ -82,6 +86,14 @@ export default async function Settings() {
           />
         )
       ) : null}
+      <PreferencesForm
+        serviceEmail={profile?.service_email ?? true}
+        marketingEmail={profile?.marketing_email ?? false}
+        marketingAt={profile?.marketing_at ?? null}
+        interests={profile?.interests ?? []}
+        categories={categories}
+        purposes={PURPOSES}
+      />
       <ConsentSettings />
       <h2>이메일 변경</h2>
       <p>

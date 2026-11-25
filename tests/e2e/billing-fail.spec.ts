@@ -1,6 +1,6 @@
-// D066: Toss failUrl — user cancel vs other failure shown from the code; the message is untrusted text.
+// D066: Toss failUrl — user cancel vs other failure shown from the code; arbitrary provider messages are ignored.
 import { test, expect } from "@playwright/test";
-test("billing fail page distinguishes cancel and renders provider message as text", async ({
+test("billing fail page distinguishes cancel and does not render untrusted provider messages", async ({
   page,
 }) => {
   await page.goto(
@@ -21,7 +21,7 @@ test("billing fail page distinguishes cancel and renders provider message as tex
   await expect(page.getByTestId("fail-reason")).toContainText(
     "카드사에서 결제를 거절했습니다.",
   );
-  await expect(page.getByText("<img src=x onerror=alert(1)>")).toBeVisible();
+  await expect(page.getByText("<img src=x onerror=alert(1)>")).toHaveCount(0);
   expect(await page.locator("img[src=x]").count()).toBe(0);
   await page.goto("/billing/fail?code=<script>");
   await expect(page.getByTestId("fail-reason")).toContainText(
