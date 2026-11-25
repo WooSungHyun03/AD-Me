@@ -216,7 +216,8 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
   const wrongRole = await cp.request.post("/api/billing/orders", {
     data: { sku: "brand_pro" },
   });
-  expect(wrongRole.status()).toBe(400);
+  // D004 error contract: a role/product mismatch is a permission failure (403), like proposals.
+  expect(wrongRole.status()).toBe(403);
   const liveDeal = page
     .locator("article")
     .filter({ hasText: "QA 검증용 비건 토너 협업을 제안합니다." })

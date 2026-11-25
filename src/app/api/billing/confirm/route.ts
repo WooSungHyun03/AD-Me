@@ -58,10 +58,26 @@ export const POST = apiRoute("billing.confirm.post", async (req) => {
     },
   ).catch(() => fail(unavailable, 503));
   if (!res.ok) {
+    // D067: keep the status mapping, but surface the one safe provider-side code the user can act on.
+    const code = await res
+      .json()
+      .then((b: { error?: unknown }) => b?.error)
+      .catch(() => null);
+    // The function reports a missing TEST secret either as a code or as its fixed Korean text;
+    // either way we answer with our own fixed wording (no provider text is forwarded).
+    if (
+      res.status === 503 &&
+      (code === "secret_missing" ||
+        (typeof code === "string" && code.includes("시크릿 키")))
+    )
+      return fail(
+        "Toss TEST 시크릿 키가 연결되지 않아 승인할 수 없습니다. 이용권은 부여되지 않았습니다.",
+        503,
+      );
     switch (res.status) {
       case 400:
         return fail(
-          "Toss TEST 승인이 완료되지 않았습니다. 주문 상태를 확인해주세요.",
+          "Toss TEST 승인이 완료되지 않았습니다. 이용권은 부여되지 않았습니다. 주문 상태를 확인해주세요.",
           400,
         );
       case 401:

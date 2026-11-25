@@ -385,8 +385,12 @@ inspector_port = 8083
 # The Deno major version to use.
 deno_version = 2
 
-# [edge_runtime.secrets]
-# secret_key = "env(SECRET_VALUE)"
+# Local/CI disposable stack only (hosted functions use their own project secrets). These are
+# mode flags, not secrets: they let payment-confirm reach its keyless "secret_missing" path in
+# TEST demo mode instead of refusing every request. No Toss key is configured here.
+[edge_runtime.secrets]
+ADME_SERVICE_MODE = "test_demo"
+ADME_FEATURE_TEST_BILLING = "on"
 
 [analytics]
 enabled = true

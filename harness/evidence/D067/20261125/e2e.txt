@@ -1,0 +1,118 @@
+
+Running 4 tests using 1 worker
+
+[1/4] [desktop] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] api_error {
+[WebServer]   timestamp: '2026-11-25T13:24:17.023Z',
+[WebServer]   requestId: 'acd0f2ae-3900-4459-9812-8a8c8b8e1d7c',
+[WebServer]   domain: 'billing',
+[WebServer]   operation: 'src/app/api/billing/cancel/route.ts.POST',
+[WebServer]   level: 'error',
+[WebServer]   duration: 70,
+[WebServer]   errorCode: 'SERVICE_UNAVAILABLE',
+[WebServer]   retryable: true
+[WebServer] }
+
+[2/4] [desktop] › tests\e2e\service.spec.ts:89:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] api_error {
+[WebServer]   timestamp: '2026-11-25T13:24:30.017Z',
+[WebServer]   requestId: 'c573bdf0-e46a-413d-bbb5-ef4c75b15e27',
+[WebServer]   domain: 'billing',
+[WebServer]   operation: 'billing.confirm.post',
+[WebServer]   level: 'error',
+[WebServer]   duration: 81,
+[WebServer]   errorCode: 'SERVICE_UNAVAILABLE',
+[WebServer]   retryable: true
+[WebServer] }
+
+  1) [desktop] › tests\e2e\service.spec.ts:89:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 400
+    Received: 403
+
+      217 |     data: { sku: "brand_pro" },
+      218 |   });
+    > 219 |   expect(wrongRole.status()).toBe(400);
+          |                              ^
+      220 |   const liveDeal = page
+      221 |     .locator("article")
+      222 |     .filter({ hasText: "QA 검증용 비건 토너 협업을 제안합니다." })
+        at C:\projects\AD-Me-devb-1125\tests\e2e\service.spec.ts:219:30
+
+    Error Context: test-results\service-two-role-real-DB-g-7486d-delivery-billing-validation-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\service-two-role-real-DB-g-7486d-delivery-billing-validation-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\service-two-role-real-DB-g-7486d-delivery-billing-validation-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[3/4] [mobile] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys
+[WebServer] api_error {
+[WebServer]   timestamp: '2026-11-25T13:24:34.288Z',
+[WebServer]   requestId: '240e432e-58ce-4907-b1b4-94bdfdcfe273',
+[WebServer]   domain: 'billing',
+[WebServer]   operation: 'src/app/api/billing/cancel/route.ts.POST',
+[WebServer]   level: 'error',
+[WebServer]   duration: 52,
+[WebServer]   errorCode: 'SERVICE_UNAVAILABLE',
+[WebServer]   retryable: true
+[WebServer] }
+
+[4/4] [mobile] › tests\e2e\service.spec.ts:89:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation
+[WebServer] api_error {
+[WebServer]   timestamp: '2026-11-25T13:24:47.188Z',
+[WebServer]   requestId: '0093121f-b9ab-4175-8935-91cbd4022f77',
+[WebServer]   domain: 'billing',
+[WebServer]   operation: 'billing.confirm.post',
+[WebServer]   level: 'error',
+[WebServer]   duration: 100,
+[WebServer]   errorCode: 'SERVICE_UNAVAILABLE',
+[WebServer]   retryable: true
+[WebServer] }
+
+  2) [mobile] › tests\e2e\service.spec.ts:89:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 400
+    Received: 403
+
+      217 |     data: { sku: "brand_pro" },
+      218 |   });
+    > 219 |   expect(wrongRole.status()).toBe(400);
+          |                              ^
+      220 |   const liveDeal = page
+      221 |     .locator("article")
+      222 |     .filter({ hasText: "QA 검증용 비건 토너 협업을 제안합니다." })
+        at C:\projects\AD-Me-devb-1125\tests\e2e\service.spec.ts:219:30
+
+    Error Context: test-results\service-two-role-real-DB-g-7486d-delivery-billing-validation-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\service-two-role-real-DB-g-7486d-delivery-billing-validation-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\service-two-role-real-DB-g-7486d-delivery-billing-validation-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  2 failed
+    [desktop] › tests\e2e\service.spec.ts:89:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation 
+    [mobile] › tests\e2e\service.spec.ts:89:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation 
+  2 passed (38.9s)

@@ -1,0 +1,591 @@
+
+Running 1 test using 1 worker
+
+[1/1] [desktop] › tests\e2e\service.spec.ts:89:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[WebServer] 
+[WebServer] - A server/client branch `if (typeof window !== 'undefined')`.
+[WebServer] - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+[WebServer] - Date formatting in a user's locale which doesn't match the server.
+[WebServer] - External changing data without sending a snapshot of it along with the HTML.
+[WebServer] - Invalid HTML tag nesting.
+[WebServer] 
+[WebServer] It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+[WebServer] 
+[WebServer] https://react.dev/link/hydration-mismatch
+[WebServer] 
+[WebServer]   ...
+[WebServer]     <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>
+[WebServer]       <RedirectBoundary>
+[WebServer]         <RedirectErrorBoundary router={{...}}>
+[WebServer]           <InnerLayoutRouter url="/dashboard" tree={[...]} params={{}} renderTree={{...}} segmentPath={[...]} ...>
+[WebServer]             <SegmentViewNode type="page" pagePath="dashboard/...">
+[WebServer]               <SegmentTrieNode>
+[WebServer]               <Dashboard>
+[WebServer]                 <section className="figma-widt...">
+[WebServer]                   <LiveMessages>
+[WebServer]                   <div>
+[WebServer]                   <nav>
+[WebServer]                   <ul>
+[WebServer]                   <div>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <LinkComponent>
+[WebServer]                   <div>
+[WebServer]                   <nav>
+[WebServer]                   <p>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article>
+[WebServer]                   <article className="panel" id="proposal-2..." data-proposal-id="2a6ef633-c..." style={{...}}>
+[WebServer]                     <span>
+[WebServer]                     <span>
+[WebServer]                     <ReadButton>
+[WebServer]                     <h3>
+[WebServer]                     <p>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <div>
+[WebServer]                     <section style={{marginTop:24}}>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <Conversation>
+[WebServer]                       <ChatSafety id="2a6ef633-c...">
+[WebServer]                         <details className="ops-row">
+[WebServer]                           <summary>
+[WebServer]                           <form className="form ops-form" onSubmit={function submit}>
+[WebServer]                             <label>
+[WebServer]                               <textarea
+[WebServer]                                 name="reason"
+[WebServer]                                 maxLength={500}
+[WebServer]                                 rows={2}
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             ...
+[WebServer]                     ...
+[WebServer]                   <article className="panel" id="proposal-5..." data-proposal-id="5db08b8a-8..." style={{...}}>
+[WebServer]                     <span>
+[WebServer]                     <span>
+[WebServer]                     <ReadButton>
+[WebServer]                     <h3>
+[WebServer]                     <p>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <div>
+[WebServer]                     <section style={{marginTop:24}}>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <Conversation>
+[WebServer]                       <ChatSafety id="5db08b8a-8...">
+[WebServer]                         <details className="ops-row">
+[WebServer]                           <summary>
+[WebServer]                           <form className="form ops-form" onSubmit={function submit}>
+[WebServer]                             <label>
+[WebServer]                               <textarea
+[WebServer]                                 name="reason"
+[WebServer]                                 maxLength={500}
+[WebServer]                                 rows={2}
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             ...
+[WebServer]                     ...
+[WebServer]                   <article className="panel" id="proposal-d..." data-proposal-id="d89c4c76-b..." style={{...}}>
+[WebServer]                     <span>
+[WebServer]                     <span>
+[WebServer]                     <ReadButton>
+[WebServer]                     <h3>
+[WebServer]                     <p>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <div>
+[WebServer]                     <section style={{marginTop:24}}>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <Conversation>
+[WebServer]                       <ChatSafety id="d89c4c76-b...">
+[WebServer]                         <details className="ops-row">
+[WebServer]                           <summary>
+[WebServer]                           <form className="form ops-form" onSubmit={function submit}>
+[WebServer]                             <label>
+[WebServer]                               <textarea
+[WebServer]                                 name="reason"
+[WebServer]                                 maxLength={500}
+[WebServer]                                 rows={2}
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             ...
+[WebServer]                     ...
+[WebServer]                   <article className="panel" id="proposal-0..." data-proposal-id="09983b66-a..." style={{...}}>
+[WebServer]                     <span>
+[WebServer]                     <span>
+[WebServer]                     <ReadButton>
+[WebServer]                     <h3>
+[WebServer]                     <p>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <div>
+[WebServer]                     <section style={{marginTop:24}}>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <Conversation>
+[WebServer]                       <ChatSafety id="09983b66-a...">
+[WebServer]                         <details className="ops-row">
+[WebServer]                           <summary>
+[WebServer]                           <form className="form ops-form" onSubmit={function submit}>
+[WebServer]                             <label>
+[WebServer]                               <textarea
+[WebServer]                                 name="reason"
+[WebServer]                                 maxLength={500}
+[WebServer]                                 rows={2}
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             ...
+[WebServer]                     ...
+[WebServer]                   <article className="panel" id="proposal-0..." data-proposal-id="0428220b-6..." style={{...}}>
+[WebServer]                     <span>
+[WebServer]                     <span>
+[WebServer]                     <ReadButton>
+[WebServer]                     <h3>
+[WebServer]                     <p>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <div>
+[WebServer]                     <section style={{marginTop:24}}>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <Conversation>
+[WebServer]                       <ChatSafety id="0428220b-6...">
+[WebServer]                         <details className="ops-row">
+[WebServer]                           <summary>
+[WebServer]                           <form className="form ops-form" onSubmit={function submit}>
+[WebServer]                             <label>
+[WebServer]                               <textarea
+[WebServer]                                 name="reason"
+[WebServer]                                 maxLength={500}
+[WebServer]                                 rows={2}
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             ...
+[WebServer]                     ...
+[WebServer]                   <article className="panel" id="proposal-4..." data-proposal-id="40111405-9..." style={{...}}>
+[WebServer]                     <span>
+[WebServer]                     <ReadButton>
+[WebServer]                     <h3>
+[WebServer]                     <p>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <div>
+[WebServer]                     <section style={{marginTop:24}}>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <Conversation>
+[WebServer]                       <ChatSafety id="40111405-9...">
+[WebServer]                         <details className="ops-row">
+[WebServer]                           <summary>
+[WebServer]                           <form className="form ops-form" onSubmit={function submit}>
+[WebServer]                             <label>
+[WebServer]                               <textarea
+[WebServer]                                 name="reason"
+[WebServer]                                 maxLength={500}
+[WebServer]                                 rows={2}
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             ...
+[WebServer]                     ...
+[WebServer]                   <article className="panel" id="proposal-d..." data-proposal-id="dc3b230a-a..." style={{...}}>
+[WebServer]                     <span>
+[WebServer]                     <ReadButton>
+[WebServer]                     <h3>
+[WebServer]                     <p>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <div>
+[WebServer]                     <section style={{marginTop:24}}>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <Conversation>
+[WebServer]                       <ChatSafety id="dc3b230a-a...">
+[WebServer]                         <details className="ops-row">
+[WebServer]                           <summary>
+[WebServer]                           <form className="form ops-form" onSubmit={function submit}>
+[WebServer]                             <label>
+[WebServer]                               <textarea
+[WebServer]                                 name="reason"
+[WebServer]                                 maxLength={500}
+[WebServer]                                 rows={2}
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             ...
+[WebServer]                     ...
+[WebServer]                   <article className="panel" id="proposal-c..." data-proposal-id="cf4e786c-e..." style={{...}}>
+[WebServer]                     <span>
+[WebServer]                     <ReadButton>
+[WebServer]                     <h3>
+[WebServer]                     <p>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <div>
+[WebServer]                     <section style={{marginTop:24}}>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <Conversation>
+[WebServer]                       <ChatSafety id="cf4e786c-e...">
+[WebServer]                         <details className="ops-row">
+[WebServer]                           <summary>
+[WebServer]                           <form className="form ops-form" onSubmit={function submit}>
+[WebServer]                             <label>
+[WebServer]                               <textarea
+[WebServer]                                 name="reason"
+[WebServer]                                 maxLength={500}
+[WebServer]                                 rows={2}
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             ...
+[WebServer]                     ...
+[WebServer]                   <article className="panel" id="proposal-6..." data-proposal-id="645c1cd1-0..." style={{...}}>
+[WebServer]                     <span>
+[WebServer]                     <ReadButton>
+[WebServer]                     <h3>
+[WebServer]                     <p>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <div>
+[WebServer]                     <section style={{marginTop:24}}>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <Conversation>
+[WebServer]                       <ChatSafety id="645c1cd1-0...">
+[WebServer]                         <details className="ops-row">
+[WebServer]                           <summary>
+[WebServer]                           <form className="form ops-form" onSubmit={function submit}>
+[WebServer]                             <label>
+[WebServer]                               <textarea
+[WebServer]                                 name="reason"
+[WebServer]                                 maxLength={500}
+[WebServer]                                 rows={2}
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             ...
+[WebServer]                     ...
+[WebServer]                   <article className="panel" id="proposal-5..." data-proposal-id="550a8517-b..." style={{...}}>
+[WebServer]                     <span>
+[WebServer]                     <ReadButton>
+[WebServer]                     <h3>
+[WebServer]                     <p>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <div>
+[WebServer]                     <section style={{marginTop:24}}>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <Conversation>
+[WebServer]                       <ChatSafety id="550a8517-b...">
+[WebServer]                         <details className="ops-row">
+[WebServer]                           <summary>
+[WebServer]                           <form className="form ops-form" onSubmit={function submit}>
+[WebServer]                             <label>
+[WebServer]                               <textarea
+[WebServer]                                 name="reason"
+[WebServer]                                 maxLength={500}
+[WebServer]                                 rows={2}
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             ...
+[WebServer]                     ...
+[WebServer]                   <article className="panel" id="proposal-d..." data-proposal-id="dd87a89f-c..." style={{...}}>
+[WebServer]                     <span>
+[WebServer]                     <ReadButton>
+[WebServer]                     <h3>
+[WebServer]                     <p>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <LinkComponent>
+[WebServer]                     <div>
+[WebServer]                     <section style={{marginTop:24}}>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <LinkComponent>
+[WebServer]                       <Conversation>
+[WebServer]                       <ChatSafety id="dd87a89f-c...">
+[WebServer]                         <details className="ops-row">
+[WebServer]                           <summary>
+[WebServer]                           <form className="form ops-form" onSubmit={function submit}>
+[WebServer]                             <label>
+[WebServer]                               <textarea
+[WebServer]                                 name="reason"
+[WebServer]                                 maxLength={500}
+[WebServer]                                 rows={2}
+[WebServer] -                               style={{caret-color:"transparent"}}
+[WebServer]                               >
+[WebServer]                             ...
+[WebServer]                     ...
+[WebServer]                   ...
+[WebServer]             ...
+[WebServer]           ...
+[WebServer]  
+
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] api_error {
+[WebServer]   timestamp: '2026-11-25T13:25:19.674Z',
+[WebServer]   requestId: '6984e1da-7720-41b6-98b3-add5d4f99a9c',
+[WebServer]   domain: 'billing',
+[WebServer]   operation: 'billing.confirm.post',
+[WebServer]   level: 'error',
+[WebServer]   duration: 73,
+[WebServer]   errorCode: 'SERVICE_UNAVAILABLE',
+[WebServer]   retryable: true
+[WebServer] }
+
+  1) [desktop] › tests\e2e\service.spec.ts:89:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation 
+
+    Test timeout of 90000ms exceeded.
+
+    Error: locator.selectOption: Test ended.
+    Browser logs:
+
+    [pid=17620][err]                         <details className="ops-row">
+    [pid=17620][err]                           <summary>
+    [pid=17620][err]                           <form className="form ops-form" onSubmit={function submit}>
+    [pid=17620][err]                             <label>
+    [pid=17620][err]                               <textarea
+    [pid=17620][err]                                 name="reason"
+    [pid=17620][err]                                 maxLength={500}
+    [pid=17620][err]                                 rows={2}
+    [pid=17620][err] -                               style={{caret-color:"transparent"}}
+    [pid=17620][err]                               >
+    [pid=17620][err]                             ...
+    [pid=17620][err]                     ...
+    [pid=17620][err]                   <article className="panel" id="proposal-d..." data-proposal-id="dc3b230a-a..." style={{...}}>
+    [pid=17620][err]                     <span>
+    [pid=17620][err]                     <ReadButton>
+    [pid=17620][err]                     <h3>
+    [pid=17620][err]                     <p>
+    [pid=17620][err]                     <LinkComponent>
+    [pid=17620][err]                     <LinkComponent>
+    [pid=17620][err]                     <div>
+    [pid=17620][err]                     <section style={{marginTop:24}}>
+    [pid=17620][err]                       <LinkComponent>
+    [pid=17620][err]                       <LinkComponent>
+    [pid=17620][err]                       <Conversation>
+    [pid=17620][err]                       <ChatSafety id="dc3b230a-a...">
+    [pid=17620][err]                         <details className="ops-row">
+    [pid=17620][err]                           <summary>
+    [pid=17620][err]                           <form className="form ops-form" onSubmit={function submit}>
+    [pid=17620][err]                             <label>
+    [pid=17620][err]                               <textarea
+    [pid=17620][err]                                 name="reason"
+    [pid=17620][err]                                 maxLength={500}
+    [pid=17620][err]                                 rows={2}
+    [pid=17620][err] -                               style={{caret-color:"transparent"}}
+    [pid=17620][err]                               >
+    [pid=17620][err]                             ...
+    [pid=17620][err]                     ...
+    [pid=17620][err]                   <article className="panel" id="proposal-c..." data-proposal-id="cf4e786c-e..." style={{...}}>
+    [pid=17620][err]                     <span>
+    [pid=17620][err]                     <ReadButton>
+    [pid=17620][err]                     <h3>
+    [pid=17620][err]                     <p>
+    [pid=17620][err]                     <LinkComponent>
+    [pid=17620][err]                     <LinkComponent>
+    [pid=17620][err]                     <div>
+    [pid=17620][err]                     <section style={{marginTop:24}}>
+    [pid=17620][err]                       <LinkComponent>
+    [pid=17620][err]                       <LinkComponent>
+    [pid=17620][err]                       <Conversation>
+    [pid=17620][err]                       <ChatSafety id="cf4e786c-e...">
+    [pid=17620][err]                         <details className="ops-row">
+    [pid=17620][err]                           <summary>
+    [pid=17620][err]                           <form className="form ops-form" onSubmit={function submit}>
+    [pid=17620][err]                             <label>
+    [pid=17620][err]                               <textarea
+    [pid=17620][err]                                 name="reason"
+    [pid=17620][err]                                 maxLength={500}
+    [pid=17620][err]                                 rows={2}
+    [pid=17620][err] -                               style={{caret-color:"transparent"}}
+    [pid=17620][err]                               >
+    [pid=17620][err]                             ...
+    [pid=17620][err]                     ...
+    [pid=17620][err]                   <article className="panel" id="proposal-6..." data-proposal-id="645c1cd1-0..." style={{...}}>
+    [pid=17620][err]                     <span>
+    [pid=17620][err]                     <ReadButton>
+    [pid=17620][err]                     <h3>
+    [pid=17620][err]                     <p>
+    [pid=17620][err]                     <LinkComponent>
+    [pid=17620][err]                     <LinkComponent>
+    [pid=17620][err]                     <div>
+    [pid=17620][err]                     <section style={{marginTop:24}}>
+    [pid=17620][err]                       <LinkComponent>
+    [pid=17620][err]                       <LinkComponent>
+    [pid=17620][err]                       <Conversation>
+    [pid=17620][err]                       <ChatSafety id="645c1cd1-0...">
+    [pid=17620][err]                         <details className="ops-row">
+    [pid=17620][err]                           <summary>
+    [pid=17620][err]                           <form className="form ops-form" onSubmit={function submit}>
+    [pid=17620][err]                             <label>
+    [pid=17620][err]                               <textarea
+    [pid=17620][err]                                 name="reason"
+    [pid=17620][err]                                 maxLength={500}
+    [pid=17620][err]                                 rows={2}
+    [pid=17620][err] -                               style={{caret-color:"transparent"}}
+    [pid=17620][err]                               >
+    [pid=17620][err]                             ...
+    [pid=17620][err]                     ...
+    [pid=17620][err]                   <article className="panel" id="proposal-5..." data-proposal-id="550a8517-b..." style={{...}}>
+    [pid=17620][err]                     <span>
+    [pid=17620][err]                     <ReadButton>
+    [pid=17620][err]                     <h3>
+    [pid=17620][err]                     <p>
+    [pid=17620][err]                     <LinkComponent>
+    [pid=17620][err]                     <LinkComponent>
+    [pid=17620][err]                     <div>
+    [pid=17620][err]                     <section style={{marginTop:24}}>
+    [pid=17620][err]                       <LinkComponent>
+    [pid=17620][err]                       <LinkComponent>
+    [pid=17620][err]                       <Conversation>
+    [pid=17620][err]                       <ChatSafety id="550a8517-b...">
+    [pid=17620][err]                         <details className="ops-row">
+    [pid=17620][err]                           <summary>
+    [pid=17620][err]                           <form className="form ops-form" onSubmit={function submit}>
+    [pid=17620][err]                             <label>
+    [pid=17620][err]                               <textarea
+    [pid=17620][err]                                 name="reason"
+    [pid=17620][err]                                 maxLength={500}
+    [pid=17620][err]                                 rows={2}
+    [pid=17620][err] -                               style={{caret-color:"transparent"}}
+    [pid=17620][err]                               >
+    [pid=17620][err]                             ...
+    [pid=17620][err]                     ...
+    [pid=17620][err]                   <article className="panel" id="proposal-d..." data-proposal-id="dd87a89f-c..." style={{...}}>
+    [pid=17620][err]                     <span>
+    [pid=17620][err]                     <ReadButton>
+    [pid=17620][err]                     <h3>
+    [pid=17620][err]                     <p>
+    [pid=17620][err]                     <LinkComponent>
+    [pid=17620][err]                     <LinkComponent>
+    [pid=17620][err]                     <div>
+    [pid=17620][err]                     <section style={{marginTop:24}}>
+    [pid=17620][err]                       <LinkComponent>
+    [pid=17620][err]                       <LinkComponent>
+    [pid=17620][err]                       <Conversation>
+    [pid=17620][err]                       <ChatSafety id="dd87a89f-c...">
+    [pid=17620][err]                         <details className="ops-row">
+    [pid=17620][err]                           <summary>
+    [pid=17620][err]                           <form className="form ops-form" onSubmit={function submit}>
+    [pid=17620][err]                             <label>
+    [pid=17620][err]                               <textarea
+    [pid=17620][err]                                 name="reason"
+    [pid=17620][err]                                 maxLength={500}
+    [pid=17620][err]                                 rows={2}
+    [pid=17620][err] -                               style={{caret-color:"transparent"}}
+    [pid=17620][err]                               >
+    [pid=17620][err]                             ...
+    [pid=17620][err]                     ...
+    [pid=17620][err]                   ...
+    [pid=17620][err]             ...
+    [pid=17620][err]           ...
+    [pid=17620][err] ", source: http://localhost:3000/_next/static/chunks/node_modules_next_dist_05y3oi5z9mc_3._.js (1037)
+    [pid=17620][err] [1125/222517.668:INFO:CONSOLE:761] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:3000/_next/static/chunks/node_modules_next_dist_05y3oi5z9mc_3._.js (761)
+    [pid=17620][err] [1125/222517.750:INFO:CONSOLE:761] "[HMR] connected", source: http://localhost:3000/_next/static/chunks/node_modules_next_dist_05y3oi5z9mc_3._.js (761)
+    [pid=17620][err] [1125/222518.127:INFO:CONSOLE:761] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:3000/_next/static/chunks/node_modules_next_dist_05y3oi5z9mc_3._.js (761)
+    [pid=17620][err] [1125/222518.207:INFO:CONSOLE:761] "[HMR] connected", source: http://localhost:3000/_next/static/chunks/node_modules_next_dist_05y3oi5z9mc_3._.js (761)
+    [pid=17620][err] [1125/222518.414:INFO:CONSOLE:761] "Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+    [pid=17620][err] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading", source: http://localhost:3000/_next/static/chunks/node_modules_next_dist_05y3oi5z9mc_3._.js (761)
+    [pid=17620][err] [1125/222518.982:INFO:CONSOLE:761] "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold", source: http://localhost:3000/_next/static/chunks/node_modules_next_dist_05y3oi5z9mc_3._.js (761)
+    [pid=17620][err] [1125/222518.997:INFO:CONSOLE:761] "[HMR] connected", source: http://localhost:3000/_next/static/chunks/node_modules_next_dist_05y3oi5z9mc_3._.js (761)
+    [pid=17620] <gracefully close start>
+    Call log:
+      - waiting for locator('article').filter({ hasText: 'QA 검증용 비건 토너 협업을 제안합니다.' }).first().getByLabel('종류', { exact: true })
+        - locator resolved to <select name="kind" aria-label="종류">…</select>
+      - attempting select option action
+        2 × waiting for element to be visible and enabled
+          - did not find some options
+        - retrying select option action
+        - waiting 20ms
+        2 × waiting for element to be visible and enabled
+          - did not find some options
+        - retrying select option action
+          - waiting 100ms
+        153 × waiting for element to be visible and enabled
+            - did not find some options
+          - retrying select option action
+            - waiting 500ms
+        - waiting for element to be visible and enabled
+
+
+      227 |   await deal.getByText(/메시지·결과물/).click();
+      228 |   await deal.getByLabel("메시지", { exact: true }).fill(liveBody);
+    > 229 |   await deal.getByLabel("종류", { exact: true }).selectOption("deliverable");
+          |                                                ^
+      230 |   await deal
+      231 |     .getByLabel("결과물 HTTPS 링크")
+      232 |     .fill("https://example.com/qa-deliverable");
+        at C:\projects\AD-Me-devb-1125\tests\e2e\service.spec.ts:229:48
+
+    Error Context: test-results\service-two-role-real-DB-g-7486d-delivery-billing-validation-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\service-two-role-real-DB-g-7486d-delivery-billing-validation-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\service-two-role-real-DB-g-7486d-delivery-billing-validation-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    [desktop] › tests\e2e\service.spec.ts:89:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation 
