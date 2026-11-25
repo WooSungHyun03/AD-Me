@@ -8,6 +8,7 @@ import { DealControls, ReadButton } from "@/components/deal-controls";
 import { Conversation } from "@/components/conversation";
 import { NotificationBadge } from "@/components/notifications";
 import { loadNotifications } from "@/lib/notifications";
+import { itemLabel, readSavedLists } from "@/lib/saved-lists";
 import { canTransition } from "@/lib/schemas";
 import { isDemoMode } from "@/lib/mode";
 export default async function Dashboard() {
@@ -20,7 +21,7 @@ export default async function Dashboard() {
     { data: proposals },
     { data: orders },
     { data: entitlements },
-    { data: saved },
+    savedLists,
     { data: savedChannels, error: savedChannelsError },
   ] = await Promise.all([
     db.from("profiles").select("*").eq("id", user.id).single(),
@@ -44,7 +45,8 @@ export default async function Dashboard() {
       .select("*")
       .eq("owner_id", user.id)
       .gt("expires_at", new Date().toISOString()),
-    db.from("saved_creators").select("creator_id").eq("owner_id", user.id),
+    // D036: ♡ favourites live in the default list; read the owner-only public DTO.
+    readSavedLists(db),
     db
       .from("saved_youtube_channels")
       .select("channel_id")
@@ -64,6 +66,7 @@ export default async function Dashboard() {
   for (const n of notes?.items ?? [])
     if (n.id > notes!.lastReadId)
       newBy.set(n.proposal_id, (newBy.get(n.proposal_id) ?? 0) + 1);
+  const saved = savedLists?.find((l) => l.is_default)?.items ?? [];
   const publicChannels = savedChannels?.length
     ? await featuredYoutube("", null, 50)
     : null;
@@ -286,7 +289,10 @@ export default async function Dashboard() {
       <a href="/api/export" className="button outline small">
         후보 CSV 내보내기
       </a>
-      <div className="inline">
+      <div className="inline" data-testid="saved-creators">
+        {!savedLists && (
+          <p role="alert">저장한 크리에이터를 불러오지 못했습니다.</p>
+        )}
         {savedChannelsError || publicChannels?.unavailable ? (
           <p role="alert">저장한 YouTube 채널을 불러오지 못했습니다.</p>
         ) : null}
@@ -301,17 +307,24 @@ export default async function Dashboard() {
             </Link>
           ) : null,
         )}
-        {saved?.length
-          ? saved.map((s) => (
-              <Link
-                className="button outline"
-                key={s.creator_id}
-                href={`/creators/${s.creator_id}`}
-              >
-                {s.creator_id} ↗
-              </Link>
-            ))
-          : !savedChannels?.some(({ channel_id }) =>
+        {saved.length
+          ? saved.map((s) =>
+              s.visible ? (
+                <Link
+                  className="button outline"
+                  key={s.ref}
+                  href={`/creators/${encodeURIComponent(s.ref)}`}
+                >
+                  {itemLabel(s)} ↗
+                </Link>
+              ) : (
+                <span className="button outline" key={s.ref} aria-disabled>
+                  {itemLabel(s)}
+                </span>
+              ),
+            )
+          : savedLists &&
+            !savedChannels?.some(({ channel_id }) =>
               directory.has(channel_id),
             ) && <p>탐색에서 관심 있는 후보를 저장해보세요.</p>}
       </div>

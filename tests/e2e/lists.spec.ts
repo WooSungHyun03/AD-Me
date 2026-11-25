@@ -189,3 +189,29 @@ test("public reference add, retry, denial and shortlist display", async ({
     sql(`delete from public.creators where id='${internal}'`);
   }
 });
+
+// D036 follow-up (2026-11-25): ♡ favourites (default list) appear on the dashboard by name.
+test("dashboard shows default-list favourites by public reference", async ({
+  page,
+}, info) => {
+  await login(page);
+  const save = () =>
+    page.request.post("/api/saved", { data: { creatorId: "creator-001" } });
+  let saved = (await (await save()).json()).saved;
+  if (!saved) saved = (await (await save()).json()).saved; // toggle back on
+  expect(saved).toBe(true);
+  try {
+    await page.goto("/dashboard#workspace-saved");
+    const section = page.getByTestId("saved-creators");
+    await expect(section.getByRole("link", { name: /서하린/ })).toHaveAttribute(
+      "href",
+      "/creators/creator-001",
+    );
+    if (process.env.ADME_EVIDENCE_DIR)
+      await section.screenshot({
+        path: `${process.env.ADME_EVIDENCE_DIR}/dashboard-saved-${info.project.name}.png`,
+      });
+  } finally {
+    await save(); // toggle off: leave the shared QA account as found
+  }
+});

@@ -1,0 +1,167 @@
+
+> ad-me@0.1.0 lint
+> eslint .
+
+
+> ad-me@0.1.0 typecheck
+> next typegen && tsc --noEmit
+
+Generating route types...
+✓ Types generated successfully
+
+> ad-me@0.1.0 build
+> next build
+
+▲ Next.js 16.4.6 (Turbopack)
+- Environments: .env.local
+✓ Running next.config.ts took 33ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 3.3s
+  Running TypeScript ...
+  Finished TypeScript in 4.5s ...
+  Collecting page data using 15 workers ...
+  Generating static pages using 15 workers (0/94) ...
+  Generating static pages using 15 workers (23/94) 
+  Generating static pages using 15 workers (46/94) 
+  Generating static pages using 15 workers (70/94) 
+✓ Generating static pages using 15 workers (94/94) in 906ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /about
+├ ○ /ad-history/new
+├ ƒ /admin
+├ ƒ /admin/intelligence
+├ ○ /admin/reviews
+├ ƒ /admin/security
+├ ƒ /api/account
+├ ƒ /api/account/deletion
+├ ƒ /api/account/deletion/process
+├ ƒ /api/account/deletion/status
+├ ƒ /api/ad-history
+├ ƒ /api/ad-history/competitors
+├ ƒ /api/ad-history/search
+├ ƒ /api/admin
+├ ƒ /api/admin/email-outbox
+├ ƒ /api/admin/entitlements
+├ ƒ /api/admin/inquiries
+├ ƒ /api/admin/intelligence
+├ ƒ /api/admin/mfa
+├ ƒ /api/admin/moderate
+├ ƒ /api/admin/restrict
+├ ƒ /api/admin/retention
+├ ƒ /api/admin/reviews
+├ ƒ /api/admin/search
+├ ƒ /api/admin/uploads
+├ ƒ /api/ai/draft
+├ ƒ /api/billing/cancel
+├ ƒ /api/billing/confirm
+├ ƒ /api/billing/orders
+├ ƒ /api/brands/[id]
+├ ƒ /api/brands/[id]/contact
+├ ƒ /api/brands/[id]/logo
+├ ƒ /api/campaigns
+├ ƒ /api/campaigns/[id]/brief
+├ ƒ /api/campaigns/[id]/brief/[fileId]
+├ ƒ /api/campaigns/[id]/calendar
+├ ƒ /api/chat
+├ ƒ /api/claims
+├ ƒ /api/compare
+├ ƒ /api/consent
+├ ƒ /api/creators
+├ ƒ /api/creators/search
+├ ƒ /api/creators/youtube
+├ ƒ /api/deliverables
+├ ƒ /api/email/unsubscribe
+├ ƒ /api/export
+├ ƒ /api/health
+├ ƒ /api/images
+├ ƒ /api/images/[id]
+├ ƒ /api/images/room
+├ ƒ /api/import
+├ ƒ /api/inquiries
+├ ƒ /api/intelligence
+├ ƒ /api/lists
+├ ƒ /api/lists/items
+├ ƒ /api/matching-feedback
+├ ƒ /api/messages
+├ ƒ /api/messages/block
+├ ƒ /api/messages/report
+├ ƒ /api/notes
+├ ƒ /api/notes/checklist
+├ ƒ /api/notes/review
+├ ƒ /api/notifications
+├ ƒ /api/privacy/download
+├ ƒ /api/privacy/exports
+├ ƒ /api/product-conditions
+├ ƒ /api/profile
+├ ƒ /api/promotions
+├ ƒ /api/proposals
+├ ƒ /api/read
+├ ƒ /api/recommendations
+├ ƒ /api/reports
+├ ƒ /api/reviews
+├ ƒ /api/reviews/public
+├ ƒ /api/safety
+├ ƒ /api/saved
+├ ƒ /api/saved-searches
+├ ƒ /api/uploads
+├ ƒ /api/uploads/[id]
+├ ƒ /auth/callback
+├ ƒ /auth/confirm
+├ ○ /auth/error
+├ ƒ /billing/fail
+├ ƒ /billing/success
+├ ○ /brand/products
+├ ƒ /brand/products/[id]/recommendations
+├ ○ /campaigns
+├ ƒ /campaigns/[id]
+├ ƒ /campaigns/[id]/brief
+├ ƒ /campaigns/[id]/copy
+├ ƒ /campaigns/[id]/edit
+├ ƒ /campaigns/[id]/recommendations
+├ ƒ /campaigns/new
+├ ƒ /collaborations/[id]/deliverables
+├ ƒ /collaborations/[id]/messages
+├ ƒ /compare
+├ ƒ /creators
+├ ƒ /creators/[id]
+├ ƒ /creators/youtube
+├ ƒ /creators/youtube/[id]
+├ ○ /dashboard
+├ ○ /explore
+├ ƒ /forgot-password
+├ ○ /help
+├ ƒ /jobs
+├ ƒ /jobs/[id]
+├ ○ /jobs/new
+├ ○ /licenses
+├ ○ /lists
+├ ƒ /login
+├ ○ /matches
+├ ○ /notifications
+├ ƒ /pricing
+├ ○ /privacy
+├ ○ /recommendations
+├ ○ /reports
+├ ƒ /reports/new
+├ ○ /reset-password
+├ ƒ /robots.txt
+├ ○ /saved-searches
+├ ƒ /settings
+├ ƒ /settings/youtube
+├ ƒ /signup
+├ ƒ /signup/resend
+├ ƒ /sitemap.xml
+├ ○ /terms
+└ ƒ /unsubscribe
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

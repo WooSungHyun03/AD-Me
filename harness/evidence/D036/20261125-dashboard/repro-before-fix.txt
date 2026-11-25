@@ -1,0 +1,40 @@
+
+Running 1 test using 1 worker
+
+[1/1] [desktop] › tests\e2e\lists.spec.ts:194:1 › dashboard shows default-list favourites by public reference
+  1) [desktop] › tests\e2e\lists.spec.ts:194:1 › dashboard shows default-list favourites by public reference 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: getByTestId('saved-creators').getByRole('link', { name: /서하린/ })
+    Expected: "/creators/creator-001"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveAttribute" getByTestId('saved-creators').getByRole('link', { name: /서하린/ }) with timeout 5000ms
+      - waiting for getByTestId('saved-creators').getByRole('link', { name: /서하린/ })
+
+
+      206 |     await expect(
+      207 |       section.getByRole("link", { name: /서하린/ }),
+    > 208 |     ).toHaveAttribute("href", "/creators/creator-001");
+          |       ^
+      209 |     if (process.env.ADME_EVIDENCE_DIR)
+      210 |       await section.screenshot({
+      211 |         path: `${process.env.ADME_EVIDENCE_DIR}/dashboard-saved-${info.project.name}.png`,
+        at C:\projects\AD-Me-devb-1125\tests\e2e\lists.spec.ts:208:7
+
+    Error Context: test-results\lists-dashboard-shows-defa-4f6a9-ourites-by-public-reference-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\lists-dashboard-shows-defa-4f6a9-ourites-by-public-reference-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\lists-dashboard-shows-defa-4f6a9-ourites-by-public-reference-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    [desktop] › tests\e2e\lists.spec.ts:194:1 › dashboard shows default-list favourites by public reference 
