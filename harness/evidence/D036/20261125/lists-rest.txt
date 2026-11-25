@@ -1,0 +1,1 @@
+PASS: D036 lists — default list idempotent/locked, group CRUD, unique name & member, other user denied (read/update/delete/insert/spoof), shortlist only on own campaign, one per campaign, link immutable, cascades.

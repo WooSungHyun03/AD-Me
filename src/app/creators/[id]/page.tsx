@@ -1,4 +1,6 @@
-import { configured, supabase } from "@/lib/supabase";
+import { configured, currentUser, supabase } from "@/lib/supabase";
+import { readSavedLists } from "@/lib/saved-lists";
+import { AddToList } from "@/components/lists";
 import { youtubeChannelId } from "@/lib/featured-youtube";
 import { PublicAdHistory } from "@/components/public-ad-history";
 import { NormalizedPublic } from "@/components/normalized-public";
@@ -37,6 +39,14 @@ export default async function Detail({
   } catch {
     /* Main profile remains readable when the bounded similar-list is unavailable. */
   }
+  // D036: signed-in viewers add this public reference to their own named groups (campaign
+  // shortlists are managed from the campaign page).
+  const groups =
+    configured() && (await currentUser())
+      ? ((await readSavedLists(await supabase())) ?? [])
+          .filter((l) => !l.campaign_id)
+          .map((l) => ({ id: l.id, name: l.name }))
+      : [];
   const social = normalizeSocialLink(c.social_url);
   const portfolio = safeHttpsLink(c.portfolio_url);
   const similar = rank(
@@ -69,6 +79,7 @@ export default async function Detail({
           >
             협업 캠페인 만들기 ↗
           </Link>
+          <AddToList creatorId={c.seed_id} lists={groups} />
         </aside>
         <div>
           <div className="tags">

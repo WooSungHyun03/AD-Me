@@ -8,6 +8,8 @@ import { ProposalForm } from "@/components/proposal-form";
 import { CampaignTermsSummary } from "@/components/campaign-terms-summary";
 import type { CampaignTerms } from "@/lib/campaign-brief";
 import { isDemoMode } from "@/lib/mode";
+import { readSavedLists, itemLabel, type SavedList } from "@/lib/saved-lists";
+import { RemoveItem, ShortlistButton } from "@/components/lists";
 export default async function Campaign({
   params,
   searchParams,
@@ -33,6 +35,8 @@ export default async function Campaign({
   let deadline: string | null = null;
   let closed = false;
   let people: { id: string; name: string }[] = [];
+  // D036: the owner's campaign shortlist (one per campaign, created on first add).
+  let shortlist: SavedList | null = null;
   const user = await currentUser();
   if (configured()) {
     const db = await supabase();
@@ -48,6 +52,9 @@ export default async function Campaign({
       capacity = data.capacity;
       deadline = data.recruit_until;
       closed = data.status === "closed";
+      if (user?.id === ownerId && !isDemo)
+        shortlist =
+          (await readSavedLists(db))?.find((l) => l.campaign_id === id) ?? null;
       if (user?.id === ownerId && capacity != null) {
         const result = await db.rpc("campaign_selected", { p_campaign: id });
         if (typeof result.data === "number") selected = result.data;
@@ -179,6 +186,36 @@ export default async function Campaign({
               상위 후보 비교 ↗
             </Link>
           )}
+          {configured() && ownerId === user?.id && !isDemo && (
+            <div className="panel" style={{ margin: "20px 0" }}>
+              <h3 style={{ marginTop: 0 }}>
+                캠페인 후보 목록 ({shortlist?.items.length ?? 0})
+              </h3>
+              {shortlist?.items.length ? (
+                shortlist.items.map((i) => (
+                  <div className="result" key={i.ref}>
+                    <span>↗</span>
+                    {i.visible ? (
+                      <Link href={`/creators/${encodeURIComponent(i.ref)}`}>
+                        {itemLabel(i)}
+                      </Link>
+                    ) : (
+                      <span className="muted">{itemLabel(i)}</span>
+                    )}
+                    <RemoveItem
+                      listId={shortlist.id}
+                      creatorId={i.ref}
+                      name={itemLabel(i)}
+                    />
+                  </div>
+                ))
+              ) : (
+                <p className="empty">
+                  아래 추천에서 &lsquo;후보에 담기&rsquo;로 후보를 모으세요.
+                </p>
+              )}
+            </div>
+          )}
           {results.length === 0 && (
             <p className="empty">캠페인에 추천할 등록 프로필이 없습니다.</p>
           )}
@@ -221,6 +258,18 @@ export default async function Campaign({
                     scorer {r.version} · 출처는 프로필에서 확인
                   </p>
                 </details>
+                {configured() &&
+                  ownerId === user?.id &&
+                  !isDemo &&
+                  !shortlist?.items.some((i) => i.ref === r.creatorId) && (
+                    <ShortlistButton
+                      campaignId={id}
+                      listId={shortlist?.id ?? null}
+                      creatorId={r.creatorId}
+                      name={r.creator.name}
+                      title={brief.title}
+                    />
+                  )}
               </div>
               <div className="score">
                 {r.score}

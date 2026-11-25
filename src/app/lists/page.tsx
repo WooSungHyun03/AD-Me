@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { currentUser, supabase } from "@/lib/supabase";
+import { itemLabel, readSavedLists } from "@/lib/saved-lists";
 import {
   ImportCsv,
   ListControls,
@@ -12,13 +13,7 @@ export default async function Lists() {
   if (!user) redirect("/login?next=/dashboard");
   const db = await supabase();
   await db.rpc("ensure_default_list");
-  const { data: lists } = await db
-    .from("saved_lists")
-    .select(
-      "id,name,is_default,campaign_id,saved_list_items(creator_id,creators(profile))",
-    )
-    .order("is_default", { ascending: false })
-    .order("created_at");
+  const lists = await readSavedLists(db);
   return (
     <section className="wrap">
       <span className="eyebrow">Shortlists</span>
@@ -28,6 +23,11 @@ export default async function Lists() {
         수 있습니다.
       </p>
       <NewListForm />
+      {!lists && (
+        <p className="notice" role="alert">
+          후보 그룹을 불러오지 못했습니다. 잠시 후 새로고침해주세요.
+        </p>
+      )}
       {lists?.map((l) => (
         <article
           className="panel"
@@ -49,25 +49,24 @@ export default async function Lists() {
             </h3>
             <ListControls id={l.id} name={l.name} locked={l.is_default} />
           </div>
-          {l.saved_list_items.length ? (
-            l.saved_list_items.map((i) => {
-              const profile = (
-                i.creators as unknown as { profile: { name: string } } | null
-              )?.profile;
-              return (
-                <div className="result" key={i.creator_id}>
-                  <span>↗</span>
-                  <Link href={`/creators/${i.creator_id}`}>
-                    {profile?.name ?? i.creator_id}
+          {l.items.length ? (
+            l.items.map((i) => (
+              <div className="result" key={i.ref}>
+                <span>↗</span>
+                {i.visible ? (
+                  <Link href={`/creators/${encodeURIComponent(i.ref)}`}>
+                    {itemLabel(i)}
                   </Link>
-                  <RemoveItem
-                    listId={l.id}
-                    creatorId={i.creator_id}
-                    name={profile?.name ?? i.creator_id}
-                  />
-                </div>
-              );
-            })
+                ) : (
+                  <span className="muted">{itemLabel(i)}</span>
+                )}
+                <RemoveItem
+                  listId={l.id}
+                  creatorId={i.ref}
+                  name={itemLabel(i)}
+                />
+              </div>
+            ))
           ) : (
             <p className="empty">아직 담긴 크리에이터가 없습니다.</p>
           )}

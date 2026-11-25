@@ -1,0 +1,22 @@
+PASS: D036 public-ref lists — 21 checks
+ - public reference is opaque
+ - legacy direct insert with public ref fails
+ - owner adds by public ref
+ - retry is idempotent
+ - exactly one stored row with the internal ID
+ - concurrent retries never error
+ - owner DTO exposes public reference only
+ - other DTO excludes my lists
+ - other account cannot add to my list
+ - other account cannot remove from my list
+ - unknown reference denied
+ - anon cannot execute add_saved_list_item
+ - anon cannot execute remove_saved_list_item
+ - anon cannot execute my_saved_lists
+ - campaign shortlist add
+ - other brand cannot add to my campaign shortlist
+ - hidden creator keeps row without name
+ - hidden creator cannot be added
+ - hidden creator denied for a new list
+ - owner removes hidden item by ref
+ - repeat remove reports nothing removed

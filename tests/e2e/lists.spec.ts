@@ -24,7 +24,7 @@ async function login(page: Page) {
   await expect(page).toHaveURL(/dashboard/);
 }
 
-test("candidate groups and campaign shortlist", async ({ page }) => {
+test("candidate groups and campaign shortlist", async ({ page }, info) => {
   const tag = randomUUID().slice(0, 6);
   await login(page);
   await page.goto("/lists");
@@ -94,6 +94,11 @@ test("candidate groups and campaign shortlist", async ({ page }) => {
     .first()
     .click();
   await expect(page.getByText("캠페인 후보 목록 (2)")).toBeVisible();
+  if (process.env.ADME_EVIDENCE_DIR)
+    await page.screenshot({
+      path: `${process.env.ADME_EVIDENCE_DIR}/campaign-shortlist-${info.project.name}.png`,
+      fullPage: true,
+    });
   await page.getByRole("button", { name: `${name} 그룹에서 빼기` }).click();
   await expect(page.getByText("캠페인 후보 목록 (1)")).toBeVisible();
   await page.goto("/lists");
@@ -103,4 +108,84 @@ test("candidate groups and campaign shortlist", async ({ page }) => {
       .filter({ hasText: `후보 캠페인 ${tag} 후보` }),
   ).toContainText("캠페인 후보");
   await page.request.delete(`/api/campaigns?id=${id}`);
+});
+
+// D036 (2026-11-25): real registered creators are addressed by their opaque public reference.
+test("public reference add, retry, denial and shortlist display", async ({
+  page,
+}, info) => {
+  const { execFileSync } = await import("node:child_process");
+  const sql = (q: string) =>
+    execFileSync(
+      "docker",
+      [
+        "exec",
+        "-i",
+        "supabase_db_AD-Me",
+        "psql",
+        "-U",
+        "postgres",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-Atq",
+      ],
+      { input: q, encoding: "utf8" },
+    ).trim();
+  const tag = randomUUID().slice(0, 6);
+  const internal = `user-${randomUUID()}`;
+  const name = `공개참조 후보 ${tag}`;
+  // Local owner fixture (session_user postgres); no auth account is needed for a catalog row.
+  sql(
+    `insert into public.creators(id,owner_id,published,profile) values('${internal}',null,true,'{"name":"${name}","bio":"","handle":"qa","categories":["뷰티"],"vibes":["자연스러움"],"formats":["숏폼"],"platforms":["youtube"],"price_min_krw":null,"price_max_krw":null,"followers":0,"is_available":true,"is_demo":false}')`,
+  );
+  const ref = sql(`select adme_creator.public_reference('${internal}')`);
+  expect(ref).not.toBe(internal);
+  try {
+    await login(page);
+    const made = await page.request.post("/api/lists", {
+      data: { name: `공개참조 ${tag}` },
+    });
+    expect(made.status()).toBe(201);
+    const { id: listId } = await made.json();
+    const add = () =>
+      page.request.post("/api/lists/items", {
+        data: { listId, creatorId: ref },
+      });
+    expect((await add()).status()).toBe(201);
+    expect((await add()).status()).toBe(409); // retry: no duplicate row
+    expect(
+      (
+        await page.request.post("/api/lists/items", {
+          data: { listId, creatorId: `missing-${tag}` },
+        })
+      ).status(),
+    ).toBe(404);
+    expect(
+      (
+        await page.request.post("/api/lists/items", {
+          data: { listId: randomUUID(), creatorId: ref },
+        })
+      ).status(),
+    ).toBe(404);
+    await page.goto("/lists");
+    const group = page
+      .getByTestId("saved-list")
+      .filter({ hasText: `공개참조 ${tag}` });
+    await expect(group.getByRole("link", { name })).toHaveAttribute(
+      "href",
+      `/creators/${encodeURIComponent(ref)}`,
+    );
+    expect(await page.content()).not.toContain(internal);
+    const dir = process.env.ADME_EVIDENCE_DIR;
+    if (dir)
+      await page.screenshot({
+        path: `${dir}/lists-${info.project.name}.png`,
+        fullPage: true,
+      });
+    await group.getByRole("button", { name: `${name} 그룹에서 빼기` }).click();
+    await expect(group).toContainText("아직 담긴 크리에이터가 없습니다");
+    await page.request.delete(`/api/lists?id=${listId}`);
+  } finally {
+    sql(`delete from public.creators where id='${internal}'`);
+  }
 });

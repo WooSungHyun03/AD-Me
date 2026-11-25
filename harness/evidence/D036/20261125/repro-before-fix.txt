@@ -1,0 +1,35 @@
+
+Running 1 test using 1 worker
+
+[1/1] [desktop] › tests\e2e\lists.spec.ts:27:1 › candidate groups and campaign shortlist
+  1) [desktop] › tests\e2e\lists.spec.ts:27:1 › candidate groups and campaign shortlist ────────────
+
+    Test timeout of 90000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 90000ms exceeded.
+    Call log:
+      - waiting for getByLabel('후보 그룹')
+
+
+      46 |
+      47 |   await page.goto("/creators/creator-001");
+    > 48 |   await page.getByLabel("후보 그룹").selectOption({ label: `가을 ${tag}` });
+         |                                  ^
+      49 |   await page.getByRole("button", { name: "그룹에 추가" }).click();
+      50 |   await expect(
+      51 |     page.getByRole("status").filter({ hasText: "추가했습니다" }),
+        at C:\projects\AD-Me-devb-1125\tests\e2e\lists.spec.ts:48:34
+
+    Error Context: test-results\lists-candidate-groups-and-campaign-shortlist-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\lists-candidate-groups-and-campaign-shortlist-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\lists-candidate-groups-and-campaign-shortlist-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  1 failed
+    [desktop] › tests\e2e\lists.spec.ts:27:1 › candidate groups and campaign shortlist ─────────────

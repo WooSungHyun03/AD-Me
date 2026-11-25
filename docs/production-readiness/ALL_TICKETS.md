@@ -806,7 +806,7 @@ DEV-A · P1 · S1 주요 부족 · YOUTUBE · TESTED · 3 SP · GATED
 
 ## D036 · 후보 그룹·캠페인별 shortlist
 
-DEV-B · P0 · S0 출시 차단 · MATCHING · TODO · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · MATCHING · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 기존 즐겨찾기를 이름 있는 그룹·캠페인 후보로 확장하고 중복을 방지한다.
 - **재현·관찰** — /api/saved · /campaigns/[id]에서 먼저 그룹 CRUD·캠페인 소유권·재로그인 유지을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/app/api/saved/route.ts, src/app/campaigns/[id]/page.tsx.
@@ -822,9 +822,10 @@ DEV-B · P0 · S0 출시 차단 · MATCHING · TODO · 5 SP · ACTIVE
 - **보안** — 다른 캠페인 ID를 연결해도 소유권을 우회할 수 없다.
 - **검증** — 그룹 CRUD·캠페인 소유권·재로그인 유지 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 기존 즐겨찾기를 이름 있는 그룹·캠페인 후보로 확장하고 중복을 방지한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D036/ (이번 검증 기록 위치)
+- **차단 요인** — 운영 마이그레이션 20261125130000 적용과 실환경 검증은 운영자 승인(U004) 전까지 BLOCKED. 팀 범위 목록은 팀 모델 부재로 owner 범위 유지.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D036/ (이번 검증 기록 위치) · harness/evidence/D036/20261125/README.md
 - **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510)
+- **검증 범위** — 2026-11-25 origin/main 77fd552 격리 로컬 복제본(마이그레이션 125): 공개 참조 기반 그룹/캠페인 후보 추가·재시도·삭제, 타 계정·anon·숨김 크리에이터 거부 21건, E2E desktop/mobile 4/4. 운영 미적용.
 - **이전 기록** — OPEN
 
 ## D037 · 저장 검색·신규 후보 알림

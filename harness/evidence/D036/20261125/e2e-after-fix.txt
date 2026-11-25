@@ -1,0 +1,22 @@
+
+Running 4 tests using 1 worker
+
+[1/4] [desktop] › tests\e2e\lists.spec.ts:27:1 › candidate groups and campaign shortlist
+[2/4] [desktop] › tests\e2e\lists.spec.ts:114:1 › public reference add, retry, denial and shortlist display
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T06:20:59.864Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"09ab622f-65c1-4eda-a6cb-ba6b4c55afc5"}
+
+[3/4] [mobile] › tests\e2e\lists.spec.ts:27:1 › candidate groups and campaign shortlist
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T06:21:08.873Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/creators/[id]","kind":"render","method":"GET","path":"/creators/creator-001","request_id":"9744a2f7-fd2a-4f1b-8ae4-da881e98f124"}
+
+[4/4] [mobile] › tests\e2e\lists.spec.ts:114:1 › public reference add, retry, denial and shortlist display
+  4 passed (56.5s)
