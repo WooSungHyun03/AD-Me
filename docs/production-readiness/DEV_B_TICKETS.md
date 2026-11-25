@@ -1120,7 +1120,7 @@ DEV-B · P1 · S1 주요 부족 · UX · TESTED · 3 SP · ACTIVE
 
 ## D083 · SEO·공유·인덱싱 공개 경계
 
-DEV-B · P1 · S1 주요 부족 · SEO · TODO · 3 SP · ACTIVE
+DEV-B · P1 · S1 주요 부족 · SEO · TESTED · 3 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. canonical·sitemap·robots·OG·구조화 데이터를 정비하고 사적/미검토 자료를 noindex와 인증으로 보호한다.
 - **재현·관찰** — /robots.txt · /sitemap.xml · /creators/youtube/[id]에서 먼저 비공개 URL 접근 차단·메타·사이트맵 검증을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/app/sitemap.ts, src/app/robots.ts, src/app/layout.tsx.
@@ -1136,9 +1136,10 @@ DEV-B · P1 · S1 주요 부족 · SEO · TODO · 3 SP · ACTIVE
 - **보안** — robots/noindex는 접근 제어의 대체가 아니다.
 - **검증** — 비공개 URL 접근 차단·메타·사이트맵 검증 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — canonical·sitemap·robots·OG·구조화 데이터를 정비하고 사적/미검토 자료를 noindex와 인증으로 보호한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D083/ (이번 검증 기록 위치)
+- **차단 요인** — 운영 도메인 sitemap·robots 실측은 배포(U005) 후.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D083/ (이번 검증 기록 위치) · harness/evidence/D083/20261126/README.md
 - **Figma 노드** — [01 · 홈페이지 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-91) · [01 · 홈페이지 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1402)
+- **검증 범위** — 2026-11-26 main 252dfdd 격리 빈 DB: seo.spec.ts desktop/mobile PASS. 비공개 경로 noindex 헤더, 공개 페이지 canonical·OG, 데모 환경 비색인, noindex와 별개로 비공개 페이지·미공개 프로필 접근 거부. 크리에이터 상세 generateMetadata noindex(D085 1차 복원)를 포함한다.
 - **이전 기록** — OPEN
 
 ## D072 · 수수료 가정 계산·결제 이력
