@@ -1540,12 +1540,13 @@
       "acceptance": "수집 프로필은 미인증·협업 의사 미확인으로 표시하고 소유 증명 후에만 수정·제안 수신을 허용한다.",
       "points": 8,
       "owner": "DEV-B",
-      "blockers": "외부 선행 U014의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.",
+      "blockers": "2026-11-26: D073 게시 가드가 소유자 NULL 비교로 수집 프로필 start_claim·관리자 승인을 막던 결함 수정(20261125220000), claims REST PASS. 남은 것: 공개 DTO 소유·청구 상태(DEV-A DTO 계약)와 claims E2E, 실제 소유 증명 U014, 운영 적용 U004.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
         "docs/implementation-progress.md",
-        "harness/evidence/D025/ (이번 검증 기록 위치)"
+        "harness/evidence/D025/ (이번 검증 기록 위치)",
+        "harness/evidence/D025/20261126/README.md"
       ],
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
@@ -2036,13 +2037,14 @@
       "acceptance": "근거 있는 태그 유사 후보와 프로필별 정정·삭제 요청 경로를 제공한다.",
       "points": 3,
       "owner": "DEV-B",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "운영 확인은 운영자 게이트.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D032/ (이번 검증 기록 위치)"
+        "harness/evidence/D032/ (이번 검증 기록 위치)",
+        "harness/evidence/D032/20261126/README.md"
       ],
-      "status": "TODO",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,
@@ -2067,7 +2069,8 @@
           "label": "03 · 크리에이터 프로필 / Mobile",
           "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420"
         }
-      ]
+      ],
+      "verified_scope": "2026-11-26 main 격리 로컬: 공개 태그 기반 유사 후보(데모·실제 분리, 팔로워·가격 미사용, 공통 태그 근거)와 프로필별 정정·삭제 요청 진입, similar unit PASS, similar E2E desktop/mobile PASS."
     },
     {
       "id": "D033",
@@ -4076,14 +4079,15 @@
       "acceptance": "접수번호·처리 기한·임시 조치·답변·재심·처리 로그와 요청자 확인을 제공한다.",
       "points": 5,
       "owner": "DEV-B",
-      "blockers": "2026-11-25: 사용자 접수가 D057 review_submit(issue)로만 연결돼 D058 요청 유형·접수번호·기한 흐름의 진입점이 끊김(레거시 submit_report·reports 큐·D060 관리자 검색은 유지). 공존 계약 제안 docs/handoff/D058_D057_REPORT_CONTRACT_20261125.md — DEV-A 합의 후 구현.",
+      "blockers": "2026-11-26: 계약 추천안(D057 공존) 구현·검증 완료 — 요청 유형·접수번호·기한·내 요청·재심, 공개 참조 해석(20261125240000), reports REST PASS, E2E 4/4. DEV-A 공존/흡수 합의와 운영 적용(U004) 대기라 완료 표시 보류.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/D058/ (이번 검증 기록 위치)",
-        "docs/handoff/D058_D057_REPORT_CONTRACT_20261125.md"
+        "docs/handoff/D058_D057_REPORT_CONTRACT_20261125.md",
+        "harness/evidence/D058/20261126/README.md"
       ],
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,
@@ -4333,14 +4337,15 @@
       "acceptance": "차단 관계·신고 누적·스팸·사칭 검토 및 연락 제한을 적용한다.",
       "points": 5,
       "owner": "DEV-B",
-      "blockers": "2026-11-25: 정의자 경로(conversation_send·create_creator_proposal)에서 차단·연락 제한이 우회되던 결함 수정(20261125180000, contact-guard 6/6, 차단 E2E 2/2). 관리자 제한 UI 흐름은 D058/D057 신고 큐 계약, tests/safety.mjs 재작성, 운영 적용 U004 남음.",
+      "blockers": "운영 적용(U004)·실계정 검증은 운영자 게이트.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/D062/ (이번 검증 기록 위치)",
-        "harness/evidence/D062/20261125/README.md"
+        "harness/evidence/D062/20261125/README.md",
+        "harness/evidence/D062/20261126/README.md"
       ],
-      "status": "IN_PROGRESS",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,
@@ -4365,7 +4370,8 @@
           "label": "15 · 관리자 / Mobile",
           "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528"
         }
-      ]
+      ],
+      "verified_scope": "2026-11-26 main 격리 로컬: 정의자 RPC 경로의 차단·연락 제한·스팸 한도(20261125180000·20261125230000), safety REST PASS, contact-guard PASS, 관리자 7일 제한→이의신청→해제 E2E desktop/mobile 4/4(D060 검색 신고 결과)."
     },
     {
       "id": "D063",
