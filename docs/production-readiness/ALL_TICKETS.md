@@ -861,7 +861,7 @@ DEV-A · P1 · S1 주요 부족 · MATCHING · TESTED · 5 SP · ACTIVE
 
 ## D038 · CSV 가져오기·내보내기 보강
 
-DEV-B · P1 · S1 주요 부족 · MATCHING · IN_PROGRESS · 5 SP · ACTIVE
+DEV-B · P1 · S1 주요 부족 · MATCHING · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 템플릿·크기 제한·미리보기·행별 오류·중복·출처 필수값과 수식 주입 방지를 제공한다.
 - **재현·관찰** — /api/export에서 먼저 악성 CSV·한글 인코딩·부분 오류·다른 팀 자료 접근 차단을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/lib/csv.ts, src/app/api/export/route.ts, src/app/api/import.
@@ -877,8 +877,9 @@ DEV-B · P1 · S1 주요 부족 · MATCHING · IN_PROGRESS · 5 SP · ACTIVE
 - **보안** — 행 한도·바이트 한도·수식/CSV injection·한글·부분 실패 결과를 검증한다.
 - **검증** — 악성 CSV·한글 인코딩·부분 오류·다른 팀 자료 접근 차단 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 템플릿·크기 제한·미리보기·행별 오류·중복·출처 필수값과 수식 주입 방지를 제공한다.
-- **차단 요인** — 2026-11-25: CSV 가져오기를 공개 DTO+일괄 게이트웨이(20261125160000)로, 내보내기 그룹·재가져오기 열 복원. 로컬 E2E csv-import 통과. 운영 마이그레이션 적용은 U004.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D038/ (이번 검증 기록 위치) · harness/evidence/D085/20261125/README.md
+- **차단 요인** — 운영 마이그레이션 적용(U004)은 운영자 게이트. 템플릿 다운로드 라우트는 직접 단언하는 테스트 없음.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D038/ (이번 검증 기록 위치) · harness/evidence/D085/20261125/README.md · harness/evidence/D038/20261126/README.md
+- **검증 범위** — 2026-11-26 main 격리 빈 DB: csv-import E2E desktop/mobile PASS(미리보기→부분 반영·왕복·타 계정 차단), csv 단위 5/5(인코딩·수식·행별 오류·중복·출처·크기 제한), lists-public-refs REST PASS.
 - **이전 기록** — OPEN
 
 ## D039 · 자연어 검색→확인 가능한 필터

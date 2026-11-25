@@ -2472,21 +2472,23 @@
       "acceptance": "템플릿·크기 제한·미리보기·행별 오류·중복·출처 필수값과 수식 주입 방지를 제공한다.",
       "points": 5,
       "owner": "DEV-B",
-      "blockers": "2026-11-25: CSV 가져오기를 공개 DTO+일괄 게이트웨이(20261125160000)로, 내보내기 그룹·재가져오기 열 복원. 로컬 E2E csv-import 통과. 운영 마이그레이션 적용은 U004.",
+      "blockers": "운영 마이그레이션 적용(U004)은 운영자 게이트. 템플릿 다운로드 라우트는 직접 단언하는 테스트 없음.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/D038/ (이번 검증 기록 위치)",
-        "harness/evidence/D085/20261125/README.md"
+        "harness/evidence/D085/20261125/README.md",
+        "harness/evidence/D038/20261126/README.md"
       ],
-      "status": "IN_PROGRESS",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,
       "operator_refactor_review": {
         "decision": "KEEP"
       },
-      "figma_review": "KEEP"
+      "figma_review": "KEEP",
+      "verified_scope": "2026-11-26 main 격리 빈 DB: csv-import E2E desktop/mobile PASS(미리보기→부분 반영·왕복·타 계정 차단), csv 단위 5/5(인코딩·수식·행별 오류·중복·출처·크기 제한), lists-public-refs REST PASS."
     },
     {
       "id": "D039",
