@@ -2,7 +2,7 @@
   --canvas: #faf9fd;
   --surface: #fff;
   --ink: #252333;
-  --muted: #706c82;
+  --muted: #68647a; /* WCAG AA ≥4.5 on lavender/pink surfaces (#706c82 was 4.3). */
   --line: #e6e1ef;
   --figma-purple: #7846db;
   --figma-lavender: #f1eaff;

@@ -3,11 +3,25 @@ import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { HomeAmbientMotion } from "@/components/home-ambient-motion";
 import { RecommendationBrief } from "@/components/recommendation-brief";
+import { configured, supabase } from "@/lib/supabase";
+import { getConfig } from "@/lib/config";
+import { homeCatalogSchema } from "@/lib/home-catalog";
 
 export const dynamic = "force-dynamic";
 export const metadata = { alternates: { canonical: "/" } };
 
-export default function Home() {
+export default async function Home() {
+  // D081: actual public counts and as-of time only; never the mockup's statistics.
+  let summary: ReturnType<typeof homeCatalogSchema.parse> | null = null;
+  if (configured()) {
+    const { data, error } = await (
+      await supabase()
+    ).rpc("creator_home_summary", {
+      p_demo: getConfig().serviceMode === "test_demo",
+    });
+    const parsed = homeCatalogSchema.safeParse(data);
+    if (!error && parsed.success) summary = parsed.data;
+  }
   return (
     <>
       <section className="product-hero premium-hero figma-home-hero">
@@ -42,6 +56,24 @@ export default function Home() {
               채널 탐색
             </Link>
           </div>
+          <p
+            className="figma-hero-status"
+            style={{ fontSize: 13, marginTop: 16 }}
+          >
+            {summary
+              ? `현재 공개 프로필 ${summary.total}명 · 본인 등록 ${summary.registered}명${summary.demo ? ` · 가상 시연 ${summary.demo}명` : ""}. 본인 등록은 플랫폼 소유·지표 검증 완료를 뜻하지 않습니다.`
+              : "현재 공개 현황은 확인 중입니다. 확보 인원이나 성과를 추정해 표시하지 않습니다."}
+            {summary && (
+              <>
+                <br />
+                집계 시각{" "}
+                {new Date(summary.asOf).toLocaleString("ko-KR", {
+                  timeZone: "Asia/Seoul",
+                })}{" "}
+                (KST) · 무료 베타 · 공개 범위에 따라 변경됩니다.
+              </>
+            )}
+          </p>
         </div>
         <HomeAmbientMotion />
       </section>

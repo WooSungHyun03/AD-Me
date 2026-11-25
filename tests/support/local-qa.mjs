@@ -90,3 +90,29 @@ export function localJwt(userId, overrides = {}) {
   const body = `${part({ alg: "HS256", typ: "JWT" })}.${part(payload)}`;
   return `${body}.${createHmac("sha256", runtime.JWT_SECRET).update(body).digest("base64url")}`;
 }
+
+// Specs that act as the shared creator need its own published fictional profile, regardless of run order.
+// Returns the prior row (or null) so dropCreatorProfile restores e.g. a tombstone left by another spec.
+export function ensureCreatorProfile(ownerId) {
+  if (!/^[0-9a-f-]{36}$/.test(ownerId))
+    throw new Error("ensureCreatorProfile needs a local account UUID");
+  const id = `user-${ownerId}`;
+  const prior = sql(
+    `select jsonb_build_object('published',published,'moderation_status',moderation_status,'profile',profile) from public.creators where id='${id}';`,
+  );
+  sql(
+    `insert into public.creators(id,owner_id,published,profile) select '${id}','${ownerId}',true,profile||'{"is_demo":false,"name":"가상 QA 크리에이터"}'::jsonb from public.creators where profile->>'is_demo'='true' order by id limit 1 on conflict(id) do update set published=true,moderation_status='allowed',profile=excluded.profile;`,
+  );
+  return { id, prior: prior || null };
+}
+export function dropCreatorProfile(own) {
+  if (!own) return;
+  if (own.prior)
+    sql(
+      `update public.creators c set published=(p->>'published')::boolean,moderation_status=p->>'moderation_status',profile=p->'profile' from (select '${own.prior.replaceAll("'", "''")}'::jsonb p) x where c.id='${own.id}';`,
+    );
+  else
+    sql(
+      `delete from public.proposals where creator_id='${own.id}'; delete from public.creators where id='${own.id}';`,
+    );
+}

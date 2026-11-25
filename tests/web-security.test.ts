@@ -30,8 +30,12 @@ describe("D077 web boundary", () => {
       "https://i.ytimg.com",
       "https://img.youtube.com",
     ]);
+    expect(d["frame-src"]).toEqual([
+      "https://*.tosspayments.com",
+      "https://www.youtube-nocookie.com",
+    ]);
     const external = Object.entries(d)
-      .filter(([directive]) => directive !== "img-src")
+      .filter(([directive]) => !["img-src", "frame-src"].includes(directive))
       .flatMap(([, sources]) => sources)
       .filter((s) => /^(https?|wss?):/.test(s));
     for (const s of external)

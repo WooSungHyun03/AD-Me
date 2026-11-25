@@ -1,5 +1,7 @@
 import { expect, type APIRequestContext } from "@playwright/test";
 import { localRuntime } from "./local-qa.mjs";
+// Same override as tests/ci-db.sh; the default is the primary local stack.
+const mailpit = process.env.MAILPIT_URL ?? "http://127.0.0.1:54324";
 export async function localProof(
   request: APIRequestContext,
   email: string,
@@ -11,7 +13,7 @@ export async function localProof(
   await expect
     .poll(async () => {
       const response = await request.get(
-        "http://127.0.0.1:54324/api/v1/messages?limit=100",
+        `${mailpit}/api/v1/messages?limit=100`,
       );
       expect(response.ok()).toBe(true);
       inbox = ((await response.json()).messages ?? []).filter(
@@ -21,9 +23,7 @@ export async function localProof(
       return inbox.length;
     })
     .toBeGreaterThan(skip);
-  const message = await request.get(
-    `http://127.0.0.1:54324/api/v1/message/${inbox[0].ID}`,
-  );
+  const message = await request.get(`${mailpit}/api/v1/message/${inbox[0].ID}`);
   const html = (await message.json()).HTML as string;
   const link = /href="([^"]+token_hash=[^"]+)"/
     .exec(html)?.[1]

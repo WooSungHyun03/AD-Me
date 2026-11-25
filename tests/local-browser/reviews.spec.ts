@@ -191,6 +191,10 @@ test("evidence review preserves private allegations and position, rejects stale 
     await publicContext.close();
     await fixture.cleanup(ids);
     restoreReviewPolicy(policy);
+    // Deleting the report does not refund the brand's submit quota; reruns would hit 429.
+    sql(
+      `delete from adme_ops.rate_windows where scope like 'review_submit_%' and subject='${accounts.brand.id}';`,
+    );
   }
 });
 test("owner ad history submission, review and correction keep brand mentions private and bind approval to a version", async ({
@@ -337,5 +341,9 @@ test("owner ad history submission, review and correction keep brand mentions pri
     await publicContext.close();
     await fixture.cleanup(ids);
     restoreReviewPolicy(policy);
+    // Deleting the report does not refund the brand's submit quota; reruns would hit 429.
+    sql(
+      `delete from adme_ops.rate_windows where scope like 'review_submit_%' and subject='${accounts.brand.id}';`,
+    );
   }
 });

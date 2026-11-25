@@ -1,4 +1,3 @@
-import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import { expect, test } from "@playwright/test";
 import { localRuntime, sql } from "../support/local-qa.mjs";
@@ -10,14 +9,14 @@ test("D005 free DB shows registered data while hiding DEMO detail, legacy APIs, 
   expect(sql("select demo_enabled from adme_release.catalog_boundary")).toBe(
     "f",
   );
-  const a = JSON.parse(
-    readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-  );
-  const id = `d005-browser-${randomUUID()}`,
+  const owner = randomUUID(),
+    id = `d005-browser-${randomUUID()}`,
     title = "D005 로컬 등록 프로필 QA";
   try {
     sql(
-      `insert into public.creators(id,owner_id,published,profile)select '${id}','${a.creator.id}',true,profile||'{"name":"${title}","is_demo":false,"followers":0,"metrics_source":"unavailable"}'::jsonb from public.creators where id='creator-001';`,
+      // Own fictional owner: the shared creator account may already hold a profile row (owner_id is unique).
+      `insert into auth.users(id,raw_user_meta_data) values('${owner}','{"role":"creator","name":"가상 D005 QA"}');
+      insert into public.creators(id,owner_id,published,profile)select '${id}','${owner}',true,profile||'{"name":"${title}","is_demo":false,"followers":0,"metrics_source":"unavailable"}'::jsonb from public.creators where id='creator-001';`,
     );
     const ref = sql(`select adme_creator.public_reference('${id}')`);
     await page.goto("/creators");
@@ -81,6 +80,8 @@ test("D005 free DB shows registered data while hiding DEMO detail, legacy APIs, 
     expect(sitemap.status()).toBe(200);
     expect(await sitemap.text()).not.toContain("creator-001");
   } finally {
-    sql(`delete from public.creators where id='${id}'`);
+    sql(
+      `delete from public.creators where id='${id}';delete from auth.users where id='${owner}';`,
+    );
   }
 });

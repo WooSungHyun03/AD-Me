@@ -1,7 +1,12 @@
 import { test, expect } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
-import { localRuntime, sql } from "../support/local-qa.mjs";
+import {
+  dropCreatorProfile,
+  ensureCreatorProfile,
+  localRuntime,
+  sql,
+} from "../support/local-qa.mjs";
 const accounts = JSON.parse(
   readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
 );
@@ -12,9 +17,8 @@ test("conversation loads one room lazily, pages history, retries lost acknowledg
   const room = randomUUID(),
     campaign = randomUUID(),
     marker = `가상 대화 ${randomUUID().slice(0, 8)}`;
-  const creatorId = sql(
-    `select id from public.creators where owner_id='${accounts.creator.id}' limit 1;`,
-  );
+  const own = ensureCreatorProfile(accounts.creator.id),
+    creatorId = own.id;
   expect(creatorId).not.toBe("");
   const xss = '<img src=x onerror="window.__messageXss=1">';
   try {
@@ -124,6 +128,8 @@ test("conversation loads one room lazily, pages history, retries lost acknowledg
     ).toBe(true);
   } finally {
     sql(`delete from adme_messaging.reports where message_id in (select id from public.messages where proposal_id='${room}'); delete from adme_messaging.blocks where proposal_id='${room}';
-      delete from public.messages where proposal_id='${room}'; delete from public.proposals where id='${room}'; delete from public.campaigns where id='${campaign}';`);
+      delete from public.messages where proposal_id='${room}'; delete from public.proposals where id='${room}'; delete from public.campaigns where id='${campaign}';
+      delete from adme_ops.rate_windows where scope like 'message_report_%' and subject='${accounts.brand.id}';`); // the report quota is not refunded by deleting the report
+    dropCreatorProfile(own);
   }
 });

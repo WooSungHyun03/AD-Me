@@ -182,7 +182,7 @@ test("independent D039/D037: confirm before applying filters; persist, reopen, C
       .click();
     await page
       .getByLabel("검색 문장", { exact: true })
-      .fill("인스타그램 뷰티 팔로워 1만명 이상 예산 100만원 이하");
+      .fill("유튜브 뷰티 팔로워 1만명 이상 예산 100만원 이하"); // sentence search is YouTube-only; other platforms are refused
     await page
       .getByRole("button", { name: "조건 제안 확인", exact: true })
       .click();

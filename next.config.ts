@@ -17,7 +17,8 @@ export const csp = [
   "font-src 'self'",
   // Supabase REST/Auth/Storage + Realtime websocket, Toss API.
   `connect-src 'self' ${supabase} ${supabase.replace(/^http/, "ws")} ${toss}`,
-  `frame-src ${toss}`,
+  // D028: owner-consented YouTube embeds use the privacy-enhanced player host only.
+  `frame-src ${toss} https://www.youtube-nocookie.com`,
   "worker-src 'self' blob:",
   "object-src 'none'",
   "base-uri 'self'",

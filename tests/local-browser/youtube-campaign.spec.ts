@@ -1,12 +1,19 @@
 import { randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
-import { localRuntime } from "../support/local-qa.mjs";
+import {
+  dropCreatorProfile,
+  ensureCreatorProfile,
+  localRuntime,
+} from "../support/local-qa.mjs";
 
 const accounts = () =>
   JSON.parse(
     readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-  ) as Record<"brand" | "creator", { email: string; password: string }>;
+  ) as Record<
+    "brand" | "creator",
+    { id: string; email: string; password: string }
+  >;
 
 async function login(page: Page, role: "brand" | "creator") {
   const { email, password } = accounts()[role];
@@ -22,6 +29,7 @@ test("YouTube campaign defaults and an unverified application conflict are visib
   browser,
 }) => {
   localRuntime();
+  const own = ensureCreatorProfile(accounts().creator.id);
   await login(page, "brand");
   await page.goto("/campaigns/new");
   await expect(page.getByRole("checkbox", { name: "youtube" })).toBeChecked();
@@ -72,5 +80,6 @@ test("YouTube campaign defaults and an unverified application conflict are visib
     await expect(deal.getByRole("alert")).toContainText("본인 확인이 해제되어");
   } finally {
     await creator.close();
+    dropCreatorProfile(own);
   }
 });
