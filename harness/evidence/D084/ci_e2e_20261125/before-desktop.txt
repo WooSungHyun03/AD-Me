@@ -1,0 +1,17 @@
+  1) [desktop] › tests/e2e/claims.spec.ts:32:1 › collected profile: unverified label, claim code once, admin approves only with matching code 
+  2) [desktop] › tests/e2e/match-feedback.spec.ts:14:1 › matching feedback: owner rates with reason, others blocked, admin sees honest summary 
+  3) [desktop] › tests/e2e/matching-policy.spec.ts:19:1 › hard category/budget policy is saved and applied 
+  4) [desktop] › tests/e2e/profile-fields.spec.ts:20:1 › creator saves multi-tag profile with unknown quote and availability 
+  5) [desktop] › tests/e2e/promotion.spec.ts:29:1 › HOT slot is a labelled ad, organic results unchanged, owner sees exposure history 
+  6) [desktop] › tests/e2e/reports.spec.ts:30:1 › private request → admin answer → requester status and appeal 
+  7) [desktop] › tests/e2e/retention.spec.ts:26:1 › privacy notice lists retention periods without horizontal scroll 
+  8) [desktop] › tests/e2e/safety.spec.ts:108:1 › block from collaboration, brand cannot message, unblock in settings 
+  9) [desktop] › tests/e2e/safety.spec.ts:147:1 › admin temporary restriction, creator appeal, admin lift 
+  10) [desktop] › tests/e2e/selection-review.spec.ts:38:1 › selection review: checklist + approval required before accepting; memo stays private 
+  11) [desktop] › tests/e2e/service.spec.ts:20:1 › public discovery, filters, comparison, history, drafts and responsive layout 
+  12) [desktop] › tests/e2e/service.spec.ts:88:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation 
+  13) [desktop] › tests/e2e/service.spec.ts:255:1 › public application, shortlist persistence, account settings and administrator operations 
+  14) [desktop] › tests/e2e/similar.spec.ts:6:1 › similar profiles and deletion request entry 
+  14 failed
+  2 skipped
+  43 passed (4.6m)

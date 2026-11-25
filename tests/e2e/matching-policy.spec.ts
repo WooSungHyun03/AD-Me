@@ -2,6 +2,7 @@
 import { test, expect } from "@playwright/test";
 import { randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
+import { fillCampaignTerms } from "../support/campaign-terms-form";
 const env = Object.fromEntries(
   readFileSync(".env.local", "utf8")
     .trim()
@@ -32,9 +33,8 @@ test("hard category/budget policy is saved and applied", async ({ page }) => {
   await page.getByLabel("광고 목적", { exact: true }).fill("정책 검증");
   await page.getByLabel("분야 조건").selectOption("hard");
   await page.getByLabel("예산 조건").selectOption("hard");
-  await page
-    .getByLabel("필수 조건 정보가 없는 크리에이터")
-    .selectOption("exclude");
+  await page.getByLabel("필수 정보 미확인 후보").selectOption("exclude");
+  await fillCampaignTerms(page); // D041/D043: schedule and usage rights are required
   await page.getByRole("button", { name: "캠페인 저장" }).click();
   await expect(page).toHaveURL(/campaigns\/[a-f0-9-]{36}/);
   const id = page.url().split("/").pop()!;
@@ -42,15 +42,14 @@ test("hard category/budget policy is saved and applied", async ({ page }) => {
     page.getByText(/추천 정책: 분야 필수 · 예산 필수 · 정보 없음 시 제외/),
   ).toBeVisible();
   // Every shown recommendation must satisfy the hard category gate.
-  expect(await page.locator("details").count()).toBeGreaterThan(0);
-  for (const d of await page.locator("details").all()) {
+  const reasons = page.locator("details").filter({ hasText: "추천 근거 보기" }); // not the header's mobile menu
+  expect(await reasons.count()).toBeGreaterThan(0);
+  for (const d of await reasons.all()) {
     await d.locator("summary").click();
     await expect(d.getByText(/콘텐츠 분야 \(25%\): 100점/)).toBeVisible();
   }
   await page.goto(`/campaigns/${id}/edit`);
   await expect(page.getByLabel("분야 조건")).toHaveValue("hard");
-  await expect(page.getByLabel("필수 조건 정보가 없는 크리에이터")).toHaveValue(
-    "exclude",
-  );
+  await expect(page.getByLabel("필수 정보 미확인 후보")).toHaveValue("exclude");
   await page.request.delete(`/api/campaigns?id=${id}`);
 });

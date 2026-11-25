@@ -2,6 +2,7 @@ import { channels } from "./support/youtube";
 import { test, expect, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
+import { fillCampaignTerms } from "../support/campaign-terms-form";
 const accounts = JSON.parse(
   readFileSync(
     process.env.ADME_ACCOUNTS_FILE || ".accounts.local.json",
@@ -32,7 +33,7 @@ test("public discovery, filters, comparison, history, drafts and responsive layo
   await page.goto("/creators");
   // D033: first server page only (24), the rest via keyset "더 보기".
   await expect(page.getByTestId("creator-card")).toHaveCount(24);
-  await page.getByRole("button", { name: "더 보기" }).click();
+  await page.getByRole("button", { name: "다음 후보 더 불러오기" }).click();
   await expect(page.getByTestId("creator-card")).toHaveCount(48);
   const html = await page.content();
   expect(html).not.toMatch(/owner_id\\?":\\?"[0-9a-f]{8}-/); // no owner ids in RSC payload
@@ -117,10 +118,7 @@ test("two-role real DB golden path, permissions, persistence, delivery, billing 
   await page.getByLabel("콘텐츠 분야", { exact: true }).selectOption("뷰티");
   await page.getByLabel("타깃 고객", { exact: true }).fill("20대~30대");
   await page.getByLabel("광고 목적", { exact: true }).fill("브랜드 인지도");
-  // D041 structured terms: each deliverable needs its usage rights.
-  await page
-    .getByLabel("산출물 1 사용권", { exact: true })
-    .fill("브랜드 채널 3개월 2차 활용");
+  await fillCampaignTerms(page); // D041/D043: schedule and usage rights are required
   await page.getByRole("button", { name: "캠페인 저장" }).click();
   await expect(page).toHaveURL(/campaigns\/[a-f0-9-]{36}/);
   const campaignId = page.url().split("/").pop()!;

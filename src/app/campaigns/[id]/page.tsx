@@ -161,6 +161,13 @@ export default async function Campaign({
         </div>
         <div>
           <h2>브랜드에 어울리는 발견.</h2>
+          <p style={{ fontSize: 13 }}>
+            추천 정책: 분야{" "}
+            {brief.policy?.category === "hard" ? "필수" : "선호"} · 예산{" "}
+            {brief.policy?.budget === "hard" ? "필수" : "선호"} · 정보 없음 시{" "}
+            {brief.policy?.unknown === "exclude" ? "제외" : "보류"}. 협업 불가·
+            플랫폼 불일치 크리에이터는 점수 계산 전에 제외됩니다.
+          </p>
           <p>
             태그와 예산을 바탕으로 계산한 설명 가능한 추천입니다. HOT 유료
             노출과 독립적입니다.
