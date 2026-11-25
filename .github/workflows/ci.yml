@@ -19,6 +19,8 @@ jobs:
       - run: python3 harness/validate_service_backlog.py
       - run: python3 harness/production_readiness.py --check
       - run: python3 harness/migration_check.py
+      # D085: the checker's own rule regressions (RLS, definer search_path, contract phase, manifest drift).
+      - run: python3 -m unittest harness/migration_check_test.py
       - run: python3 harness/validate_handoff.py
       - run: npm run lint
       - run: npm run typecheck

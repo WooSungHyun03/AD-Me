@@ -1939,7 +1939,7 @@ DEV-A · P0 · S0 출시 차단 · QA · IN_PROGRESS · 8 SP · ACTIVE
 
 ## D085 · CI·배포 산출물·마이그레이션 안전
 
-DEV-B · P0 · S0 출시 차단 · DEVOPS · TODO · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · DEVOPS · IN_PROGRESS · 5 SP · ACTIVE
 
 - **현재 문제** — 운영 DB 원장 41행, main SQL 105개이며 여러 버전이 원격에서 다른 번호로 기록됐다. 최신 RPC 부재로 현재 main 앱 단독 승격 불가다.
 - **재현·관찰** — 마이그레이션 본문·이름·현재 계약을 매핑한 후 복제 DB dry-run, 세션·공개 DTO·checkout·rollback 검사. APPLIED migration은 불변이다.
@@ -1955,8 +1955,8 @@ DEV-B · P0 · S0 출시 차단 · DEVOPS · TODO · 5 SP · ACTIVE
 - **보안** — 로컬 통과와 실제 DB 적용/실제 URL 검증을 별도 상태로 기록한다.
 - **검증** — 격리 DB 마이그레이션·롤백 모의·CI 실행; 외부 적용은 사용자 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — CI 검사·마이그레이션 순서·롤백/forward fix·환경 설정 목록·사용자 배포 체크리스트를 준비한다.
-- **차단 요인** — 운영 복구 백업과 적용 순서 승인. 원격 원장의 버전 명명 차이는 SQL 계약 대조가 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D085/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
+- **차단 요인** — 2026-11-25: CI checks 복구(manifest 20261125120000 행, 검사기 테스트 CI 편입)와 운영 미적용 21개 적용 순서 패킷 작성. CI migrations(ci-db.sh)는 merge a5f3326의 DEV-B 화면 회귀(billing-cancel·claims·compare)와 D038 import 공개 DTO 미전환으로 FAIL — 복원 후 재실행 필요. 운영 적용·지문 등록·배포는 U004/U005.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D085/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md · harness/evidence/D085/20261125/README.md
 - **이전 기록** — OPEN
 
 ## D086 · 관측·오류 추적·상태·비용 알림

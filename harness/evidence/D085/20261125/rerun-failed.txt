@@ -1,0 +1,248 @@
+
+Running 8 tests using 1 worker
+
+[1/8] [desktop] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys
+  1) [desktop] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('row').filter({ hasText: 'brand_pro' })
+    Expected substring: "TEST 결제 완료"
+    Received string:    "brand_pro49,000원paid2026. 11. 25."
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" getByRole('row').filter({ hasText: 'brand_pro' }) with timeout 5000ms
+      - waiting for getByRole('row').filter({ hasText: 'brand_pro' })
+        10 × locator resolved to <tr>…</tr>
+           - unexpected value "brand_pro49,000원paid2026. 11. 25."
+
+
+      78 |     await expect(page).toHaveURL(/dashboard/);
+      79 |     const row = page.getByRole("row").filter({ hasText: "brand_pro" });
+    > 80 |     await expect(row).toContainText("TEST 결제 완료");
+         |                       ^
+      81 |     const bad = await page.request.post("/api/billing/cancel", {
+      82 |       data: { orderId: order, paymentKey: "x", reason: "a" },
+      83 |     });
+        at C:\projects\AD-Me-devb-1125\tests\e2e\billing-cancel.spec.ts:80:23
+
+    Error Context: test-results\billing-cancel-TEST-cancel-e8bcc-afely-without-provider-keys-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\billing-cancel-TEST-cancel-e8bcc-afely-without-provider-keys-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\billing-cancel-TEST-cancel-e8bcc-afely-without-provider-keys-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[2/8] [desktop] › tests\e2e\claims.spec.ts:32:1 › collected profile: unverified label, claim code once, admin approves only with matching code
+  2) [desktop] › tests\e2e\claims.spec.ts:32:1 › collected profile: unverified label, claim code once, admin approves only with matching code 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/creators/yt-e2e-8fde1944
+    Call log:
+      - navigating to "http://localhost:3000/creators/yt-e2e-8fde1944", waiting until "load"
+
+
+      71 |   });
+      72 |   try {
+    > 73 |     await page.goto(`/creators/${id}`);
+         |                ^
+      74 |     await expect(page.getByText("미인증 · 협업 의사 미확인")).toBeVisible();
+      75 |     await expect(
+      76 |       page.getByRole("link", { name: /협업 캠페인 만들기/ }),
+        at C:\projects\AD-Me-devb-1125\tests\e2e\claims.spec.ts:73:16
+
+    Error Context: test-results\claims-collected-profile-u-05de7-ves-only-with-matching-code-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\claims-collected-profile-u-05de7-ves-only-with-matching-code-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\claims-collected-profile-u-05de7-ves-only-with-matching-code-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[3/8] [desktop] › tests\e2e\compare.spec.ts:12:1 › compare: private note, link share without notes, CSV, revoke
+  3) [desktop] › tests\e2e\compare.spec.ts:12:1 › compare: private note, link share without notes, CSV, revoke 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/login
+    Call log:
+      - navigating to "http://localhost:3000/login", waiting until "load"
+
+
+      4 | const accounts = JSON.parse(readFileSync(".accounts.local.json", "utf8"));
+      5 | async function login(page: Page, acc: { email: string; password: string }) {
+    > 6 |   await page.goto("/login");
+        |              ^
+      7 |   await page.getByLabel("이메일", { exact: true }).fill(acc.email);
+      8 |   await page.getByLabel("비밀번호", { exact: true }).fill(acc.password);
+      9 |   await page.getByRole("button", { name: "로그인", exact: true }).click();
+        at login (C:\projects\AD-Me-devb-1125\tests\e2e\compare.spec.ts:6:14)
+        at C:\projects\AD-Me-devb-1125\tests\e2e\compare.spec.ts:18:9
+
+    Error Context: test-results\compare-compare-private-no-d60ae-re-without-notes-CSV-revoke-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\compare-compare-private-no-d60ae-re-without-notes-CSV-revoke-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\compare-compare-private-no-d60ae-re-without-notes-CSV-revoke-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[4/8] [desktop] › tests\e2e\csv-import.spec.ts:14:1 › csv import: preview, partial commit, export round-trip, other account blocked
+  4) [desktop] › tests\e2e\csv-import.spec.ts:14:1 › csv import: preview, partial commit, export round-trip, other account blocked 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/login
+    Call log:
+      - navigating to "http://localhost:3000/login", waiting until "load"
+
+
+       6 | const accounts = JSON.parse(readFileSync(".accounts.local.json", "utf8"));
+       7 | async function login(page: Page, acc: { email: string; password: string }) {
+    >  8 |   await page.goto("/login");
+         |              ^
+       9 |   await page.getByLabel("이메일", { exact: true }).fill(acc.email);
+      10 |   await page.getByLabel("비밀번호", { exact: true }).fill(acc.password);
+      11 |   await page.getByRole("button", { name: "로그인", exact: true }).click();
+        at login (C:\projects\AD-Me-devb-1125\tests\e2e\csv-import.spec.ts:8:14)
+        at C:\projects\AD-Me-devb-1125\tests\e2e\csv-import.spec.ts:18:9
+
+    Error Context: test-results\csv-import-csv-import-prev-ccd92--trip-other-account-blocked-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\csv-import-csv-import-prev-ccd92--trip-other-account-blocked-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\csv-import-csv-import-prev-ccd92--trip-other-account-blocked-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[5/8] [mobile] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys
+  5) [mobile] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys 
+
+    AggregateError: apiRequestContext.post: connect ECONNREFUSED ::1:3000
+    connect ECONNREFUSED 127.0.0.1:3000
+    Call log:
+      - → POST http://localhost:3000/api/billing/cancel
+        - user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1
+        - accept: */*
+        - accept-encoding: gzip,deflate,br
+        - content-type: application/json
+        - content-length: 127
+
+        at apiRequestContext.post: connect ECONNREFUSED ::1:3000
+        at C:\projects\AD-Me-devb-1125\tests\e2e\billing-cancel.spec.ts:64:23
+
+    Error Context: test-results\billing-cancel-TEST-cancel-e8bcc-afely-without-provider-keys-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\billing-cancel-TEST-cancel-e8bcc-afely-without-provider-keys-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\billing-cancel-TEST-cancel-e8bcc-afely-without-provider-keys-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[6/8] [mobile] › tests\e2e\claims.spec.ts:32:1 › collected profile: unverified label, claim code once, admin approves only with matching code
+  6) [mobile] › tests\e2e\claims.spec.ts:32:1 › collected profile: unverified label, claim code once, admin approves only with matching code 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/creators/yt-e2e-22638343
+    Call log:
+      - navigating to "http://localhost:3000/creators/yt-e2e-22638343", waiting until "load"
+
+
+      71 |   });
+      72 |   try {
+    > 73 |     await page.goto(`/creators/${id}`);
+         |                ^
+      74 |     await expect(page.getByText("미인증 · 협업 의사 미확인")).toBeVisible();
+      75 |     await expect(
+      76 |       page.getByRole("link", { name: /협업 캠페인 만들기/ }),
+        at C:\projects\AD-Me-devb-1125\tests\e2e\claims.spec.ts:73:16
+
+    Error Context: test-results\claims-collected-profile-u-05de7-ves-only-with-matching-code-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\claims-collected-profile-u-05de7-ves-only-with-matching-code-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\claims-collected-profile-u-05de7-ves-only-with-matching-code-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[7/8] [mobile] › tests\e2e\compare.spec.ts:12:1 › compare: private note, link share without notes, CSV, revoke
+  7) [mobile] › tests\e2e\compare.spec.ts:12:1 › compare: private note, link share without notes, CSV, revoke 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/login
+    Call log:
+      - navigating to "http://localhost:3000/login", waiting until "load"
+
+
+      4 | const accounts = JSON.parse(readFileSync(".accounts.local.json", "utf8"));
+      5 | async function login(page: Page, acc: { email: string; password: string }) {
+    > 6 |   await page.goto("/login");
+        |              ^
+      7 |   await page.getByLabel("이메일", { exact: true }).fill(acc.email);
+      8 |   await page.getByLabel("비밀번호", { exact: true }).fill(acc.password);
+      9 |   await page.getByRole("button", { name: "로그인", exact: true }).click();
+        at login (C:\projects\AD-Me-devb-1125\tests\e2e\compare.spec.ts:6:14)
+        at C:\projects\AD-Me-devb-1125\tests\e2e\compare.spec.ts:18:9
+
+    Error Context: test-results\compare-compare-private-no-d60ae-re-without-notes-CSV-revoke-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\compare-compare-private-no-d60ae-re-without-notes-CSV-revoke-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\compare-compare-private-no-d60ae-re-without-notes-CSV-revoke-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[8/8] [mobile] › tests\e2e\csv-import.spec.ts:14:1 › csv import: preview, partial commit, export round-trip, other account blocked
+  8) [mobile] › tests\e2e\csv-import.spec.ts:14:1 › csv import: preview, partial commit, export round-trip, other account blocked 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:3000/login
+    Call log:
+      - navigating to "http://localhost:3000/login", waiting until "load"
+
+
+       6 | const accounts = JSON.parse(readFileSync(".accounts.local.json", "utf8"));
+       7 | async function login(page: Page, acc: { email: string; password: string }) {
+    >  8 |   await page.goto("/login");
+         |              ^
+       9 |   await page.getByLabel("이메일", { exact: true }).fill(acc.email);
+      10 |   await page.getByLabel("비밀번호", { exact: true }).fill(acc.password);
+      11 |   await page.getByRole("button", { name: "로그인", exact: true }).click();
+        at login (C:\projects\AD-Me-devb-1125\tests\e2e\csv-import.spec.ts:8:14)
+        at C:\projects\AD-Me-devb-1125\tests\e2e\csv-import.spec.ts:18:9
+
+    Error Context: test-results\csv-import-csv-import-prev-ccd92--trip-other-account-blocked-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\csv-import-csv-import-prev-ccd92--trip-other-account-blocked-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\csv-import-csv-import-prev-ccd92--trip-other-account-blocked-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  8 failed
+    [desktop] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys 
+    [desktop] › tests\e2e\claims.spec.ts:32:1 › collected profile: unverified label, claim code once, admin approves only with matching code 
+    [desktop] › tests\e2e\compare.spec.ts:12:1 › compare: private note, link share without notes, CSV, revoke 
+    [desktop] › tests\e2e\csv-import.spec.ts:14:1 › csv import: preview, partial commit, export round-trip, other account blocked 
+    [mobile] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys 
+    [mobile] › tests\e2e\claims.spec.ts:32:1 › collected profile: unverified label, claim code once, admin approves only with matching code 
+    [mobile] › tests\e2e\compare.spec.ts:12:1 › compare: private note, link share without notes, CSV, revoke 
+    [mobile] › tests\e2e\csv-import.spec.ts:14:1 › csv import: preview, partial commit, export round-trip, other account blocked 

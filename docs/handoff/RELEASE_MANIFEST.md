@@ -1,6 +1,6 @@
 # Release manifest: DB migrations, environment, user deployment checklist (D085)
 
-Current as of 2026-11-23. DEV-B migrations were renumbered `202611231000NN` (formerly `2026111900NN`, same suffix) so they apply after DEV-A's main. `harness/migration_check.py` checks that every migration file appears in the table below exactly once, and that any migration containing destructive SQL is marked contract.
+Current as of 2026-11-25 (pending packet below; earlier environment rows are historical). DEV-B migrations were renumbered `202611231000NN` (formerly `2026111900NN`, same suffix) so they apply after DEV-A's main. `harness/migration_check.py` checks that every migration file appears in the table below exactly once, and that any migration containing destructive SQL is marked contract.
 
 ## State (kept separate per environment)
 | Environment | State | Basis |
@@ -10,6 +10,43 @@ Current as of 2026-11-23. DEV-B migrations were renumbered `202611231000NN` (for
 | Vercel production URL | PR #3 and release corrections promoted and checked at be-celeb.org | [D088 production verification](../../harness/evidence/D088/README.md) |
 
 The D088 evidence records checks performed against the hosted database and production URL.
+
+## 2026-11-25 pending hosted application packet (D085)
+
+Prepared from main for operator review (U004 DB, U005 app). **Nothing here has been applied to the hosted database by DEV-B.** Local results and hosted state are recorded separately.
+
+- Repository: 125 migrations. The last version mapped to the hosted ledger is `20261123100029` ([D088 mapping](../../harness/evidence/D088/README.md)); the hosted ledger has 41 rows with different historical version names, and the 2026-11-24 read-only check found the product-condition RPC (`20261124020115`) absent. The 21 files below are therefore treated as pending until the operator confirms each body/grant/call contract against the restored backup.
+- Apply strictly in version order, in one reviewed batch per group, after a fresh backup and a restore-upgrade rehearsal (`RELEASE_BASELINE.md` 2026-11-25). No row below is phase `contract`; rollback is forward fix (old app keeps working against expand/switch objects).
+- Then register the fingerprint of the exact commit with `node scripts/production-schema.mjs --fingerprint` as `ADME_PRODUCTION_SCHEMA_SHA256`; until then `vercel.json` skips/blocks production builds. A locally computed fingerprint is not approval.
+- `20261125120000` contains a STOP guard: it aborts if the hosted `submit_report` body differs from main. Treat an abort as "do not continue", not as a retry.
+
+| # | Version | Phase | Owner | File |
+|---|---|---|---|---|
+| 1 | `20261123110001` | switch | DEV-A | `20261123110001_youtube_public_boundary.sql` |
+| 2 | `20261123112401` | expand/switch | DEV-A | `20261123112401_youtube_directory_pagination.sql` |
+| 3 | `20261123113123` | switch | DEV-A | `20261123113123_youtube_directory_cursor_integer.sql` |
+| 4 | `20261123114341` | switch | DEV-A | `20261123114341_saved_catalog_list_compatibility.sql` |
+| 5 | `20261123114636` | switch | DEV-A | `20261123114636_promotion_public_reference_boundary.sql` |
+| 6 | `20261123121526` | expand | DEV-A | `20261123121526_campaign_brief_file_versions.sql` |
+| 7 | `20261123122650` | expand | DEV-A | `20261123122650_brief_upload_attestation_snapshot.sql` |
+| 8 | `20261123123531` | switch | DEV-A | `20261123123531_brief_account_budget.sql` |
+| 9 | `20261123125600` | expand/switch | DEV-A | `20261123125600_policy_aware_recommendation_snapshots.sql` |
+| 10 | `20261124020115` | expand/switch | DEV-A | `20261124020115_owned_product_condition_workflow.sql` |
+| 11 | `20261124021507` | switch | DEV-A | `20261124021507_validate_minimized_product_source.sql` |
+| 12 | `20261124022829` | expand/switch | DEV-A | `20261124022829_explicit_product_job_operation.sql` |
+| 13 | `20261124073053` | expand/switch | DEV-B | `20261124073053_free_campaign_marketplace.sql` |
+| 14 | `20261124074917` | switch | DEV-B | `20261124074917_test_entitlement_grant_boundary.sql` |
+| 15 | `20261124080724` | expand/switch | DEV-B | `20261124080724_demo_catalog_boundary.sql` |
+| 16 | `20261124124402` | switch | DEV-B | `20261124124402_privacy_session_reauthentication.sql` |
+| 17 | `20261124125948` | expand/switch | DEV-B | `20261124125948_campaign_recruitment_window.sql` |
+| 18 | `20261124133155` | expand/switch | DEV-B | `20261124133155_proposal_transition_requests.sql` |
+| 19 | `20261124133707` | switch | DEV-B | `20261124133707_proposal_acceptance_eligibility.sql` |
+| 20 | `20261125120000` | switch | DEV-A | `20261125120000_report_review_queue_contract.sql` |
+| 21 | `20261125130000` | expand | DEV-B | `20261125130000_d036_saved_list_public_refs.sql` |
+
+### CI gate (2026-11-25)
+- Every main commit from `1d31c9b` to `59f7eba` failed GitHub validation. The `checks` job failed on `migration_check` because `20261125120000` had no manifest row, which also skipped the DB job; before that, `tests/ci-db.sh` failed. A red `checks` job hides DB/E2E regressions, so run `python3 harness/migration_check.py` before pushing any SQL.
+- `harness/migration_check_test.py` (checker rule regressions) now runs in CI.
 
 ## Migrations: phases and compatibility
 Phases: expand (additions only, old app unaffected), backfill (transforms existing data), switch (replaces policy/function behaviour), contract (removes things the old app may use).
@@ -187,4 +224,5 @@ These rows complete the source inventory; they do not assert any hosted applicat
 | `20261124125948` | expand/switch | DEV-B D043: `20261124125948_campaign_recruitment_window.sql` | Central application trigger enforces structured/legacy deadlines, capacity and job expiry across RPC/REST; safe board acceptance/count fields added. Existing proposals, publication and idempotent retries preserved. Local120→121 only; hosted application requires operator approval. |
 | `20261124133155` | expand/switch | DEV-B D049: `20261124133155_proposal_transition_requests.sql` | Optional request-key acknowledgment RPC for pending accept/reject/cancel with private RLS receipts; delegates existing permission/state/event transaction. Legacy two-argument and delivery RPCs unchanged. Local121→122 only; hosted application requires operator approval. |
 | `20261124133707` | switch | DEV-B D049: `20261124133707_proposal_acceptance_eligibility.sql` | Common pending→accepted trigger checks both parties' contact/privacy eligibility and current creator/campaign moderation, including legacy RPC. Existing accepted records retained. Apply reviewed122→123 together; hosted application requires operator approval. |
+| `20261125120000` | switch | DEV-A D075/D057: `20261125120000_report_review_queue_contract.sql` | `admin_review_report` keeps signature/grants/audit and delegates reviewed→resolved to the queue `review_report`; `submit_report` duplicate check serialized by advisory lock (STOP guard if hosted body differs; no new index, existing duplicates kept). API/UI unchanged. Hosted application requires operator approval (fingerprint in harness/evidence/D075/REPORT_FIX_20261125.md). |
 | `20261125130000` | expand | DEV-B D036: `20261125130000_d036_saved_list_public_refs.sql` | Authenticated-only gateways add/remove/read named groups and campaign shortlists by public creator reference with the catalog visibility gate; retry-safe add, owner-only DTO without internal IDs. Existing saved_lists/items rows, RLS and triggers unchanged. Local125 only; hosted application requires operator approval. |
