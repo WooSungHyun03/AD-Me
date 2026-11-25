@@ -4,6 +4,8 @@ import { createClient } from "@supabase/supabase-js";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
+import { randomUUID } from "node:crypto";
+import { elevateAdmin } from "./support/admin-mfa.mjs";
 const env = Object.fromEntries(
   readFileSync(".env.local", "utf8")
     .trim()
@@ -49,7 +51,7 @@ const svc = createClient(
 );
 const brand = await as(a.brand),
   creator = await as(a.creator),
-  admin = await as(a.admin),
+  admin = await elevateAdmin(await as(a.admin), a.admin),
   anon = await as();
 const cid = sql(`select id from creators where owner_id = '${a.creator.id}'`);
 const was = sql(
@@ -82,9 +84,18 @@ const imp = (e) =>
       `select coalesce(sum(n), 0) from promotion_impressions where entitlement_id = '${e}'`,
     ),
   );
+// Slots carry the opaque public reference, never the internal user-<uuid> ID.
+const ref = sql(`select adme_creator.public_reference('${cid}')`);
+// D070 slots require an owner-verified creator with a consented, reviewed and fresh YouTube channel
+// claim. Local-only fixture, removed in finally.
+const channel = `UC${randomUUID().replaceAll("-", "").slice(0, 22)}`;
 let ent;
 try {
-  sql(`update creators set published = true where id = '${cid}'`);
+  sql(`update creators set published = true, claim_status = 'verified' where id = '${cid}';
+       insert into adme_ops.channels(channel_id,title,review,source_policy,fetched_at,expires_at)
+         values('${channel}','D070 QA 채널','accepted','ci-source-fixture',now(),now()+interval '1 day');
+       insert into adme_ops.channel_claims(channel_id,owner_id,verified_at,consent_at)
+         values('${channel}','${a.creator.id}',now(),now());`);
   for (const db of [brand, creator, anon]) {
     assert.ok(
       (await db.rpc("serve_promotion_slots", { p_record: true })).error,
@@ -100,7 +111,7 @@ try {
     fol: await search("followers"),
     price: await search("price"),
   };
-  assert.ok(!(await slots(false)).some((s) => s.creator_id === cid));
+  assert.ok(!(await slots(false)).some((s) => s.creator_id === ref));
 
   ent = (
     await admin.rpc("admin_grant_entitlement", {
@@ -112,7 +123,7 @@ try {
     })
   ).data;
   assert.ok(ent);
-  const s = (await slots(false)).find((x) => x.creator_id === cid);
+  const s = (await slots(false)).find((x) => x.creator_id === ref);
   assert.ok(s, "active HOT appears in the slot");
   assert.deepEqual(
     Object.keys(s).sort(),
@@ -174,7 +185,7 @@ try {
 
   // Unpublished creator → not slotted.
   sql(`update creators set published = false where id = '${cid}'`);
-  assert.ok(!(await slots(false)).some((x) => x.creator_id === cid));
+  assert.ok(!(await slots(false)).some((x) => x.creator_id === ref));
   sql(`update creators set published = true where id = '${cid}'`);
 
   // Expiry by the DB clock → gone, and no further impressions.
@@ -183,7 +194,7 @@ try {
   );
   await new Promise((r) => setTimeout(r, 1500));
   assert.ok(
-    !(await slots(true)).some((x) => x.creator_id === cid),
+    !(await slots(true)).some((x) => x.creator_id === ref),
     "expired HOT not served",
   );
   assert.equal(imp(ent), 2);
@@ -198,19 +209,20 @@ try {
       p_note: "D070 회수 검증",
     })
   ).data;
-  assert.ok((await slots(false)).some((x) => x.creator_id === cid));
+  assert.ok((await slots(false)).some((x) => x.creator_id === ref));
   await admin.rpc("revoke_entitlement", {
     p_id: ent2,
     p_reason: "D070 회수 검증",
   });
   assert.ok(
-    !(await slots(false)).some((x) => x.creator_id === cid),
+    !(await slots(false)).some((x) => x.creator_id === ref),
     "revoked HOT not served",
   );
 } finally {
   const [pub, claim] = was.split("|");
   sql(`update creators set published = ${pub === "true"}, claim_status = '${claim}' where id = '${cid}';
-       delete from entitlements where owner_id = '${a.creator.id}' and sku = 'creator_hot' and grant_note like 'D070%'`);
+       delete from entitlements where owner_id = '${a.creator.id}' and sku = 'creator_hot' and grant_note like 'D070%';
+       delete from adme_ops.channel_claims where channel_id = '${channel}'; delete from adme_ops.channels where channel_id = '${channel}';`);
 }
 console.log(
   "PASS: D070 promotion slots — service-only minimal DTO (≤3), old RPC closed, organic order unchanged, impressions counted only on serve and owner/admin-readable, unpublished/expired/revoked not served",

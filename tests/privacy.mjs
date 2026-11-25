@@ -149,10 +149,10 @@ assert.deepEqual(logB, [{ action: "denied", export_id: null }]);
 // Rate limit: 5 tickets per 24h (A has 2).
 for (let i = 0; i < 3; i++) assert.equal((await create(A.db)).error, null);
 assert.match((await create(A.db)).error.message, /rate_limited/);
-// Re-authentication enforced in the DB, not only in the route.
-sql(
-  `update auth.users set last_sign_in_at = now() - interval '11 minutes' where id='${B.id}'`,
-);
+// Re-authentication enforced in the DB, not only in the route. Since D074 the proof is the live
+// session's JWT authentication event (amr age is covered by tests/local-privacy-session.mjs); an ended
+// session no longer counts even though its access token is still unexpired.
+sql(`delete from auth.sessions where user_id='${B.id}'`);
 assert.match((await create(B.db)).error.message, /reauth_required/);
 console.log(
   "PASS: D074 privacy export — anon/other-account denied, hash unreadable, one-time, expiry, re-auth, 5/day, own-only access log",

@@ -6,6 +6,9 @@ import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import assert from "node:assert/strict";
+import { elevateAdmin } from "./support/admin-mfa.mjs";
+import { totp } from "./support/local-qa.mjs";
+import { publishCreator } from "./support/creator-publication.mjs";
 const env = Object.fromEntries(
   readFileSync(".env.local", "utf8")
     .trim()
@@ -23,6 +26,9 @@ const client = () =>
     env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     { auth: { persistSession: false } },
   );
+// Anonymous visibility through the public profile gateway (the creators table is not client-readable).
+const publicCount = async (id) =>
+  (await client().rpc("creator_public_one", { p_ref: id })).data ? 1 : 0;
 // Collector path = database owner (no RLS), standing in for a future ingestion writer.
 const psql = (sql) =>
   execFileSync(
@@ -64,7 +70,7 @@ const signup = async (role = "brand") => {
   assert.equal(r.error, null);
   return { db, uid: r.data.user.id };
 };
-const admin = await login(a.admin);
+const admin = await elevateAdmin(await login(a.admin), a.admin);
 const err = (r) => r.error?.message ?? "";
 const submit = (db, o) =>
   db.rpc("submit_report", {
@@ -268,7 +274,7 @@ assert.equal(
   "false,true",
 );
 assert.equal(
-  (await client().from("creators").select("id").eq("id", cid)).data.length,
+  (await publicCount(cid)),
   0,
   "hidden profile not public",
 );
@@ -421,7 +427,26 @@ assert.match(
   /same_reviewer/,
 );
 const second = await signup();
-psql(`update profiles set role='admin' where id='${second.uid}'`);
+// A second, independently provisioned admin with its own TOTP factor (admin RPCs require aal2).
+psql(
+  `select public.provision_administrator('${second.uid}', 'Isolated QA second reviewer', now()+interval '1 day')`,
+);
+{
+  const { data: f, error: fe } = await second.db.auth.mfa.enroll({
+    factorType: "totp",
+    issuer: "AD Me isolated QA",
+  });
+  assert.equal(fe, null);
+  assert.equal(
+    (
+      await second.db.auth.mfa.challengeAndVerify({
+        factorId: f.id,
+        code: totp(f.totp.secret),
+      })
+    ).error,
+    null,
+  );
+}
 assert.equal(
   (
     await review(
@@ -449,11 +474,11 @@ const O = await signup("creator");
 const oid = `user-${O.uid}`;
 assert.equal(
   (
-    await O.db.from("creators").insert({
-      id: oid,
-      owner_id: O.uid,
-      published: true,
-      profile: JSON.parse(profile("본인 프로필")),
+    await publishCreator(O.db, {
+      ...JSON.parse(profile("본인 프로필")),
+      vibes: ["자연스러움"],
+      formats: ["숏폼"],
+      social_url: "",
     })
   ).error,
   null,

@@ -7,6 +7,8 @@ import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import assert from "node:assert/strict";
+import { publishCreator } from "./support/creator-publication.mjs";
+import { elevateAdmin } from "./support/admin-mfa.mjs";
 const env = Object.fromEntries(
   readFileSync(".env.local", "utf8")
     .trim()
@@ -25,6 +27,9 @@ const client = () =>
     env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     opts,
   );
+// Anonymous visibility through the public profile gateway (the creators table is not client-readable).
+const publicCount = async (id) =>
+  (await client().rpc("creator_public_one", { p_ref: id })).data ? 1 : 0;
 const service = createClient(
   env.NEXT_PUBLIC_SUPABASE_URL,
   env.SUPABASE_SERVICE_ROLE_KEY,
@@ -60,6 +65,7 @@ const psqlErr = (q) => {
 const a = JSON.parse(readFileSync(".accounts.local.json", "utf8"));
 const admin = client();
 assert.equal((await admin.auth.signInWithPassword(a.admin)).error, null);
+await elevateAdmin(admin, a.admin);
 const signup = async (role) => {
   const db = client();
   const r = await db.auth.signUp({
@@ -147,8 +153,8 @@ const own = {
   bio: "본인 소개 원문",
   handle: "self_reported",
   categories: ["뷰티"],
-  vibes: [],
-  formats: [],
+  vibes: ["자연스러움"],
+  formats: ["숏폼"],
   platforms: ["youtube"],
   price_min_krw: null,
   price_max_krw: null,
@@ -158,9 +164,7 @@ const own = {
 };
 assert.equal(
   (
-    await C.db
-      .from("creators")
-      .upsert({ id: oid, owner_id: C.uid, published: true, profile: own })
+    await publishCreator(C.db, own)
   ).error,
   null,
 );
@@ -259,7 +263,7 @@ psql(
   `update uploads set status = 'ready', deleted_at = null where id = '${upId}'`,
 );
 assert.equal(
-  (await client().from("creators").select("id").eq("id", cid)).data.length,
+  (await publicCount(cid)),
   1,
   "restore re-exposed the profile",
 );
@@ -275,7 +279,7 @@ assert.ok(
   JSON.stringify(r1.data),
 );
 assert.equal(
-  (await client().from("creators").select("id").eq("id", cid)).data.length,
+  (await publicCount(cid)),
   0,
   "collected profile hidden again",
 );
@@ -313,10 +317,7 @@ assert.deepEqual(
 // 7. Owner re-registers: their new choice drops the owner tombstone, so a later reapply leaves it alone.
 assert.equal(
   (
-    await C.db
-      .from("creators")
-      .update({ published: true, profile: { ...own, name: "D079 재등록" } })
-      .eq("id", oid)
+    await publishCreator(C.db, { ...own, name: "D079 재등록" })
   ).error,
   null,
 );

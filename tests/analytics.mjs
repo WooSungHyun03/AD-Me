@@ -99,7 +99,16 @@ assert.ok(
 // Dedupe: explore twice the same day = one; shortlist re-add = one.
 await brand.rpc("track_explore");
 await brand.rpc("track_explore");
-assert.equal(events(a.brand.id, "explore"), 1, "explore counted once per day");
+// Count only today's (KST) key: the shared QA brand may carry explore events from earlier days.
+assert.equal(
+  Number(
+    sql(
+      `select count(*) from product_events where subject = '${subj(a.brand.id)}' and event = 'explore' and dedupe_key like '%:' || to_char(now() at time zone 'Asia/Seoul', 'YYYY-MM-DD')`,
+    ),
+  ),
+  1,
+  "explore counted once per day",
+);
 const cid = sql(`select id from creators where published limit 1`);
 const list = (await brand.rpc("ensure_default_list")).data;
 const before = events(a.brand.id, "shortlist");
