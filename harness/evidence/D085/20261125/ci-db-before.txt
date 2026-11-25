@@ -1380,3 +1380,38 @@ pg_dump: detail: rooms
 pg_dump: detail: submissions
 pg_dump: hint: You might not be able to restore the dump without using --disable-triggers or temporarily dropping the constraints.
 pg_dump: hint: Consider using a full dump instead of a --data-only dump to avoid this problem.
+node:internal/child_process:1160
+    result.error = new ErrnoException(result.error, 'spawnSync ' + options.file);
+                   ^
+
+<ref *1> Error: spawnSync npx ENOENT
+    at Object.spawnSync (node:internal/child_process:1160:20)
+    at spawnSync (node:child_process:928:24)
+    at execFileSync (node:child_process:971:15)
+    at file:///C:/projects/AD-Me-devb-1125/harness/restore_drill.mjs:205:1
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'spawnSync npx',
+  path: 'npx',
+  spawnargs: [
+    '--yes',
+    'supabase@2.122.1',
+    'db',
+    'reset',
+    '--local',
+    '--no-seed',
+    '--workdir',
+    'C:\\projects\\AD-Me-devb-1125'
+  ],
+  error: [Circular *1],
+  status: null,
+  signal: null,
+  output: null,
+  pid: 0,
+  stdout: undefined,
+  stderr: undefined
+}
+
+Node.js v24.19.0
+FAIL: one or more browser, database permission or recovery checks failed

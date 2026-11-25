@@ -4,8 +4,15 @@ import { context } from "@/lib/api";
 import { hasRecentAdminMfa } from "@/lib/admin-security";
 import { supportScopes } from "@/lib/admin-support";
 import { AdminSearch } from "@/components/admin-search";
+import { AdminOperations } from "@/components/admin-operations";
 export const dynamic = "force-dynamic";
-export default async function Admin() {
+export default async function Admin({
+  searchParams,
+}: {
+  searchParams: Promise<{ days?: string }>;
+}) {
+  const requested = Number((await searchParams).days);
+  const days = [7, 30, 90].includes(requested) ? requested : 30;
   const c = await context();
   if (!c) redirect("/login");
   const { data: claims, error: claimsError } = await c.db.auth.getClaims(),
@@ -35,12 +42,14 @@ export default async function Admin() {
       <nav className="figma-workspace-nav" aria-label="운영 메뉴">
         <a href="#admin-overview">운영 검색</a>
         {role === "super" && <Link href="/admin/reviews">근거 검토함</Link>}
+        {role === "super" && <a href="#admin-operations">운영 패널</a>}
         <Link href="/admin/intelligence">수집·AI 운영 콘솔</Link>
         <Link href="/admin/security">OTP 다시 확인</Link>
       </nav>
       <div className="figma-workspace-panel" id="admin-overview">
         <AdminSearch role={role} />
       </div>
+      {role === "super" && <AdminOperations db={c.db} days={days} />}
     </section>
   );
 }

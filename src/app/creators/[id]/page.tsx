@@ -17,6 +17,33 @@ import {
   safeHttpsLink,
 } from "@/lib/social-links";
 import ads from "../../../../fixtures/ads.demo.json";
+import type { Metadata } from "next";
+import { indexable } from "@/lib/seo";
+// D083 (restored after merge a5f3326): missing/unpublished profiles are noindex with a "not found"
+// title; only indexable (owner-verified, non-demo) profiles may be indexed. Access control is the
+// public DTO query itself, not this tag.
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const c = await publicCreator(id);
+  if (!c)
+    return {
+      title: "프로필을 찾을 수 없음",
+      robots: { index: false, follow: false },
+    };
+  const description = `${c.categories.join("·")} 크리에이터 프로필 · AD Me`;
+  return {
+    title: c.name,
+    description,
+    alternates: { canonical: `/creators/${encodeURIComponent(c.seed_id)}` },
+    ...(indexable(c)
+      ? { openGraph: { title: c.name, description, type: "profile" } }
+      : { robots: { index: false, follow: false } }),
+  };
+}
 export default async function Detail({
   params,
 }: {
@@ -54,7 +81,7 @@ export default async function Detail({
       category: c.categories[0],
       vibes: c.vibes,
       format: c.formats[0],
-      budget_krw: c.price_max_krw,
+      budget_krw: c.price_max_krw ?? 0, // 견적 미확인: no budget signal
     },
     creators,
   )
@@ -84,7 +111,11 @@ export default async function Detail({
         <div>
           <div className="tags">
             <span className="badge lime">
-              {c.is_available ? "협업 가능" : "협업 일정 확인 필요"}
+              {c.is_available === null
+                ? "협업 의사 미확인"
+                : c.is_available
+                  ? "협업 가능"
+                  : "협업 일정 확인 필요"}
             </span>
             <span className="badge">
               {c.is_demo ? "가상 프로필" : "본인 등록"}
@@ -115,7 +146,11 @@ export default async function Detail({
               <span>{c.is_demo ? "가상 팔로워" : "팔로워"}</span>
             </div>
             <div>
-              <strong>{c.price_min_krw.toLocaleString()}원~</strong>
+              <strong>
+                {c.price_min_krw === null
+                  ? "견적 미확인"
+                  : `${c.price_min_krw.toLocaleString()}원~`}
+              </strong>
               <span>
                 {c.is_demo ? "가상 최소 견적" : "본인 등록 최소 견적"}
               </span>

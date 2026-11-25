@@ -7,6 +7,7 @@ import { test, expect, type Page } from "@playwright/test";
 import { createClient } from "@supabase/supabase-js";
 import { randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
+import { publishCreatorFixture } from "../support/local-db-fixture";
 const env = Object.fromEntries(
   readFileSync(".env.local", "utf8")
     .trim()
@@ -51,27 +52,20 @@ async function fresh(role: "brand" | "creator") {
     })
   ).data.user!.id;
   if (role === "creator")
-    await db
-      .from("creators")
-      .insert({
-        id: `user-${id}`,
-        owner_id: id,
-        published: true,
-        profile: {
-          name: "D062 크리에이터",
-          bio: "",
-          handle: "self_reported",
-          categories: ["뷰티"],
-          vibes: ["자연스러움"],
-          formats: ["숏폼"],
-          platforms: ["youtube"],
-          price_min_krw: null,
-          price_max_krw: null,
-          followers: 0,
-          is_available: true,
-          is_demo: false,
-        },
-      });
+    publishCreatorFixture(`user-${id}`, id, {
+      name: "D062 크리에이터",
+      bio: "",
+      handle: "self_reported",
+      categories: ["뷰티"],
+      vibes: ["자연스러움"],
+      formats: ["숏폼"],
+      platforms: ["youtube"],
+      price_min_krw: null,
+      price_max_krw: null,
+      followers: 0,
+      is_available: true,
+      is_demo: false,
+    });
   return { db, id, email, password, cid: `user-${id}` };
 }
 async function proposal(
@@ -100,20 +94,15 @@ async function proposal(
       .select("id")
       .single()
   ).data!.id;
-  return (
-    await b.db
-      .from("proposals")
-      .insert({
-        campaign_id: camp,
-        creator_id: c.cid,
-        brand_id: b.id,
-        creator_user_id: c.id,
-        kind: "proposal",
-        brief: "D062 UI 검증용 제안입니다.",
-      })
-      .select("id")
-      .single()
-  ).data!.id as string;
+  // Same server path as POST /api/proposals.
+  const made = await b.db.rpc("create_creator_proposal", {
+    p_campaign: camp,
+    p_creator: c.cid,
+    p_kind: "proposal",
+    p_brief: "D062 UI 검증용 제안입니다.",
+  });
+  expect(made.error).toBeNull();
+  return made.data as string;
 }
 
 test("block from collaboration, brand cannot message, unblock in settings", async ({

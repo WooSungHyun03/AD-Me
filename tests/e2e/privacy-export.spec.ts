@@ -5,6 +5,7 @@ import { test, expect } from "@playwright/test";
 import { createClient } from "@supabase/supabase-js";
 import { randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
+import { publishCreatorFixture } from "../support/local-db-fixture";
 const env = Object.fromEntries(
   readFileSync(".env.local", "utf8")
     .trim()
@@ -38,33 +39,26 @@ test("own-data export excludes the counterparty and is logged", async ({
     await cdb.auth.signUp({
       email,
       password,
-      options: { data: { ...qaSignupConsent, role: "creator", name: "D074 크리에이터" } },
+      options: {
+        data: { ...qaSignupConsent, role: "creator", name: "D074 크리에이터" },
+      },
     })
   ).data.user!.id;
   const cid = `user-${cuid}`;
-  expect(
-    (
-      await cdb.from("creators").insert({
-        id: cid,
-        owner_id: cuid,
-        published: true,
-        profile: {
-          name: "D074 크리에이터",
-          bio: "",
-          handle: "self_reported",
-          categories: ["뷰티"],
-          vibes: ["자연스러움"],
-          formats: ["숏폼"],
-          platforms: ["youtube"],
-          price_min_krw: null,
-          price_max_krw: null,
-          followers: 0,
-          is_available: true,
-          is_demo: false,
-        },
-      })
-    ).error,
-  ).toBeNull();
+  publishCreatorFixture(cid, cuid, {
+    name: "D074 크리에이터",
+    bio: "",
+    handle: "self_reported",
+    categories: ["뷰티"],
+    vibes: ["자연스러움"],
+    formats: ["숏폼"],
+    platforms: ["youtube"],
+    price_min_krw: null,
+    price_max_krw: null,
+    followers: 0,
+    is_available: true,
+    is_demo: false,
+  });
   const brand = client();
   await brand.auth.signInWithPassword({
     email: accounts.brand.email,
@@ -92,42 +86,32 @@ test("own-data export excludes the counterparty and is logged", async ({
       .select("id")
       .single()
   ).data!.id;
-  const pid = (
-    await brand
-      .from("proposals")
-      .insert({
-        campaign_id: campaign,
-        creator_id: cid,
-        brand_id: accounts.brand.id,
-        creator_user_id: cuid,
-        kind: "proposal",
-        brief: `브랜드 비공개 브리프 ${tag}`,
-      })
-      .select("id")
-      .single()
-  ).data!.id;
+  const made = await brand.rpc("create_creator_proposal", {
+    p_campaign: campaign,
+    p_creator: cid,
+    p_kind: "proposal",
+    p_brief: `브랜드 비공개 브리프 ${tag}`,
+  });
+  expect(made.error).toBeNull();
+  const pid = made.data as string;
   expect(
     (
-      await brand
-        .from("messages")
-        .insert({
-          proposal_id: pid,
-          sender_id: accounts.brand.id,
-          kind: "message",
-          body: `브랜드 비밀 ${tag}`,
-        })
+      await brand.from("messages").insert({
+        proposal_id: pid,
+        sender_id: accounts.brand.id,
+        kind: "message",
+        body: `브랜드 비밀 ${tag}`,
+      })
     ).error,
   ).toBeNull();
   expect(
     (
-      await cdb
-        .from("messages")
-        .insert({
-          proposal_id: pid,
-          sender_id: cuid,
-          kind: "message",
-          body: `내 답장 ${tag}`,
-        })
+      await cdb.from("messages").insert({
+        proposal_id: pid,
+        sender_id: cuid,
+        kind: "message",
+        body: `내 답장 ${tag}`,
+      })
     ).error,
   ).toBeNull();
 
@@ -155,7 +139,9 @@ test("own-data export excludes the counterparty and is logged", async ({
   expect(data.proposals.find((p: { id: string }) => p.id === pid).my_role).toBe(
     "creator",
   );
-  await expect(page.getByText("내 데이터 파일을 내려받았습니다", { exact: false })).toBeVisible();
+  await expect(
+    page.getByText("내 데이터 파일을 내려받았습니다", { exact: false }),
+  ).toBeVisible();
   await page.reload();
   await expect(page.getByTestId("privacy-log")).toContainText("내려받기 완료");
   await expect(page.getByTestId("privacy-log")).toContainText("내보내기 요청");

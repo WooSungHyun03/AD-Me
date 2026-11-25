@@ -35,6 +35,8 @@ test("HOT slot is a labelled ad, organic results unchanged, owner sees exposure 
   const was = sql(`select published from creators where id = '${cid}'`);
   const note = `D070 E2E ${info.project.name} ${Date.now()}`;
   sql(`update creators set published = true where id = '${cid}'`);
+  // Browser-facing DTOs carry the opaque public reference, never the internal user-<uuid> ID.
+  const ref = sql(`select adme_creator.public_reference('${cid}')`);
   try {
     const organic = async () => {
       const r = await page.request.get("/api/creators?sort=followers");
@@ -54,7 +56,7 @@ test("HOT slot is a labelled ad, organic results unchanged, owner sees exposure 
     const api = await (await page.request.get("/api/promotions")).json();
     expect(api.enabled).toBe(true);
     const mine = api.slots.find(
-      (s: { creator_id: string }) => s.creator_id === cid,
+      (s: { creator_id: string }) => s.creator_id === ref,
     );
     expect(Object.keys(mine).sort()).toEqual([
       "category",
@@ -68,7 +70,7 @@ test("HOT slot is a labelled ad, organic results unchanged, owner sees exposure 
     await page.goto("/creators");
     const slot = page.getByTestId("promotion-slot");
     await expect(slot.getByText("광고 · TEST HOT")).toBeVisible();
-    await expect(slot.locator(`a[href="/creators/${cid}"]`)).toContainText(
+    await expect(slot.locator(`a[href="/creators/${ref}"]`)).toContainText(
       "광고 ~",
     );
     await expect(slot).toContainText(

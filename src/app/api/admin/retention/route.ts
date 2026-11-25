@@ -20,27 +20,34 @@ async function handlePOST(req: Request) {
   if (!p.success) return fail("잘못된 요청입니다.");
   const admin = storageAdmin();
   if (!admin) return fail("서버 키가 설정되지 않았습니다.", 503);
+  let failed: unknown = null;
   try {
     if (p.data.action === "run") {
       const { data, error } = await admin.rpc("run_retention");
-      if (error || data?.error) {
-        await reportError(error ?? new Error("retention_failed"), {
-          route: "/api/admin/retention",
-        });
-        return fail("보존 작업에 실패했습니다. 다시 실행해주세요.", 500);
-      }
-      return NextResponse.json({ ok: true, counts: data });
-    }
-    if (p.data.action === "snapshot")
+      if (!error && !data?.error)
+        return NextResponse.json({ ok: true, counts: data });
+      // fail() throws; record the failure and answer after the try block.
+      await reportError(error ?? new Error("retention_failed"), {
+        route: "/api/admin/retention",
+      });
+      failed = new Error("retention_failed");
+    } else if (p.data.action === "snapshot")
       return NextResponse.json({
         ok: true,
         tombstones: await snapshotLedger(admin),
       });
-    return NextResponse.json({
-      ok: true,
-      applied: await reapplyFromLedger(admin, p.data.ledger),
-    });
+    else
+      return NextResponse.json({
+        ok: true,
+        applied: await reapplyFromLedger(admin, p.data.ledger),
+      });
   } catch (e) {
+    failed = e;
+  }
+  {
+    const e = failed;
+    if (e instanceof Error && e.message === "retention_failed")
+      return fail("보존 작업에 실패했습니다. 다시 실행해주세요.", 500);
     if (e instanceof Error && e.message === "ledger_invalid")
       return fail("삭제 기록 형식이 올바르지 않습니다.");
     await reportError(e, { route: "/api/admin/retention" });

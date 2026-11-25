@@ -9,6 +9,16 @@ import { AccountDeletionForm } from "@/components/account-deletion-form";
 import { EmailForm } from "@/components/account-auth-forms";
 import { PrivacyExport } from "@/components/privacy-panel";
 import { getConfig } from "@/lib/config";
+import { PortfolioFiles } from "@/components/portfolio-files";
+import { UnblockButton } from "@/components/safety";
+// D074: privacy access log labels (restored after merge a5f3326).
+const actionText: Record<string, string> = {
+  created: "내보내기 요청",
+  downloaded: "내려받기 완료",
+  expired: "만료된 링크 사용 거부",
+  reused: "이미 사용한 링크 재사용 거부",
+  denied: "접근 거부",
+};
 import { categories } from "@/lib/catalog";
 import { PURPOSES } from "@/lib/consent";
 export const dynamic = "force-dynamic";
@@ -26,9 +36,25 @@ export default async function Settings() {
     .single();
   const { data: creator } = await db
     .from("creators")
-    .select("profile,published")
+    .select("profile,published,moderation_locked")
     .eq("owner_id", user.id)
     .maybeSingle();
+  // D027 private files, D062 blocks, D074 access log — all owner-scoped by RLS/RPC.
+  const [{ data: files }, { data: blocks }, { data: access }] =
+    await Promise.all([
+      db
+        .from("uploads")
+        .select("id,original_name,mime,size_bytes,created_at")
+        .is("deleted_at", null)
+        .order("created_at", { ascending: false }),
+      db.rpc("my_blocks"),
+      db
+        .from("privacy_access_log")
+        .select("id,action,created_at")
+        .eq("user_id", user.id)
+        .order("id", { ascending: false })
+        .limit(10),
+    ]);
   const { data: brand, error: brandError } =
     profile?.role === "brand"
       ? await db.rpc("my_brand_account")
@@ -44,6 +70,12 @@ export default async function Settings() {
         name={profile?.name ?? ""}
         optOut={profile?.analytics_opt_out ?? false}
       />
+      {creator?.moderation_locked && (
+        <p className="notice" role="status">
+          운영 검토로 비공개 처리된 프로필입니다. 내용 수정은 가능하지만 공개
+          전환은 운영자 검토 후 가능합니다.
+        </p>
+      )}
       {profile?.role === "creator" ? (
         <>
           <p>
@@ -56,6 +88,7 @@ export default async function Settings() {
                 : undefined
             }
           />
+          <PortfolioFiles files={files ?? []} />
         </>
       ) : profile?.role === "brand" ? (
         brandError ? (
@@ -104,8 +137,47 @@ export default async function Settings() {
       ) : (
         <p role="status">이메일 변경 서비스 연결을 준비 중입니다.</p>
       )}
-      <h2>내 데이터</h2>
+      <h2 id="blocks" style={{ marginTop: 55 }}>
+        차단한 상대
+      </h2>
+      {blocks?.length ? (
+        <ul style={{ display: "grid", gap: 12 }}>
+          {blocks.map((b: { blocked_id: string; name: string }) => (
+            <li
+              key={b.blocked_id}
+              data-testid="blocked-user"
+              style={{
+                display: "flex",
+                gap: 12,
+                alignItems: "center",
+                flexWrap: "wrap",
+              }}
+            >
+              <span>{b.name}</span>
+              <UnblockButton userId={b.blocked_id} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>차단한 상대가 없습니다. 협업 화면에서 상대를 차단할 수 있습니다.</p>
+      )}
+      <h2 id="privacy">내 데이터</h2>
       <PrivacyExport />
+      <h3 style={{ marginTop: 36 }}>개인정보 접근 기록</h3>
+      {access?.length ? (
+        <ul data-testid="privacy-log">
+          {access.map((a) => (
+            <li key={a.id}>
+              {new Date(a.created_at).toLocaleString("ko-KR", {
+                timeZone: "Asia/Seoul",
+              })}{" "}
+              · {actionText[a.action] ?? a.action}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>아직 기록이 없습니다.</p>
+      )}
       <AccountDeletionForm enabled={!intake.error && intake.data === true} />
     </section>
   );

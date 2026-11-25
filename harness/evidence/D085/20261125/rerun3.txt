@@ -1,0 +1,1668 @@
+
+Running 72 tests using 1 worker
+
+[1/72] [desktop] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys
+[WebServer] {"t":"2026-11-25T07:52:45.908Z","level":"error","event":"server_error","message":"TEST 취소를 처리하지 못했습니다.","route":"/api/billing/cancel"}
+
+[WebServer] {"t":"2026-11-25T07:52:45.942Z","level":"warn","event":"alert","key":"error:/api/billing/cancel:TEST 취소를 처리하지 못했습니다.","text":"서버 오류 /api/billing/cancel TEST 취소를 처리하지 못했습니다."}
+
+[WebServer] api_error {
+[WebServer]   timestamp: '2026-11-25T07:52:45.943Z',
+[WebServer]   requestId: 'c678ec98-422c-4345-9715-c35973d165ec',
+[WebServer]   domain: 'billing',
+[WebServer]   operation: 'src/app/api/billing/cancel/route.ts.POST',
+[WebServer]   level: 'error',
+[WebServer]   duration: 519,
+[WebServer]   errorCode: 'SERVICE_UNAVAILABLE',
+[WebServer]   retryable: true
+[WebServer] }
+
+  1) [desktop] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('row').filter({ hasText: 'brand_pro' }).getByRole('alert')
+    Expected pattern: /Edge Function|시크릿 키/
+    Received string:  "취소 결과를 확인하지 못했습니다. 같은 요청으로 다시 시도해주세요."
+    Timeout: 30000ms
+
+    Call log:
+      - Expect "toContainText" getByRole('row').filter({ hasText: 'brand_pro' }).getByRole('alert') with timeout 30000ms
+      - waiting for getByRole('row').filter({ hasText: 'brand_pro' }).getByRole('alert')
+        57 × locator resolved to <span role="alert" class="error">취소 결과를 확인하지 못했습니다. 같은 요청으로 다시 시도해주세요.</span>
+           - unexpected value "취소 결과를 확인하지 못했습니다. 같은 요청으로 다시 시도해주세요."
+
+
+      86 |     await row.getByLabel("취소 사유").fill("테스트 취소");
+      87 |     await row.getByRole("button", { name: "TEST 취소" }).click();
+    > 88 |     await expect(row.getByRole("alert")).toContainText(/Edge Function|시크릿 키/, { timeout: 30_000 });
+         |                                          ^
+      89 |     expect(sql(`select status from orders where id = '${order}'`)).toBe("paid");
+      90 |     expect(
+      91 |       sql(
+        at C:\projects\AD-Me-devb-1125\tests\e2e\billing-cancel.spec.ts:88:42
+
+    Error Context: test-results\billing-cancel-TEST-cancel-e8bcc-afely-without-provider-keys-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\billing-cancel-TEST-cancel-e8bcc-afely-without-provider-keys-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\billing-cancel-TEST-cancel-e8bcc-afely-without-provider-keys-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[2/72] [desktop] › tests\e2e\claims.spec.ts:32:1 › collected profile: unverified label, claim code once, admin approves only with matching code
+  2) [desktop] › tests\e2e\claims.spec.ts:32:1 › collected profile: unverified label, claim code once, admin approves only with matching code 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('미인증 · 협업 의사 미확인')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('미인증 · 협업 의사 미확인') with timeout 5000ms
+      - waiting for getByText('미인증 · 협업 의사 미확인')
+
+
+      72 |   try {
+      73 |     await page.goto(`/creators/${id}`);
+    > 74 |     await expect(page.getByText("미인증 · 협업 의사 미확인")).toBeVisible();
+         |                                                     ^
+      75 |     await expect(
+      76 |       page.getByRole("link", { name: /협업 캠페인 만들기/ }),
+      77 |     ).toHaveCount(0);
+        at C:\projects\AD-Me-devb-1125\tests\e2e\claims.spec.ts:74:53
+
+    Error Context: test-results\claims-collected-profile-u-05de7-ves-only-with-matching-code-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\claims-collected-profile-u-05de7-ves-only-with-matching-code-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\claims-collected-profile-u-05de7-ves-only-with-matching-code-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[3/72] [desktop] › tests\e2e\compare.spec.ts:12:1 › compare: private note, link share without notes, CSV, revoke
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[4/72] [desktop] › tests\e2e\consent.spec.ts:12:1 › consent: no pre-checked marketing; preferences persist and can be withdrawn
+  3) [desktop] › tests\e2e\consent.spec.ts:12:1 › consent: no pre-checked marketing; preferences persist and can be withdrawn 
+
+    Error: expect(locator).toBeChecked() failed
+
+    Locator:  getByRole('form', { name: '알림·관심 분야' }).getByLabel(/서비스 알림 메일/)
+    Expected: checked
+    Received: unchecked
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeChecked" getByRole('form', { name: '알림·관심 분야' }).getByLabel(/서비스 알림 메일/) with timeout 5000ms
+      - waiting for getByRole('form', { name: '알림·관심 분야' }).getByLabel(/서비스 알림 메일/)
+        14 × locator resolved to <input type="checkbox" name="service_email"/>
+           - unexpected value "unchecked"
+
+
+      22 |   const service = form.getByLabel(/서비스 알림 메일/);
+      23 |   await expect(marketing).not.toBeChecked();
+    > 24 |   await expect(service).toBeChecked();
+         |                         ^
+      25 |   const save = async () => {
+      26 |     await form.getByRole("button", { name: "알림 설정 저장" }).click();
+      27 |     await expect(form.getByText("알림 설정을 저장했습니다.")).toBeVisible();
+        at C:\projects\AD-Me-devb-1125\tests\e2e\consent.spec.ts:24:25
+
+    Error Context: test-results\consent-consent-no-pre-che-ae8f5-ersist-and-can-be-withdrawn-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\consent-consent-no-pre-che-ae8f5-ersist-and-can-be-withdrawn-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\consent-consent-no-pre-che-ae8f5-ersist-and-can-be-withdrawn-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[5/72] [desktop] › tests\e2e\csp.spec.ts:32:1 › pages, auth and realtime run without CSP violations; Toss allowed, others blocked
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[6/72] [desktop] › tests\e2e\csv-import.spec.ts:14:1 › csv import: preview, partial commit, export round-trip, other account blocked
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+  4) [desktop] › tests\e2e\csv-import.spec.ts:14:1 › csv import: preview, partial commit, export round-trip, other account blocked 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 2
+    + Received  + 0
+
+      Array [
+    -   "ID",
+        "이름",
+        "분야",
+        "분위기",
+        "최소견적",
+        "출처",
+    -   "출처 근거",
+      ]
+
+      79 |   ).text();
+      80 |   const table = parseCsv(exported);
+    > 81 |   expect(table[0]).toEqual([
+         |                    ^
+      82 |     "ID",
+      83 |     "이름",
+      84 |     "분야",
+        at C:\projects\AD-Me-devb-1125\tests\e2e\csv-import.spec.ts:81:20
+
+    Error Context: test-results\csv-import-csv-import-prev-ccd92--trip-other-account-blocked-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\csv-import-csv-import-prev-ccd92--trip-other-account-blocked-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\csv-import-csv-import-prev-ccd92--trip-other-account-blocked-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[7/72] [desktop] › tests\e2e\entitlements.spec.ts:38:1 › admin manual grant needs a reason; member sees it; revoke removes it
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+  5) [desktop] › tests\e2e\entitlements.spec.ts:38:1 › admin manual grant needs a reason; member sees it; revoke removes it 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByText(/ai_credits .*잔여 크레딧/)
+    Expected: 0
+    Received: 1
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByText(/ai_credits .*잔여 크레딧/) with timeout 5000ms
+      - waiting for getByText(/ai_credits .*잔여 크레딧/)
+        13 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      123 |     await expect(row).toContainText("크레딧 0");
+      124 |     await mp.reload();
+    > 125 |     await expect(mp.getByText(/ai_credits .*잔여 크레딧/)).toHaveCount(0);
+          |                                                       ^
+      126 |     await ctx.close();
+      127 |   } finally {
+      128 |     sql(`delete from entitlements where owner_id = '${uid}'`);
+        at C:\projects\AD-Me-devb-1125\tests\e2e\entitlements.spec.ts:125:55
+
+    Error Context: test-results\entitlements-admin-manual--db54a-r-sees-it-revoke-removes-it-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\entitlements-admin-manual--db54a-r-sees-it-revoke-removes-it-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\entitlements-admin-manual--db54a-r-sees-it-revoke-removes-it-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[8/72] [desktop] › tests\e2e\help.spec.ts:34:1 › help + contact: anonymous and member inquiries, admin answers, metrics with definitions
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[9/72] [desktop] › tests\e2e\lists.spec.ts:27:1 › candidate groups and campaign shortlist
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T07:54:20.075Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/creators/[id]","kind":"render","method":"GET","path":"/creators/creator-001","request_id":"c0cce235-04ca-472f-9fc6-a45c666209f8"}
+
+[10/72] [desktop] › tests\e2e\lists.spec.ts:114:1 › public reference add, retry, denial and shortlist display
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[11/72] [desktop] › tests\e2e\lists.spec.ts:194:1 › dashboard shows default-list favourites by public reference
+[12/72] [desktop] › tests\e2e\match-feedback.spec.ts:14:1 › matching feedback: owner rates with reason, others blocked, admin sees honest summary
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+  6) [desktop] › tests\e2e\match-feedback.spec.ts:14:1 › matching feedback: owner rates with reason, others blocked, admin sees honest summary 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByRole('form', { name: /추천 평가$/ }).first().getByLabel('적합 여부')
+
+
+      34 |   await page.goto(`/campaigns/${id}`);
+      35 |   const form = page.getByRole("form", { name: /추천 평가$/ }).first();
+    > 36 |   await form.getByLabel("적합 여부").selectOption("unfit");
+         |                                  ^
+      37 |   await form.getByLabel("사유").selectOption("budget_mismatch");
+      38 |   await form.getByRole("button", { name: "평가 저장" }).click();
+      39 |   await expect(form.getByText("평가를 저장했습니다.")).toBeVisible();
+        at C:\projects\AD-Me-devb-1125\tests\e2e\match-feedback.spec.ts:36:34
+
+    Error Context: test-results\match-feedback-matching-fe-0647f-d-admin-sees-honest-summary-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\match-feedback-matching-fe-0647f-d-admin-sees-honest-summary-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\match-feedback-matching-fe-0647f-d-admin-sees-honest-summary-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[13/72] [desktop] › tests\e2e\matching-policy.spec.ts:19:1 › hard category/budget policy is saved and applied
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+  7) [desktop] › tests\e2e\matching-policy.spec.ts:19:1 › hard category/budget policy is saved and applied 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByLabel('필수 조건 정보가 없는 크리에이터')
+
+
+      35 |   await page
+      36 |     .getByLabel("필수 조건 정보가 없는 크리에이터")
+    > 37 |     .selectOption("exclude");
+         |      ^
+      38 |   await page.getByRole("button", { name: "캠페인 저장" }).click();
+      39 |   await expect(page).toHaveURL(/campaigns\/[a-f0-9-]{36}/);
+      40 |   const id = page.url().split("/").pop()!;
+        at C:\projects\AD-Me-devb-1125\tests\e2e\matching-policy.spec.ts:37:6
+
+    Error Context: test-results\matching-policy-hard-categ-2f1c6-policy-is-saved-and-applied-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\matching-policy-hard-categ-2f1c6-policy-is-saved-and-applied-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\matching-policy-hard-categ-2f1c6-policy-is-saved-and-applied-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[14/72] [desktop] › tests\e2e\notifications.spec.ts:29:1 › unread badge updates live in two tabs; read cursor persists after re-login
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T07:56:06.649Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"fd6c3b67-9590-47dc-8f70-a2733ce7ff8c"}
+
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[15/72] [desktop] › tests\e2e\notifications.spec.ts:133:1 › polling fallback updates the badge when realtime is blocked
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[16/72] [desktop] › tests\e2e\notifications.spec.ts:188:1 › notification API requires login and stays private
+[17/72] [desktop] › tests\e2e\pipeline.spec.ts:33:3 › pipeline counts match rows and CSV (brand)
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+  8) [desktop] › tests\e2e\pipeline.spec.ts:33:3 › pipeline counts match rows and CSV (brand) ──────
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('article[data-proposal-id]')
+    Expected: 6
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('article[data-proposal-id]') with timeout 5000ms
+      - waiting for locator('article[data-proposal-id]')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      51 |       await stages.locator(`[data-stage=${k}]`).click();
+      52 |       await expect(page).toHaveURL(new RegExp(`stage=${k}`));
+    > 53 |       await expect(page.locator("article[data-proposal-id]")).toHaveCount(n);
+         |                                                               ^
+      54 |       await page.reload();
+      55 |       await expect(page.locator("article[data-proposal-id]")).toHaveCount(n);
+      56 |       const rows = await csvRows(page, `&stage=${k}`);
+        at C:\projects\AD-Me-devb-1125\tests\e2e\pipeline.spec.ts:53:63
+
+    Error Context: test-results\pipeline-pipeline-counts-match-rows-and-CSV-brand--desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\pipeline-pipeline-counts-match-rows-and-CSV-brand--desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\pipeline-pipeline-counts-match-rows-and-CSV-brand--desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[18/72] [desktop] › tests\e2e\pipeline.spec.ts:33:3 › pipeline counts match rows and CSV (creator)
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+  9) [desktop] › tests\e2e\pipeline.spec.ts:33:3 › pipeline counts match rows and CSV (creator) ────
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('article[data-proposal-id]')
+    Expected: 7
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('article[data-proposal-id]') with timeout 5000ms
+      - waiting for locator('article[data-proposal-id]')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      51 |       await stages.locator(`[data-stage=${k}]`).click();
+      52 |       await expect(page).toHaveURL(new RegExp(`stage=${k}`));
+    > 53 |       await expect(page.locator("article[data-proposal-id]")).toHaveCount(n);
+         |                                                               ^
+      54 |       await page.reload();
+      55 |       await expect(page.locator("article[data-proposal-id]")).toHaveCount(n);
+      56 |       const rows = await csvRows(page, `&stage=${k}`);
+        at C:\projects\AD-Me-devb-1125\tests\e2e\pipeline.spec.ts:53:63
+
+    Error Context: test-results\pipeline-pipeline-counts-match-rows-and-CSV-creator--desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\pipeline-pipeline-counts-match-rows-and-CSV-creator--desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\pipeline-pipeline-counts-match-rows-and-CSV-creator--desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[19/72] [desktop] › tests\e2e\privacy-export.spec.ts:28:1 › own-data export excludes the counterparty and is logged
+  10) [desktop] › tests\e2e\privacy-export.spec.ts:28:1 › own-data export excludes the counterparty and is logged 
+
+    Error: expect(received).toBeNull()
+
+    Received: {"code": "42501", "details": null, "hint": null, "message": "versioned publication transaction required"}
+
+      65 |       })
+      66 |     ).error,
+    > 67 |   ).toBeNull();
+         |     ^
+      68 |   const brand = client();
+      69 |   await brand.auth.signInWithPassword({
+      70 |     email: accounts.brand.email,
+        at C:\projects\AD-Me-devb-1125\tests\e2e\privacy-export.spec.ts:67:5
+
+    Error Context: test-results\privacy-export-own-data-ex-2636b--counterparty-and-is-logged-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\privacy-export-own-data-ex-2636b--counterparty-and-is-logged-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\privacy-export-own-data-ex-2636b--counterparty-and-is-logged-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[20/72] [desktop] › tests\e2e\profile-fields.spec.ts:20:1 › creator saves multi-tag profile with unknown quote and availability
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+  11) [desktop] › tests\e2e\profile-fields.spec.ts:20:1 › creator saves multi-tag profile with unknown quote and availability 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.check: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByRole('group', { name: /분야/ }).getByRole('checkbox').nth(1)
+
+
+      43 |     .fill("다중 태그 검증");
+      44 |   const cats = page.getByRole("group", { name: /분야/ }).getByRole("checkbox");
+    > 45 |   await cats.nth(1).check();
+         |                     ^
+      46 |   await page
+      47 |     .getByRole("group", { name: "플랫폼" })
+      48 |     .getByRole("checkbox", { name: "tiktok" })
+        at C:\projects\AD-Me-devb-1125\tests\e2e\profile-fields.spec.ts:45:21
+
+    Error Context: test-results\profile-fields-creator-sav-33c75-nown-quote-and-availability-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\profile-fields-creator-sav-33c75-nown-quote-and-availability-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\profile-fields-creator-sav-33c75-nown-quote-and-availability-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[21/72] [desktop] › tests\e2e\promotion.spec.ts:29:1 › HOT slot is a labelled ad, organic results unchanged, owner sees exposure history
+  12) [desktop] › tests\e2e\promotion.spec.ts:29:1 › HOT slot is a labelled ad, organic results unchanged, owner sees exposure history 
+
+    TypeError: Cannot convert undefined or null to object
+
+      57 |       (s: { creator_id: string }) => s.creator_id === cid,
+      58 |     );
+    > 59 |     expect(Object.keys(mine).sort()).toEqual([
+         |                   ^
+      60 |       "category",
+      61 |       "creator_id",
+      62 |       "expires_at",
+        at C:\projects\AD-Me-devb-1125\tests\e2e\promotion.spec.ts:59:19
+
+    Error Context: test-results\promotion-HOT-slot-is-a-la-930f0-owner-sees-exposure-history-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\promotion-HOT-slot-is-a-la-930f0-owner-sees-exposure-history-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\promotion-HOT-slot-is-a-la-930f0-owner-sees-exposure-history-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[22/72] [desktop] › tests\e2e\proposal-cancel.spec.ts:28:1 › creator cancels a pending application; history is shown to both sides
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T07:57:56.470Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"dac22beb-85f2-4389-b3de-372a215d1a72"}
+
+[23/72] [desktop] › tests\e2e\recruiting.spec.ts:22:1 › brand sets recruiting deadline and capacity; past deadline is refused
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[24/72] [desktop] › tests\e2e\reports.spec.ts:30:1 › private request → admin answer → requester status and appeal
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+  13) [desktop] › tests\e2e\reports.spec.ts:30:1 › private request → admin answer → requester status and appeal 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByLabel('요청 유형')
+
+
+      49 |   await page.goto("/creators/creator-010");
+      50 |   await page.getByRole("link", { name: "자료 정정·이슈 신고" }).click();
+    > 51 |   await page.getByLabel("요청 유형").selectOption("correction");
+         |                                  ^
+      52 |   await page
+      53 |     .getByLabel("요청 사유")
+      54 |     .fill("가상 프로필의 분야 표기가 실제 소개와 달라 정정을 요청합니다.");
+        at C:\projects\AD-Me-devb-1125\tests\e2e\reports.spec.ts:51:34
+
+    Error Context: test-results\reports-private-request-→--bdbf8-requester-status-and-appeal-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\reports-private-request-→--bdbf8-requester-status-and-appeal-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\reports-private-request-→--bdbf8-requester-status-and-appeal-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[25/72] [desktop] › tests\e2e\retention.spec.ts:26:1 › privacy notice lists retention periods without horizontal scroll
+  14) [desktop] › tests\e2e\retention.spec.ts:26:1 › privacy notice lists retention periods without horizontal scroll 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByTestId('retention-table')
+    Expected substring: "종료(거절·취소·완료) 후 3년"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByTestId('retention-table') with timeout 5000ms
+      - waiting for getByTestId('retention-table')
+
+
+      29 |   await page.goto("/privacy");
+      30 |   const table = page.getByTestId("retention-table");
+    > 31 |   await expect(table).toContainText("종료(거절·취소·완료) 후 3년");
+         |                       ^
+      32 |   await expect(table).toContainText("복구 시 삭제 표시를 다시 적용");
+      33 |   expect(
+      34 |     await page.evaluate(
+        at C:\projects\AD-Me-devb-1125\tests\e2e\retention.spec.ts:31:23
+
+    Error Context: test-results\retention-privacy-notice-l-f5f37-s-without-horizontal-scroll-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\retention-privacy-notice-l-f5f37-s-without-horizontal-scroll-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\retention-privacy-notice-l-f5f37-s-without-horizontal-scroll-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[26/72] [desktop] › tests\e2e\retention.spec.ts:40:1 › retention controls: non-admin refused, admin runs job and re-apply
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T07:58:58.054Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/admin","kind":"render","method":"GET","path":"/admin","request_id":"2e880442-f181-4a07-84ee-2bc22be27454"}
+
+[27/72] [desktop] › tests\e2e\safety.spec.ts:119:1 › block from collaboration, brand cannot message, unblock in settings
+  15) [desktop] › tests\e2e\safety.spec.ts:119:1 › block from collaboration, brand cannot message, unblock in settings 
+
+    TypeError: Cannot read properties of null (reading 'id')
+
+      114 |       .select("id")
+      115 |       .single()
+    > 116 |   ).data!.id as string;
+          |           ^
+      117 | }
+      118 |
+      119 | test("block from collaboration, brand cannot message, unblock in settings", async ({
+        at proposal (C:\projects\AD-Me-devb-1125\tests\e2e\safety.spec.ts:116:11)
+        at C:\projects\AD-Me-devb-1125\tests\e2e\safety.spec.ts:125:15
+
+    Error Context: test-results\safety-block-from-collabor-517e7-message-unblock-in-settings-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\safety-block-from-collabor-517e7-message-unblock-in-settings-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\safety-block-from-collabor-517e7-message-unblock-in-settings-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[28/72] [desktop] › tests\e2e\safety.spec.ts:158:1 › admin temporary restriction, creator appeal, admin lift
+  16) [desktop] › tests\e2e\safety.spec.ts:158:1 › admin temporary restriction, creator appeal, admin lift 
+
+    TypeError: Cannot read properties of null (reading 'id')
+
+      114 |       .select("id")
+      115 |       .single()
+    > 116 |   ).data!.id as string;
+          |           ^
+      117 | }
+      118 |
+      119 | test("block from collaboration, brand cannot message, unblock in settings", async ({
+        at proposal (C:\projects\AD-Me-devb-1125\tests\e2e\safety.spec.ts:116:11)
+        at C:\projects\AD-Me-devb-1125\tests\e2e\safety.spec.ts:164:3
+
+    Error Context: test-results\safety-admin-temporary-restriction-creator-appeal-admin-lift-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\safety-admin-temporary-restriction-creator-appeal-admin-lift-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\safety-admin-temporary-restriction-creator-appeal-admin-lift-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[29/72] [desktop] › tests\e2e\selection-review.spec.ts:38:1 › selection review: checklist + approval required before accepting; memo stays private
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+  17) [desktop] › tests\e2e\selection-review.spec.ts:38:1 › selection review: checklist + approval required before accepting; memo stays private 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.fill: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByTestId('selection-review').getByLabel('새 체크 항목')
+
+
+       95 |     await page.goto(`/campaigns/${id}`);
+       96 |     const section = page.getByTestId("selection-review");
+    >  97 |     await section.getByLabel("새 체크 항목").fill("광고 표기 이력 확인");
+          |                                         ^
+       98 |     await section.getByRole("button", { name: "항목 추가" }).click();
+       99 |     await expect(
+      100 |       section.getByRole("form", { name: /선정 검토$/ }),
+        at C:\projects\AD-Me-devb-1125\tests\e2e\selection-review.spec.ts:97:41
+
+    Error Context: test-results\selection-review-selection-aee6c-ccepting-memo-stays-private-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\selection-review-selection-aee6c-ccepting-memo-stays-private-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\selection-review-selection-aee6c-ccepting-memo-stays-private-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[30/72] [desktop] › tests\e2e\seo.spec.ts:23:1 › indexing boundary and access control
+  18) [desktop] › tests\e2e\seo.spec.ts:23:1 › indexing boundary and access control ────────────────
+
+    Error: expect(received).toContain(expected) // indexOf
+
+    Expected substring: "찾을 수 없"
+    Received string:    "<!DOCTYPE html><html lang=\"ko\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" as=\"image\" imageSrcSet=\"/_next/image?url=%2Fbrand%2Ffigma%2Flogo.png&amp;w=256&amp;q=75 1x, /_next/image?url=%2Fbrand%2Ffigma%2Flogo.png&amp;w=640&amp;q=75 2x\"/><link rel=\"stylesheet\" href=\"/_next/static/chunks/src_app_04pyck7ul940-._.css\" data-precedence=\"next_static/chunks/src_app_04pyck7ul940-._.css\"/><link rel=\"preload\" as=\"script\" fetchPriority=\"low\" href=\"/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_0fb9-gqu7_t97._.js\"/><script src=\"/_next/static/chunks/1daa_next_dist_compiled_react-dom_cjs_react-dom-client_development_0mp0cp_t-ezj9.js\" async=\"\"></script><script src=\"/_next/static/chunks/1q96_modules_next_dist_compiled_react-dom_cjs_react-dom_development_1sqry0_53krp4.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_compiled_react-dom_0grqycjrj6mju._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jmam7qwg.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_compiled_1amofcmz--cdp._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_client_1165-soo5tfpf._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_05y3oi5z9mc_3._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqwj2323d._.js\" async=\"\"></script><script src=\"/_next/static/chunks/_1anvha4rlo79g._.js\" async=\"\"></script><script src=\"/_next/static/chunks/turbopack-_11q0wbt2n0d9y._.js\" async=\"\"></script><script src=\"/_next/static/chunks/_1qgo-3cc7uxj1._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_0r2_ik7v3w6_y._.js\" async=\"\"></script><script src=\"/_next/static/chunks/src_components_figma-navigation_tsx_0avjca4uiqwkh._.js\" async=\"\"></script><script src=\"/_next/static/chunks/src_app_error_tsx_0ts9uj72u-_iy._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_zod_v4_classic_0yyvcg5_o3dua._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_zod_v4_core_14qn2mg1f8pkp._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_zod_v4_locales_1-ided7izgr--._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_navigation_0gqqfqmfu4m-x.js\" async=\"\"></script><script src=\"/_next/static/chunks/src_069w_2s5d1hrh._.js\" async=\"\"></script><title>AD Me — 브랜드의 다음 파트너</title><meta name=\"description\" content=\"브랜드와 YouTube 크리에이터를 연결하는 광고 협업 플랫폼.\"/><meta name=\"robots\" content=\"noindex, nofollow\"/><meta property=\"og:title\" content=\"AD Me — 브랜드의 다음 파트너\"/><meta property=\"og:description\" content=\"브랜드와 YouTube 크리에이터를 연결하는 광고 협업 플랫폼.\"/><meta property=\"og:site_name\" content=\"AD Me\"/><meta property=\"og:locale\" content=\"ko_KR\"/><meta property=\"og:image\" content=\"http://localhost:3000/brand/ad-me-logo.png\"/><meta property=\"og:image:alt\" content=\"AD Me\"/><meta property=\"og:type\" content=\"website\"/><meta name=\"twitter:card\" content=\"summary_large_image\"/><meta name=\"twitter:title\" content=\"AD Me — 브랜드의 다음 파트너\"/><meta name=\"twitter:description\" content=\"브랜드와 YouTube 크리에이터를 연결하는 광고 협업 플랫폼.\"/><meta name=\"twitter:image\" content=\"http://localhost:3000/brand/ad-me-logo.png\"/><meta name=\"twitter:image:alt\" content=\"AD Me\"/><link rel=\"icon\" href=\"/brand/ad-me-symbol.png\"/><script src=\"/_next/static/chunks/node_modules_next_dist_build_polyfills_polyfill-nomodule.js\" noModule=\"\"></script></head><body><div hidden=\"\"><!--$--><!--/$--></div><a class=\"skip\" href=\"#main\">본문으로 이동</a><header class=\"figma-nav\"><a aria-label=\"AD Me 홈\" class=\"figma-logo\" href=\"/\"><img alt=\"AD Me\" width=\"207\" height=\"69\" decoding=\"async\" data-nimg=\"1\" style=\"color:transparent\" srcSet=\"/_next/image?url=%2Fbrand%2Ffigma%2Flogo.png&amp;w=256&amp;q=75 1x, /_next/image?url=%2Fbrand%2Ffigma%2Flogo.png&amp;w=640&amp;q=75 2x\" src=\"/_next/image?url=%2Fbrand%2Ffigma%2Flogo.png&amp;w=640&amp;q=75\"/></a><nav class=\"figma-nav-links\" aria-label=\"메인 메뉴\"><a href=\"/creators\">크리에이터 탐색</a><a href=\"/recommendations\">AI 추천</a><a href=\"/jobs\">캠페인</a><a href=\"/pricing\">요금제</a><a href=\"/dashboard\">워크스페이스</a></nav><div class=\"figma-nav-account\"><a href=\"/login\">로그인</a><a class=\"button primary\" href=\"/signup\">무료로 시작하기</a></div><details class=\"figma-mobile-menu\"><summary>탐색 <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-menu\" aria-hidden=\"true\"><path d=\"M4 5h16\"></path><path d=\"M4 12h16\"></path><path d=\"M4 19h16\"></path></svg></summary><nav aria-label=\"모바일 전체 메뉴\"><a class=\"button outline\" href=\"/creators\">크리에이터 탐색</a><a class=\"button outline\" href=\"/recommendations\">AI 추천</a><a class=\"button outline\" href=\"/jobs\">캠페인</a><a class=\"button outline\" href=\"/pricing\">요금제</a><a class=\"button outline\" href=\"/dashboard\">워크스페이스</a><a class=\"button outline\" href=\"/login\">로그인</a><a class=\"button outline\" href=\"/signup\">회원가입</a></nav></details></header><main id=\"main\" tabindex=\"-1\"><!--$?--><template id=\"B:0\"></template><div class=\"loading\" role=\"status\">다음 가능성을 불러오고 있습니다…</div><!--/$--></main><footer class=\"figma-footer\"><span>© 2026 AD Me · YouTube 크리에이터 협업</span><nav aria-label=\"서비스 안내\"><a href=\"/about\">서비스·데이터 안내</a><a href=\"/help\">도움말·문의</a><a href=\"/privacy\">개인정보 처리방침</a><a href=\"/terms\">이용약관</a><a href=\"/licenses\">오픈소스 고지</a></nav></footer><script>requestAnimationFrame(function(){$RT=performance.now()});</script><script id=\"_R_\">self.__next_r=\"19-a95XoXvBkrH19Ki6Fi\";var __nextHmrInitialVersion=\"0\";</script><script src=\"/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_0fb9-gqu7_t97._.js\" async=\"\"></script><div hidden id=\"S:0\"><template id=\"P:1\"></template><!--$--><!--/$--></div><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,\"7:\\\"[project]/node_modules/next/dist/client/components/layout-router.js [app-client] (ecmascript)\\\"\\n8:\\\"/_next/static/chunks/node_modules_0r2_ik7v3w6_y._.js\\\"\\n9:\\\"/_next/static/chunks/src_components_figma-navigation_tsx_0avjca4uiqwkh._.js\\\"\\na:\\\"LoadingBoundaryProvider\\\"\\nb:I[\\\"$7\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"$a\\\"]\\nd:\\\"[project]/node_modules/next/dist/next-devtools/userspace/app/segment-explorer-node.js [app-client] (ecmascript)\\\"\\ne:I[\\\"$d\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"SegmentViewNode\\\"]\\n16:\\\"$Sreact.fragment\\\"\\n28:\\\"[project]/src/components/figma-navigation.tsx [app-client] (ecmascript)\\\"\\n29:I[\\\"$28\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"FigmaNavigation\\\"]\\n2c:I[\\\"$7\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"default\\\"]\\n2d:\\\"[project]/src/app/error.tsx [app-client] (ecmascript)\\\"\\n2e:\\\"/_next/static/chunks/src_app_error_tsx_0ts9uj72u-_iy._.js\\\"\\n2f:I[\\\"$2d\\\",[\\\"$8\\\",\\\"$9\\\",\\\"$2e\\\"],\\\"default\\\"]\\n33:\\\"[project]/node_modules/next/dist/client/components/render-from-template-context.js [app-client] (ecmascript)\\\"\\n34:I[\\\"$33\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"default\\\"]\\n43:\\\"[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)\\\"\\n44:I[\\\"$43\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"\\\"]\\n81:\\\"[project]/node_modules/next/dist/lib/framework/boundary-components.js [app-client] (ecmascript)\\\"\\n82:I[\\\"$81\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"OutletBoundary\\\"]\\n84:\\\"$Sreact.suspense\\\"\\n91:\\\"ViewportBoundary\\\"\\n92:I[\\\"$81\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"$91\\\"]\\n9b:\\\"MetadataBoundary\\\"\\n9c:I[\\\"$81\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"$9b\\\"]\\na7:\\\"[project]/node_modules/next/dist/client/components/builtin/global-error.js [app-client] (ecmascript)\\\"\\na8:I[\\\"$a7\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"default\\\",1]\\n:HL[\\\"/_next/static/chunks/src_app_04pyck7ul940-._.css\\\",\\\"style\\\"]\\n1:D\\\"$4\\\"\\n1:D\\\"$2\\\"\\n1:D\\\"$5\\\"\\n1:null\\nf:D\\\"$11\\\"\\nf:D\\\"$10\\\"\\nf:D\\\"$13\\\"\\nf:[\\\"$\\\",\\\"div\\\",\\\"l\\\",{\\\"className\\\":\\\"loading\\\",\\\"role\\\":\\\"status\\\",\\\"children\\\":\\\"다음 가능성을 불러오고 있습니다…\\\"},\\\"$10\\\",\\\"$12\\\",1]\\n1a:D\\\"$22\\\"\\n1a:D\\\"$1b\\\"\\n1a:D\\\"$24\\\"\\n36:D\\\"$38\\\"\\n36:D\\\"$37\\\"\\n36:D\\\"$3a\\\"\\n3e:D\\\"$40\\\"\\n3e:D\\\"$3f\\\"\\n3e:D\\\"$42\\\"\\n3e:[\\\"$\\\",\\\"$L44\\\",null,{\\\"className\\\":\\\"button primary\\\",\\\"href\\\":\\\"/creators\\\",\\\"children\\\":\\\"크리에이터 탐색\\\"},\\\"$3f\\\",\\\"$41\\\",1]\\n36:[\\\"$\\\",\\\"section\\\",null,{\\\"className\\\":\\\"wrap\\\",\\\"children\\\":[[\\\"$\\\",\\\"span\\\",null,{\\\"className\\\":\\\"eyebrow\\\",\\\"children\\\":\\\"404 / Not found\\\"},\\\"$37\\\",\\\"$3b\\\",1],[\\\"$\\\",\\\"h1\\\",null,{\\\"className\\\":\\\"page-title\\\",\\\"children\\\":\\\"찾으시는 페이지가 없습니다.\\\"},\\\"$37\\\",\\\"$3c\\\",1],[\\\"$\\\",\\\"p\\\",null,{\\\"children\\\":\\\"주소를 확인하거나 새로운 크리에이터를 만나보세요.\\\"},\\\"$37\\\",\\\"$3d\\\",1],\\\"$3e\\\"]},\\\"$37\\\",\\\"$39\\\",1]\\n4c:D\\\"$4e\\\"\\n4c:D\\\"$4d\\\"\\n4c:D\\\"$50\\\"\\n4c:[\\\"$\\\",\\\"$L44\\\",null,{\\\"href\\\":\\\"/about\\\",\\\"children\\\":\\\"서비스·데이터 안내\\\"},\\\"$4d\\\",\\\"$4f\\\",1]\\n51:D\\\"$53\\\"\\n51:D\\\"$52\\\"\\n51:D\\\"$55\\\"\\n51:[\\\"$\\\",\\\"$L44\\\",null,{\\\"href\\\":\\\"/help\\\",\\\"children\\\":\\\"도움말·문의\\\"},\\\"$52\\\",\\\"$54\\\",1]\\n56:D\\\"$58\\\"\\n56:D\\\"$57\\\"\\n56:D\\\"$5a\\\"\\n56:[\\\"$\\\",\\\"$L44\\\",null,{\\\"href\\\":\\\"/privacy\\\",\\\"children\\\":\\\"개인정보 처리방침\\\"},\\\"$57\\\",\\\"$59\\\",1]\\n5b:D\\\"$5d\\\"\\n5b:D\\\"$5c\\\"\\n5b:D\\\"$5f\\\"\\n5b:[\\\"$\\\",\\\"$L44\\\",null,{\\\"href\\\":\\\"/terms\\\",\\\"children\\\":\\\"이용약관\\\"},\\\"$5c\\\",\\\"$5e\\\",1]\\n60:D\\\"$62\\\"\\n60:D\\\"$61\\\"\\n60:D\\\"$64\\\"\\n60:[\\\"$\\\",\\\"$L44\\\",null,{\\\"href\\\":\\\"/licenses\\\",\\\"children\\\":\\\"오픈소스 고지\\\"},\\\"$61\\\",\\\"$63\\\",1]\\n1a:[\\\"$\\\",\\\"html\\\",null,{\\\"lang\\\":\\\"ko\\\",\\\"children\\\":[\\\"$\\\",\\\"body\\\",null,{\\\"children\\\":[[\\\"$\\\",\\\"a\\\",null,{\\\"className\\\":\\\"skip\\\",\\\"href\\\":\\\"#main\\\",\\\"children\\\":\\\"본문으로 이동\\\"},\\\"$1b\\\",\\\"$26\\\",1],[\\\"$\\\",\\\"$L29\\\",null,{},\\\"$1b\\\",\\\"$27\\\",1],[\\\"$\\\",\\\"main\\\",null,{\\\"id\\\":\\\"main\\\",\\\"tabIndex\\\":-1,\\\"children\\\":[\\\"$\\\",\\\"$L2c\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$2f\\\",\\\"errorStyles\\\":[\\\"$\\\",\\\"$Le\\\",null,{\\\"type\\\":\\\"error\\\",\\\"pagePath\\\":\\\"error.tsx\\\",\\\"children\\\":[]},null,\\\"$30\\\",0],\\\"errorScripts\\\":[[\\\"$\\\",\\\"script\\\",\\\"script-0\\\",{\\\"src\\\":\\\"/_next/static/chunks/src_app_error_tsx_0ts9uj72u-_iy._.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$31\\\",0]],\\\"template\\\":[\\\"$\\\",\\\"$L34\\\",null,{},null,\\\"$32\\\",1],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":[\\\"$\\\",\\\"$Le\\\",\\\"c-not-found\\\",{\\\"type\\\":\\\"not-found\\\",\\\"pagePath\\\":\\\"not-found.tsx\\\",\\\"children\\\":[\\\"$36\\\",[]]},null,\\\"$35\\\",0],\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\",\\\"segmentViewBoundaries\\\":[[\\\"$\\\",\\\"$Le\\\",null,{\\\"type\\\":\\\"boundary:not-found\\\",\\\"pagePath\\\":\\\"not-found.tsx@boundary\\\"},null,\\\"$45\\\",1],[\\\"$\\\",\\\"$Le\\\",null,{\\\"type\\\":\\\"boundary:loading\\\",\\\"pagePath\\\":\\\"loading.tsx@boundary\\\"},null,\\\"$46\\\",1],[\\\"$\\\",\\\"$Le\\\",null,{\\\"type\\\":\\\"boundary:error\\\",\\\"pagePath\\\":\\\"error.tsx@boundary\\\"},null,\\\"$47\\\",1],[\\\"$\\\",\\\"$Le\\\",null,{\\\"type\\\":\\\"boundary:global-error\\\",\\\"pagePath\\\":\\\"__next_builtin__global-error.js\\\"},null,\\\"$48\\\",1]]},null,\\\"$2b\\\",1]},\\\"$1b\\\",\\\"$2a\\\",1],[\\\"$\\\",\\\"footer\\\",null,{\\\"className\\\":\\\"figma-footer\\\",\\\"children\\\":[[\\\"$\\\",\\\"span\\\",null,{\\\"children\\\":\\\"© 2026 AD Me · YouTube 크리에이터 협업\\\"},\\\"$1b\\\",\\\"$4a\\\",1],[\\\"$\\\",\\\"nav\\\",null,{\\\"aria-label\\\":\\\"서비스 안내\\\",\\\"children\\\":[\\\"$4c\\\",\\\"$51\\\",\\\"$56\\\",\\\"$5b\\\",\\\"$60\\\"]},\\\"$1b\\\",\\\"$4b\\\",1]]},\\\"$1b\\\",\\\"$49\\\",1]]},\\\"$1b\\\",\\\"$25\\\",1]},\\\"$1b\\\",\\\"$23\\\",1]\\n69:X\\n71:D\\\"$75\\\"\\n71:D\\\"$72\\\"\\n7b:D\\\"$7e\\\"\\n7b:D\\\"$7c\\\"\\n7b:D\\\"$80\\\"\\n7b:[\\\"$\\\",\\\"$L82\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$84\\\",null,{\\\"name\\\":\\\"Next.MetadataOutlet\\\",\\\"children\\\":\\\"$@85\\\"},\\\"$7c\\\",\\\"$83\\\",1]},\\\"$7c\\\",\\\"$7f\\\",1]\\n6e:[[\\\"children\\\",{\\\"s\\\":\\\"__PAGE__\\\",\\\"d\\\":{\\\"r\\\":[\\\"$\\\",\\\"$16\\\",\\\"c\\\",{\\\"children\\\":[[\\\"$\\\",\\\"$Le\\\",\\\"c-page\\\",{\\\"type\\\":\\\"page\\\",\\\"pagePath\\\":\\\"creators/[id]/page.tsx\\\",\\\"children\\\":\\\"$L71\\\"},null,\\\"$70\\\",1],[[\\\"$\\\",\\\"script\\\",\\\"script-0\\\",{\\\"src\\\":\\\"/_next/static/chunks/node_modules_zod_v4_classic_0yyvcg5_o3dua._.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$76\\\",0],[\\\"$\\\",\\\"script\\\",\\\"script-1\\\",{\\\"src\\\":\\\"/_next/static/chunks/node_modules_zod_v4_core_14qn2mg1f8pkp._.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$77\\\",0],[\\\"$\\\",\\\"script\\\",\\\"script-2\\\",{\\\"src\\\":\\\"/_next/static/chunks/node_modules_zod_v4_locales_1-ided7izgr--._.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$78\\\",0],[\\\"$\\\",\\\"script\\\",\\\"script-3\\\",{\\\"src\\\":\\\"/_next/static/chunks/node_modules_next_navigation_0gqqfqmfu4m-x.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$79\\\",0],[\\\"$\\\",\\\"script\\\",\\\"script-4\\\",{\\\"src\\\":\\\"/_next/static/chunks/src_069w_2s5d1hrh._.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$7a\\\",0]],\\\"$7b\\\"]},null,\\\"$6f\\\",0],\\\"p\\\":false,\\\"v\\\":null}}]]\\n6a:[[\\\"children\\\",{\\\"s\\\":{\\\"n\\\":\\\"id\\\",\\\"t\\\":\\\"d\\\",\\\"k\\\":\\\"user-4cd83e9b-d319-4029-b4f7-d0a618fd84a0\\\",\\\"s\\\":[\\\"youtube\\\"]},\\\"d\\\":{\\\"r\\\":[\\\"$\\\",\\\"$16\\\",\\\"c\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L2c\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L34\\\",null,{},null,\\\"$6d\\\",1],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":\\\"$undefined\\\",\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\",\\\"segmentViewBoundaries\\\":[\\\"$undefined\\\",\\\"$undefined\\\",\\\"$undefined\\\",\\\"$undefined\\\"]},null,\\\"$6c\\\",1]]},null,\\\"$6b\\\",0],\\\"p\\\":false,\\\"v\\\":\\\"$69\\\"},\\\"c\\\":\\\"$Q6e\\\"}]]\\n65:[[\\\"children\\\",{\\\"s\\\":\\\"creators\\\",\\\"d\\\":{\\\"r\\\":[\\\"$\\\",\\\"$16\\\",\\\"c\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L2c\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L34\\\",null,{},null,\\\"$68\\\",1],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":\\\"$undefined\\\",\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\",\\\"segmentViewBoundaries\\\":[\\\"$undefined\\\",\\\"$undefined\\\",\\\"$undefined\\\",\\\"$undefined\\\"]},null,\\\"$67\\\",1]]},null,\\\"$66\\\",0],\\\"p\\\":false,\\\"v\\\":\\\"$69\\\"},\\\"c\\\":\\\"$Q6a\\\"}]]\\n87:D\\\"$8a\\\"\\n87:D\\\"$88\\\"\\n87:D\\\"$8b\\\"\\n87:null\\n8c:D\\\"$8e\\\"\\n8c:D\\\"$8d\\\"\\n8c:D\\\"$90\\\"\\n93:D\\\"$95\\\"\\n93:D\\\"$94\\\"\\n8c:[\\\"$\\\",\\\"$L92\\\",null,{\\\"children\\\":\\\"$L93\\\"},\\\"$8d\\\",\\\"$8f\\\",1]\\n96:D\\\"$98\\\"\\n96:D\\\"$97\\\"\\n96:D\\\"$9a\\\"\\n9f:D\\\"$a1\\\"\\n9f:D\\\"$a0\\\"\\na2:D\\\"$a4\\\"\\na2:D\\\"$a3\\\"\\na2:D\\\"$a5\\\"\\na2:null\\n96:[\\\"$\\\",\\\"$L9c\\\",null,{\\\"children\\\":[[\\\"$\\\",\\\"div\\\",null,{\\\"hidden\\\":true,\\\"children\\\":[\\\"$\\\",\\\"$84\\\",null,{\\\"name\\\":\\\"Next.Metadata\\\",\\\"children\\\":\\\"$L9f\\\"},\\\"$97\\\",\\\"$9e\\\",1]},\\\"$97\\\",\\\"$9d\\\",1],\\\"$a2\\\"]},\\\"$97\\\",\\\"$99\\\",1]\\na6:[]\\n0:{\\\"P\\\":\\\"$1\\\",\\\"c\\\":[\\\"\\\",\\\"creators\\\",\\\"user-4cd83e9b-d319-4029-b4f7-d0a618fd84a0\\\"],\\\"q\\\":\\\"\\\",\\\"i\\\":true,\\\"t\\\":{\\\"t\\\":{\\\"s\\\":\\\"\\\",\\\"h\\\":20,\\\"d\\\":{\\\"r\\\":[\\\"$\\\",\\\"$Lb\\\",null,{\\\"loading\\\":[[\\\"$\\\",\\\"$Le\\\",\\\"c-loading\\\",{\\\"type\\\":\\\"loading\\\",\\\"pagePath\\\":\\\"loading.tsx\\\",\\\"children\\\":\\\"$f\\\"},null,\\\"$c\\\",0],[],null],\\\"children\\\":[\\\"$\\\",\\\"$Le\\\",\\\"layout\\\",{\\\"type\\\":\\\"layout\\\",\\\"pagePath\\\":\\\"layout.tsx\\\",\\\"children\\\":[\\\"$\\\",\\\"$16\\\",\\\"c\\\",{\\\"children\\\":[[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/chunks/src_app_04pyck7ul940-._.css\\\",\\\"precedence\\\":\\\"next_static/chunks/src_app_04pyck7ul940-._.css\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$17\\\",0],[\\\"$\\\",\\\"script\\\",\\\"script-0\\\",{\\\"src\\\":\\\"/_next/static/chunks/node_modules_0r2_ik7v3w6_y._.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$18\\\",0],[\\\"$\\\",\\\"script\\\",\\\"script-1\\\",{\\\"src\\\":\\\"/_next/static/chunks/src_components_figma-navigation_tsx_0avjca4uiqwkh._.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$19\\\",0]],\\\"$1a\\\"]},null,\\\"$15\\\",1]},null,\\\"$14\\\",0]},null,\\\"$6\\\",0],\\\"p\\\":false,\\\"v\\\":null},\\\"c\\\":\\\"$Q65\\\"},\\\"h\\\":{\\\"r\\\":[\\\"$\\\",\\\"$16\\\",\\\"h\\\",{\\\"children\\\":[\\\"$87\\\",\\\"$8c\\\",\\\"$96\\\",null]},null,\\\"$86\\\",0],\\\"p\\\":false,\\\"v\\\":null}},\\\"m\\\":\\\"$Wa6\\\",\\\"G\\\":[\\\"$a8\\\",[\\\"$\\\",\\\"$Le\\\",\\\"ge-svn\\\",{\\\"type\\\":\\\"global-error\\\",\\\"pagePath\\\":\\\"__next_builtin__global-error.js\\\",\\\"children\\\":[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/chunks/src_app_04pyck7ul940-._.css\\\",\\\"precedence\\\":\\\"next_static/chunks/src_app_04pyck7ul940-._.css\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$aa\\\",0]]},null,\\\"$a9\\\",0]],\\\"S\\\":false,\\\"r\\\":\\\"$undefined\\\",\\\"s\\\":\\\"$undefined\\\",\\\"a\\\":\\\"$undefined\\\",\\\"l\\\":\\\"$undefined\\\",\\\"p\\\":\\\"$undefined\\\",\\\"d\\\":\\\"$undefined\\\",\\\"b\\\":\\\"development\\\"}\\n69:C\\n93:D\\\"$ab\\\"\\n93:[[\\\"$\\\",\\\"meta\\\",\\\"0\\\",{\\\"charSet\\\":\\\"utf-8\\\"},\\\"$7c\\\",\\\"$ac\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"viewport\\\",\\\"content\\\":\\\"width=device-width, initial-scale=1\\\"},\\\"$7c\\\",\\\"$ad\\\",0]]\\nc1:\\\"[project]/node_modules/next/dist/lib/metadata/generate/icon-mark.js [app-client] (ecmascript)\\\"\\nc2:I[\\\"$c1\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"IconMark\\\"]\\n85:D\\\"$ae\\\"\\n85:null\\n9f:D\\\"$af\\\"\\n9f:[[\\\"$\\\",\\\"title\\\",\\\"0\\\",{\\\"children\\\":\\\"AD Me — 브랜드의 다음 파트너\\\"},\\\"$7c\\\",\\\"$b0\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"description\\\",\\\"content\\\":\\\"브랜드와 YouTube 크리에이터를 연결하는 광고 협업 플랫폼.\\\"},\\\"$7c\\\",\\\"$b1\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"2\\\",{\\\"name\\\":\\\"robots\\\",\\\"content\\\":\\\"noindex, nofollow\\\"},\\\"$7c\\\",\\\"$b2\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"3\\\",{\\\"property\\\":\\\"og:title\\\",\\\"content\\\":\\\"AD Me — 브랜드의 다음 파트너\\\"},\\\"$7c\\\",\\\"$b3\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"4\\\",{\\\"property\\\":\\\"og:description\\\",\\\"content\\\":\\\"브랜드와 YouTube 크리에이터를 연결하는 광고 협업 플랫폼.\\\"},\\\"$7c\\\",\\\"$b4\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"5\\\",{\\\"property\\\":\\\"og:site_name\\\",\\\"content\\\":\\\"AD Me\\\"},\\\"$7c\\\",\\\"$b5\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"6\\\",{\\\"property\\\":\\\"og:locale\\\",\\\"content\\\":\\\"ko_KR\\\"},\\\"$7c\\\",\\\"$b6\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"7\\\",{\\\"property\\\":\\\"og:image\\\",\\\"content\\\":\\\"http://localhost:3000/brand/ad-me-logo.png\\\"},\\\"$7c\\\",\\\"$b7\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"8\\\",{\\\"property\\\":\\\"og:image:alt\\\",\\\"content\\\":\\\"AD Me\\\"},\\\"$7c\\\",\\\"$b8\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"9\\\",{\\\"property\\\":\\\"og:type\\\",\\\"content\\\":\\\"website\\\"},\\\"$7c\\\",\\\"$b9\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"10\\\",{\\\"name\\\":\\\"twitter:card\\\",\\\"content\\\":\\\"summary_large_image\\\"},\\\"$7c\\\",\\\"$ba\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"11\\\",{\\\"name\\\":\\\"twitter:title\\\",\\\"content\\\":\\\"AD Me — 브랜드의 다음 파트너\\\"},\\\"$7c\\\",\\\"$bb\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"12\\\",{\\\"name\\\":\\\"twitter:description\\\",\\\"content\\\":\\\"브랜드와 YouTube 크리에이터를 연결하는 광고 협업 플랫폼.\\\"},\\\"$7c\\\",\\\"$bc\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"13\\\",{\\\"name\\\":\\\"twitter:image\\\",\\\"content\\\":\\\"http://localhost:3000/brand/ad-me-logo.png\\\"},\\\"$7c\\\",\\\"$bd\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"14\\\",{\\\"name\\\":\\\"twitter:image:alt\\\",\\\"content\\\":\\\"AD Me\\\"},\\\"$7c\\\",\\\"$be\\\",0],[\\\"$\\\",\\\"link\\\",\\\"15\\\",{\\\"rel\\\":\\\"icon\\\",\\\"href\\\":\\\"/brand/ad-me-symbol.png\\\"},\\\"$7c\\\",\\\"$bf\\\",0],[\\\"$\\\",\\\"$Lc2\\\",\\\"16\\\",{},\\\"$7c\\\",\\\"$c0\\\",0]]\\n\"])</script><script>self.__next_f.push([1,\"71:D\\\"$c6\\\"\\n71:D\\\"$c8\\\"\\n71:D\\\"$c9\\\"\\n71:D\\\"$cf\\\"\\n71:D\\\"$d1\\\"\\n71:D\\\"$d2\\\"\\n71:D\\\"$d9\\\"\\n71:D\\\"$db\\\"\\n71:D\\\"$dc\\\"\\n71:D\\\"$dd\\\"\\n71:E{\\\"digest\\\":\\\"NEXT_HTTP_ERROR_FALLBACK;404\\\",\\\"name\\\":\\\"Error\\\",\\\"message\\\":\\\"NEXT_HTTP_ERROR_FALLBACK;404\\\",\\\"stack\\\":[[\\\"Detail\\\",\\\"C:\\\\\\\\projects\\\\\\\\AD-Me-devb-1125\\\\\\\\.next\\\\\\\\dev\\\\\\\\server\\\\\\\\chunks\\\\\\\\ssr\\\\\\\\[root-of-the-server]__15jj5mkr8frsa._.js\\\",504,211,495,1,false]],\\\"env\\\":\\\"Server\\\",\\\"owner\\\":\\\"$72\\\"}\\n\"])</script><meta name=\"robots\" content=\"noindex\"/><meta name=\"next-error\" content=\"not-found\"/><script>$RX=function(b,c,d,e,f){var a=document.getElementById(b);a&&(b=a.previousSibling,b.data=\"$!\",a=a.dataset,null!=c&&(a.dgst=c),d&&(a.msg=d),e&&(a.stck=e),f&&(a.cstck=f),b._reactRetry&&b._reactRetry())};;$RX(\"B:0\",\"NEXT_HTTP_ERROR_FALLBACK;404\",\"Switched to client rendering because the server rendering errored:\\n\\nNEXT_HTTP_ERROR_FALLBACK;404\",\"Switched to client rendering because the server rendering errored:\\n\\nError: NEXT_HTTP_ERROR_FALLBACK;404\\n    at Detail (about://React/Server/C:%5Cprojects%5CAD-Me-devb-1125%5C.next%5Cdev%5Cserver%5Cchunks%5Cssr%5C%5Broot-of-the-server%5D__15jj5mkr8frsa._.js?149:504:211)\\n    at resolveErrorDev (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:2:417548)\\n    at processFullStringRow (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:2:438490)\\n    at C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:2:444645\\n    at processBinaryChunk (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:2:444728)\\n    at Readable.\\u003canonymous> (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:2:456208)\\n    at Readable.emit (node:events:509:28)\\n    at addChunk (node:internal/streams/readable:563:12)\\n    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)\\n    at Readable.push (node:internal/streams/readable:394:5)\\n    at Object.onChunk (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:52:64972)\\n    at PassThrough.\\u003canonymous> (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:52:63906)\\n    at PassThrough.emit (node:events:509:28)\\n    at addChunk (node:internal/streams/readable:563:12)\\n    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)\\n    at Readable.push (node:internal/streams/readable:394:5)\\n    at node:internal/streams/transform:178:12\\n    at PassThrough._transform (node:internal/streams/passthrough:46:3)\\n    at Transform._write (node:internal/streams/transform:171:8)\\n    at writeOrBuffer (node:internal/streams/writable:570:12)\\n    at _write (node:internal/streams/writable:499:10)\\n    at Writable.write (node:internal/streams/writable:508:10)\\n    at completeWriting (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:99:51932)\\n    at flushCompletedChunks (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:99:153091)\\n    at performWork (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:99:148708)\\n    at Immediate.\\u003canonymous> (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:99:88948)\\n    at process.processImmediate (node:internal/timers:534:21)\\n    at process.callbackTrampoline (node:internal/async_hooks:130:17)\",\"\\n    at Detail (about://React/Server/C:%5Cprojects%5CAD-Me-devb-1125%5C.next%5Cdev%5Cserver%5Cchunks%5Cssr%5C%5Broot-of-the-server%5D__15jj5mkr8frsa._.js?134:498:174)\\n    at SegmentViewNode (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:12893:28)\\n    at InnerLayoutRouter (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1386:34)\\n    at RedirectErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2453:9)\\n    at RedirectBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2495:29)\\n    at HTTPAccessFallbackBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1083:39)\\n    at LoadingBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1497:32)\\n    at ErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:868:26)\\n    at InnerScrollHandler (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1282:234)\\n    at ScrollHandler (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1373:26)\\n    at RenderFromTemplateContext (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2611:238)\\n    at SegmentStateProvider (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:12909:33)\\n    at OuterLayoutRouter (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1523:30)\\n    at InnerLayoutRouter (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1386:34)\\n    at RedirectErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2453:9)\\n    at RedirectBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2495:29)\\n    at HTTPAccessFallbackBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1083:39)\\n    at LoadingBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1497:32)\\n    at ErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:868:26)\\n    at InnerScrollHandler (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1282:234)\\n    at ScrollHandler (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1373:26)\\n    at RenderFromTemplateContext (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2611:238)\\n    at SegmentStateProvider (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:12909:33)\\n    at OuterLayoutRouter (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1523:30)\\n    at InnerLayoutRouter (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1386:34)\\n    at RedirectErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2453:9)\\n    at RedirectBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2495:29)\\n    at HTTPAccessFallbackErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1007:9)\\n    at HTTPAccessFallbackBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1083:39)\\n    at Suspense (\\u003canonymous>)\\n    at LoadingBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1497:32)\\n    at ErrorBoundaryHandler (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:792:9)\\n    at ErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:868:26)\\n    at InnerScrollHandler (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1282:234)\\n    at ScrollHandler (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1373:26)\\n    at RenderFromTemplateContext (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2611:238)\\n    at SegmentStateProvider (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:12909:33)\\n    at OuterLayoutRouter (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1523:30)\\n    at main (\\u003canonymous>)\\n    at body (\\u003canonymous>)\\n    at html (\\u003canonymous>)\\n    at RootLayout (about://React/Server/C:%5Cprojects%5CAD-Me-devb-1125%5C.next%5Cdev%5Cserver%5Cchunks%5Cssr%5Csrc_0ab2n4i-khkf5._.js?1:96:284)\\n    at SegmentViewNode (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:12893:28)\\n    at LoadingBoundaryProvider (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1459:36)\\n    at __next_root_layout_boundary__ (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:318:15872)\\n    at RedirectErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:318:13722)\\n    at RedirectBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:318:14357)\\n    at AppDevOverlayErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:52:8089)\\n    at HotReload (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:52:20313)\\n    at Router (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:318:18346)\\n    at ErrorBoundaryHandler (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:50:7376)\\n    at ErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:50:8644)\\n    at RootErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:318:15264)\\n    at AppRouter (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:318:24402)\\n    at ServerInsertedHTMLProvider (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:102:9472)\\n    at App (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:322:47409)\")</script></body></html>"
+
+      56 |     const html = await (await request.get(`/creators/${cid}`)).text();
+      57 |     expect(html).not.toContain(name);
+    > 58 |     expect(html).toContain("찾을 수 없");
+         |                  ^
+      59 |     expect(html).toMatch(/<meta name="robots" content="noindex/);
+      60 |   } finally {
+      61 |     sql(`update creators set published = ${was === "t"} where id = '${cid}'`);
+        at C:\projects\AD-Me-devb-1125\tests\e2e\seo.spec.ts:58:18
+
+    Error Context: test-results\seo-indexing-boundary-and-access-control-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\seo-indexing-boundary-and-access-control-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\seo-indexing-boundary-and-access-control-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[31/72] [desktop] › tests\e2e\service.spec.ts:20:1 › public discovery, filters, comparison, history, drafts and responsive layout
+  19) [desktop] › tests\e2e\service.spec.ts:20:1 › public discovery, filters, comparison, history, drafts and responsive layout 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.click: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: '더 보기' })
+
+
+      33 |   // D033: first server page only (24), the rest via keyset "더 보기".
+      34 |   await expect(page.getByTestId("creator-card")).toHaveCount(24);
+    > 35 |   await page.getByRole("button", { name: "더 보기" }).click();
+         |                                                    ^
+      36 |   await expect(page.getByTestId("creator-card")).toHaveCount(48);
+      37 |   const html = await page.content();
+      38 |   expect(html).not.toMatch(/owner_id\\?":\\?"[0-9a-f]{8}-/); // no owner ids in RSC payload
+        at C:\projects\AD-Me-devb-1125\tests\e2e\service.spec.ts:35:52
+
+    Error Context: test-results\service-public-discovery-f-214e3-rafts-and-responsive-layout-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\service-public-discovery-f-214e3-rafts-and-responsive-layout-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\service-public-discovery-f-214e3-rafts-and-responsive-layout-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[32/72] [desktop] › tests\e2e\service.spec.ts:88:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+  20) [desktop] › tests\e2e\service.spec.ts:88:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation 
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected pattern: /campaigns\/[a-f0-9-]{36}/
+    Received string:  "http://localhost:3000/campaigns/new"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 5000ms
+        14 × locator resolved to <html lang="ko">…</html>
+           - unexpected value "http://localhost:3000/campaigns/new"
+
+
+      119 |   await page.getByLabel("광고 목적", { exact: true }).fill("브랜드 인지도");
+      120 |   await page.getByRole("button", { name: "캠페인 저장" }).click();
+    > 121 |   await expect(page).toHaveURL(/campaigns\/[a-f0-9-]{36}/);
+          |                      ^
+      122 |   const campaignId = page.url().split("/").pop()!;
+      123 |   await expect(
+      124 |     page.getByRole("heading", { name: "브랜드에 어울리는 발견." }),
+        at C:\projects\AD-Me-devb-1125\tests\e2e\service.spec.ts:121:22
+
+    Error Context: test-results\service-two-role-real-DB-g-7486d-delivery-billing-validation-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\service-two-role-real-DB-g-7486d-delivery-billing-validation-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\service-two-role-real-DB-g-7486d-delivery-billing-validation-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[33/72] [desktop] › tests\e2e\service.spec.ts:251:1 › public application, shortlist persistence, account settings and administrator operations
+  21) [desktop] › tests\e2e\service.spec.ts:251:1 › public application, shortlist persistence, account settings and administrator operations 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('article').filter({ hasText: 'QA 지원 신청 f2784564' }).getByText('협업 진행', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" locator('article').filter({ hasText: 'QA 지원 신청 f2784564' }).getByText('협업 진행', { exact: true }) with timeout 5000ms
+      - waiting for locator('article').filter({ hasText: 'QA 지원 신청 f2784564' }).getByText('협업 진행', { exact: true })
+
+
+      296 |     .filter({ hasText: `QA 지원 신청 ${unique}` });
+      297 |   await deal.getByRole("button", { name: "수락", exact: true }).click();
+    > 298 |   await expect(deal.getByText("협업 진행", { exact: true })).toBeVisible();
+          |                                                          ^
+      299 |   await page.goto("/creators");
+      300 |   await page.getByLabel("크리에이터 검색").fill("서하린");
+      301 |   const save = page.getByRole("button", {
+        at C:\projects\AD-Me-devb-1125\tests\e2e\service.spec.ts:298:58
+
+    Error Context: test-results\service-public-application-588a6-nd-administrator-operations-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\service-public-application-588a6-nd-administrator-operations-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\service-public-application-588a6-nd-administrator-operations-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[34/72] [desktop] › tests\e2e\similar.spec.ts:6:1 › similar profiles and deletion request entry
+  22) [desktop] › tests\e2e\similar.spec.ts:6:1 › similar profiles and deletion request entry ──────
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByTestId('similar').getByRole('link')
+    Expected: 3
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByTestId('similar').getByRole('link') with timeout 5000ms
+      - waiting for getByTestId('similar').getByRole('link')
+        13 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+       7 |   await page.goto("/creators/creator-001");
+       8 |   const links = page.getByTestId("similar").getByRole("link");
+    >  9 |   await expect(links).toHaveCount(3);
+         |                       ^
+      10 |   for (const href of await links.evaluateAll((a) =>
+      11 |     a.map((x) => x.getAttribute("href")),
+      12 |   ))
+        at C:\projects\AD-Me-devb-1125\tests\e2e\similar.spec.ts:9:23
+
+    Error Context: test-results\similar-similar-profiles-and-deletion-request-entry-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\similar-similar-profiles-and-deletion-request-entry-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\similar-similar-profiles-and-deletion-request-entry-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[35/72] [desktop] › tests\e2e\unsubscribe.spec.ts:35:1 › unsubscribe: GET is inert, button and one-click POST turn mail off, bad token refused
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[36/72] [desktop] › tests\e2e\uploads.spec.ts:32:1 › private portfolio upload, download, isolation and delete
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T08:01:12.873Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"396b23db-01b0-4dd6-8bf0-ada217eafb6c"}
+
+[37/72] [mobile] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys
+[WebServer] {"t":"2026-11-25T08:01:16.396Z","level":"error","event":"server_error","message":"TEST 취소를 처리하지 못했습니다.","route":"/api/billing/cancel"}
+
+[WebServer] {"t":"2026-11-25T08:01:16.449Z","level":"warn","event":"alert","key":"error:/api/billing/cancel:TEST 취소를 처리하지 못했습니다.","text":"서버 오류 /api/billing/cancel TEST 취소를 처리하지 못했습니다."}
+
+[WebServer] api_error {
+[WebServer]   timestamp: '2026-11-25T08:01:16.449Z',
+[WebServer]   requestId: 'a481640a-be74-44bc-972f-b51df37ede64',
+[WebServer]   domain: 'billing',
+[WebServer]   operation: 'src/app/api/billing/cancel/route.ts.POST',
+[WebServer]   level: 'error',
+[WebServer]   duration: 240,
+[WebServer]   errorCode: 'SERVICE_UNAVAILABLE',
+[WebServer]   retryable: true
+[WebServer] }
+
+  23) [mobile] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('row').filter({ hasText: 'brand_pro' }).getByRole('alert')
+    Expected pattern: /Edge Function|시크릿 키/
+    Received string:  "취소 결과를 확인하지 못했습니다. 같은 요청으로 다시 시도해주세요."
+    Timeout: 30000ms
+
+    Call log:
+      - Expect "toContainText" getByRole('row').filter({ hasText: 'brand_pro' }).getByRole('alert') with timeout 30000ms
+      - waiting for getByRole('row').filter({ hasText: 'brand_pro' }).getByRole('alert')
+        58 × locator resolved to <span role="alert" class="error">취소 결과를 확인하지 못했습니다. 같은 요청으로 다시 시도해주세요.</span>
+           - unexpected value "취소 결과를 확인하지 못했습니다. 같은 요청으로 다시 시도해주세요."
+
+
+      86 |     await row.getByLabel("취소 사유").fill("테스트 취소");
+      87 |     await row.getByRole("button", { name: "TEST 취소" }).click();
+    > 88 |     await expect(row.getByRole("alert")).toContainText(/Edge Function|시크릿 키/, { timeout: 30_000 });
+         |                                          ^
+      89 |     expect(sql(`select status from orders where id = '${order}'`)).toBe("paid");
+      90 |     expect(
+      91 |       sql(
+        at C:\projects\AD-Me-devb-1125\tests\e2e\billing-cancel.spec.ts:88:42
+
+    Error Context: test-results\billing-cancel-TEST-cancel-e8bcc-afely-without-provider-keys-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\billing-cancel-TEST-cancel-e8bcc-afely-without-provider-keys-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\billing-cancel-TEST-cancel-e8bcc-afely-without-provider-keys-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[38/72] [mobile] › tests\e2e\claims.spec.ts:32:1 › collected profile: unverified label, claim code once, admin approves only with matching code
+  24) [mobile] › tests\e2e\claims.spec.ts:32:1 › collected profile: unverified label, claim code once, admin approves only with matching code 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('미인증 · 협업 의사 미확인')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('미인증 · 협업 의사 미확인') with timeout 5000ms
+      - waiting for getByText('미인증 · 협업 의사 미확인')
+
+
+      72 |   try {
+      73 |     await page.goto(`/creators/${id}`);
+    > 74 |     await expect(page.getByText("미인증 · 협업 의사 미확인")).toBeVisible();
+         |                                                     ^
+      75 |     await expect(
+      76 |       page.getByRole("link", { name: /협업 캠페인 만들기/ }),
+      77 |     ).toHaveCount(0);
+        at C:\projects\AD-Me-devb-1125\tests\e2e\claims.spec.ts:74:53
+
+    Error Context: test-results\claims-collected-profile-u-05de7-ves-only-with-matching-code-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\claims-collected-profile-u-05de7-ves-only-with-matching-code-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\claims-collected-profile-u-05de7-ves-only-with-matching-code-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[39/72] [mobile] › tests\e2e\compare.spec.ts:12:1 › compare: private note, link share without notes, CSV, revoke
+[40/72] [mobile] › tests\e2e\consent.spec.ts:12:1 › consent: no pre-checked marketing; preferences persist and can be withdrawn
+  25) [mobile] › tests\e2e\consent.spec.ts:12:1 › consent: no pre-checked marketing; preferences persist and can be withdrawn 
+
+    Error: expect(locator).toBeChecked() failed
+
+    Locator:  getByRole('form', { name: '알림·관심 분야' }).getByLabel(/서비스 알림 메일/)
+    Expected: checked
+    Received: unchecked
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeChecked" getByRole('form', { name: '알림·관심 분야' }).getByLabel(/서비스 알림 메일/) with timeout 5000ms
+      - waiting for getByRole('form', { name: '알림·관심 분야' }).getByLabel(/서비스 알림 메일/)
+        14 × locator resolved to <input type="checkbox" name="service_email"/>
+           - unexpected value "unchecked"
+
+
+      22 |   const service = form.getByLabel(/서비스 알림 메일/);
+      23 |   await expect(marketing).not.toBeChecked();
+    > 24 |   await expect(service).toBeChecked();
+         |                         ^
+      25 |   const save = async () => {
+      26 |     await form.getByRole("button", { name: "알림 설정 저장" }).click();
+      27 |     await expect(form.getByText("알림 설정을 저장했습니다.")).toBeVisible();
+        at C:\projects\AD-Me-devb-1125\tests\e2e\consent.spec.ts:24:25
+
+    Error Context: test-results\consent-consent-no-pre-che-ae8f5-ersist-and-can-be-withdrawn-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\consent-consent-no-pre-che-ae8f5-ersist-and-can-be-withdrawn-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\consent-consent-no-pre-che-ae8f5-ersist-and-can-be-withdrawn-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[41/72] [mobile] › tests\e2e\csp.spec.ts:32:1 › pages, auth and realtime run without CSP violations; Toss allowed, others blocked
+[42/72] [mobile] › tests\e2e\csv-import.spec.ts:14:1 › csv import: preview, partial commit, export round-trip, other account blocked
+  26) [mobile] › tests\e2e\csv-import.spec.ts:14:1 › csv import: preview, partial commit, export round-trip, other account blocked 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 2
+    + Received  + 0
+
+      Array [
+    -   "ID",
+        "이름",
+        "분야",
+        "분위기",
+        "최소견적",
+        "출처",
+    -   "출처 근거",
+      ]
+
+      79 |   ).text();
+      80 |   const table = parseCsv(exported);
+    > 81 |   expect(table[0]).toEqual([
+         |                    ^
+      82 |     "ID",
+      83 |     "이름",
+      84 |     "분야",
+        at C:\projects\AD-Me-devb-1125\tests\e2e\csv-import.spec.ts:81:20
+
+    Error Context: test-results\csv-import-csv-import-prev-ccd92--trip-other-account-blocked-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\csv-import-csv-import-prev-ccd92--trip-other-account-blocked-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\csv-import-csv-import-prev-ccd92--trip-other-account-blocked-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[43/72] [mobile] › tests\e2e\entitlements.spec.ts:38:1 › admin manual grant needs a reason; member sees it; revoke removes it
+  27) [mobile] › tests\e2e\entitlements.spec.ts:38:1 › admin manual grant needs a reason; member sees it; revoke removes it 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByText(/ai_credits .*잔여 크레딧/)
+    Expected: 0
+    Received: 1
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByText(/ai_credits .*잔여 크레딧/) with timeout 5000ms
+      - waiting for getByText(/ai_credits .*잔여 크레딧/)
+        14 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      123 |     await expect(row).toContainText("크레딧 0");
+      124 |     await mp.reload();
+    > 125 |     await expect(mp.getByText(/ai_credits .*잔여 크레딧/)).toHaveCount(0);
+          |                                                       ^
+      126 |     await ctx.close();
+      127 |   } finally {
+      128 |     sql(`delete from entitlements where owner_id = '${uid}'`);
+        at C:\projects\AD-Me-devb-1125\tests\e2e\entitlements.spec.ts:125:55
+
+    Error Context: test-results\entitlements-admin-manual--db54a-r-sees-it-revoke-removes-it-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\entitlements-admin-manual--db54a-r-sees-it-revoke-removes-it-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\entitlements-admin-manual--db54a-r-sees-it-revoke-removes-it-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[44/72] [mobile] › tests\e2e\help.spec.ts:34:1 › help + contact: anonymous and member inquiries, admin answers, metrics with definitions
+[45/72] [mobile] › tests\e2e\lists.spec.ts:27:1 › candidate groups and campaign shortlist
+[46/72] [mobile] › tests\e2e\lists.spec.ts:114:1 › public reference add, retry, denial and shortlist display
+[47/72] [mobile] › tests\e2e\lists.spec.ts:194:1 › dashboard shows default-list favourites by public reference
+[48/72] [mobile] › tests\e2e\match-feedback.spec.ts:14:1 › matching feedback: owner rates with reason, others blocked, admin sees honest summary
+  28) [mobile] › tests\e2e\match-feedback.spec.ts:14:1 › matching feedback: owner rates with reason, others blocked, admin sees honest summary 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByRole('form', { name: /추천 평가$/ }).first().getByLabel('적합 여부')
+
+
+      34 |   await page.goto(`/campaigns/${id}`);
+      35 |   const form = page.getByRole("form", { name: /추천 평가$/ }).first();
+    > 36 |   await form.getByLabel("적합 여부").selectOption("unfit");
+         |                                  ^
+      37 |   await form.getByLabel("사유").selectOption("budget_mismatch");
+      38 |   await form.getByRole("button", { name: "평가 저장" }).click();
+      39 |   await expect(form.getByText("평가를 저장했습니다.")).toBeVisible();
+        at C:\projects\AD-Me-devb-1125\tests\e2e\match-feedback.spec.ts:36:34
+
+    Error Context: test-results\match-feedback-matching-fe-0647f-d-admin-sees-honest-summary-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\match-feedback-matching-fe-0647f-d-admin-sees-honest-summary-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\match-feedback-matching-fe-0647f-d-admin-sees-honest-summary-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[49/72] [mobile] › tests\e2e\matching-policy.spec.ts:19:1 › hard category/budget policy is saved and applied
+  29) [mobile] › tests\e2e\matching-policy.spec.ts:19:1 › hard category/budget policy is saved and applied 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByLabel('필수 조건 정보가 없는 크리에이터')
+
+
+      35 |   await page
+      36 |     .getByLabel("필수 조건 정보가 없는 크리에이터")
+    > 37 |     .selectOption("exclude");
+         |      ^
+      38 |   await page.getByRole("button", { name: "캠페인 저장" }).click();
+      39 |   await expect(page).toHaveURL(/campaigns\/[a-f0-9-]{36}/);
+      40 |   const id = page.url().split("/").pop()!;
+        at C:\projects\AD-Me-devb-1125\tests\e2e\matching-policy.spec.ts:37:6
+
+    Error Context: test-results\matching-policy-hard-categ-2f1c6-policy-is-saved-and-applied-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\matching-policy-hard-categ-2f1c6-policy-is-saved-and-applied-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\matching-policy-hard-categ-2f1c6-policy-is-saved-and-applied-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[50/72] [mobile] › tests\e2e\notifications.spec.ts:29:1 › unread badge updates live in two tabs; read cursor persists after re-login
+[51/72] [mobile] › tests\e2e\notifications.spec.ts:133:1 › polling fallback updates the badge when realtime is blocked
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T08:04:28.437Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/dashboard","kind":"render","method":"GET","path":"/dashboard","request_id":"48be8852-f0a9-4f49-80dd-337793b69d5c"}
+
+[52/72] [mobile] › tests\e2e\notifications.spec.ts:188:1 › notification API requires login and stays private
+[53/72] [mobile] › tests\e2e\pipeline.spec.ts:33:3 › pipeline counts match rows and CSV (brand)
+  30) [mobile] › tests\e2e\pipeline.spec.ts:33:3 › pipeline counts match rows and CSV (brand) ──────
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('article[data-proposal-id]')
+    Expected: 9
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('article[data-proposal-id]') with timeout 5000ms
+      - waiting for locator('article[data-proposal-id]')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      51 |       await stages.locator(`[data-stage=${k}]`).click();
+      52 |       await expect(page).toHaveURL(new RegExp(`stage=${k}`));
+    > 53 |       await expect(page.locator("article[data-proposal-id]")).toHaveCount(n);
+         |                                                               ^
+      54 |       await page.reload();
+      55 |       await expect(page.locator("article[data-proposal-id]")).toHaveCount(n);
+      56 |       const rows = await csvRows(page, `&stage=${k}`);
+        at C:\projects\AD-Me-devb-1125\tests\e2e\pipeline.spec.ts:53:63
+
+    Error Context: test-results\pipeline-pipeline-counts-match-rows-and-CSV-brand--mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\pipeline-pipeline-counts-match-rows-and-CSV-brand--mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\pipeline-pipeline-counts-match-rows-and-CSV-brand--mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[54/72] [mobile] › tests\e2e\pipeline.spec.ts:33:3 › pipeline counts match rows and CSV (creator)
+  31) [mobile] › tests\e2e\pipeline.spec.ts:33:3 › pipeline counts match rows and CSV (creator) ────
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('article[data-proposal-id]')
+    Expected: 11
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('article[data-proposal-id]') with timeout 5000ms
+      - waiting for locator('article[data-proposal-id]')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      51 |       await stages.locator(`[data-stage=${k}]`).click();
+      52 |       await expect(page).toHaveURL(new RegExp(`stage=${k}`));
+    > 53 |       await expect(page.locator("article[data-proposal-id]")).toHaveCount(n);
+         |                                                               ^
+      54 |       await page.reload();
+      55 |       await expect(page.locator("article[data-proposal-id]")).toHaveCount(n);
+      56 |       const rows = await csvRows(page, `&stage=${k}`);
+        at C:\projects\AD-Me-devb-1125\tests\e2e\pipeline.spec.ts:53:63
+
+    Error Context: test-results\pipeline-pipeline-counts-match-rows-and-CSV-creator--mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\pipeline-pipeline-counts-match-rows-and-CSV-creator--mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\pipeline-pipeline-counts-match-rows-and-CSV-creator--mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[55/72] [mobile] › tests\e2e\privacy-export.spec.ts:28:1 › own-data export excludes the counterparty and is logged
+  32) [mobile] › tests\e2e\privacy-export.spec.ts:28:1 › own-data export excludes the counterparty and is logged 
+
+    Error: expect(received).toBeNull()
+
+    Received: {"code": "42501", "details": null, "hint": null, "message": "versioned publication transaction required"}
+
+      65 |       })
+      66 |     ).error,
+    > 67 |   ).toBeNull();
+         |     ^
+      68 |   const brand = client();
+      69 |   await brand.auth.signInWithPassword({
+      70 |     email: accounts.brand.email,
+        at C:\projects\AD-Me-devb-1125\tests\e2e\privacy-export.spec.ts:67:5
+
+    Error Context: test-results\privacy-export-own-data-ex-2636b--counterparty-and-is-logged-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\privacy-export-own-data-ex-2636b--counterparty-and-is-logged-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\privacy-export-own-data-ex-2636b--counterparty-and-is-logged-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[56/72] [mobile] › tests\e2e\profile-fields.spec.ts:20:1 › creator saves multi-tag profile with unknown quote and availability
+  33) [mobile] › tests\e2e\profile-fields.spec.ts:20:1 › creator saves multi-tag profile with unknown quote and availability 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.check: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByRole('group', { name: /분야/ }).getByRole('checkbox').nth(1)
+
+
+      43 |     .fill("다중 태그 검증");
+      44 |   const cats = page.getByRole("group", { name: /분야/ }).getByRole("checkbox");
+    > 45 |   await cats.nth(1).check();
+         |                     ^
+      46 |   await page
+      47 |     .getByRole("group", { name: "플랫폼" })
+      48 |     .getByRole("checkbox", { name: "tiktok" })
+        at C:\projects\AD-Me-devb-1125\tests\e2e\profile-fields.spec.ts:45:21
+
+    Error Context: test-results\profile-fields-creator-sav-33c75-nown-quote-and-availability-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\profile-fields-creator-sav-33c75-nown-quote-and-availability-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\profile-fields-creator-sav-33c75-nown-quote-and-availability-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[57/72] [mobile] › tests\e2e\promotion.spec.ts:29:1 › HOT slot is a labelled ad, organic results unchanged, owner sees exposure history
+  34) [mobile] › tests\e2e\promotion.spec.ts:29:1 › HOT slot is a labelled ad, organic results unchanged, owner sees exposure history 
+
+    TypeError: Cannot convert undefined or null to object
+
+      57 |       (s: { creator_id: string }) => s.creator_id === cid,
+      58 |     );
+    > 59 |     expect(Object.keys(mine).sort()).toEqual([
+         |                   ^
+      60 |       "category",
+      61 |       "creator_id",
+      62 |       "expires_at",
+        at C:\projects\AD-Me-devb-1125\tests\e2e\promotion.spec.ts:59:19
+
+    Error Context: test-results\promotion-HOT-slot-is-a-la-930f0-owner-sees-exposure-history-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\promotion-HOT-slot-is-a-la-930f0-owner-sees-exposure-history-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\promotion-HOT-slot-is-a-la-930f0-owner-sees-exposure-history-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[58/72] [mobile] › tests\e2e\proposal-cancel.spec.ts:28:1 › creator cancels a pending application; history is shown to both sides
+[59/72] [mobile] › tests\e2e\recruiting.spec.ts:22:1 › brand sets recruiting deadline and capacity; past deadline is refused
+[60/72] [mobile] › tests\e2e\reports.spec.ts:30:1 › private request → admin answer → requester status and appeal
+  35) [mobile] › tests\e2e\reports.spec.ts:30:1 › private request → admin answer → requester status and appeal 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByLabel('요청 유형')
+
+
+      49 |   await page.goto("/creators/creator-010");
+      50 |   await page.getByRole("link", { name: "자료 정정·이슈 신고" }).click();
+    > 51 |   await page.getByLabel("요청 유형").selectOption("correction");
+         |                                  ^
+      52 |   await page
+      53 |     .getByLabel("요청 사유")
+      54 |     .fill("가상 프로필의 분야 표기가 실제 소개와 달라 정정을 요청합니다.");
+        at C:\projects\AD-Me-devb-1125\tests\e2e\reports.spec.ts:51:34
+
+    Error Context: test-results\reports-private-request-→--bdbf8-requester-status-and-appeal-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\reports-private-request-→--bdbf8-requester-status-and-appeal-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\reports-private-request-→--bdbf8-requester-status-and-appeal-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[61/72] [mobile] › tests\e2e\retention.spec.ts:26:1 › privacy notice lists retention periods without horizontal scroll
+  36) [mobile] › tests\e2e\retention.spec.ts:26:1 › privacy notice lists retention periods without horizontal scroll 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByTestId('retention-table')
+    Expected substring: "종료(거절·취소·완료) 후 3년"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByTestId('retention-table') with timeout 5000ms
+      - waiting for getByTestId('retention-table')
+
+
+      29 |   await page.goto("/privacy");
+      30 |   const table = page.getByTestId("retention-table");
+    > 31 |   await expect(table).toContainText("종료(거절·취소·완료) 후 3년");
+         |                       ^
+      32 |   await expect(table).toContainText("복구 시 삭제 표시를 다시 적용");
+      33 |   expect(
+      34 |     await page.evaluate(
+        at C:\projects\AD-Me-devb-1125\tests\e2e\retention.spec.ts:31:23
+
+    Error Context: test-results\retention-privacy-notice-l-f5f37-s-without-horizontal-scroll-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\retention-privacy-notice-l-f5f37-s-without-horizontal-scroll-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\retention-privacy-notice-l-f5f37-s-without-horizontal-scroll-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[62/72] [mobile] › tests\e2e\retention.spec.ts:40:1 › retention controls: non-admin refused, admin runs job and re-apply
+[63/72] [mobile] › tests\e2e\safety.spec.ts:119:1 › block from collaboration, brand cannot message, unblock in settings
+[WebServer] ⨯ Error: The destination stream errored while writing data.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '483628473'
+[WebServer] }
+
+[WebServer] {"t":"2026-11-25T08:07:13.357Z","level":"warn","event":"client_aborted","digest":"483628473","route":"/admin","kind":"render","method":"GET","path":"/admin","request_id":"d560831d-2c5b-471d-ab1d-2b147be6c14e"}
+
+  37) [mobile] › tests\e2e\safety.spec.ts:119:1 › block from collaboration, brand cannot message, unblock in settings 
+
+    TypeError: Cannot read properties of null (reading 'id')
+
+      114 |       .select("id")
+      115 |       .single()
+    > 116 |   ).data!.id as string;
+          |           ^
+      117 | }
+      118 |
+      119 | test("block from collaboration, brand cannot message, unblock in settings", async ({
+        at proposal (C:\projects\AD-Me-devb-1125\tests\e2e\safety.spec.ts:116:11)
+        at C:\projects\AD-Me-devb-1125\tests\e2e\safety.spec.ts:125:15
+
+    Error Context: test-results\safety-block-from-collabor-517e7-message-unblock-in-settings-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\safety-block-from-collabor-517e7-message-unblock-in-settings-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\safety-block-from-collabor-517e7-message-unblock-in-settings-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[64/72] [mobile] › tests\e2e\safety.spec.ts:158:1 › admin temporary restriction, creator appeal, admin lift
+  38) [mobile] › tests\e2e\safety.spec.ts:158:1 › admin temporary restriction, creator appeal, admin lift 
+
+    TypeError: Cannot read properties of null (reading 'id')
+
+      114 |       .select("id")
+      115 |       .single()
+    > 116 |   ).data!.id as string;
+          |           ^
+      117 | }
+      118 |
+      119 | test("block from collaboration, brand cannot message, unblock in settings", async ({
+        at proposal (C:\projects\AD-Me-devb-1125\tests\e2e\safety.spec.ts:116:11)
+        at C:\projects\AD-Me-devb-1125\tests\e2e\safety.spec.ts:164:3
+
+    Error Context: test-results\safety-admin-temporary-restriction-creator-appeal-admin-lift-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\safety-admin-temporary-restriction-creator-appeal-admin-lift-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\safety-admin-temporary-restriction-creator-appeal-admin-lift-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[65/72] [mobile] › tests\e2e\selection-review.spec.ts:38:1 › selection review: checklist + approval required before accepting; memo stays private
+  39) [mobile] › tests\e2e\selection-review.spec.ts:38:1 › selection review: checklist + approval required before accepting; memo stays private 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.fill: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByTestId('selection-review').getByLabel('새 체크 항목')
+
+
+       95 |     await page.goto(`/campaigns/${id}`);
+       96 |     const section = page.getByTestId("selection-review");
+    >  97 |     await section.getByLabel("새 체크 항목").fill("광고 표기 이력 확인");
+          |                                         ^
+       98 |     await section.getByRole("button", { name: "항목 추가" }).click();
+       99 |     await expect(
+      100 |       section.getByRole("form", { name: /선정 검토$/ }),
+        at C:\projects\AD-Me-devb-1125\tests\e2e\selection-review.spec.ts:97:41
+
+    Error Context: test-results\selection-review-selection-aee6c-ccepting-memo-stays-private-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\selection-review-selection-aee6c-ccepting-memo-stays-private-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\selection-review-selection-aee6c-ccepting-memo-stays-private-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[66/72] [mobile] › tests\e2e\seo.spec.ts:23:1 › indexing boundary and access control
+  40) [mobile] › tests\e2e\seo.spec.ts:23:1 › indexing boundary and access control ─────────────────
+
+    Error: expect(received).toContain(expected) // indexOf
+
+    Expected substring: "찾을 수 없"
+    Received string:    "<!DOCTYPE html><html lang=\"ko\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" as=\"image\" imageSrcSet=\"/_next/image?url=%2Fbrand%2Ffigma%2Flogo.png&amp;w=256&amp;q=75 1x, /_next/image?url=%2Fbrand%2Ffigma%2Flogo.png&amp;w=640&amp;q=75 2x\"/><link rel=\"stylesheet\" href=\"/_next/static/chunks/src_app_04pyck7ul940-._.css\" data-precedence=\"next_static/chunks/src_app_04pyck7ul940-._.css\"/><link rel=\"preload\" as=\"script\" fetchPriority=\"low\" href=\"/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_0fb9-gqu7_t97._.js\"/><script src=\"/_next/static/chunks/1daa_next_dist_compiled_react-dom_cjs_react-dom-client_development_0mp0cp_t-ezj9.js\" async=\"\"></script><script src=\"/_next/static/chunks/1q96_modules_next_dist_compiled_react-dom_cjs_react-dom_development_1sqry0_53krp4.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_compiled_react-dom_0grqycjrj6mju._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-67asdr9._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jmam7qwg.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_compiled_1amofcmz--cdp._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_client_1165-soo5tfpf._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_dist_05y3oi5z9mc_3._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqwj2323d._.js\" async=\"\"></script><script src=\"/_next/static/chunks/_1anvha4rlo79g._.js\" async=\"\"></script><script src=\"/_next/static/chunks/turbopack-_11q0wbt2n0d9y._.js\" async=\"\"></script><script src=\"/_next/static/chunks/_1qgo-3cc7uxj1._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_0r2_ik7v3w6_y._.js\" async=\"\"></script><script src=\"/_next/static/chunks/src_components_figma-navigation_tsx_0avjca4uiqwkh._.js\" async=\"\"></script><script src=\"/_next/static/chunks/src_app_error_tsx_0ts9uj72u-_iy._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_zod_v4_classic_0yyvcg5_o3dua._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_zod_v4_core_14qn2mg1f8pkp._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_zod_v4_locales_1-ided7izgr--._.js\" async=\"\"></script><script src=\"/_next/static/chunks/node_modules_next_navigation_0gqqfqmfu4m-x.js\" async=\"\"></script><script src=\"/_next/static/chunks/src_069w_2s5d1hrh._.js\" async=\"\"></script><title>AD Me — 브랜드의 다음 파트너</title><meta name=\"description\" content=\"브랜드와 YouTube 크리에이터를 연결하는 광고 협업 플랫폼.\"/><meta name=\"robots\" content=\"noindex, nofollow\"/><meta property=\"og:title\" content=\"AD Me — 브랜드의 다음 파트너\"/><meta property=\"og:description\" content=\"브랜드와 YouTube 크리에이터를 연결하는 광고 협업 플랫폼.\"/><meta property=\"og:site_name\" content=\"AD Me\"/><meta property=\"og:locale\" content=\"ko_KR\"/><meta property=\"og:image\" content=\"http://localhost:3000/brand/ad-me-logo.png\"/><meta property=\"og:image:alt\" content=\"AD Me\"/><meta property=\"og:type\" content=\"website\"/><meta name=\"twitter:card\" content=\"summary_large_image\"/><meta name=\"twitter:title\" content=\"AD Me — 브랜드의 다음 파트너\"/><meta name=\"twitter:description\" content=\"브랜드와 YouTube 크리에이터를 연결하는 광고 협업 플랫폼.\"/><meta name=\"twitter:image\" content=\"http://localhost:3000/brand/ad-me-logo.png\"/><meta name=\"twitter:image:alt\" content=\"AD Me\"/><link rel=\"icon\" href=\"/brand/ad-me-symbol.png\"/><script src=\"/_next/static/chunks/node_modules_next_dist_build_polyfills_polyfill-nomodule.js\" noModule=\"\"></script></head><body><div hidden=\"\"><!--$--><!--/$--></div><a class=\"skip\" href=\"#main\">본문으로 이동</a><header class=\"figma-nav\"><a aria-label=\"AD Me 홈\" class=\"figma-logo\" href=\"/\"><img alt=\"AD Me\" width=\"207\" height=\"69\" decoding=\"async\" data-nimg=\"1\" style=\"color:transparent\" srcSet=\"/_next/image?url=%2Fbrand%2Ffigma%2Flogo.png&amp;w=256&amp;q=75 1x, /_next/image?url=%2Fbrand%2Ffigma%2Flogo.png&amp;w=640&amp;q=75 2x\" src=\"/_next/image?url=%2Fbrand%2Ffigma%2Flogo.png&amp;w=640&amp;q=75\"/></a><nav class=\"figma-nav-links\" aria-label=\"메인 메뉴\"><a href=\"/creators\">크리에이터 탐색</a><a href=\"/recommendations\">AI 추천</a><a href=\"/jobs\">캠페인</a><a href=\"/pricing\">요금제</a><a href=\"/dashboard\">워크스페이스</a></nav><div class=\"figma-nav-account\"><a href=\"/login\">로그인</a><a class=\"button primary\" href=\"/signup\">무료로 시작하기</a></div><details class=\"figma-mobile-menu\"><summary>탐색 <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-menu\" aria-hidden=\"true\"><path d=\"M4 5h16\"></path><path d=\"M4 12h16\"></path><path d=\"M4 19h16\"></path></svg></summary><nav aria-label=\"모바일 전체 메뉴\"><a class=\"button outline\" href=\"/creators\">크리에이터 탐색</a><a class=\"button outline\" href=\"/recommendations\">AI 추천</a><a class=\"button outline\" href=\"/jobs\">캠페인</a><a class=\"button outline\" href=\"/pricing\">요금제</a><a class=\"button outline\" href=\"/dashboard\">워크스페이스</a><a class=\"button outline\" href=\"/login\">로그인</a><a class=\"button outline\" href=\"/signup\">회원가입</a></nav></details></header><main id=\"main\" tabindex=\"-1\"><!--$?--><template id=\"B:0\"></template><div class=\"loading\" role=\"status\">다음 가능성을 불러오고 있습니다…</div><!--/$--></main><footer class=\"figma-footer\"><span>© 2026 AD Me · YouTube 크리에이터 협업</span><nav aria-label=\"서비스 안내\"><a href=\"/about\">서비스·데이터 안내</a><a href=\"/help\">도움말·문의</a><a href=\"/privacy\">개인정보 처리방침</a><a href=\"/terms\">이용약관</a><a href=\"/licenses\">오픈소스 고지</a></nav></footer><script>requestAnimationFrame(function(){$RT=performance.now()});</script><script id=\"_R_\">self.__next_r=\"E8jqradIJz0ufSBp1d3r2\";var __nextHmrInitialVersion=\"0\";</script><script src=\"/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_0fb9-gqu7_t97._.js\" async=\"\"></script><div hidden id=\"S:0\"><template id=\"P:1\"></template><!--$--><!--/$--></div><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,\"7:\\\"[project]/node_modules/next/dist/client/components/layout-router.js [app-client] (ecmascript)\\\"\\n8:\\\"/_next/static/chunks/node_modules_0r2_ik7v3w6_y._.js\\\"\\n9:\\\"/_next/static/chunks/src_components_figma-navigation_tsx_0avjca4uiqwkh._.js\\\"\\na:\\\"LoadingBoundaryProvider\\\"\\nb:I[\\\"$7\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"$a\\\"]\\nd:\\\"[project]/node_modules/next/dist/next-devtools/userspace/app/segment-explorer-node.js [app-client] (ecmascript)\\\"\\ne:I[\\\"$d\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"SegmentViewNode\\\"]\\n16:\\\"$Sreact.fragment\\\"\\n28:\\\"[project]/src/components/figma-navigation.tsx [app-client] (ecmascript)\\\"\\n29:I[\\\"$28\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"FigmaNavigation\\\"]\\n2c:I[\\\"$7\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"default\\\"]\\n2d:\\\"[project]/src/app/error.tsx [app-client] (ecmascript)\\\"\\n2e:\\\"/_next/static/chunks/src_app_error_tsx_0ts9uj72u-_iy._.js\\\"\\n2f:I[\\\"$2d\\\",[\\\"$8\\\",\\\"$9\\\",\\\"$2e\\\"],\\\"default\\\"]\\n33:\\\"[project]/node_modules/next/dist/client/components/render-from-template-context.js [app-client] (ecmascript)\\\"\\n34:I[\\\"$33\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"default\\\"]\\n43:\\\"[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)\\\"\\n44:I[\\\"$43\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"\\\"]\\n81:\\\"[project]/node_modules/next/dist/lib/framework/boundary-components.js [app-client] (ecmascript)\\\"\\n82:I[\\\"$81\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"OutletBoundary\\\"]\\n84:\\\"$Sreact.suspense\\\"\\n91:\\\"ViewportBoundary\\\"\\n92:I[\\\"$81\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"$91\\\"]\\n9b:\\\"MetadataBoundary\\\"\\n9c:I[\\\"$81\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"$9b\\\"]\\na7:\\\"[project]/node_modules/next/dist/client/components/builtin/global-error.js [app-client] (ecmascript)\\\"\\na8:I[\\\"$a7\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"default\\\",1]\\n:HL[\\\"/_next/static/chunks/src_app_04pyck7ul940-._.css\\\",\\\"style\\\"]\\n1:D\\\"$4\\\"\\n1:D\\\"$2\\\"\\n1:D\\\"$5\\\"\\n1:null\\nf:D\\\"$11\\\"\\nf:D\\\"$10\\\"\\nf:D\\\"$13\\\"\\nf:[\\\"$\\\",\\\"div\\\",\\\"l\\\",{\\\"className\\\":\\\"loading\\\",\\\"role\\\":\\\"status\\\",\\\"children\\\":\\\"다음 가능성을 불러오고 있습니다…\\\"},\\\"$10\\\",\\\"$12\\\",1]\\n1a:D\\\"$22\\\"\\n1a:D\\\"$1b\\\"\\n1a:D\\\"$24\\\"\\n36:D\\\"$38\\\"\\n36:D\\\"$37\\\"\\n36:D\\\"$3a\\\"\\n3e:D\\\"$40\\\"\\n3e:D\\\"$3f\\\"\\n3e:D\\\"$42\\\"\\n3e:[\\\"$\\\",\\\"$L44\\\",null,{\\\"className\\\":\\\"button primary\\\",\\\"href\\\":\\\"/creators\\\",\\\"children\\\":\\\"크리에이터 탐색\\\"},\\\"$3f\\\",\\\"$41\\\",1]\\n36:[\\\"$\\\",\\\"section\\\",null,{\\\"className\\\":\\\"wrap\\\",\\\"children\\\":[[\\\"$\\\",\\\"span\\\",null,{\\\"className\\\":\\\"eyebrow\\\",\\\"children\\\":\\\"404 / Not found\\\"},\\\"$37\\\",\\\"$3b\\\",1],[\\\"$\\\",\\\"h1\\\",null,{\\\"className\\\":\\\"page-title\\\",\\\"children\\\":\\\"찾으시는 페이지가 없습니다.\\\"},\\\"$37\\\",\\\"$3c\\\",1],[\\\"$\\\",\\\"p\\\",null,{\\\"children\\\":\\\"주소를 확인하거나 새로운 크리에이터를 만나보세요.\\\"},\\\"$37\\\",\\\"$3d\\\",1],\\\"$3e\\\"]},\\\"$37\\\",\\\"$39\\\",1]\\n4c:D\\\"$4e\\\"\\n4c:D\\\"$4d\\\"\\n4c:D\\\"$50\\\"\\n4c:[\\\"$\\\",\\\"$L44\\\",null,{\\\"href\\\":\\\"/about\\\",\\\"children\\\":\\\"서비스·데이터 안내\\\"},\\\"$4d\\\",\\\"$4f\\\",1]\\n51:D\\\"$53\\\"\\n51:D\\\"$52\\\"\\n51:D\\\"$55\\\"\\n51:[\\\"$\\\",\\\"$L44\\\",null,{\\\"href\\\":\\\"/help\\\",\\\"children\\\":\\\"도움말·문의\\\"},\\\"$52\\\",\\\"$54\\\",1]\\n56:D\\\"$58\\\"\\n56:D\\\"$57\\\"\\n56:D\\\"$5a\\\"\\n56:[\\\"$\\\",\\\"$L44\\\",null,{\\\"href\\\":\\\"/privacy\\\",\\\"children\\\":\\\"개인정보 처리방침\\\"},\\\"$57\\\",\\\"$59\\\",1]\\n5b:D\\\"$5d\\\"\\n5b:D\\\"$5c\\\"\\n5b:D\\\"$5f\\\"\\n5b:[\\\"$\\\",\\\"$L44\\\",null,{\\\"href\\\":\\\"/terms\\\",\\\"children\\\":\\\"이용약관\\\"},\\\"$5c\\\",\\\"$5e\\\",1]\\n60:D\\\"$62\\\"\\n60:D\\\"$61\\\"\\n60:D\\\"$64\\\"\\n60:[\\\"$\\\",\\\"$L44\\\",null,{\\\"href\\\":\\\"/licenses\\\",\\\"children\\\":\\\"오픈소스 고지\\\"},\\\"$61\\\",\\\"$63\\\",1]\\n1a:[\\\"$\\\",\\\"html\\\",null,{\\\"lang\\\":\\\"ko\\\",\\\"children\\\":[\\\"$\\\",\\\"body\\\",null,{\\\"children\\\":[[\\\"$\\\",\\\"a\\\",null,{\\\"className\\\":\\\"skip\\\",\\\"href\\\":\\\"#main\\\",\\\"children\\\":\\\"본문으로 이동\\\"},\\\"$1b\\\",\\\"$26\\\",1],[\\\"$\\\",\\\"$L29\\\",null,{},\\\"$1b\\\",\\\"$27\\\",1],[\\\"$\\\",\\\"main\\\",null,{\\\"id\\\":\\\"main\\\",\\\"tabIndex\\\":-1,\\\"children\\\":[\\\"$\\\",\\\"$L2c\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$2f\\\",\\\"errorStyles\\\":[\\\"$\\\",\\\"$Le\\\",null,{\\\"type\\\":\\\"error\\\",\\\"pagePath\\\":\\\"error.tsx\\\",\\\"children\\\":[]},null,\\\"$30\\\",0],\\\"errorScripts\\\":[[\\\"$\\\",\\\"script\\\",\\\"script-0\\\",{\\\"src\\\":\\\"/_next/static/chunks/src_app_error_tsx_0ts9uj72u-_iy._.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$31\\\",0]],\\\"template\\\":[\\\"$\\\",\\\"$L34\\\",null,{},null,\\\"$32\\\",1],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":[\\\"$\\\",\\\"$Le\\\",\\\"c-not-found\\\",{\\\"type\\\":\\\"not-found\\\",\\\"pagePath\\\":\\\"not-found.tsx\\\",\\\"children\\\":[\\\"$36\\\",[]]},null,\\\"$35\\\",0],\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\",\\\"segmentViewBoundaries\\\":[[\\\"$\\\",\\\"$Le\\\",null,{\\\"type\\\":\\\"boundary:not-found\\\",\\\"pagePath\\\":\\\"not-found.tsx@boundary\\\"},null,\\\"$45\\\",1],[\\\"$\\\",\\\"$Le\\\",null,{\\\"type\\\":\\\"boundary:loading\\\",\\\"pagePath\\\":\\\"loading.tsx@boundary\\\"},null,\\\"$46\\\",1],[\\\"$\\\",\\\"$Le\\\",null,{\\\"type\\\":\\\"boundary:error\\\",\\\"pagePath\\\":\\\"error.tsx@boundary\\\"},null,\\\"$47\\\",1],[\\\"$\\\",\\\"$Le\\\",null,{\\\"type\\\":\\\"boundary:global-error\\\",\\\"pagePath\\\":\\\"__next_builtin__global-error.js\\\"},null,\\\"$48\\\",1]]},null,\\\"$2b\\\",1]},\\\"$1b\\\",\\\"$2a\\\",1],[\\\"$\\\",\\\"footer\\\",null,{\\\"className\\\":\\\"figma-footer\\\",\\\"children\\\":[[\\\"$\\\",\\\"span\\\",null,{\\\"children\\\":\\\"© 2026 AD Me · YouTube 크리에이터 협업\\\"},\\\"$1b\\\",\\\"$4a\\\",1],[\\\"$\\\",\\\"nav\\\",null,{\\\"aria-label\\\":\\\"서비스 안내\\\",\\\"children\\\":[\\\"$4c\\\",\\\"$51\\\",\\\"$56\\\",\\\"$5b\\\",\\\"$60\\\"]},\\\"$1b\\\",\\\"$4b\\\",1]]},\\\"$1b\\\",\\\"$49\\\",1]]},\\\"$1b\\\",\\\"$25\\\",1]},\\\"$1b\\\",\\\"$23\\\",1]\\n69:X\\n71:D\\\"$75\\\"\\n71:D\\\"$72\\\"\\n7b:D\\\"$7e\\\"\\n7b:D\\\"$7c\\\"\\n7b:D\\\"$80\\\"\\n7b:[\\\"$\\\",\\\"$L82\\\",null,{\\\"children\\\":[\\\"$\\\",\\\"$84\\\",null,{\\\"name\\\":\\\"Next.MetadataOutlet\\\",\\\"children\\\":\\\"$@85\\\"},\\\"$7c\\\",\\\"$83\\\",1]},\\\"$7c\\\",\\\"$7f\\\",1]\\n6e:[[\\\"children\\\",{\\\"s\\\":\\\"__PAGE__\\\",\\\"d\\\":{\\\"r\\\":[\\\"$\\\",\\\"$16\\\",\\\"c\\\",{\\\"children\\\":[[\\\"$\\\",\\\"$Le\\\",\\\"c-page\\\",{\\\"type\\\":\\\"page\\\",\\\"pagePath\\\":\\\"creators/[id]/page.tsx\\\",\\\"children\\\":\\\"$L71\\\"},null,\\\"$70\\\",1],[[\\\"$\\\",\\\"script\\\",\\\"script-0\\\",{\\\"src\\\":\\\"/_next/static/chunks/node_modules_zod_v4_classic_0yyvcg5_o3dua._.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$76\\\",0],[\\\"$\\\",\\\"script\\\",\\\"script-1\\\",{\\\"src\\\":\\\"/_next/static/chunks/node_modules_zod_v4_core_14qn2mg1f8pkp._.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$77\\\",0],[\\\"$\\\",\\\"script\\\",\\\"script-2\\\",{\\\"src\\\":\\\"/_next/static/chunks/node_modules_zod_v4_locales_1-ided7izgr--._.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$78\\\",0],[\\\"$\\\",\\\"script\\\",\\\"script-3\\\",{\\\"src\\\":\\\"/_next/static/chunks/node_modules_next_navigation_0gqqfqmfu4m-x.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$79\\\",0],[\\\"$\\\",\\\"script\\\",\\\"script-4\\\",{\\\"src\\\":\\\"/_next/static/chunks/src_069w_2s5d1hrh._.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$7a\\\",0]],\\\"$7b\\\"]},null,\\\"$6f\\\",0],\\\"p\\\":false,\\\"v\\\":null}}]]\\n6a:[[\\\"children\\\",{\\\"s\\\":{\\\"n\\\":\\\"id\\\",\\\"t\\\":\\\"d\\\",\\\"k\\\":\\\"user-4cd83e9b-d319-4029-b4f7-d0a618fd84a0\\\",\\\"s\\\":[\\\"youtube\\\"]},\\\"d\\\":{\\\"r\\\":[\\\"$\\\",\\\"$16\\\",\\\"c\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L2c\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L34\\\",null,{},null,\\\"$6d\\\",1],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":\\\"$undefined\\\",\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\",\\\"segmentViewBoundaries\\\":[\\\"$undefined\\\",\\\"$undefined\\\",\\\"$undefined\\\",\\\"$undefined\\\"]},null,\\\"$6c\\\",1]]},null,\\\"$6b\\\",0],\\\"p\\\":false,\\\"v\\\":\\\"$69\\\"},\\\"c\\\":\\\"$Q6e\\\"}]]\\n65:[[\\\"children\\\",{\\\"s\\\":\\\"creators\\\",\\\"d\\\":{\\\"r\\\":[\\\"$\\\",\\\"$16\\\",\\\"c\\\",{\\\"children\\\":[null,[\\\"$\\\",\\\"$L2c\\\",null,{\\\"parallelRouterKey\\\":\\\"children\\\",\\\"error\\\":\\\"$undefined\\\",\\\"errorStyles\\\":\\\"$undefined\\\",\\\"errorScripts\\\":\\\"$undefined\\\",\\\"template\\\":[\\\"$\\\",\\\"$L34\\\",null,{},null,\\\"$68\\\",1],\\\"templateStyles\\\":\\\"$undefined\\\",\\\"templateScripts\\\":\\\"$undefined\\\",\\\"notFound\\\":\\\"$undefined\\\",\\\"forbidden\\\":\\\"$undefined\\\",\\\"unauthorized\\\":\\\"$undefined\\\",\\\"segmentViewBoundaries\\\":[\\\"$undefined\\\",\\\"$undefined\\\",\\\"$undefined\\\",\\\"$undefined\\\"]},null,\\\"$67\\\",1]]},null,\\\"$66\\\",0],\\\"p\\\":false,\\\"v\\\":\\\"$69\\\"},\\\"c\\\":\\\"$Q6a\\\"}]]\\n87:D\\\"$8a\\\"\\n87:D\\\"$88\\\"\\n87:D\\\"$8b\\\"\\n87:null\\n8c:D\\\"$8e\\\"\\n8c:D\\\"$8d\\\"\\n8c:D\\\"$90\\\"\\n93:D\\\"$95\\\"\\n93:D\\\"$94\\\"\\n8c:[\\\"$\\\",\\\"$L92\\\",null,{\\\"children\\\":\\\"$L93\\\"},\\\"$8d\\\",\\\"$8f\\\",1]\\n96:D\\\"$98\\\"\\n96:D\\\"$97\\\"\\n96:D\\\"$9a\\\"\\n9f:D\\\"$a1\\\"\\n9f:D\\\"$a0\\\"\\na2:D\\\"$a4\\\"\\na2:D\\\"$a3\\\"\\na2:D\\\"$a5\\\"\\na2:null\\n96:[\\\"$\\\",\\\"$L9c\\\",null,{\\\"children\\\":[[\\\"$\\\",\\\"div\\\",null,{\\\"hidden\\\":true,\\\"children\\\":[\\\"$\\\",\\\"$84\\\",null,{\\\"name\\\":\\\"Next.Metadata\\\",\\\"children\\\":\\\"$L9f\\\"},\\\"$97\\\",\\\"$9e\\\",1]},\\\"$97\\\",\\\"$9d\\\",1],\\\"$a2\\\"]},\\\"$97\\\",\\\"$99\\\",1]\\na6:[]\\n0:{\\\"P\\\":\\\"$1\\\",\\\"c\\\":[\\\"\\\",\\\"creators\\\",\\\"user-4cd83e9b-d319-4029-b4f7-d0a618fd84a0\\\"],\\\"q\\\":\\\"\\\",\\\"i\\\":true,\\\"t\\\":{\\\"t\\\":{\\\"s\\\":\\\"\\\",\\\"h\\\":20,\\\"d\\\":{\\\"r\\\":[\\\"$\\\",\\\"$Lb\\\",null,{\\\"loading\\\":[[\\\"$\\\",\\\"$Le\\\",\\\"c-loading\\\",{\\\"type\\\":\\\"loading\\\",\\\"pagePath\\\":\\\"loading.tsx\\\",\\\"children\\\":\\\"$f\\\"},null,\\\"$c\\\",0],[],null],\\\"children\\\":[\\\"$\\\",\\\"$Le\\\",\\\"layout\\\",{\\\"type\\\":\\\"layout\\\",\\\"pagePath\\\":\\\"layout.tsx\\\",\\\"children\\\":[\\\"$\\\",\\\"$16\\\",\\\"c\\\",{\\\"children\\\":[[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/chunks/src_app_04pyck7ul940-._.css\\\",\\\"precedence\\\":\\\"next_static/chunks/src_app_04pyck7ul940-._.css\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$17\\\",0],[\\\"$\\\",\\\"script\\\",\\\"script-0\\\",{\\\"src\\\":\\\"/_next/static/chunks/node_modules_0r2_ik7v3w6_y._.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$18\\\",0],[\\\"$\\\",\\\"script\\\",\\\"script-1\\\",{\\\"src\\\":\\\"/_next/static/chunks/src_components_figma-navigation_tsx_0avjca4uiqwkh._.js\\\",\\\"async\\\":true,\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$19\\\",0]],\\\"$1a\\\"]},null,\\\"$15\\\",1]},null,\\\"$14\\\",0]},null,\\\"$6\\\",0],\\\"p\\\":false,\\\"v\\\":null},\\\"c\\\":\\\"$Q65\\\"},\\\"h\\\":{\\\"r\\\":[\\\"$\\\",\\\"$16\\\",\\\"h\\\",{\\\"children\\\":[\\\"$87\\\",\\\"$8c\\\",\\\"$96\\\",null]},null,\\\"$86\\\",0],\\\"p\\\":false,\\\"v\\\":null}},\\\"m\\\":\\\"$Wa6\\\",\\\"G\\\":[\\\"$a8\\\",[\\\"$\\\",\\\"$Le\\\",\\\"ge-svn\\\",{\\\"type\\\":\\\"global-error\\\",\\\"pagePath\\\":\\\"__next_builtin__global-error.js\\\",\\\"children\\\":[[\\\"$\\\",\\\"link\\\",\\\"0\\\",{\\\"rel\\\":\\\"stylesheet\\\",\\\"href\\\":\\\"/_next/static/chunks/src_app_04pyck7ul940-._.css\\\",\\\"precedence\\\":\\\"next_static/chunks/src_app_04pyck7ul940-._.css\\\",\\\"crossOrigin\\\":\\\"$undefined\\\",\\\"nonce\\\":\\\"$undefined\\\"},null,\\\"$aa\\\",0]]},null,\\\"$a9\\\",0]],\\\"S\\\":false,\\\"r\\\":\\\"$undefined\\\",\\\"s\\\":\\\"$undefined\\\",\\\"a\\\":\\\"$undefined\\\",\\\"l\\\":\\\"$undefined\\\",\\\"p\\\":\\\"$undefined\\\",\\\"d\\\":\\\"$undefined\\\",\\\"b\\\":\\\"development\\\"}\\n69:C\\n93:D\\\"$ab\\\"\\n93:[[\\\"$\\\",\\\"meta\\\",\\\"0\\\",{\\\"charSet\\\":\\\"utf-8\\\"},\\\"$7c\\\",\\\"$ac\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"viewport\\\",\\\"content\\\":\\\"width=device-width, initial-scale=1\\\"},\\\"$7c\\\",\\\"$ad\\\",0]]\\nc1:\\\"[project]/node_modules/next/dist/lib/metadata/generate/icon-mark.js [app-client] (ecmascript)\\\"\\nc2:I[\\\"$c1\\\",[\\\"$8\\\",\\\"$9\\\"],\\\"IconMark\\\"]\\n85:D\\\"$ae\\\"\\n85:null\\n9f:D\\\"$af\\\"\\n9f:[[\\\"$\\\",\\\"title\\\",\\\"0\\\",{\\\"children\\\":\\\"AD Me — 브랜드의 다음 파트너\\\"},\\\"$7c\\\",\\\"$b0\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"1\\\",{\\\"name\\\":\\\"description\\\",\\\"content\\\":\\\"브랜드와 YouTube 크리에이터를 연결하는 광고 협업 플랫폼.\\\"},\\\"$7c\\\",\\\"$b1\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"2\\\",{\\\"name\\\":\\\"robots\\\",\\\"content\\\":\\\"noindex, nofollow\\\"},\\\"$7c\\\",\\\"$b2\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"3\\\",{\\\"property\\\":\\\"og:title\\\",\\\"content\\\":\\\"AD Me — 브랜드의 다음 파트너\\\"},\\\"$7c\\\",\\\"$b3\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"4\\\",{\\\"property\\\":\\\"og:description\\\",\\\"content\\\":\\\"브랜드와 YouTube 크리에이터를 연결하는 광고 협업 플랫폼.\\\"},\\\"$7c\\\",\\\"$b4\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"5\\\",{\\\"property\\\":\\\"og:site_name\\\",\\\"content\\\":\\\"AD Me\\\"},\\\"$7c\\\",\\\"$b5\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"6\\\",{\\\"property\\\":\\\"og:locale\\\",\\\"content\\\":\\\"ko_KR\\\"},\\\"$7c\\\",\\\"$b6\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"7\\\",{\\\"property\\\":\\\"og:image\\\",\\\"content\\\":\\\"http://localhost:3000/brand/ad-me-logo.png\\\"},\\\"$7c\\\",\\\"$b7\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"8\\\",{\\\"property\\\":\\\"og:image:alt\\\",\\\"content\\\":\\\"AD Me\\\"},\\\"$7c\\\",\\\"$b8\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"9\\\",{\\\"property\\\":\\\"og:type\\\",\\\"content\\\":\\\"website\\\"},\\\"$7c\\\",\\\"$b9\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"10\\\",{\\\"name\\\":\\\"twitter:card\\\",\\\"content\\\":\\\"summary_large_image\\\"},\\\"$7c\\\",\\\"$ba\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"11\\\",{\\\"name\\\":\\\"twitter:title\\\",\\\"content\\\":\\\"AD Me — 브랜드의 다음 파트너\\\"},\\\"$7c\\\",\\\"$bb\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"12\\\",{\\\"name\\\":\\\"twitter:description\\\",\\\"content\\\":\\\"브랜드와 YouTube 크리에이터를 연결하는 광고 협업 플랫폼.\\\"},\\\"$7c\\\",\\\"$bc\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"13\\\",{\\\"name\\\":\\\"twitter:image\\\",\\\"content\\\":\\\"http://localhost:3000/brand/ad-me-logo.png\\\"},\\\"$7c\\\",\\\"$bd\\\",0],[\\\"$\\\",\\\"meta\\\",\\\"14\\\",{\\\"name\\\":\\\"twitter:image:alt\\\",\\\"content\\\":\\\"AD Me\\\"},\\\"$7c\\\",\\\"$be\\\",0],[\\\"$\\\",\\\"link\\\",\\\"15\\\",{\\\"rel\\\":\\\"icon\\\",\\\"href\\\":\\\"/brand/ad-me-symbol.png\\\"},\\\"$7c\\\",\\\"$bf\\\",0],[\\\"$\\\",\\\"$Lc2\\\",\\\"16\\\",{},\\\"$7c\\\",\\\"$c0\\\",0]]\\n\"])</script><script>self.__next_f.push([1,\"71:D\\\"$c6\\\"\\n71:D\\\"$c8\\\"\\n71:D\\\"$c9\\\"\\n71:D\\\"$cf\\\"\\n71:D\\\"$d1\\\"\\n71:D\\\"$d2\\\"\\n71:D\\\"$d9\\\"\\n71:D\\\"$db\\\"\\n71:D\\\"$dc\\\"\\n71:D\\\"$dd\\\"\\n71:E{\\\"digest\\\":\\\"NEXT_HTTP_ERROR_FALLBACK;404\\\",\\\"name\\\":\\\"Error\\\",\\\"message\\\":\\\"NEXT_HTTP_ERROR_FALLBACK;404\\\",\\\"stack\\\":[[\\\"Detail\\\",\\\"C:\\\\\\\\projects\\\\\\\\AD-Me-devb-1125\\\\\\\\.next\\\\\\\\dev\\\\\\\\server\\\\\\\\chunks\\\\\\\\ssr\\\\\\\\[root-of-the-server]__15jj5mkr8frsa._.js\\\",504,211,495,1,false]],\\\"env\\\":\\\"Server\\\",\\\"owner\\\":\\\"$72\\\"}\\n\"])</script><meta name=\"robots\" content=\"noindex\"/><meta name=\"next-error\" content=\"not-found\"/><script>$RX=function(b,c,d,e,f){var a=document.getElementById(b);a&&(b=a.previousSibling,b.data=\"$!\",a=a.dataset,null!=c&&(a.dgst=c),d&&(a.msg=d),e&&(a.stck=e),f&&(a.cstck=f),b._reactRetry&&b._reactRetry())};;$RX(\"B:0\",\"NEXT_HTTP_ERROR_FALLBACK;404\",\"Switched to client rendering because the server rendering errored:\\n\\nNEXT_HTTP_ERROR_FALLBACK;404\",\"Switched to client rendering because the server rendering errored:\\n\\nError: NEXT_HTTP_ERROR_FALLBACK;404\\n    at Detail (about://React/Server/C:%5Cprojects%5CAD-Me-devb-1125%5C.next%5Cdev%5Cserver%5Cchunks%5Cssr%5C%5Broot-of-the-server%5D__15jj5mkr8frsa._.js?149:504:211)\\n    at resolveErrorDev (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:2:417548)\\n    at processFullStringRow (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:2:438490)\\n    at C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:2:444645\\n    at processBinaryChunk (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:2:444728)\\n    at Readable.\\u003canonymous> (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:2:456208)\\n    at Readable.emit (node:events:509:28)\\n    at addChunk (node:internal/streams/readable:563:12)\\n    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)\\n    at Readable.push (node:internal/streams/readable:394:5)\\n    at Object.onChunk (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:52:64972)\\n    at PassThrough.\\u003canonymous> (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:52:63906)\\n    at PassThrough.emit (node:events:509:28)\\n    at addChunk (node:internal/streams/readable:563:12)\\n    at readableAddChunkPushByteMode (node:internal/streams/readable:514:3)\\n    at Readable.push (node:internal/streams/readable:394:5)\\n    at node:internal/streams/transform:178:12\\n    at PassThrough._transform (node:internal/streams/passthrough:46:3)\\n    at Transform._write (node:internal/streams/transform:171:8)\\n    at writeOrBuffer (node:internal/streams/writable:570:12)\\n    at _write (node:internal/streams/writable:499:10)\\n    at Writable.write (node:internal/streams/writable:508:10)\\n    at completeWriting (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:99:51932)\\n    at flushCompletedChunks (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:99:153091)\\n    at performWork (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:99:148708)\\n    at Immediate.\\u003canonymous> (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:99:88948)\\n    at process.processImmediate (node:internal/timers:534:21)\\n    at process.callbackTrampoline (node:internal/async_hooks:130:17)\",\"\\n    at Detail (about://React/Server/C:%5Cprojects%5CAD-Me-devb-1125%5C.next%5Cdev%5Cserver%5Cchunks%5Cssr%5C%5Broot-of-the-server%5D__15jj5mkr8frsa._.js?134:498:174)\\n    at SegmentViewNode (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:12893:28)\\n    at InnerLayoutRouter (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1386:34)\\n    at RedirectErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2453:9)\\n    at RedirectBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2495:29)\\n    at HTTPAccessFallbackBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1083:39)\\n    at LoadingBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1497:32)\\n    at ErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:868:26)\\n    at InnerScrollHandler (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1282:234)\\n    at ScrollHandler (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1373:26)\\n    at RenderFromTemplateContext (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2611:238)\\n    at SegmentStateProvider (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:12909:33)\\n    at OuterLayoutRouter (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1523:30)\\n    at InnerLayoutRouter (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1386:34)\\n    at RedirectErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2453:9)\\n    at RedirectBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2495:29)\\n    at HTTPAccessFallbackBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1083:39)\\n    at LoadingBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1497:32)\\n    at ErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:868:26)\\n    at InnerScrollHandler (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1282:234)\\n    at ScrollHandler (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1373:26)\\n    at RenderFromTemplateContext (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2611:238)\\n    at SegmentStateProvider (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:12909:33)\\n    at OuterLayoutRouter (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1523:30)\\n    at InnerLayoutRouter (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1386:34)\\n    at RedirectErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2453:9)\\n    at RedirectBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2495:29)\\n    at HTTPAccessFallbackErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1007:9)\\n    at HTTPAccessFallbackBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1083:39)\\n    at Suspense (\\u003canonymous>)\\n    at LoadingBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1497:32)\\n    at ErrorBoundaryHandler (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:792:9)\\n    at ErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:868:26)\\n    at InnerScrollHandler (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1282:234)\\n    at ScrollHandler (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1373:26)\\n    at RenderFromTemplateContext (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:2611:238)\\n    at SegmentStateProvider (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:12909:33)\\n    at OuterLayoutRouter (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1523:30)\\n    at main (\\u003canonymous>)\\n    at body (\\u003canonymous>)\\n    at html (\\u003canonymous>)\\n    at RootLayout (about://React/Server/C:%5Cprojects%5CAD-Me-devb-1125%5C.next%5Cdev%5Cserver%5Cchunks%5Cssr%5Csrc_0ab2n4i-khkf5._.js?1:96:284)\\n    at SegmentViewNode (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:12893:28)\\n    at LoadingBoundaryProvider (C:\\\\projects\\\\AD-Me-devb-1125\\\\.next\\\\dev\\\\server\\\\chunks\\\\ssr\\\\node_modules_next_dist_esm_0dzg3t16-d7fy._.js:1459:36)\\n    at __next_root_layout_boundary__ (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:318:15872)\\n    at RedirectErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:318:13722)\\n    at RedirectBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:318:14357)\\n    at AppDevOverlayErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:52:8089)\\n    at HotReload (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:52:20313)\\n    at Router (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:318:18346)\\n    at ErrorBoundaryHandler (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:50:7376)\\n    at ErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:50:8644)\\n    at RootErrorBoundary (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:318:15264)\\n    at AppRouter (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:318:24402)\\n    at ServerInsertedHTMLProvider (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:102:9472)\\n    at App (C:\\\\projects\\\\AD-Me-devb-1125\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-page-turbo.runtime.dev.js:322:47409)\")</script></body></html>"
+
+      56 |     const html = await (await request.get(`/creators/${cid}`)).text();
+      57 |     expect(html).not.toContain(name);
+    > 58 |     expect(html).toContain("찾을 수 없");
+         |                  ^
+      59 |     expect(html).toMatch(/<meta name="robots" content="noindex/);
+      60 |   } finally {
+      61 |     sql(`update creators set published = ${was === "t"} where id = '${cid}'`);
+        at C:\projects\AD-Me-devb-1125\tests\e2e\seo.spec.ts:58:18
+
+    Error Context: test-results\seo-indexing-boundary-and-access-control-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\seo-indexing-boundary-and-access-control-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\seo-indexing-boundary-and-access-control-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[67/72] [mobile] › tests\e2e\service.spec.ts:20:1 › public discovery, filters, comparison, history, drafts and responsive layout
+  41) [mobile] › tests\e2e\service.spec.ts:20:1 › public discovery, filters, comparison, history, drafts and responsive layout 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.click: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: '더 보기' })
+
+
+      33 |   // D033: first server page only (24), the rest via keyset "더 보기".
+      34 |   await expect(page.getByTestId("creator-card")).toHaveCount(24);
+    > 35 |   await page.getByRole("button", { name: "더 보기" }).click();
+         |                                                    ^
+      36 |   await expect(page.getByTestId("creator-card")).toHaveCount(48);
+      37 |   const html = await page.content();
+      38 |   expect(html).not.toMatch(/owner_id\\?":\\?"[0-9a-f]{8}-/); // no owner ids in RSC payload
+        at C:\projects\AD-Me-devb-1125\tests\e2e\service.spec.ts:35:52
+
+    Error Context: test-results\service-public-discovery-f-214e3-rafts-and-responsive-layout-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\service-public-discovery-f-214e3-rafts-and-responsive-layout-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\service-public-discovery-f-214e3-rafts-and-responsive-layout-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[68/72] [mobile] › tests\e2e\service.spec.ts:88:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation
+  42) [mobile] › tests\e2e\service.spec.ts:88:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation 
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected pattern: /campaigns\/[a-f0-9-]{36}/
+    Received string:  "http://localhost:3000/campaigns/new"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 5000ms
+        14 × locator resolved to <html lang="ko">…</html>
+           - unexpected value "http://localhost:3000/campaigns/new"
+
+
+      119 |   await page.getByLabel("광고 목적", { exact: true }).fill("브랜드 인지도");
+      120 |   await page.getByRole("button", { name: "캠페인 저장" }).click();
+    > 121 |   await expect(page).toHaveURL(/campaigns\/[a-f0-9-]{36}/);
+          |                      ^
+      122 |   const campaignId = page.url().split("/").pop()!;
+      123 |   await expect(
+      124 |     page.getByRole("heading", { name: "브랜드에 어울리는 발견." }),
+        at C:\projects\AD-Me-devb-1125\tests\e2e\service.spec.ts:121:22
+
+    Error Context: test-results\service-two-role-real-DB-g-7486d-delivery-billing-validation-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\service-two-role-real-DB-g-7486d-delivery-billing-validation-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\service-two-role-real-DB-g-7486d-delivery-billing-validation-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[69/72] [mobile] › tests\e2e\service.spec.ts:251:1 › public application, shortlist persistence, account settings and administrator operations
+  43) [mobile] › tests\e2e\service.spec.ts:251:1 › public application, shortlist persistence, account settings and administrator operations 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('article').filter({ hasText: 'QA 지원 신청 849ff3e2' }).getByText('협업 진행', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" locator('article').filter({ hasText: 'QA 지원 신청 849ff3e2' }).getByText('협업 진행', { exact: true }) with timeout 5000ms
+      - waiting for locator('article').filter({ hasText: 'QA 지원 신청 849ff3e2' }).getByText('협업 진행', { exact: true })
+
+
+      296 |     .filter({ hasText: `QA 지원 신청 ${unique}` });
+      297 |   await deal.getByRole("button", { name: "수락", exact: true }).click();
+    > 298 |   await expect(deal.getByText("협업 진행", { exact: true })).toBeVisible();
+          |                                                          ^
+      299 |   await page.goto("/creators");
+      300 |   await page.getByLabel("크리에이터 검색").fill("서하린");
+      301 |   const save = page.getByRole("button", {
+        at C:\projects\AD-Me-devb-1125\tests\e2e\service.spec.ts:298:58
+
+    Error Context: test-results\service-public-application-588a6-nd-administrator-operations-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\service-public-application-588a6-nd-administrator-operations-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\service-public-application-588a6-nd-administrator-operations-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[70/72] [mobile] › tests\e2e\similar.spec.ts:6:1 › similar profiles and deletion request entry
+  44) [mobile] › tests\e2e\similar.spec.ts:6:1 › similar profiles and deletion request entry ───────
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByTestId('similar').getByRole('link')
+    Expected: 3
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByTestId('similar').getByRole('link') with timeout 5000ms
+      - waiting for getByTestId('similar').getByRole('link')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+       7 |   await page.goto("/creators/creator-001");
+       8 |   const links = page.getByTestId("similar").getByRole("link");
+    >  9 |   await expect(links).toHaveCount(3);
+         |                       ^
+      10 |   for (const href of await links.evaluateAll((a) =>
+      11 |     a.map((x) => x.getAttribute("href")),
+      12 |   ))
+        at C:\projects\AD-Me-devb-1125\tests\e2e\similar.spec.ts:9:23
+
+    Error Context: test-results\similar-similar-profiles-and-deletion-request-entry-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\similar-similar-profiles-and-deletion-request-entry-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\similar-similar-profiles-and-deletion-request-entry-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[71/72] [mobile] › tests\e2e\unsubscribe.spec.ts:35:1 › unsubscribe: GET is inert, button and one-click POST turn mail off, bad token refused
+[72/72] [mobile] › tests\e2e\uploads.spec.ts:32:1 › private portfolio upload, download, isolation and delete
+  44 failed
+    [desktop] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys 
+    [desktop] › tests\e2e\claims.spec.ts:32:1 › collected profile: unverified label, claim code once, admin approves only with matching code 
+    [desktop] › tests\e2e\consent.spec.ts:12:1 › consent: no pre-checked marketing; preferences persist and can be withdrawn 
+    [desktop] › tests\e2e\csv-import.spec.ts:14:1 › csv import: preview, partial commit, export round-trip, other account blocked 
+    [desktop] › tests\e2e\entitlements.spec.ts:38:1 › admin manual grant needs a reason; member sees it; revoke removes it 
+    [desktop] › tests\e2e\match-feedback.spec.ts:14:1 › matching feedback: owner rates with reason, others blocked, admin sees honest summary 
+    [desktop] › tests\e2e\matching-policy.spec.ts:19:1 › hard category/budget policy is saved and applied 
+    [desktop] › tests\e2e\pipeline.spec.ts:33:3 › pipeline counts match rows and CSV (brand) ───────
+    [desktop] › tests\e2e\pipeline.spec.ts:33:3 › pipeline counts match rows and CSV (creator) ─────
+    [desktop] › tests\e2e\privacy-export.spec.ts:28:1 › own-data export excludes the counterparty and is logged 
+    [desktop] › tests\e2e\profile-fields.spec.ts:20:1 › creator saves multi-tag profile with unknown quote and availability 
+    [desktop] › tests\e2e\promotion.spec.ts:29:1 › HOT slot is a labelled ad, organic results unchanged, owner sees exposure history 
+    [desktop] › tests\e2e\reports.spec.ts:30:1 › private request → admin answer → requester status and appeal 
+    [desktop] › tests\e2e\retention.spec.ts:26:1 › privacy notice lists retention periods without horizontal scroll 
+    [desktop] › tests\e2e\safety.spec.ts:119:1 › block from collaboration, brand cannot message, unblock in settings 
+    [desktop] › tests\e2e\safety.spec.ts:158:1 › admin temporary restriction, creator appeal, admin lift 
+    [desktop] › tests\e2e\selection-review.spec.ts:38:1 › selection review: checklist + approval required before accepting; memo stays private 
+    [desktop] › tests\e2e\seo.spec.ts:23:1 › indexing boundary and access control ──────────────────
+    [desktop] › tests\e2e\service.spec.ts:20:1 › public discovery, filters, comparison, history, drafts and responsive layout 
+    [desktop] › tests\e2e\service.spec.ts:88:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation 
+    [desktop] › tests\e2e\service.spec.ts:251:1 › public application, shortlist persistence, account settings and administrator operations 
+    [desktop] › tests\e2e\similar.spec.ts:6:1 › similar profiles and deletion request entry ────────
+    [mobile] › tests\e2e\billing-cancel.spec.ts:32:1 › TEST cancel is offered on paid orders and fails safely without provider keys 
+    [mobile] › tests\e2e\claims.spec.ts:32:1 › collected profile: unverified label, claim code once, admin approves only with matching code 
+    [mobile] › tests\e2e\consent.spec.ts:12:1 › consent: no pre-checked marketing; preferences persist and can be withdrawn 
+    [mobile] › tests\e2e\csv-import.spec.ts:14:1 › csv import: preview, partial commit, export round-trip, other account blocked 
+    [mobile] › tests\e2e\entitlements.spec.ts:38:1 › admin manual grant needs a reason; member sees it; revoke removes it 
+    [mobile] › tests\e2e\match-feedback.spec.ts:14:1 › matching feedback: owner rates with reason, others blocked, admin sees honest summary 
+    [mobile] › tests\e2e\matching-policy.spec.ts:19:1 › hard category/budget policy is saved and applied 
+    [mobile] › tests\e2e\pipeline.spec.ts:33:3 › pipeline counts match rows and CSV (brand) ────────
+    [mobile] › tests\e2e\pipeline.spec.ts:33:3 › pipeline counts match rows and CSV (creator) ──────
+    [mobile] › tests\e2e\privacy-export.spec.ts:28:1 › own-data export excludes the counterparty and is logged 
+    [mobile] › tests\e2e\profile-fields.spec.ts:20:1 › creator saves multi-tag profile with unknown quote and availability 
+    [mobile] › tests\e2e\promotion.spec.ts:29:1 › HOT slot is a labelled ad, organic results unchanged, owner sees exposure history 
+    [mobile] › tests\e2e\reports.spec.ts:30:1 › private request → admin answer → requester status and appeal 
+    [mobile] › tests\e2e\retention.spec.ts:26:1 › privacy notice lists retention periods without horizontal scroll 
+    [mobile] › tests\e2e\safety.spec.ts:119:1 › block from collaboration, brand cannot message, unblock in settings 
+    [mobile] › tests\e2e\safety.spec.ts:158:1 › admin temporary restriction, creator appeal, admin lift 
+    [mobile] › tests\e2e\selection-review.spec.ts:38:1 › selection review: checklist + approval required before accepting; memo stays private 
+    [mobile] › tests\e2e\seo.spec.ts:23:1 › indexing boundary and access control ───────────────────
+    [mobile] › tests\e2e\service.spec.ts:20:1 › public discovery, filters, comparison, history, drafts and responsive layout 
+    [mobile] › tests\e2e\service.spec.ts:88:1 › two-role real DB golden path, permissions, persistence, delivery, billing validation 
+    [mobile] › tests\e2e\service.spec.ts:251:1 › public application, shortlist persistence, account settings and administrator operations 
+    [mobile] › tests\e2e\similar.spec.ts:6:1 › similar profiles and deletion request entry ─────────
+  28 passed (16.9m)
+exit=1
