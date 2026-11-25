@@ -1,3 +1,4 @@
+import { verifyAdminOtp } from "./support/admin";
 // D063: help page with usage/data limits; contact intake (anonymous with reply email, member answered in-app);
 // admin sees defined metrics for a chosen period and answers inquiries.
 import { test, expect, type Page } from "@playwright/test";
@@ -90,6 +91,7 @@ test("help + contact: anonymous and member inquiries, admin answers, metrics wit
 
     // Admin: metrics with definitions and period; answers the member.
     await login(page, accounts.admin);
+    await verifyAdminOtp(page, accounts.admin.totpSecret);
     await page.goto("/admin?days=7");
     const metrics = page.getByTestId("ops-metrics");
     await expect(metrics).toContainText("기간 내 1회 이상 로그인한 계정 수");

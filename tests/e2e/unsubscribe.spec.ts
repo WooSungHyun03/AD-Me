@@ -1,3 +1,4 @@
+import { verifyAdminOtp } from "./support/admin";
 // D053: unsubscribe link — opening it (GET / prefetch) changes nothing; the button or a mail client's
 // RFC 8058 one-click POST turns that purpose off; a bad token is refused; admin sees sender not configured.
 import { test, expect, type Page } from "@playwright/test";
@@ -89,6 +90,7 @@ test("unsubscribe: GET is inert, button and one-click POST turn mail off, bad to
     await svc.from("profiles").update(before).eq("id", accounts.creator.id);
   }
   await login(page, accounts.admin);
+  await verifyAdminOtp(page, accounts.admin.totpSecret);
   await page.goto("/admin");
   await expect(page.getByTestId("outbox")).toContainText("발송 공급자 미설정");
   expect((await page.request.post("/api/admin/email-outbox")).status()).toBe(

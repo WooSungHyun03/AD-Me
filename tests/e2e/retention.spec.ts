@@ -1,3 +1,4 @@
+import { verifyAdminOtp } from "./support/admin";
 // D079: retention-period notice is public; the retention/re-apply controls are admin-only and record a run.
 import { test, expect, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
@@ -51,6 +52,7 @@ test("retention controls: non-admin refused, admin runs job and re-apply", async
   await other.close();
 
   await login(page, accounts.admin);
+  await verifyAdminOtp(page, accounts.admin.totpSecret);
   await page.goto("/admin");
   const before = await page.getByTestId("retention-run").count();
   await page.getByRole("button", { name: "보존 작업 실행" }).click();

@@ -1,6 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
-import { totp } from "../support/local-qa.mjs";
+import { verifyAdminOtp } from "./support/admin";
 import { finishLocalFixtureJob } from "../support/local-fixture-worker.mjs";
 import { finishLocalWorkerJob, isolatedYoutube } from "./support/youtube";
 const localFixture = process.env.ADME_LOCAL_QA === "1";
@@ -35,25 +35,15 @@ test("operations console checks sessions and permissions on desktop and mobile",
     page.getByRole("heading", { name: "관리자 권한이 필요합니다." }),
   ).toBeVisible();
   const denied = await page.request.post("/api/admin/intelligence", {
-    data: { action: "channel", value: "UC_x5XG1OV2P6uZZ5FSM9Ttw" },
+    data: { action: "discovery", value: "QA fixture", extra: "false" },
   });
   expect(denied.status()).toBe(403);
   const isolated = await page.context().browser()!.newContext(info.project.use);
   try {
     const admin = await isolated.newPage();
     await login(admin, "admin");
+    await verifyAdminOtp(admin, accounts.admin.totpSecret!);
     await admin.goto("/admin/intelligence");
-    if (localFixture) {
-      await expect(admin).toHaveURL(/admin\/security/);
-      await admin
-        .getByLabel("6자리 OTP")
-        .fill(totp(accounts.admin.totpSecret!));
-      await admin
-        .getByRole("button", { name: "OTP 확인", exact: true })
-        .click();
-      await expect(admin).toHaveURL(/admin$/);
-      await admin.goto("/admin/intelligence");
-    }
     await expect(
       admin.getByRole("heading", { name: "운영 콘솔", exact: true }),
     ).toBeVisible();

@@ -1,3 +1,4 @@
+import { verifyAdminOtp } from "./support/admin";
 // D046: the campaign owner rates shown recommendations with a reason; the server decides rank/version;
 // others cannot rate; the admin view refuses to claim performance on sparse data.
 import { test, expect, type Page } from "@playwright/test";
@@ -82,6 +83,7 @@ test("matching feedback: owner rates with reason, others blocked, admin sees hon
 
   const admin = await (await browser.newContext()).newPage();
   await login(admin, accounts.admin);
+  await verifyAdminOtp(admin, accounts.admin.totpSecret);
   await admin.goto("/admin");
   await expect(admin.getByTestId("feedback-eval")).toContainText(
     "성능 주장 불가",

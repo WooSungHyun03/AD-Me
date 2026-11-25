@@ -1,6 +1,7 @@
 // D006 direct REST + DB: pseudonymous funnel events — writes only via triggers/RPC, dedupe, opt-out erase,
 // account-deletion erase, admin-only aggregate, no raw identifiers stored.
 import { qaSignupConsent } from "./support/consent-fixture.mjs";
+import { totp } from "./support/local-qa.mjs";
 import { createClient } from "@supabase/supabase-js";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
@@ -142,7 +143,17 @@ for (const acc of [a.brand, a.creator, a.admin]) {
   );
 }
 
-// Admin aggregate.
+// The admin aggregate requires a fresh, real local TOTP verification.
+assert.ok((await admin.rpc("product_funnel")).error, "password-only admin is denied");
+const { data: factors, error: factorError } = await admin.auth.mfa.listFactors();
+assert.equal(factorError, null);
+const factor = factors.totp.find((item) => item.status === "verified");
+assert.ok(factor, "verified local test factor");
+const verified = await admin.auth.mfa.challengeAndVerify({
+  factorId: factor.id,
+  code: totp(a.admin.totpSecret),
+});
+assert.equal(verified.error, null);
 const { data: funnel, error } = await admin.rpc("product_funnel", {
   p_days: 30,
 });

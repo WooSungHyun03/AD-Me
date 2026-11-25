@@ -1,3 +1,4 @@
+import { verifyAdminOtp } from "./support/admin";
 // D062 UI: creator blocks a brand from the collaboration card (two-step, no dialog); the brand can no longer
 // message; unblock from settings. Admin applies a temporary restriction from the report queue; the restricted
 // creator sees the notice and appeals; admin sees the appeal and lifts it.
@@ -172,6 +173,7 @@ test("admin temporary restriction, creator appeal, admin lift", async ({
   const ac = await browser.newContext();
   const ap = await ac.newPage();
   await login(ap, accounts.admin.email, accounts.admin.password);
+  await verifyAdminOtp(ap, accounts.admin.totpSecret);
   await ap.goto("/admin");
   const item = ap.getByTestId("admin-report").filter({ hasText: ticket });
   await expect(item).toContainText("사칭 신고");

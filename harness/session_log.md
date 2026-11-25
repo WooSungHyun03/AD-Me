@@ -717,3 +717,10 @@ GitHub 소유자 승인 뒤 Vercel 프로젝트를 연결했다. Vercel API 기�
 - main65ba572 clean/fetch/HEAD후 D043선행충족. 취소 enum/화면누락 및lostACK재시도재현(신규3FAIL), 선택적requestKey/expectedStatus·privateRLS receipt122·클라이언트동일키재시도/취소표시추가. actualDB수신상대연락제한 수락우회추가재현후122불변·123공통acceptance trigger로양측contact/privacy/creator·campaign적격성강제. 기존2argRPC/결과물계약/과거accepted/ACK보존.
 - directSDK/RPC5그룹·기존delivery9,121→123원자rollback/fault/ACL,desktop-mobile4(초기decision2/기존결과물2),lint/typecheck/Vitest568/productionbuild/secret/migration123 PASS. SQL123후동일JSbuild재사용. DEV-A122/123추가blocking/예약없음. local-only실제적용검증후ledger123동기화; hosted없음.
 - D049 TESTED/runtimeLOCAL_VERIFIED; U014실제승인QA/채널·hosted123/백업/지문은BLOCKED_EXTERNAL. evidence harness/evidence/D049/DECISION_RETRY_20261124.md, packet deliverables/d049-decision-retry-20261124/. D052 read-api/upto계약불일치는별도후속으로기록했으며이번변경에미포함. 운영SQL/키/라이브결제/외부승인없음.
+
+### 2026-11-25 · main CI and production deployment follow-up
+
+- GitHub run 45406304554 accepted the push and passed static checks/build. Playwright reported 75 failures, 35 passes and 4 skips. Vercel withheld the incompatible build through the schema check.
+- c1bad00 restored account analytics and email preferences and mapped the Toss failure screen to known codes. Updated CI to run direct database permissions and restore checks even after an E2E failure while preserving the failing exit status. Local lint, typecheck, 568 tests and build passed. Isolated desktop/mobile consent and billing error checks passed.
+- Replaced role-only CI admin provisioning with a database-owner grant and real Supabase TOTP. Desktop/mobile health, operations access and analytics preferences passed on isolated Supabase. The direct analytics test verified the funnel is denied before OTP and accessible after verification.
+- A network-isolated restore of the hosted snapshot and rollback rehearsal preserved account, campaign, proposal and order counts and created the product RPC. Production fingerprint remains unapproved until current signup policy and channel refresh/publication are verified. See docs/production-readiness/RELEASE_CHECKLIST.md for the blocking findings.

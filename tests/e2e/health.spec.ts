@@ -1,3 +1,4 @@
+import { verifyAdminOtp } from "./support/admin";
 // D086: public health reveals only {status}; connection details and usage are admin-only.
 import { test, expect, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
@@ -24,6 +25,10 @@ test("health: anonymous and non-admin get status only; admin gets details", asyn
   });
 
   await login(page, accounts.admin);
+  expect(await (await page.request.get("/api/health")).json()).toEqual({
+    status: "ok",
+  });
+  await verifyAdminOtp(page, accounts.admin.totpSecret);
   const d = await (await page.request.get("/api/health")).json();
   expect(d.status).toBe("ok");
   expect(d.stats.migration).toMatch(/^(\d{12}|\d{14})$/);
@@ -32,6 +37,8 @@ test("health: anonymous and non-admin get status only; admin gets details", asyn
   );
   expect(JSON.stringify(d)).not.toMatch(/eyJ|sb_secret|@example\.com/);
   await page.goto("/admin");
-  await expect(page.getByTestId("health-status")).toContainText("DB 정상");
-  await expect(page.getByTestId("usage")).toHaveCount(3);
+  await expect(
+    page.getByRole("heading", { name: "서비스 운영 현황." }),
+  ).toBeVisible();
+  expect(d.usage).toHaveLength(3);
 });

@@ -1,3 +1,4 @@
+import { verifyAdminOtp } from "./support/admin";
 // D069: admin grants a TEST entitlement with a mandatory reason; the member sees it; revoke recovers it.
 import { qaSignupConsent } from "../support/consent-fixture.mjs";
 import { test, expect, type Page } from "@playwright/test";
@@ -60,6 +61,7 @@ test("admin manual grant needs a reason; member sees it; revoke removes it", asy
   );
   try {
     await login(page, accounts.admin);
+    await verifyAdminOtp(page, accounts.admin.totpSecret);
     await page.goto("/admin");
     await page.getByText("이용권 수동 발급 (사유 필수)").click();
     const form = page.getByRole("form", { name: "이용권 수동 발급" });

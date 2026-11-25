@@ -1,3 +1,4 @@
+import { verifyAdminOtp } from "./support/admin";
 // D058 UI: requester files a private correction, admin answers from the queue, requester sees only their own
 // status/answer/log and appeals; another account cannot see the request.
 import { qaSignupConsent } from "../support/consent-fixture.mjs";
@@ -67,6 +68,7 @@ test("private request → admin answer → requester status and appeal", async (
   const ac = await browser.newContext();
   const ap = await ac.newPage();
   await login(ap, accounts.admin.email, accounts.admin.password);
+  await verifyAdminOtp(ap, accounts.admin.totpSecret);
   await ap.goto("/admin");
   const item = ap.getByTestId("admin-report").filter({ hasText: ticket });
   await expect(item).toContainText("정보 정정");

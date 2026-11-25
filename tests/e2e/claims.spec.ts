@@ -1,3 +1,4 @@
+import { verifyAdminOtp } from "./support/admin";
 // D025 UI flow on an ISOLATED local Supabase only (needs local service key to create a collected-profile fixture).
 import { qaSignupConsent } from "../support/consent-fixture.mjs";
 import { test, expect, type Page } from "@playwright/test";
@@ -88,6 +89,7 @@ test("collected profile: unverified label, claim code once, admin approves only 
     await expect(page.locator("p[role=alert]")).toContainText("이미 진행 중");
 
     await login(page, accounts.admin.email, accounts.admin.password);
+    await verifyAdminOtp(page, accounts.admin.totpSecret);
     await page.goto("/admin");
     const card = page.locator("article", { hasText: id });
     await card.getByLabel("채널에서 확인한 코드").fill("ADME-0000000000");
