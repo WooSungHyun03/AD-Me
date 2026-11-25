@@ -1280,7 +1280,7 @@ DEV-A · P1 · S1 주요 부족 · MARKETPLACE · TESTED · 5 SP · ACTIVE
 
 ## D056 · 양측 대시보드·성과 내보내기
 
-DEV-B · P1 · S1 주요 부족 · UX · TODO · 5 SP · ACTIVE
+DEV-B · P1 · S1 주요 부족 · UX · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 활성 제안·진행·대기 검토·완료를 실데이터로 집계하고 결과 CSV를 제공한다.
 - **재현·관찰** — /dashboard · /api/export에서 먼저 목록-집계 일치·다른 사용자 통계·수식 주입 테스트을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/app/dashboard/page.tsx, src/app/api/export/route.ts.
@@ -1296,9 +1296,10 @@ DEV-B · P1 · S1 주요 부족 · UX · TODO · 5 SP · ACTIVE
 - **보안** — 저장된 필터/새로고침/역할 전환 후 집계가 실제 row와 일치한다.
 - **검증** — 목록-집계 일치·다른 사용자 통계·수식 주입 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 활성 제안·진행·대기 검토·완료를 실데이터로 집계하고 결과 CSV를 제공한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D056/ (이번 검증 기록 위치)
+- **차단 요인** — 운영 실데이터 확인은 운영 적용(U004) 후.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D056/ (이번 검증 기록 위치) · harness/evidence/D056/20261126/README.md
 - **Figma 노드** — [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [14 · 크리에이터 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-325) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510) · [14 · 크리에이터 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519)
+- **검증 범위** — 2026-11-26 main 252dfdd 격리 빈 DB: pipeline.spec.ts desktop/mobile PASS. 브랜드·크리에이터 각각 단계별 개수 = 단계 아래 목록 행 수(새로고침 후에도), CSV 행 일치, 참여한 협업만 표시.
 - **이전 기록** — OPEN
 
 ## D057 · 근거 기반 이슈·검토 워크플로

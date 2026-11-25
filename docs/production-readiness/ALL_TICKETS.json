@@ -3951,13 +3951,14 @@
       "acceptance": "활성 제안·진행·대기 검토·완료를 실데이터로 집계하고 결과 CSV를 제공한다.",
       "points": 5,
       "owner": "DEV-B",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "운영 실데이터 확인은 운영 적용(U004) 후.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D056/ (이번 검증 기록 위치)"
+        "harness/evidence/D056/ (이번 검증 기록 위치)",
+        "harness/evidence/D056/20261126/README.md"
       ],
-      "status": "TODO",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,
@@ -3982,7 +3983,8 @@
           "label": "14 · 크리에이터 대시보드 / Mobile",
           "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1519"
         }
-      ]
+      ],
+      "verified_scope": "2026-11-26 main 252dfdd 격리 빈 DB: pipeline.spec.ts desktop/mobile PASS. 브랜드·크리에이터 각각 단계별 개수 = 단계 아래 목록 행 수(새로고침 후에도), CSV 행 일치, 참여한 협업만 표시."
     },
     {
       "id": "D057",
