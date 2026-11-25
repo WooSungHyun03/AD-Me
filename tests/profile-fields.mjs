@@ -68,6 +68,14 @@ assert.equal(
   null,
   "null quote + null availability accepted",
 );
+// D049/D026: a self-registered profile saved through the publication RPC is the owner's own
+// (verified), so collaborations with it can be accepted.
+assert.equal(
+  (await me.from("creators").select("claim_status").eq("id", id).single()).data
+    ?.claim_status,
+  "verified",
+  "self-registration through save_publication is verified",
+);
 assert.ok(
   (await save({ price_max_krw: 100 })).error,
   "half-unknown quote rejected",

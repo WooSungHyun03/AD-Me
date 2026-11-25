@@ -1,0 +1,89 @@
+
+Running 2 tests using 1 worker
+
+[1/2] [desktop] › tests\e2e\service.spec.ts:254:1 › public application, shortlist persistence, account settings and administrator operations
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "/brand/figma/hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+  1) [desktop] › tests\e2e\service.spec.ts:254:1 › public application, shortlist persistence, account settings and administrator operations 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: '서비스 운영 현황.' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: '서비스 운영 현황.' }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: '서비스 운영 현황.' })
+        - waiting for "http://localhost:3000/admin/security" navigation to finish...
+        - navigated to "http://localhost:3000/admin/security"
+
+
+      338 |   await expect(
+      339 |     ap.getByRole("heading", { name: "서비스 운영 현황." }),
+    > 340 |   ).toBeVisible();
+          |     ^
+      341 |   await expect(
+      342 |     ap.getByRole("heading", { name: "회원 관리", exact: true }),
+      343 |   ).toBeVisible();
+        at C:\projects\AD-Me-devb-1125\tests\e2e\service.spec.ts:340:5
+
+    Error Context: test-results\service-public-application-588a6-nd-administrator-operations-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\service-public-application-588a6-nd-administrator-operations-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\service-public-application-588a6-nd-administrator-operations-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[2/2] [mobile] › tests\e2e\service.spec.ts:254:1 › public application, shortlist persistence, account settings and administrator operations
+  2) [mobile] › tests\e2e\service.spec.ts:254:1 › public application, shortlist persistence, account settings and administrator operations 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: '서비스 운영 현황.' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: '서비스 운영 현황.' }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: '서비스 운영 현황.' })
+        - waiting for "http://localhost:3000/admin/security" navigation to finish...
+        - navigated to "http://localhost:3000/admin/security"
+
+
+      338 |   await expect(
+      339 |     ap.getByRole("heading", { name: "서비스 운영 현황." }),
+    > 340 |   ).toBeVisible();
+          |     ^
+      341 |   await expect(
+      342 |     ap.getByRole("heading", { name: "회원 관리", exact: true }),
+      343 |   ).toBeVisible();
+        at C:\projects\AD-Me-devb-1125\tests\e2e\service.spec.ts:340:5
+
+    Error Context: test-results\service-public-application-588a6-nd-administrator-operations-mobile\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\service-public-application-588a6-nd-administrator-operations-mobile\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\service-public-application-588a6-nd-administrator-operations-mobile\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  2 failed
+    [desktop] › tests\e2e\service.spec.ts:254:1 › public application, shortlist persistence, account settings and administrator operations 
+    [mobile] › tests\e2e\service.spec.ts:254:1 › public application, shortlist persistence, account settings and administrator operations 

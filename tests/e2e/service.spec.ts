@@ -1,4 +1,5 @@
 import { channels } from "./support/youtube";
+import { verifyAdminOtp } from "./support/admin";
 import { test, expect, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
@@ -303,7 +304,8 @@ test("public application, shortlist persistence, account settings and administra
   await deal.getByRole("button", { name: "수락", exact: true }).click();
   await expect(deal.getByText("협업 진행", { exact: true })).toBeVisible();
   await page.goto("/creators");
-  await page.getByLabel("크리에이터 검색").fill("서하린");
+  // Search for the profile this test just published (its favourite button is asserted below).
+  await page.getByLabel("크리에이터 검색").fill(creatorName);
   const save = page.getByRole("button", {
     name: creatorName + " 즐겨찾기",
     exact: true,
@@ -312,7 +314,7 @@ test("public application, shortlist persistence, account settings and administra
     await save.click();
   await expect(save).toHaveClass(/saved/);
   await page.reload();
-  await page.getByLabel("크리에이터 검색").fill("서하린");
+  await page.getByLabel("크리에이터 검색").fill(creatorName);
   await expect(
     page.getByRole("button", { name: creatorName + " 즐겨찾기", exact: true }),
   ).toHaveClass(/saved/);
@@ -333,6 +335,8 @@ test("public application, shortlist persistence, account settings and administra
   const admin = await browser.newContext();
   const ap = await admin.newPage();
   await login(ap, "admin");
+  // D016/D060: the admin console requires a recent TOTP (aal2) session.
+  await verifyAdminOtp(ap, accounts.admin.totpSecret);
   await ap.goto("/admin");
   await expect(
     ap.getByRole("heading", { name: "서비스 운영 현황." }),
