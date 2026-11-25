@@ -42,7 +42,8 @@ export default async function Deliverables({
   };
   return (
     <section className="wrap" style={{ maxWidth: 920 }}>
-      <Link href="/dashboard">내 워크스페이스 ↗</Link>
+      <Link href="/dashboard">내 워크스페이스 ↗</Link>{" "}
+      <Link href={`/collaborations/${id}/terms`}>협업 조건 ↗</Link>
       <h1 className="page-title">결과물 제출·검토.</h1>
       {error || !result.success || result.data.proposalId !== id ? (
         <p className="notice">

@@ -411,6 +411,12 @@ export default async function Dashboard({
               >
                 결과물 제출·검토 ↗
               </Link>
+              <Link
+                className="button outline small"
+                href={`/collaborations/${p.id}/terms`}
+              >
+                협업 조건·합의 이력 ↗
+              </Link>
               <Conversation
                 proposalId={p.id}
                 viewerId={user.id}
