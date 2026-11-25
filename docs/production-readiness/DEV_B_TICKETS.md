@@ -728,7 +728,7 @@ DEV-B · P0 · S0 출시 차단 · SECURITY · TESTED · 3 SP · ACTIVE
 
 ## D079 · 데이터 보존·삭제·복구 정책 실행
 
-DEV-B · P0 · S0 출시 차단 · PRIVACY · TODO · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · PRIVACY · IN_PROGRESS · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 프로필·메시지·로그·파일·백업의 보존 규칙과 삭제 작업을 적용하고 복구 시 삭제 요청을 재적용한다.
 - **재현·관찰** — /settings · /privacy · /reports에서 먼저 삭제 재시도·백업 복구 후 tombstone 재적용 검사을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/lib/privacy-retention.ts, supabase/migrations.
@@ -744,8 +744,8 @@ DEV-B · P0 · S0 출시 차단 · PRIVACY · TODO · 5 SP · ACTIVE
 - **보안** — 삭제 요구 증거와 삭제해야 할 원문을 같은 영구 로그에 넣지 않는다.
 - **검증** — 삭제 재시도·백업 복구 후 tombstone 재적용 검사 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 프로필·메시지·로그·파일·백업의 보존 규칙과 삭제 작업을 적용하고 복구 시 삭제 요청을 재적용한다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D079/ (이번 검증 기록 위치)
+- **차단 요인** — 2026-11-26: 보존 작업·툼스톤·복원 후 재적용·권한 차단은 REST·E2E 통과. 개인정보 페이지 보존 기간 표는 운영자 승인 정책 문서(U001/D073) 확정 대기 — 미승인 기간을 사실처럼 표시하지 않음. 운영 적용 U004.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D079/ (이번 검증 기록 위치) · harness/evidence/D079/20261126/README.md
 - **이전 기록** — OPEN
 
 ## D085 · CI·배포 산출물·마이그레이션 안전

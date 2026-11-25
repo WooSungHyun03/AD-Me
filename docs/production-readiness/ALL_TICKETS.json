@@ -5573,13 +5573,14 @@
       "acceptance": "프로필·메시지·로그·파일·백업의 보존 규칙과 삭제 작업을 적용하고 복구 시 삭제 요청을 재적용한다.",
       "points": 5,
       "owner": "DEV-B",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "2026-11-26: 보존 작업·툼스톤·복원 후 재적용·권한 차단은 REST·E2E 통과. 개인정보 페이지 보존 기간 표는 운영자 승인 정책 문서(U001/D073) 확정 대기 — 미승인 기간을 사실처럼 표시하지 않음. 운영 적용 U004.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D079/ (이번 검증 기록 위치)"
+        "harness/evidence/D079/ (이번 검증 기록 위치)",
+        "harness/evidence/D079/20261126/README.md"
       ],
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,
