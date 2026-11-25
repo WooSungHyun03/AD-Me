@@ -233,7 +233,7 @@ DEV-B · P0 · S0 출시 차단 · AUTH · TESTED · 5 SP · ACTIVE
 
 ## D011 · 브랜드·크리에이터 온보딩
 
-DEV-B · P0 · S0 출시 차단 · PRODUCT · TODO · 3 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · PRODUCT · TESTED · 3 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 역할별 필수 항목·진행 상태·재진입을 제공하고 역할 자가 승격을 막는다.
 - **재현·관찰** — /settings · /api/account에서 먼저 가입 중단·재로그인·직접 역할 변조 테스트을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/components/auth-form.tsx, src/app/settings/page.tsx, src/app/api/account/route.ts.
@@ -249,9 +249,10 @@ DEV-B · P0 · S0 출시 차단 · PRODUCT · TODO · 3 SP · ACTIVE
 - **보안** — 온보딩 미완료 상태는 이어서 작성 가능하며 권한 검사 결과는 동일하다.
 - **검증** — 가입 중단·재로그인·직접 역할 변조 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 역할별 필수 항목·진행 상태·재진입을 제공하고 역할 자가 승격을 막는다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D011/ (이번 검증 기록 위치)
+- **차단 요인** — 운영 적용 후 실계정 확인(U004)은 운영자 게이트.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D011/ (이번 검증 기록 위치) · harness/evidence/D011/20261126/README.md
 - **Figma 노드** — [16 · 로그인 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-361) · [17 · 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-379) · [16 · 로그인 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1537) · [17 · 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1546) · [21 · 가입 완료 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2206) · [21 · 가입 완료 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2271) · [17b · 크리에이터 회원가입 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2416) · [17b · 크리에이터 회원가입 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444)
+- **검증 범위** — 2026-11-26 main 격리 로컬: 역할별 단계·DB 기반 진행·가입 중단 후 재로그인 재진입·첫 브리프 후 완료·역할 자가 승격(REST·가입 메타데이터) 거부·/admin 차단, onboarding E2E desktop/mobile 4/4, 단위 3/3.
 - **이전 기록** — OPEN
 
 ## D012 · 브랜드 프로필·담당자 정보

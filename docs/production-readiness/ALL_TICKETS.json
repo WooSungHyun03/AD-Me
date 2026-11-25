@@ -658,13 +658,14 @@
       "acceptance": "역할별 필수 항목·진행 상태·재진입을 제공하고 역할 자가 승격을 막는다.",
       "points": 3,
       "owner": "DEV-B",
-      "blockers": "운영 확인과 격리 재실행이 필요하다.",
+      "blockers": "운영 적용 후 실계정 확인(U004)은 운영자 게이트.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
-        "harness/evidence/D011/ (이번 검증 기록 위치)"
+        "harness/evidence/D011/ (이번 검증 기록 위치)",
+        "harness/evidence/D011/20261126/README.md"
       ],
-      "status": "TODO",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,
@@ -705,7 +706,8 @@
           "label": "17b · 크리에이터 회원가입 / Mobile",
           "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-2444"
         }
-      ]
+      ],
+      "verified_scope": "2026-11-26 main 격리 로컬: 역할별 단계·DB 기반 진행·가입 중단 후 재로그인 재진입·첫 브리프 후 완료·역할 자가 승격(REST·가입 메타데이터) 거부·/admin 차단, onboarding E2E desktop/mobile 4/4, 단위 3/3."
     },
     {
       "id": "D012",
