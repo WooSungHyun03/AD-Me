@@ -183,6 +183,26 @@ try {
         ),
       );
       assert.equal(replies.filter((r) => !r.error).length, 5);
+      // Same reporter/target/kind racing: exactly one open report, the rest duplicate_open.
+      sql(
+        `delete from public.reports where reporter_id='${accounts.brand.id}'; delete from adme_ops.rate_windows where scope in('report_hour','report_day');`,
+      );
+      const same = await Promise.all(
+        Array.from({ length: 8 }, () =>
+          brand.rpc("submit_report", {
+            p_kind: "report",
+            p_creator: targets[0],
+            p_reason: "Local fixture report, no real allegation",
+            p_source_url: "https://example.test/evidence",
+          }),
+        ),
+      );
+      assert.equal(same.filter((r) => !r.error).length, 1);
+      assert.ok(
+        same
+          .filter((r) => r.error)
+          .every((r) => r.error.message === "duplicate_open"),
+      );
       assert.ok(
         replies
           .filter((r) => r.error)

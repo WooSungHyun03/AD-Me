@@ -3999,7 +3999,8 @@
         "harness/evidence/D057/PLAN_20261120.md",
         "harness/evidence/D057/README.md",
         "harness/evidence/D057/review-security-20261120.json",
-        "harness/evidence/D057/ (이번 검증 기록 위치)"
+        "harness/evidence/D057/ (이번 검증 기록 위치)",
+        "harness/evidence/D075/REPORT_FIX_20261125.md"
       ],
       "status": "TESTED",
       "scope": "ACTIVE",
@@ -4018,7 +4019,8 @@
           "label": "15 · 관리자 / Mobile",
           "url": "https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528"
         }
-      ]
+      ],
+      "verified_scope": " 2026-11-25 관리자 \"검토 완료\" 회귀(23514) 복제본에서 수정·검증(D075 증빙)."
     },
     {
       "id": "D058",
@@ -5267,7 +5269,7 @@
       "acceptance": "직접 DB API·SECURITY DEFINER·검색 경로·공개 DTO·테넌트 경계를 검사하고 최소권한을 적용한다.",
       "points": 8,
       "owner": "DEV-A",
-      "blockers": "기본 즐겨찾기/CSV/서비스 슬롯과 실제 로컬 Storage·역할 회귀 완료. B D036/D038 named-list/import 공개DTO 계약 및 B D049 전체 경로, 운영 DB/앱 적용과 실환경 권한 전수 검증 필요. 2026-11-25: 관리자 '검토 완료'(admin_review_report reviewed)가 reports_status_check로 실패하고 review_report 4인자 경로가 요청ID/지원감사 없이 in_review 전환을 허용 — D057(A)/D060(B) 계약 합의와 신규 마이그레이션 필요. 2026-11-25 전체 로컬 권한 스위트 38개 중 33개/186건 PASS(관리자 지원 회귀1, 업그레이드4는 패킷DB 필요). submit_report duplicate_open 동시성 경합(동일 대상 열린 신고 5건) — 마이그레이션·D057/D060 합의 필요. 2026-11-25 *-upgrade 스위트 4개는 2026-11-20 과거 패킷(23/24·30·31 마이그레이션) 업그레이드 검증이며 패킷 DB 준비 스크립트가 Windows 경로(C:/projects/AD-Me, cmd.exe)에 고정 — macOS 실행 BLOCKED, 현재 main 권한 커버리지 아님.",
+      "blockers": "기본 즐겨찾기/CSV/서비스 슬롯과 실제 로컬 Storage·역할 회귀 완료. B D036/D038 named-list/import 공개DTO 계약 및 B D049 전체 경로, 운영 DB/앱 적용과 실환경 권한 전수 검증 필요. 2026-11-25: 관리자 '검토 완료'(admin_review_report reviewed)가 reports_status_check로 실패하고 review_report 4인자 경로가 요청ID/지원감사 없이 in_review 전환을 허용 — D057(A)/D060(B) 계약 합의와 신규 마이그레이션 필요. 2026-11-25 전체 로컬 권한 스위트 38개 중 33개/186건 PASS(관리자 지원 회귀1, 업그레이드4는 패킷DB 필요). submit_report duplicate_open 동시성 경합(동일 대상 열린 신고 5건) — 마이그레이션·D057/D060 합의 필요. 2026-11-25 *-upgrade 스위트 4개는 2026-11-20 과거 패킷(23/24·30·31 마이그레이션) 업그레이드 검증이며 패킷 DB 준비 스크립트가 Windows 경로(C:/projects/AD-Me, cmd.exe)에 고정 — macOS 실행 BLOCKED, 현재 main 권한 커버리지 아님. 운영자: 20261125120000 운영 적용 및 지문 13fc6e60… 승인 전까지 운영 배포 보류.",
       "evidence": [
         "docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
@@ -5283,13 +5285,14 @@
         "docs/production-readiness/REFACTOR_IMPACT.md",
         "harness/evidence/D075/WINDOWS_GRAPH_20261124.md",
         "harness/evidence/D075/GUARD_20261125.md",
-        "harness/evidence/D075/SUITES_20261125.md"
+        "harness/evidence/D075/SUITES_20261125.md",
+        "harness/evidence/D075/REPORT_FIX_20261125.md"
       ],
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "LOCAL_VERIFIED",
       "reopened": true,
-      "verified_scope": "109-source 로컬98 RLS테이블/371함수/4비공개버킷 메타데이터와 core7·brand7·creator-read8·정규화storage9 그룹 통과. 기본 저장·서비스HOT 통합 결함 전진 수정. 함수 전수 행위/운영은 미완료.116 추가 상품 queue/owner/삭제·만료/결정 CAS/기존 텍스트 호환9그룹,113→116 원자 패킷/비어 있지 않은 이력 보존 및 fresh0→116 통과. Windows 경로 감사의 false-green 수정, 실제317 파일/직접 DB 라우트9개·순환0/위반0와 CLI 행위2계약 통과. 명명 목록/import·전수 DB 수용은 별도. 2026-11-25 main42e1143 복제본: 106테이블/414함수/5버킷, anon 실행 definer 35개 검토 허용목록과 profiles.role 자가 승격 가드 추가(주입 회귀 2건 FAIL 확인), core7·brand7 PASS. 2026-11-25 ccaf44f 복제본 전체 스위트 33/38 PASS, 오래된 테스트 3건(신고 RPC 경로·은퇴 테이블·fixture 누수) 수정.",
+      "verified_scope": "109-source 로컬98 RLS테이블/371함수/4비공개버킷 메타데이터와 core7·brand7·creator-read8·정규화storage9 그룹 통과. 기본 저장·서비스HOT 통합 결함 전진 수정. 함수 전수 행위/운영은 미완료.116 추가 상품 queue/owner/삭제·만료/결정 CAS/기존 텍스트 호환9그룹,113→116 원자 패킷/비어 있지 않은 이력 보존 및 fresh0→116 통과. Windows 경로 감사의 false-green 수정, 실제317 파일/직접 DB 라우트9개·순환0/위반0와 CLI 행위2계약 통과. 명명 목록/import·전수 DB 수용은 별도. 2026-11-25 main42e1143 복제본: 106테이블/414함수/5버킷, anon 실행 definer 35개 검토 허용목록과 profiles.role 자가 승격 가드 추가(주입 회귀 2건 FAIL 확인), core7·brand7 PASS. 2026-11-25 ccaf44f 복제본 전체 스위트 33/38 PASS, 오래된 테스트 3건(신고 RPC 경로·은퇴 테이블·fixture 누수) 수정. 2026-11-25 마이그레이션 20261125120000: 관리자 검토 완료→resolved 위임, submit_report 중복 경합 직렬화 — 복제본 34/38 스위트·188건 PASS, desktop/mobile PASS.",
       "operator_refactor_review": {
         "decision": "UPDATE",
         "moved_implementations": {

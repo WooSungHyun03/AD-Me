@@ -1,0 +1,306 @@
+[
+  {
+    "suite": "local-ad-history-security.mjs",
+    "exit": 0,
+    "pass": 8,
+    "secs": 2,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-ad-timeline-security.mjs",
+    "exit": 0,
+    "pass": 3,
+    "secs": 1,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-admin-support-security.mjs",
+    "exit": 0,
+    "pass": 4,
+    "secs": 1,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-brand-security.mjs",
+    "exit": 0,
+    "pass": 7,
+    "secs": 1,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-campaign-brief-security.mjs",
+    "exit": 0,
+    "pass": 9,
+    "secs": 2,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-campaign-terms-security.mjs",
+    "exit": 0,
+    "pass": 4,
+    "secs": 0,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-catalog-quota-security.mjs",
+    "exit": 0,
+    "pass": 2,
+    "secs": 1,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-consent-security.mjs",
+    "exit": 0,
+    "pass": 4,
+    "secs": 2,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-conversation-security.mjs",
+    "exit": 0,
+    "pass": 8,
+    "secs": 2,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-conversation-upgrade.mjs",
+    "exit": 1,
+    "pass": 0,
+    "secs": 0,
+    "err": "Error: ENOENT: no such file or directory, open 'output/dev-a-packet-db/supabase/config.toml'",
+    "msg": ""
+  },
+  {
+    "suite": "local-creator-read-security.mjs",
+    "exit": 0,
+    "pass": 8,
+    "secs": 2,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-creator-storage-security.mjs",
+    "exit": 0,
+    "pass": 9,
+    "secs": 4,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-delivery-security.mjs",
+    "exit": 0,
+    "pass": 10,
+    "secs": 3,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-delivery-upgrade.mjs",
+    "exit": 1,
+    "pass": 0,
+    "secs": 0,
+    "err": "Error: ENOENT: no such file or directory, open 'output/dev-a-packet-db/supabase/config.toml'",
+    "msg": ""
+  },
+  {
+    "suite": "local-demo-boundary-security.mjs",
+    "exit": 0,
+    "pass": 3,
+    "secs": 2,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-draft-provenance.mjs",
+    "exit": 0,
+    "pass": 1,
+    "secs": 1,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-draft-read-security.mjs",
+    "exit": 0,
+    "pass": 3,
+    "secs": 1,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-entitlement-boundary-security.mjs",
+    "exit": 0,
+    "pass": 3,
+    "secs": 1,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-ingestion-recovery-security.mjs",
+    "exit": 0,
+    "pass": 7,
+    "secs": 3,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-metric-history-security.mjs",
+    "exit": 0,
+    "pass": 4,
+    "secs": 2,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-ops-security.mjs",
+    "exit": 0,
+    "pass": 6,
+    "secs": 1,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-p0-privacy-security.mjs",
+    "exit": 0,
+    "pass": 5,
+    "secs": 2,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-p0-release-security.mjs",
+    "exit": 0,
+    "pass": 5,
+    "secs": 5,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-privacy-session.mjs",
+    "exit": 0,
+    "pass": 3,
+    "secs": 1,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-product-condition-security.mjs",
+    "exit": 0,
+    "pass": 9,
+    "secs": 3,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-proposal-decisions.mjs",
+    "exit": 0,
+    "pass": 5,
+    "secs": 4,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-publication-security.mjs",
+    "exit": 0,
+    "pass": 6,
+    "secs": 3,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-rate-security.mjs",
+    "exit": 0,
+    "pass": 8,
+    "secs": 3,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-recommendation-policy-security.mjs",
+    "exit": 0,
+    "pass": 6,
+    "secs": 3,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-recommendation-security.mjs",
+    "exit": 0,
+    "pass": 11,
+    "secs": 4,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-recommendation-upgrade.mjs",
+    "exit": 1,
+    "pass": 0,
+    "secs": 0,
+    "err": "Error: ENOENT: no such file or directory, open 'output/dev-a-packet-db/supabase/config.toml'",
+    "msg": ""
+  },
+  {
+    "suite": "local-recruitment-window.mjs",
+    "exit": 0,
+    "pass": 3,
+    "secs": 2,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-review-security.mjs",
+    "exit": 0,
+    "pass": 9,
+    "secs": 2,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-review-upgrade.mjs",
+    "exit": 1,
+    "pass": 0,
+    "secs": 0,
+    "err": "Error: ENOENT: no such file or directory, open 'output/dev-a-packet-db/supabase/config.toml'",
+    "msg": ""
+  },
+  {
+    "suite": "local-saved-search-security.mjs",
+    "exit": 0,
+    "pass": 1,
+    "secs": 1,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-security.mjs",
+    "exit": 0,
+    "pass": 7,
+    "secs": 1,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-youtube-directory.mjs",
+    "exit": 0,
+    "pass": 5,
+    "secs": 1,
+    "err": "",
+    "msg": ""
+  },
+  {
+    "suite": "local-youtube-security.mjs",
+    "exit": 0,
+    "pass": 2,
+    "secs": 1,
+    "err": "",
+    "msg": ""
+  }
+]

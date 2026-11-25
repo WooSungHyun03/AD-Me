@@ -124,14 +124,15 @@ try {
   await check(
     "review reason/status/request enforced atomically; legacy reasonless route blocked",
     async () => {
-      assert.equal(
+      // report_queue replaced the legacy route; a terminal decision without a response is still refused.
+      assert.match(
         (
           await admin.rpc("review_report", {
             p_id: report,
-            p_status: "reviewed",
+            p_status: "resolved",
           })
-        ).error?.code,
-        "22023",
+        ).error?.message ?? "",
+        /response_required/,
       );
       const request = randomUUID();
       assert.equal(
@@ -146,8 +147,10 @@ try {
         null,
       );
       assert.equal(
-        sql(`select status from public.reports where id='${report}';`),
-        "reviewed",
+        sql(
+          `select status||','||response||','||decided_by from public.reports where id='${report}';`,
+        ),
+        `resolved,${reason},${a.admin.id}`,
       );
       assert.equal(
         sql(
