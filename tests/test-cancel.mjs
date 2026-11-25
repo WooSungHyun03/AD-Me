@@ -103,6 +103,17 @@ const finish = (id, ok, status, code) =>
 const errOf = async (p) => (await p).error?.message;
 try {
   const o1 = await paidOrder();
+  // D072: TEST order history is owner-only (another account or anon reads nothing).
+  for (const db of [other, anon])
+    assert.equal(
+      (await db.from("orders").select("id").eq("id", o1.id)).data?.length ?? 0,
+      0,
+      "other account cannot read the order",
+    );
+  assert.equal(
+    (await owner.from("orders").select("id").eq("id", o1.id)).data?.length,
+    1,
+  );
   // Clients cannot drive the state machine or write cancellation rows.
   for (const db of [owner, other, anon]) {
     assert.ok(
