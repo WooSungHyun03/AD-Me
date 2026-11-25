@@ -4,6 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import assert from "node:assert/strict";
+import { publishCreator } from "./support/creator-publication.mjs";
 const env = Object.fromEntries(
   readFileSync(".env.local", "utf8")
     .trim()
@@ -58,9 +59,7 @@ async function newCreator(tag) {
   };
   assert.equal(
     (
-      await db
-        .from("creators")
-        .insert({ id, owner_id: uid, published: true, profile })
+      await publishCreator(db, profile)
     ).error,
     null,
   );

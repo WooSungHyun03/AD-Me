@@ -5,6 +5,8 @@ import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import assert from "node:assert/strict";
+import { elevateAdmin } from "./support/admin-mfa.mjs";
+import { publishCreator } from "./support/creator-publication.mjs";
 const env = Object.fromEntries(
   readFileSync(".env.local", "utf8")
     .trim()
@@ -31,7 +33,7 @@ const login = async (acc) => {
 };
 const brand = await login(a.brand),
   other = await login(a.other),
-  admin = await login(a.admin);
+  admin = await elevateAdmin(await login(a.admin), a.admin);
 const err = (r) => r.error?.message ?? "";
 
 async function newCreator(tag) {
@@ -60,9 +62,7 @@ async function newCreator(tag) {
   };
   assert.equal(
     (
-      await db
-        .from("creators")
-        .insert({ id, owner_id: uid, published: true, profile })
+      await publishCreator(db, profile)
     ).error,
     null,
   );
@@ -87,32 +87,25 @@ const campaign = (
     .select("id")
     .single()
 ).data.id;
+// Proposals/applications are created through the same RPC as POST /api/proposals.
+const viaRpc = async (db, args) => {
+  const r = await db.rpc("create_creator_proposal", args);
+  return { ...r, data: r.data ? { id: r.data } : null };
+};
 const propose = (c) =>
-  brand
-    .from("proposals")
-    .insert({
-      campaign_id: campaign,
-      creator_id: c.id,
-      brand_id: a.brand.id,
-      creator_user_id: c.uid,
-      kind: "proposal",
-      brief: "D049 브랜드 제안 메시지입니다.",
-    })
-    .select("id")
-    .single();
+  viaRpc(brand, {
+    p_campaign: campaign,
+    p_creator: c.id,
+    p_kind: "proposal",
+    p_brief: "D049 브랜드 제안 메시지입니다.",
+  });
 const apply = (c) =>
-  c.db
-    .from("proposals")
-    .insert({
-      campaign_id: campaign,
-      creator_id: c.id,
-      brand_id: a.brand.id,
-      creator_user_id: c.uid,
-      kind: "application",
-      brief: "D049 크리에이터 지원 메시지입니다.",
-    })
-    .select("id")
-    .single();
+  viaRpc(c.db, {
+    p_campaign: campaign,
+    p_creator: c.id,
+    p_kind: "application",
+    p_brief: "D049 크리에이터 지원 메시지입니다.",
+  });
 const act = (db, id, action) =>
   db.rpc("transition_proposal", { p_id: id, p_action: action });
 const history = async (db, id) =>
@@ -251,40 +244,60 @@ assert.match(
   /invalid transition/,
   "submit needs a deliverable",
 );
-const deliver = () =>
-  c2.db.from("messages").insert({
-    proposal_id: p2,
-    sender_id: c2.uid,
-    kind: "deliverable",
-    body: "결과물 제출",
-    url: "https://example.com/d049",
+// D054: results are versioned snapshots; submit/review go through delivery_transition on the
+// current room revision (the same RPCs as /api/deliverables and PATCH /api/proposals).
+const room = async (db = c2.db) => {
+  const r = await db.rpc("delivery_page", { p_proposal: p2, p_before: null, p_limit: 20 });
+  assert.equal(r.error, null);
+  return r.data;
+};
+const deliver = async () => {
+  const r = await c2.db.rpc("delivery_create", {
+    p_proposal: p2,
+    p_expected: (await room()).roomRevision,
+    p_key: randomUUID(),
+    p_body: "결과물 제출",
+    p_url: "https://example.com/d049",
+    p_declaration: "marked",
   });
+  return r;
+};
+const review = async (db, action) => {
+  const page = await room(db);
+  return db.rpc("delivery_transition", {
+    p_proposal: p2,
+    p_submission: page.active.id,
+    p_expected: page.roomRevision,
+    p_key: randomUUID(),
+    p_action: action,
+    p_note: action === "submitted" ? "" : "D049 검토 근거와 피드백",
+    p_checked: action === "completed",
+  });
+};
 assert.equal((await deliver()).error, null);
-assert.equal((await act(c2.db, p2, "submitted")).error, null);
-assert.match(
-  err(await act(c2.db, p2, "completed")),
-  /invalid transition/,
+assert.equal((await review(c2.db, "submitted")).error, null);
+assert.ok(
+  (await review(c2.db, "completed")).error,
   "creator cannot approve own work",
 );
-assert.equal((await act(brand, p2, "revision_requested")).error, null);
+assert.equal((await review(brand, "revision_requested")).error, null);
 assert.equal((await deliver()).error, null);
-assert.equal((await act(c2.db, p2, "submitted")).error, null);
-assert.equal((await act(brand, p2, "completed")).error, null);
+assert.equal((await review(c2.db, "submitted")).error, null);
+assert.equal((await review(brand, "completed")).error, null);
 assert.match(
   err(await act(brand, p2, "accepted")),
   /invalid transition/,
   "completed is final",
 );
+// Request history keeps the request decisions; review steps live in the versioned delivery log.
 assert.deepEqual(
   (await history(brand, p2)).map((e) => e.to_status),
-  [
-    "pending",
-    "accepted",
-    "submitted",
-    "revision_requested",
-    "submitted",
-    "completed",
-  ],
+  ["pending", "accepted"],
+);
+assert.equal(
+  (await brand.from("proposals").select("status").eq("id", p2).single()).data
+    .status,
+  "completed",
 );
 
 // 4. Cancel: only the initiator, only while pending; cancelled closes messaging.

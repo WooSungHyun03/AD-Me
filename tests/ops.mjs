@@ -2,6 +2,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
+import { elevateAdmin } from "./support/admin-mfa.mjs";
 const env = Object.fromEntries(
   readFileSync(".env.local", "utf8")
     .trim()
@@ -33,7 +34,7 @@ assert.match(
   (await (await as(a.creator)).rpc("ops_stats")).error.message,
   /forbidden/,
 );
-const { data, error } = await (await as(a.admin)).rpc("ops_stats");
+const { data, error } = await (await elevateAdmin(await as(a.admin), a.admin)).rpc("ops_stats");
 assert.equal(error, null);
 assert.ok(data.db_bytes > 0 && /^(\d{12}|\d{14})$/.test(data.migration));
 assert.ok(!JSON.stringify(data).includes("@"), "no emails in stats");

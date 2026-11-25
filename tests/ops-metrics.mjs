@@ -5,6 +5,7 @@ import { createClient } from "@supabase/supabase-js";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
+import { elevateAdmin } from "./support/admin-mfa.mjs";
 const env = Object.fromEntries(
   readFileSync(".env.local", "utf8")
     .trim()
@@ -50,7 +51,7 @@ const svc = createClient(
 );
 const brand = await as(a.brand),
   creator = await as(a.creator),
-  admin = await as(a.admin),
+  admin = await elevateAdmin(await as(a.admin), a.admin),
   anon = await as();
 const metrics = async () =>
   (await admin.rpc("ops_metrics", { p_days: 7 })).data;

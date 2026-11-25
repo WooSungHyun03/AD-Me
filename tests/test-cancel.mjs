@@ -6,6 +6,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import assert from "node:assert/strict";
+import { elevateAdmin } from "./support/admin-mfa.mjs";
 const env = Object.fromEntries(
   readFileSync(".env.local", "utf8")
     .trim()
@@ -65,7 +66,7 @@ const uid = made.user.id;
 sql(`update profiles set role = 'brand' where id = '${uid}'`);
 const owner = await client({ email, password }),
   other = await client(a.other),
-  admin = await client(a.admin),
+  admin = await elevateAdmin(await client(a.admin), a.admin),
   anon = await client();
 const orders = [];
 const paidOrder = async (sku = "ai_credits") => {
