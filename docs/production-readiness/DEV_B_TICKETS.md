@@ -1150,7 +1150,7 @@ DEV-B · P1 · S1 주요 부족 · SEO · TESTED · 3 SP · ACTIVE
 
 ## D072 · 수수료 가정 계산·결제 이력
 
-DEV-B · P2 · S2 개선 · BILLING · TODO · 3 SP · ACTIVE
+DEV-B · P2 · S2 개선 · BILLING · TESTED · 3 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 선택적 시뮬레이터를 가정으로 명시하고 TEST 거래 이력만 제공한다. 실제 수납·정산 기능은 연결하지 않는다.
 - **재현·관찰** — /pricing · /dashboard에서 먼저 가정 표시·입력 경계·다른 주문 열람 차단을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/app/pricing/page.tsx, src/app/dashboard/page.tsx.
@@ -1166,9 +1166,10 @@ DEV-B · P2 · S2 개선 · BILLING · TODO · 3 SP · ACTIVE
 - **보안** — 시뮬레이터 결과를 실제 미수금/매출 지표로 집계하지 않는다.
 - **검증** — 가정 표시·입력 경계·다른 주문 열람 차단 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 선택적 시뮬레이터를 가정으로 명시하고 TEST 거래 이력만 제공한다. 실제 수납·정산 기능은 연결하지 않는다.
-- **차단 요인** — 운영 확인과 격리 재실행이 필요하다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D072/ (이번 검증 기록 위치)
+- **차단 요인** — 운영 적용(U004)은 운영자 게이트. 실제 수납·정산은 연결하지 않음.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D072/ (이번 검증 기록 위치) · harness/evidence/D072/20261126/README.md
 - **Figma 노드** — [11 · 요금제 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-271) · [11 · 요금제 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1492)
+- **검증 범위** — 2026-11-26 main 격리: fees E2E desktop/mobile PASS(가정 표시·입력 경계·서버 호출 없음), test-cancel REST에 TEST 주문 소유자 전용 열람 단언 추가 PASS.
 - **이전 기록** — OPEN
 
 ## PR-004 · 라이브 판매 전원장·대사·환불 출시 게이트
