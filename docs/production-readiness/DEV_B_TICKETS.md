@@ -773,7 +773,7 @@ DEV-B · P0 · S0 출시 차단 · DEVOPS · IN_PROGRESS · 5 SP · ACTIVE
 
 ## D086 · 관측·오류 추적·상태·비용 알림
 
-DEV-B · P0 · S0 출시 차단 · OBSERVABILITY · TODO · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · OBSERVABILITY · IN_PROGRESS · 5 SP · ACTIVE
 
 - **현재 문제** — GET /api/health 200과 admin 참조는 확인했다. 실제 알림 채널, SLO, 장애 훈련과 비용 경보는 미검증이다.
 - **재현·관찰** — 조용한 격리 환경에서 provider 오류·Cron 미실행·워커 지연으로 알림과 복구 경로를 테스트한다.
@@ -789,8 +789,8 @@ DEV-B · P0 · S0 출시 차단 · OBSERVABILITY · TODO · 5 SP · ACTIVE
 - **보안** — 알림을 테스트로 실제 수신했는지와 로그 PII 제거를 확인한다.
 - **검증** — 모의 장애·알림 전달·로그 마스킹·외부 설정 후 확인 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — PII 없는 요청 추적·오류 알림·health·가용성·API 한도·무료 리소스 한도를 관측한다.
-- **차단 요인** — 외부 선행 U018의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D086/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md
+- **차단 요인** — 2026-11-26: 격리 계약·권한 검증 통과(증빙 참조). 외부 오류 추적·알림 채널 설정과 모의 장애 알림 전달 확인(U018)이 남아 있어 완료 표시하지 않는다.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D086/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md · harness/evidence/D086/20261126/README.md
 - **Figma 노드** — [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
 - **이전 기록** — OPEN
 
