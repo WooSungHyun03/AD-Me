@@ -2,6 +2,23 @@ import { test, expect } from "@playwright/test";
 import { randomUUID, randomBytes } from "node:crypto";
 import { localClient, localRuntime, sql, totp } from "../support/local-qa.mjs";
 import { qaSignupConsent } from "../support/consent-fixture.mjs";
+// Intake ships disabled behind operator review; open it only in this disposable local DB and restore after.
+let intake = "";
+test.beforeAll(() => {
+  localRuntime();
+  intake = sql(
+    "select enabled::text||'|'||coalesce(review_ref,'') from adme_privacy.intake;",
+  );
+  sql(
+    "update adme_privacy.intake set enabled=true,review_ref=coalesce(review_ref,'FICTIONAL LOCAL E2E QUARANTINE; no erasure approval');",
+  );
+});
+test.afterAll(() => {
+  const [enabled, ref] = intake.split("|");
+  sql(
+    `update adme_privacy.intake set enabled=${enabled === "true"},review_ref=${ref ? `'${ref.replace(/'/g, "''")}'` : "null"};`,
+  );
+});
 for (const role of ["brand", "creator"] as const)
   test(`${role} deletion request reauthenticates, survives lost receipt and waits honestly for retention`, async ({
     page,

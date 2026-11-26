@@ -5977,7 +5977,7 @@
       "acceptance": "기존 6개 E2E를 가입·삭제·수집·정정·권한·모바일·결측·동시성까지 확장한다. 외부 연동은 실제/계약 테스트를 구분한다.",
       "points": 8,
       "owner": "DEV-A",
-      "blockers": "최종 로컬504unit/43Python/lint/typecheck/build/영향 desktop-mobile6/fresh0→116/113→116 원자 패킷 통과. 전체 E2E 및 B D049/D075 전수, 실제 provider/메일/Toss TEST·복구·운영 적용과 최신 remote CI는 별도 미완료. 2026-11-25 keyless E2E 9건 실패(오래된 스펙 3종·잘못된 설정) 정리 및 잘못된 범위 URL에서 결과 수 무한 로딩(D034 UI) 수정 — keyless 18/18, DB catalog-filters 6/6 PASS. 소유자 env E2E·실제 연동·원격 CI 미완료. 2026-11-25 DB local-browser 전체 76/22→98/98, free 12/12 PASS(복제 DB·Mailpit 56324): 대비·홈 실집계 회귀·YouTube 임베드 CSP 수정, fixture 순서/쿼터 정리. 소유자 env E2E·실제 연동·원격 CI 미완료. 2026-11-25 CI migrations E2E: 일회용 ci-e2e 스택에서 CI 실패 재현, DEV-A 배정분(D033 페이지네이션, D044 추천 정책 표시·스펙) 복구 — 전체 E2E 84/30→89/25, 신규 실패 0. claims는 D025 계약 결정, service 수락 게이트·나머지는 DEV-B D085 표. 2026-11-25: CI security DB suite 복구 — completed 제안 의존 제거(임의 제안), 병합 50f6aa7에서 누락된 신고 fixture 복원(동의 포함), 관리자 aal2(TOTP) 승격 후 검토. ci-e2e 재현 FAIL→PASS×2. 나머지 DB suite 17종·service 수락 게이트는 DEV-B 티켓. 2026-11-26: DEV-B CI 원인 분석 — DB suite는 252dfdd에서 해소, e2e retention 2건은 D079 표 보류와 spec 계약 불일치(DEV-B 결정 필요). 2026-11-26: 전체 E2E 로그인 한도(D076) 실패를 테스트 실행기 globalSetup으로 해소 — ci-e2e 새 DB 10→2 failed(retention 2, DEV-B). 원격 CI 재확인 필요.",
+      "blockers": "최종 로컬504unit/43Python/lint/typecheck/build/영향 desktop-mobile6/fresh0→116/113→116 원자 패킷 통과. 전체 E2E 및 B D049/D075 전수, 실제 provider/메일/Toss TEST·복구·운영 적용과 최신 remote CI는 별도 미완료. 2026-11-25 keyless E2E 9건 실패(오래된 스펙 3종·잘못된 설정) 정리 및 잘못된 범위 URL에서 결과 수 무한 로딩(D034 UI) 수정 — keyless 18/18, DB catalog-filters 6/6 PASS. 소유자 env E2E·실제 연동·원격 CI 미완료. 2026-11-25 DB local-browser 전체 76/22→98/98, free 12/12 PASS(복제 DB·Mailpit 56324): 대비·홈 실집계 회귀·YouTube 임베드 CSP 수정, fixture 순서/쿼터 정리. 소유자 env E2E·실제 연동·원격 CI 미완료. 2026-11-25 CI migrations E2E: 일회용 ci-e2e 스택에서 CI 실패 재현, DEV-A 배정분(D033 페이지네이션, D044 추천 정책 표시·스펙) 복구 — 전체 E2E 84/30→89/25, 신규 실패 0. claims는 D025 계약 결정, service 수락 게이트·나머지는 DEV-B D085 표. 2026-11-25: CI security DB suite 복구 — completed 제안 의존 제거(임의 제안), 병합 50f6aa7에서 누락된 신고 fixture 복원(동의 포함), 관리자 aal2(TOTP) 승격 후 검토. ci-e2e 재현 FAIL→PASS×2. 나머지 DB suite 17종·service 수락 게이트는 DEV-B 티켓. 2026-11-26: DEV-B CI 원인 분석 — DB suite는 252dfdd에서 해소, e2e retention 2건은 D079 표 보류와 spec 계약 불일치(DEV-B 결정 필요). 2026-11-26: 전체 E2E 로그인 한도(D076) 실패를 테스트 실행기 globalSetup으로 해소 — ci-e2e 새 DB 10→2 failed(retention 2, DEV-B). 원격 CI 재확인 필요. 2026-11-26: 계정 삭제 요청 흐름을 CI E2E로 승격(재인증·응답 유실 재전송·접근 차단·위조 접수번호, brand/creator × desktop/mobile) — ci-e2e 새 DB 116 passed/2 failed(retention, DEV-B). 실제 영구 파기·Auth 삭제는 D014/D079/U001 대기.",
       "evidence": [
         "docs/handoff/DEV-A_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
@@ -5996,7 +5996,8 @@
         "harness/evidence/D084/CI_E2E_20261125.md",
         "harness/evidence/D084/SECURITY_SUITE_20261125.md",
         "harness/evidence/D084/DEVB_CI_ROOTCAUSE_20261126.md",
-        "harness/evidence/D084/AUTH_BUDGET_20261126.md"
+        "harness/evidence/D084/AUTH_BUDGET_20261126.md",
+        "harness/evidence/D084/ACCOUNT_DELETION_E2E_20261126.md"
       ],
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",

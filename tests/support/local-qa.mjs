@@ -1,15 +1,38 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { createHmac } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
 
-export function localRuntime() {
-  const runtime = JSON.parse(
-    readFileSync("output/dev-a-db/runtime.local.json", "utf8").replace(
-      /^\uFEFF/,
-      "",
-    ),
+// CI has no replica runtime file: use the disposable stack's .env.local and project container.
+function ciRuntime() {
+  const env = Object.fromEntries(
+    readFileSync(".env.local", "utf8")
+      .trim()
+      .split("\n")
+      .map((l) => [l.slice(0, l.indexOf("=")), l.slice(l.indexOf("=") + 1)]),
   );
+  const api = (env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(
+    "localhost",
+    "127.0.0.1",
+  );
+  const project = /^project_id\s*=\s*"([^"]+)"/m.exec(
+    readFileSync("supabase/config.toml", "utf8"),
+  )?.[1];
+  return {
+    API_URL: api,
+    ANON_KEY: env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    SERVICE_ROLE_KEY: env.SUPABASE_SERVICE_ROLE_KEY,
+    // Supabase CLI puts the DB on the API port + 1.
+    DB_URL: `postgresql://postgres:postgres@127.0.0.1:${Number(/:(\d+)$/.exec(api)?.[1]) + 1}/postgres`,
+    DB_CONTAINER: `supabase_db_${project}`,
+  };
+}
+export function localRuntime() {
+  const file = "output/dev-a-db/runtime.local.json";
+  const runtime =
+    process.env.ADME_LOCAL_QA !== "1" && !existsSync(file)
+      ? ciRuntime()
+      : JSON.parse(readFileSync(file, "utf8").replace(/^\uFEFF/, ""));
   // Any loopback port, so an isolated replica can run beside another local stack.
   if (
     !/^http:\/\/127\.0\.0\.1:\d+$/.test(runtime.API_URL ?? "") ||
