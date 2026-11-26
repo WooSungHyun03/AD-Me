@@ -1,15 +1,21 @@
 import { readdirSync, readFileSync } from "node:fs";
-import { join, relative } from "node:path";
+import { join, relative, sep } from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
 // D007: every shipped image must have a provenance row; unknown rights stay explicit.
-const root = new URL("..", import.meta.url).pathname;
+// fileURLToPath: URL.pathname yields "/C:/..." on Windows, which join() turns into "C:\C:\...".
+const root = fileURLToPath(new URL("..", import.meta.url));
 const images = (dir: string): string[] =>
   readdirSync(join(root, dir), { withFileTypes: true }).flatMap((entry) =>
     entry.isDirectory()
       ? images(join(dir, entry.name))
       : /\.(png|jpe?g|webp|gif|svg|ico|avif)$/i.test(entry.name)
-        ? [relative(root, join(root, dir, entry.name))]
+        ? [
+            relative(root, join(root, dir, entry.name))
+              .split(sep)
+              .join("/"),
+          ]
         : [],
   );
 
