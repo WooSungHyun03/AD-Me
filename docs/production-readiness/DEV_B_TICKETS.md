@@ -819,7 +819,7 @@ DEV-B · P0 · S0 출시 차단 · PERFORMANCE · TESTED · 5 SP · ACTIVE
 
 ## D088 · 사용자 배포 후 출시 승인 검증
 
-DEV-B · P0 · S0 출시 차단 · QA · TODO · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · QA · IN_PROGRESS · 5 SP · ACTIVE
 
 - **현재 문제** — 운영 호환 배포는 존재한다. 최신 main, DB, 가입·결제·실제 추천의 전체 출시 승인 증거는 없다.
 - **재현·관찰** — 릴리스 체크리스트에 코드 SHA·DB mapping·Vercel ID·역할 성공/거부를 연결하고 각 모드별 GO를 별도 승인한다.
@@ -835,8 +835,8 @@ DEV-B · P0 · S0 출시 차단 · QA · TODO · 5 SP · ACTIVE
 - **보안** — 실제 새 배포가 없으면 기존 배포를 새 기능 검증 결과로 재사용하지 않는다.
 - **검증** — 공개 URL E2E·실제 데이터 출처·운영 체크리스트 증빙; 배포 실행은 사용자 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 사용자가 배포한 URL에서 가입→추천→비교→광고 이력→제안→수락→대시보드와 보안·모바일을 확인한다.
-- **차단 요인** — 외부 선행 U004, U005, U006, U019의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D088/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md · docs/production-readiness/FIGMA_RELEASE_20261124.md
+- **차단 요인** — 외부 선행 U004, U005, U006, U019의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다. 2026-11-26: 익명 읽기 전용 출시 스모크(release-smoke lib·CLI, 단위 7/7) 구현. 로컬 14/14, 운영 be-celeb.org 13/14 — /terms가 307→/about(D073 약관 페이지 09ccc80이 운영 출시 14980c8 이후라 운영 배포가 main보다 뒤처짐). 역할 흐름·모바일·Toss TEST·출시 결정은 U004/U005/U006/U019/U020 대기.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D088/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md · docs/production-readiness/FIGMA_RELEASE_20261124.md · harness/evidence/D088/20261126/README.md
 - **검증 범위** — be-celeb.org에서 Figma 공개 화면을 1440px·390px Chromium으로 검수했다. 인증 후 운영 캠페인 E2E는 별도다.
 - **이전 기록** — OPEN
 

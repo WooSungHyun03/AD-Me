@@ -6244,15 +6244,16 @@
       "acceptance": "사용자가 배포한 URL에서 가입→추천→비교→광고 이력→제안→수락→대시보드와 보안·모바일을 확인한다.",
       "points": 5,
       "owner": "DEV-B",
-      "blockers": "외부 선행 U004, U005, U006, U019의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다.",
+      "blockers": "외부 선행 U004, U005, U006, U019의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다. 2026-11-26: 익명 읽기 전용 출시 스모크(release-smoke lib·CLI, 단위 7/7) 구현. 로컬 14/14, 운영 be-celeb.org 13/14 — /terms가 307→/about(D073 약관 페이지 09ccc80이 운영 출시 14980c8 이후라 운영 배포가 main보다 뒤처짐). 역할 흐름·모바일·Toss TEST·출시 결정은 U004/U005/U006/U019/U020 대기.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/D088/ (이번 검증 기록 위치)",
         "docs/production-readiness/REFACTOR_IMPACT.md",
-        "docs/production-readiness/FIGMA_RELEASE_20261124.md"
+        "docs/production-readiness/FIGMA_RELEASE_20261124.md",
+        "harness/evidence/D088/20261126/README.md"
       ],
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,

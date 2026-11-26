@@ -1,0 +1,115 @@
+{
+  "target": "https://be-celeb.org",
+  "checkedAt": "2026-11-26T10:24:55.691Z",
+  "operatorReported": {
+    "commit": null,
+    "deployment": null
+  },
+  "scope": "anonymous read-only GET; role flows, real data, Toss TEST and mobile UI are separate gates",
+  "total": 14,
+  "passed": 13,
+  "failed": [
+    "public:/terms"
+  ],
+  "verdict": "FAIL",
+  "results": [
+    {
+      "id": "health",
+      "path": "/api/health",
+      "expect": "200 {\"status\":\"ok\"} only, no-store",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "public:/",
+      "path": "/",
+      "expect": "200 without secret markers",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "public:/creators",
+      "path": "/creators",
+      "expect": "200 without secret markers",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "public:/pricing",
+      "path": "/pricing",
+      "expect": "200 without secret markers",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "public:/privacy",
+      "path": "/privacy",
+      "expect": "200 without secret markers",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "public:/terms",
+      "path": "/terms",
+      "expect": "200 without secret markers",
+      "ok": false,
+      "status": 307
+    },
+    {
+      "id": "public:/login",
+      "path": "/login",
+      "expect": "200 without secret markers",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "security-headers",
+      "path": "/",
+      "expect": "CSP, nosniff, frame DENY, referrer policy; HSTS on https",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "robots",
+      "path": "/robots.txt",
+      "expect": "200; /admin disallowed (or whole site in demo mode)",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "sitemap",
+      "path": "/sitemap.xml",
+      "expect": "200 XML without private routes",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "gated:/dashboard",
+      "path": "/dashboard",
+      "expect": "anonymous visitor is sent to /login; noindex",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "gated:/admin",
+      "path": "/admin",
+      "expect": "anonymous visitor is sent to /login; noindex",
+      "ok": true,
+      "status": 200
+    },
+    {
+      "id": "api-auth:/api/notifications",
+      "path": "/api/notifications",
+      "expect": "401 for anonymous, no-store",
+      "ok": true,
+      "status": 401
+    },
+    {
+      "id": "api-auth:/api/export",
+      "path": "/api/export",
+      "expect": "401 for anonymous, no-store",
+      "ok": true,
+      "status": 401
+    }
+  ]
+}
