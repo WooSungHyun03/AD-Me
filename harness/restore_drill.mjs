@@ -202,9 +202,15 @@ assert.equal(sql("select count(*) from storage.objects"), "0");
 const disasterAt = Date.now();
 const z0 = t();
 const cli = process.env.ADME_RESTORE_CLI;
+// Windows has only npx.cmd, which execFileSync cannot start without a shell (Node refuses .cmd files);
+// run npm's bundled npx-cli.js with this node instead, so paths with spaces stay single arguments.
+const [npxBin, npxPre] =
+  process.platform === "win32"
+    ? [process.execPath, [join(dirname(process.execPath), "node_modules", "npm", "bin", "npx-cli.js")]]
+    : ["npx", []];
 execFileSync(
-  cli ?? "npx",
-  [...(cli ? [] : ["--yes", `supabase@${process.env.SUPABASE_CLI_VERSION ?? "2.122.1"}`]), "db", "reset", "--local", "--no-seed", "--workdir", workdir],
+  cli ?? npxBin,
+  [...(cli ? [] : [...npxPre, "--yes", `supabase@${process.env.SUPABASE_CLI_VERSION ?? "2.122.1"}`]), "db", "reset", "--local", "--no-seed", "--workdir", workdir],
   { stdio: "inherit" },
 );
 // The reset restarts the API services; wait until Storage answers before restoring files.
