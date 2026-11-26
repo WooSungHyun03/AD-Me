@@ -4287,12 +4287,13 @@
       "acceptance": "브랜드별 체크 항목·검토 메모·수동 승인 게이트를 비공개로 보관한다.",
       "points": 3,
       "owner": "DEV-B",
-      "blockers": "운영 적용(U004)은 운영자 게이트.",
+      "blockers": "운영 적용(U004)은 운영자 게이트. 2026-11-26: E2E fixture 자립화(D084 권고) — 단독 실행 PASS, desktop·mobile 2/2.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/D061/ (이번 검증 기록 위치)",
-        "harness/evidence/D061/20261126/README.md"
+        "harness/evidence/D061/20261126/README.md",
+        "harness/evidence/D061/20261126b/README.md"
       ],
       "status": "TESTED",
       "scope": "ACTIVE",

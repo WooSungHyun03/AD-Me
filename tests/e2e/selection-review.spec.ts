@@ -56,13 +56,26 @@ test("selection review: checklist + approval required before accepting; memo sta
   const { data: u } = await svc.auth.admin.createUser({
     ...acc,
     email_confirm: true,
-    user_metadata: { ...qaSignupConsent, role: "brand", name: "선정 검토 브랜드" },
+    user_metadata: {
+      ...qaSignupConsent,
+      role: "brand",
+      name: "선정 검토 브랜드",
+    },
   });
   const uid = u.user!.id;
   sql(`update profiles set role = 'brand' where id = '${uid}'`);
-  const cid = sql(
+  // Self-contained fixture: reuse the QA creator's own profile row, or create one (owner SQL, D073-safe)
+  // so the spec passes when run alone; a row this spec created is removed afterwards.
+  let cid = sql(
     `select id from creators where owner_id = '${accounts.creator.id}'`,
   );
+  const createdCreator = !cid;
+  if (createdCreator) {
+    cid = `qa-sel-review-${Date.now()}`;
+    sql(
+      `insert into creators(id, owner_id, published, claim_status, profile) select '${cid}', '${accounts.creator.id}', false, 'verified', jsonb_set(profile, '{is_demo}', 'false') from creators where id = 'creator-001'`,
+    );
+  }
   const wasPublished = sql(
     `select published from creators where id = '${cid}'`,
   );
@@ -151,7 +164,9 @@ test("selection review: checklist + approval required before accepting; memo sta
     await ctx.close();
   } finally {
     sql(
-      `update creators set published = ${wasPublished === "t"} where id = '${cid}'`,
+      createdCreator
+        ? `delete from proposals where creator_id = '${cid}'; delete from creators where id = '${cid}'`
+        : `update creators set published = ${wasPublished === "t"} where id = '${cid}'`,
     );
     await svc.auth.admin.deleteUser(uid);
   }

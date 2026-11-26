@@ -1094,8 +1094,8 @@ DEV-B · P1 · S1 주요 부족 · MARKETPLACE · TESTED · 3 SP · ACTIVE
 - **보안** — 검토 메모를 크리에이터 공개 평판 데이터로 재활용하지 않는다.
 - **검증** — 공개 프로필 누출·승인 전 선정·권한 테스트 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 브랜드별 체크 항목·검토 메모·수동 승인 게이트를 비공개로 보관한다.
-- **차단 요인** — 운영 적용(U004)은 운영자 게이트.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D061/ (이번 검증 기록 위치) · harness/evidence/D061/20261126/README.md
+- **차단 요인** — 운영 적용(U004)은 운영자 게이트. 2026-11-26: E2E fixture 자립화(D084 권고) — 단독 실행 PASS, desktop·mobile 2/2.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D061/ (이번 검증 기록 위치) · harness/evidence/D061/20261126/README.md · harness/evidence/D061/20261126b/README.md
 - **Figma 노드** — [09 · 캠페인 지원 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1002) · [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [09 · 캠페인 지원 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=25-1039) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
 - **검증 범위** — 2026-11-26 main 격리 로컬: 공개 참조 게이트웨이(20261126100000)로 선정 검토 섹션 복원, 체크리스트·메모·승인, 미승인 선정 409 안내, 메모 비공개, selection-review REST PASS, E2E desktop/mobile 2/2.
 - **이전 기록** — OPEN
