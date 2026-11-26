@@ -1,0 +1,29 @@
+{
+  "environment": "127.0.0.1:54321",
+  "generatedAt": "2026-11-26T10:19:27.413006+00:00",
+  "target": {
+    "min": 50,
+    "max": 100
+  },
+  "stored": 10,
+  "isolatedFixtures": 10,
+  "candidates": 0,
+  "passing": 0,
+  "ownerVerified": 0,
+  "failureRate": null,
+  "issues": {
+    "invalid_id": 0,
+    "no_basis": 0,
+    "stale": 0,
+    "missing_title": 0,
+    "missing_subscribers": 0,
+    "missing_videos": 0,
+    "missing_views": 0,
+    "duplicate": 0,
+    "deleted_but_stored": 0
+  },
+  "activeTombstones": 0,
+  "sourceApproved": false,
+  "gate": "NOT_MET",
+  "samples": []
+}
