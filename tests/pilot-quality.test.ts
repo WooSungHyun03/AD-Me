@@ -89,6 +89,23 @@ describe("D024 pilot quality gate", () => {
     expect(r.failureRate).toBe(1);
   });
 
+  it("treats a missing or unreadable cache timestamp as stale, never fresh", () => {
+    const r = assessPilot(
+      input([
+        sample({ expiresAt: null }),
+        sample({ expiresAt: "not-a-date" }),
+        sample({ fetchedAt: "" }),
+      ]),
+      approved,
+    );
+    expect(r.samples.map((s) => s.issues)).toEqual([
+      ["stale"],
+      ["stale"],
+      ["stale"],
+    ]);
+    expect(r.passing).toBe(0);
+  });
+
   it("reports the counted number and meets the gate only at the minimum", () => {
     const pass49 = Array.from({ length: 49 }, () => sample());
     const below = assessPilot(

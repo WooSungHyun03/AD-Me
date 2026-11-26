@@ -11,7 +11,7 @@ export type PilotSample = {
   videoCount: number;
   hasViews: boolean;
   fetchedAt: string;
-  expiresAt: string;
+  expiresAt: string | null; // adme_ops.channels.expires_at is nullable
   policy: string | null;
   policyEnabled: boolean;
   policyIsolated: boolean;
@@ -95,10 +95,14 @@ export function assessPilot(
     const found: PilotIssue[] = [];
     if (!s.validId) found.push("invalid_id");
     if (basis === "none") found.push("no_basis");
-    const age = now - Date.parse(s.fetchedAt);
+    // A missing or unreadable timestamp is never treated as fresh.
+    const fetched = Date.parse(s.fetchedAt);
+    const expires = s.expiresAt === null ? NaN : Date.parse(s.expiresAt);
     if (
-      Date.parse(s.expiresAt) <= now ||
-      (source.refreshDays !== null && age > source.refreshDays * DAY)
+      !Number.isFinite(fetched) ||
+      !Number.isFinite(expires) ||
+      expires <= now ||
+      (source.refreshDays !== null && now - fetched > source.refreshDays * DAY)
     )
       found.push("stale");
     if (!s.titleHash) found.push("missing_title");
