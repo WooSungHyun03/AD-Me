@@ -1,5 +1,23 @@
 import { expect, test, type Page } from "@playwright/test";
 import { mkdirSync } from "node:fs";
+import { sql } from "../support/local-qa.mjs";
+
+// The counts below are the seeded catalog contract. Earlier specs may leave published user-owned
+// profiles in the same disposable DB; hide them for this file only and restore exactly those rows.
+let hidden: string[] = [];
+test.beforeAll(() => {
+  hidden = sql(
+    "update public.creators set published=false where published and id like 'user-%' returning id;",
+  )
+    .split("\n")
+    .filter((id) => id.startsWith("user-"));
+});
+test.afterAll(() => {
+  if (hidden.length)
+    sql(
+      `update public.creators set published=true where id in(${hidden.map((id) => `'${id.replace(/'/g, "''")}'`).join(",")});`,
+    );
+});
 
 // D034: DB search pages 24 cards; the total is the filtered result size.
 async function expectResults(page: Page, total: number) {
