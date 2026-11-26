@@ -745,7 +745,7 @@ DEV-B · P0 · S0 출시 차단 · PRIVACY · IN_PROGRESS · 5 SP · ACTIVE
 - **보안** — 삭제 요구 증거와 삭제해야 할 원문을 같은 영구 로그에 넣지 않는다.
 - **검증** — 삭제 재시도·백업 복구 후 tombstone 재적용 검사 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 프로필·메시지·로그·파일·백업의 보존 규칙과 삭제 작업을 적용하고 복구 시 삭제 요청을 재적용한다.
-- **차단 요인** — 2026-11-26: 보존 작업·툼스톤·복원 후 재적용·권한 차단은 REST·E2E 통과. 개인정보 페이지 보존 기간 표는 운영자 승인 정책 문서(U001/D073) 확정 대기 — 미승인 기간을 사실처럼 표시하지 않음. 운영 적용 U004.
+- **차단 요인** — 2026-11-26: 보존 작업·툼스톤·복원 후 재적용·권한 차단은 REST·E2E 통과. 개인정보 페이지 보존 기간 표는 운영자 승인 정책 문서(U001/D073) 확정 대기 — 미승인 기간을 사실처럼 표시하지 않음. 운영 적용 U004. 사용자 결정(2026-11-26): retention E2E 스펙은 표 계약 그대로 유지, U001 승인 뒤 승인 정책 문서 기반 표 복원 시 CI(D085)와 함께 해소.
 - **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D079/ (이번 검증 기록 위치) · harness/evidence/D079/20261126/README.md
 - **이전 기록** — OPEN
 
@@ -767,8 +767,8 @@ DEV-B · P0 · S0 출시 차단 · DEVOPS · IN_PROGRESS · 5 SP · ACTIVE
 - **보안** — 로컬 통과와 실제 DB 적용/실제 URL 검증을 별도 상태로 기록한다.
 - **검증** — 격리 DB 마이그레이션·롤백 모의·CI 실행; 외부 적용은 사용자 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — CI 검사·마이그레이션 순서·롤백/forward fix·환경 설정 목록·사용자 배포 체크리스트를 준비한다.
-- **차단 요인** — 2026-11-25: CI checks 복구·운영 미적용 패킷 작성 후 merge a5f3326 회귀 복원 — 빈 DB ci-db.sh E2E 50→84/118(38건 해결, 신규 실패 0), DB 스위트 9/27 PASS. 남은 실패는 D025·D058·D061·D046·D044·D033·D026·D068·D070·D062·D041/D049 티켓 범위(evidence D085/20261125 README 표). 운영 적용·지문 등록·배포는 U004/U005.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D085/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md · harness/evidence/D085/20261125/README.md
+- **차단 요인** — 2026-11-25: CI checks 복구·운영 미적용 패킷 작성 후 merge a5f3326 회귀 복원 — 빈 DB ci-db.sh E2E 50→84/118(38건 해결, 신규 실패 0), DB 스위트 9/27 PASS. 남은 실패는 D025·D058·D061·D046·D044·D033·D026·D068·D070·D062·D041/D049 티켓 범위(evidence D085/20261125 README 표). 운영 적용·지문 등록·배포는 U004/U005. 2026-11-26: 빈 DB ci-db.sh DB 스위트 27/27, E2E 112/118. 원격 CI 9f42a95 checks 성공·migrations 실패(ci-db.sh) — DEV-A D084 재현으로 남은 실패는 retention 스펙 2건(desktop·mobile)뿐. 사용자 결정(2026-11-26): 스펙을 완화하지 않고 U001 승인 후 D079 보존 기간 표 복원으로 해소 — 그때까지 retention 2건은 예상된 실패로 두고 D085는 IN_PROGRESS 유지.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D085/ (이번 검증 기록 위치) · docs/production-readiness/REFACTOR_IMPACT.md · harness/evidence/D085/20261125/README.md · harness/evidence/D085/20261126b/README.md · harness/evidence/D084/DEVB_CI_ROOTCAUSE_20261126.md
 - **이전 기록** — OPEN
 
 ## D086 · 관측·오류 추적·상태·비용 알림
