@@ -27,6 +27,7 @@ SMTP host/port/user/password·발신 주소는 **Supabase SMTP 설정 화면**�
 |제안 이름|담당 티켓|저장 위치|의도·안전 기본값|
 |---|---|---|---|
 |YOUTUBE_API_KEY|D003/D019|Vercel 서버만|YouTube API 전용 restriction. 키를 NEXT_PUBLIC_로 바꾸지 않는다.|
+|RESEND_API_KEY / ADME_MAIL_FROM|D053/U007|Vercel 서버만|앱 알림 메일 Resend API 어댑터(`src/lib/notifications/email.ts`, 2026-11-27 구현). 둘 다 있어야 발송한다. 키는 `re_`로 시작, 발신 주소는 `noreply@mail.be-celeb.org` 또는 `AD Me <noreply@mail.be-celeb.org>` 한 줄. 없으면 outbox가 아무것도 꺼내지 않는다. Auth SMTP 값과 별개이며, 같은 도메인 한정 sending_access 키를 쓸지는 USER가 정한다.|
 |AI_PROVIDER_TOKEN / AI_MODEL_ID|D003/D048|Vercel 서버만|실제 provider 선택 후 이름 확정. 토큰 없이 deterministic fallback.|
 |META_APP_ID / META_APP_SECRET|D003/D022|서버만, 선택 공급자 계약에 따름|로그인 방식·scope·callback 구현 후 등록. secret은 브라우저 노출 금지.|
 |TIKTOK_CLIENT_KEY / TIKTOK_CLIENT_SECRET|D003/D023|서버만, 선택 공급자 계약에 따름|공급자 승인·OAuth 구현 후 등록.|

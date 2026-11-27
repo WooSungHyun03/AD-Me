@@ -1024,8 +1024,8 @@ DEV-B · P1 · S1 주요 부족 · CHAT · IN_PROGRESS · 5 SP · ACTIVE
 - **보안** — SMTP 인증메일 설정과 앱 알림메일 발송 어댑터는 별도임을 문서화하고 공급자 설정 전 실제 발송 성공을 주장하지 않는다.
 - **검증** — 중복 발송·실패·해지·설정 후 실제 배달 확인 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 인증 메일과 서비스/마케팅 메일을 구분하고 발송 재시도·동의·수신거부를 관리한다.
-- **차단 요인** — 2026-11-26: 격리 계약·권한 검증 통과(증빙 참조). 실제 메일 공급자 설정과 배달 확인(U007)이 남아 있어 완료 표시하지 않는다.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D053/ (이번 검증 기록 위치) · harness/evidence/D053/20261126/README.md
+- **차단 요인** — 2026-11-26: 격리 계약·권한 검증 통과(증빙 참조). 실제 메일 공급자 설정과 배달 확인(U007)이 남아 있어 완료 표시하지 않는다. 2026-11-27: 앱 알림 메일 Resend API 어댑터 구현(configuredSender: RESEND_API_KEY+ADME_MAIL_FROM, Idempotency-Key, 오류는 상태·고정 이름만). 단위 9/9, 전체 608, 빌드 PASS. Vercel 키 등록(U006/U007)과 실수신 확인 대기 — 그 전에는 발송 0.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D053/ (이번 검증 기록 위치) · harness/evidence/D053/20261126/README.md · harness/evidence/D053/20261127/README.md
 - **Figma 노드** — [10 · 실시간 채팅 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-253) · [13 · 브랜드 대시보드 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-307) · [10 · 실시간 채팅 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1483) · [13 · 브랜드 대시보드 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1510)
 - **이전 기록** — OPEN
 

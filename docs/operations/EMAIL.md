@@ -7,7 +7,7 @@
 | Queue | None (Auth sends directly) | `email_outbox` (server only) |
 | Consent | Always sent (needed for the account) | `service_email` (default on) / `marketing_email` (default off, versioned consent) |
 | Unsubscribe | Not possible (security mail) | One-click link + `List-Unsubscribe` headers (RFC 8058), or the settings screen |
-| Status | Default Supabase sender with its rate limit until SMTP is set (U007) | **No sender configured. No real delivery has happened** |
+| Status | Resend SMTP connected in the Supabase console (U007, 2026-11-19) | Resend API adapter implemented (2026-11-27). **Inactive until `RESEND_API_KEY` and `ADME_MAIL_FROM` are set; no real delivery has happened** |
 
 Setting the Auth SMTP does **not** make app notification mail work, and vice versa. Each needs its own provider setup and its own delivery check.
 
@@ -33,10 +33,18 @@ Setting the Auth SMTP does **not** make app notification mail work, and vice ver
    - Opening the link (GET) does nothing; only the button or the mail client's POST unsubscribes.
 
 ## Turning delivery on (user, U007)
-1. Choose an email API provider and set its key as a **server-only** Vercel variable.
-2. The agent implements `configuredSender()` for that provider, mapping `Mail.headers` and `idempotencyKey`.
-3. Run `/api/admin/email-outbox` (admin) or a scheduled job.
-4. Verify one real delivery to a test inbox: the unsubscribe link works and the headers are present.
-5. Only after step 4 may delivery be reported as working. Admin → "알림 메일 outbox" shows counts by status.
+1. In Resend, use a sending key limited to `mail.be-celeb.org`. Set it as the **server-only** Vercel variable `RESEND_API_KEY`.
+2. Set `ADME_MAIL_FROM`, e.g. `AD Me <noreply@mail.be-celeb.org>` (one line, on the verified domain).
+3. Redeploy. Admin → "알림 메일 outbox" should then say "발송 공급자 연결됨".
+4. Run `/api/admin/email-outbox` (admin) or a scheduled job.
+5. Verify one real delivery to a test inbox: the unsubscribe link works and the headers are present.
+6. Only after step 5 may delivery be reported as working. Admin → "알림 메일 outbox" shows counts by status.
+
+Adapter behaviour (`resendSender`):
+- **Request:** `POST https://api.resend.com/emails` with `from`, `to`, `subject`, `text` and the unsubscribe `headers`.
+- **No double sends:** the `Idempotency-Key` header is `adme-<source_key>-<id>`. Resend keeps keys for 24 hours, so a retried row is not sent twice.
+- **Failures:**
+  - Only `resend_<status>[_<error name>]` (or `resend_network`) is stored; the response body never is.
+  - A 429 or 5xx row follows the outbox backoff, and the 5th failure is dead-lettered.
 
 Not done: a scheduled worker, outbox retention cleanup, bounce/complaint webhooks.

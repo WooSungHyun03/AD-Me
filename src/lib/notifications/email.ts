@@ -70,10 +70,62 @@ export function render(row: Claimed, appUrl: string): Mail {
   };
 }
 
-// shortcut: no provider adapter is wired — needs a chosen email API and its server-only key (U007).
-// Until then the worker refuses to claim anything and nothing is reported as sent.
-export function configuredSender(): Sender | null {
-  return null;
+// D053/U007: Resend HTTP API sender for app notification mail (Resend already serves Auth SMTP for
+// mail.be-celeb.org). Server-only RESEND_API_KEY and ADME_MAIL_FROM must both be set; otherwise the worker
+// refuses to claim anything and nothing is reported as sent. The idempotency key makes a retried POST
+// within 24h return the original result instead of sending again. Errors carry only the status and
+// Resend's fixed error name, never the response body (it can echo the recipient).
+export const RESEND_URL = "https://api.resend.com/emails";
+// "addr@domain" or "Name <addr@domain>"; no line breaks (header injection).
+const FROM =
+  /^(?:[^<>\r\n]{1,80} <[^\s<>@]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}>|[^\s<>@]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})$/;
+export function resendSender(
+  apiKey: string,
+  from: string,
+  fetchImpl: typeof fetch = fetch,
+): Sender {
+  return {
+    name: "resend",
+    async send(m) {
+      let res: Response;
+      try {
+        res = await fetchImpl(RESEND_URL, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+            "Idempotency-Key": m.idempotencyKey.slice(0, 256),
+          },
+          body: JSON.stringify({
+            from,
+            to: [m.to],
+            subject: m.subject,
+            text: m.text,
+            headers: m.headers,
+          }),
+          signal: AbortSignal.timeout(10_000),
+        });
+      } catch {
+        throw new Error("resend_network");
+      }
+      if (res.ok) return;
+      let name = "";
+      try {
+        const body = (await res.json()) as { name?: unknown };
+        if (typeof body?.name === "string" && /^[a-z_]{1,60}$/.test(body.name))
+          name = `_${body.name}`;
+      } catch {}
+      throw new Error(`resend_${res.status}${name}`);
+    },
+  };
+}
+export function configuredSender(
+  env: Record<string, string | undefined> = process.env,
+): Sender | null {
+  const key = env.RESEND_API_KEY?.trim();
+  const from = env.ADME_MAIL_FROM?.trim();
+  if (!key || !from || !key.startsWith("re_") || !FROM.test(from)) return null;
+  return resendSender(key, from);
 }
 
 export async function runOutbox(
