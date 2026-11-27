@@ -1,0 +1,163 @@
+// D085: generate read-only verification SQL for a hosted release packet.
+// Usage: node scripts/release-verify-sql.mjs <last applied version> > verify.sql
+// For every migration after <last applied version> it lists the objects the file creates or edits
+// (functions, including those rewritten through pg_get_functiondef in a DO block, tables, views, added
+// columns, named indexes, triggers and policies) and emits SELECT-only queries. Every query must return
+// zero rows on a correctly upgraded database; the operator runs them after applying the batch.
+// The generator reads only the repository; it never connects to a database.
+import { readdirSync, readFileSync } from "node:fs";
+
+const after = process.argv[2];
+if (!/^\d{12,14}$/.test(after ?? "")) {
+  console.error(
+    "Usage: node scripts/release-verify-sql.mjs <last applied version>",
+  );
+  process.exitCode = 2;
+} else {
+  const dir = new URL("../supabase/migrations/", import.meta.url);
+  const files = readdirSync(dir)
+    .filter((f) => f.endsWith(".sql") && f.split("_")[0] > after)
+    .sort();
+  const lit = (s) => `'${s.replace(/'/g, "''")}'`;
+  const id = String.raw`[a-z_][a-z0-9_]*`;
+  const qual = String.raw`(?:(${id})\.)?(${id})`; // optional schema, name
+  const rows = [];
+  const add = (version, kind, object, check) => {
+    if (
+      !rows.some(
+        (r) => r.version === version && r.object === object && r.kind === kind,
+      )
+    )
+      rows.push({ version, kind, object, check });
+  };
+  const fn = (s, n) =>
+    `exists(select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname=${lit(s)} and p.proname=${lit(n)})`;
+  for (const f of files) {
+    const v = f.split("_")[0];
+    // Comments may mention objects that are not created; strip them first.
+    const sql = readFileSync(new URL(f, dir), "utf8")
+      .replace(/\r\n/g, "\n")
+      .replace(/--[^\n]*/g, "");
+    const each = (re, cb) => {
+      for (const m of sql.matchAll(new RegExp(re, "gi"))) cb(m);
+    };
+    each(
+      String.raw`create\s+(?:or\s+replace\s+)?function\s+${qual}\s*\(`,
+      (m) =>
+        add(
+          v,
+          "function",
+          `${m[1] ?? "public"}.${m[2]}`,
+          fn(m[1] ?? "public", m[2]),
+        ),
+    );
+    each(String.raw`pg_get_functiondef\(\s*'${qual}\(`, (m) =>
+      add(
+        v,
+        "function",
+        `${m[1] ?? "public"}.${m[2]}`,
+        fn(m[1] ?? "public", m[2]),
+      ),
+    );
+    each(String.raw`create\s+table\s+(?:if\s+not\s+exists\s+)?${qual}`, (m) =>
+      add(
+        v,
+        "table",
+        `${m[1] ?? "public"}.${m[2]}`,
+        `to_regclass(${lit(`${m[1] ?? "public"}.${m[2]}`)}) is not null`,
+      ),
+    );
+    each(String.raw`create\s+(?:or\s+replace\s+)?view\s+${qual}`, (m) =>
+      add(
+        v,
+        "view",
+        `${m[1] ?? "public"}.${m[2]}`,
+        `to_regclass(${lit(`${m[1] ?? "public"}.${m[2]}`)}) is not null`,
+      ),
+    );
+    each(
+      String.raw`alter\s+table\s+(?:if\s+exists\s+)?(?:only\s+)?${qual}([^;]*)`,
+      (m) => {
+        const [s, t] = [m[1] ?? "public", m[2]];
+        for (const c of m[3].matchAll(
+          new RegExp(
+            String.raw`add\s+column\s+(?:if\s+not\s+exists\s+)?(${id})`,
+            "gi",
+          ),
+        ))
+          add(
+            v,
+            "column",
+            `${s}.${t}.${c[1]}`,
+            `exists(select 1 from information_schema.columns where table_schema=${lit(s)} and table_name=${lit(t)} and column_name=${lit(c[1])})`,
+          );
+      },
+    );
+    each(
+      String.raw`create\s+(?:unique\s+)?index\s+(?:concurrently\s+)?(?:if\s+not\s+exists\s+)?(${id})\s+on\s+(?:only\s+)?${qual}`,
+      (m) => {
+        if (m[1].toLowerCase() === "on") return; // unnamed index
+        add(
+          v,
+          "index",
+          `${m[2] ?? "public"}.${m[1]}`,
+          `exists(select 1 from pg_indexes where schemaname=${lit(m[2] ?? "public")} and indexname=${lit(m[1])})`,
+        );
+      },
+    );
+    each(
+      String.raw`create\s+(?:or\s+replace\s+)?(?:constraint\s+)?trigger\s+(${id})\s[^;]*?\bon\s+${qual}`,
+      (m) =>
+        add(
+          v,
+          "trigger",
+          `${m[2] ?? "public"}.${m[3]}:${m[1]}`,
+          `exists(select 1 from pg_trigger g join pg_class c on c.oid=g.tgrelid join pg_namespace n on n.oid=c.relnamespace where not g.tgisinternal and n.nspname=${lit(m[2] ?? "public")} and c.relname=${lit(m[3])} and g.tgname=${lit(m[1])})`,
+        ),
+    );
+    each(
+      String.raw`create\s+policy\s+(?:"([^"]+)"|(${id}))\s+on\s+${qual}`,
+      (m) => {
+        const name = m[1] ?? m[2];
+        add(
+          v,
+          "policy",
+          `${m[3] ?? "public"}.${m[4]}:${name}`,
+          `exists(select 1 from pg_policies where schemaname=${lit(m[3] ?? "public")} and tablename=${lit(m[4])} and policyname=${lit(name)})`,
+        );
+      },
+    );
+  }
+  const versions = files.map((f) => f.split("_")[0]);
+  const out = [
+    `-- Generated by scripts/release-verify-sql.mjs ${after} (read-only; every query must return 0 rows).`,
+    `-- ${files.length} migrations after ${after}: ${versions[0]} .. ${versions.at(-1)}; ${rows.length} object checks.`,
+    "",
+    "-- 1. Every pending version is recorded in the migration ledger.",
+    `select v as missing_version from unnest(array[${versions.map(lit).join(",")}]::text[]) v`,
+    "where not exists(select 1 from supabase_migrations.schema_migrations m where m.version = v);",
+    "",
+    "-- 2. Every object the batch creates or rewrites exists.",
+    "select migration, kind, object from (values",
+    rows
+      .map(
+        (r) =>
+          `  (${lit(r.version)}, ${lit(r.kind)}, ${lit(r.object)}, ${r.check})`,
+      )
+      .join(",\n"),
+    ") as c(migration, kind, object, present) where not present order by 1, 2, 3;",
+    "",
+    "-- 3. No SECURITY DEFINER function in public/adme_* schemas runs without a pinned search_path.",
+    "select n.nspname || '.' || p.proname as definer_without_search_path from pg_proc p",
+    "join pg_namespace n on n.oid = p.pronamespace",
+    "where p.prosecdef and (n.nspname = 'public' or n.nspname like 'adme\\_%')",
+    "and not exists(select 1 from unnest(coalesce(p.proconfig, '{}')) c where c like 'search_path=%');",
+    "",
+    "-- 4. Every table in public/adme_* schemas has RLS enabled.",
+    "select n.nspname || '.' || c.relname as table_without_rls from pg_class c",
+    "join pg_namespace n on n.oid = c.relnamespace",
+    "where c.relkind = 'r' and (n.nspname = 'public' or n.nspname like 'adme\\_%') and not c.relrowsecurity;",
+    "",
+  ];
+  process.stdout.write(out.join("\n"));
+}
