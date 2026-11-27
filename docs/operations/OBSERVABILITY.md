@@ -31,4 +31,8 @@ Free-plan limits (DB 500MB, Storage 1GB, MAU 50,000) are **reference values**. C
 
 ## Checking after it's set up (with D088)
 1. Signed in as admin, `GET /api/health` → check `configured.alert_webhook: true`.
-2. Confirm a real message arrives in the channel. There's no safe way to fake an outage in production, so after deploying, temporarily point the admin `ALERT_WEBHOOK_URL` at a test channel and check any one alert arrives. Leave the evidence in `harness/evidence/D086`.
+2. Confirm a real message arrives in the channel with the alert drill (D086, 2026-11-27). It does not fake an outage: it sends one message labelled `[DRILL]` through the same `alert()` path the server uses.
+   - Run `node scripts/alert-drill.mjs --env <file that contains ALERT_WEBHOOK_URL> --out harness/evidence/D086/<date>/alert-drill.json`.
+   - Exit codes: 0 sent, 2 not configured (missing or not https), 3 delivery failed.
+   - The report records only the channel kind (slack/discord/other) and the result. The webhook URL is never printed or written.
+   - When it is `sent`, capture the message in the channel and keep it in `harness/evidence/D086` with the report.

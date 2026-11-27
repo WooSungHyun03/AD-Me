@@ -6115,13 +6115,14 @@
       "acceptance": "PII 없는 요청 추적·오류 알림·health·가용성·API 한도·무료 리소스 한도를 관측한다.",
       "points": 5,
       "owner": "DEV-B",
-      "blockers": "2026-11-26: 격리 계약·권한 검증 통과(증빙 참조). 외부 오류 추적·알림 채널 설정과 모의 장애 알림 전달 확인(U018)이 남아 있어 완료 표시하지 않는다.",
+      "blockers": "2026-11-26: 격리 계약·권한 검증 통과(증빙 참조). 외부 오류 추적·알림 채널 설정과 모의 장애 알림 전달 확인(U018)이 남아 있어 완료 표시하지 않는다. 2026-11-27: 운영자 모의 알림 드릴(scripts/alert-drill.mjs) 추가 — 실제 장애 없이 [DRILL] 1건을 서버 alert() 경로로 발송, URL 비노출. 단위 2/2(로컬 수신기). U018 웹훅 설정 뒤 운영자 실행·채널 캡처 대기.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/D086/ (이번 검증 기록 위치)",
         "docs/production-readiness/REFACTOR_IMPACT.md",
-        "harness/evidence/D086/20261126/README.md"
+        "harness/evidence/D086/20261126/README.md",
+        "harness/evidence/D086/20261127/README.md"
       ],
       "status": "IN_PROGRESS",
       "scope": "ACTIVE",
