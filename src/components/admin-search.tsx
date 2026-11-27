@@ -26,7 +26,9 @@ export function AdminSearch({ role }: { role: string }) {
     [page, setPage] = useState<z.infer<typeof supportPageSchema> | null>(null),
     [pending, setPending] = useState(false),
     [error, setError] = useState(""),
-    [applied, setApplied] = useState({ kind, query, reason });
+    [applied, setApplied] = useState({ kind, query, reason }),
+    // When the shown page was fetched; deadlines are judged against it, not re-read during render.
+    [checkedAt, setCheckedAt] = useState(0);
   const seq = useRef(0);
   async function search(more = false) {
     const current = more ? applied : { kind, query, reason },
@@ -51,6 +53,7 @@ export function AdminSearch({ role }: { role: string }) {
         items: more ? [...page!.items, ...result.items] : result.items,
       });
       setApplied(current);
+      setCheckedAt(Date.now());
     } catch {
       if (seq.current === generation) {
         setPage(null);
@@ -150,6 +153,19 @@ export function AdminSearch({ role }: { role: string }) {
                 (KST)
               </p>
               {r.details.isDemo && <span className="badge">DEMO</span>}
+              {r.details.dueAt && (
+                <p data-testid="admin-report-deadline">
+                  처리 기한{" "}
+                  {new Date(r.details.dueAt).toLocaleString("ko-KR", {
+                    timeZone: "Asia/Seoul",
+                  })}{" "}
+                  (KST)
+                  {["pending", "in_review"].includes(r.status) &&
+                    Date.parse(r.details.dueAt) < checkedAt &&
+                    " · 기한 초과"}
+                  {r.details.interimHidden && " · 임시 비공개 조치 중"}
+                </p>
+              )}
               {r.details.amount !== undefined && (
                 <p>TEST {r.details.amount.toLocaleString()}원</p>
               )}

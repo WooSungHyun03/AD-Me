@@ -13,7 +13,7 @@ export const supportLabels: Record<(typeof supportKinds)[number], string> = {
   creators: "크리에이터",
   campaigns: "캠페인",
   jobs: "수집 작업",
-  reports: "이전 접수 신고",
+  reports: "신고·정정·삭제 요청",
   orders: "TEST 주문",
   audit: "지원 감사 기록",
 };
@@ -52,6 +52,13 @@ const details = z.strictObject({
   target: z.string().max(160).optional(),
   requestId: z.uuid().optional(),
   reason: z.string().max(500).optional(),
+  // D058 request queue rows: ticket, kind, deadline and interim hide only (no reason text or ids).
+  ticketNo: z.string().max(40).optional(),
+  requestKind: z
+    .enum(["report", "correction", "deletion", "impersonation", "appeal"])
+    .optional(),
+  dueAt: z.iso.datetime({ offset: true }).optional(),
+  interimHidden: z.boolean().optional(),
 });
 export const supportPageSchema = z.strictObject({
   version: z.literal(1),

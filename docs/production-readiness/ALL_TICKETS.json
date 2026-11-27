@@ -4082,7 +4082,8 @@
       ],
       "code_files": [
         "src/app/api/reports/route.ts",
-        "src/components/admin-review.tsx"
+        "src/components/admin-review.tsx",
+        "src/components/admin-search.tsx"
       ],
       "database": "reports, audit_log, administrator_grants, ops_dashboard",
       "expected": "접수번호·처리 기한·임시 조치·답변·재심·처리 로그와 요청자 확인을 제공한다.",
@@ -4103,15 +4104,16 @@
       "acceptance": "접수번호·처리 기한·임시 조치·답변·재심·처리 로그와 요청자 확인을 제공한다.",
       "points": 5,
       "owner": "DEV-B",
-      "blockers": "2026-11-26: 계약 추천안(D057 공존) 구현·검증 완료 — 요청 유형·접수번호·기한·내 요청·재심, 공개 참조 해석(20261125240000), reports REST PASS, E2E 4/4. DEV-A 공존/흡수 합의와 운영 적용(U004) 대기라 완료 표시 보류.",
+      "blockers": "2026-11-26: 계약 추천안(D057 공존) 구현·검증 완료 — 요청 유형·접수번호·기한·내 요청·재심, 공개 참조 해석(20261125240000), reports REST PASS, E2E 4/4. DEV-A 공존/흡수 합의와 운영 적용(U004) 대기라 완료 표시 보류. 2026-11-27: 사용자 결정으로 공존안 채택(DEV-A 회신 없음, 계약 문서에 결정 기록). 운영 검색 reports 범위에 접수번호·유형·기한·임시 비공개 표시(20261127110000). reports REST PASS, 단위 602, E2E reports+safety 6/6, 빌드 PASS. 운영 적용(U004)은 운영자 게이트.",
       "evidence": [
         "docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절)",
         "docs/production-readiness/MASTER_AUDIT.md",
         "harness/evidence/D058/ (이번 검증 기록 위치)",
         "docs/handoff/D058_D057_REPORT_CONTRACT_20261125.md",
-        "harness/evidence/D058/20261126/README.md"
+        "harness/evidence/D058/20261126/README.md",
+        "harness/evidence/D058/20261127/README.md"
       ],
-      "status": "IN_PROGRESS",
+      "status": "TESTED",
       "scope": "ACTIVE",
       "prior_status": "OPEN",
       "reopened": false,

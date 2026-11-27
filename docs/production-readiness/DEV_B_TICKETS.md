@@ -475,12 +475,12 @@ DEV-B · P0 · S0 출시 차단 · MARKETPLACE · TESTED · 5 SP · ACTIVE
 
 ## D058 · 신고·정정·삭제·이의신청 큐
 
-DEV-B · P0 · S0 출시 차단 · ADMIN · IN_PROGRESS · 5 SP · ACTIVE
+DEV-B · P0 · S0 출시 차단 · ADMIN · TESTED · 5 SP · ACTIVE
 
 - **현재 문제** — 현재 원장 OPEN이지만 이 범위의 운영 수용 증거를 재확인해야 한다. 접수번호·처리 기한·임시 조치·답변·재심·처리 로그와 요청자 확인을 제공한다.
 - **재현·관찰** — /api/reports에서 먼저 익명 남용·상태 전이·삭제 후 재수집 차단을 수행하고, 실제 데이터/fixture 및 현재 운영 응답을 기록한다. 다음 파일에서 구현 조건을 대조한다: src/app/api/reports/route.ts, src/components/admin-review.tsx.
 - **화면** — /api/reports
-- **관련 코드** — src/app/api/reports/route.ts · src/components/admin-review.tsx
+- **관련 코드** — src/app/api/reports/route.ts · src/components/admin-review.tsx · src/components/admin-search.tsx
 - **DB·RPC** — reports, audit_log, administrator_grants, ops_dashboard
 - **기대 동작** — 접수번호·처리 기한·임시 조치·답변·재심·처리 로그와 요청자 확인을 제공한다.
 - **구현** — 접수번호·요청 유형·본인 확인·처리 기한·임시 조치·재심을 설계하고 요청자에게 자기 처리 상태만 공개한다.
@@ -491,8 +491,8 @@ DEV-B · P0 · S0 출시 차단 · ADMIN · IN_PROGRESS · 5 SP · ACTIVE
 - **보안** — 신고가 공개돼 개인정보/명예 훼손의 새 통로가 되지 않는다.
 - **검증** — 익명 남용·상태 전이·삭제 후 재수집 차단 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 접수번호·처리 기한·임시 조치·답변·재심·처리 로그와 요청자 확인을 제공한다.
-- **차단 요인** — 2026-11-26: 계약 추천안(D057 공존) 구현·검증 완료 — 요청 유형·접수번호·기한·내 요청·재심, 공개 참조 해석(20261125240000), reports REST PASS, E2E 4/4. DEV-A 공존/흡수 합의와 운영 적용(U004) 대기라 완료 표시 보류.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D058/ (이번 검증 기록 위치) · docs/handoff/D058_D057_REPORT_CONTRACT_20261125.md · harness/evidence/D058/20261126/README.md
+- **차단 요인** — 2026-11-26: 계약 추천안(D057 공존) 구현·검증 완료 — 요청 유형·접수번호·기한·내 요청·재심, 공개 참조 해석(20261125240000), reports REST PASS, E2E 4/4. DEV-A 공존/흡수 합의와 운영 적용(U004) 대기라 완료 표시 보류. 2026-11-27: 사용자 결정으로 공존안 채택(DEV-A 회신 없음, 계약 문서에 결정 기록). 운영 검색 reports 범위에 접수번호·유형·기한·임시 비공개 표시(20261127110000). reports REST PASS, 단위 602, E2E reports+safety 6/6, 빌드 PASS. 운영 적용(U004)은 운영자 게이트.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · harness/evidence/D058/ (이번 검증 기록 위치) · docs/handoff/D058_D057_REPORT_CONTRACT_20261125.md · harness/evidence/D058/20261126/README.md · harness/evidence/D058/20261127/README.md
 - **Figma 노드** — [15 · 관리자 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-343) · [15 · 관리자 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1528)
 - **이전 기록** — OPEN
 

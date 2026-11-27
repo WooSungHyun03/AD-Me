@@ -273,11 +273,45 @@ assert.equal(
   ),
   "false,true",
 );
-assert.equal(
-  (await publicCount(cid)),
-  0,
-  "hidden profile not public",
+assert.equal(await publicCount(cid), 0, "hidden profile not public");
+// D060 operations search (reports scope) finds the request by ticket number and shows its kind,
+// deadline and interim hide, but never the reason text or the target/reporter ids (20261127110000).
+const staffSearch = (db, query) =>
+  db.rpc("admin_support_search", {
+    p_kind: "reports",
+    p_query: query,
+    p_reason: "D058 접수번호 검색 검증",
+    p_request: randomUUID(),
+    p_limit: 5,
+  });
+assert.ok(
+  (await staffSearch(A.db, del.ticket_no)).error,
+  "requester is not staff",
 );
+{
+  const { data, error } = await staffSearch(admin, del.ticket_no);
+  assert.equal(error, null);
+  assert.deepEqual(
+    data.items.map((i) => i.id),
+    [del.id],
+    "ticket number is searchable",
+  );
+  const [row] = data.items;
+  assert.equal(row.label, `${del.ticket_no} · 삭제 요청`);
+  assert.equal(row.status, "in_review");
+  assert.deepEqual(Object.keys(row.details).sort(), [
+    "dueAt",
+    "interimHidden",
+    "requestKind",
+    "ticketNo",
+  ]);
+  assert.equal(row.details.requestKind, "deletion");
+  assert.equal(row.details.interimHidden, true);
+  assert.equal(Date.parse(row.details.dueAt), Date.parse(del.due_at));
+  const out = JSON.stringify(data);
+  assert.ok(!out.includes("동의 없이 수집"), "reason text stays private");
+  assert.ok(!out.includes(cid), "target id stays private");
+}
 assert.match(err(await review(admin, del.id, "resolved")), /response_required/);
 assert.equal(
   (
@@ -503,5 +537,5 @@ assert.equal(
 
 psql(`update profiles set role='brand' where id='${second.uid}'`);
 console.log(
-  "PASS: D058 reports — anon/malformed/direct insert refused, ticket + 10/7-day deadlines, duplicate open, 5/day limit, requester-only visibility, interim hide, answer required, closed final, status log, deletion scrubs + suppresses (id/handle/url/republish blocked), appeal once by requester only and by a different admin, owner identity verified.",
+  "PASS: D058 reports — anon/malformed/direct insert refused, ticket + 10/7-day deadlines, duplicate open, 5/day limit, requester-only visibility, interim hide, answer required, closed final, status log, deletion scrubs + suppresses (id/handle/url/republish blocked), appeal once by requester only and by a different admin, owner identity verified, staff search by ticket shows kind/deadline/interim hide without reason or ids.",
 );

@@ -70,15 +70,20 @@ test("private request → admin answer → requester status and appeal", async (
   const ap = await ac.newPage();
   await login(ap, accounts.admin.email, accounts.admin.password);
   await verifyAdminOtp(ap, accounts.admin.totpSecret);
-  // D058 requests are handled from the D060 operations search (reports scope) by request id.
+  // D058 requests are handled from the D060 operations search (reports scope), found by ticket number;
+  // each row shows the ticket, request kind and deadline (20261127110000).
   const reportId = (await mine.getAttribute("data-report-id"))!;
   await ap.goto("/admin");
   await ap.getByLabel("운영 검색 대상").selectOption("reports");
-  await ap.getByLabel("운영 검색어").fill(reportId);
+  await ap.getByLabel("운영 검색어").fill(ticket);
   await ap.getByLabel("조회 사유").fill("D058 정정 요청 처리 검증");
   await ap.getByRole("button", { name: "운영 검색" }).click();
   const item = ap.getByTestId("admin-record").filter({ hasText: reportId });
   await expect(item).toContainText("pending");
+  await expect(item.getByRole("heading")).toHaveText(`${ticket} · 정보 정정`);
+  await expect(item.getByTestId("admin-report-deadline")).toContainText(
+    "처리 기한",
+  );
   await item
     .getByLabel("신고 검토 사유")
     .fill("확인 후 분야 표기를 정정했습니다.");

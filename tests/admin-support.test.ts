@@ -57,3 +57,43 @@ it("uses one generated request ID for audit and HTTP receipt; strict DTO prevent
   expect(bad.status).toBe(503);
   expect(await bad.text()).not.toContain("PRIVATE");
 });
+it("D058: report rows carry ticket, kind, deadline and interim hide only; other detail keys are refused", async () => {
+  const row = {
+    id: "8f9b2a9e-6f4e-4c11-9a43-0e6c1c1f0a01",
+    label: "ADR-261127-00001 · 사칭 신고",
+    status: "in_review",
+    createdAt: "2026-11-27T01:00:00.000+00:00",
+    details: {
+      ticketNo: "ADR-261127-00001",
+      requestKind: "impersonation",
+      dueAt: "2026-12-04T01:00:00.123456+00:00",
+      interimHidden: true,
+    },
+  };
+  const page = (details: object) => ({
+    data: {
+      version: 1,
+      kind: "reports",
+      items: [{ ...row, details }],
+      nextCursor: null,
+    },
+    error: null,
+  });
+  state.rpc.mockResolvedValueOnce(page(row.details));
+  const ok = await POST(req({ kind: "reports", reason: "D058 접수번호 확인" }));
+  expect(ok.status).toBe(200);
+  expect((await ok.json()).items[0].details).toEqual(row.details);
+  for (const leak of [
+    { ...row.details, reporterId: "8f9b2a9e-6f4e-4c11-9a43-0e6c1c1f0a02" },
+    { ...row.details, requestKind: "unknown" },
+  ]) {
+    state.rpc.mockResolvedValueOnce(page(leak));
+    const bad = await POST(
+      req({ kind: "reports", reason: "D058 접수번호 확인" }),
+    );
+    expect(bad.status).toBe(503);
+    expect(await bad.text()).not.toContain(
+      "8f9b2a9e-6f4e-4c11-9a43-0e6c1c1f0a02",
+    );
+  }
+});
