@@ -20,6 +20,8 @@ export function ProductConditionWorkbench({
     [audience, setAudience] = useState(""),
     [error, setError] = useState(""),
     [pending, setPending] = useState(false),
+    // Until the stored request is known, a new submit could race it and be hidden behind it.
+    [loaded, setLoaded] = useState(false),
     [selected, setSelected] = useState<number[]>([]);
   const createKey = useRef<string | null>(null),
     decisionKey = useRef<string | null>(null),
@@ -68,13 +70,16 @@ export function ProductConditionWorkbench({
         if (!cancelled) {
           setData(value);
           if (value) setAudience(value.source.audience);
+          setLoaded(true);
         }
       })
       .catch(() => {
-        if (!cancelled)
+        if (!cancelled) {
           setError(
             "저장된 조건을 불러오지 못했습니다. 수동 추천은 계속 사용할 수 있습니다.",
           );
+          setLoaded(true);
+        }
       });
     return () => {
       cancelled = true;
@@ -198,7 +203,7 @@ export function ProductConditionWorkbench({
         </p>
         <button
           className="button primary"
-          disabled={pending || !audience.trim() || data !== null}
+          disabled={pending || !loaded || !audience.trim() || data !== null}
         >
           {pending ? "처리 중…" : "상품 조건 추출 요청"}
         </button>

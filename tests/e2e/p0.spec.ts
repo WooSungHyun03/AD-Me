@@ -1,11 +1,14 @@
 import { expect, test, type Page } from "@playwright/test";
 import { qaSignupConsent } from "../support/consent-fixture.mjs";
-import { readFileSync } from "node:fs";
-import { totp, localRuntime, localClient, sql } from "../support/local-qa.mjs";
+import {
+  localAccounts,
+  totp,
+  localRuntime,
+  localClient,
+  sql,
+} from "../support/local-qa.mjs";
 import { randomBytes, randomUUID } from "node:crypto";
-const accounts = JSON.parse(
-  readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-);
+const accounts = localAccounts();
 async function login(page: Page, role: string) {
   await page.goto("/login");
   await page.getByLabel("이메일", { exact: true }).fill(accounts[role].email);
