@@ -8,7 +8,7 @@
 node scripts/pilot-quality-report.mjs --env <env 파일> --out docs/evidence/data-pilot/<환경>-<YYYYMMDD>.json
 ```
 
-- 서비스 롤 전용 RPC `public.pilot_quality_samples()`(마이그레이션 `20261126130000`)를 읽는다.
+- 서비스 롤 전용 RPC `public.pilot_quality_samples()`(마이그레이션 `20261126130000`, 조회수 숫자 판정은 `20261127100000`)를 읽는다.
 - 서비스 롤 키는 출력하지도, 파일에 쓰지도 않는다.
 - 종료 코드: `0` 목표 최소치 충족(MET), `3` 미충족(NOT_MET), `1` RPC 오류, `2` 설정 누락.
 

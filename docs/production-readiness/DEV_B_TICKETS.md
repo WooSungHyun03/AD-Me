@@ -230,8 +230,8 @@ DEV-B · P0 · S0 출시 차단 · YOUTUBE · IN_PROGRESS · 5 SP · ACTIVE
 - **보안** — 50~100은 목표다. 실제 확보한 고유 프로필 수와 실패율을 사실대로 보고한다.
 - **검증** — 실제 수량·공급원·오류율 증빙, 미확보 수량을 성공 처리하지 않음 · 운영 증거와 격리 결과를 구분한다.
 - **완료 조건** — 허용된 실제 프로필 50~100개를 목표로 중복·출처·갱신·결측·삭제 대응을 표본 검수한다. 확보 수량은 결과로 기록한다.
-- **차단 요인** — 외부 선행 U014의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다. 2026-11-26: U014 독립 부분 구현 — 서비스 롤 전용 pilot_quality_samples(20261126130000), 판정 lib·CLI·docs/evidence/data-pilot. 단위 5/5, REST 4/4, 로컬 격리 실행 NOT_MET(가상 데이터 10, 후보 0). 실제 파일럿 수량은 U014·U001·U004 뒤 운영자 실행 대기.
-- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/implementation-progress.md · harness/evidence/D024/ (이번 검증 기록 위치) · harness/evidence/D024/20261126/README.md · docs/evidence/data-pilot/README.md
+- **차단 요인** — 외부 선행 U014의 실제 증거가 필요하다. 격리 계약 테스트와 코드 작업은 독립 진행한다. 2026-11-26: U014 독립 부분 구현 — 서비스 롤 전용 pilot_quality_samples(20261126130000), 판정 lib·CLI·docs/evidence/data-pilot. 단위 5/5, REST 4/4, 로컬 격리 실행 NOT_MET(가상 데이터 10, 후보 0). 실제 파일럿 수량은 U014·U001·U004 뒤 운영자 실행 대기. 2026-11-27: hasViews가 null/문자열 views를 통과시키던 결함 수정(20261127100000, 숫자만 인정). REST 4/4, 마이그레이션 검사 140 PASS. 운영 적용은 U004.
+- **증빙** — docs/handoff/DEV-B_VIBECODING_TICKETS.md (동일 티켓 ID 절) · docs/production-readiness/MASTER_AUDIT.md · docs/implementation-progress.md · harness/evidence/D024/ (이번 검증 기록 위치) · harness/evidence/D024/20261126/README.md · docs/evidence/data-pilot/README.md · harness/evidence/D024/20261127/README.md
 - **Figma 노드** — [02 · 크리에이터 탐색 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-109) · [03 · 크리에이터 프로필 / Desktop](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-127) · [02 · 크리에이터 탐색 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1411) · [03 · 크리에이터 프로필 / Mobile](https://www.figma.com/design/1JgK1dH2xyFKU4ED0GIXz9/AD-ME?node-id=11-1420)
 - **이전 기록** — PARTIAL_VERIFIED
 

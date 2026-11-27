@@ -49,6 +49,8 @@ const ids = [
   "UCd024QAaaaaaaaaaaaaaaaa",
   "UCd024QAbbbbbbbbbbbbbbbb",
   "UCd024QAcccccccccccccccc",
+  "UCd024QAdddddddddddddddd",
+  "UCd024QAeeeeeeeeeeeeeeee",
 ];
 const title = `D024 중복 제목 ${Date.now()}`;
 try {
@@ -61,7 +63,9 @@ try {
     insert into adme_ops.channels(channel_id,title,subscriber_count,videos,source_policy,expires_at,metadata) values
       (${lit(ids[0])},${lit(title)},1000,'[{"id":"v"}]',${lit(policy)},now()+interval '1 day','{"views":1}'),
       (${lit(ids[1])},${lit(title)},null,'[]',${lit(policy)},now()+interval '1 day','{}'),
-      (${lit(ids[2])},${lit("D024 삭제 대상")},5,'[{"id":"v"}]',${lit(policy)},now()+interval '1 day','{"views":1}');
+      (${lit(ids[2])},${lit("D024 삭제 대상")},5,'[{"id":"v"}]',${lit(policy)},now()+interval '1 day','{"views":1}'),
+      (${lit(ids[3])},${lit("D024 조회수 null")},5,'[{"id":"v"}]',${lit(policy)},now()+interval '1 day','{"views":null}'),
+      (${lit(ids[4])},${lit("D024 조회수 문자열")},5,'[{"id":"v"}]',${lit(policy)},now()+interval '1 day','{"views":"12"}');
     insert into adme_ops.source_tombstones(resource_hash,policy_version,request_ref,expires_at)
       values(adme_ops.resource_hash(${lit(ids[2])}),${lit(policy)},gen_random_uuid(),now()+interval '1 hour');
     set session_replication_role = origin;
@@ -75,7 +79,7 @@ try {
   ok("service role reads facts without raw ids or titles");
 
   const mine = data.samples.filter((s) => s.policy === policy);
-  assert.equal(mine.length, 3);
+  assert.equal(mine.length, 5);
   for (const s of mine) {
     assert.match(s.ref, /^[0-9a-f]{12}$/);
     assert.equal(s.policyIsolated, false);
@@ -84,15 +88,17 @@ try {
   }
   const hashes = mine.map((s) => s.titleHash);
   assert.equal(
-    hashes.filter((h) => h === hashes[0]).length,
-    2,
-    "same titles share one hash",
+    hashes.length - new Set(hashes).size,
+    1,
+    "the two same titles share one hash, the rest are distinct",
   );
   ok("duplicate titles share a hash; disabled non-isolated policy reported");
 
   const sparse = mine.find((s) => s.subscriberCount === null);
   assert.deepEqual([sparse.videoCount, sparse.hasViews], [0, false]);
   assert.equal(mine.filter((s) => s.tombstoned).length, 1);
+  // A null or string view count is not a usable value (20261127100000).
+  assert.equal(mine.filter((s) => s.hasViews).length, 2, "only numeric views count");
   assert.ok(data.activeTombstones >= 1);
   ok("missing fields and deleted-but-stored rows are visible to the gate");
 } finally {
