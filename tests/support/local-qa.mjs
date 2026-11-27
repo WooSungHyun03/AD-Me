@@ -25,8 +25,17 @@ function ciRuntime() {
     // Supabase CLI puts the DB on the API port + 1.
     DB_URL: `postgresql://postgres:postgres@127.0.0.1:${Number(/:(\d+)$/.exec(api)?.[1]) + 1}/postgres`,
     DB_CONTAINER: `supabase_db_${project}`,
+    // Lazy: only localJwt needs it, and sql() resolves the runtime on every call.
+    get JWT_SECRET() {
+      return (jwtSecret ??= execFileSync(
+        "docker",
+        ["exec", `supabase_auth_${project}`, "printenv", "GOTRUE_JWT_SECRET"],
+        { encoding: "utf8" },
+      ).trim());
+    },
   };
 }
+let jwtSecret;
 export function localRuntime() {
   const file = "output/dev-a-db/runtime.local.json";
   const runtime =
