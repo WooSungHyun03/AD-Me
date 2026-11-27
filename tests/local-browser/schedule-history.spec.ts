@@ -1,15 +1,13 @@
 import { expect, test, type Page } from "@playwright/test";
-import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import {
   dropCreatorProfile,
+  localAccounts,
   ensureCreatorProfile,
   localRuntime,
   sql,
 } from "../support/local-qa.mjs";
-const accounts = JSON.parse(
-  readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-);
+const accounts = localAccounts();
 async function login(page: Page, role: string) {
   await page.context().clearCookies();
   await page.goto("/login");

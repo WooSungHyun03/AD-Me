@@ -1,12 +1,9 @@
 import { expect, test, type Page } from "@playwright/test";
-import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { randomUUID } from "node:crypto";
-import { localRuntime, sql } from "../support/local-qa.mjs";
+import { localAccounts, localRuntime, sql } from "../support/local-qa.mjs";
 import { campaignBriefTermsSchema } from "@/lib/campaign-brief";
-const accounts = JSON.parse(
-  readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-);
+const accounts = localAccounts();
 async function login(page: Page, role = "brand") {
   await page.goto("/login");
   await page.getByLabel("이메일", { exact: true }).fill(accounts[role].email);

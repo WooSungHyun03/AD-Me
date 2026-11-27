@@ -1,14 +1,16 @@
 import { test, expect, type Page } from "@playwright/test";
-import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
-import { localRuntime, sql, totp } from "../support/local-qa.mjs";
+import {
+  localAccounts,
+  localRuntime,
+  sql,
+  totp,
+} from "../support/local-qa.mjs";
 import {
   createReviewBrowserCreator,
   restoreReviewPolicy,
 } from "../support/review-browser-fixtures.mjs";
-const accounts = JSON.parse(
-  readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-);
+const accounts = localAccounts();
 async function login(
   page: Page,
   who: string | { email: string; password: string },

@@ -4,7 +4,7 @@ process.env.ADME_QA_FREE = "1";
 export default defineConfig({
   ...local,
   testMatch: [
-    "local-browser/campaign-terms.spec.ts",
+    "e2e/campaign-terms.spec.ts",
     "local-free/**/*.spec.ts",
   ],
   webServer: {

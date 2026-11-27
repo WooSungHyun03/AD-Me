@@ -1,16 +1,15 @@
 import { randomUUID } from "node:crypto";
-import { readFileSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
 import {
   dropCreatorProfile,
+  localAccounts,
   ensureCreatorProfile,
   localRuntime,
+  sql,
 } from "../support/local-qa.mjs";
 
 const accounts = () =>
-  JSON.parse(
-    readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-  ) as Record<
+  localAccounts() as Record<
     "brand" | "creator",
     { id: string; email: string; password: string }
   >;
@@ -30,6 +29,13 @@ test("YouTube campaign defaults and an unverified application conflict are visib
 }) => {
   localRuntime();
   const own = ensureCreatorProfile(accounts().creator.id);
+  // Earlier specs may leave this shared account verified; the conflict below needs it unclaimed.
+  const claim = sql(
+    `select claim_status from public.creators where id='${own.id}';`,
+  );
+  sql(
+    `update public.creators set claim_status='unclaimed' where id='${own.id}';`,
+  );
   await login(page, "brand");
   await page.goto("/campaigns/new");
   await expect(page.getByRole("checkbox", { name: "youtube" })).toBeChecked();
@@ -80,6 +86,9 @@ test("YouTube campaign defaults and an unverified application conflict are visib
     await expect(deal.getByRole("alert")).toContainText("본인 확인이 해제되어");
   } finally {
     await creator.close();
+    sql(
+      `update public.creators set claim_status='${claim}' where id='${own.id}';`,
+    );
     dropCreatorProfile(own);
   }
 });

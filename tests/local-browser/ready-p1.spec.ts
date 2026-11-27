@@ -1,19 +1,34 @@
 import { test, expect, type Page } from "@playwright/test";
-import { readFileSync } from "node:fs";
 import { createDiscoveryFixture } from "../support/discovery-fixture.mjs";
-import { sql, totp } from "../support/local-qa.mjs";
+import { localAccounts, sql, totp } from "../support/local-qa.mjs";
 import { resolve } from "node:path";
 async function audit(page: Page) {
-  await page.addScriptTag({path:resolve("node_modules/axe-core/axe.min.js")});
-  const issues=await page.evaluate(async()=>{
-    const result=await (window as unknown as {axe:{run:(options:unknown)=>Promise<{violations:{id:string;nodes:{target:string[]}[]}[]}>}}).axe.run({runOnly:{type:"tag",values:["wcag2a","wcag2aa","wcag21aa","best-practice"]}});
-    return result.violations.map(v=>({id:v.id,targets:v.nodes.map(n=>n.target)}));
+  await page.addScriptTag({
+    path: resolve("node_modules/axe-core/axe.min.js"),
+  });
+  const issues = await page.evaluate(async () => {
+    const result = await (
+      window as unknown as {
+        axe: {
+          run: (options: unknown) => Promise<{
+            violations: { id: string; nodes: { target: string[] }[] }[];
+          }>;
+        };
+      }
+    ).axe.run({
+      runOnly: {
+        type: "tag",
+        values: ["wcag2a", "wcag2aa", "wcag21aa", "best-practice"],
+      },
+    });
+    return result.violations.map((v) => ({
+      id: v.id,
+      targets: v.nodes.map((n) => n.target),
+    }));
   });
   expect(issues).toEqual([]);
 }
-const accounts = JSON.parse(
-  readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-);
+const accounts = localAccounts();
 async function login(page: Page, role: string) {
   const a = accounts[role];
   await page.goto("/login");
@@ -78,7 +93,7 @@ test("ready P1 verified timeline, private rivals, missing-data graph and approve
       path: `output/playwright/ready-discovery-${info.project.name}.png`,
       fullPage: true,
     });
-  await audit(page);
+    await audit(page);
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,

@@ -1,11 +1,8 @@
 import { test, expect } from "@playwright/test";
 import { randomUUID } from "node:crypto";
-import { readFileSync } from "node:fs";
-import { localRuntime, sql } from "../support/local-qa.mjs";
+import { localAccounts, localRuntime, sql } from "../support/local-qa.mjs";
 import { createReviewBrowserCreator } from "../support/review-browser-fixtures.mjs";
-const accounts = JSON.parse(
-  readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-);
+const accounts = localAccounts();
 test("campaign edit preserves hard policy; saved missing evidence is held and explicit exclusion creates a new version", async ({
   page,
 }, info) => {

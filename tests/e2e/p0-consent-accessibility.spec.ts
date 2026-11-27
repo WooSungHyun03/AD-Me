@@ -1,12 +1,17 @@
 import { test, expect, type Page } from "@playwright/test";
 import { resolve } from "node:path";
-import { readFileSync } from "node:fs";
-import { localRuntime, sql, totp } from "../support/local-qa.mjs";
+import {
+  localAccounts,
+  localRuntime,
+  sql,
+  totp,
+} from "../support/local-qa.mjs";
 import { createReviewBrowserCreator } from "../support/review-browser-fixtures.mjs";
 type AxeIssue = { id: string; impact: string; nodes: { target: string[] }[] };
-const roleAccounts = JSON.parse(
-  readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-) as Record<string, { email: string; password: string; totpSecret?: string }>;
+const roleAccounts = localAccounts() as Record<
+  string,
+  { email: string; password: string; totpSecret?: string }
+>;
 async function audit(page: Page) {
   await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
   await page.addScriptTag({

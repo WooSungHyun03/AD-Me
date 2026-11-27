@@ -2,11 +2,14 @@ import { test, expect, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import sharp from "sharp";
-import { localRuntime, localClient, sql } from "../support/local-qa.mjs";
+import {
+  localAccounts,
+  localRuntime,
+  localClient,
+  sql,
+} from "../support/local-qa.mjs";
 import { copyCampaignBrief } from "@/lib/campaign-copy";
-const accounts = JSON.parse(
-  readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-);
+const accounts = localAccounts();
 async function login(page: Page, role: string) {
   await page.goto("/login");
   await page.getByLabel("이메일", { exact: true }).fill(accounts[role].email);

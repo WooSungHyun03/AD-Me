@@ -1,10 +1,7 @@
 import { expect, test } from "@playwright/test";
-import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
-import { localRuntime, sql } from "../support/local-qa.mjs";
-const accounts = JSON.parse(
-  readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-);
+import { localAccounts, localRuntime, sql } from "../support/local-qa.mjs";
+const accounts = localAccounts();
 // Fixtures bypass acceptance guards (covered by their own suites); the reminder job body runs with the real clock.
 test("D055 an active collaboration's upcoming deadline appears in the inbox in KST", async ({
   page,

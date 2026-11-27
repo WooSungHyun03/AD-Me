@@ -1,12 +1,9 @@
 import { test, expect, type Page } from "@playwright/test";
-import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
-import { localRuntime, sql } from "../support/local-qa.mjs";
+import { localAccounts, localRuntime, sql } from "../support/local-qa.mjs";
 import { createReviewBrowserCreator } from "../support/review-browser-fixtures.mjs";
 import { cleanDeliveryFixtures } from "../support/delivery-fixture-cleanup.mjs";
-const accounts = JSON.parse(
-  readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-);
+const accounts = localAccounts();
 async function login(page: Page, c: { email: string; password: string }) {
   await page.goto("/login");
   await page.getByLabel("이메일", { exact: true }).fill(c.email);

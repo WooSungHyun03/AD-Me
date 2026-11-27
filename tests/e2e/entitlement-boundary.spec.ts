@@ -1,14 +1,16 @@
-import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
-import { localRuntime, sql, totp } from "../support/local-qa.mjs";
+import {
+  localAccounts,
+  localRuntime,
+  sql,
+  totp,
+} from "../support/local-qa.mjs";
 
 test("D001 isolated TEST admin can grant, database OFF rejects retries, and recovery stays available", async ({
   page,
 }, info) => {
   localRuntime();
-  const accounts = JSON.parse(
-    readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-  );
+  const accounts = localAccounts();
   const prior = sql(
     "select row_to_json(b) from adme_release.billing_boundary b",
   );

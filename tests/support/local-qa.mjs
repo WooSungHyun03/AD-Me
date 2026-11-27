@@ -44,6 +44,18 @@ export function localRuntime() {
     throw new Error("Local QA refuses non-loopback infrastructure");
   return runtime;
 }
+// Same switch as localRuntime: the replica's accounts, or the CI stack's provisioned .accounts.local.json.
+export function localAccounts() {
+  const ci =
+    process.env.ADME_LOCAL_QA !== "1" &&
+    !existsSync("output/dev-a-db/runtime.local.json");
+  return JSON.parse(
+    readFileSync(
+      ci ? ".accounts.local.json" : "output/dev-a-db/accounts.local.json",
+      "utf8",
+    ),
+  );
+}
 export function localClient(key, token) {
   const runtime = localRuntime();
   return createClient(runtime.API_URL, key ?? runtime.ANON_KEY, {

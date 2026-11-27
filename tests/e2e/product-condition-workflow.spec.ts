@@ -1,11 +1,8 @@
 import { test, expect } from "@playwright/test";
 import { randomUUID } from "node:crypto";
-import { readFileSync } from "node:fs";
-import { localRuntime, sql } from "../support/local-qa.mjs";
+import { localAccounts, localRuntime, sql } from "../support/local-qa.mjs";
 import { completeProductConditionFixture } from "../support/product-condition-worker.mjs";
-const accounts = JSON.parse(
-  readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-);
+const accounts = localAccounts();
 test("owned product proposal requires explicit selection and confirmation before search; retries, stale source and manual fallback", async ({
   page,
   browser,
@@ -102,12 +99,12 @@ test("owned product proposal requires explicit selection and confirmation before
         `select revision||':'||decision from adme_product_conditions.requests where id='${id}'`,
       ),
     ).toBe("1:confirmed");
-    await expect(page.getByRole("combobox",{name:"콘텐츠 분야",exact:true})).toHaveValue(
-      "음식",
-    );
-    await expect(page.getByRole("combobox",{name:"콘텐츠 형식 (선택)",exact:true})).toHaveValue(
-      "제품 리뷰",
-    );
+    await expect(
+      page.getByRole("combobox", { name: "콘텐츠 분야", exact: true }),
+    ).toHaveValue("음식");
+    await expect(
+      page.getByRole("combobox", { name: "콘텐츠 형식 (선택)", exact: true }),
+    ).toHaveValue("제품 리뷰");
     await expect(
       page.getByRole("heading", { name: "가상 음식 상품 협업 후보" }),
     ).toHaveCount(0);
@@ -180,7 +177,9 @@ test("owned product proposal requires explicit selection and confirmation before
       .getByRole("link", { name: "수동으로 유튜버 추천 조건 입력" })
       .click();
     await expect(page).toHaveURL(/\/#recommendation$/);
-    await expect(page.getByRole("form", { name: "유튜버 추천 조건" })).toBeInViewport();
+    await expect(
+      page.getByRole("form", { name: "유튜버 추천 조건" }),
+    ).toBeInViewport();
     await expect(
       page.getByRole("button", {
         name: "조건에 맞는 유튜버 찾기",

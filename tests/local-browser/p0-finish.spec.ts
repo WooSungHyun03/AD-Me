@@ -1,14 +1,16 @@
 import { test, expect, type Page } from "@playwright/test";
-import { readFileSync } from "node:fs";
 import { randomUUID, randomBytes } from "node:crypto";
 import sharp from "sharp";
-import { localRuntime, localClient, sql } from "../support/local-qa.mjs";
+import {
+  localAccounts,
+  localRuntime,
+  localClient,
+  sql,
+} from "../support/local-qa.mjs";
 import { createReviewBrowserCreator } from "../support/review-browser-fixtures.mjs";
 import { cleanImageFixtures } from "../support/image-fixture-cleanup.mjs";
 import { qaSignupConsent } from "../support/consent-fixture.mjs";
-const accounts = JSON.parse(
-  readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-);
+const accounts = localAccounts();
 async function login(page: Page, a: { email: string; password: string }) {
   await page.goto("/login");
   await page.getByLabel("이메일", { exact: true }).fill(a.email);
@@ -76,7 +78,11 @@ test("P0 private image and logo flow uses real Auth/Storage, retries once and de
     email: brand.email,
     password: brand.password,
     email_confirm: true,
-    user_metadata: { ...qaSignupConsent, role: "brand", name: "가상 P0 브랜드" },
+    user_metadata: {
+      ...qaSignupConsent,
+      role: "brand",
+      name: "가상 P0 브랜드",
+    },
   });
   expect(created.error).toBeNull();
   brand.id = created.data.user!.id;
@@ -106,13 +112,11 @@ test("P0 private image and logo flow uses real Auth/Storage, retries once and de
     await page
       .getByLabel("브랜드 소개", { exact: true })
       .fill("가상 데이터만 사용하는 로고 검증입니다.");
-    await page
-      .getByLabel("브랜드 로고 파일")
-      .setInputFiles({
-        name: "fictional-logo.png",
-        mimeType: "image/png",
-        buffer: png,
-      });
+    await page.getByLabel("브랜드 로고 파일").setInputFiles({
+      name: "fictional-logo.png",
+      mimeType: "image/png",
+      buffer: png,
+    });
     await page.getByRole("button", { name: "로고 이미지 업로드" }).click();
     await expect(
       page.getByText("로고를 확인했습니다.", { exact: false }),
@@ -136,20 +140,16 @@ test("P0 private image and logo flow uses real Auth/Storage, retries once and de
     await login(creator, actor);
     await creator.goto("/dashboard");
     // The room is identified by its deliverable link, independent of other rooms.
-    const panel = creator
-      .locator(".panel")
-      .filter({
-        has: creator.locator(`a[href='/collaborations/${room}/deliverables']`),
-      });
+    const panel = creator.locator(".panel").filter({
+      has: creator.locator(`a[href='/collaborations/${room}/deliverables']`),
+    });
     await expect(panel).toHaveCount(1);
     await panel.locator("summary").filter({ hasText: "메시지·결과물" }).click();
-    await panel
-      .getByLabel("대화 이미지 파일")
-      .setInputFiles({
-        name: "fictional-room.png",
-        mimeType: "image/png",
-        buffer: png,
-      });
+    await panel.getByLabel("대화 이미지 파일").setInputFiles({
+      name: "fictional-room.png",
+      mimeType: "image/png",
+      buffer: png,
+    });
     let drop = true;
     await creator.route("**/api/images?**", async (route) => {
       if (drop) {

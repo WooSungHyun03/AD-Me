@@ -2,10 +2,8 @@ import { test, expect, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import sharp from "sharp";
-import { localRuntime, sql } from "../support/local-qa.mjs";
-const accounts = JSON.parse(
-  readFileSync("output/dev-a-db/accounts.local.json", "utf8"),
-);
+import { localAccounts, localRuntime, sql } from "../support/local-qa.mjs";
+const accounts = localAccounts();
 test("D048 compatibility HTTP keeps all four manual templates labeled and creates no model job or order", async ({
   page,
 }) => {
