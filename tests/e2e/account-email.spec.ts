@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { createServerClient } from "@supabase/ssr";
 import { expect, test, type Page } from "@playwright/test";
-import { localRuntime, localClient, sql } from "../support/local-qa.mjs";
+import { isCi, localRuntime, localClient, sql } from "../support/local-qa.mjs";
 import { qaSignupConsent } from "../support/consent-fixture.mjs";
 import { localProof } from "../support/local-auth-mail";
 async function login(page: Page, email: string, password: string) {
@@ -29,6 +29,10 @@ test("D010 both roles change email only after current-session reauthentication a
   browser,
   baseURL,
 }, info) => {
+  test.skip(
+    isCi(),
+    "CI Auth autoconfirms mail (enable_confirmations=false), so one proof completes the change; the replica enforces both.",
+  );
   for (const role of ["brand", "creator"]) {
     await page.context().clearCookies();
     const a = await create(role),
@@ -109,7 +113,10 @@ test("D010 both roles change email only after current-session reauthentication a
       await page
         .getByRole("button", { name: "이메일 인증 완료하기", exact: true })
         .click();
-      await expect(page.getByRole("status")).toContainText("다른 주소");
+      // Settings has several status regions; match the email form's own message.
+      await expect(
+        page.getByRole("status").filter({ hasText: "다른 주소" }),
+      ).toBeVisible();
       expect(
         (await a.admin.auth.admin.getUserById(a.id)).data.user?.email,
       ).toBe(a.email);

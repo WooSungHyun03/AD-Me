@@ -245,6 +245,19 @@ otp_expiry = 3600
 # admin_email = "admin@email.com"
 # sender_name = "Admin"
 
+# Token-hash links to the app's /auth/confirm (same files the replica setup uses); local stacks only.
+[auth.email.template.confirmation]
+subject = "AD Me local confirmation"
+content_path = "./supabase/templates/confirmation.html"
+
+[auth.email.template.recovery]
+subject = "AD Me local recovery"
+content_path = "./supabase/templates/recovery.html"
+
+[auth.email.template.email_change]
+subject = "AD Me local email change"
+content_path = "./supabase/templates/email_change.html"
+
 # Uncomment to customize email template
 # [auth.email.template.invite]
 # subject = "You have been invited"

@@ -1,5 +1,5 @@
 import { expect, type APIRequestContext } from "@playwright/test";
-import { localRuntime } from "./local-qa.mjs";
+import { localAppOrigin, localRuntime } from "./local-qa.mjs";
 // Same override as tests/ci-db.sh; the default is the primary local stack.
 const mailpit = process.env.MAILPIT_URL ?? "http://127.0.0.1:54324";
 export async function localProof(
@@ -30,7 +30,7 @@ export async function localProof(
     ?.replaceAll("&amp;", "&");
   if (!link) throw Error("Local token-hash email template missing");
   const url = new URL(link);
-  expect(url.origin).toBe("https://127.0.0.1:3143");
+  expect(url.origin).toBe(localAppOrigin());
   expect(url.searchParams.get("type")).toBe(type);
   return url.href;
 }

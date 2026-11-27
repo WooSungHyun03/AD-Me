@@ -54,13 +54,16 @@ export function localRuntime() {
   return runtime;
 }
 // Same switch as localRuntime: the replica's accounts, or the CI stack's provisioned .accounts.local.json.
+export const isCi = () =>
+  process.env.ADME_LOCAL_QA !== "1" &&
+  !existsSync("output/dev-a-db/runtime.local.json");
+// Where Auth mail links must point: the CI stack's site_url, or the replica's TLS origin.
+export const localAppOrigin = () =>
+  isCi() ? "http://localhost:3000" : "https://127.0.0.1:3143";
 export function localAccounts() {
-  const ci =
-    process.env.ADME_LOCAL_QA !== "1" &&
-    !existsSync("output/dev-a-db/runtime.local.json");
   return JSON.parse(
     readFileSync(
-      ci ? ".accounts.local.json" : "output/dev-a-db/accounts.local.json",
+      isCi() ? ".accounts.local.json" : "output/dev-a-db/accounts.local.json",
       "utf8",
     ),
   );
