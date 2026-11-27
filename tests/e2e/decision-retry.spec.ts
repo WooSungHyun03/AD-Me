@@ -25,6 +25,10 @@ test("D049 sender cancellation and recipient acceptance recover a lost response 
     return r.data.id;
   }
   try {
+    // LiveMessages refreshes once realtime subscribes; on a slow server that lands after the lost response and
+    // shows the settled state, removing the retry this spec exercises (the replica has no realtime service).
+    for (const p of [page, brand])
+      await p.routeWebSocket(/\/realtime\//, (ws) => ws.close());
     await installSession(page, baseURL!, await localSession(f.creators[0]));
     await installSession(brand, baseURL!, await localSession(f.brand));
     for (const [actor, action, label, result] of [
