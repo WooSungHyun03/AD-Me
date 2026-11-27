@@ -31,3 +31,15 @@
   - 검증: 누수 8건이 있는 DB에서 6 passed, 종료 뒤 8건 복원. 복제 DB 6 passed(0→0).
 - ci-e2e 새 DB 전체 2차: **130 passed / 2 failed / 4 skipped**. 실패는 기존 retention ×2(DEV-B·U001 대기)다.
 - eslint·prettier 통과.
+
+## Remote CI follow-up (run 45853997118, fcf3b4b)
+
+- Attempt 1: 134 passed / 4 failed — retention ×2 (known, U001) and `service.spec.ts:25` ×2
+  ("다음 후보 더 불러오기" stayed at 24 cards, expected 48).
+- Local reproduction on ci-e2e checked out at fcf3b4b with the CI `.env.local` (`SERVICE_MODE=test_demo`):
+  service alone, the moved specs followed by service, and the full desktop project (68 passed, retention 1 failed)
+  all passed. Rejected causes: cursor name >80 chars (leaked names are short), shared search budget
+  (moved specs use 1 of 100/60s).
+- Attempt 2 (rerun failed jobs, same commit): 136 passed / 2 failed (retention only) / 4 skipped.
+- Verdict: `service.spec.ts:25` load-more is intermittent on CI, not caused by the promoted specs.
+  CI does not upload traces, so the failing screen was not inspected.
