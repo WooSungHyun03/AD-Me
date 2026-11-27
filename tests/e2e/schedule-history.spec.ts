@@ -51,7 +51,7 @@ test("D055 schedule changes are listed for the owner and the collaborator only",
     sql(`set session_replication_role=replica;
       insert into public.campaigns(id,owner_id,brief,status,is_demo,moderation_status)
         select '${campaign}','${accounts.brand.id}',brief||jsonb_build_object('title','가상 D055 일정 이력 캠페인','terms','${JSON.stringify(terms("2027-03-08T00:00:00.000Z"))}'::jsonb),'published',false,'allowed'
-        from public.campaigns where not is_demo order by created_at limit 1;
+        from public.campaigns order by is_demo, created_at limit 1; -- a fresh CI DB has only demo campaigns
       insert into public.proposals(id,campaign_id,creator_id,brand_id,creator_user_id,kind,status,brief)
         values('${proposal}','${campaign}','${own.id}','${accounts.brand.id}','${accounts.creator.id}','proposal','accepted','가상 D055 일정 이력 화면 검증');`);
     sql(`begin; set local role authenticated;

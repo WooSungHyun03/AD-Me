@@ -105,7 +105,7 @@ export function Catalog({
     }
     void store.load(parseCreatorFilters(new URLSearchParams(filterKey)));
   }, [remote, store, filterKey, invalid]);
-  useEffect(() => () => store.cancel(), [store]);
+  // No unmount cancel: StrictMode's mount cleanup aborted an in-flight "더 보기" and the reload replaced it (D084 CI flake).
   const list = invalid
     ? []
     : remote

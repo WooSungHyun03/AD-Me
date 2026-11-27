@@ -42,7 +42,7 @@ test("D055 an active collaboration's upcoming deadline appears in the inbox in K
         profile||'{"is_demo":false,"name":"가상 D055 UI 크리에이터"}'::jsonb from public.creators where id='creator-001';
       insert into public.campaigns(id,owner_id,brief,status,is_demo,moderation_status)
         select '${campaign}','${accounts.brand.id}',brief||jsonb_build_object('title','가상 D055 UI 캠페인','terms','${JSON.stringify(terms)}'::jsonb),'published',false,'allowed'
-        from public.campaigns where not is_demo order by created_at limit 1;
+        from public.campaigns order by is_demo, created_at limit 1; -- a fresh CI DB has only demo campaigns
       insert into public.proposals(id,campaign_id,creator_id,brand_id,creator_user_id,kind,status,brief)
         values('${proposal}','${campaign}','user-${creator}','${accounts.brand.id}','${creator}','proposal','accepted','가상 D055 일정 리마인더 화면 검증');`);
     // Other local campaigns may also be due; count only this fixture's rows.
